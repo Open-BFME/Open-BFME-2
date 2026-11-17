@@ -1281,7 +1281,7 @@ def name_shadow(sources, name):
     return None
 
 
-def macro_shadow(sources, mappings, text):
+def macro_shadow(sources, mappings, text, extra=()):
     """Why a `#define` in the unit or an include makes a rename unsafe, or None: a macro that
     names a receiver, an old or new field, or the class itself rewrites the tokens around it."""
     olds = {old for m in mappings.values() for old in m}
@@ -1289,7 +1289,7 @@ def macro_shadow(sources, mappings, text):
     code = masked(text)
     receivers = {m.group(1) for old in olds
                  for m in re.finditer(r"([A-Za-z_]\w*)\s*(?:->|\.)\s*" + re.escape(old) + r"\b", code)}
-    watched = olds | news | set(mappings) | receivers
+    watched = olds | news | set(mappings) | receivers | set(extra)
     for where, body in sources:
         for m in re.finditer(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)", masked(body)):
             if m.group(1) in watched:
@@ -1349,6 +1349,88 @@ def byte_storage_member(member):
     match = re.fullmatch(re.escape(member.name) + r"\s*\[\s*(0[xX][0-9a-fA-F]+|[1-9][0-9]*)\s*\]",
                          member.decl)
     return int(match[1], 16 if match[1].lower().startswith("0x") else 10) if match else None
+
+
+def literal_storage_declaration(text, name, member):
+    """One original class-scope statement; never a reconstructed multi-declarator."""
+    spans = [(start, end) for cls, start, end, _key in class_layouts.class_body_spans(text) if cls == name]
+    if len(spans) != 1:
+        return None
+    start, end = spans[0]
+    code = masked(text[start:end], keep_literals=True)
+    if "{" not in code or "}" not in code:
+        return None
+    statements = [part for part in split_members(code[code.index("{") + 1:code.rindex("}")])
+                  if re.search(r"\b" + re.escape(member) + r"\b", part)]
+    if len(statements) != 1:
+        return None
+    statement = statements[0].strip()
+    while ACCESS_LABEL.match(statement):
+        statement = ACCESS_LABEL.sub("", statement, count=1).strip()
+    return statement
+
+
+def scalar_storage_type(view, member, cvtype, text, canonical, owner, new, want, hides):
+    """Literal non-cv void-pointer storage disappearing into an existing enum.
+
+    CodeView erases modifiers and enum identity. The original statements and
+    the canonical enum tag supply those facts; width alone supplies neither.
+    """
+    if member.kind != "data" or member.access not in {"private", "protected"} \
+            or hasattr(member, "anonymous_union") or member.name == new or cvtype != "void*" or want != "enum":
+        return None
+    old_statement = literal_storage_declaration(text, view.cls, member.name)
+    if old_statement is None:
+        return None
+    if not re.fullmatch(r"void\s*\*\s*" + re.escape(member.name) + r"\s*;", old_statement):
+        return None
+    statements = [statement for _path, body in canonical
+                  if (statement := literal_storage_declaration(body, owner, new)) is not None]
+    if len(statements) != 1:
+        return None
+    match = re.fullmatch(r"([A-Za-z_]\w*)\s+" + re.escape(new) + r"\s*;", statements[0])
+    if not match or match[1] in hides:
+        return None
+    return match[1]
+
+
+def scalar_enum_problem(sources, types):
+    """Require literal global enum tags, with no typedef/using interpretation."""
+    for enum_type in types:
+        declared = False
+        for path, body in sources:
+            code = masked(body)
+            if re.search(r"\btypedef\b[^;{}]*\b" + re.escape(enum_type) + r"\b|"
+                         r"\busing\b[^;{}]*\b" + re.escape(enum_type) + r"\b", code):
+                return f"{path}: unused scalar storage has an opaque enum type alias"
+            directives = list(DIRECTIVE_LINE.finditer(code))
+            conditions = [directive for directive in directives if directive[1] in
+                          {"if", "ifdef", "ifndef", "elif", "else", "endif", "define"}]
+            guard = None
+            guard_code = re.sub(r"(?m)^[ \t]*#[ \t]*pragma[ \t]+once\b[^\n]*", "", code)
+            if include_guarded(guard_code) and len(conditions) >= 3:
+                opening, define = conditions[:2]
+                if opening[1] == "ifndef" and define[1] == "define" and \
+                        re.fullmatch(r"[A-Za-z_]\w*", opening[2].strip()) and opening[2].strip() == define[2].strip():
+                    guard = opening.start()
+            semantic = re.sub(r"(?m)^[ \t]*#[^\n]*", lambda m: " " * len(m[0]), code)
+            for found in re.finditer(r"\benum\s+" + re.escape(enum_type) + r"\s*(?:;|\{)", semantic):
+                prefix = semantic[:found.start()]
+                stack = []
+                for directive in directives:
+                    if directive.start() >= found.start():
+                        break
+                    if directive[1] in {"if", "ifdef", "ifndef"}:
+                        stack.append(directive.start())
+                    elif directive[1] == "endif":
+                        if not stack:
+                            return f"{path}: unused scalar storage has unbalanced enum conditions"
+                        stack.pop()
+                if prefix.count("{") == prefix.count("}") and all(where == guard for where in stack):
+                    declared = True
+        if not declared:
+            return f"unused scalar storage: no literal global enum tag for {enum_type}"
+    return None
 
 
 def storage_layout(name, layouts, seen=()):
@@ -1594,11 +1676,11 @@ def preprocess_storage_text(source, text):
         raise RuntimeError(f"compiler preprocessing inputs: {exc}") from exc
 
 
-def storage_expansion_problem(source, text, probe, names, before_family, after_family):
+def storage_expansion_problem(source, text, probe, names, before_family, after_family, expanded=None):
     """Macro-generated tokens need native evidence of their actual uses and hierarchy bodies."""
     try:
-        before = preprocess_storage_text(source, text)
-        after = preprocess_storage_text(source, probe)
+        before, after = expanded if expanded is not None else (
+            preprocess_storage_text(source, text), preprocess_storage_text(source, probe))
     except RuntimeError as exc:
         return f"unused byte storage: {exc}"
     for expanded, expected, family in [(before, 1, before_family), (after, 0, after_family)]:
@@ -1629,6 +1711,10 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     array may cover several canonical fields and padding only with complete equal extents,
     unchanged vptrs, compiler-measured equal alignment and whole-unit nonuse. Ambiguous macro
     expansion additionally needs the compiler's expanded tokens in both contexts.
+    A literal private/protected non-cv void pointer may disappear into one established
+    enum field only with that same complete storage proof, literal enum/type/access
+    evidence and mandatory compiler-expanded nonuse/global-enum evidence. This is not
+    a pointer/enum rename or general type-compatibility exception.
     `compile(source, text)` gives
     {class: layout} (text None: the unit as it stands); `header` is the canonical header,
     whose class bodies prove the new names hide nothing (refused when it cannot be read)."""
@@ -1641,6 +1727,8 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     views = []
     for name in strip:
         lay = every.get(name)
+        if isinstance(lay, dict) and lay.get("fwd") and lay.get("fields") and body_span(text, name):
+            return None, f"{name}: the private field record is forward-only, not a complete layout"
         if not lay or lay.get("fwd") or not lay.get("fields") or not body_span(text, name):
             continue                                    # no view, or nothing in the unit lays it out
         try:
@@ -1650,10 +1738,14 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         # Inline uses count too. The shared PAD heuristic is intentionally unchanged:
         # consolidation has a different contract. Arbitrarily named arrays stay in
         # `own` until the complete compiler and preprocessing proof below succeeds.
+        native_pointers = {field[1] for field in view.layout.get("fields", [])
+                           if isinstance(field, (list, tuple)) and len(field) == 4
+                           and isinstance(field[2], str) and "*" in field[2]}
         own = [m.name for m in view.members if m.kind == "data" and
                (not tu_views.is_pad(m, view) or
                 (m.access == "private" and m.base in {"char", "signed char", "unsigned char"}
                  and "[" in m.decl) or
+                m.name in native_pointers or
                 len(re.findall(r"\b" + re.escape(m.name) + r"\b", masked(spliced(text)[0]))) != 1)]
         if own:
             views.append((view, own))
@@ -1709,7 +1801,7 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         laid = compile(source, probe_text(text, strip, include))
     except RuntimeError as exc:
         return None, f"the header's layout: {exc}"
-    mappings, field_checks, storage = {}, {}, {}
+    mappings, field_checks, storage, storage_types = {}, {}, {}, set()
     for view, own in views:
         name = view.cls
         record = laid.get(name)
@@ -1771,6 +1863,20 @@ def field_renames(source, text, strip, include, compile=None, header=None):
                 return None, (f"{name}::{old} -> {new}: {new} is {hides[new][0]} in the hierarchy; "
                               "the unqualified name would select it")
             if not tu_views.cv_compatible(cvtype, want):
+                enum_type = scalar_storage_type(view, member, cvtype, text, canonical, owner, new, want, hides)
+                if enum_type is not None:
+                    before, after = storage_layout(name, every), storage_layout(name, laid)
+                    unique = [f for f in view.layout["fields"] if f[1] == old]
+                    if size != VPTR_SIZE or len(found) != 1 or len(unique) != 1 \
+                            or not before or not after or before[0] != after[0] or before[2] != after[2] \
+                            or (offset, offset + size) not in before[1] \
+                            or (offset, offset + size) not in after[1] \
+                            or any(offset < at + VPTR_SIZE and at < offset + size for at in after[2]):
+                        return None, f"{name}::{old}: unused scalar storage has no complete unchanged layout proof"
+                    storage.setdefault(name, set()).add(old)
+                    storage_types.add(enum_type)
+                    field_checks.setdefault(name, {})[old] = new
+                    continue
                 return None, f"{name}::{old} (+0x{offset:X}) is {cvtype}; the canonical {owner}::{new} is {want}"
             if new != old:
                 mine[old] = new
@@ -1788,6 +1894,7 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             rename_names = {token for mapping in field_checks.values() for pair in mapping.items() for token in pair}
             rename_names.update(field for name in storage for found in flat_fields(name, laid).values()
                                 for field, _cvtype, _owner in found)
+            rename_names.update(storage_types)
             why = conditional_hierarchy(canonical, family, rename_names)
             if why:
                 return None, why
@@ -1800,7 +1907,9 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             why = name_shadow(sources, name)
             if why:
                 return None, why
-        why = macro_shadow(sources, field_checks, text)
+        scalar_keywords = {"void", "private", "protected", "public", "const", "volatile", "mutable",
+                           "enum", "class", "struct", "typedef", "using"} if storage_types else set()
+        why = macro_shadow(sources, field_checks, text, extra=storage_types | scalar_keywords)
         if why:
             return None, why
         if storage:
@@ -1813,6 +1922,12 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             if why:
                 return None, why
             unique_sources.append((source + ".compiler-macros", macros))
+            if storage_types:
+                logical_sources = [(path, spliced(body)[0]) for path, body in unique_sources]
+                why = scalar_enum_problem(logical_sources, storage_types) or \
+                    macro_shadow(logical_sources, field_checks, text, extra=storage_types | scalar_keywords)
+                if why:
+                    return None, why
             storage_family = {cls for name in storage for cls in hierarchy(name, every) + hierarchy(name, laid)}
             expansion_proven = False
             why = unused_storage_problem(unique_sources, source,
@@ -1820,10 +1935,15 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             if why and (why.startswith("unused byte storage: token-pasting macro ")
                         or why.endswith("can manufacture aggregate storage")
                         or why.endswith("has a macro-generated class head")):
-                why = storage_expansion_problem(source, text, probe_text(text, strip, include),
+                token = GENERATION_DIAGNOSTICS.set(True) if storage_types else None
+                try:
+                    why = storage_expansion_problem(source, text, probe_text(text, strip, include),
                                                 {old for fields in storage.values() for old in fields},
                                                 {cls for name in storage for cls in hierarchy(name, every)},
                                                 {cls for name in storage for cls in hierarchy(name, laid)})
+                finally:
+                    if token is not None:
+                        GENERATION_DIAGNOSTICS.reset(token)
                 if not why:
                     expansion_proven = True
                     why = unused_storage_problem(unique_sources, source,
@@ -1833,16 +1953,39 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             why = None if expansion_proven else storage_union_problem(unique_sources, storage_family)
             if why:
                 return None, why
+            if storage_types:
+                # Raw scope can be changed by conditional braces or namespace
+                # macros. Actual complete preprocessing must also prove both
+                # disappearance and the canonical enum's global declaration.
+                token = GENERATION_DIAGNOSTICS.set(True)
+                try:
+                    expanded = (preprocess_storage_text(source, text),
+                                preprocess_storage_text(source, probe_text(text, strip, include)))
+                except RuntimeError as exc:
+                    return None, f"unused scalar storage preprocessing: {exc}"
+                finally:
+                    GENERATION_DIAGNOSTICS.reset(token)
+                why = storage_expansion_problem(source, text, probe_text(text, strip, include),
+                    {old for fields in storage.values() for old in fields},
+                    {cls for name in storage for cls in hierarchy(name, every)},
+                    {cls for name in storage for cls in hierarchy(name, laid)}, expanded=expanded) or \
+                    scalar_enum_problem([(source + ".expanded", expanded[1])], storage_types)
+                if why:
+                    return None, why
             names = sorted(storage)
             original_probe = storage_probe_text(text, names)
             canonical_probe = storage_probe_text(probe_text(text, strip, include), names)
             if original_probe is None or canonical_probe is None:
                 return None, "unused byte storage: alignment probe name is already declared"
+            token = GENERATION_DIAGNOSTICS.set(True) if storage_types else None
             try:
                 measured_before = compile(source, original_probe)
                 measured_after = compile(source, canonical_probe)
             except RuntimeError as exc:
                 return None, f"unused byte storage alignment: {exc}"
+            finally:
+                if token is not None:
+                    GENERATION_DIAGNOSTICS.reset(token)
             for index, name in enumerate(names):
                 before = storage_alignment(name, index, measured_before, every)
                 after = storage_alignment(name, index, measured_after, laid)

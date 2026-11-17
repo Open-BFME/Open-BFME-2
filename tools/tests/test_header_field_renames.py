@@ -2,6 +2,7 @@
 import re
 import sys
 import copy
+import os
 from pathlib import Path
 
 import pytest
@@ -1690,3 +1691,382 @@ def test_review_r4_hiding_reads_the_header_as_the_unit_compiles_it(tmp_path, mon
     mapping, why = lane.field_renames("sub/u.cpp", unit, ["Object"], "../Object.h", compiler(header=lays),
                                       header="Object.h")
     assert mapping is None and why and "m_status" in why, (mapping, why)
+
+
+# Scalar disappearance has a separate proof; it is never pointer/enum type compatibility.
+SCALAR_STORAGE_UNIT = """class Object
+{
+public:
+    virtual ~Object();
+protected:
+    void *m_unsourced04;
+};
+int objectSize() { return sizeof(Object); }
+"""
+SCALAR_STORAGE_HEADER = """#pragma once
+enum NameKeyType { NK_UNKNOWN = 0 };
+class Snapshot { public: virtual ~Snapshot(); };
+class Object : public Snapshot {
+public:
+    virtual ~Object();
+private:
+    NameKeyType m_moduleTagNameKey;
+};
+"""
+
+
+@pytest.fixture
+def scalar_storage_tree(storage_tree, monkeypatch):
+    root, before, after = storage_tree
+    (root / "Object.h").write_text(SCALAR_STORAGE_HEADER)
+    before.clear()
+    before["Object"] = dict(layout([(4, "m_unsourced04", "void*", 4)], size=8), vfptr=True)
+    after.clear()
+    after["Snapshot"] = dict(layout([], size=4), vfptr=True)
+    after["Object"] = layout([(4, "m_moduleTagNameKey", "enum", 4)],
+                             bases=[("Snapshot", 0)], size=8)
+    def expanded(_source, text):
+        body = (root / "Object.h").read_text() if '#include "Object.h"' in text else text
+        # These positive fixtures have only transparent guards/pragma once.
+        # Hostile generated/conditional scope tests supply actual expanded tokens.
+        return re.sub(r"(?m)^[ \t]*#[^\n]*", "", body)
+    monkeypatch.setattr(lane, "preprocess_storage_text", expanded)
+    return root, before, after
+
+
+def adopt_scalar_storage(tree, text=SCALAR_STORAGE_UNIT, **kwargs):
+    return adopt_storage(tree, text, **kwargs)
+
+
+@pytest.mark.parametrize("access", ["private", "protected"])
+def test_unused_scalar_object_storage_can_adopt_equal_enum_storage(scalar_storage_tree, access):
+    seen = []
+    text = SCALAR_STORAGE_UNIT.replace("protected:", access + ":")
+    assert adopt_scalar_storage(scalar_storage_tree, text, seen=seen) == ({}, None)
+    assert len(seen) == 4  # Both native layouts and both measured class alignments.
+
+
+@pytest.mark.parametrize("use", [
+    "return (int)m_unsourced04;", "m_unsourced04 = 0; return 0;",
+    "return sizeof(m_unsourced04);", "return (int)&m_unsourced04;",
+    "return (int)&Object::m_unsourced04;",
+    "return offsetof(Object, m_unsourced04);",
+    "return (int)m_unsour\\\nced04;",
+    'return (int)__identifier("m_unsourced04");',
+])
+def test_scalar_storage_nonuse_includes_inline_and_opaque_accesses(scalar_storage_tree, use):
+    text = SCALAR_STORAGE_UNIT.replace("protected:", "    int observe() { " + use + " }\nprotected:")
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("body", [
+    "class Reader : public Object { public: void *read() { return m_unsourced04; } };\n",
+    "#define READ_FIELD m_unsourced04\n",
+    '#define LOOKUP __identifier("m_unsourced04")\n',
+])
+def test_scalar_storage_nonuse_includes_headers_and_macro_bodies(scalar_storage_tree, body):
+    root, _before, _after = scalar_storage_tree
+    (root / "uses.h").write_text(body)
+    text = SCALAR_STORAGE_UNIT + '#include "uses.h"\n'
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+def test_scalar_storage_token_pasting_needs_native_expansion(scalar_storage_tree, monkeypatch):
+    def unavailable(*args):
+        raise RuntimeError("no native expansion proof supplied")
+    monkeypatch.setattr(lane, "preprocess_storage_text", unavailable)
+    text = "#define JOIN(a,b) a ## b\n" + SCALAR_STORAGE_UNIT.replace(
+        "protected:", "    void *read() { return JOIN(m_unsourced,04); }\nprotected:")
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why  # This fixture supplies no native expansion proof.
+
+
+def test_scalar_storage_command_macro_cannot_hide_a_use(scalar_storage_tree):
+    text = "// cl: /DREAD=m_unsourced04\n" + SCALAR_STORAGE_UNIT.replace(
+        "protected:", "    void *read() { return READ; }\nprotected:")
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+def test_scalar_storage_still_needs_canonical_preprocessing_corpus(scalar_storage_tree):
+    root, before, after = scalar_storage_tree
+    (root / "u.cpp").write_text(SCALAR_STORAGE_UNIT)
+    mapping, why = lane.field_renames("u.cpp", SCALAR_STORAGE_UNIT, ["Object"], "Object.h",
+                                      storage_compiler(before, after))
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("alignment", [1, 2, 8])
+def test_scalar_storage_equal_width_is_not_equal_alignment(scalar_storage_tree, alignment):
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, new_alignment=alignment)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("declaration,cvtype", [
+    ("void *volatile m_unsourced04;", "volatile void*"),
+    ("void *const m_unsourced04;", "const void*"),
+    ("int &m_unsourced04;", "int&"),
+    ("int m_unsourced04 : 32;", "int"),
+])
+def test_scalar_storage_is_not_a_qualifier_reference_or_bitfield_exception(
+        scalar_storage_tree, declaration, cvtype):
+    _root, before, _after = scalar_storage_tree
+    before["Object"]["fields"][0][2] = cvtype
+    text = SCALAR_STORAGE_UNIT.replace("void *m_unsourced04;", declaration)
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+def test_scalar_storage_single_member_union_is_not_proven_by_flat_codeview(scalar_storage_tree):
+    text = SCALAR_STORAGE_UNIT.replace("void *m_unsourced04;", "union { void *m_unsourced04; };")
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("side,change", [
+    ("before", lambda r: r["Object"].update(fwd=True)),
+    ("before", lambda r: r["Object"].update(unparsed=None)),
+    ("before", lambda r: r["Object"]["fields"].append([4, "overlap", "uint", 4])),
+    ("after", lambda r: r["Object"].update(size=12)),
+    ("after", lambda r: r["Object"]["fields"][0].__setitem__(0, 8)),
+    ("after", lambda r: r["Object"]["fields"][0].__setitem__(3, 2)),
+    ("after", lambda r: r["Snapshot"].update(fwd=True)),
+    ("after", lambda r: r["Object"].update(bases=[["virtual Snapshot", -1]])),
+    ("after", lambda r: r["Object"]["fields"].append([4, "alias", "uint", 4])),
+])
+def test_scalar_storage_needs_complete_unique_unchanged_storage(scalar_storage_tree, side, change):
+    _root, before, after = scalar_storage_tree
+    change(before if side == "before" else after)
+    mapping, why = adopt_scalar_storage(scalar_storage_tree)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("declaration", ["void *const m_unsourced04;", "void *volatile m_unsourced04;",
+                                          "const void *m_unsourced04;", "mutable void *m_unsourced04;",
+                                          "void *m_unsourced04 = 0;", "Alias m_unsourced04;"])
+def test_scalar_modifiers_and_aliases_are_checked_in_tokens_when_codeview_erases_them(scalar_storage_tree, declaration):
+    text = SCALAR_STORAGE_UNIT.replace("void *m_unsourced04;", declaration)
+    text = "typedef void *Alias;\n" + text
+    assert scalar_storage_tree[1]["Object"]["fields"][0][2] == "void*"
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("specifier", ["const NameKeyType", "volatile NameKeyType", "mutable NameKeyType", "TagAlias"])
+def test_canonical_enum_modifiers_or_aliases_are_not_hidden_by_codeview(scalar_storage_tree, specifier):
+    root, _before, _after = scalar_storage_tree
+    (root / "Object.h").write_text(SCALAR_STORAGE_HEADER.replace(
+        "class Snapshot", "typedef const NameKeyType TagAlias;\nclass Snapshot").replace(
+        "NameKeyType m_moduleTagNameKey;", specifier + " m_moduleTagNameKey;"))
+    mapping, why = adopt_scalar_storage(scalar_storage_tree)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("where", ["source", "command", "header"])
+def test_scalar_enum_identity_is_not_a_macro_selected_by_equal_width(scalar_storage_tree, where):
+    root, _before, _after = scalar_storage_tree
+    header = SCALAR_STORAGE_HEADER.replace("enum NameKeyType { NK_UNKNOWN = 0 };",
+        "enum OtherEnum { NK_UNKNOWN = 0 };\nenum NameKeyType;")
+    text = SCALAR_STORAGE_UNIT
+    if where == "source":
+        text = "#define NameKeyType OtherEnum\n" + text
+    elif where == "command":
+        text = "// cl: /DNameKeyType=OtherEnum\n" + text
+    else:
+        header = "#define NameKeyType OtherEnum\n" + header
+    (root / "Object.h").write_text(header)
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why and "NameKeyType" in why
+
+
+@pytest.mark.parametrize("definition", ["#define Name\\\nKeyType OtherEnum\n", "#de\\\nfine NameKeyType OtherEnum\n"])
+def test_scalar_enum_type_macro_watch_joins_translation_phase_splices(scalar_storage_tree, definition):
+    root, _before, _after = scalar_storage_tree
+    (root / "Object.h").write_text(SCALAR_STORAGE_HEADER.replace(
+        "enum NameKeyType { NK_UNKNOWN = 0 };", "enum OtherEnum { NK_UNKNOWN = 0 };\nenum NameKeyType;"))
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, definition + SCALAR_STORAGE_UNIT)
+    assert mapping is None and why and "NameKeyType" in why
+
+
+@pytest.mark.parametrize("alias", ["type\\\ndef volatile NameKeyType TagAlias;",
+                                    "namespace Other { enum TagAlias { X=0 }; }\nusing namespace Other;"])
+def test_scalar_enum_does_not_credit_a_dead_global_tag_for_alias_or_namespace_type(scalar_storage_tree, alias):
+    root, _before, _after = scalar_storage_tree
+    header = SCALAR_STORAGE_HEADER.replace("class Snapshot", alias + "\n#if 0\nenum TagAlias;\n#endif\nclass Snapshot").replace(
+        "NameKeyType m_moduleTagNameKey;", "TagAlias m_moduleTagNameKey;")
+    (root / "Object.h").write_text(header)
+    mapping, why = adopt_scalar_storage(scalar_storage_tree)
+    assert mapping is None and why
+
+
+def test_scalar_literal_global_enum_can_live_under_a_proven_whole_file_guard(scalar_storage_tree):
+    root, _before, _after = scalar_storage_tree
+    (root / "Object.h").write_text("#ifndef SCALAR_HEADER\n#define SCALAR_HEADER\n" +
+                                  SCALAR_STORAGE_HEADER.replace("#pragma once\n", "") + "#endif\n")
+    assert adopt_scalar_storage(scalar_storage_tree) == ({}, None)
+
+
+def test_scalar_enum_witness_cannot_come_from_an_unexpanded_macro(scalar_storage_tree):
+    root, _before, _after = scalar_storage_tree
+    fake = "namespace Other { enum TagAlias { X=0 }; }\nusing namespace Other;\n#define UNUSED enum TagAlias;\n"
+    (root / "Object.h").write_text(SCALAR_STORAGE_HEADER.replace("class Snapshot", fake + "class Snapshot").replace(
+        "NameKeyType m_moduleTagNameKey;", "TagAlias m_moduleTagNameKey;"))
+    mapping, why = adopt_scalar_storage(scalar_storage_tree)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("alias", ["void *", "void *const", "void *volatile"])
+def test_padding_name_does_not_hide_an_opaque_pointer_declaration(scalar_storage_tree, alias):
+    _root, before, _after = scalar_storage_tree
+    before["Object"]["fields"][0][1] = "m_pad04"
+    text = "typedef " + alias + " Alias;\n" + SCALAR_STORAGE_UNIT.replace("void *m_unsourced04;", "Alias m_pad04;")
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("definition", ["#define void const void", "#define protected public", "#define class struct",
+                                        "#de\\\nfine private public"])
+def test_scalar_keyword_macros_cannot_change_qualifiers_or_access(scalar_storage_tree, definition):
+    text = definition + "\n" + SCALAR_STORAGE_UNIT.replace("protected:", "private:" if "private" in definition else "protected:")
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("raw_scope", ["#define BEGIN namespace Other {\n#define END }\nBEGIN\n"
+    "enum TagAlias { X=0 };\nEND\nusing namespace Other;\n",
+    "namespace Other {\n#if 0\n}\n#endif\nenum TagAlias { X=0 };\n}\nusing namespace Other;\n"])
+def test_scalar_enum_scope_requires_actual_expanded_global_tokens(scalar_storage_tree, monkeypatch, raw_scope):
+    root, _before, _after = scalar_storage_tree
+    header = SCALAR_STORAGE_HEADER.replace("enum NameKeyType { NK_UNKNOWN = 0 };", raw_scope).replace(
+        "NameKeyType m_moduleTagNameKey;", "TagAlias m_moduleTagNameKey;")
+    (root / "Object.h").write_text(header)
+    actual = SCALAR_STORAGE_HEADER.replace("enum NameKeyType { NK_UNKNOWN = 0 };",
+        "namespace Other { enum TagAlias { X=0 }; }\nusing namespace Other;").replace(
+        "NameKeyType m_moduleTagNameKey;", "TagAlias m_moduleTagNameKey;")
+    monkeypatch.setattr(lane, "preprocess_storage_text", lambda _source, text:
+                        actual if '#include "Object.h"' in text else SCALAR_STORAGE_UNIT)
+    mapping, why = adopt_scalar_storage(scalar_storage_tree)
+    assert mapping is None and why and "global enum tag" in why
+
+
+def test_scalar_native_preprocessing_preserves_intervening_source_edit(scalar_storage_tree, monkeypatch):
+    import types
+    root, _before, _after = scalar_storage_tree
+    monkeypatch.setattr(lane, "preprocess_storage_text", NATIVE_STORAGE_PREPROCESS)
+    def preprocess(*args, **kwargs):
+        (root / "u.cpp").write_bytes(b"external source edit")
+        return types.SimpleNamespace(returncode=0, stdout=SCALAR_STORAGE_UNIT, stderr="")
+    monkeypatch.setattr(lane.subprocess, "run", preprocess)
+    mapping, why = adopt_scalar_storage(scalar_storage_tree)
+    assert mapping is None and "intervening" in why
+    assert (root / "u.cpp").read_bytes() == b"external source edit"
+    assert lane.GENERATION_DIAGNOSTICS.get() is False
+
+
+@pytest.mark.skipif(os.environ.get("BFME_NATIVE_SCALAR_STORAGE") != "1", reason="explicit isolated VC71 scalar probe")
+def test_native_unused_scalar_proof_and_erased_qualifier_controls():
+    """Real owning field/preprocessing/alignment path, exclusively in scratch."""
+    import hashlib
+    import json
+    import class_layouts
+    scratch = lane.ROOT / "build/scalar-storage-proof"
+    scratch.mkdir(parents=True, exist_ok=True)
+    source, header = scratch / "native_scalar.cpp", scratch / "canonical.h"
+    relative_source, relative_header = (path.relative_to(lane.ROOT).as_posix() for path in (source, header))
+    original = """class NativeScalarStorageProof {
+public:
+    virtual ~NativeScalarStorageProof();
+protected:
+    void *m_unsourced04;
+};
+int nativeScalarSize(NativeScalarStorageProof *p) { return sizeof(*p); }
+"""
+    canonical = """#pragma once
+enum NativeScalarKey { NATIVE_SCALAR_UNKNOWN = 0 };
+class NativeScalarSnapshot { public: virtual ~NativeScalarSnapshot(); };
+class NativeScalarStorageProof : public NativeScalarSnapshot {
+public:
+    virtual ~NativeScalarStorageProof();
+private:
+    NativeScalarKey m_key;
+};
+"""
+    evidence = {"scope": "synthetic owning field/native preprocessing/alignment proof; no production adoption",
+                "source": str(source), "header": str(header), "cases": []}
+    controls = [("protected", original, canonical, True),
+                ("private", original.replace("protected:", "private:"), canonical, True),
+                ("old_volatile", original.replace("void *m_unsourced04;", "void *volatile m_unsourced04;"), canonical, False),
+                ("canonical_volatile", original, canonical.replace("NativeScalarKey m_key;", "volatile NativeScalarKey m_key;"), False),
+                ("keyword_macro", "#define protected public\n" + original, canonical, False),
+                ("pasted_use", "#define JOIN(a,b) a ## b\n" + original.replace("protected:",
+                    "void *read() { return JOIN(m_unsourced,04); }\nprotected:"), canonical, False)]
+    try:
+        for label, unit, candidate, expected in controls:
+            source.write_text(unit, encoding="ascii", newline="\n")
+            header.write_text(candidate, encoding="ascii", newline="\n")
+            before = class_layouts.compile_layouts(relative_source, use_cache=False)
+            original_bytes = source.read_bytes()
+            mapping, why = lane.field_renames(relative_source, unit, ["NativeScalarStorageProof"],
+                                              "canonical.h", header=relative_header)
+            assert (mapping == {} and why is None) is expected, (label, mapping, why)
+            assert source.read_bytes() == original_bytes
+            record = {"case": label, "accepted": expected, "why": why,
+                      "old_layout": before["NativeScalarStorageProof"],
+                      "source_sha256": hashlib.sha256(original_bytes).hexdigest()}
+            if label == "old_volatile":
+                assert record["old_layout"]["fields"][0][2] == "void*"
+            if label == "canonical_volatile":
+                after = lane.compile_text(relative_source, lane.probe_text(unit, ["NativeScalarStorageProof"], "canonical.h"))
+                record["canonical_layout"] = after["NativeScalarStorageProof"]
+                assert record["canonical_layout"]["fields"][0][2] == "enum"
+                assert source.read_bytes() == original_bytes
+            evidence["cases"].append(record)
+    finally:
+        source.write_text(original, encoding="ascii", newline="\n")
+        header.write_text(canonical, encoding="ascii", newline="\n")
+        (scratch / "evidence.json").write_text(json.dumps(evidence, indent=2), encoding="utf-8")
+
+
+@pytest.mark.parametrize("old", ["m_pad04", "m_unused04", "m_reserved04"])
+def test_scalar_padding_names_require_the_same_complete_proof(scalar_storage_tree, old):
+    _root, before, _after = scalar_storage_tree
+    before["Object"]["fields"][0][1] = old
+    text = SCALAR_STORAGE_UNIT.replace("m_unsourced04", old)
+    seen = []
+    assert adopt_scalar_storage(scalar_storage_tree, text, seen=seen) == ({}, None)
+    assert len(seen) == 4
+    text = text.replace("protected:", "public:")
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
+
+
+def test_scalar_same_spelling_does_not_enter_disappearing_name_proof(scalar_storage_tree):
+    root, _before, after = scalar_storage_tree
+    (root / "Object.h").write_text(SCALAR_STORAGE_HEADER.replace("m_moduleTagNameKey", "m_unsourced04"))
+    after["Object"]["fields"][0][1] = "m_unsourced04"
+    mapping, why = adopt_scalar_storage(scalar_storage_tree)
+    assert mapping is None and why
+
+
+@pytest.mark.parametrize("side", ["original", "canonical"])
+def test_scalar_shared_declarators_are_not_reconstructed_as_single_declarations(scalar_storage_tree, side):
+    root, before, after = scalar_storage_tree
+    before["Object"]["size"] = after["Object"]["size"] = 12
+    if side == "original":
+        before["Object"]["fields"].append([8, "other", "void*", 4])
+        after["Object"]["fields"].append([8, "other", "void*", 4])
+        text = SCALAR_STORAGE_UNIT.replace("void *m_unsourced04;", "void *m_unsourced04, *other;")
+        header = SCALAR_STORAGE_HEADER.replace("NameKeyType m_moduleTagNameKey;",
+                                               "NameKeyType m_moduleTagNameKey; void *other;")
+    else:
+        before["Object"]["fields"].append([8, "other", "enum", 4])
+        after["Object"]["fields"].append([8, "other", "enum", 4])
+        text = "enum NameKeyType;\n" + SCALAR_STORAGE_UNIT.replace("void *m_unsourced04;",
+                                                               "void *m_unsourced04; NameKeyType other;")
+        header = SCALAR_STORAGE_HEADER.replace("NameKeyType m_moduleTagNameKey;",
+                                               "NameKeyType m_moduleTagNameKey, other;")
+    (root / "Object.h").write_text(header)
+    mapping, why = adopt_scalar_storage(scalar_storage_tree, text)
+    assert mapping is None and why
