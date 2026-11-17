@@ -22,3 +22,5 @@ The native rate helper at 0055B9BD is also recovered as calculateRates (128 byte
 Primary slot 1 update at 0055BA3D is recovered too (287 bytes): advance RGB weights; test the clock and next key; calculate rates; clamp each component. The same-TU helper preserves retail's xmm1 lifetime across the call. Normal paired verification passes 8/8 rows, with all three floating references exact.
 
 The base keyframe transfer at 0055B96D is recovered as Rva005E95C0::xfer (80 bytes). It uses canonical Xfer to skip light CRC, transfer Version1, eight RGB/frame pairs and the trailing float. Both view declarations are synchronized; paired normal verification passes 9/9 rows.
+
+The derived transfer at 0055BB5C is recovered (82 bytes), together with its compiler-emitted minus-Ch Snapshot adjustment thunk at 003AC9A7 (8 bytes; parent xfer). The measured parent primary table 0081D164 has pure slots 1-3, now declared so the derived transfer occupies both native tables. All 11/11 rows pass normal paired verification.

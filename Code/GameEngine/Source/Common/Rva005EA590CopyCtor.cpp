@@ -30,6 +30,10 @@ class Rva0055BCD2 : public Rva005EA6C0Part0, public Rva005EA6C0Part1
 public:
 	Rva0055BCD2( const Rva0055BCD2 & );
 	virtual ~Rva0055BCD2();
+    // Native base table 0081D164 slots 1-3 are pure.
+    virtual void update() = 0;
+    virtual void primarySlot2() = 0;
+    virtual void xfer(Xfer *) = 0;
 };
 
 struct ColorRateKey
@@ -65,6 +69,7 @@ class Rva005EA590 : public Rva0055BCD2, public Rva005E95C0
 public:
 	Rva005EA590( const Rva005EA590 & );
 	virtual void update();
+	virtual void xfer(Xfer *);
 	virtual const char *GetSnapshotName() const;
 	void calculateRates();
 	Rva005EA590Triple m_fields94;
@@ -172,4 +177,14 @@ void Rva005E95C0::xfer(Xfer *stream)
         frame += 4;
     } while (--count != 0);
     *stream == reinterpret_cast<float &>(m_field84);
+}
+
+void Rva005EA590::xfer(Xfer *stream)
+{
+    if (stream->IsLightCRC()) return;
+    stream->Version1();
+    Rva005E95C0::xfer(stream);
+    *stream == reinterpret_cast<RGBColor &>(m_fields94);
+    *stream == reinterpret_cast<RGBColor &>(m_fieldsA0);
+    *stream == m_fieldAC;
 }
