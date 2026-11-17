@@ -79,6 +79,7 @@ class Rva005CF8A1
 public:
 	Rva005CF8A1(void *owner);
 	virtual ~Rva005CF8A1();
+	virtual void slot1();
 private:
 	char _04[0x0C];
 };

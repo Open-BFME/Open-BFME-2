@@ -55,6 +55,7 @@ class Rva005CF8A1
 public:
 	Rva005CF8A1(void *p);
 	virtual ~Rva005CF8A1();
+	virtual void slot1();
 protected:
 	Rva005D0034Target *m_target;		// +0x04
 	char m_pad08[0x10 - 8];

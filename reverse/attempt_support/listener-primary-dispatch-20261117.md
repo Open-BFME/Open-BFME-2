@@ -26,3 +26,13 @@ contains only that helper's compiler weak default and the new inherited method;
 both now bind the native words. This is a current-object pointer proof, not
 selection by the real linker or published bridge retirement. The secondary
 contract and other private class views remain separate prerequisites.
+
+The declaration is then synchronized in the three other existing
+Rva005CF8A1 views: its own constructor, the resolution-method callback unit,
+and the secondary event-handler unit. These declarations introduce no new
+method body or row. The ordinary four-source cohort passes11/11 rows,
+including constructors, resolution callbacks and the existing77-byte handler.
+The base's own constructor can now name the same inherited dispatch in its
+native second slot. Other lifetime/secondary-name reconciliation remains
+explicitly open; the protected RET12 address and generated contract were not
+changed. No unrelated private view or escape-hatch key was introduced.

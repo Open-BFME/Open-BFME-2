@@ -16,6 +16,7 @@ class Rva005CF8A1 : public Rva005CF8A1Base
 public:
 	Rva005CF8A1(void *p);
 	virtual ~Rva005CF8A1() {}
+	virtual void slot1();
 private:
 	Rva0057416B m_08;
 };
