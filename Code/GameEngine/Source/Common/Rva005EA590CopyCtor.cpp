@@ -63,6 +63,7 @@ class Rva005EA590 : public Rva0055BCD2, public Rva005E95C0
 {
 public:
 	Rva005EA590( const Rva005EA590 & );
+	virtual void update();
 	virtual const char *GetSnapshotName() const;
 	void calculateRates();
 	Rva005EA590Triple m_fields94;
@@ -99,4 +100,38 @@ void Rva005EA590::calculateRates()
     m_fieldsA0.red = (m_block.keys[i].red - m_fields94.red) * inv;
     m_fieldsA0.green = (m_block.keys[i].green - m_fields94.green) * inv;
     m_fieldsA0.blue = (m_block.keys[i].blue - m_fields94.blue) * inv;
+}
+
+struct ColorRateClock
+{
+    char pad00[0x34];
+    unsigned int now;
+    char pad38[0x54-0x38];
+    unsigned int start;
+};
+
+void Rva005EA590::update()
+{
+    const float zero = 0.0f;
+    m_fields94.red += m_fieldsA0.red;
+    m_fields94.green += m_fieldsA0.green;
+    m_fields94.blue += m_fieldsA0.blue;
+    int key = m_fieldAC;
+    if (key < 8 && m_block.keys[key].frame != 0) {
+        ColorRateClock *clock = reinterpret_cast<ColorRateClock *>(m_field04);
+        if (clock->now - clock->start >= m_block.keys[key].frame) {
+            m_fieldAC = key + 1;
+            calculateRates();
+        }
+    } else {
+        m_fieldsA0.red = zero;
+        m_fieldsA0.green = zero;
+        m_fieldsA0.blue = zero;
+    }
+    if (zero > m_fields94.red) m_fields94.red = zero;
+    else if (m_fields94.red > 1.0f) m_fields94.red = 1.0f;
+    if (zero > m_fields94.green) m_fields94.green = zero;
+    else if (m_fields94.green > 1.0f) m_fields94.green = 1.0f;
+    if (zero > m_fields94.blue) m_fields94.blue = zero;
+    else if (m_fields94.blue > 1.0f) m_fields94.blue = 1.0f;
 }
