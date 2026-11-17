@@ -28,3 +28,6 @@ replacement. All14 paired rows remain exact after this separate admission.
 
 Primary slot3 at56A9C6 now sets1C then calls its own outlined17B guard.
 Its complete9 bytes preserve the native tail jump; paired15/15 exact.
+
+Primary slot4 at56B119 now clears the same1C flag. The complete5B store
+and return match the native table entry; normal paired16/16 exact.

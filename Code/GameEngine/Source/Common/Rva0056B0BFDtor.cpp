@@ -18,6 +18,7 @@ public:
     virtual bool ac26Slot1();
     __declspec(noinline) void rva0056A9B5();
     virtual void vslot03();
+    virtual void vslot04();
 private:
     Parent0056B0BF *m_parent18;
     bool m_1C;
