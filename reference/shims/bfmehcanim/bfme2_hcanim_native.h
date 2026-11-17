@@ -129,6 +129,8 @@ public:
 
     unsigned int _bfme_hanim_v3() const;
 
+    int Class_ID() const;
+
 private:
 	char							Name[2*W3D_NAME_LEN];
 	char							HierarchyName[W3D_NAME_LEN];

@@ -1630,3 +1630,8 @@ unsigned int HCompressedAnimClass::_bfme_hanim_v3() const
 {
     return _bfme_unk_hcanim_key;
 }
+
+int HCompressedAnimClass::Class_ID() const
+{
+    return 1;
+}
