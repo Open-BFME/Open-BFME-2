@@ -1229,3 +1229,52 @@ def test_a_dictwriter_rewrite_would_not_leave_them_alone():
     assert not rewritten.startswith(before)
     churn = sum(a != b for a, b in zip(before.split(b"\n"), rewritten.split(b"\n")))
     assert churn > 100, churn
+
+
+@pytest.mark.parametrize("base_eol,current_eol", [(b"\n", b"\r\n"), (b"\r\n", b"\n")])
+def test_admission_definitions_accepts_only_line_ending_conversion(base_eol, current_eol):
+    base = b"struct Pair { int x, y; };\nextern Pair pair;\n"
+    current = base + b"Pair pair = {1, 2};\n"
+    candidates = {"pair": ({"type": "Pair"}, {})}
+    assert data_rows._admission_definitions(
+        base.replace(b"\n", base_eol), current.replace(b"\n", current_eol), candidates
+    ) == ["pair"]
+
+
+@pytest.mark.parametrize("base,current", [
+    (b"int resolved = 1;\n", b"int resolved = 2;\r\n"),
+    (b"int resolved;\n", b""),
+    (b"int resolved; \n", b"int resolved;\r\n"),
+    (b"// comment\\ \n", b"// comment\\\r\n"),
+    (b"// comment\\\n", b"// comment\\ \r\n"),
+    (b"int resolved;\n", b"int resolved;\r"),
+    (b"int resolved;\n", b"int resolved;"),
+])
+def test_admission_definitions_still_refuses_changed_or_removed_lines(base, current):
+    import rename
+    with pytest.raises(rename.Refusal, match="resolved lines changed or removed"):
+        data_rows._admission_definitions(base, current, {})
+
+
+@pytest.mark.parametrize("added", [
+    b"#define HIDDEN 1\r\nPair pair = {1, 2};\r\n",
+    b"Pair pair = {1,\\\r\n2};\r\n",
+    b"Pair pair = {1,\\ \r\n2};\r\n",
+])
+def test_admission_definitions_keeps_macro_and_splice_refusals_with_crlf(added):
+    import rename
+    base = b"extern Pair pair;\n"
+    with pytest.raises(rename.Refusal):
+        data_rows._admission_definitions(
+            base, base.replace(b"\n", b"\r\n") + added, {"pair": ({"type": "Pair"}, {})}
+        )
+
+
+def test_admission_definitions_keeps_insertion_after_backslash_refusal():
+    import rename
+    base = b"// continued\\\n"
+    with pytest.raises(rename.Refusal, match="file scope"):
+        data_rows._admission_definitions(
+            base, base.replace(b"\n", b"\r\n") + b"Pair pair = {1, 2};\r\n",
+            {"pair": ({"type": "Pair"}, {})},
+        )

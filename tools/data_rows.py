@@ -1008,8 +1008,12 @@ def _admission_definitions(base, current, candidates):
     import name_metric
     import rename
     before, after = base.decode('utf-8').splitlines(True), current.decode('utf-8').splitlines(True)
+    # Git's LF baseline and a Windows CRLF checkout have the same resolved
+    # lines. Normalize only comparison keys; parse and check the original text.
+    before_keys = [line.replace('\r\n', '\n') for line in before]
+    after_keys = [line.replace('\r\n', '\n') for line in after]
     added = []
-    for tag, i, j, a, b in difflib.SequenceMatcher(None, before, after, autojunk=False).get_opcodes():
+    for tag, i, j, a, b in difflib.SequenceMatcher(None, before_keys, after_keys, autojunk=False).get_opcodes():
         if tag == 'equal':
             continue
         if tag != 'insert':
