@@ -2,6 +2,15 @@
 Status: Open (partly repaired). Updated: 2026-11-08 (lk67 shape survey and twins at 49e50f8ba4; lk64 pass at d171e84869; lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
+**Teleport ctor prerequisite (2026-11-17, `bf617cdf1d`):** the 49-byte
+Rva00492C59Ctor.cpp row remains exact, but its unrowed 11-byte destructor
+and four-byte primary table are incompatible with the already rowed
+32-byte four-vptr teardown at 0x00492C90. The class-fold dry run into
+TeleportSpecialAbilityUpdate refuses because table 0x00C4E1A8 has only the
+two placeholder names, not a named Teleport table. No source was changed,
+no alias/pin added, and the missing base-destructor reference remains open.
+[Evidence and next owning transaction](../../reverse/attempt_support/teleport-constructor-class-prerequisite-20261117.md).
+
 **Rva0056B188 prerequisite review (2026-11-13, `b9047f2d164`):** Blocked;
 the +14 observer table needs overrides56B1F2/56AA22, and the +8 table needs
 56AA32/56AA54/50BD7C. The first four targets are unique native table entries;
