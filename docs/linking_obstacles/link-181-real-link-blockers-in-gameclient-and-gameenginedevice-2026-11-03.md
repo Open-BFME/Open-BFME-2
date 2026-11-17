@@ -605,3 +605,10 @@ checks pass. The broader audit remains INCONCLUSIVE against c885072a48:
 unchanged Common/AICommandInterface_aiMoveToPositionEvenIfSleeping.cpp
 lacks a current strict receipt. The seed's header queue is drained; full
 donor composition and current-image closure remain open.
+
+**2026-11-17 DamageNugget bridge preflight:** native864048 needs15 slots;
+three provider methods remain nonvirtual QAE (5086CE,507D84,5084FC), so
+normal virtual respelling is a prerequisite. Its retirement register and
+shared constant providers are held. Unchanged normal source verification
+passes; no source or ledger change or bridge clearance retained.
+[Native slot/provider handoff](../../reverse/attempt_support/damage-nugget-native-vtable-preflight-20261117.md).

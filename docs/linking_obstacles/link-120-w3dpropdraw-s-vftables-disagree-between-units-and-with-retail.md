@@ -109,3 +109,14 @@
   `reverse/attempt_support/propdraw-link-contracts-20261028.md`.
 - **Clearance:** none.
 - **Census confirmation:** not claimed.
+
+- **2026-11-17 native-interface preflight (root recovery):** unchanged baseline
+  passes10/10 code rows and the48B parse table. A minimal canonical include
+  chain plus the established inline ModuleData-to-Snapshot teardown preserves
+  all10; native data getters14/17 privately match too (12/12). Direct header
+  adoption alone collides with donor Module/DrawableModule declarations and
+  fails its data-row gate. Complete callback/provider admission and the static
+  key-provider reconciliation remain; common B3FD0/47A69C/47A699 and the
+  retirement register are held. No source/header/ledger change or bridge
+  clearance retained. See
+  [preflight](../../reverse/attempt_support/prop-draw-native-interface-preflight-20261117.md).

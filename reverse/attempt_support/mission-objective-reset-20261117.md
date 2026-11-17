@@ -40,3 +40,16 @@ scoped link preview is3/3 LINKS against index8b06c04cd2 (18:16), with its one
 source-change warning. File-summed preview1398B is neither a real link receipt
 nor unique authored growth. Empty post-load/init/update and transfer remain
 open; this does not claim complete native tables or bridge retirement.
+
+## Remaining transfer receiver layout
+
+A canonical Xfer/Version probe preserves all17 live owner rows and emits the
+complete165-byte native transfer instruction sequence, except five field
+displacements: complete-owner+10 versus retail secondary-receiver+4. Native
+secondary+C and complete-owned+10 agree; no layout adjustment is hidden in
+the source. Reversing base order loses destructor, two funclets, reset and
+transfer (13/18 exact), so it is rejected. Neither probe is retained.
+The shared empty callbackB3FD0 and deleted_rows retirement register remain
+claimed by another contributor. Base and primary/secondary tables are not
+complete, and no bridge retirement is claimed. Scratch evidence:
+continuation-20261117d-transfer-probe.json and transfer-base-order-probe.json.
