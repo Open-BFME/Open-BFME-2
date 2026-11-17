@@ -1,4 +1,18 @@
 ### LINK-618: vtable bridge "multiple-kept-names": one retail class kept under two names
+
+2026-11-17 continuation: the default picker serves primary table RVA 0x0086DB40
+in BfmeAptScreenInGameChatCtor.cpp for bridge retirement. Constructor 0x0056DB9B
+and destructor 0x0056D915 now share Rva0056D915View.h, including the constructor's
+native member at +0x27C and tail at +0x29C/+0x2A0; factory 0x0041025D bounds the
+extent at 0x2A4. This is an accessed layout view, not a recovered class name or
+original header path. Normal builds preserve six rows (including the destructor's
+EH children); both objects retain all five COMDATs identically. The tables are
+unchanged and the bridge remains. Retail primary slots 1/2/3 instead target
+0x0056DA49/0x0056D9C1/0x0056D983, currently rowed under separate placeholder
+classes. Slot 7 targets 0x0056DC46, and the primary table extends to 14 slots.
+These provider identities and overrides still need recovery through the supported
+rename and naming tools before a new published real link can prove retirement.
+
 Status: Open (partly repaired). Updated: 2026-11-06; seats halilkkaya-lk36 (base `bd49217dc8`),
 halilkkaya-lk37 (base `b616c8a1db`) and halilkkaya-lk38 (base `3d70a843d39`), real link `306f01e6f6`
 (433 multiple-kept-names refusals in its `vtable_bridge_queue.tsv`), census index `47fd56b879`

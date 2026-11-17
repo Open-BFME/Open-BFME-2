@@ -14,14 +14,7 @@
 
 #include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
-class Rva005C9B76
-{
-public:
-	Rva005C9B76(void *context);
-	virtual ~Rva005C9B76();
-private:
-	char m_pad[0x1C - 4];
-};
+#include "Rva0056D915View.h"
 
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
@@ -63,19 +56,6 @@ public:
 	void SelectCampaign(int v);
 };
 
-class Rva0056D915 : public _bfme_AptGameWindow
-{
-public:
-	Rva0056D915(void *context);
-	// Retail 0x0056D915 (members, then the rowed base dtor), defined in
-	// Rva0056D915Dtor.cpp; an inline body here would emit a second copy.
-	virtual ~Rva0056D915();
-private:
-	Rva005C9B76 m_member27C;
-	char m_pad298[0x29C - 0x298];
-	int m_29C;
-	unsigned char m_2A0;
-};
 
 Rva0056D915::Rva0056D915(void *context)
 	: _bfme_AptGameWindow(context)

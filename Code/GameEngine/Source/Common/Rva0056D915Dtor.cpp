@@ -8,13 +8,7 @@
 
 #include "../../Include/GameClient/_bfme_AptGameWindow.h"
 
-class Rva005C9B76
-{
-public:
-	virtual ~Rva005C9B76();
-private:
-	char m_pad[0x1C - 4];
-};
+#include "Rva0056D915View.h"
 
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
@@ -40,13 +34,6 @@ public:
 
 #include "../../Include/Common/Rva002BED10.h"
 
-class Rva0056D915 : public _bfme_AptGameWindow
-{
-public:
-	virtual ~Rva0056D915();
-private:
-	Rva005C9B76 m_member27C;
-};
 
 Rva0056D915::~Rva0056D915()
 {
