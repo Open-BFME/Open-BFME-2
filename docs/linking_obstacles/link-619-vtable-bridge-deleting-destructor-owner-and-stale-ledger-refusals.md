@@ -1,4 +1,16 @@
 ### LINK-619: vtable bridge refusals: deleting destructors rowed away from the TU that emits them first, and a stale data ledger
+
+2026-11-17 source investigations: the hot-spot help table at 0x00877960
+contains callbacks rather than a deleting destructor. A scratch nonvirtual
+teardown keeps its full destructor and base constructor exact but stops
+emitting the existing deleting-helper row; nothing was applied. See
+[helper-emission prerequisite](../../reverse/attempt_support/hotspot-help-abi-20261117.md).
+The separate shared-interface cohort beginning at 0x0087501C now has a real
+seventeen-byte Rva005E4F6D::slot0 definition, identical to its existing native
+provider. Its eight-byte secondary adjustment is emitted naturally and will
+be banked separately. Existing rows remain exact; published bridge retirement
+is still pending. See
+[callback and adjustment proof](../../reverse/attempt_support/shared-interface-slot0-20261117.md).
 Status: Open (partly repaired). Updated: 2026-11-07; seats halilkkaya-lk38 (base `3d70a843d39`) and
 halilkkaya-lk40 (base `4b2bb61eb1d`) and halilkkaya-lk57 (base `def612cde76`; clusters 2 and 3, last section), queue `reverse/vtable_bridge_queue.tsv` from real links `95341e20cc`
 and `1d41894d2a`, census index `d707d2f53b` (lk40: `94d8ffa1ad`).

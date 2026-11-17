@@ -1,5 +1,13 @@
 ### LINK-197: AptScriptFunction GC donor needs compatible AptValue and receiver views
 
+2026-11-17 recheck: AptValue.cpp passes 35/35 baseline rows; all seven
+intermediate defaults in the November 16 handoff are now landed, and both
+root headers already name slots 12/13 consistently. The shared-header
+duplicate remains. Claims for AptActionInterpreter.cpp and its previously
+failing _createObject body were refused, so no broad header experiment was
+repeated and no source was changed. See
+[current prerequisite recheck](../../reverse/attempt_support/aptvalue-bridge-recheck-20261117.md).
+
 Status: Blocked. Updated: 2026-11-03; inspected revision: 7c99285f90.
 Scope: AptObject/AptScriptFunction.cpp and Common/Rva00709C10Cluster.cpp, RVA 0x00709D80.
 Completed: canonical AptValue adoption in the donor; owning acceptance retires one header-debt row, byte check passes, ordinary preview preserves LINKS 113 -> 113 bytes at index 8661f15284.
