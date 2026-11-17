@@ -64,8 +64,14 @@ public:
 	virtual Int draw(WinInstanceData *instData);									// 0x000A12F8 (23 tables)
 	virtual Int tooltip(WinInstanceData *instData, UnsignedInt mouse);				// 0x0008FF56 (29 tables)
 	virtual Int rva0009FD78();														// 0x0009FD78 (24 tables)
+	// Slots 6 to 10 as Bfme2GameWindow.h declares them (slot 7 is each class's own).
+	virtual bool vslot6() const;
+	virtual Int fetchCreateInstance() = 0;
+	virtual bool vslot8() const;
+	virtual bool vslot9() const;
+	virtual bool vslot10();
 
-private:
+protected:
 	unsigned char m_unmodelled_04[0x1E0 - 0x04];
 	GameWinInputFunc m_inputFunc;				// +0x1E0
 	unsigned char m_unmodelled_1E4[0x1EC - 0x1E4];
@@ -563,20 +569,86 @@ Int Rva000A495EWindow::rva0009FD78()
 	return 1;
 }
 
-// ??0Rva000A26C7@@QAE@PAX@Z @0x000A26C7 24B chain via rowed base 0x000A2670 plus vtable 0x007C9078 (Rva000A26DFWindow table slot1 rowed)
-class Rva000A2670
+// The list box windows. Retail's constructor chain is 0x000A26C7 / 0x000A26F7 ->
+// 0x000A2670 -> 0x00104F8F (Rva0078D310Host, whose destructor is 0x00104E03),
+// and none of the list box classes declares a destructor: each implicit one is
+// the shared `jmp 0x00104E03` at 0x000A43C8, called by the shared deleting
+// destructor 0x0008FFC4. Retail tables (all eleven slots):
+//   0x00BC904C Rva000A2670  input 0x000A2688, system 0x000A26AF, draw 0x000A3131, slot 7 0x000A2727
+//   0x00BC9078 Rva000A26C7  input 0x000A26DF (multi-select), slot 7 0x000A272D
+//   0x00BC90A4 Rva000A26F7  draw 0x000A3143 (image), slot 7 0x000A2733
+//   0x00BC90D0 Rva000A270F  input 0x000A26DF, slot 7 0x000A2739
+// Slots 4 to 6, 8 and 9 are GameWindow's; slot 10 is the shared `xor al,al; ret`
+// at 0x0047A699. Every override below compiles to the body retail holds in its
+// slot, rowed under another name, and is admitted as an ICF fold.
+// The factories retail's slot 7 bodies return (ConstIntGetters2.cpp's spelling).
+class Rva000A26C7; Rva000A26C7 *__stdcall Rva0008F9D3Create(void *);
+class Rva000A26F7; Rva000A26F7 *__stdcall Rva0008FA0DCreate(void *);
+class Rva000A270F; Rva000A270F *__stdcall Rva0008FA47Create(void *);
+
+WindowMsgHandledType GadgetListBoxInput(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+
+class Rva0078D310Host : public GameWindow
 {
 public:
-	virtual ~Rva000A2670();
-	Rva000A2670(void *context);
+	Rva0078D310Host(void *context);
+	virtual ~Rva0078D310Host();
 };
+
+// ??0Rva000A26C7@@QAE@PAX@Z @0x000A26C7 24B chain via rowed base 0x000A2670 plus vtable 0x007C9078 (Rva000A26DFWindow table slot1 rowed)
+class Rva000A2670 : public Rva0078D310Host
+{
+public:
+	Rva000A2670(void *context);
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual Int draw(WinInstanceData *instData);
+	virtual bool vslot10();
+};
+
+WindowMsgHandledType Rva000A2670::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	GameWinInputFunc func = m_inputFunc;
+	if (func)
+		return func(this, msg, mData1, mData2);
+	return GadgetListBoxInput(this, msg, mData1, mData2);
+}
+
+WindowMsgHandledType Rva000A2670::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetListBoxSystem(this, msg, mData1, mData2);
+}
+
+Int Rva000A2670::draw(WinInstanceData *instData)
+{
+	W3DGadgetListBoxDraw(this, instData);
+	return 1;
+}
+
+bool Rva000A2670::vslot10()
+{
+	return false;
+}
+
 class Rva000A26C7 : public Rva000A2670
 {
 public:
 	Rva000A26C7(void *context);
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual Int fetchCreateInstance();
 };
 Rva000A26C7::Rva000A26C7(void *context) : Rva000A2670(context)
 {
+}
+
+WindowMsgHandledType Rva000A26C7::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetListBoxMultiInput(this, msg, mData1, mData2);
+}
+
+Int Rva000A26C7::fetchCreateInstance()
+{
+	return reinterpret_cast<Int>(&Rva0008F9D3Create);
 }
 
 // ??0Rva000A26F7@@QAE@PAX@Z @0x000A26F7 24B chain via rowed base 0x000A2670 plus vtable 0x007C90A4
@@ -584,9 +656,22 @@ class Rva000A26F7 : public Rva000A2670
 {
 public:
 	Rva000A26F7(void *context);
+	virtual Int draw(WinInstanceData *instData);
+	virtual Int fetchCreateInstance();
 };
 Rva000A26F7::Rva000A26F7(void *context) : Rva000A2670(context)
 {
+}
+
+Int Rva000A26F7::draw(WinInstanceData *instData)
+{
+	W3DGadgetListBoxImageDraw(this, instData);
+	return 1;
+}
+
+Int Rva000A26F7::fetchCreateInstance()
+{
+	return reinterpret_cast<Int>(&Rva0008FA0DCreate);
 }
 
 // ??0Rva000A270F@@QAE@PAX@Z @0x000A270F 24B chain via rowed base 0x000A26F7 plus vtable 0x007C90D0
@@ -594,7 +679,19 @@ class Rva000A270F : public Rva000A26F7
 {
 public:
 	Rva000A270F(void *context);
+	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual Int fetchCreateInstance();
 };
 Rva000A270F::Rva000A270F(void *context) : Rva000A26F7(context)
 {
+}
+
+WindowMsgHandledType Rva000A270F::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+{
+	return GadgetListBoxMultiInput(this, msg, mData1, mData2);
+}
+
+Int Rva000A270F::fetchCreateInstance()
+{
+	return reinterpret_cast<Int>(&Rva0008FA47Create);
 }
