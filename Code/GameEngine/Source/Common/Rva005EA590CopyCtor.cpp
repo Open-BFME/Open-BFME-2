@@ -71,6 +71,7 @@ public:
 	virtual void update();
 	virtual void xfer(Xfer *);
 	virtual bool testColor(int mode);
+	virtual const Rva005EA590Triple *getColor() const;
 	virtual const char *GetSnapshotName() const;
 	void calculateRates();
 	Rva005EA590Triple m_fields94;
@@ -203,4 +204,9 @@ bool Rva005EA590::testColor(int mode)
             m_fields94.blue * m_fields94.green * m_fields94.red > 0.97f;
     }
     return true;
+}
+
+const Rva005EA590Triple *Rva005EA590::getColor() const
+{
+    return &m_fields94;
 }
