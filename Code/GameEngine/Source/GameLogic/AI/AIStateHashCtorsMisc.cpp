@@ -39,6 +39,7 @@ class Rva0036756A : public State
 {
 public:
 	Rva0036756A(StateMachine *machine, int arg0, bool arg1);
+	virtual const char *GetSnapshotName() const { return "AIGiantBirdSwoopState"; }
 
 private:
 	int m_20; // +0x20
