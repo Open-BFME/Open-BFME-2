@@ -11624,6 +11624,57 @@ def virtual_member_re(cls):
     return re.compile(r"\?[A-Za-z_]\w*@" + re.escape(class_scope(cls)) + r"@@[EMU]")
 
 
+def name_getter_tie(ctx, old, new, table, tables):
+    """[evidence] tying NEW to OLD's own table T through retail's own class-name
+    getter, or None. A slot of T must hold a 6-byte `mov eax, offset lit; ret`
+    whose NUL-terminated literal is exactly NEW, sitting in no other retail
+    table (so it is neither inherited nor an ICF fold), and every row at that
+    address must be a free function or a member of OLD, NEW or a placeholder
+    class. The image names the class itself; no ledger name is trusted."""
+    import struct
+    import build
+    image, sections = build.exe_image()
+    named = {s["name"]: s for s in sections}
+
+    def read(rva, size):
+        try:
+            offset = build.rva_to_file_offset(sections, rva)
+        except ValueError:
+            return None
+        chunk = image[offset:offset + size]
+        return chunk if len(chunk) == size else None
+
+    want = new.encode("ascii", "replace") + b"\0"
+    va = f"0x{table + IMAGE_BASE:08X}"
+    starting = collections.defaultdict(list)
+    for start, _end, row in _row_spans(ctx)[1]:
+        starting[start].append(row)
+    scope = re.compile(r"\?(?:\?_?[0-9A-Z]|[A-Za-z_]\w*@)" + CLASS_SCOPE)
+    found = []
+    for index, target in enumerate(tables[table][0]):
+        body = read(target, 6)
+        if not body or body[0] != 0xB8 or body[5] != 0xC3:
+            continue
+        literal = struct.unpack_from("<I", body, 1)[0] - IMAGE_BASE
+        if not any(s["rva"] <= literal < s["rva"] + s["size"] for s in (named.get(".rdata"), named.get(".data")) if s):
+            continue
+        if read(literal, len(want)) != want:
+            continue
+        if any(t != table and target in other for t, (other, _stores) in tables.items()):
+            continue                                # inherited or ICF-folded: proves no one class
+        owners = set()
+        for row in starting.get(target, []):
+            match = scope.match(row["name"])
+            cls = scope_class(match.group(1)) if match else None
+            if cls and cls not in (old, new) and not is_placeholder(cls, "class"):
+                owners.add(cls)
+        if owners:
+            continue
+        found.append(f"{va} slot {index} is 0x{target:08X}, retail's 6-byte `mov eax, offset; ret` returning "
+                     f"the literal \"{new}\" at 0x{literal + IMAGE_BASE:08X}; no other retail table holds it")
+    return found or None
+
+
 def virtual_slot_tie(ctx, old, new, table, tables, unnamed):
     """[evidence] tying NEW to OLD's own table T through NEW's rowed virtual
     methods (the virtual-slot route of the section comment); raises Refusal
@@ -12516,7 +12567,11 @@ def fold_evidence(ctx, old, new, tie=None, pinned=True):
         # (see the section comment); refused like before when they do not.
         if via_slot or members[new] or set(classes) - {old}:
             raise Refusal(unnamed)
-        if tie is None or any(virtual_member_re(new).match(r["name"]) for _s, _e, r in spans):
+        virtuals = any(virtual_member_re(new).match(r["name"]) for _s, _e, r in spans)
+        getter = None if virtuals else name_getter_tie(ctx, old, new, table, tables)
+        if getter:
+            evidence.extend(getter)
+        elif tie is None or virtuals:
             evidence.extend(virtual_slot_tie(ctx, old, new, table, tables, unnamed))
         else:
             found, proved = initializer_tie(ctx, old, new, table, tables, members, unnamed + (
