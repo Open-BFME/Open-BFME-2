@@ -198,7 +198,7 @@ extern PlayerList *ThePlayerList;
 // (messenger, rowed as AptMessenger::OnMessengerBttn; its argument is unused).
 void Rva0051B8EA();
 void Rva004E41AB();
-class AptMessenger { public: static void OnMessengerBttn(const char *unused); };
+#include "../../../../Include/GameClient/AptMessenger.h"
 
 class AptPalantir
 {
