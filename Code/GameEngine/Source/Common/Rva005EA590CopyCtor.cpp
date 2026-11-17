@@ -1,4 +1,5 @@
 // cl: /EHs-c-
+class Xfer;
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva005EA590CopyCtor.cpp (donor revision
@@ -49,7 +50,7 @@ public:
 	virtual void slot00() = 0;
 	virtual void slot04() {}
 	virtual const char *GetSnapshotName() const = 0;
-	virtual void slot0C() = 0;
+	virtual void xfer(Xfer *);
 	Rva005EA590Block m_block;
 	int m_field84;
 };
@@ -134,4 +135,41 @@ void Rva005EA590::update()
     else if (m_fields94.green > 1.0f) m_fields94.green = 1.0f;
     if (zero > m_fields94.blue) m_fields94.blue = zero;
     else if (m_fields94.blue > 1.0f) m_fields94.blue = 1.0f;
+}
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+#include "../../Include/Common/BfmeXfer.h"
+
+#include "../../../Libraries/Include/Lib/RGBColor.h"
+
+
+void Rva005E95C0::xfer(Xfer *stream)
+{
+    if (stream->IsLightCRC()) return;
+    stream->Version1();
+    unsigned int *frame = &m_block.keys[0].frame;
+    int count = 8;
+    do {
+        *stream == *reinterpret_cast<RGBColor *>(frame - 3);
+        *stream == *frame;
+        frame += 4;
+    } while (--count != 0);
+    *stream == reinterpret_cast<float &>(m_field84);
 }

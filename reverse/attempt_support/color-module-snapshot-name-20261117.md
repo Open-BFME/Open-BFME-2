@@ -20,3 +20,5 @@ result. Remaining destructor, transfer and primary slots still need recovery.
 The native rate helper at 0055B9BD is also recovered as calculateRates (128 bytes). Typed RGB keyframes and current/rate colours retain every constructor byte; the helper's complete body and floating references match retail. Paired normal verification passes 7/7 rows.
 
 Primary slot 1 update at 0055BA3D is recovered too (287 bytes): advance RGB weights; test the clock and next key; calculate rates; clamp each component. The same-TU helper preserves retail's xmm1 lifetime across the call. Normal paired verification passes 8/8 rows, with all three floating references exact.
+
+The base keyframe transfer at 0055B96D is recovered as Rva005E95C0::xfer (80 bytes). It uses canonical Xfer to skip light CRC, transfer Version1, eight RGB/frame pairs and the trailing float. Both view declarations are synchronized; paired normal verification passes 9/9 rows.

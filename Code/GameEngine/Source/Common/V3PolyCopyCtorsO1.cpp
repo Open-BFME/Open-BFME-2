@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+class Xfer;
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/V3PolyCopyCtors.cpp (donor revision
@@ -89,7 +90,7 @@ public:
 	virtual void slot00() = 0;
 	virtual void slot04() {}
 	virtual const char *GetSnapshotName() const = 0;
-	virtual void slot0C() = 0;
+	virtual void xfer(Xfer *);
 
 	V3Block32 m_block;
 	Int m_field84;
