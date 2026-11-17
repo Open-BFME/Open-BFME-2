@@ -25,3 +25,6 @@ requires1C and1D, then sets1E. Native primary setter56A9C6 and observer
 callback56A9DE both pass this complete receiver. The outlined boundary is
 kept explicitly, matching the original provider and avoiding an inlined
 replacement. All14 paired rows remain exact after this separate admission.
+
+Primary slot3 at56A9C6 now sets1C then calls its own outlined17B guard.
+Its complete9 bytes preserve the native tail jump; paired15/15 exact.
