@@ -752,6 +752,8 @@ protected:
 	virtual const char *GetSnapshotName( void ) const;
 	virtual void xfer( Xfer *xfer );
 	virtual void loadPostProcess( void );
+	// Slot 4 of the primary table 0x00BC5994: the next module on the system list.
+	virtual W3DGhostObject *slot10( void ) const;
 
 	void removeParentObject( void );
 	void restoreParentObject( void );
@@ -773,7 +775,9 @@ public:
 	virtual ~W3DGhostObjectManager();
 	virtual void reset( void );
 	virtual void setLocalPlayerIndex( int index );
+	virtual void updateOrphanedObjects( int *playerIndexList, int numNonLocalPlayers );
 	virtual GhostObject *addGhostObject( Object *object );
+	virtual GhostObject *getFirst( void );
 	void removeGhostObject( GhostObject *object );
 protected:
 	virtual const char *GetSnapshotName( void ) const;
@@ -1467,9 +1471,63 @@ void GhostObject::vslot0C(PartitionData *pd) { m_partitionData = pd; }
 // Native BC5970 slot 4 implementation; its vtordisp thunk is compiler-emitted.
 PartitionData *GhostObject::vslot10() const { return m_partitionData; }
 
-// Placeholder virtuals this unit's tables reference but no unit defines under these names.
-// W3DGhostObject's provider slots are named by byte offset: slot00 and slot04 are slots 0 and 1
-// of retail's table 0x00BC5984 (0x00063C33, 0x0006341B). GhostObjectManager's base table
-// (0x00C078F0) holds __purecall (0x0003B810) in slot 6, updateOrphanedObjects.
-#pragma comment(linker, "/alternatename:?slot00@W3DGhostObject@@UAEXXZ=?detach@Rva006BD6C0@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?slot04@W3DGhostObject@@UAEXXZ=?reset@Rva0006341B@@QAEXXZ")
+// W3DGhostObject's provider slots, named by byte offset: slots 0 and 1 of retail's
+// table 0x00BC5984. Both run on the CDEProvider subobject at +0x04. Slot 0
+// (0x00063C33) hands the ghost back to the manager; slot 1 (0x0006341B) drops the
+// parent object at +0x0C. /OPT:ICF folded them onto rows of the same bytes.
+void W3DGhostObject::slot00( void )
+{
+	if (TheGhostObjectManager != 0)
+		((W3DGhostObjectManager *)TheGhostObjectManager)->removeGhostObject(this);
+}
+
+void W3DGhostObject::slot04( void )
+{
+	if (m_parentObject)
+		m_parentObject = 0;
+}
+
+// Slot 4 of 0x00BC5994 (0x00467F2C, a shared +0xE0 getter).
+W3DGhostObject *W3DGhostObject::slot10( void ) const
+{
+	return m_nextSystem;
+}
+
+// W3DGhostObjectManager table 0x00BC59B8, slots 6 and 8.
+// Slot 6 (0x000635AB): every used module with no parent object refreshes its
+// shroud for the local player, and one whose local snapshot stays clear
+// releases its partition data. A node that is its own successor ends the walk.
+void W3DGhostObjectManager::updateOrphanedObjects( int *playerIndexList, int numNonLocalPlayers )
+{
+	(void)playerIndexList;
+	(void)numNonLocalPlayers;
+	W3DGhostObject *mod = m_usedModules;
+	if (!mod)
+		return;
+loop:
+	{
+		W3DGhostObject *next = mod->m_nextSystem;
+		if (mod->m_parentObject == 0)
+		{
+			mod->getShroudStatus(m_localPlayer);
+			if (!mod->m_parentSnapshots[m_localPlayer])
+			{
+				BfmeThingCDE *data = reinterpret_cast<BfmeThingCDE *>(mod->m_partitionData);
+				if (data)
+					data->bfmeGoCDE();
+			}
+		}
+		if (mod != next)
+			mod = next;
+		else
+			mod = 0;
+	}
+	if (mod)
+		goto loop;
+}
+
+// Slot 8 (0x001DB09D, a shared +0x10 getter): the head of the used list.
+GhostObject *W3DGhostObjectManager::getFirst( void )
+{
+	return m_usedModules;
+}
