@@ -4627,6 +4627,66 @@ def size_assertions(contract, text=""):
     return lines
 
 
+def ordering_literal(expression):
+    """A preceding initializer with no identifier lookup or macro invocation."""
+    code = masked(spliced(expression)[0], keep_literals=True).strip().rstrip(";").strip()
+    return bool(re.fullmatch(r"(?:[+-]?(?:0[xX][0-9a-fA-F]+|(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)"
+                             r"(?:[eE][+-]?[0-9]+)?)[uUlLfF]*|true|false|"
+                             r'''L?(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'))''', code, re.S))
+
+
+def methods_after_destructor(contract, slots, public):
+    """Ordinary instance methods that can move behind a lone decided destructor.
+
+    No inheritance or existing virtual overload group participates in this narrow case.
+    Static/template/operator declarations keep their position. A retained declaration
+    naming a candidate may need it for lookup or an overload anchor, so refuse that move.
+    """
+    if slots is None or contract.get("bases") or len(slots[0]) != 1 or slots[1] \
+            or decl_signature(slots[0][0]) != ("~", (), frozenset()) \
+            or not re.search(r"\bvirtual\b", declaration_head(slots[0][0])):
+        return []
+    candidates = []
+    for member in public:
+        if member["role"] != "method":
+            continue
+        head = declaration_head(member["text"])
+        signature = decl_signature(member["text"])
+        if re.search(r"\b(?:static|template)\b", top_level(head)) or signature is None \
+                or not re.fullmatch(r"[A-Za-z_]\w*", signature[0]):
+            continue
+        candidates.append((member, signature[0]))
+    retained = [member["text"] for member in public if all(member is not found for found, _name in candidates)]
+    retained += slots[0] + slots[1]
+    retained_code = [masked(spliced(text)[0]) for text in retained]
+    if candidates and any(re.search(r"\b(?:__identifier|__pragma|_Pragma)\b|\\[uU][0-9a-fA-F]|\?\?[=/'()!<>-]", code)
+                          for code in retained_code):
+        raise LayoutError(f"{contract['class']}: cannot move ordinary methods after its destructor: "
+                          "a preceding declaration has ambiguous compiler lookup tokens")
+    if candidates:
+        # The generator has no consumer macro context. Symbolic initializers/defaults
+        # can hide a lookup even when the helper's literal name never appears here.
+        for member in public:
+            if any(member is found for found, _name in candidates):
+                continue
+            head = declaration_head(member["text"])
+            if member["role"] == "static":
+                equal = top_level(head).find("=")
+                defaults = [head[equal + 1:]] if equal >= 0 else []
+            else:
+                span = call_span(head)
+                params = param_list(head[span[1]:span[2] + 1]) if span else []
+                defaults = [param[equal + 1:] for param in params if (equal := top_level(param).find("=")) >= 0]
+            if any(not ordering_literal(value) for value in defaults):
+                raise LayoutError(f"{contract['class']}: cannot move ordinary methods after its destructor: "
+                                  "a preceding initializer or default has unproven lookup")
+    for _member, name in candidates:
+        if any(re.search(r"(?<![\w$])" + re.escape(name) + r"(?![\w$])", code) for code in retained_code):
+            raise LayoutError(f"{contract['class']}: cannot move {name} after its destructor: "
+                              "a preceding declaration may depend on it or anchor its overload group")
+    return [member for member, _name in candidates]
+
+
 def generate(contract, variant, methods, header=None, slots=None, special=(), owners=None):
     """The header text of `variant`. `special` (special_declarations) is declared in every
     variant: a dropped special member is a link fault the byte gate cannot see. The fields sit at
@@ -4634,7 +4694,10 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
     size_assertions); a layout the plan cannot declare raises LayoutError. So does a virtual
     member the header would give an inline body that a matched row's owner defines exclusively
     (owner_strength; `owners`: _matched_owners' shape): P147's duplicate definition, which every
-    unit emitting the vtable would add; and when that owner cannot be established (OwnerUnknown)."""
+    unit emitting the vtable would add; and when that owner cannot be established (OwnerUnknown).
+    A baseless class with only a decided virtual destructor puts independent carried ordinary
+    instance methods after it; other virtual groups, constructors and prerequisites retain
+    their placement (methods_after_destructor)."""
     try:
         contract = class_contract.normalize_array_counts(contract)
     except ValueError as why:
@@ -4672,7 +4735,9 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
     def member_lines(found):
         return ["    " + s["text"].replace("\n", "\n    ") for s in found]
 
-    lines += member_lines(s for s in special if s["access"] == "public" and s["role"] != "dtor")
+    public = [s for s in special if s["access"] == "public" and s["role"] != "dtor"]
+    deferred = methods_after_destructor(contract, slots, public)
+    lines += member_lines(s for s in public if all(s is not moved for moved in deferred))
     if slots is not None:
         # The vtable is layout: every variant declares the decided slots in
         # slot order, then the overrides of the bases' slots the views spell.
@@ -4688,6 +4753,8 @@ def generate(contract, variant, methods, header=None, slots=None, special=(), ow
         if current != "public":
             lines.append("public:")
         methods = {k: v for k, v in methods.items() if not re.match(r"\s*virtual\b", v)}
+    # Keep the complete slot/override sequence together, including its access labels.
+    lines += member_lines(deferred)
     if "methods" in variant:
         # A leading destructor would put the delete-dtor in earlier vtable
         # slots: every non-destructor method must precede it.

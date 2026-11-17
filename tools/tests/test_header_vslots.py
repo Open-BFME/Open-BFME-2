@@ -185,6 +185,177 @@ public:
     assert own == ["virtual ~Solo() {}", "virtual void f(int a);", "virtual void f(float a);", "virtual int g();"]
 
 
+def carried_order_fixture(key="class"):
+    name = "CarriedOrder"
+    c = {"class": name, "key": key, "key_by": "bytes", "size": 8, "size_by": "bytes", "bases": [],
+         "fields": [{"offset": 4, "size": 4, "kind": "i4", "type": "int", "name": "m_value"}],
+         "vslots": {"0": {"member": "__vecDelDtor(uint)", "decided_by": "bytes"}},
+         "evidence": {"inherited": {"inherited_slots": 0}}, "queue": []}
+    view = (f"{key} {name} {{ public: {name}(void *held); void helper(); "
+            f"virtual ~{name}() {{}} int m_value; }};\n")
+    carried, problems = lane.special_declarations(name, ["a.cpp"], read=lambda _path: view,
+                                                 slotted={"~"}, index={})
+    assert problems == []
+    return c, carried
+
+
+@pytest.mark.parametrize("key", ["class", "struct"])
+@pytest.mark.parametrize("variant", ["data", "data+ctor", "data+copy", "data+methods", "data+includes"])
+def test_decided_virtual_slots_precede_carried_ordinary_methods(key, variant):
+    c, carried = carried_order_fixture(key)
+    text = lane.generate(c, variant, {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                         special=carried, owners={})
+    assert text.index("CarriedOrder(void *held);") < text.index("virtual ~CarriedOrder() {}")
+    assert text.index("virtual ~CarriedOrder() {}") < text.index("void helper();")
+    assert text.count("void helper();") == 1
+
+
+def test_generation_without_explicit_slots_preserves_carried_method_order():
+    c, carried = carried_order_fixture()
+    text = lane.generate(c, "data+methods", {"~": "virtual ~CarriedOrder() {}"},
+                         special=carried, owners={})
+    assert text.index("CarriedOrder(void *held);") < text.index("void helper();")
+    assert text.index("void helper();") < text.index("virtual ~CarriedOrder() {}")
+
+
+@pytest.mark.parametrize("dtor_access", ["public", "protected", "private"])
+def test_carried_methods_follow_the_destructor_with_their_original_access(dtor_access):
+    c, carried = carried_order_fixture()
+    carried += [
+        {"role": "method", "access": "protected", "sig": "protectedHelper()", "text": "void protectedHelper();"},
+        {"role": "method", "access": "private", "sig": "privateHelper()", "text": "void privateHelper();"},
+        {"role": "static", "access": "public", "sig": "static mode", "text": "static const int mode = 1;"},
+        {"role": "copy", "access": "private", "sig": "CarriedOrder(const CarriedOrder&)",
+         "text": "CarriedOrder(const CarriedOrder &);"},
+    ]
+    own = [lane.Spelled("virtual ~CarriedOrder() {}", dtor_access)]
+    overrides = []
+    text = lane.generate(c, "data", {}, slots=(own, overrides), special=carried, owners={})
+    assert text.index("static const int mode = 1;") < text.index(own[0])
+    assert [text.index(member) for member in own + overrides] == sorted(text.index(member) for member in own + overrides)
+    assert text.index(own[-1]) < text.index("void helper();")
+    records = {record["key"]: record for record in lane.declaration_records(text, "CarriedOrder")}
+    assert records["helper()"]["access"] == "public"
+    assert records["protectedHelper()"]["access"] == "protected"
+    assert records["privateHelper()"]["access"] == "private"
+    assert next(record for record in records.values() if record["role"] == "copy")["access"] == "private"
+    assert records["~"]["access"] == dtor_access
+
+
+def test_existing_multi_slot_overload_groups_keep_their_carried_declaration_order():
+    c, _carried = carried_order_fixture()
+    c["vslots"].update({"1": {"member": "f(float)", "decided_by": "bytes"},
+                        "2": {"member": "f(int)", "decided_by": "bytes"},
+                        "3": {"member": "g()", "decided_by": "bytes"}})
+    view = ("class CarriedOrder { public: int f(short); static int helper(); "
+            "template<class T> T convert(T t) { return t; } "
+            "virtual ~CarriedOrder() {} virtual void f(int); virtual void f(float); virtual int g(); int m_value; };\n")
+    own, overrides, problems = lane.slot_declarations(c, ["a.cpp"], read=lambda _path: view,
+                                                    known={}, owners={})
+    assert problems == [] and overrides == []
+    carried, problems = lane.special_declarations("CarriedOrder", ["a.cpp"], read=lambda _path: view,
+                                                 slotted={lane.member_key(member, "CarriedOrder") for member in own},
+                                                 index={})
+    assert problems == []
+    text = lane.generate(c, "data+methods", {}, slots=(own, overrides), special=carried, owners={})
+    assert [text.index(member) for member in own] == sorted(text.index(member) for member in own)
+    assert text.index("int f(short);") < text.index(own[0])
+    assert text.index("static int helper();") < text.index(own[0])
+    assert text.index("template<class T> T convert(T t)") < text.index(own[0])
+    assert len(lane.declaration_records(text, "CarriedOrder")) == len(own) + len(carried)
+
+
+def test_static_lookup_prerequisites_stay_before_the_destructor():
+    c, carried = carried_order_fixture()
+    carried = [member for member in carried if member["role"] != "method"]
+    carried += [{"role": "method", "access": "public", "sig": "defaultValue()",
+                 "text": "static int defaultValue() { return 7; }"},
+                {"role": "static", "access": "public", "sig": "static extent",
+                 "text": "static const int extent = sizeof(defaultValue());"}]
+    text = lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                         special=carried, owners={})
+    assert text.index("static int defaultValue()") < text.index("static const int extent") < text.index("virtual ~")
+
+
+def test_other_member_categories_keep_their_existing_placement():
+    c, carried = carried_order_fixture()
+    declarations = ["static int value();", "template<class T> T convert(T t) { return t; }",
+                    "int operator[](int) const;", "operator int() const;",
+                    "CarriedOrder &operator=(const CarriedOrder &);"]
+    carried += [{"role": "assign" if "operator=" in text else "method", "access": "public",
+                 "sig": lane.member_key(text, "CarriedOrder"), "text": text} for text in declarations]
+    text = lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                         special=carried, owners={})
+    assert all(text.index(declaration) < text.index("virtual ~") for declaration in declarations)
+    assert text.index("virtual ~") < text.index("void helper();")
+
+
+def test_literal_and_comment_spellings_are_not_declaration_dependencies():
+    c, carried = carried_order_fixture()
+    carried += [{"role": "ctor", "access": "public", "sig": "CarriedOrder(constchar*)",
+                 "text": 'CarriedOrder(const char *label = "helper"); // helper is a label'}]
+    text = lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                         special=carried, owners={})
+    assert text.index("virtual ~") < text.index("void helper();")
+
+
+@pytest.mark.parametrize("dependent", [
+    {"role": "static", "access": "public", "sig": "static extent",
+     "text": "static const int extent = sizeof(((CarriedOrder*)0)->helper());"},
+    {"role": "method", "access": "public", "sig": "helper(int)", "text": "static int helper(int);"},
+    {"role": "method", "access": "public", "sig": "templatehelper",
+     "text": "template<class T> int helper(T);"},
+])
+def test_declaration_dependencies_and_kept_overload_anchors_refuse_movement(dependent):
+    c, carried = carried_order_fixture()
+    with pytest.raises(lane.LayoutError, match="preceding (declaration may depend|initializer or default has unproven lookup)"):
+        lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                      special=carried + [dependent], owners={})
+
+
+def test_a_destructor_body_depending_on_a_helper_keeps_the_move_closed():
+    c, carried = carried_order_fixture()
+    with pytest.raises(lane.LayoutError, match="preceding declaration may depend"):
+        lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() { helper(); }"], []),
+                      special=carried, owners={})
+
+
+@pytest.mark.parametrize("expression", [
+    'sizeof(((CarriedOrder*)0)->__identifier("helper")())',
+    r"sizeof(((CarriedOrder*)0)->hel\u0070er())",
+])
+def test_opaque_compiler_lookup_cannot_hide_a_declaration_dependency(expression):
+    c, carried = carried_order_fixture()
+    dependent = {"role": "static", "access": "public", "sig": "static extent",
+                 "text": "static const int extent = " + expression + ";"}
+    with pytest.raises(lane.LayoutError, match="ambiguous compiler lookup tokens"):
+        lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                      special=carried + [dependent], owners={})
+
+
+def test_line_splicing_cannot_hide_a_declaration_dependency():
+    c, carried = carried_order_fixture()
+    dependent = {"role": "method", "access": "public", "sig": "helper(int)",
+                 "text": "static int hel\\\nper(int);"}
+    with pytest.raises(lane.LayoutError, match="preceding declaration may depend"):
+        lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                      special=carried + [dependent], owners={})
+
+
+@pytest.mark.parametrize("dependent", ["static const int extent = (lookup_macro);",
+                                       "CarriedOrder(int value = (lookup_macro));"])
+def test_admitted_macro_initializers_do_not_hide_lookup_dependencies(dependent):
+    c, _carried = carried_order_fixture()
+    view = ("class CarriedOrder { public: CarriedOrder(void *held); void helper(); " + dependent +
+            " virtual ~CarriedOrder() {} int m_value; };\n")
+    carried, problems = lane.special_declarations("CarriedOrder", ["a.cpp"], read=lambda _path: view,
+                                                 slotted={"~"}, index={})
+    assert problems == []
+    with pytest.raises(lane.LayoutError, match="initializer or default has unproven lookup"):
+        lane.generate(c, "data", {}, slots=(["virtual ~CarriedOrder() {}"], []),
+                      special=carried, owners={})
+
+
 def test_run_refuses_a_contract_with_an_undeclarable_slot(base_header, tmp_path, monkeypatch):
     import json
     import class_contract
