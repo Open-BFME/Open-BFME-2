@@ -82,7 +82,7 @@ enum PathfindLayerEnum { LAYER_INVALID = 0 };
 
 #include "../../../Include/GameLogic/PathNode.h"
 class Rva0026E4A0 { public: Rva0026E4A0 &set(Rva0026E4A0 *) throw(); };
-class Rva00065964ObjectPool { public: void *rva002635C2() throw(); };
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 extern Rva00065964ObjectPool g_pathNodePool;
 
 // Save-side node -> id map (rowed out-of-line destructor 0x36528F).

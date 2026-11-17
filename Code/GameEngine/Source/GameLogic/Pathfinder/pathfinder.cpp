@@ -2573,7 +2573,7 @@ PathfindCell *Pathfinder::rva002F068F(){PathfindCell *cell=0;if(!m_openCells.emp
 // the cursor to the middle inserted node. Preserve that observed behavior.
 // The 48-byte local scratch aggregate describes compiler storage only; its
 // start/p3 union reproduces dead-start reuse proved by the retail stack accesses.
-class Rva00065964ObjectPool { public: void *rva002635C2() throw(); };
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 extern Rva00065964ObjectPool g_pathNodePool;
 template<int N> class AircraftSlots:public AircraftSlots<N-1>{public:virtual void slot(AircraftSlots<N>*);};
 template<> class AircraftSlots<0>{};

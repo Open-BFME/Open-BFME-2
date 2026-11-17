@@ -4,11 +4,7 @@
 // offsets both legs by the radius, intersects them and appends the arc points.
 // WWMath's lineseg.h, the angle helper, appendNode and the PathNode ctor stay visible.
 
-class Rva00065964ObjectPool
-{
-public:
-	void *rva002635C2() throw();
-};
+#include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 
 // g_pathNodePool: defined in PathDtor.cpp (VA 0xe01e94).
 extern Rva00065964ObjectPool g_pathNodePool;
