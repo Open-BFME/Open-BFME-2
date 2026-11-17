@@ -101,6 +101,22 @@ cd Open-BFME-2
 ./build.sh               # verify every tracked function against retail   (.\build.ps1 on Windows)
 ```
 
+On Ubuntu 24.04, use **WineHQ Wine 11** (`winehq-stable`), not the distro's
+Wine 9.0, which can hang when running the MSVC 7.1 compiler. Initialize a 32-bit
+Wine prefix before building on Linux:
+
+```bash
+export WINEARCH=win32
+export WINEPREFIX="$HOME/.wine-bfme2"
+wineboot -i
+./build.sh Code/Libraries/Source/Compression/ZLib/trees.c
+```
+
+Keep `WINEPREFIX` set for subsequent builds. When running builds from a systemd
+service, a `SystemCallArchitectures=native` restriction blocks Wine's 32-bit
+preloader (`SIGSYS`); use a build session that permits 32-bit execution rather
+than changing the security policy of an unrelated service.
+
 Units marked `// dxsdk` compile against the DirectX 9.0c SDK (August 2005), vendored in `vendor/dxsdk-aug2005/` (see its `PROVENANCE.txt`).
 
 `setup_hooks.sh` also registers `tools/merge_rows.py` as the merge driver for the
