@@ -22,6 +22,7 @@ class Rva00342547 : public State
 {
 public:
 	Rva00342547(StateMachine *machine);
+	virtual StateReturnType onEnter();
 	virtual const char *GetSnapshotName() const { return "AIFaceDirectionState"; }
 
 private:
@@ -260,3 +261,17 @@ Rva00545B4F::Rva00545B4F(StateMachine *machine)
 {
 }
 
+
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+// Native owner access at +258; only the pointer prefix is consumed here.
+struct FaceDirectionOwnerView { char unknown[0x258]; AIUpdateInterface *ai; };
+// Native C12378 slot4,46B: save the AI heading, or succeed immediately.
+StateReturnType Rva00342547::onEnter()
+{
+    AIUpdateInterface *ai = reinterpret_cast<FaceDirectionOwnerView *>(getMachineOwner())->ai;
+    if (!ai->rva0033F8D4())
+        return STATE_SUCCESS;
+    m_20 = ai->m_field1A0;
+    return STATE_CONTINUE;
+}
