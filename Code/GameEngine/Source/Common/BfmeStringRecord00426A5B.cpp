@@ -108,6 +108,7 @@ class Rva00426745 : public SubsystemInterface, public Snapshot
 public:
 	virtual ~Rva00426745();
 	virtual const char *GetSnapshotName() const;
+	virtual void DoXfer(Xfer *);
 	virtual void reset();
 
 private:
@@ -395,4 +396,42 @@ void Rva00426745::reset()
 const char *Rva00426745::GetSnapshotName() const
 {
     return "MissionObjectiveTracker";
+}
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../Include/Common/BfmeXfer.h"
+#include "../../Include/Common/XferVersion.h"
+
+class Rva00426C4D { public: Rva00426C4D() throw(); virtual void *v0(int); char storage[12]; };
+
+void Rva00426745::DoXfer(Xfer *x)
+{
+ if (x->IsCRC()) return;
+ Xfer::Version version(1, 1);
+ *x == version;
+ bool present = m_owned != 0;
+ *x == present;
+ if (present) {
+  if (x->IsLoading()) {
+   ::delete m_owned;
+   m_owned = reinterpret_cast<Rva00426745Owned *>(new Rva00426C4D);
+  }
+  *x == *reinterpret_cast<Snapshot *>(m_owned);
+ } else if (x->IsLoading()) m_owned = 0;
 }

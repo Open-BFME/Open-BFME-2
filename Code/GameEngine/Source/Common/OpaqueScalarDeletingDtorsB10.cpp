@@ -1,3 +1,4 @@
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_NAME_SLOT
 // cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
 //
@@ -157,6 +158,7 @@ public:
 	virtual ~Rva00426745();
 	virtual void reset();
 	virtual const char *GetSnapshotName() const;
+	virtual void DoXfer(Xfer *);
 };
 
 // ?<Rva00426745::Rva00426745> absent-from-retail

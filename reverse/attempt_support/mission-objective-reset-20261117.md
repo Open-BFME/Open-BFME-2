@@ -53,3 +53,26 @@ The shared empty callbackB3FD0 and deleted_rows retirement register remain
 claimed by another contributor. Base and primary/secondary tables are not
 complete, and no bridge retirement is claimed. Scratch evidence:
 continuation-20261117d-transfer-probe.json and transfer-base-order-probe.json.
+
+## Correct Snapshot transfer override
+
+The earlier receiver-layout conclusion is superseded. PlayerList.h selects
+BFME_SNAPSHOT_CAPITALIZED_SLOTS before Snapshot.h: the actual virtual API is
+DoXfer(Xfer*). The lowercase xfer probe introduced a new primary virtual,
+so its five complete-object displacements did not describe an override.
+The correct DoXfer compiles all165 native bytes exactly using the secondary
+receiver and its+4 owned field. No field-offset manipulation is needed.
+It uses canonical Xfer/Version, transfers version/presence, and reconstructs
+the16B nested object only while loading, as the existing provider does.
+
+The second producer selects that same Snapshot surface and declares DoXfer.
+All27 of its original rows remain exact. Comparing every emitted vftable
+before/after changes ONLY Rva00426745's secondary slot3 from purecall to
+the actual DoXfer symbol. All other table extents, bytes and targets agree.
+Normal owner/second-producer/constructor verification passes46/46.
+
+The original transfer provider, old vector-delete emitter and pin remain.
+Empty post-load/init/update bindings and their held common body remain
+open; no complete three-table or real-link bridge clearance is claimed.
+Scratch evidence: transfer-capital-probe.json and
+transfer-capital-opaque-results.json under continuation-20261117d in build/.
