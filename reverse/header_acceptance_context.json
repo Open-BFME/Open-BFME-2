@@ -11,6 +11,17 @@
         "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
         "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp"
       ]
+    },
+    {
+      "class": "DockUpdateModuleData",
+      "consumers": [
+        "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp"
+      ],
+      "providers": [
+        "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp"
+      ]
     }
   ]
 }

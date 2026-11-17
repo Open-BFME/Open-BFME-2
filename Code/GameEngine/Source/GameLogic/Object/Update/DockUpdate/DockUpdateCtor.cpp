@@ -173,14 +173,7 @@ public:
 	virtual void slot19() = 0;
 };
 
-class DockUpdateModuleData
-{
-public:
-	void *m_vftable;
-	UnsignedInt m_moduleTagNameKey;
-	Int m_numberApproachPositionsData;
-	Bool m_isAllowPassthrough;
-};
+#include "../../../../../Include/GameLogic/Module/DockUpdateModuleData.h"
 
 class DockUpdate : public UpdateModule, public DockUpdateInterface
 {
