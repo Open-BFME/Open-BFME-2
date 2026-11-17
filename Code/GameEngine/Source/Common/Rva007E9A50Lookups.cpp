@@ -38,7 +38,7 @@ extern Rva007B55E0TxnName g_Va00E09F00;
 extern Rva007B55E0TxnName g_Va00E09F6C;
 extern Rva007B55E0TxnName g_Va00E09FE8;
 extern Rva007B55E0TxnName g_Va00E0A000;
-extern Rva007B55E0TxnName g_Va00E0A00C;
+extern Rva007B55E0TxnName TheBlobUpdateInfoTransaction;
 extern Rva007B55E0TxnName g_Va00E0A024;
 extern Rva007B55E0TxnName g_Va00E09FDC;
 extern Rva007B55E0TxnName g_Va00E0A018;
@@ -61,14 +61,14 @@ extern Rva007B55E0TxnName g_Va00E0A090;
 extern Rva007B55E0TxnName g_Va00E0A0B4;
 extern Rva007B55E0TxnName g_Va00E0A0E4;
 extern Rva007B55E0TxnName g_Va00E0A0F0;
-extern Rva007B55E0TxnName g_Va00E0A0FC;
+extern Rva007B55E0TxnName TheRecordUpdateTransaction;
 extern Rva007B55E0TxnName g_Va00E0A108;
 extern Rva007B55E0TxnName g_Va00E0A120;
 extern Rva007B55E0TxnName g_Va00E0A12C;
 extern Rva007B55E0TxnName g_Va00E0A144;
 extern Rva007B55E0TxnName g_Va00E0A138;
 extern Rva007B55E0TxnName g_Va00E0A174;
-extern Rva007B55E0TxnName g_Va00E0A180;
+extern Rva007B55E0TxnName TheClubUpdateTransaction;
 extern Rva007B55E0TxnName g_Va00E0A18C;
 extern Rva007B55E0TxnName g_Va00E0A168;
 extern Rva007B55E0TxnName g_Va00E0A15C;
@@ -121,7 +121,7 @@ Rva007E9A50Entry *Rva007E9A50::lookup(Rva007E8810Message *message)
 Rva007E9A50Entry *g_Rva012C3958[] = {
     (Rva007E9A50Entry *)&g_Va00E09FE8,
     (Rva007E9A50Entry *)&g_Va00E0A000,
-    (Rva007E9A50Entry *)&g_Va00E0A00C,
+    (Rva007E9A50Entry *)&TheBlobUpdateInfoTransaction,
     (Rva007E9A50Entry *)&g_Va00E0A024,
     (Rva007E9A50Entry *)&g_Va00E09FDC,
     (Rva007E9A50Entry *)&g_Va00E0A018,
@@ -201,7 +201,7 @@ Rva007E9A50Entry *Rva007F2D70::lookup(Rva007E8810Message *message)
 Rva007E9A50Entry *g_Rva012C39CC[] = {
     (Rva007E9A50Entry *)&g_Va00E0A0E4,
     (Rva007E9A50Entry *)&g_Va00E0A0F0,
-    (Rva007E9A50Entry *)&g_Va00E0A0FC,
+    (Rva007E9A50Entry *)&TheRecordUpdateTransaction,
     (Rva007E9A50Entry *)&g_Va00E0A108,
     0
 };
@@ -227,7 +227,7 @@ Rva007E9A50Entry *g_Rva012C39E4[] = {
     (Rva007E9A50Entry *)&g_Va00E0A144,
     (Rva007E9A50Entry *)&g_Va00E0A138,
     (Rva007E9A50Entry *)&g_Va00E0A174,
-    (Rva007E9A50Entry *)&g_Va00E0A180,
+    (Rva007E9A50Entry *)&TheClubUpdateTransaction,
     (Rva007E9A50Entry *)&g_Va00E0A18C,
     (Rva007E9A50Entry *)&g_Va00E0A168,
     (Rva007E9A50Entry *)&g_Va00E0A15C,

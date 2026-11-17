@@ -68,7 +68,7 @@ Rva007B55E0TxnName g_Va00E09F6C( g_Va00DD7F48, "TransactionException" );	// VA 0
 // "blob" (retail .CRT$XCU 0x007B58A0..)
 Rva007B55E0TxnName g_Va00E09FE8( g_Va00DD80AC, "AddBlob" );	// VA 0x00E09FE8
 Rva007B55E0TxnName g_Va00E0A000( g_Va00DD80AC, "RemoveBlob" );	// VA 0x00E0A000
-Rva007B55E0TxnName g_Va00E0A00C( g_Va00DD80AC, "UpdateBlobInfo" );	// VA 0x00E0A00C
+Rva007B55E0TxnName TheBlobUpdateInfoTransaction( g_Va00DD80AC, "UpdateBlobInfo" );	// VA 0x00E0A00C
 Rva007B55E0TxnName g_Va00E0A024( g_Va00DD80AC, "UpdateBlobContent" );	// VA 0x00E0A024
 Rva007B55E0TxnName g_Va00E09FDC( g_Va00DD80AC, "UpdateBlobRating" );	// VA 0x00E09FDC
 Rva007B55E0TxnName g_Va00E0A018( g_Va00DD80AC, "GetBlobInfo" );	// VA 0x00E0A018
@@ -98,7 +98,7 @@ Rva007B55E0TxnName g_Va00E0A0B4( g_Va00DD80EC, "TransactionException" );	// VA 0
 // "recp" (retail .CRT$XCU 0x007B5B80..)
 Rva007B55E0TxnName g_Va00E0A0E4( g_Va00DD8120, "AddRecord" );	// VA 0x00E0A0E4
 Rva007B55E0TxnName g_Va00E0A0F0( g_Va00DD8120, "GetRecord" );	// VA 0x00E0A0F0
-Rva007B55E0TxnName g_Va00E0A0FC( g_Va00DD8120, "UpdateRecord" );	// VA 0x00E0A0FC
+Rva007B55E0TxnName TheRecordUpdateTransaction( g_Va00DD8120, "UpdateRecord" );	// VA 0x00E0A0FC
 Rva007B55E0TxnName g_Va00E0A108( g_Va00DD8120, "TransactionException" );	// VA 0x00E0A108
 
 // "club" (retail .CRT$XCU 0x007B5C00..)
@@ -107,7 +107,7 @@ Rva007B55E0TxnName g_Va00E0A12C( g_Va00DD8138, "AddMember" );	// VA 0x00E0A12C
 Rva007B55E0TxnName g_Va00E0A144( g_Va00DD8138, "ChangeMemberState" );	// VA 0x00E0A144
 Rva007B55E0TxnName g_Va00E0A138( g_Va00DD8138, "RemoveMember" );	// VA 0x00E0A138
 Rva007B55E0TxnName g_Va00E0A174( g_Va00DD8138, "UpdateMember" );	// VA 0x00E0A174
-Rva007B55E0TxnName g_Va00E0A180( g_Va00DD8138, "UpdateClub" );	// VA 0x00E0A180
+Rva007B55E0TxnName TheClubUpdateTransaction( g_Va00DD8138, "UpdateClub" );	// VA 0x00E0A180
 Rva007B55E0TxnName g_Va00E0A18C( g_Va00DD8138, "RemoveClub" );	// VA 0x00E0A18C
 Rva007B55E0TxnName g_Va00E0A168( g_Va00DD8138, "ListClubs" );	// VA 0x00E0A168
 Rva007B55E0TxnName g_Va00E0A15C( g_Va00DD8138, "GetClub" );	// VA 0x00E0A15C

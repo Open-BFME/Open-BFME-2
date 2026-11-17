@@ -50,11 +50,17 @@ public:
 		const Rva007F14B0Record *record);
 };
 
-// BFME2 keeps the current TXN string pointer at 0x00E0A010;
-// BFME1's donor reads the same role from 0x0130A5F4.
-extern const char * const g_Rva00E0A010;
-// Provider for the neighboring ClubUpdate TU; this TU does not consume it.
-// VA 0x00E0A184 (.data, zero-filled tail); retail's initial pointer is zero.
+// The blob/UpdateBlobInfo TXN value is this record's m_name at VA 0x00E0A010.
+struct Rva007B55E0TxnName
+{
+	__declspec(noinline) Rva007B55E0TxnName( const char *type, const char *name );
+
+	const char *m_type;
+	const char *m_name;
+	int m_reserved;
+};
+
+extern Rva007B55E0TxnName TheBlobUpdateInfoTransaction;
 
 // ?write@Rva007F14B0BlobWriter@@SGXPAVRva007E8810Message@@_J_NPBQBDHPBURva007F14B0Record@@@Z
 void __stdcall Rva007F14B0BlobWriter::write(Rva007E8810Message *message,
@@ -64,7 +70,7 @@ void __stdcall Rva007F14B0BlobWriter::write(Rva007E8810Message *message,
 	int removeCount,
 	const Rva007F14B0Record *record)
 {
-	const char *txn = g_Rva00E0A010;
+	const char *txn = TheBlobUpdateInfoTransaction.m_name;
 	message->reset();
 	message->m_category = 'blob';
 	message->addString("TXN", txn);

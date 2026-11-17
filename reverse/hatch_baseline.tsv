@@ -570,7 +570,6 @@ address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E09FDC
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E09FE8	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E09FF4	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A000	2
-address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A00C	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A018	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A024	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A030	2
@@ -589,7 +588,6 @@ address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A0CC
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A0D8	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A0E4	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A0F0	2
-address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A0FC	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A108	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A114	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A120	2
@@ -600,7 +598,6 @@ address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A150
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A15C	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A168	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A174	2
-address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A180	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A18C	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A198	2
 address_global	Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp	g_Va00E0A1A4	2
@@ -949,7 +946,6 @@ address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E09FE8	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E09FF4	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A000	1
-address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A00C	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A018	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A024	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A030	1
@@ -968,7 +964,6 @@ address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A0D8	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A0E4	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A0F0	1
-address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A0FC	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A108	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A114	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A120	1
@@ -979,7 +974,6 @@ address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A15C	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A168	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A174	1
-address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A180	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A18C	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A198	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A1A4	1
@@ -987,10 +981,7 @@ address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A1BC	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp	g_Rva011293A0HexFirst	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp	g_Rva011294A8HexSecond	2
-address_global	Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	g_Rva00E0A010	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp	g_Rva0130A6CC	2
-address_global	Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp	g_Rva0130A6E4	2
-address_global	Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	g_Rva0130A768	2
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A678	1
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A684	1
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A6D8	1

@@ -145,3 +145,27 @@ not every blocker. The preview census remains stale, and fresh full-link/runtime
 confirmation is pending. No bridge debt is retired by this source cleanup.
 
 [Exact native owners, consumer proof and verification](../../reverse/attempt_support/opaque-deleting-retirement-20261117.md).
+
+## 2026-11-17: bind three network TXN fields to existing records
+
+The three missing globals in BlobWriter, RecordRequest and ClubUpdate were
+interior field references, not missing standalone data. Consumers now read
+m_name at offset four of the existing 12-byte records at RVAs A0A00C, A0A0FC
+and A0A180. The official naming lane renamed these owned globals and all old
+consumers using independent reviewed semantic-inference votes. No new data,
+initializer, alias or pin is introduced. All 73 functions and 76 data rows
+across the five sources pass; explicit COFF/retail address proof and data_check
+pass. Normal hatch accounting shrinks address_global by 15. Scoped preview is
+5/5 clean against stale census 0534e78db3; fresh real-link confirmation remains
+pending. [Evidence and limitations](../../reverse/attempt_support/native-network-transaction-fields.md).
+
+Follow-up measurement: official native exit_link --link --local measured
+15 ->10 unresolved names, zero duplicates; all three network names and both
+SidesList slot names disappeared. link.exe took80.0s; proof/setup/reporting
+brought total command time to about7min. No image was written. Existing debt:
+468 initializer bridges,3,122 table bridges/45,949 slots. The original naming
+commit was refused for CRLF packet fingerprints versus LF Git blobs. Fresh
+official proposals on canonical LF content passed normal hooks in42d083ebc5;
+ordinary name_lane application and all73 function/76data checks passed again.
+No gate was weakened or vote fingerprint restamped. The archived native run
+measured the preserved pre-recovery C++ content, not a later runtime success.

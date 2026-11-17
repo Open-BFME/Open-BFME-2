@@ -9259,3 +9259,6 @@ function,??1?$deque@URva00056DEBElement@@V?$allocator@URva00056DEBElement@@@_STL
 carry,?createInGameUI@Rva004C743@@QAEPAXXZ,?createInGameUI@Rva004C743@@UAEPAXXZ,inferred,"virtual respell by tools/rename.py: retail table 0x00BC4738 slot 38, Rva004C743's table (installed at +0x0 by 0x0004C43E ??0Rva004C743@@QAE@XZ)",Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp,0x0004C492
 global,?g_00DFE4C4@@3VRva00575674@@A,?g_inGameNotificationTypeStoreHolder@@3VRva00575674@@A,inferred,agree:nr-e999ceb4ca73c92cd6194e57,Code/GameEngine/Source/Common/Rva002220DCInit.cpp,0x009FE4C4
 global,?g_00DEE93C@@3IA,?g_assetDirectory@@3IA,inferred,agree:nr-1a47b4cdd7cce4e1fe4d2188,Code/Libraries/Source/WWVegas/WW3D2/Rva0012CAC3Run.cpp,0x009EE93C
+global,?g_Va00E0A00C@@3URva007B55E0TxnName@@A,?TheBlobUpdateInfoTransaction@@3URva007B55E0TxnName@@A,inferred,agree:nl-437d8ba67dda,Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp,0x00A0A00C
+global,?g_Va00E0A0FC@@3URva007B55E0TxnName@@A,?TheRecordUpdateTransaction@@3URva007B55E0TxnName@@A,inferred,agree:nl-91cf5b875385,Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp,0x00A0A0FC
+global,?g_Va00E0A180@@3URva007B55E0TxnName@@A,?TheClubUpdateTransaction@@3URva007B55E0TxnName@@A,inferred,agree:nl-3fd20e79d0c3,Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp,0x00A0A180

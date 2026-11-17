@@ -21,14 +21,24 @@ struct Rva007F3170Value
 	const char *value;
 };
 
-extern const char * const g_Rva0130A6E4;
+struct Rva007B55E0TxnName
+{
+	__declspec(noinline) Rva007B55E0TxnName( const char *type, const char *name );
+
+	const char *m_type;
+	const char *m_name;
+	int m_reserved;
+};
+
+// The recp/UpdateRecord TXN value is this record's m_name at VA 0x00E0A100.
+extern Rva007B55E0TxnName TheRecordUpdateTransaction;
 
 void __stdcall Rva007F3170( Rva007E8810Message *msg,
 	const Rva007F3170Owner *owner, const char *recordName,
 	const Rva007F3170Value *values, unsigned int count, int ttl,
 	const char * const *remove, unsigned int removeCount )
 {
-	const char *txn = g_Rva0130A6E4;
+	const char *txn = TheRecordUpdateTransaction.m_name;
 	unsigned int i;
 	const Rva007F3170Value *entries = values;
 

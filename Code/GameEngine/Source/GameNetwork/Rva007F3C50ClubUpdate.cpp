@@ -28,10 +28,17 @@ struct Rva007F3C50Attribute
 	const char *value;
 };
 
-extern const char * const g_Rva0130A768;
-// Provider for the neighboring BlobWriter TU: defining its const pointer in
-// that consumer folds the load into its matched body. VA 0x00E0A010 (.data,
-// zero-filled tail); the initial pointer value is zero.
+struct Rva007B55E0TxnName
+{
+	__declspec(noinline) Rva007B55E0TxnName( const char *type, const char *name );
+
+	const char *m_type;
+	const char *m_name;
+	int m_reserved;
+};
+
+// The club/UpdateClub TXN value is this record's m_name at VA 0x00E0A184.
+extern Rva007B55E0TxnName TheClubUpdateTransaction;
 // Provider for RecordRequest.cpp; keeping this const pointer in a sibling TU
 // prevents the compiler from folding its matched load. VA 0x00E0A100 (.data,
 // zero-filled tail); retail's initial pointer value is zero.
@@ -42,7 +49,7 @@ void __stdcall Rva007F3C50( Rva007E8810Message *msg, FeslInt64 clubId,
 	unsigned int numAttributes, const char * const *removeKeys,
 	unsigned int numRemoveKeys )
 {
-	const char *txn = g_Rva0130A768;
+	const char *txn = TheClubUpdateTransaction.m_name;
 	unsigned int i;
 
 	msg->reset();
