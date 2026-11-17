@@ -596,24 +596,24 @@ private:
 	unsigned int m_animFrames; // +0x28
 	unsigned char m_pad2C[0x30 - 0x2C];
 	int m_packingState; // +0x30
-	AudioHandle m_prepSoundLoop; // +0x34
-	AudioHandle m_packSoundHandle; // +0x38
+	AudioHandle m_34; // +0x34
+	AudioHandle m_38; // +0x38
 	unsigned int m_prepFrames; // +0x3C
 	ObjectID m_targetID; // +0x40
 	Coord3D m_targetPos; // +0x44
-	Coord3D m_previousTarget; // +0x50
+	Coord3D m_50; // +0x50
 	unsigned char m_pad5C[0x6C - 0x5C];
 	unsigned int m_6C; // +0x6C flag word (bit 18: command button argument)
 	unsigned char m_pad70[0x74 - 0x70];
 	bool m_active; // +0x74
 	unsigned char m_pad75[0x78 - 0x75];
-	unsigned int m_approachFrames; // +0x78
-	bool m_7c; // +0x7C
+	unsigned int m_78; // +0x78
+	bool m_7C; // +0x7C
 	unsigned char m_pad7D[0x80 - 0x7D];
 	bool m_withinStartAbilityRange; // +0x80
 	bool m_81;
 	bool m_82; // +0x82
-	bool m_approached; // +0x83
+	bool m_83; // +0x83
 	unsigned int m_84; // +0x84
 public:
 	virtual NameKeyType getModuleNameKey() const;
@@ -980,7 +980,7 @@ void *Rva0044F633::rva0044F633()
 void SpecialAbilityUpdate::endPreparation()
 {
 	getObject()->setStatus(OBJECT_STATUS_18, false);
-	TheAudio->removeAudioEvent(m_prepSoundLoop);
+	TheAudio->removeAudioEvent(m_34);
 	((Rva001E42F2 *)getObject())->rva001E42F2((const int *)&Rva0028F59A(0, 0x5f));
 	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
 	switch (data->m_specialPowerTemplate->getFO()->m_type)
@@ -1009,10 +1009,10 @@ void SpecialAbilityUpdate::onExit(bool cleanup, bool b)
 		ai->m_3ca = false;
 		ai->rva0026331C();
 	}
-	TheAudio->removeAudioEvent(m_prepSoundLoop);
-	m_prepSoundLoop = 1;
-	TheAudio->removeAudioEvent(m_packSoundHandle);
-	m_packSoundHandle = 1;
+	TheAudio->removeAudioEvent(m_34);
+	m_34 = 1;
+	TheAudio->removeAudioEvent(m_38);
+	m_38 = 1;
 	endPreparation();
 	SpecialPowerModuleInterface *spm = obj->getSpecialPowerModule((const SpecialPowerTemplate *)data->m_specialPowerTemplate);
 	if (spm)
@@ -1083,11 +1083,11 @@ void SpecialAbilityUpdate::onExit(bool cleanup, bool b)
 			obj->getAI()->aiIdle(CMD_FROM_AI);
 		m_82 = false;
 	}
-	if (!m_7c)
+	if (!m_7C)
 		m_active = false;
 	m_packingState = 0;
 	m_withinStartAbilityRange = false;
-	m_approached = false;
+	m_83 = false;
 	if (data->m_killAttributeModifierOnExit)
 	{
 		const AsciiString &name = data->m_triggerAttributeModifier;
@@ -1198,8 +1198,8 @@ void SpecialAbilityUpdate::startPacking(bool success)
 	BfmeAudioEventPrefix136 sound(specialAbilityUpdateModuleData->m_packSound, 0);
 	((Rva002D9531 *)&sound)->rva002D9531(self->m_id);
 	TheAudio->addAudioEvent(&sound);
-	TheAudio->removeAudioEvent(m_packSoundHandle);
-	m_packSoundHandle = 1;
+	TheAudio->removeAudioEvent(m_38);
+	m_38 = 1;
 	Drawable *draw = self->getDrawable();
 	if (draw)
 		draw->rva002723C0(m_animFrames);
@@ -1232,21 +1232,21 @@ bool SpecialAbilityUpdate::rva00450AE9()
 {
 	Object *self=m_object;
 	const SpecialAbilityUpdateModuleData *data=(const SpecialAbilityUpdateModuleData*)m_moduleData;
-	if(m_approachFrames>BfmeLogicFramesPerSecond*2) {
+	if(m_78>BfmeLogicFramesPerSecond*2) {
 		Coord3D target={m_targetPos.x,m_targetPos.y,m_targetPos.z};
 		Object *obj=TheGameLogic->findObjectByID(m_targetID);
 		if(obj) target=obj->m_position;
-		SaCoordCopy delta=m_previousTarget;
+		SaCoordCopy delta=m_50;
 		delta.sub(&target);
 		if(delta.GetLength()<5.0f){onExit(false,true);return false;}
 	}
-	++m_approachFrames;
-	m_previousTarget=m_targetPos;
+	++m_78;
+	m_50=m_targetPos;
 	if(m_targetID!=INVALID_OBJECT_ID) {
 		Object *target=TheGameLogic->findObjectByID(m_targetID);
 		if(target) {
 			const Coord3D *targetPos=&target->m_position;
-			m_previousTarget=*targetPos;
+			m_50=*targetPos;
 			const SpecialPowerTemplate *spTemplate=data->m_specialPowerTemplate;
 			bool moveToPosition=data->m_approachRange>50.0f;
 			if(spTemplate->getFO()->m_type==0x27){
@@ -1279,7 +1279,7 @@ bool SpecialAbilityUpdate::rva00450AE9()
 			int type=data->m_specialPowerTemplate->getFO()->m_type;
 			if(type==0x38 && ai->rvaSlot168())self->setStatus((ObjectStatusTypes)0x5B,true);
 			ai->aiMoveToPositionSA(&m_targetPos,2);
-			if(type==0x2A)m_approached=true;
+			if(type==0x2A)m_83=true;
 			return true;
 		}
 	}
@@ -1373,7 +1373,7 @@ void SpecialAbilityUpdate::startPreparation()
 	obj->rva0028CDEB(*(const Rva00346BC0 *)&Rva00391F4E(0, 0x18, 0x46), true);
 	BfmeAudioEventPrefix136 sound(specialAbilityUpdateModuleData->m_prepSoundLoop, 0);
 	((Rva002D9531 *)&sound)->rva002D9531(m_object->m_id);
-	m_prepSoundLoop = TheAudio->addAudioEvent(&sound);
+	m_34 = TheAudio->addAudioEvent(&sound);
 }
 
 bool SpecialAbilityUpdate::handlePackingProcessing()
