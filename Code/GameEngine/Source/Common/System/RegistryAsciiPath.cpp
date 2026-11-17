@@ -79,14 +79,7 @@ struct AsciiStringPlusText : AsciiStringRef
 // "string + string": two AsciiString operands. The length sums through the
 // shared header-length fold pinned at 0x002198C8 (layout-compatible with
 // the wide pair summer).
-struct AsciiStringPlusString : AsciiStringRef
-{
-	int length() const;
-	int write(char *dst);
-	operator AsciiString();
-
-	AsciiStringRef m_second;
-};
+#include "../../../Include/Common/AsciiStringPlusString.h"
 
 // "string + string + char"
 struct AsciiStringPlusStringChar : AsciiStringPlusString
