@@ -140,6 +140,7 @@ class Image:
                 self.function_sizes.setdefault(int(row["target_rva"], 16), int(row["target_size"]))
         self.function_starts = sorted(self.function_sizes)
         self.disassembly = {}
+        self.objdump = shutil.which("objdump")
 
     def text_at(self, rva, size):
         off = rva - self.text_rva
@@ -187,22 +188,27 @@ class Image:
         if size is None:
             raise ValueError(f"no function boundary at 0x{start:08X}")
         data = self.text_at(start, size)
-        objdump = shutil.which("objdump")
-        if objdump:
+        decoded = None
+        if self.objdump:
             fd, path = tempfile.mkstemp(prefix="bfme-module-registry-")
             try:
                 with os.fdopen(fd, "wb") as handle:
                     handle.write(data)
                 result = subprocess.run(
-                    [objdump, "-D", "-b", "binary", "-m", "i386", "-M", "intel",
+                    [self.objdump, "-D", "-b", "binary", "-m", "i386", "-M", "intel",
                      "--insn-width=16", "--disassemble-zeroes",
                      f"--adjust-vma=0x{start + IMAGE_BASE:X}", path],
-                    capture_output=True, text=True, check=True,
+                    capture_output=True, text=True,
                 )
-                decoded = parse_objdump_output(result.stdout)
             finally:
                 os.unlink(path)
-        else:
+            if result.returncode == 0:
+                decoded = parse_objdump_output(result.stdout)
+            else:
+                # Not GNU objdump: LLVM's, which macOS installs under that name, refuses
+                # `-b binary -m i386`. Ask it once, then decode with Capstone.
+                self.objdump = None
+        if decoded is None:
             try:
                 import capstone
             except ImportError as exc:
