@@ -428,3 +428,16 @@ retail tables, 35,063 mismatching slots), what was measured and what is exhauste
 ## 2026-11-17: Colour-module Snapshot name
 
 Rva005EA590CopyCtor.cpp now emits the native six-byte GetSnapshotName override at 003AC9A1 in slot 2 of its Snapshot table 0081D194. The exact literal is DefaultParticleModule<CAT_COLOR>; both Rva005E95C0 view signatures are synchronized. Normal paired build passes 6/6 rows. Primary and +8 interface tables are unchanged; remaining destructor, transfer and primary slots keep the real-link bridge pass test open. Evidence: `reverse/attempt_support/color-module-snapshot-name-20261117.md`.
+
+Colour-module follow-through (2026-11-17): eight exact bodies/737 bytes are
+banked across seven source commits, including the compiler-generated 8-byte
+Snapshot transfer adjustor with its parent. Normal paired verification is
+13/13, with one string and five floating references exact. Current primary
+0081D17C has its native 24-byte extent and correct slots 1-5; Snapshot 0081D194
+has correct slots 1-3. Deleting-destructor slots remain open pending actual
+Snapshot-base lifetime adoption and the legacy slot04 callback identity
+migration; the tombstone register, shared empty callback and base getter
+003ADDC7 are held by another contributor. No new hatch or private Snapshot
+copy is retained. Scoped LINKS preview is 109 -> 846 and 73 -> 73 bytes,
+against the explicitly stale 8b06c04cd2 index; no real-link clearance is claimed.
+See the same handoff for the exact remaining targets.

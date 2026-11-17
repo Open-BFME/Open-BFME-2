@@ -28,3 +28,31 @@ The derived transfer at 0055BB5C is recovered (82 bytes), together with its comp
 Primary slot 4 testColor at 0055BBAE now uses the actual keyframe and RGB members (139 bytes). Blend modes 1/2/6 compare the component sum with 0.03; mode 5 compares the product with 0.97. Complete bytes and floating references match; normal paired verification passes 12/12 rows.
 
 Primary slot 5 getColor at 003AC99A is recovered (7 bytes), returning the typed current RGB member at +94h. The primary table now has all six measured slots, with slots 1-5 backed by exact bodies or the native purecall; its deleting-destructor owner still needs repair. Normal paired verification passes 13/13 rows.
+
+## Final partial-cohort audit
+
+Eight banked bodies total 737 bytes, in seven substantive commits (the
+compiler-generated 8-byte adjustment thunk rides with its 82-byte parent).
+Normal paired verification passes 13/13 rows, one string and five floating
+references. The source's own rows grow from 109 to 846 bytes.
+
+Current-object relocation audit confirms primary 0081D17C is now 24 bytes and
+slots 1-5 resolve to the native targets. Snapshot 0081D194 remains 16 bytes
+and slots 1-3 resolve correctly. The base info table 0081D1A4 retains 16 bytes;
+its transfer slot now resolves correctly too. This diagnostic is not a data
+ledger admission or a whole-image bridge clearance.
+
+The remaining primary and secondary deleting-destructor slots need a real
+Snapshot lifetime in the info base. Its legacy slot04 empty callback is
+already rowed under that spelling. Canonical Snapshot adoption must reconcile
+that callback with loadPostProcess through the normal rename/tombstone path;
+reverse/deleted_rows.csv is currently held by another contributor. The shared
+empty body 000B3FD0 and base info getter 003ADDC7 are also held. No alias,
+private Snapshot copy or fabricated subclass is introduced to get around these
+dependencies. Remaining destructor recovery and both served table repairs stay
+open, with the exact native targets preserved in the queue.
+
+Scoped link_check predicts LINKS for both files: 109 -> 846 and 73 -> 73
+bytes. Its index is stale (8b06c04cd2, 2026-11-17 18:16), so this is a preview,
+not an updated headline or a real-image result. No real link or game run is
+claimed. Release all body and scope claims after publication.
