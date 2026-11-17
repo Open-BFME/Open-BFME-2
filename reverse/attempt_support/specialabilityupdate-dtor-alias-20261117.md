@@ -88,10 +88,15 @@ spot.
   leaving `BfmeConv526.cpp` and `BfmeConv1399.cpp` unresolved at the rowed
   `StringBase<char>` copy constructor 0x000365F0. They are exact siblings of
   the six bindings still in that file (`copyFrom@BfmeTail50`,
-  `?bfmeSetBPD@BfmeSubBPD`, …), so the same restore applies. Both spellings
-  are 66-byte twins of the rowed ctor, but a real definition would have to
-  reproduce the narrow-lock refcount body by hand; the alias is the file's
-  own mechanism.
+  `?bfmeSetBPD@BfmeSubBPD`, …), so the same restore applies.
+
+  A hatch-free twin was tried on 2026-11-17 and is impossible: both callers
+  declare a void-returning method, while the 66-byte copy constructor ends
+  `mov eax, edi` (it returns `this`). Compiling the same narrow-lock source as
+  a void method gives 64 bytes, missing exactly that `8b c7`. Changing the
+  caller's declaration would change the mangled name the link asks for, so
+  only the alias (or the caller-side declaration, held by another worker) can
+  bind these.
 
 ## Why a "trade a dead alias for a needed one" does not work
 
