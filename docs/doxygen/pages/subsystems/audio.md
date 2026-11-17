@@ -280,7 +280,28 @@ Zero Hour's code is in `GameEngine/Source/Common/Audio/` (`GameAudio.cpp`,
   directory, `AIL_quick_startup` with the `AudioSettings` output rate, bits
   and channels, Miles WAV parsing and ADPCM decompression, and Miles file
   callbacks into `TheFileSystem`. A port must replace or emulate all of them
-  and keep archive access for sound files.
+  and keep archive access for sound files. The shipped `mss32.dll` is Miles
+  6.6g (its version strings), and a replacement has to keep these
+  behaviours of the shipped binaries:
+  - `MilesAudioManager::selectProvider` sets the chosen 3D provider's
+    rolloff factor to 0. With 0, the Miles Fast 2D provider (`msssoft.m3d`)
+    applies no distance falloff up to a sample's maximum distance and, by
+    default, silences it beyond; the EAX provider (`msseax.m3d`) hands the
+    0 to the DirectSound 3D listener. A backend must not add a default
+    falloff of its own.
+  - The stream playback-rate command (`SetStreamPlaybackRateCommand::execute`,
+    a name inferred in this tree) reads the data rate from
+    `AIL_stream_info` and passes it, times a scale, to
+    `AIL_set_stream_playback_rate`. Miles 6.6g reports that rate in samples
+    a second (Hz), not bytes a second.
+  - Two manager virtuals set Miles preference 0x2A to an `AudioSettings`
+    value (`MixaheadLatency` or `MixaheadLatencyDuringMovies`) divided by
+    preference 0x22, so a replacement must not report preference 0x22 as 0.
+
+  Observed under a reimplementation of the Miles API, not on retail Miles:
+  while that layer ignored the rolloff of 0 and applied a falloff of its
+  own, battle sounds were quieter, and while it gave the data rate in
+  bytes a second, 16-bit stereo music played four times too fast.
 - **3D providers are hard-coded by name.** With the EAX option on, the
   manager tries `Creative Labs EAX 3 (TM)`. Next comes `Dolby Surround`
   when the Windows speaker setup and the audio level of detail allow it,
