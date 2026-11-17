@@ -818,9 +818,14 @@
 /// itself (setFPMode) at several points, among them GameLogic::init,
 /// GameLogic::getCRC and INI::loadFile. Direct3D without its FPU-preserve
 /// flag also forces single precision on the creating thread (Direct3D API
-/// behaviour). No other code that writes `DX8Wrapper_PreserveFPU` has been
-/// found, so retail presumably creates the device without the flag. A port
-/// off x87 or to another renderer must reproduce setFPMode's mode for logic
+/// behaviour). The retail executable refers to `DX8Wrapper_PreserveFPU` in
+/// two places only, this function and DX8Wrapper::Create_Device, and the
+/// setting starts at zero, so retail creates the device without the flag.
+/// Observed under a reimplementation of Direct3D 9 running the 1.00 and
+/// Rise of the Witch-king code, not on retail Windows and not with 1.06:
+/// the creating thread's x87 control word was already 0x007F (setFPMode's
+/// mode, exceptions masked) when the device was created. A port off x87
+/// or to another renderer must reproduce setFPMode's mode for logic
 /// results to match retail; this has not been measured.
 ///
 /// \see DX8Wrapper::Create_Device, setFPMode
