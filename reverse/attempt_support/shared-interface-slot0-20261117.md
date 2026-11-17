@@ -77,3 +77,11 @@ notification also matches privately with a fourth primary virtual slot; that
 empty slot is folded at 0x000B3FD0, currently claimed by another worker, so
 neither it nor the back-button override is applied. These private successes
 are prerequisites, not banked rows or measured bridge retirement.
+
+The sibling Rva005E6F9D icon-background override at 0x005E6894 is
+independently recovered with its constructor-proven +C shared interface.
+Retail C77E5C (the class's own primary table) and C750A0 (its descendant)
+both select it in slot2. The ordinary paired build passes 92/92 rows,
+including the original standalone nineteen-byte owner retained in the
+consumer. Both call relocations agree. This adds a native class binding,
+not new unique authored bytes, and still awaits a published real-link pass.

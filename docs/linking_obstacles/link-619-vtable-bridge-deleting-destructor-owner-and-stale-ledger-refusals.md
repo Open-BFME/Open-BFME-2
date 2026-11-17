@@ -12,8 +12,8 @@ misowned entries were retracted with all original coverage retained; the
 retraction hook verifies 289 dependent sources. Correct base and derived
 callbacks and their natural adjustments are then banked individually.
 The final paired build verifies 90/90 rows. A further nineteen-byte
-icon-background override at 0x005E5575 is recovered with both native call
-targets; the next derived shared callback needs base-thunk ownership
+icon-background override at 0x005E5575 and its sibling at 0x005E6894 are
+recovered with both native call targets (paired build92/92); the next derived shared callback needs base-thunk ownership
 consolidation, and a neighboring empty slot is held by another worker.
 Published bridge retirement
 is still pending. See

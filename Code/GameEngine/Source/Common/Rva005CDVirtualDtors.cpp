@@ -74,6 +74,7 @@ class Rva005E6F9D : public Rva005F64F5, public Rva005E4F6D
 {
 public:
     virtual ~Rva005E6F9D();
+    virtual void notifyIconListBackgroundClicked();
 private:
     Rva005E6D90 child20;
 };
@@ -157,5 +158,12 @@ void Rva005E4F6D::slot1()
 void Rva005E54F7::notifyIconListBackgroundClicked()
 {
     reinterpret_cast<Rva005E508F *>(reinterpret_cast<char *>(this) + 8)->rva005E509F();
+    StrategicHUD::ArmyDetailsMovieClip::notifyIconListBackgroundClicked();
+}
+
+// Native C77E5C/C750A0 slot2: shared interface at +C, then the base hook.
+void Rva005E6F9D::notifyIconListBackgroundClicked()
+{
+    reinterpret_cast<Rva005E508F *>(reinterpret_cast<char *>(this) + 0xC)->rva005E509F();
     StrategicHUD::ArmyDetailsMovieClip::notifyIconListBackgroundClicked();
 }
