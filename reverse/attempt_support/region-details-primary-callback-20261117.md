@@ -26,3 +26,7 @@ followed by the existing5E6826 forwarder. Whole child source passes7/7.
 
 Descendant slot2 is independently recovered at5CE9B4 through the same
 source-record target and existing5E681E forwarder. Whole child source8/8.
+
+Descendant slot3 at5CF703 allocates20B, invokes existing constructor5CF4A8,
+and transfers the helper through source->holder1C. Re-reading source after
+allocation/construction reproduces the native78B lifetime; whole source9/9.
