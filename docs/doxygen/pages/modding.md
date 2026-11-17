@@ -36,6 +36,13 @@ the game-folder and `apt` archives, with later language-archive names
 winning among themselves. BFME 2's directory-tree code has not been
 identified yet, so treat this rule as Zero Hour's until it is.
 
+One observation agrees with that rule for maps in the game folder. It was
+made with the 1.00 and 1.06 game code recompiled for another CPU and run
+over a reimplemented Win32 layer, not on retail Windows: an extra archive
+whose name sorts before the shipped ones (`!camera.big`), holding edited
+copies of maps that shipped archives also hold, supplied the maps the game
+loaded.
+
 **Archives or loose files first.** By default `FileSystem::openFile`
 searches the mounted archives first and loose files on disk only after
 that, so an archived file wins over a loose file with the same path. When
@@ -124,6 +131,18 @@ map's folder for `map.ini` and `solo.ini` and loads each one in
 override mode, without the CRC writer, then loads `map.str` as the map's
 string table. A separate step loads the folder's `ambientlightmap.tga`
 into the terrain, if present.
+
+**Per-map camera.** A map's `WorldInfo` dictionary can hold the real-valued
+keys `cameraMinHeight`, `cameraMaxHeight`, `cameraPitchAngle`,
+`cameraYawAngle` and `cameraScrollSpeedScalar`. A camera-settings record in
+the game client (its class is not named yet) reads each key from the map
+first and falls back to the matching `GameData.ini` field
+(`DefaultCameraMinHeight` and so on) only when the map lacks it. The
+shipped `GameData.ini` sets a maximum height of 300, but most shipped maps
+carry their own: 300 in 56 of the 62 maps of 1.00, and 450 in 61 of the 67
+maps a 1.06 install resolves to under the archive rule above. Changing
+`DefaultCameraMaxHeight` alone therefore does not change the view on
+those maps.
 
 \ref sub_ini covers the parser, the legend and the stores.
 
