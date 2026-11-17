@@ -37,3 +37,25 @@ the requested heading or returns success; exit restores FLT_MAX. Final normal
 build:48/48, four complete strings and two float literals verified. Existing
 standalone providers remain covered. Neither class-name reconciliation nor
 the remaining transfer/update slots is claimed complete.
+
+The constructor view's update at003425BF is now independently exact90B,
+using the canonical Thing orientation accessor/setter and AIUpdate's slot135.
+Normal49/49, four strings and three float literals pass; the original named
+AIFaceDirectionState update remains covered. For this first table, transfer
+slot00306A9B is still held elsewhere, so it is not changed.
+
+A read-only rename.class--fold trial from Rva00342547 to the already-spelled
+AIFaceDirectionState refuses. Its narrow proof accepts neither the native
+snapshot string as a table-name tie nor the scalar deleting destructor fold
+at004D8507 currently rowed under TurretAIIdleState. The exact refusal is in
+build/continuation-20261117c-face-class-fold-dry.log and a false-reject verdict
+records the native constructor/getter proof. No class rename, hand table-name
+rewrite, alias or change to that guard was attempted. Class reconciliation
+therefore remains a tooling prerequisite, independent of the callback bytes.
+
+Strict preparation of the preceding48-row state generated a reusable receipt.
+Its scoped link_check verdict reads LINKS588->689B against index8b06c04cd2
+(Nov17 18:16), with a since-index source-change warning. This is a scoped
+prediction and file-summed ICF coverage, not unique authored growth or a game
+run. The broad publication audit remains inconclusive for a missing affected
+consumer receipt (AIBaseBuilder.cpp). No maintainer-only runner was started.

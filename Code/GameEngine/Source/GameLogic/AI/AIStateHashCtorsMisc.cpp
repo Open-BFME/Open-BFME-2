@@ -22,6 +22,7 @@ class Rva00342547 : public State
 {
 public:
 	Rva00342547(StateMachine *machine);
+	virtual StateReturnType update();
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType);
 	virtual const char *GetSnapshotName() const { return "AIFaceDirectionState"; }
@@ -282,4 +283,21 @@ StateReturnType Rva00342547::onEnter()
 void Rva00342547::onExit(StateExitType)
 {
     reinterpret_cast<FaceDirectionOwnerView *>(getMachineOwner())->ai->m_field1A0 = FLT_MAX;
+}
+
+#include "../../Common/Thing/thing.h"
+float normalizeAngle(float);
+// Native C12378 slot6,90B: finish a near turn, otherwise request its heading.
+StateReturnType Rva00342547::update()
+{
+    Thing *owner = reinterpret_cast<Thing *>(getMachineOwner());
+    float angle = m_20;
+    float delta = normalizeAngle(angle - owner->getOrientation());
+    if (delta < 0.31415927f)
+    {
+        owner->setOrientation(m_20);
+        return STATE_SUCCESS;
+    }
+    reinterpret_cast<FaceDirectionOwnerView *>(owner)->ai->setLocomotorGoalOrientation(m_20);
+    return STATE_CONTINUE;
 }
