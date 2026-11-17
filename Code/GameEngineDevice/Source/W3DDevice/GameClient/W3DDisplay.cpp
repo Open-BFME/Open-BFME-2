@@ -43,16 +43,7 @@ bool __cdecl BFME_DX8_Thread_Assert(void);
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class IDirect3DSurface9;
 class DX8Caps;
-class DX8Wrapper
-{
-public:
-	static IDirect3DSurface9 *_Get_DX8_Front_Buffer();
-	static const DX8Caps *Get_Current_Caps() { return CurrentCaps; }
-
-protected:
-	// The caps at 0x00DEDA7C (defined in dx8wrapper.cpp).
-	static DX8Caps *CurrentCaps;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 #include "../../../../GameEngine/Include/Common/GameLODManager.h"
