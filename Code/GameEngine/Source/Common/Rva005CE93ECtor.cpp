@@ -13,6 +13,7 @@
 // The existing constructor provider owns its actual member layout.
 struct Rva005CF22CBig { char prefix00[0x1C]; Rva00575674 sub1C; };
 class Rva005CEF2F { public: Rva005CEF2F(Rva005CF22CBig *, int); private: char storage[20]; };
+class Rva005CEE9F { public: Rva005CEE9F(Rva005CF22CBig *, int); private: char storage[20]; };
 
 struct Rva005CE93ESourcePrefix { unsigned int unknown00; void *target04; };
 class Rva005E6826Mid { public: void fwd(); };
@@ -43,6 +44,7 @@ public:
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3(int);
+	virtual void slot4(int);
 	// Implicit virtual destructor: native 5CEC55 adjusts the virtual-base
 	// receiver by -4 and tail-calls Rva005CC698::~Rva005CC698 (5CC788).
 	// An explicit empty destructor adds table writes absent from retail.
@@ -97,5 +99,11 @@ void Rva005CE93E::slot2()
 void Rva005CE93E::slot3(int value)
 {
     Rva005CEF2F *helper = new Rva005CEF2F(static_cast<Rva005CF22CBig *>(source), value);
+    static_cast<Rva005CF22CBig *>(source)->sub1C.rva00575674(reinterpret_cast<Object *>(helper));
+}
+
+void Rva005CE93E::slot4(int value)
+{
+    Rva005CEE9F *helper = new Rva005CEE9F(static_cast<Rva005CF22CBig *>(source), value);
     static_cast<Rva005CF22CBig *>(source)->sub1C.rva00575674(reinterpret_cast<Object *>(helper));
 }

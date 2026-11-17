@@ -30,3 +30,6 @@ source-record target and existing5E681E forwarder. Whole child source8/8.
 Descendant slot3 at5CF703 allocates20B, invokes existing constructor5CF4A8,
 and transfers the helper through source->holder1C. Re-reading source after
 allocation/construction reproduces the native78B lifetime; whole source9/9.
+
+Descendant slot4 at5CF22C independently matches78B with the20B region
+helper and existing constructor5CF07E; all10 child-source rows pass.
