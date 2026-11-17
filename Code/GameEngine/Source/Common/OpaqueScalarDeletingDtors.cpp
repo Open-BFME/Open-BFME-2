@@ -89,18 +89,22 @@ W3DQuadrupedDrawModuleData *Rva0065288_Anchor(int)
 
 // ??_GRva00751EF@@UAEPAXI@Z is emitted (retail-identical) and rowed in Rva00751EFDtor.cpp.
 
-class Rva0089851
+// FlightDeckBehavior::RunwayInfo (non-virtual destructor row 0x00089851); only the
+// destructor is declared, its complete body and layout live in its own unit.
+class FlightDeckBehavior
 {
 public:
-	Rva0089851(EmitVtableTag *);
-	virtual ~Rva0089851();
+	struct RunwayInfo
+	{
+		~RunwayInfo(void);
+	};
 };
 
-// The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
-// ?<Rva0089851::Rva0089851> absent-from-retail
-Rva0089851::Rva0089851(EmitVtableTag *)
+// Anchor: deleting one emits ??_GRunwayInfo@FlightDeckBehavior (calls the destructor row);
+// retail's 28B body at 0x0008A218 sits in no vtable, so the destructor stays non-virtual.
+void Rva0089851_Anchor(FlightDeckBehavior::RunwayInfo *object)
 {
+	delete object;
 }
 
 class Rva0090771
@@ -126,18 +130,14 @@ void Rva0011018B_Anchor(Rva00785FD0Renderer *object)
 	delete object;
 }
 
-class Rva00119D00
-{
-public:
-	Rva00119D00(EmitVtableTag *);
-	virtual ~Rva00119D00();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
-// The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
-// ?<Rva00119D00::Rva00119D00> absent-from-retail
-Rva00119D00::Rva00119D00(EmitVtableTag *)
+// Anchor: deleting one emits the scalar deleting destructor ??_GRender2DClass (it
+// calls out to the non-virtual destructor row 0x00119D00). Retail's 28B body at
+// 0x00043057 sits in no vtable, so the class keeps its non-virtual destructor.
+void Rva00119D00_Anchor(Render2DClass *object)
 {
+	delete object;
 }
 
 #include "../../Include/GameClient/SubTitleWindow.h"
@@ -687,18 +687,13 @@ Rva00AB15D *Rva00AB15D_Anchor(int)
 	return new Rva00AB15D(0);
 }
 
-class Rva00B6CF1
-{
-public:
-	Rva00B6CF1(EmitVtableTag *);
-	virtual ~Rva00B6CF1();
-};
+#include "../../Include/Common/BfmeStringRecord000B94D2.h"
 
-// The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
-// ?<Rva00B6CF1::Rva00B6CF1> absent-from-retail
-Rva00B6CF1::Rva00B6CF1(EmitVtableTag *)
+// Anchor: deleting one emits ??_GBfmeStringRecord000B94D2 (calls the non-virtual destructor
+// row 0x000B6CF1); retail's 28B body at 0x000B983A sits in no vtable.
+void Rva00B6CF1_Anchor(BfmeStringRecord000B94D2 *object)
 {
+	delete object;
 }
 
 class Rva0073EE55
@@ -785,18 +780,24 @@ Rva00A897D::Rva00A897D(EmitVtableTag *)
 {
 }
 
-class Rva0084CEF
+// Rva00084CEF: the track-system record whose non-virtual destructor row is 0x00084CEF
+// (same view as its owner TerrainTrackEdgeInfoO1.cpp; destructor only declared here).
+class Rva00084CEF
 {
 public:
-	Rva0084CEF(EmitVtableTag *);
-	virtual ~Rva0084CEF();
+	~Rva00084CEF();
+private:
+	char _pad00[8];
+	void *m_08;
+	char _pad0C[0x18 - 0x0C];
+	void *m_18;
 };
 
-// The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
-// ?<Rva0084CEF::Rva0084CEF> absent-from-retail
-Rva0084CEF::Rva0084CEF(EmitVtableTag *)
+// Anchor: deleting one emits ??_GRva00084CEF (calls the destructor row); retail's 28B
+// body at 0x00091AB2 sits in no vtable.
+void Rva0084CEF_Anchor(Rva00084CEF *object)
 {
+	delete object;
 }
 
 class ObjectModule_B2
