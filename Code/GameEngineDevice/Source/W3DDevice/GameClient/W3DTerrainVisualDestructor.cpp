@@ -8,7 +8,7 @@
 // (reference @ 575ba2b04).
 //
 // BFME 2 target facts: two vptrs (0x00BC80A0 at +0, 0x00BC8068 at +4) and a
-// 0x14-byte base whose destructor is rowed as Rva002DAB18; the terrain
+// 0x14-byte base whose destructor is rowed as TerrainVisual; the terrain
 // render object, water object and logic height map sit at +0x14/+0x18/+0x1C.
 // The tracks system and shadow manager are deleted through non-virtual views
 // of their destructor bodies (pinned 0x00084CEF and 0x0009A500), the
@@ -16,29 +16,7 @@
 // virtual destructor, and the water global keeps its ledger spelling
 // (W3DGCData00DE2000 at 0x00DE2000).
 
-// Rva002DAB18's bases: the Snapshot table 0x00BBB554 (slots 1-3 __purecall)
-// and the SubsystemInterface table 0x00C039A0.
-class Rva002DAB18Primary
-{
-public:
-	virtual void loadPostProcess() = 0;
-};
-
-class Rva002DAB18Secondary
-{
-public:
-	virtual void init() = 0;
-private:
-	int m_04;
-	int m_08;
-	int m_0C;
-};
-
-class Rva002DAB18 : public Rva002DAB18Primary, public Rva002DAB18Secondary
-{
-public:
-	virtual ~Rva002DAB18();
-};
+#include "../../../../GameEngine/Include/GameClient/TerrainVisualClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
@@ -91,7 +69,7 @@ extern W3DShadowManager *TheW3DShadowManager;
 extern BfmeB991 *g_bfmeB991;
 extern void *W3DGCData00DE2000;
 
-class W3DTerrainVisual : public Rva002DAB18
+class W3DTerrainVisual : public TerrainVisual
 {
 public:
 	virtual ~W3DTerrainVisual();
