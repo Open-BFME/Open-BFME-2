@@ -9,6 +9,7 @@ class Rva005CF8A1
 public:
 	Rva005CF8A1(void *p);
 	virtual ~Rva005CF8A1();
+	virtual void slot1();
 private:
 	char m_pad04[0x10 - 4];
 };
@@ -36,4 +37,11 @@ Rva005D078B::Rva005D078B(void *p)
 	, Rva005D0C31Second()
 {
 	((Rva005A0B4CList *)((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->field10 + 0x5C))->append((Rva002BA8F1Listener *)((char *)this + 0x10));
+}
+
+#include "../../../Include/Common/Rva00574192.h"
+// Base ctor5CF8A1 installsC75298, whose slot1 is native5CF8DB.
+void Rva005CF8A1::slot1()
+{
+    reinterpret_cast<Rva00574192 *>(reinterpret_cast<char *>(this) + 8)->rva00574192();
 }
