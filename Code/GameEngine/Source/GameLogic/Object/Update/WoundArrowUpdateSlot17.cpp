@@ -24,15 +24,15 @@ enum WeaponSetType
 	WEAPONSET_NONE = 0
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 class Object;
 

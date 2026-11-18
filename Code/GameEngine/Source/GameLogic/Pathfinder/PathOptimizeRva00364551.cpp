@@ -17,7 +17,7 @@ struct PathAngle2D {
 struct PathTemplateView {char pad[0x108];unsigned flags108;};
 class Object {public:void *vtable;PathTemplateView *templ;};
 #include "../../../Include/GameLogic/PathNode.h"
-enum PathfindLayerEnum {LAYER_GROUND=1};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

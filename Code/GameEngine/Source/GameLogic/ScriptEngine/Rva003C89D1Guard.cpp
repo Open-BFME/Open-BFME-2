@@ -5,7 +5,7 @@
 // Evidence: abuts 0x003C8964 doUnitGuardPosition; caller 0x003CB695; rowed getUnitNamed 0x003588E7 plus aiGuardObject guard plus AI +0x258 +0x20
 class Parameter;
 class Object;
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

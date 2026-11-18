@@ -19,10 +19,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 #include <vector>
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 #include "../../../../Include/GameLogic/Module/Rva004B555F.h"
 

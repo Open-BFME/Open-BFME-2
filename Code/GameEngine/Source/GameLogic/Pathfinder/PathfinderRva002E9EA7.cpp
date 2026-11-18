@@ -17,7 +17,7 @@
 #include "../../../Include/Common/PathfinderCellPoint.h"
 enum Relationship { ENEMIES = 0, NEUTRAL, ALLIES };
 enum PathfindLayerEnum { LAYER_GROUND = 0, LAYER_WALL = 1 };
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 PathfinderCellPoint rva002E79A8(Bool centerInCell, Int cellX, Int cellY, PathfindLayerEnum layer);
 
 #include "../../../Include/Common/ThingTemplate.h"

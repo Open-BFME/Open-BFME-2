@@ -9,7 +9,7 @@
 // Existing six-word neutral probe ABI retained for its already-matched caller.
 // Pointer layouts are target-supported views, not recovered canonical classes.
 #include "../../../Include/Common/ScalarTypes.h"
-enum PathfindLayerEnum { LAYER_INVALID=0, LAYER_GROUND=1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 enum Relationship { ENEMIES=0, NEUTRAL=1, ALLIES=2 };
 #include "../../../Include/Common/ThingTemplate.h"
 class Object {

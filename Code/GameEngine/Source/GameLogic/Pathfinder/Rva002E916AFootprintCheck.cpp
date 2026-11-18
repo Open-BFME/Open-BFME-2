@@ -16,7 +16,7 @@
 // class-gate: allow ICoord2D TU-local view: the canonical header lacks the ICoord2DBase base and operator!=, and retail calls the rowed out-of-line ICoord2D::operator!= at 0x00004CC9.
 #include "../../../Include/Common/ICoord2DBase.h"
 struct ICoord2D:public ICoord2DBase {bool operator!=(const ICoord2DBase&)const;};
-enum PathfindLayerEnum { LAYER_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 #include "../../../Include/GameLogic/PathfindCell.h"
 struct Rva002E8145Info {int opaque,skipX,skipY;};
 class Rva002E7388Owner;

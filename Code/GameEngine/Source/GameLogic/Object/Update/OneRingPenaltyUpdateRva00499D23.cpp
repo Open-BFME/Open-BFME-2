@@ -26,12 +26,12 @@ float Cos(float val);
 float Sin(float val);
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

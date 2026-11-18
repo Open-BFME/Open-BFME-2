@@ -30,8 +30,8 @@ enum ObjectStatusTypes;
 class Team;
 class AIUpdateInterface;
 class Rva00373EC6;
-enum DamageType { DAMAGE_SNIPER = 8 };
-enum DeathType { DEATH_NORMAL = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DamageType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
 class Object : public Thing
 {
 public:

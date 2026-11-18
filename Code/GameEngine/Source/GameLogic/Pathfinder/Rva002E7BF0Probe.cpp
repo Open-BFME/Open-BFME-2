@@ -19,10 +19,10 @@
 
 #include "Coord3D.h"
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 #include "../../../Include/GameLogic/PathfindCell.h"
 

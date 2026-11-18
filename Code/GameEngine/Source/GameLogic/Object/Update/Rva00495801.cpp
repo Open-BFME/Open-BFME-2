@@ -6,16 +6,16 @@
 // Object at +0x08 setWeaponLock slot *(+0x24+0x80) LOCKED_TEMPORARILY,
 // returns 1. Callers in CommandButtonHunt area 0x0049590F; callees rowed
 // aiHunt 0x002AE657 and setWeaponLock 0x00290B24.
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 enum WeaponLockType
 {
 	NOT_LOCKED = 0,

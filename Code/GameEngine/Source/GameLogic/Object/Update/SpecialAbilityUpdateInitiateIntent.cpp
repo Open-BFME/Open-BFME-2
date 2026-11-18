@@ -30,14 +30,14 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_IS_USING_ABILITY = 0x17
 };
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 #define VSLOT(n) virtual void vslot##n();
 
 class Player;

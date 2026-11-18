@@ -12,10 +12,10 @@
 // conversion is the rowed NameKeyGenerator::nameToKey (0x009FA65)
 // through the 0xDF36A4 global; _strcmpi rides its msvcr71 IAT slot.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include <string.h>
 #include "ascii_string.h"

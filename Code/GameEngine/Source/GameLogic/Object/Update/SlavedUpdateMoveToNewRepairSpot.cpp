@@ -18,21 +18,21 @@
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-enum LocomotorSetType
-{
-	LOCOMOTORSET_NORMAL = 0,
-	LOCOMOTORSET_NORMAL_UPGRADED = 1,
-	LOCOMOTORSET_FREEFALL = 2,
-	LOCOMOTORSET_WANDER = 3,
-	LOCOMOTORSET_PANIC = 4
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+
+
+
+
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 class Object;
 class AIUpdateInterface;

@@ -11,11 +11,11 @@ extern "C" void _ReadWriteBarrier(void);
 
 
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 struct Rva003642DFNode {

@@ -26,7 +26,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "../../../Include/Common/ScalarTypes.h"
 
 typedef unsigned short DataChunkVersionType;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include <windows.h>
 #include "ascii_string.h"

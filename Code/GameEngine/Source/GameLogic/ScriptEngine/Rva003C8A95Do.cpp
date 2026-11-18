@@ -8,7 +8,7 @@
 // Precedent Rva003C8A15Do Rva003C89D1Guard.
 class Parameter;
 class Object;
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

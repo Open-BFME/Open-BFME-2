@@ -19,7 +19,7 @@ struct Coord3D : Coord3DBase {
 };
 typedef char AttackCoordinateSizeCheck[sizeof(Coord3D) == 12 ? 1 : -1];
 
-enum PathfindLayerEnum { LAYER_GROUND = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 enum WeaponSlotType;
 enum AttackViewKind { AttackViewKind2 = 2, AttackViewKind59 = 59, AttackViewKind214 = 214 };
 struct AttackViewTemplate {

@@ -8,7 +8,7 @@
 // aiEvacuate 0x002AE6B3, caller 0x003CC173. Precedent doNamedExitAll.
 #include "ascii_string.h"
 
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 class Object;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

@@ -3,7 +3,7 @@ typedef int Int;
 typedef float Real;
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-enum PathfindLayerEnum { LAYER_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 #include "object.h"
 struct FlagBlock { char m_pad[0x10f]; unsigned char m_flags; };
 class WeaponTemplate;

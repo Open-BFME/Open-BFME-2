@@ -11,7 +11,7 @@
 class Parameter;
 class Object;
 
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 enum WeaponLockType { NOT_LOCKED, LOCKED_TEMPORARILY, LOCKED_PERMANENTLY };
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

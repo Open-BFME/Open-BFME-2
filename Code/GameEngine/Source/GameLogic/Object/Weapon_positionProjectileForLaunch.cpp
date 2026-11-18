@@ -19,10 +19,10 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

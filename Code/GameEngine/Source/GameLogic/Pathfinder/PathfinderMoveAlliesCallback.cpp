@@ -19,10 +19,10 @@ enum Relationship
 	NEUTRAL = 1,
 	ALLIES = 2
 };
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 class Object;
 #include "../../../Include/GameLogic/Module/HordeContainInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"

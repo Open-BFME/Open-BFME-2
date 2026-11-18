@@ -24,11 +24,11 @@
 
 
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 
 // Coord3D: retail user ctors, opt-in view (Lib/Coord3DCtorView.h); no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"

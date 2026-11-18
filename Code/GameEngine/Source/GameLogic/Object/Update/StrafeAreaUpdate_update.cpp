@@ -24,7 +24,7 @@
 #include "ascii_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-enum CommandSourceType {CMD_FROM_AI=2};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 class AICommandInterface {public:void aiMoveToPosition(const Coord3D *,CommandSourceType);};
 template<int N> class StrafeAISlots:public StrafeAISlots<N-1> {public:virtual void gap(char (*)[N])=0;};template<> class StrafeAISlots<0> {};
 class AIUpdateInterface:public StrafeAISlots<98> {public:virtual AIUpdateInterface *rvaSlot98()=0;
@@ -101,7 +101,7 @@ struct StrafeDirection:public Coord3D {
  __forceinline StrafeDirection(const Coord3D &v){x=v.x;y=v.y;z=v.z;}
  __forceinline void sub(const Coord3D &v){x-=v.x;y-=v.y;z-=v.z;}
 };
-enum UpdateSleepTime {UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
