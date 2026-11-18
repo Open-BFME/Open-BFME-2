@@ -5,12 +5,18 @@
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 
-class CriticalSectionLock
+// The scoped lock whose out-of-line pair retail keeps at 0x001DBA85 (constructor, rowed
+// as Rva001DBA85 in GapBodiesGE49.cpp) and 0x001DBA9B (destructor: push [ecx]; call
+// LeaveCriticalSection; ret). Retail's unwind funclets for this unit's guarded functions
+// jump to 0x001DBA9B (0x00769881, 0x007698DC). It is not CriticalSectionLock, whose
+// destructor 0x0061FC60 (mov eax,[ecx]; push eax) only the nine funclets at
+// 0x007A7513..0x007A76C3 reach.
+class Rva001DBA85
 {
 public:
 	CRITICAL_SECTION *m_cs;
-	CriticalSectionLock(CRITICAL_SECTION *cs) : m_cs(cs) { EnterCriticalSection(m_cs); }
-	~CriticalSectionLock() { LeaveCriticalSection(m_cs); }
+	Rva001DBA85(CRITICAL_SECTION *cs) : m_cs(cs) { EnterCriticalSection(m_cs); }
+	~Rva001DBA85() { LeaveCriticalSection(m_cs); }
 };
 
 void regainFocus();
@@ -66,7 +72,7 @@ void Rva001DBAA4::regainFocus()
 
 void Rva001DBAA4::unlock()
 {
-	CriticalSectionLock lock(&m_cs);
+	Rva001DBA85 lock(&m_cs);
 	--m_lockCount;
 	if (m_lockCount <= 0)
 		::regainFocus();
