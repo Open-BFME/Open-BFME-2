@@ -77,34 +77,45 @@ typedef BitFlags<11> DisabledMaskType;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
+class UpgradeTemplate;
+class ThingTemplate;
+class AsciiString;
+class Rva0049D1B1;
+struct Rva0049D0DEMask;
+enum CanMakeType;
+enum ProductionID;
+
 class Rva0049E03AIface20
 {
 public:
 	Rva0049E03AIface20();
-	virtual void rva0049E03ASlot20() = 0;
-	// Retail table 0x00C513F0: 30 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void slot5() = 0;
-	virtual void slot6() = 0;
-	virtual void slot7() = 0;
-	virtual void slot8() = 0;
-	virtual void slot9() = 0;
+	// Retail table 0x00C513F0 is 31 __purecall entries. Nineteen take the signature
+	// of the rowed ProductionUpdate override retail's table 0x00C51478 holds there
+	// (ProductionUpdateQueue.cpp declares the same members); the other twelve (10,
+	// 12, 17, 21, 23 to 30) are rowed under other classes and stay anonymous.
+	virtual CanMakeType rva0049CFCD() const = 0;
+	virtual CanMakeType canQueueUpgrade(const UpgradeTemplate *upgrade) const = 0;
+	virtual ProductionID requestUniqueUnitID() = 0;
+	virtual bool queueUpgrade(const UpgradeTemplate *upgrade) = 0;
+	virtual void cancelUpgrade(const UpgradeTemplate *upgrade) = 0;
+	virtual void rva0049CC9D(const ThingTemplate *unitType, bool five) = 0;
+	virtual bool isUpgradeInQueue(const UpgradeTemplate *upgrade) const = 0;
+	virtual unsigned int countUnitTypeInQueue(const ThingTemplate *unitType) const = 0;
+	virtual bool queueCreateUnit(const ThingTemplate *, int, ProductionID, int, bool, const AsciiString &, bool) = 0;
+	virtual bool rva0049CC36(ProductionID productionID) const = 0;
 	virtual void slot10() = 0;
-	virtual void slot11() = 0;
+	virtual void rva0049CC61(const ThingTemplate *unitType) = 0;
 	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
+	virtual void rva0049F8A9(const ThingTemplate *unitType, bool cancel) = 0;
+	virtual void rva0049CC15(ProductionID productionID, int value) = 0;
+	virtual void cancelAndRefundAllProduction() = 0;
+	virtual void rva0049DEC8() = 0;
 	virtual void slot17() = 0;
-	virtual void slot18() = 0;
-	virtual void slot19() = 0;
-	virtual void slot20() = 0;
+	virtual unsigned int rva0049CEAE(const ThingTemplate *unitType) const = 0;
+	virtual unsigned int rva0049CEE1(int value) const = 0;
+	virtual unsigned int rva0049D0DE(const Rva0049D0DEMask *mask) const = 0;
 	virtual void slot21() = 0;
-	virtual void slot22() = 0;
+	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const = 0;
 	virtual void slot23() = 0;
 	virtual void slot24() = 0;
 	virtual void slot25() = 0;
@@ -177,6 +188,32 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@ProductionUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	// BehaviorModuleInterface table 0x00C51500, slot 7: the null-preserving
+	// conversion of the +0x0C receiver to the +0x24 interface (0x003730FC).
+	virtual DieModuleInterface *getDie() { return reinterpret_cast<DieModuleInterface *>(static_cast<Rva0049E03AIface24 *>(this)); }
+	// +0x20 interface table 0x00C51478: the nineteen rowed overrides.
+	virtual CanMakeType rva0049CFCD() const;
+	virtual CanMakeType canQueueUpgrade(const UpgradeTemplate *upgrade) const;
+	virtual ProductionID requestUniqueUnitID();
+	virtual bool queueUpgrade(const UpgradeTemplate *upgrade);
+	virtual void cancelUpgrade(const UpgradeTemplate *upgrade);
+	virtual void rva0049CC9D(const ThingTemplate *unitType, bool five);
+	virtual bool isUpgradeInQueue(const UpgradeTemplate *upgrade) const;
+	virtual unsigned int countUnitTypeInQueue(const ThingTemplate *unitType) const;
+	virtual bool queueCreateUnit(const ThingTemplate *, int, ProductionID, int, bool, const AsciiString &, bool);
+	virtual bool rva0049CC36(ProductionID productionID) const;
+	virtual void rva0049CC61(const ThingTemplate *unitType);
+	virtual void rva0049F8A9(const ThingTemplate *unitType, bool cancel);
+	virtual void rva0049CC15(ProductionID productionID, int value);
+	virtual void cancelAndRefundAllProduction();
+	virtual void rva0049DEC8();
+	virtual unsigned int rva0049CEAE(const ThingTemplate *unitType) const;
+	virtual unsigned int rva0049CEE1(int value) const;
+	virtual unsigned int rva0049D0DE(const Rva0049D0DEMask *mask) const;
+	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
+protected:
+	// Primary table 0x00C515BC, slot 3: the rowed xfer 0x0049F91A.
+	virtual void xfer(Xfer *xfer);
 };
 
 ProductionUpdate::ProductionUpdate(Thing *thing, const ModuleData *moduleData) :
