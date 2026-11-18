@@ -123,6 +123,12 @@ public:
 	// interface 0x00C42598 (0x0045FE4A).
 	virtual UpdateSleepTime update();
 	virtual void onDie(const DamageInfo *damageInfo);
+	// DamageModuleInterface 0x00C4259C: the rowed onDamage 0x0045FDF3, the shared
+	// `ret 4` 0x0047A69C (Zero Hour's empty onHealing) and the rowed
+	// onBodyDamageStateChange 0x004604D5.
+	virtual void onDamage(DamageInfo *damageInfo);
+	virtual void onHealing(DamageInfo *damageInfo) {}
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 	virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data);
 protected:
 	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
