@@ -10,9 +10,9 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 
 #include <vector>
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ScienceType
 {

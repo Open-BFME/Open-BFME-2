@@ -21,8 +21,8 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void *& vector<
 namespace _STL { template <> void ** vector<void *, allocator<void *> >::begin(); }
 namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *, allocator<void *> >::size() const { return (unsigned int)(this->_M_finish - this->_M_start); } }
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum NameKeyType { NAMEKEY_INVALID = 0, FORCE_NAMEKEYTYPE_LONG = 0x7fffffff };
 enum Relationship { ENEMIES = 0, NEUTRAL, ALLIES };
 

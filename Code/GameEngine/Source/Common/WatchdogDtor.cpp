@@ -5,7 +5,7 @@
 
 #include <windows.h>
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../../Libraries/Source/WWVegas/WWLib/mutex.h"
 

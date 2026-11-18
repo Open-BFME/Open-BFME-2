@@ -32,8 +32,8 @@
 // shape (no follow block) over its own private updateInternal (pinned,
 // 0x003489F2), aiming without force-attack and setting +0x3C7.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum WhichTurretType
 {
 	TURRET_INVALID = -1

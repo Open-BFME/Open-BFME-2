@@ -17,9 +17,9 @@
 #include "ascii_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectID;
 

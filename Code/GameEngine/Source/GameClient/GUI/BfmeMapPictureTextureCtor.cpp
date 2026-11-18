@@ -9,7 +9,7 @@
 // body follows that shape directly, including the failing-new skip around
 // the texture build (0x2DB882 pin) and the retaining adopt (0xEF87B pin).
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include <windows.h>
 #include <string.h>

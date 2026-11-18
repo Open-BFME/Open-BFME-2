@@ -15,8 +15,8 @@ private:
 // 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
 template <> StringBase<char>::~StringBase();
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 class AsciiString;
 
 // Retail base vtable 0x860130: deleting dtor, getSortNumber, a bool slot,

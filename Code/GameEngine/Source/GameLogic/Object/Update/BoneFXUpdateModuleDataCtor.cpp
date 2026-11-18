@@ -24,7 +24,7 @@
 // no emitted code; the three arrays bracket states 0/1/2 exactly as retail.
 // The string clears through the rowed AsciiString clear fold.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "ascii_string.h"
 #include <windows.h>

@@ -16,10 +16,10 @@
 // +0x120E0, the third reset to 1) plus the frame ceiling +0x1205C, and the
 // reset ends with the timer words at +0x12130/+0x12134/+0x12135.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../Include/GameNetwork/Transport.h"
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"

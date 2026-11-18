@@ -12,7 +12,7 @@
 //    TeamInQueueBuildPredicates.cpp).
 // Layout (target evidence): build-queue links (prev, next) at +0x04 / +0x08,
 // ready-queue links at +0x0C / +0x10.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include <windows.h>
 #include "TeamInQueue.h"

@@ -12,7 +12,7 @@
 
 #include <time.h>
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 extern "C" UnsignedInt theGameAudioSeed[6];
 

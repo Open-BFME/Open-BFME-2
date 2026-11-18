@@ -24,8 +24,8 @@
 
 #include <vector>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-typedef float Real;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 // Preserve native inline clears using the canonical coordinate layout.
 static inline void zeroGeometryCoord(Coord3D &value)
 {

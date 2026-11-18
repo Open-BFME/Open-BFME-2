@@ -23,8 +23,8 @@
 //
 // The meaning of the condition and status bits is not recovered.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef unsigned int StateID;
 enum ObjectStatusTypes
 {

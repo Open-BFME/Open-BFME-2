@@ -12,8 +12,8 @@
 #include "unicode_string.h"
 #include <map>
 
-typedef bool Bool;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 

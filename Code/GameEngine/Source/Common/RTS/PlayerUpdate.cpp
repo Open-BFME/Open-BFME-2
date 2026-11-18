@@ -37,9 +37,9 @@ namespace _STL { template <> void ** vector<void *, allocator<void *> >::begin()
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::size() const; }
 // bfme link decl-only end
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class AsciiString;
 class TeamPrototype;

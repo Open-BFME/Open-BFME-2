@@ -3,8 +3,8 @@
 // Array roles come from PC FieldParse callbacks and their matched setters.
 // PC callers add GlobalData+0xEC4 before the XP/speed accessors; no Xbox ABI reused.
 // Invalid signed slot-1 returns the independently checked float literal 1.0.
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 #include "../../Include/Common/MultiPlayMults.h"
 
 

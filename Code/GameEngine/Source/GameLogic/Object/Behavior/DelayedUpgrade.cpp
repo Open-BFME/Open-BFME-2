@@ -32,7 +32,7 @@ class ModuleData;
 // behavior-module list (+0x244): each module's upgrade interface (its +0x0C
 // interface slot 21) that answers the first mask (slot 0) gets the module
 // data's +0x118 delay (slot 1).
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 #include "../../../../Include/Common/Rva001EAE6FHelper.h"
 class Rva004B3CC2Upgrade
 {

@@ -14,7 +14,7 @@
 
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/GameLogic/Module/GarrisonContainModuleData.h"

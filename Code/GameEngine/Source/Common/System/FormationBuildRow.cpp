@@ -24,9 +24,9 @@ extern FreelistPool g_freelistPool00DB8FEC;
 // Canonical BfmeE16 supplies storage; FormationSlot is the target field view.
 // EH handlerB8709C -> FuncInfoD34564: one state, temporary FormationRow
 // cleanup atB87094. All384 body bytes and its EH graph are verified.
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class Object;
 class Player;

@@ -37,8 +37,8 @@
 //   push [esp+0xC]; mov ecx,esi; call 0x330E15; pop esi; ret 8. Double setter
 //   on +0x1D0 RadiusDecal (setPosition then second Coord slot).
 
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

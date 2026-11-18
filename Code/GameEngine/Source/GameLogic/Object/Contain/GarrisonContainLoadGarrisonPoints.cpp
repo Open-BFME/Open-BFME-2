@@ -22,8 +22,8 @@
 #include "ascii_string.h"
 #include "Coord3D.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 class Matrix3D;
 class Thing;

@@ -40,8 +40,8 @@ template<> struct __type_traits<BfmeScriptSlotAddress> : __type_traits_aux<1> {}
 #include <stack>
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 enum NameKeyType
 {

@@ -30,9 +30,9 @@
 #include <windows.h>
 #include "ascii_string.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class VideoStreamInterface
 {

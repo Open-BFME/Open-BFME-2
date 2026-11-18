@@ -15,7 +15,7 @@
 // expression MSVC keeps the operand pointer live and picks a fresh register for
 // the value, which costs a different encoding at this site.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 extern "C++"
 {

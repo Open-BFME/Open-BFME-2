@@ -14,7 +14,7 @@
 
 #include "unicode_string.h"
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // The ledger's name for NetDisconnectChatCommandMsg::getText (an inline
 // forwarder is not expanded, so the body calls it by this name).

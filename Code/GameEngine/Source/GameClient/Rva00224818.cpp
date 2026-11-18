@@ -5,7 +5,7 @@
 
 #include "../../Include/GameClient/Rva00223CDB.h"
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct RvaFlags
 {

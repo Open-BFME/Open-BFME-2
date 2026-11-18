@@ -26,9 +26,9 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "Lib/Coord3D.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class Rva002390CB
 {

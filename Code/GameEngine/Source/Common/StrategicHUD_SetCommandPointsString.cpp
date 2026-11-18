@@ -7,7 +7,7 @@ namespace StrategicHUD
 	void __cdecl SetCommandPointsString(int level, Rva005EF096Outer *outer, int a, int b);
 }
 typedef unsigned short wchar_t;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 template <typename T> class StringBase;
 class UnicodeString;

@@ -17,9 +17,9 @@
 // The const-reference min/max templates give retail's address cmov selects.
 #include "unicode_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

@@ -6,7 +6,7 @@
 // reverse/symbols.csv under address-derived names (no-argument thiscall,
 // plain ret). Classes are address-derived.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x00082E12 (interface at +0x08) and 0x005E19BF (interface at +0x0C): the
 // pinned 0x00082D6A resp. 0x005E1928 of the complete object.

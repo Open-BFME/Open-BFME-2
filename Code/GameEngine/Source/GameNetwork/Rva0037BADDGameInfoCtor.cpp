@@ -6,7 +6,7 @@
 // the one whose virtual dtor 0x0037BB53 is rowed as ??1Rva0037BB53 and whose
 // callers (0x0037BBED, AptSaveLoad 0x0043684C) construct it through this
 // ctor, so it carries that address name (was Rva0037BADD).
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class GameSlot
 {

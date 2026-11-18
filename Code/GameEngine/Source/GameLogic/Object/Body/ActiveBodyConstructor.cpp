@@ -10,8 +10,8 @@
 #include <vector>
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 class Thing;
 class ModuleData;

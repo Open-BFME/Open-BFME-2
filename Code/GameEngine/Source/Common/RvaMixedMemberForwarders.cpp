@@ -24,7 +24,7 @@
 //   0x0040D3FF (pinned GameLogic spelling)
 // Unrowed jump targets arrive as address-derived pins.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 class Rva003626ADNullTarget
 {
 };

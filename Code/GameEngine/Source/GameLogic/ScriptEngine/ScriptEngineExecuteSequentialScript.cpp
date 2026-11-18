@@ -23,7 +23,7 @@
 // the home TU and known not to throw, which throw() states here.
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 enum ObjectID { INVALID_ID = 0 };
 
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };

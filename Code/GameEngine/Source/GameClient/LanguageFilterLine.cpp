@@ -18,8 +18,8 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include <wchar.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 typedef unsigned short WideChar;
 #define NEW new
 #define DEBUG_CRASH(x) ((void)0)

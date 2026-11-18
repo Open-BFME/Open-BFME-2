@@ -23,9 +23,9 @@
 // layouts its matched rows use.
 #include <vector>
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class TextureClass
 {

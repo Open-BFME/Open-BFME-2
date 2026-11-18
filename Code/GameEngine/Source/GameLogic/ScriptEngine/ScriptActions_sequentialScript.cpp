@@ -18,7 +18,7 @@
 // 0x003A0F62, groupIdle 0x0036FC23.
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 enum ObjectID { INVALID_ID = 0 };
 
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };

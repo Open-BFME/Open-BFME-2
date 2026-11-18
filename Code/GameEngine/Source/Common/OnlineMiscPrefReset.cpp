@@ -22,9 +22,9 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/Common/BfmeStringData.h"
 

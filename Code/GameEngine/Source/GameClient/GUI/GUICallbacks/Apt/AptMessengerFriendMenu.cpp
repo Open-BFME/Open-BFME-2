@@ -35,7 +35,7 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
 }
 }
 
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
 // MyBuddyList_ (WorldBuilder name of the rowed 0x005AEB2C constructor): a
 // snapshot vector of 8-byte buddy entries.
