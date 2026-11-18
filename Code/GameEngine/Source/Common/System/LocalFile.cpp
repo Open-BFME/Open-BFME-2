@@ -90,6 +90,12 @@ public:
 	virtual int seek( int pos, seekMode mode );
 	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
 	virtual int read(void *buffer, int bytes);
+	// Retail's slots 7, 8, 9 and 19 (vtable 0x00C7AA50) hold the `return FALSE`
+	// body at 0x005CB9FF; LocalFile_Unresolved.cpp emits the table and rows them.
+	virtual bool scanInt( int &newInt ) { return false; }
+	virtual bool scanReal( float &newReal ) { return false; }
+	virtual bool scanString( AsciiString &newString ) { return false; }
+	virtual bool copyDataToFile( File *localFile ) { return false; }
 
 protected:
 	File *m_file;		// +0x20
