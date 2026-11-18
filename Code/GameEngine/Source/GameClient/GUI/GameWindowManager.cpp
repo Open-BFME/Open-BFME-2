@@ -33,6 +33,7 @@ enum { GBM_MOUSE_ENTERING = 0x4006, GBM_MOUSE_LEAVING = 0x4007, GBM_SELECTED = 0
 
 
 
+
 #endif
 #include "PreRTS.h"
 #include <algorithm>
@@ -59,14 +60,45 @@ class GameWindow;
 typedef unsigned short UnsignedShort;
 typedef void (*GameWinMsgBoxFunc)(void);
 #include "ascii_string.h"
+#include <string.h>
+#include "GameWindowManagerRecordView.h"
+#include "../../../Include/Common/Rva003140CF.h"
+typedef struct _ListboxData
+{
+	short listLength;
+	short columns;
+	int *columnWidthPercentage;
+	bool autoScroll;
+	bool autoPurge;
+	bool scrollBar;
+	bool multiSelect;
+	unsigned char m_pad0C[0x28 - 0xC];
+	int totalHeight;
+	short endPos;
+	short insertPos;
+	unsigned char m_pad30[4];
+	int selectPos;
+	unsigned char m_pad38[4];
+	short displayHeight;
+	unsigned int doubleClickTime;
+	short displayPos;
+	unsigned char m_pad46[0x4C - 0x46];
+} ListboxData;
+void GadgetListBoxSetListLength(GameWindow *listbox, int newLength);
+void GadgetListboxCreateScrollbar(GameWindow *listbox);
+void GadgetListBoxUpdateColumnWidths(GameWindow *listbox);
+
 enum { WIN_STATUS_HIDDEN = 0x10 };
+
 enum { GWS_SCROLL_LISTBOX = 0x20 };
+
 enum
 {
 	WIN_ERR_INVALID_WINDOW = -2,
 	WIN_STATUS_BORDER = 0x1000,
 	WIN_STATUS_SEE_THRU = 0x10000
 };
+
 class GameWindowChild
 {
 public:
@@ -148,6 +180,8 @@ extern GameWindowManager *TheWindowManager;
 typedef unsigned int UnsignedInt;
 
 typedef bool (__cdecl *IntFunLess)(int a, int b);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp
 
@@ -764,22 +798,6 @@ UnicodeString GameWindowManager::winTextLabelToText(AsciiString label)
 	return tmp;
 }
 
-// tu-skeleton: 0x002C0A0F 77B ?init@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0A5C 24B ?reset@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0A74 21B ?update@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0D3D 95B ?windowHiding@GameWindowManager@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0E04 23B ?winCapture@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0E1B 18B ?winRelease@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0E7D 44B ?winSendSystemMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0EA9 44B ?winSendInputMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_drawWindow_Thunk.cpp
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
@@ -823,6 +841,22 @@ Int GameWindowManager::drawWindow(GameWindow *window)
 	return WIN_ERR_OK;
 }
 
+// tu-skeleton: 0x002C0A0F 77B ?init@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0A5C 24B ?reset@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0A74 21B ?update@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0D3D 95B ?windowHiding@GameWindowManager@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0E04 23B ?winCapture@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0E1B 18B ?winRelease@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0E7D 44B ?winSendSystemMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0EA9 44B ?winSendInputMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
+
 // tu-skeleton: 0x002C108F 185B ?rva002C108F@Rva0008FF12Host@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp (not merged yet)
 
 // tu-skeleton: 0x002C1148 43B ?dumpWindow@GameWindowManager@@IAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_dumpWindow.cpp (not merged yet)
@@ -835,7 +869,72 @@ Int GameWindowManager::drawWindow(GameWindow *window)
 
 // tu-skeleton: 0x002C12A0 60B ?winUnsetModal@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
 
-// tu-skeleton: 0x002C1395 240B ?gogoGadgetListBox@GameWindowManager@@UAEPAVGameWindow@@PAVGadgetCreateView@@PAU_ListboxData@@PAVGameFont@@_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoGadgetListBox.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoGadgetListBox.cpp
+
+// GameWindowManager::gogoGadgetListBox, retail 0x002C1395 (240 B, Ghidra
+// boundary): slot 24 of the base window manager vtable 0x00BFF658, called
+// directly by the W3D override in slot 24 of 0x00BC7C90 (0x0008FDC6, call at
+// 0x0008FE0B) after it picks the list draw factory. Reference semantics: Zero
+// Hour GameWindowManager::gogoGadgetListBox (BFME1 2791daf553 inputs) on
+// BFME's one-record factory ABI. Target facts: style test 0x20 on the
+// record's instance (+0x30), the 0x4C-byte list data copied before the
+// window is created through slot 34, user data, owner (0x003140CF), the
+// rowed WinInstanceData::getTextLength title test, the list length handed to
+// the rowed GadgetListBoxSetListLength, a 16-bit display height less the
+// title font height (slot 72, font at instance+0x184), the cleared scroll
+// state, the scroll bar helper when data+0xA is set, the rowed
+// GadgetListBoxUpdateColumnWidths in place of Zero Hour's inline column
+// widths, then assignDefaultGadgetLook (slot 30). List data fields are
+// labelled with Zero Hour's names where the offsets agree (listLength,
+// scrollBar) and by their observed use otherwise.
+
+GameWindow *GameWindowManager::gogoGadgetListBox(GadgetCreateView *view,
+	ListboxData *listboxDataTemplate, GameFont *defaultFont, bool defaultVisual)
+{
+	GameWindow *listbox;
+	ListboxData *listboxData;
+	bool title = false;
+
+	if (!(view->instance->m_style & GWS_SCROLL_LISTBOX))
+		return 0;
+
+	listboxData = new ListboxData;
+	memcpy(listboxData, listboxDataTemplate, sizeof(ListboxData));
+
+	listbox = createFromView(view);
+	if (listbox == 0)
+		return 0;
+
+	listbox->winSetUserData(listboxData);
+	((Rva003140CF *)listbox)->rva003140CF((int)view->parent);
+
+	if (view->instance->getTextLength())
+		title = true;
+
+	int length = listboxData->listLength;
+	listboxData->listLength = 0;
+	GadgetListBoxSetListLength(listbox, length);
+
+	listboxData->displayHeight = view->height;
+	if (title)
+		listboxData->displayHeight -= winFontHeight(view->instance->getFont());
+
+	listboxData->displayPos = 0;
+	listboxData->selectPos = -1;
+	listboxData->doubleClickTime = 0;
+	listboxData->insertPos = 0;
+	listboxData->endPos = 0;
+	listboxData->totalHeight = 0;
+
+	if (listboxData->scrollBar)
+		GadgetListboxCreateScrollbar(listbox);
+
+	GadgetListBoxUpdateColumnWidths(listbox);
+
+	assignDefaultGadgetLook(listbox, defaultFont, defaultVisual);
+
+	return listbox;
+}
 
 // tu-skeleton: 0x002C176C 11B ?rva002C176C@@YAIII@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowCursorSearch.cpp (not merged yet)
 
