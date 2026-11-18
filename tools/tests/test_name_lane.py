@@ -4398,6 +4398,42 @@ def test_a_slot_key_naming_no_registered_retail_slot_is_not_served(slot_tree, ke
     assert serve_slot(slot_tree, "x", "seat-x", key=key) is None
 
 
+PENDING = "Rva00402000"                    # the placeholder still rowing the table's constructor
+
+
+def pending_fold_tree(tree, monkeypatch, proved=SLOT_TABLE, installer=f"??0{PENDING}@@QAE@XZ"):
+    """slot_tree with Widget's constructor still rowed under `installer`; fold_evidence proves `proved` for
+    (PENDING, Widget) and refuses every other pair."""
+    rows = tree / "reverse/functions.csv"
+    rows.write_text(rows.read_text().replace("??0Widget@@QAE@XZ,,0x00402000", f"{installer},,0x00402000"))
+    _git(tree, "add", "-A")
+    _git(tree, "-c", "user.name=t", "-c", "user.email=t@example.invalid", "commit", "-qm", "ctor rowed as a placeholder")
+
+    def fold_evidence(ctx, old, new, tie=None, pinned=True):
+        if (old, new) == (PENDING, "Widget") and proved is not None:
+            return proved, ["retail proves one class"]
+        raise rename.Refusal(f"no proof that {old} is {new}")
+    monkeypatch.setattr(rename, "fold_evidence", fold_evidence)
+    return tree
+
+
+def test_a_slot_whose_pending_fold_retail_proves_is_served_before_the_fold(slot_tree, monkeypatch):
+    # the fold cannot land first (its table would name virtuals no row defines), so the slot is voted first
+    pending_fold_tree(slot_tree, monkeypatch)
+    served = serve_slot(slot_tree, "p", "seat-p")
+    assert [tuple(i) for i in served["files"][WIDGET_H]["items"]] == [("slot", "Widget@0x00C00000", "1", 0x00401000)]
+
+
+@pytest.mark.parametrize("proved, installer", [
+    (None, f"??0{PENDING}@@QAE@XZ"),                 # retail does not prove the placeholder is Widget
+    (UNRELATED_TABLE, f"??0{PENDING}@@QAE@XZ"),      # the proof is on another table
+    (SLOT_TABLE, "??0Gadget@@QAE@XZ"),               # the installer is a readable class, not a placeholder
+])
+def test_a_slot_of_an_unproven_or_readable_installer_is_not_served(slot_tree, monkeypatch, proved, installer):
+    pending_fold_tree(slot_tree, monkeypatch, proved=proved, installer=installer)
+    assert serve_slot(slot_tree, "q", "seat-q") is None
+
+
 def test_two_blind_votes_give_the_approval_to_class_reads(slot_tree, tmp_path, capsys):
     # the header already declares spin: a vote for it is not a collision, and the vote decides, not the header
     serve_slot(slot_tree, "a", "seat-a")

@@ -1108,7 +1108,8 @@ def slot_key(key):
 def slot_items(lane, rel, keys):
     """[(kind, scope, ident, rva)] for the slot keys of `keys` that name `rel` as their class's registered canonical
     header (reverse/canonical_classes.csv) and a slot of a retail vftable the class owns (its special members
-    install it) or a reviewed base-slot entry relates to it; rva is the retail word in that slot."""
+    install it, or a placeholder's special members install it and retail proves the two one class: fold_pending) or
+    a reviewed base-slot entry relates to it; rva is the retail word in that slot."""
     wanted = [(key, parsed) for key in keys for parsed in [slot_key(key)] if parsed and parsed[0] == rel]
     if not wanted:
         return []
@@ -1123,10 +1124,36 @@ def slot_items(lane, rel, keys):
         owned = bool(slots) and bool(rename.class_installers(lane.ctx, cls, stores, tables))
         based = any(entry.cls == cls and entry.slot == slot and table + rename.IMAGE_BASE in entry.tables
                     for entry in retail_identity.BASE_SLOTS)
+        if (cls, rel) in headers and slot < len(slots) and not (owned or based):
+            owned = fold_pending(lane.ctx, cls, table, stores, tables)
         if (cls, rel) in headers and slot < len(slots) and (owned or based):
             _r, kind, scope, ident = split_key(key)
             out.append((kind, scope, ident, slots[slot]))
     return out
+
+
+def fold_pending(ctx, cls, table, stores, tables):
+    """True when `table` is still installed by a placeholder class OLD's own special members and retail proves OLD
+    and `cls` one class on this very table (rename.fold_evidence, the proof `rename.py class --fold OLD --into cls`
+    itself takes). The slot is then `cls`'s before the fold lands, so its name is voted on cls's header first: a
+    fold whose table names virtuals no row defines yet cannot land before its slots are named (the TerrainVisual
+    fold raised the real link from 3 to 11 unresolved names), and votes alone name a slot."""
+    olds = set()
+    for store in stores:
+        row = rename.row_at(ctx, store)
+        match = rename.INSTALLER_CLASS.match(row["name"]) if row else None
+        if match and match.group(1) != cls and rename.is_placeholder(match.group(1), "class"):
+            olds.add(match.group(1))
+    for old in sorted(olds):
+        if not rename.class_installers(ctx, old, stores, tables):
+            continue
+        try:
+            proved, _evidence = rename.fold_evidence(ctx, old, cls)
+        except rename.Refusal:
+            continue
+        if proved == table:
+            return True
+    return False
 
 
 def slot_problem(new):
