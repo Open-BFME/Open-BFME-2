@@ -17,7 +17,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class GameWindow;
 void GadgetProgressBarSetProgress(GameWindow *g, Int progress);

@@ -11,10 +11,10 @@
 // Open-BFME5: W3DGameWindow::~W3DGameWindow, retail 0x004655F0,
 // zh_sweep packet 004655f0.
 
-typedef int Int;
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 typedef int Color;
-typedef bool Bool;
+
 class Image;
 // The target uses the existing W3DDisplay image wrapper at 4D6B3. The
 // reference Display virtual-slot view is unnecessary for this caller.

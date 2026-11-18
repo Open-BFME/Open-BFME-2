@@ -66,9 +66,9 @@ const FieldParse TheProjectileFieldTable[] = {
     { 0, 0, 0, 0 }
 };
 int __cdecl Rva00507552Get();
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 #include "../../Include/Common/Rva002CA9CA.h"
 enum WeaponSlotType
 {

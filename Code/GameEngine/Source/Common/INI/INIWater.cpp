@@ -34,7 +34,7 @@ extern WaterSetting WaterSettings[6];
 
 extern char *TimeOfDayNames[];
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 namespace FXParticleSystem
 {

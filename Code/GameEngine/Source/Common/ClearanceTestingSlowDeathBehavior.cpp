@@ -399,7 +399,7 @@ public:
 // 0x006E0500: tail jump to BfmeAptValue006DCD20::rva006E04A0.
 // 0x0070DFD0: tail jump to Rva006D6360::rva006DCC00.
 // Constant and field slots.
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x00444680 (22 tables): answers 1 for any two arguments.
 // 0x005B8012 (three tables): answers 1 for any four arguments.

@@ -26,10 +26,10 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "Lib/Coord3D.h"
 #include "Common/GameLogicObjectLookupView.h"
 #include "Common/PartitionRangeQueryCallView.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 enum ModelConditionFlagType
 {
 	MODELCONDITION_PANICKING = 2 * 32 + 13

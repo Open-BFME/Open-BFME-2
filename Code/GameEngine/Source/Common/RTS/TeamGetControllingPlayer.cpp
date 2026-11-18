@@ -130,9 +130,9 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 // take it inline without emitting this TU's own copy.
 namespace _STL { template <> __declspec(dllimport) __forceinline void *const &vector<void *>::operator[](size_t __n) const { return *(this->_M_start + __n); } }
 
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 #include <windows.h>
 
 extern GameLogic *TheGameLogic;

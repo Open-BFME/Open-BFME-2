@@ -5,9 +5,9 @@
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../../Include/GameLogic/Module/ExitInterface.h"
 #include "../../../../../Include/Common/NameKeyGenerator.h"
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 enum ExitDoorType { DOOR_1 = 0, DOOR_NONE_AVAILABLE = -1 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 enum PathfindLayerEnum { PATHFIND_LAYER_GROUND = 0 };

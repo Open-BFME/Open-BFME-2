@@ -32,8 +32,8 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 typedef int Color;
 #include <windows.h>
 

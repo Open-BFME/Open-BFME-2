@@ -42,9 +42,9 @@
 #include <string.h>
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class UnicodeString;
 class PooledString;

@@ -31,8 +31,8 @@ void vector<void*>::clear()
 { erase(begin(), end()); }
 }
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../Include/Common/Radar.h"
 

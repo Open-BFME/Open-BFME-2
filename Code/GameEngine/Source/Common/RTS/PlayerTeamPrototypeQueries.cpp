@@ -6,8 +6,8 @@
 // matching TeamPrototype walk (TeamPrototypeTeamIterators.cpp) does, as
 // Zero Hour's Player::hasAnyBuildings/hasAnyUnits/hasAnyObjects do. Names
 // follow the TeamPrototype callees.
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // The by-value kind filters are the 28-byte storage the ledger names after
 // its copy constructor 0x0004543D (FixedStorageCopyBFME2.cpp), the callee

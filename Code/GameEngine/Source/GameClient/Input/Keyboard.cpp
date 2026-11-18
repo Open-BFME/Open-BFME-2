@@ -74,7 +74,7 @@ extern LanguageID OurLanguage;
 // OurLanguage: matched references place it at VA 0xe01e54 (zero-filled .bss).
 LanguageID OurLanguage;
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 struct BfmeE8 {
 	unsigned char key;

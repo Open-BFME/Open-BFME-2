@@ -6,8 +6,8 @@
 // method is address-derived unless the ledger already names it, and models
 // only what its body touches. Meanings are not recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // 0x00490628: false while +0x98 is set, else the rowed
 // SpecialAbilityUpdate::continuePreparation (slot 16) it overrides.

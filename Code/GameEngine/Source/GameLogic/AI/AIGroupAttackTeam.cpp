@@ -52,7 +52,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 enum ObjectID { INVALID_ID=0 };
 namespace _STL {
  template<> vector<ObjectID>::iterator vector<ObjectID>::erase(iterator,iterator);

@@ -4,8 +4,8 @@
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DInline.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-typedef float Real;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 class ThingTemplate;
 class Team;
 class Object;

@@ -14,8 +14,8 @@
 // except hasAnyObjects, whose Team callee carries that name. Filters and
 // masks are copied by value through the 28-byte copy constructor at
 // 0x0004543D.
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 template <class OBJCLASS>
 class DLINK_ITERATOR
@@ -64,7 +64,7 @@ typedef BfmeFixedStorage0004543D Rva0039DF1CFilter;
 class Object;
 class BfmeTab1026;
 class ThingTemplate;
-typedef float Real;
+
 typedef Int (*ObjectIterateFunc)(Object *obj, void *userData);
 
 #include "../../../Include/Common/MemoryPoolObject.h"

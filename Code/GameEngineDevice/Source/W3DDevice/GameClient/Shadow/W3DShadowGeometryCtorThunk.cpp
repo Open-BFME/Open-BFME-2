@@ -6,7 +6,7 @@
 
 #define MAX_SHADOW_CASTER_MESHES 160
 
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 // Retail's destructor 0x000F1F00 expands the base destructor inline (vtable 0x00BC650C store).

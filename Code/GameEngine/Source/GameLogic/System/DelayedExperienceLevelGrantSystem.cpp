@@ -21,8 +21,8 @@
 // Structural inference: the method and level field names are not
 // established; the views below are address-derived.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include "../../../Include/GameClient/ModelConditionFlags.h"
 template <class T> struct GrantVectorView
 {
@@ -39,7 +39,7 @@ class Object;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 // The ctor calls 0x001B4E63 and the paired destructor calls 0x001B4E74;
 // both place Snapshot after the twelve-byte subsystem base.
-typedef bool Bool;
+
 #include "../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 //

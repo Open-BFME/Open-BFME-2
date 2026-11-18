@@ -16,10 +16,10 @@
 // and the three debug display callbacks. Offsets/slots are readings.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 enum ErrorCode { ERROR_INVALID_D3D = 0xDEAD0007 };
 

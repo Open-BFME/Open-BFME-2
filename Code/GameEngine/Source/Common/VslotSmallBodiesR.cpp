@@ -9,8 +9,8 @@
 
 #include "../../Include/Common/Rva0007DF07.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // texture-family slot at 0x0017FAFB: 0x58 bytes per entry of the +0x14
 // object's +0x10 count plus a 0x34 header, 0 without the object.

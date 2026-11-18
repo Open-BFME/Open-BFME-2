@@ -29,9 +29,9 @@
 #include "Common/MiscAudioClass.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 // The bridge-path query is pinned with WWMath's Vector3 for its points.
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"

@@ -115,7 +115,7 @@
 #define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
 #include "../../Common/GameLogicObjectLookupView.h"
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 enum PathfindLayerEnum
 
 {
@@ -130,7 +130,7 @@ enum ScienceType
  
 }
 ;
-typedef bool Bool;
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0

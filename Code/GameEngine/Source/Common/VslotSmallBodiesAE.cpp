@@ -8,8 +8,8 @@
 // unless the ledger already names them, and model only what each body
 // touches. Meanings are not recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva00585B16
 {

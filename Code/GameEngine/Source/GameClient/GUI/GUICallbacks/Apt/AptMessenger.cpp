@@ -28,7 +28,7 @@ void __cdecl Rva004178C1(int profile, const AsciiString &name);
 extern GameSpyInfoInterface *TheGameSpyInfo;
 void __cdecl Rva004177D5(int);
 
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
 // ChatWindowsInGame.cpp owns the recovered query. The allocator is an
 // address-derived ABI view of the native scalar vector, not an original name.

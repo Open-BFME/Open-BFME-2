@@ -81,10 +81,10 @@
 #include "../../../Common/Thing/thing.h"
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define PI 3.14159265359f
 

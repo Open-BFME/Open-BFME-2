@@ -14,8 +14,8 @@ template <> __declspec(dllimport) __forceinline
 void vector<unsigned int, allocator<unsigned int> >::_M_set(unsigned int *__s, unsigned int *__f, unsigned int *__e)
 { this->_M_start = __s; this->_M_finish = __f; this->_M_end_of_storage._M_data = __e; }
 }
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 class TunnelTracker
 {
 public:

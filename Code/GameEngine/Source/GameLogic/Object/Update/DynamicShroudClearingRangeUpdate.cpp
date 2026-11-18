@@ -16,7 +16,7 @@
 // [ecx+0x24]), not `shl eax,1`. Measured on this toolchain: every direct form
 // (`x*2`, `2*x`, `x+x`, `x<<1`, `x*=2`, unsigned, sizeof(short)) strength-reduces
 // to `d1 e0`; only a copy into a second local followed by `d += v` keeps `03 c0`.
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 //
@@ -31,9 +31,9 @@ typedef int Int;
 // 0x0048B067, xfer 0x0048B505 and animateGridDecals 0x0048B256 use them. The
 // module data holds ShrinkTime +0xC, GrowTime +0x14, FinalVision +0x18,
 // ChangeInterval +0x1C, GrowInterval +0x20 and the grid decal template +0x28.
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+
+
+
 template <class T> inline const T &max(const T &lhs, const T &rhs)
 {
 	return lhs > rhs ? lhs : rhs;

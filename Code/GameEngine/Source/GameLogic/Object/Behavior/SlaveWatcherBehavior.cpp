@@ -17,7 +17,7 @@
 class Thing;
 class ModuleData;
 #include "ascii_string.h"
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 class Snapshot;
 class UnicodeString;
 class PooledString;

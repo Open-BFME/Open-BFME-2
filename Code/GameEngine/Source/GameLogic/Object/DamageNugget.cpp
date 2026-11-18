@@ -24,9 +24,9 @@ struct Made002CC5E1DamageScalar
 	float scalar;
 };
 #include "GameLogicObjectLookupView.h"
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 #include "Lib/Coord3D.h"
 static inline void coordSet(Coord3D &destination, const Coord3D *p) { destination.x = p->x; destination.y = p->y; destination.z = p->z; }
 static inline void coordSub(Coord3D &d, const Coord3D *p) { d.x -= p->x; d.y -= p->y; d.z -= p->z; }

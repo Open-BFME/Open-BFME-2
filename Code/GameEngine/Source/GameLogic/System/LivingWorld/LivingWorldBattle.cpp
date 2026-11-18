@@ -8,7 +8,7 @@
 // the array at +0x04 and swaps the matching 0x68-byte army summaries at +0x10
 // through _STL::swap<ArmySummary> (0x003F40EF).
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 class CreateAHeroData;
 #include "../../../../Include/GameLogic/Rva003F4DCA.h"
@@ -226,9 +226,9 @@ void LivingWorldBattle::RemoveArmy(LivingWorldArmy *army)
     } while (side < (int)m_table18.size());
 }
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+
+
+
 
 struct XferVersion
 {

@@ -70,10 +70,10 @@
 // from retail: a pick only begins when the interface's slot 3 (0x0050B5C6)
 // also agrees. Both vectors append through the ICF-folded STLport push_back
 // 0x004DFCB0, called here under its ledger element type.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "Common/BfmeAudioEventPrefix136.h"

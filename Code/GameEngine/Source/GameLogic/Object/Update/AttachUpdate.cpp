@@ -143,8 +143,8 @@ enum NameKeyType
 // 3 the +0x24 handle through TheEva's 0x001DEC48 (pinned by address; it runs
 // its own versioned xfer). The version block is the BFME2 two-byte form the
 // rowed Rva0054840AXfer.cpp uses.
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 class Snapshot;
 class AsciiString;
 class UnicodeString;

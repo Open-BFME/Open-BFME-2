@@ -24,9 +24,9 @@
 #include "vector3.h"
 #include <vector>
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 static const float FlightHeightMinimum=0.0f;
 
 class Coord3D

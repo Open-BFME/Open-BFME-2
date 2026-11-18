@@ -25,8 +25,8 @@
 #include "Coord3D.h"
 #include "../../Common/PartitionRangeQueryCallView.h"
 
-typedef float Real;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class Object;
 class Player;

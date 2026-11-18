@@ -8,7 +8,7 @@
 
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 // Native getBattleParam forwards the region result as one raw 32-bit key.
 // The existing real lookup owns 20E57F and compares that word with entry+24;

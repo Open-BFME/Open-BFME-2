@@ -39,8 +39,8 @@ template <> _Rb_tree_node<AsciiString> *Lk6AsciiSetTree::_M_create_node(const As
 }
 
 #include <windows.h>
-typedef float Real;
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #define D3DTS_WORLD				256
 #define D3DPT_TRIANGLELIST		4
@@ -190,8 +190,8 @@ struct IDirect3DDevice8
 	virtual HRESULT __stdcall SetIndices(IDirect3DIndexBuffer8 *pIndexData) = 0;
 };
 typedef IDirect3DDevice8 *LPDIRECT3DDEVICE8;
-typedef unsigned short UnsignedShort;
-typedef bool Bool;
+
+
 
 #define D3DTS_WORLD				256
 #define D3DPT_TRIANGLELIST		4

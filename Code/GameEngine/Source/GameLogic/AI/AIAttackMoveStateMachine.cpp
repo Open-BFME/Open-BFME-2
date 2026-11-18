@@ -32,10 +32,10 @@
 //    No ZH counterpart: members keep offset names.
 // Every machine is created with plain operator new and started through its
 // vslot 7 (initDefaultState, 0x004D770F in the machine's vtable).
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 #include <windows.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;

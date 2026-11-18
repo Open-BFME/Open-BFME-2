@@ -46,9 +46,9 @@
 #include "ascii_string.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"

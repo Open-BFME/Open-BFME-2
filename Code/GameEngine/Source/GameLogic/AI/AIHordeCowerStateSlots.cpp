@@ -92,7 +92,7 @@ enum DisabledType
 {
 	DISABLED_BFME_8 = 8
 };
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Object;
 

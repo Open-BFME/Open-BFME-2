@@ -20,9 +20,9 @@ public:
 };
 #include "Common/Snapshot.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
+
 
 typedef UnsignedInt StateID;
 
