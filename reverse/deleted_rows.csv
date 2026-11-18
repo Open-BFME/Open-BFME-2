@@ -6329,3 +6329,5 @@ _$E14,0x007AE240,"Respelled to _$E11 by tools/rename.py initializers (^code_^gam
 _$E11,0x007AE240,"Respelled to _$E10 by tools/rename.py initializers (^code_^game^engine_^source_^game^client_^g^u^i_^game^window^manager.obj's .CRT$XCU order against retail's table)"
 ?rva005075D6@Rva00507823@@QAEEPBXPAVObject@@@Z,0x005075D6,"Renamed to ?rva005075D6@Rva00507823@@UAEEPBXPAVObject@@@Z by tools/rename.py (virtual: retail vtable slot)"
 ?Render@W3DAptComponentView3D@@QAEXHHHH@Z,0x007405A9,"Renamed to ?Render@W3DAptComponentView3D@@UAEXHHHH@Z by tools/rename.py (virtual: retail vtable slot)"
+?AddRenderObj@W3DAptComponentView3D@@QAEXIABVAsciiString@@ABV?$StringBase@D@@@Z,0x00740BCD,"Renamed to ?AddRenderObj@W3DAptComponentView3D@@UAEXIABVAsciiString@@ABV?$StringBase@D@@@Z by tools/rename.py (virtual: retail vtable slot)"
+__ehhandler$?AddRenderObj@W3DAptComponentView3D@@QAEXIABVAsciiString@@ABV?$StringBase@D@@@Z,0x007AB503,"Renamed to __ehhandler$?AddRenderObj@W3DAptComponentView3D@@UAEXIABVAsciiString@@ABV?$StringBase@D@@@Z by tools/rename.py (virtual: retail vtable slot)"

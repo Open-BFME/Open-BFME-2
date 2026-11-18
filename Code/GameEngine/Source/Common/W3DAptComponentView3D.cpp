@@ -1111,7 +1111,7 @@ bool W3DAptComponentView3D::AnimInfo::Init(const AsciiString &name, Rva00740AB4R
 	return true;
 }
 
-// tu-skeleton: 0x00740BCD 683B ?AddRenderObj@W3DAptComponentView3D@@QAEXIABVAsciiString@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
+// tu-skeleton: 0x00740BCD 683B ?AddRenderObj@W3DAptComponentView3D@@UAEXIABVAsciiString@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
 
 // tu-skeleton: 0x007AB443 8B uw_007ab443 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
 
@@ -1127,4 +1127,4 @@ bool W3DAptComponentView3D::AnimInfo::Init(const AsciiString &name, Rva00740AB4R
 
 // tu-skeleton: 0x007AB4F9 10B $L1894 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
 
-// tu-skeleton: 0x007AB503 10B __ehhandler$?AddRenderObj@W3DAptComponentView3D@@QAEXIABVAsciiString@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
+// tu-skeleton: 0x007AB503 10B __ehhandler$?AddRenderObj@W3DAptComponentView3D@@UAEXIABVAsciiString@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
