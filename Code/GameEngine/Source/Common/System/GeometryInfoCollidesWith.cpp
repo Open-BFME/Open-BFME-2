@@ -163,7 +163,7 @@ bool GeometryInfo::CollidesWith(const Coord3D &pos,float angle,const GeometryInf
 }
 
 Coord3D GeometryContactOrigin;	// retail RVA 0x00A0C140 (.bss), defined here
-extern unsigned GeometryContactSphere;
+extern unsigned GeometryContactSphere[];
 struct ContactPoint:Coord3D { ContactPoint(const Coord3D&r) {x=r.x;y=r.y;z=r.z;} };
 static inline void contactCopy(Coord3D &out,const Coord3D &in){out=in;}
 bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const char*label,int preference,int seed,bool ignoreCollision)const {

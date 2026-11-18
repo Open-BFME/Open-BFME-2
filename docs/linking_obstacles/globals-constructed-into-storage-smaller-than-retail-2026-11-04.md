@@ -31,6 +31,10 @@ a gap of 12 and holds a 4-byte `UnicodeString`: it needs nothing, and retyping i
 **Done, data-rowed names, as arrays:** `g_Va00E065EC`, `g_Va00DF2984`, `g_Va00E06620`, `g_Va00DEBC64`,
 `g_Va00E06360`, `g_Va00E08D48`, `g_Va00E0631C`.
 
+**Done 2026-11-18, a named global the scan missed:** `GeometryContactSphere` (0x00A0C150), a 4-byte scalar holding the
+0x5C-byte sphere `GeometryInfo`. Apt's `bfmeObjDAE` table overwrote its shape vector, and every ranged attack crashed in
+`GeometryInfo::CollidesWith` ([LINK-693](link-693-geometrycontactsphere-was-4-bytes-retail-s-sphere-geometryinfo.md)).
+
 **Found by `constructed_undersized` and read against retail's constructor, 2026-11-04:**
 
 - `g_aptDateInterpreter`: 12 bytes, and retail's constructor at 0x006FE980 zeroes words out to +0x3C. Sized to the 72-byte

@@ -50,7 +50,7 @@ struct BfmeUiResourceEntryState;
 extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 extern int g_00E06734[5];	// data row 0x00A06734 (Rva005E8DB5.cpp)
 extern int g_00E06748[5];	// data row 0x00A06748 (Rva005E8DB5.cpp)
-extern unsigned GeometryContactSphere;
+extern unsigned GeometryContactSphere[];
 
 void __cdecl rva007B6DFA();
 

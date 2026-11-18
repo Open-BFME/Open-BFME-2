@@ -47,7 +47,11 @@ void Rva007B6610()
 }
 
 #include "../../Include/Common/Geometry.h"
-unsigned GeometryContactSphere;	// retail RVA 0x00A0C150 (.bss), defined here
+// Retail RVA 0x00A0C150 (.bss), defined here: storage for the whole static sphere
+// GeometryInfo the initializer below constructs in place (retail reserves 0x64 bytes,
+// up to 0x00A0C1B4). A 4-byte scalar let the constructor and the next global overlap
+// (LINK-693).
+unsigned GeometryContactSphere[sizeof(GeometryInfo) / sizeof(unsigned)];
 extern void __cdecl rva007B9BF0(void);
 
 void Rva007B6640InitializeGeometry()

@@ -146,7 +146,7 @@ extern unsigned int g_Va00E06620[5];
 extern unsigned int g_Va00E06710[3];
 unsigned g_Va00E06724[4];	// retail RVA 0x00A06724 (.bss), defined here
 extern unsigned g_Va00E09E60;
-extern unsigned GeometryContactSphere;
+extern unsigned GeometryContactSphere[];
 
 // ?rva007B6AE7@@YAXXZ @ 0x007B6AE7 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B6AE7()
