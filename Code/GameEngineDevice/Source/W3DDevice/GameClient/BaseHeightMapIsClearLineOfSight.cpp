@@ -13,10 +13,10 @@
 // Pathfinder::GetGroundLayer (0x002E9871).
 // Linking repair follows donor dc69c74c54 at f98983a7d3; keep BFME2's
 // established offsets and the native mixed floor-conversion boundaries.
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 // Keep math.h's inline floorf local: retail's object exposes no _floorf.
 extern "C" { static float __cdecl floorf(float); }
