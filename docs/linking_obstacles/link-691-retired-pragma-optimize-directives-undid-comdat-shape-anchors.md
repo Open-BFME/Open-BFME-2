@@ -1,5 +1,5 @@
 ### LINK-691: retired `#pragma optimize` directives undid COMDAT-shape anchors in first-in-order providers
-Status: Repair landed / awaiting verification (animobj.cpp, dx8renderer.cpp); Open for LadderDefs.cpp. Updated: 2026-11-18; inspected revision: `d72acd01df`.
+Status: Repair landed / awaiting verification (animobj.cpp, dx8renderer.cpp, LadderDefs.cpp). Updated: 2026-11-18; inspected revision: `d72acd01df`.
 
 Evidence / affected units: the 2026-11-18 10:35 census (`147fd3e52b`) holds 143 units out, and
 `link_check.py --paths-from` over all 160 census-blocked sources at `d72acd01df` links none. Three
@@ -42,11 +42,29 @@ retail's 28 (`pop ecx`). `multilist.h` now sits in the `bfmeVciAnchor` block, be
 `147fd3e52b`). The unit's unreferenced `??0MultiListObjectClass` copy is 13 bytes against a majority
 16: a diagnostic, as it was under the retired `"s",on`.
 
-Remaining / next check: LadderDefs.cpp (`9317f5872f` retired a `"t",on` / `"",on` pair) by the same
-test: disassemble the unit's `getCharAt` copy against `string_base_inline.cpp`'s and restore the
-state without raising a hatch line. The other units those four commits and their siblings touched
+LadderDefs.cpp (its own commit): the unit builds `/O1` (its region's default; the `// cl:` line
+names no `/O`), so the `#pragma optimize("t", on)` / `("", on)` pair around its inline
+`StringBase<char>::getCharAt` specialization was what made the emitted copy retail's 23-byte
+two-RET body. `9317f5872f` retired the pair as redundant under `/O2`; the copy became the 22-byte
+tail-merged one, first in link order. VC7.1 emits an inline explicit specialization whether or not
+anything references it (tried: defined ahead of AsciiString's forwarder, as a member-template
+definition, and `__forceinline`; each still emitted the size-shaped body), so no reordering gives a
+speed-built copy without a directive. The specialization now takes AptOnlineHomeTimeZone.cpp's form
+for the same function, `__declspec(dllimport) __forceinline`: the rows expand it as before and the
+object defines no `?getCharAt@?$StringBase@D@@QBEDH@Z`. `./build.sh` 67/67 matched; `link_check.py`
+LadderDefs.cpp with its 7 other consumers and string_base_inline.cpp: 9 of 9 link, 1,021 -> 28,143
+bytes (index `147fd3e52b`). Its unreferenced `?getCharAt@AsciiString@@QBEDH@Z` forwarder copy is now
+the expanded 22-byte body where four later units carry the 5-byte jump: a diagnostic; the name has no
+retail address and those four link.
+
+Remaining / next check: `SidesList.cpp` and `AptMessengerOnlineResponse.cpp` still emit the
+size-shaped `StringBase<char>::getCharAt`; they come after string_base_inline.cpp in the census's
+order, so they lose nothing there, but path order (the real link) may keep either: read
+`kept_copies.tsv` for 0x00035720 on the next image. `W3DModelDraw.cpp` (198 bytes) is left on its
+`__copy<BitFlags<117>*>` copy. The other units the retirement commits touched
 (`git log --grep "pragma optimize" --since 2026-11-13`) emit no first-in-order wrong copy today, but
 a later row that moves one of them ahead in link order would expose the same loss: compare an
-anchor unit's COMDAT digests before and after retiring a directive, not only its rows.
-Clearance: animobj.cpp and dx8renderer.cpp scopes cleared by the current-object previews above; LadderDefs.cpp pending.
+anchor unit's COMDAT digests before and after retiring a directive, not only its rows, and read the
+unit's built flags (`retail_body.build_flags`), not its `// cl:` line.
+Clearance: the three providers' scopes cleared by current-object previews at index `147fd3e52b`: `link_check.py --paths-from` over the 160 census-blocked sources links 63 with the three repairs, 0 -> 109,581 of the census's 163,608 unlinked bytes (none linked before them).
 Census confirmation: awaiting; the preview does not change the headline.

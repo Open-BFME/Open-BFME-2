@@ -250,17 +250,16 @@ template<> inline void StringBase<char>::concat(char c)
 	concat(&c, 1);
 }
 
-// Retail reads the last character inline (null buffer -> 0) on every line.
-// The unit still emits an out-of-line copy; retail keeps the speed-built one at
-// 0x00035720 (string_base_inline.cpp), and an /O1 copy would tail-merge the
-// returns and be the copy the link keeps, so the body is built for speed.
+// Retail reads the last character inline (null buffer -> 0) on every line and keeps
+// one out-of-line body, the speed-built one at 0x00035720 (string_base_inline.cpp).
+// This unit builds /O1: a copy emitted here tail-merges the returns and, coming first
+// in link order, is the copy the link keeps. So the body is expanded only, as in
+// AptOnlineHomeTimeZone.cpp: the import form leaves the out-of-line body to its owner.
 
-
-template<> inline char StringBase<char>::getCharAt(int index) const throw()
+template<> __declspec(dllimport) __forceinline char StringBase<char>::getCharAt(int index) const throw()
 {
 	return m_data ? m_data->data[index] : 0;
 }
-
 
 // BFME 2's FileSystem: openFile takes a third (buffer) argument, and the
 // FilenameList set orders with the shared no-case comparator the ledger names
