@@ -21,7 +21,9 @@ enum { MAX_WINDOW_NAME_LEN = 64, MAX_DRAW_DATA = 9, MAX_TEXT_LABEL = 128 };
 // The message ABI the Zero Hour GameWindow.h carried; the canonical GameWindow view leaves it out.
 typedef UnsignedInt WindowMsgData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-#include "GameClient/Gadget.h"
+// Gadget button messages, retail ids (the Gadget*.cpp rows spell the same values);
+// the Zero Hour Gadget.h is not included, its GWS_* styles collide with this unit's donors.
+enum { GBM_MOUSE_ENTERING = 0x4006, GBM_MOUSE_LEAVING = 0x4007, GBM_SELECTED = 0x4008, GBM_SELECTED_RIGHT = 0x4009 };
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
@@ -39,7 +41,8 @@ enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 #include <windows.h>
 typedef int Int;
 typedef bool Bool;
-enum { WIN_ERR_OK = 0, WIN_STATUS_NO_FOCUS = 0x400, GWM_INPUT_FOCUS = 23 };
+enum { WIN_ERR_OK = 0 };
+enum { WIN_STATUS_NO_FOCUS = 0x400, GWM_INPUT_FOCUS = 23 };
 // ?GadgetTextEntrySetText@@YAXPAVGameWindow@@VUnicodeString@@@Z @0x002C17EB 66B
 // GadgetTextEntrySetText; ZH donor GadgetTextEntry.h inline verbatim shape
 // (winSendSystemMsg GEM_SET_TEXT 0x4030 with &text and 0); TheWindowManager at

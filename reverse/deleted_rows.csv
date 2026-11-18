@@ -6326,3 +6326,4 @@ $L17822,0x0077F774,"Rehomed with its parent ??1Rva00553E47StatsCore@@QAE@XZ (0x0
 ??1Rva005FCFEA@@UAE@XZ,0x005FCFEA,"Renamed to ??1ArmyUnitIconMovieClip@StrategicHUD@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C7A1F4)"
 __ehhandler$??1Rva005FCFEA@@UAE@XZ,0x007A61AB,"Renamed to __ehhandler$??1ArmyUnitIconMovieClip@StrategicHUD@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C7A1F4)"
 _$E14,0x007AE240,"Respelled to _$E11 by tools/rename.py initializers (^code_^game^engine_^source_^game^client_^g^u^i_^game^window^manager.obj's .CRT$XCU order against retail's table)"
+_$E11,0x007AE240,"Respelled to _$E10 by tools/rename.py initializers (^code_^game^engine_^source_^game^client_^g^u^i_^game^window^manager.obj's .CRT$XCU order against retail's table)"
