@@ -65,6 +65,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 
 
+
 #endif
 namespace NativeScriptCrt {
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
@@ -115,25 +116,44 @@ typedef unsigned int UnsignedInt;
 #define _CRTIMP
 #include <mbstring.h>
 #undef _CRTIMP
-class AsciiString;
-class GameFont;
-extern FontLibrary *TheFontLibrary;
-// TheFontLibrary: matched references place it at VA 0xdfe33c (zero-filled .bss).
-FontLibrary * TheFontLibrary;
 #define DEBUG_LOG(x) ((void)0)
 #define MAX_TEXT_LABEL 128
-class UnicodeString;
-extern GameTextInterface *TheGameText;
 enum NameKeyType { NAMEKEY_INVALID = 0, NAMEKEY_MAX = 1<<23 };
-extern NameKeyGenerator *TheNameKeyGenerator;
+// The registry is TheFunctionLexicon; its lookup is FunctionLexicon::findFunction
+// 0x002D225F (rowed in Common/System/FunctionLexicon.cpp), reached through
+// this unit's forwarding view.
+class Rva00DFF024Registry;
 class FunctionLexicon;
+extern AsciiString g_inputCallbackName;
+extern AsciiString g_tooltipCallbackName;
+
+class AsciiString;
+
+class GameFont;
+
+extern FontLibrary *TheFontLibrary;
+
+// TheFontLibrary: matched references place it at VA 0xdfe33c (zero-filled .bss).
+FontLibrary * TheFontLibrary;
+
+class UnicodeString;
+
+extern GameTextInterface *TheGameText;
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class FunctionLexicon;
+
 extern FunctionLexicon *TheFunctionLexicon;
+
 extern AsciiString g_systemCallbackName;
+
 // Opaque registry holder (see header note). Decls match the same-batch pins.
 // The registry is TheFunctionLexicon; its lookup is FunctionLexicon::findFunction
 // 0x002D225F (rowed in Common/System/FunctionLexicon.cpp), reached through
 // this unit's forwarding view.
 class Rva00DFF024Registry;
+
 class FunctionLexicon
 {
 public:
@@ -142,6 +162,7 @@ protected:
 	void *findFunction(NameKeyType key, TableIndex index);	// 0x002D225F
 	friend class Rva00DFF024Registry;
 };
+
 class Rva00DFF024Registry
 {
 public:
@@ -154,8 +175,6 @@ public:
 	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the lookup copy loses to the first-in-order copy. No flags touched.
 	__forceinline void *bfme_lookup_7fde7(int key, int index) { return ((FunctionLexicon *)(void *)this)->findFunction((NameKeyType)key, (FunctionLexicon::TableIndex)index); }
 };
-
-class AsciiString;
 
 // platformsdk
 //
@@ -185,8 +204,6 @@ typedef int Int;
 typedef bool Bool;
 
 typedef unsigned short wchar_t;
-
-class UnicodeString;
 
 WindowScriptCreateRecord g_windowScriptCreateRecord;
 
@@ -222,11 +239,14 @@ AsciiString g_systemCallbackName;
 
 
 
+
 AsciiString g_inputCallbackName;
 
 
 
+
 AsciiString g_tooltipCallbackName;
+
 
 
 
@@ -751,6 +771,8 @@ struct GameTextFetchView
 // Declared extern (not static: MSVC rejects defined-never statics with
 // C2129); the decoration is identical and the pin resolves the address.
 Int scanInt(const char *source, Int &val);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 
@@ -2420,8 +2442,6 @@ Bool parseTooltipText(char *token, WinInstanceData *instData, char *buffer, void
 	return true;
 }
 
-// tu-skeleton: 0x00315DB1 1089B ?parseDrawData@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseName.cpp
 
 //
@@ -2511,9 +2531,49 @@ Bool parseSystemCallback(char *token, WinInstanceData *instData, char *buffer, v
 	return true;
 }
 
-// tu-skeleton: 0x00316434 76B ?parseInputCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp (not merged yet)
+// tu-skeleton: 0x00315DB1 1089B ?parseDrawData@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
 
-// tu-skeleton: 0x00316480 76B ?parseTooltipCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp
+
+// ?parseInputCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseInputCallback(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *c, *ptr;
+	char *stringSeps = "\"";
+
+	ptr = buffer;
+	while (*ptr != '"')
+		ptr++;
+	ptr++;
+	c = NativeScriptCrt::strtok(ptr, stringSeps);
+	g_inputCallbackName.set(c);
+
+	NameKeyType key = TheNameKeyGenerator->nameToKey(g_inputCallbackName);
+	g_windowScriptCreateRecord.input = ((Rva00DFF024Registry *)TheFunctionLexicon)->bfme_lookup_c3028(key, 1);
+
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp
+
+// ?parseTooltipCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseTooltipCallback(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *c, *ptr;
+	char *stringSeps = "\"";
+
+	ptr = buffer;
+	while (*ptr != '"')
+		ptr++;
+	ptr++;
+	c = NativeScriptCrt::strtok(ptr, stringSeps);
+	g_tooltipCallbackName.set(c);
+
+	NameKeyType key = TheNameKeyGenerator->nameToKey(g_tooltipCallbackName);
+	g_windowScriptCreateRecord.tooltip = ((Rva00DFF024Registry *)TheFunctionLexicon)->bfme_lookup_7fde7(key, 2);
+
+	return true;
+}
 
 // tu-skeleton: 0x003164CC 76B ?parseDrawCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp (not merged yet)
 
@@ -2680,3 +2740,7 @@ static const void *s_parseTooltipTextAnchor = (const void *)parseTooltipText;
 static const void *s_parseWinClassAnchor = (const void *)parseWinClass;
 
 static const void *s_parseSystemCallbackAnchor = (const void *)parseSystemCallback;
+
+static const void *s_parseInputCallbackAnchor = (const void *)parseInputCallback;
+
+static const void *s_parseTooltipCallbackAnchor = (const void *)parseTooltipCallback;

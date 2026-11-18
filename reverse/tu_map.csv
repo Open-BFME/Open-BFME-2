@@ -24804,8 +24804,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00316355,71,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x0031639C,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x0031639C,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x003163E8,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x003163E8,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316434,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
-0x00316434,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316480,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp
-0x00316480,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x003164CC,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp
+0x00316434,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316480,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+0x00316480,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x003164CC,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 0x003164CC,76,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316518,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp
 0x00316518,1722,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp C=0x00315ACC..0x00316BD2,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp
 0x00316BD2,294,code,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,approved,C,C=0x00315ACC..0x00316CF8,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp

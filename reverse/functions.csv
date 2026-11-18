@@ -7159,8 +7159,8 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?parseSystemCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x003163E8,76,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,matched,BFME2-new registry shape after landed parseName; dispatch table at 0x9BE198 pairs SYSTEMCALLBACK with 0x7163E8; global name plus key plus slot-0 lookup plus global store
 ?parseImageOffset@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x00314F99,67,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseImageOffset.cpp,matched,
 ?parseWinClass@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x0031639C,76,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,matched,
-?parseInputCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x00316434,76,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp,matched,
-?parseTooltipCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x00316480,76,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp,matched,
+?parseInputCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x00316434,76,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,matched,
+?parseTooltipCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x00316480,76,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,matched,
 ?parseDrawCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z,,0x003164CC,76,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp,matched,
 ??1BfmeNonRefSceneList@@UAE@XZ,,0x00141780,96,Code/Libraries/Source/WWVegas/WW3D2/BfmeNonRefSceneList_dtor.cpp,matched,
 ?drainChain@Rva006CEAD0@@QAEXXZ,,0x006CEAD0,57,Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetChainDrain.cpp,matched,Opaque chain-drain: Nugget+0 member teardown via detach 0x6CD530 plus sized free 0x6DB270; AsciiString name already held by 5B row 0x48BA39
