@@ -28,14 +28,7 @@ enum NameKeyType
 // provider at 3828B6 and the dword provider at 382908 independently.
 struct Rva0038201DNode;
 #include "../../../../GameEngine/Include/Common/Rva0038201D.h"
-class Rva00382077
-{
-    Rva0038201DNode *m_head;
-    int m_count;
-public:
-    void rva00382077(Rva0038201DNode *n);
-    void rva00382908();
-};
+#include "../../../../GameEngine/Include/Common/Rva00382077.h"
 
 namespace _STL
 {

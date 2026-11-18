@@ -119,11 +119,7 @@ class Rva0038204A {
 public:
     void rva003828DF();
 };
-class Rva00382077 {
-    unsigned m_words[3];
-public:
-    void rva00382908();
-};
+#include "../../../../Include/Common/Rva00382077.h"
 // Physical ABI used by the already recovered177-byte XferMap provider.
 // Native slot28 receives two adjacent version bytes, both initialized to1.
 struct StatsXferVersion { unsigned char first, second; };
