@@ -11,9 +11,9 @@
 // player colour shader is the W3DScene.cpp file static at VA 0x00DB4248.
 // Callers: RTS3DScene::flushOccludedObjectsIntoStencil 0x00070841 (two sites).
 
-typedef unsigned int UnsignedInt;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class ShaderClass { public: unsigned int ShaderBits; };
 // Retail's player-colour shader, the W3DScene.cpp file static at VA 0x00DB4248

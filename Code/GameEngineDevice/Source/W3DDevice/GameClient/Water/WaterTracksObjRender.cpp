@@ -16,9 +16,9 @@
 #include "../../../../../GameEngine/Include/Common/Player.h"
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 #include "vector2.h"
 #include "vector3.h"
 #include "aabox.h"

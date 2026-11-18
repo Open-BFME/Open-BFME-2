@@ -10,10 +10,10 @@
 // BF1's explicit vtable-view lever separates the health-address load from
 // the zero stores. Each target query has only ECX receiver and ST0 float
 // result, so a one-register function-pointer view preserves that ABI.
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum DrawableID
 {

@@ -39,9 +39,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 __forceinline long fast_float2long_round(float f)
 {

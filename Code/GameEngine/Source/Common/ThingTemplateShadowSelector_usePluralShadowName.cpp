@@ -1,7 +1,7 @@
 // Ported from the BFME1 reconstruction; this body has a unique byte-verified
 // placement in BFME2 at RVA 0x006BE160.
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class BfmeThingTemplateShadowSelector
 {

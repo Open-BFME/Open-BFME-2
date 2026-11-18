@@ -23,10 +23,10 @@
 // getControllingPlayer 0x0028AFA9 and createAndFireTempWeapon 0x002CE904.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 class Thing;
 class ModuleData;

@@ -47,9 +47,9 @@ inline void Coord3D::normalize()
 	}
 }
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class DrawableLocoInfo
 {

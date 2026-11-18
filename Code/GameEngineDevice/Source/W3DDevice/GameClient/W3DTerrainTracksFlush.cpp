@@ -26,10 +26,10 @@
 // 0x0011D4A0, Draw_Triangles 0x00120620, StringClass ctor 0x00065F34 and
 // Free_String 0x00610A40 (Set_Shader's snapshot string).
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 

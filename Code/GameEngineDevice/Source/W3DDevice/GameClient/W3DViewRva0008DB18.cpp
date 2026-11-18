@@ -23,9 +23,9 @@
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 #define PI 3.14159265359f
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"

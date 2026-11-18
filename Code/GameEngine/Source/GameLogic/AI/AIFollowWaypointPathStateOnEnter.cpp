@@ -44,7 +44,7 @@
 // BFME 2's "CritterDesync: ComputePath40" log before computePath.
 #include <math.h>
 #include <stddef.h>
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 #define FAST_AS_POSSIBLE 999999.0f
 enum ModelConditionFlagType
 {
@@ -60,8 +60,8 @@ enum ModelConditionFlagType
 #undef _CRTIMP
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-typedef float Real;
-typedef int Int;
+
+
 enum LocomotorSetType
 {
 	LOCOMOTORSET_NORMAL = 0,

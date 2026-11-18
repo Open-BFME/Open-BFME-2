@@ -17,11 +17,11 @@
 // +0x120C0, the frame ceiling at +0x1205C, and the router fallback order at
 // +0x12030.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 enum NetCommandType
 {

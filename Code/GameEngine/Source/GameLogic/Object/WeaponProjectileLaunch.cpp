@@ -30,9 +30,9 @@
 
 #include "matrix3d.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 inline void Coord3D::zero()

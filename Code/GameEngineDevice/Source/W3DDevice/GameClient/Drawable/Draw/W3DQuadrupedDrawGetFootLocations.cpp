@@ -16,9 +16,9 @@
 #include "ascii_string.h"
 #include "Coord3D.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include <vector>
 

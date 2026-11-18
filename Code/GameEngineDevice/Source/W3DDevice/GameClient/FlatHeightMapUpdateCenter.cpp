@@ -35,9 +35,9 @@
 #include <vector>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class Vector3
 {

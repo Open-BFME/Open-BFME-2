@@ -31,9 +31,9 @@ _List_iterator<int, _Nonconst_traits<int> > &_List_iterator<int, _Nonconst_trait
 }
 #include <map>
 
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 // STLport vector view: inline size() divides the pointer difference.
 template <class T> class EvaVectorView

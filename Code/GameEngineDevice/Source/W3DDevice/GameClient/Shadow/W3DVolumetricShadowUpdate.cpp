@@ -22,9 +22,9 @@
 // when an update was forced, every XYZ vertex buffer's render-task list is
 // cleared. Field names past the ZH members are descriptive.
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #define AIRBORNE_UNIT_GROUND_DELTA	2.0f
 #define MAX_SHADOW_LENGTH_EXTRA_AIRBORNE_SCALE_FACTOR	1.5f

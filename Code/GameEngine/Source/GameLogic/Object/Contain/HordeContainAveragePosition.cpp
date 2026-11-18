@@ -47,9 +47,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 extern GameLogic *TheGameLogic;
 
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum PathfindLayerEnum
 {

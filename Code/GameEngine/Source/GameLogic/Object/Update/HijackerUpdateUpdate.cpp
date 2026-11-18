@@ -11,9 +11,9 @@
 // newObject, direct +0x38 position) with BFME2 offsets team +0x304 AI +0x258
 // contain +0x250 and names.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum UpdateSleepTime
 {

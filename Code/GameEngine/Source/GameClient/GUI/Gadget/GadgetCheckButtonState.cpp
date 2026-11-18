@@ -4,8 +4,8 @@
 // Evidence: two GameWindow::winGetStatus pin 0x0030F45F calls; 5 callers in
 // 0x00327E5D push-button input; sibling checked-bit helpers nearby.
 
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

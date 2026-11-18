@@ -21,10 +21,10 @@
 // The turn-limit block re-reads the template limit, as the WorldBuilder twin does.
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 enum WhichTurretType

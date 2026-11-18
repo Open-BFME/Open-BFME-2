@@ -15,9 +15,9 @@
 // The ZH trailing clearAttackMoveToMode() is gone. Slot offsets are read from
 // the retail calls.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 typedef unsigned int WindowMsgData;
 
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };

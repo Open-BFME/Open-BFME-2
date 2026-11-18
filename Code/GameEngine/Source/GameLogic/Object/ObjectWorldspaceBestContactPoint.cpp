@@ -13,9 +13,9 @@
 // by WB6F91B0 and the complete1079B native body plus existing target bank;
 // this caller gives no recovery credit to that unrowed callee.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
 #include "Lib/Coord3D.h"

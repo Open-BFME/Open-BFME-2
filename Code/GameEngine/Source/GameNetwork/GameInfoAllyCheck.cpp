@@ -1,8 +1,8 @@
 // cl: /DNDEBUG /MD
 // ?Rva005BF28EIsAlly@@YA_NPBVGameInfo@@PBVGameSlot@@@Z @0x005BF28E 57B: GameInfo local-ally team check via getLocalSlotNum slot 13 (+0x34) and rowed getConstSlot; evidence retail virtual call + getConstSlot row + team at +0x1c.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../Include/GameNetwork/GameInfo.h"
 

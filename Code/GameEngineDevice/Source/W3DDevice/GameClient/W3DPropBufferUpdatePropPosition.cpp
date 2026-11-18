@@ -30,9 +30,9 @@
 // Rotate_Z, Scale and Set_Translation; the bounding-sphere copy calls the
 // folded SphereClass assignment.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include <math.h>
 

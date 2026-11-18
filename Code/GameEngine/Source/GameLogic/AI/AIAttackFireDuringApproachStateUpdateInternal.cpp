@@ -20,9 +20,9 @@
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"

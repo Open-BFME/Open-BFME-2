@@ -25,9 +25,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 #include <windows.h>
 
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };

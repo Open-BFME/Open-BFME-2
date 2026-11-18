@@ -29,9 +29,9 @@
 // sizes put it at the lower frame slot where retail has the trace text. The
 // +0x13C counter is volatile to keep retail's add-to-memory. The method name
 // stays address-derived.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include <windows.h>
 #include <stdio.h>

@@ -8,9 +8,9 @@
 #include <math.h>
 #include "Coord3D.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 struct In002E6BA1
 {

@@ -17,10 +17,10 @@
 // a plain C++ integral cast would truncate or call a different helper.
 #include <math.h>
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 // platformsdk
 #include <windows.h>

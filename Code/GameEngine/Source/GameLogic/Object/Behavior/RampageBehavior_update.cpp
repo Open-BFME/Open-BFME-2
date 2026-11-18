@@ -25,9 +25,9 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum UpdateSleepTime
 
 {

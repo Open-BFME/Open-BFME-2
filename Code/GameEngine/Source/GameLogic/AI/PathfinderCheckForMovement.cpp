@@ -12,9 +12,9 @@
 // past Zero Hour's are not recovered; kind-of bits (template +0x108) and cell
 // flag fields follow the WorldBuilder twin's BitFlags tests.
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectID
 {

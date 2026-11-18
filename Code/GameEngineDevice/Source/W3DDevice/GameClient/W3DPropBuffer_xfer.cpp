@@ -23,9 +23,9 @@
 //     0x0004254E).
 // Create_Render_Obj 0x00136175 rebuilds the type's render object on load.
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include "Coord3D.h"
 #include "Coord3DBase.h"

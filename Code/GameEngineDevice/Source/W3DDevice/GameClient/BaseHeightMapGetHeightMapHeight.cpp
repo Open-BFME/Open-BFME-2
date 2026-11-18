@@ -23,9 +23,9 @@ extern "C" { static float __cdecl floorf(float); }
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 
-typedef float Real;
-typedef int Int;
-typedef unsigned short UnsignedShort;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #define MAP_XY_FACTOR 10.0f
 #define MAP_HEIGHT_SCALE (MAP_XY_FACTOR / 256.0f)

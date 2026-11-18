@@ -10,9 +10,9 @@
 
 #define _STLP_NO_EXCEPTIONS 1
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -24,11 +24,11 @@
 // keep no pointer to hsv/rgb is what gives retail's frame, with hsv/rgb at function
 // scope as in Zero Hour. Either change alone leaves the 12-byte homes swapped.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

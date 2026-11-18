@@ -11,9 +11,9 @@
 // The ordinal kind bits and neutral field names describe observed BFME2
 // accesses; the original helper name is not asserted.
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectID
 {

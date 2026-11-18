@@ -10,9 +10,9 @@
 // [TIME_OF_DAY_COUNT][MAX_GLOBAL_LIGHTS] TerrainLighting table +0x140
 // (0x6C per time of day), and the current arrays +0x8D8/+0x8FC/+0x920.
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 enum TimeOfDay
 {

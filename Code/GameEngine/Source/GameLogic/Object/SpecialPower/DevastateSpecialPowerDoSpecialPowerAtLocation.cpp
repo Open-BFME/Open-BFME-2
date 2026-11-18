@@ -28,9 +28,9 @@
 
 #include "ascii_string.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 struct Coord3D;
 class Object;

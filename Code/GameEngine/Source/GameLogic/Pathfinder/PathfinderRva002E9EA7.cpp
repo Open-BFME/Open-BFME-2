@@ -8,10 +8,10 @@
 // Shape follows WB literally; semantics are the ZH Pathfinder::checkDestination
 // family (radius/centerInCell rectangle, IS_IMPASSABLE, ignoreId/objID).
 // The name stays address-derived: WB has no symbol for it.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/Common/PathfinderCellPoint.h"

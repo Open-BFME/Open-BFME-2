@@ -9,10 +9,10 @@
 // BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 BaseHeightMapIsClearLineOfSight.cpp.
 // BFME2 removes LOS/bridge tests and retains maximum sampled terrain height.
 // x87 fistp is the donor's proven round helper; no lifted instructions.
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 // Keep math.h's inline floorf local: retail's object exposes no _floorf.
 extern "C" { static float __cdecl floorf(float); }

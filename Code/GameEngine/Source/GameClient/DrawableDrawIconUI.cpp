@@ -27,9 +27,9 @@
 
 extern GameLogic *TheGameLogic;
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 
