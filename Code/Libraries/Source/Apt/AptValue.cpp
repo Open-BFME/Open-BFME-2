@@ -175,7 +175,7 @@ class RvaAptValueBase
 protected:
 	unsigned int m_flags;
 public:
-	RvaAptValueBase(int type)
+	__forceinline RvaAptValueBase(int type)
 	{
 		setTypeAt006DBBC0(type);
 		m_flags = (m_flags & 0xFE000035u) | 0x30u;
@@ -192,7 +192,7 @@ public:
 class Rva006D6360Base : public RvaAptValueBase
 {
 public:
-	Rva006D6360Base(int type, int size) : RvaAptValueBase(type), m_hash(size) {}
+	__forceinline Rva006D6360Base(int type, int size) : RvaAptValueBase(type), m_hash(size) {}
 	virtual ~Rva006D6360Base() {}
 	AptNativeHash m_hash;
 };
@@ -213,10 +213,15 @@ public:
 };
 
 // The middle level whose destructor (0x006D6470) is retail's second unwind target.
+// Its constructor is only ever expanded here: the six subclass constructors below never
+// store this level's table. The import form keeps this unit from emitting an out-of-line
+// copy, and with it a table and deleting destructor for this view (one slot, no AddRef /
+// Release, global operator delete), which came first in link order ahead of the rowed
+// 0x006D6410 and its three-slot table in Rva006D6360Ctor.cpp.
 class Rva006D6470Owner : public Rva006D6360Base, public Rva006DBits
 {
 public:
-	__forceinline Rva006D6470Owner(int type, int size) : Rva006D6360Base(type, size), Rva006DBits() {}
+	__declspec(dllimport) __forceinline Rva006D6470Owner(int type, int size) : Rva006D6360Base(type, size), Rva006DBits() {}
 	virtual ~Rva006D6470Owner();
 };
 

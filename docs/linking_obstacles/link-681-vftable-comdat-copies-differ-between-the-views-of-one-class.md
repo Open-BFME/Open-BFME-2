@@ -63,6 +63,21 @@ Read so far, not repaired (2026-11-15, object tables at index `bb93a2a56e`):
   unit cannot simply adopt the real names: it already defines `AptValue` (from `AptScriptFunction.h`)
   and a non-polymorphic accessor view named `BfmeAptValue006DCD20`, and its two-base `Rva006DBits`
   model is what gives the six rowed subclass constructors retail's memory-form mask. Class-fold work.
+  **Repaired 2026-11-18 without the fold (base `d2c836ff88`).** None of the three names is needed from
+  this unit: retail's six subclass constructors (0x006DE480 ...) expand the whole chain and go from
+  `Rva006D6360`'s table straight to their own, never storing 0x008EA264. The unit emitted
+  `??0Rva006D6470Owner@@QAE@HH@Z` only as the unreferenced out-of-line copy of its `__forceinline` view
+  constructor, and that copy alone pulled in the one-slot table and the global-delete `??_G`. The view
+  constructor is now `__declspec(dllimport) __forceinline` (expanded, not emitted; the
+  `Rva00785140Handle` repair above), and the two private base constructors under it are `__forceinline`
+  so the six rows keep expanding them (without that the import form left calls to
+  `??0RvaAptValueBase@@QAE@H@Z` / `??0Rva006D6360Base@@QAE@HH@Z`). `./build.sh` 35/35 exact; the object
+  defines none of the three names. Preview at index `147fd3e52b` over the 17 units that view the class:
+  16 link, 21,096 -> 34,709 bytes (`AptValue.cpp` 2,730, `AptCharacter.cpp` 9,898,
+  `Rva006ECFC0Siblings.cpp` 513, `Rva006D6360Ctor.cpp` 233, `Rva006DA4D0Finish.cpp` 138,
+  `Rva006F1360Dtor.cpp` 101). Left: `LadderPreferencesDtor.cpp` (127 B), whose table is the canonical
+  `AptValue.h` list where the five other emitters hold `AddRef`, `Release` and the destructor; that
+  pair of views still has to migrate together, and the chain's stale spelling here is unchanged.
 - `StructureToppleUpdateModuleDataCtor.cpp`, `AutoDepositUpdateModuleDataCtor.cpp`: the losing units
   hold the 31-slot BFME 2 `ModuleData` list; the first copy is `ModuleFactory.cpp`'s 8-slot Zero Hour
   list (`crc`, `xfer`, `loadPostProcess`, destructor, ...). Blocked, the wall LINK-625 already records:
