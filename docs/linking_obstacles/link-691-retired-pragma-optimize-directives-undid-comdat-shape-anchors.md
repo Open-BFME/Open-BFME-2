@@ -46,8 +46,8 @@ LadderDefs.cpp (its own commit): the unit builds `/O1` (its region's default; th
 names no `/O`), so the `#pragma optimize("t", on)` / `("", on)` pair around its inline
 `StringBase<char>::getCharAt` specialization was what made the emitted copy retail's 23-byte
 two-RET body. `9317f5872f` retired the pair as redundant under `/O2`; the copy became the 22-byte
-tail-merged one, first in link order. VC7.1 emits an inline explicit specialization whether or not
-anything references it (tried: defined ahead of AsciiString's forwarder, as a member-template
+tail-merged one, first in link order. VC7.1 emits an inline explicit specialization once the unit
+uses it, even when every use is expanded and only `.debug$F` still names it (tried: defined ahead of AsciiString's forwarder, as a member-template
 definition, and `__forceinline`; each still emitted the size-shaped body), so no reordering gives a
 speed-built copy without a directive. The specialization now takes AptOnlineHomeTimeZone.cpp's form
 for the same function, `__declspec(dllimport) __forceinline`: the rows expand it as before and the

@@ -44,5 +44,44 @@ _com_IIID<IFEBrowserEngine2, &__uuidof(IFEBrowserEngine2)>::GetIID() throw()
 typedef _com_ptr_t<_com_IIID<IFEBrowserEngine2, &__uuidof(IFEBrowserEngine2)> >
 	IFEBrowserEngine2Ptr;
 
-template HRESULT IFEBrowserEngine2Ptr::CreateInstance(
-	const CLSID &classId, IUnknown *outer, DWORD context) throw();
+// comip.h's body, restated so the IUnknown GUID is the one object the ledger names at
+// 0x007D4E4C (IID_IUnknown above) and not a second identity for it: comip.h spells it
+// __uuidof(IUnknown), which this toolchain emits as its own __GUID_ constant.
+// dx8webbrowser.cpp holds the same text: it expands it once into Initialize, calls it
+// once and so emits the same body, which comes first in link order. Inline, so the two
+// copies are one select-any body and not two definitions.
+template <> inline HRESULT IFEBrowserEngine2Ptr::CreateInstance(
+	const CLSID &classId, IUnknown *outer, DWORD context) throw()
+{
+	HRESULT result;
+	_Release();
+	if (context & (CLSCTX_LOCAL_SERVER | CLSCTX_REMOTE_SERVER)) {
+		IUnknown *unknown;
+		result = CoCreateInstance(classId, outer, context, IID_IUnknown,
+			reinterpret_cast<void **>(&unknown));
+		if (SUCCEEDED(result)) {
+			result = OleRun(unknown);
+			if (SUCCEEDED(result)) {
+				result = unknown->QueryInterface(GetIID(),
+					reinterpret_cast<void **>(&m_pInterface));
+			}
+			unknown->Release();
+		}
+	} else {
+		result = CoCreateInstance(classId, outer, context, GetIID(),
+			reinterpret_cast<void **>(&m_pInterface));
+	}
+	if (FAILED(result))
+		m_pInterface = NULL;
+	return result;
+}
+
+// An inline specialization nothing uses is not emitted, and the row at 0x00176F10 is
+// verified against this unit's object. This stand-in for DX8WebBrowser::Initialize's
+// call (dx8webbrowser.cpp, retail's one caller) keeps the body emitted here until the
+// row has an approved unit to go home to; it has no retail counterpart.
+// ?bfmeAnchorBrowserCreateInstance absent-from-retail
+HRESULT bfmeAnchorBrowserCreateInstance(IFEBrowserEngine2Ptr &browser, const CLSID &classId)
+{
+	return browser.CreateInstance(classId, NULL, CLSCTX_ALL);
+}
