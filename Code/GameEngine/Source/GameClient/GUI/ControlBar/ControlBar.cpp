@@ -1277,11 +1277,15 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
+}
 // end() and the fill insert(pos, n, x) are taken inline, as retail's
 // hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
 // calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
+namespace _STL {
 template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 { return _M_finish; }
+}
+namespace _STL {
 template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
 { _M_fill_insert(pos, n, x); }
 }

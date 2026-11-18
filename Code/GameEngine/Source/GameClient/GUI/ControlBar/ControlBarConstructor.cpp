@@ -33,8 +33,6 @@ template <> bool less<unsigned int>::operator()(const unsigned int &a, const uns
 
 #include <cstddef>
 // bfme link decl-only begin
-namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(allocator<void *> const &); }
-namespace _STL { template <> vector<void *, allocator<void *> >::vector(allocator<void *> const &); }
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
 namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
@@ -44,9 +42,11 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
 namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
+{ _M_fill_insert(pos, n, x); }
+}
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
-namespace _STL { template <> allocator<void *>::~allocator(); }
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??1?$vector@UPlayerAITypeEntry@@V?$allocator@UPlayerAITypeEntry@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -76,9 +76,12 @@ namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::begin()
 { return _M_start; }
-template <> __declspec(dllimport) __forceinline
-void **vector<void*>::end()
+}
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 { return _M_finish; }
+}
+namespace _STL {
 template <> __declspec(dllimport) __forceinline
 size_t vector<void*>::size() const
 { return size_t(this->_M_finish - this->_M_start); }
@@ -99,7 +102,6 @@ namespace _STL {
 typedef hashtable<pair<const int, Rva0031DBFCElement>, int, hash<int>,
     _Select1st<pair<const int, Rva0031DBFCElement> >, equal_to<int>,
     allocator<pair<const int, Rva0031DBFCElement> > > ControlBarTable;
-template <> void ControlBarTable::_M_initialize_buckets(size_t);
 template <> void ControlBarTable::clear();
 }
 
