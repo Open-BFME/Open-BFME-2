@@ -4,9 +4,9 @@
 // Object isSelectable/producer-under-construction helper at retail 0x00292FAC 87B.
 // TU-scoped private Object view: this file defines only isMassSelectable and does
 // not touch the ObjectScriptStatus.cpp view.
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectStatusTypes
 {

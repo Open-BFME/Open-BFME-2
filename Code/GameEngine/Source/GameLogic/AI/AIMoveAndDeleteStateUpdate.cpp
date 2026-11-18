@@ -9,8 +9,8 @@
 // +0x140, current locomotor +0x1F0 (flags +0x44) and waiting-for-path +0x3B1;
 // goal +0x20 and append flag +0x4C; getGroundHeight is TerrainLogic vslot 6;
 // appendNode is the rowed Path::appendNode with flags 0x7FFFFFFF.
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0,

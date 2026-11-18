@@ -15,7 +15,7 @@
 // masks, the order of a direct field read: an inline getTemplate() makes MSVC
 // load it first (Zero Hour defines getTemplate out of line in Thing.cpp).
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/Common/BitFlagsTemplate.h"
 

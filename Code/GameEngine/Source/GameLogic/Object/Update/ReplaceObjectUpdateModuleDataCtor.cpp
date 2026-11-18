@@ -28,7 +28,7 @@ template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 

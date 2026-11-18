@@ -17,7 +17,7 @@
 // true), which the /O2 W3DModelDraw.cpp port does not reproduce, so the body
 // lives here.
 
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 

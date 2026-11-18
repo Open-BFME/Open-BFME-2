@@ -12,9 +12,9 @@
 // No under-construction override (unlike shroud). Evidence: 32 callers,
 // donor open-bfme-1 Object.cpp getVisionRange, chain via just-landed 0x0028A8B5.
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

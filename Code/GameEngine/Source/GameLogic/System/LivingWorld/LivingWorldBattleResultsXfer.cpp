@@ -7,11 +7,11 @@
 // Original field labels and full player extent remain unresolved; these
 // address-qualified views preserve the existing lookup's type and ABI.
 // Typed player access closes the earlier saved-ID register mismatch.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
+
 class AsciiString;
 #include "../../../../Include/Common/XferVersionFields.h"
 

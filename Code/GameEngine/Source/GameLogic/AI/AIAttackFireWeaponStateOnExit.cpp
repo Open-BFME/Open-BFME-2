@@ -11,8 +11,8 @@
 // setPreAttackFinishedFrame refreshes its status (the rowed
 // Weapon::getStatus) after storing the frame (+0x1C); and status 0x52 is
 // cleared at the end.
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_IS_FIRING_WEAPON = 0x0D,

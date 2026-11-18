@@ -6,7 +6,7 @@
 // proves handle3C renderObject8C controller94/98 and slot4 boolean callback.
 // Owner stays address-derived because WB B0D730 is unnamed.
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum ParticleType
 {

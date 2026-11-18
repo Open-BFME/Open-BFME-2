@@ -8,7 +8,7 @@
 // Rva0036BDD0 box set from (v1,v2) by rowed 0x003958F6, rowed
 // Player::iterateObjects at 0x002AB08B runs callback+box, result is box m_18;
 // flags and decls follow neighbouring Behavior TUs.
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 class Object;
 class Player;

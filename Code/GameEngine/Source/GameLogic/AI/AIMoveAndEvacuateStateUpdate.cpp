@@ -9,7 +9,7 @@
 // interface, rowed 0x002AE6B3, and Team::setActive inline).
 // BFME2 layout (target evidence): Object private status byte +0x438 bit 0,
 // AI +0x258, team +0x304; Team m_active +0x5D and m_created +0x5E.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 #include <windows.h>
 enum CommandSourceType
 {

@@ -4,8 +4,8 @@
 // into 3-arg getAbleToAttackSpecificObject pin at 0x0028D051; caller 0x00350E4F
 // builds vtable 0x7F91B0 with +8=source +0xc=2 +0x10=0; BFME1 donor
 // PartitionManager.cpp BfmePossibleToAttackFilter; BFME2 base is 8B so +8/+0xc/+0x10.
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum AbleToAttackType
 {

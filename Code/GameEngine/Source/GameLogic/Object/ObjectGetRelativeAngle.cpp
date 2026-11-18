@@ -13,7 +13,7 @@
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 extern Real ACos(Real);
 
 #include "../../Common/Thing/thing.h"

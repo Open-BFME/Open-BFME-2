@@ -1,7 +1,7 @@
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHs-c- /O1 /arch:SSE /G7 /Ireference/open-bfme-1/game/GameEngine/Source/Common/INI /Ireference/shims/iniexception
 // ?parseKey@Rva0006AF00FunctionCurve@@SAXPAVINI@@PAX1PBX@Z at retail RVA 0x005050EA; donor identity and callback role are established by the BFME1 FunctionCurve parser, while target token handling, tangent helper, and addKey call are established by retail bytes.
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "Common/INIException.h"
 

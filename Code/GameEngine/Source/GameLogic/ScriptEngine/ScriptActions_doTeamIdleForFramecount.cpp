@@ -10,7 +10,7 @@
 extern int BfmeLogicFramesPerSecond;
 
 #include "ascii_string.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 class Object;
 class AIUpdateInterface;
 template<class OBJCLASS> class DLINK_ITERATOR

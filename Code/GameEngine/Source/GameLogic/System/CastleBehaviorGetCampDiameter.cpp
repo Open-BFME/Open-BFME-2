@@ -20,7 +20,7 @@
 #include <vector>
 #include "ascii_string.h"
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/Player.h"
 

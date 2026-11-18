@@ -10,8 +10,8 @@
 // get the rowed 0x003192B1 update. Returns true so the walk continues. Class
 // and method spellings are unknown; the views follow LivingWorldLogic.cpp.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 class ModuleData;
 class ArmySummary;

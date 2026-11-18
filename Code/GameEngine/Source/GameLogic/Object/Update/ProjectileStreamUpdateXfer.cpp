@@ -41,7 +41,7 @@ enum ObjectID
 {
 	OBJECTID_INVALID = 0
 };
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum
 {

@@ -8,7 +8,7 @@
 // command-set name from the rowed Object accessor 0x00290E67) holds a button
 // of the given type (+0x14) among its 32 slots (rowed
 // CommandSet::getCommandButton 0x00409EE8).
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class AsciiString;
 

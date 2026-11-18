@@ -7,7 +7,7 @@
 // ExperienceLevelSystem.cpp) plus float (B/C)*A+A via __ftol2; callers unclaimed
 // so honest address name Rva0028D796.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 

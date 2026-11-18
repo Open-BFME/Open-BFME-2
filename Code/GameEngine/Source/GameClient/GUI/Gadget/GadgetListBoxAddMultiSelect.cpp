@@ -9,7 +9,7 @@
 // Evidence: callees rowed winGetUserData 0x005C4ACD, new[] 0x0002FDE0,
 // delete[] 0x0002FD80, memset thunk 0x006291AE, winSetInputFunc 0x00314147.
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 typedef unsigned int WindowMsgData;
 
 class GameWindow;

@@ -12,7 +12,7 @@
 // container case is written as the tail call it was: MSVC turns it into
 // retail's backward jump, which the loop forms of earlier attempts rotated.
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 

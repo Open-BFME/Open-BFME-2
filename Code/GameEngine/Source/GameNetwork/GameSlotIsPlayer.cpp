@@ -12,8 +12,8 @@
 // The by-value name is released by its callee-side destructor (the shared
 // header's inline ~UnicodeString -> releaseBuffer).
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 enum
 {

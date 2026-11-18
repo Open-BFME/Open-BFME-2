@@ -11,8 +11,8 @@
 // searcher in edi as retail does; TacticalAI::checkEnemyForAttackMove
 // (0x002C600A, WB callgraph name) is pinned.
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

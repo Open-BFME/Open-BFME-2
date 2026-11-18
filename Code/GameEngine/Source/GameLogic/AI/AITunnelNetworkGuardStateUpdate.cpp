@@ -11,7 +11,7 @@
 // PROJECTILE kind bit at byte +0x10B mask 0x02; isOutOfAmmo is the rowed
 // Object::isOutOfAmmo.
 #include <windows.h>
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../../../Include/Common/ThingTemplate.h"
 class Object
 {

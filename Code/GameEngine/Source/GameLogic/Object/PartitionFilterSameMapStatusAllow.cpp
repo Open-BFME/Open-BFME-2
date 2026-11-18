@@ -7,8 +7,8 @@
 // m_privateStatus OFF_MAP (0x08) tested by Object::isOffMap(). Bit 0 of the
 // same byte is EFFECTIVELY_DEAD, the test BFME2's
 // AIUpdateInterface::isAllowedToRespondToAiCommands makes first.
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum ObjectPrivateStatusBits
 {

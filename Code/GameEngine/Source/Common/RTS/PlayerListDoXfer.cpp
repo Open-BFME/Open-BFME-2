@@ -7,7 +7,7 @@
 // type-info object recorded in data_ledger at8FFD18. No new pins or RTTI.
 // This is an accessed prefix view; the total player-array bound stays open.
 
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
 
 struct XferVersion
 {

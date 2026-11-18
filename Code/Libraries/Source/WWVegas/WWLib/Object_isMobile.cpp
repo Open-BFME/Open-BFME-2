@@ -14,7 +14,7 @@
 // then bit8 and popcount==1 via rowed 0x0028F528 then !isKindOf(0x81) then
 // template+0x113&0x20 template+0x108&4 then !testStatus(0x3B). Unblocks 59.
 // Prev/next Object Rva TUs same flags. 40+ callers prove Object owner.
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 enum KindOfType
 {

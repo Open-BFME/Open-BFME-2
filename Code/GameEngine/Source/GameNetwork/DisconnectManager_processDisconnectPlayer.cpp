@@ -1,6 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class ConnectionManager;
 class NetCommandMsg;

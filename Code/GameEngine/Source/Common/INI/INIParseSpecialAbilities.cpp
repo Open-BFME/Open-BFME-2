@@ -12,7 +12,7 @@
 
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/Overridable.h"
 #include "../../../Include/Common/SpecialPower.h"

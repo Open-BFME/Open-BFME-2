@@ -11,7 +11,7 @@
 // BFME 2 difference (target evidence): after setting the turret target it
 // also sets the AI flag byte +0x3C7.
 // Layout: m_isInitialApproach +0x5F, m_isForceAttacking +0x60.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 enum WhichTurretType
 {
 	TURRET_INVALID = -1,

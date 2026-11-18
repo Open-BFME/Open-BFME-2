@@ -12,7 +12,7 @@
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_NAME_SLOT

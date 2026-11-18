@@ -18,7 +18,7 @@
 // claimed without inventing an identity the bytes do not support. Only this
 // one produced a single, unclaimed, unambiguous hit.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 // MSVC 7.1 folds `delete []` onto the scalar ??3@YAXPAX@Z unless the array
 // form is declared where it can see it; retail calls ??_V@YAXPAX@Z here.

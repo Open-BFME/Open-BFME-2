@@ -8,7 +8,7 @@
 // shared header preserves that retail field offset. The
 // "DeletionUpdate.cpp" file literal below is byte-copied from retail
 // (VA 0xC4B370); the random helper resolves via its matched row.
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

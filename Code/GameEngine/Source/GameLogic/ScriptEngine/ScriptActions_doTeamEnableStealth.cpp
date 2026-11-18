@@ -14,7 +14,7 @@
 
 #include "ascii_string.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 class Object;
 template<class OBJCLASS> class DLINK_ITERATOR
 {

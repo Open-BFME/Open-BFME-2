@@ -13,7 +13,7 @@
 // scaled transform (Set_Transform slot 21) to the primary and, when present,
 // the secondary render object.
 // The transform uses the shared WWMath matrix and RenderObjClass interface.
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 
 

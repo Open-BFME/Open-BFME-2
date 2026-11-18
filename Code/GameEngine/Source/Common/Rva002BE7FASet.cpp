@@ -5,7 +5,7 @@
 // when the new value equals +0x14. VTABLE slot 19 of the table at
 // 0x007FE508. Caller at 0x0009C790 passes the two stack args through.
 // Prev 0x002BE7DB Rva002BE7DBCopy, next 0x002BE833 Rva002BE833Xfer.
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 class Rva002BE7FA
 {

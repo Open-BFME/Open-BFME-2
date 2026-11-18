@@ -14,7 +14,7 @@
 // reproduce retail's je-fail tail -- the De Morgan-equivalent all-FAILURE
 // arms fold it branchless or flip its polarity. Interface and member names
 // past the proven slots/flags carry no identity claim.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class Object;
 template <int N> class VSlots : public VSlots<N - 1>
