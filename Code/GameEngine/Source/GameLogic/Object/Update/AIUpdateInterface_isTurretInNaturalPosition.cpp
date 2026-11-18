@@ -7,7 +7,7 @@
 // (single turret, MAX_TURRETS is 1). TurretAI::isTurretInNaturalPosition is
 // a direct (non-virtual) const call, resolved by pin.
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum WhichTurretType
 {

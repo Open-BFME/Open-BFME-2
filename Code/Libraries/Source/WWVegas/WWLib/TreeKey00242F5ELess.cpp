@@ -9,7 +9,7 @@
 // stlport_rb_tree_hint_00242f5e.cpp (signed int version with cdecl ret);
 // retail here uses unsigned id compare (jae/jbe) and stdcall cleanup.
 
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "ascii_string.h"
 

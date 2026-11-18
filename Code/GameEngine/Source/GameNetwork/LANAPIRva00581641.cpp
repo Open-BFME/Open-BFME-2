@@ -5,9 +5,9 @@
 // plus slot54 0xD8 guard plus inLobby +0x41 plus 8 slots stride 0x1D0 plus
 // virtual slot 61 (0xF4) with msg+0x40 byte.
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 

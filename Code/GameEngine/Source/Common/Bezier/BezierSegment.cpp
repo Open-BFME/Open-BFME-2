@@ -3,7 +3,7 @@
 // Bezier segment construction (trimmed to the placed dtor; the other six
 // bodies are declared-only here).
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 #define COORD3D_VIEW_DTOR
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 

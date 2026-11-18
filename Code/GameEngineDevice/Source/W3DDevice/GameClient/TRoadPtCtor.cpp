@@ -6,7 +6,7 @@
 // because RoadSegment's constructor (0x000D6C35, RoadSegmentCtor.cpp) inlines
 // the same stores: loc, top and bottom zeroed, count 0, then the four flags.
 // Layout is Zero Hour's (W3DRoadBuffer.h), matching the RoadSegment view.
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 

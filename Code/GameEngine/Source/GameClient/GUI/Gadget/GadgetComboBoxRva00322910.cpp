@@ -6,7 +6,7 @@
 // 0x0043F4BC, 0x004405AB, 0x0057C659). True name unknown, so the honest
 // address-derived name stands. EBP frame needs /Oy- (neighbour is /O1).
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

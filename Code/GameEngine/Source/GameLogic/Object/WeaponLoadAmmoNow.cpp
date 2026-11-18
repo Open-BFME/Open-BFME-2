@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD /EHs-c-
 // BFME1 Weapon::loadAmmoNow with BFME2's six-field bonus record.
 class Object;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 class WeaponBonus
 {
 public:

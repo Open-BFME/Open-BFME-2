@@ -6,9 +6,9 @@
 // winClearStatus/winSetStatus 0x600 (WIN_STATUS_NO_INPUT|NO_FOCUS) for true/false.
 // Callers at 0x002C2DFD 0x00570A0B 0x00570A23 0x0057F7FB.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

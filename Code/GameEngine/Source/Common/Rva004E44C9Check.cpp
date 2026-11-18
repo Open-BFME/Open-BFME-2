@@ -6,7 +6,7 @@
 // report true; else false. __stdcall for the ret 0xC cleanup. Own TU
 // because the EBP frame needs /Oy- while the enable family's frameless
 // bodies share /O1 /GX-. No callers rowed yet.
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
 void __stdcall Rva004E40A6Enable(int unused);
 int __stdcall Rva004E44C9Check(int code, UnsignedByte kind, UnsignedByte flags)
 {

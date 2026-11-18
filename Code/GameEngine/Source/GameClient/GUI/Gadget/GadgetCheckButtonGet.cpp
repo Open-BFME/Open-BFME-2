@@ -7,7 +7,7 @@
 
 #include <windows.h>
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

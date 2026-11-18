@@ -3,7 +3,7 @@
 // Weapon clip reload with computed bonus: 6x1.0f bonus then computeBonus plus template time.
 // Evidence: same Weapon TU neighbours; [ecx+4] template like siblings; callees rowed computeBonus plus getClipReloadTime.
 class Object;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 class WeaponBonus
 {
 public:

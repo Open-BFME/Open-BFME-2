@@ -8,8 +8,8 @@
 
 #include <windows.h>
 
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

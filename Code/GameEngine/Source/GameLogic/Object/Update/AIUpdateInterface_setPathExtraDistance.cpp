@@ -9,7 +9,7 @@
 // pass the owner AI as ECX, as Zero Hour's setPathExtraDistance callers do.
 // Member name from WorldBuilder's accessor (reverse/wb_members.csv).
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

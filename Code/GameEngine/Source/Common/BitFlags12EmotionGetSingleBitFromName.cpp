@@ -9,8 +9,8 @@
 #include <bitset>
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // EmotionNames: the retail string table at VA 0xdba9c8.
 const char *EmotionNames[12] = {

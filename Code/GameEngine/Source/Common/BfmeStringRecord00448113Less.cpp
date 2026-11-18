@@ -5,7 +5,7 @@
 // Leaf over matched StringBase<ushort>::compare at 0x6A7A. Called by tree bodies
 // 0x48D65 0x48DCB 0x48E64. Same shape as AsciiStringLess at 0x5598C.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "unicode_string.h"
 

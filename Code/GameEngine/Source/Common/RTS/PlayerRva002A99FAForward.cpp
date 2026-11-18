@@ -9,7 +9,7 @@
 // argument inside each branch (mov al; push eax / push 0) with a bare byte,
 // which an if/else over two calls gives under /G7 (cl merges the calls).
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 struct Rva002A99FASource
 {

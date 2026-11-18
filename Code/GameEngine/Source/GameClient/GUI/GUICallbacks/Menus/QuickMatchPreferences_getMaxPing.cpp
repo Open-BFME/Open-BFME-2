@@ -12,8 +12,8 @@
 #include <map>
 #include <stdlib.h>
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../Include/Common/BfmeStringData.h"
 

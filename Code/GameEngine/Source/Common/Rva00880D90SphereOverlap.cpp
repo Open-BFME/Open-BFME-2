@@ -1,6 +1,6 @@
 // Open-BFME: geometry sphere-overlap helper transferred from BFME1.
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

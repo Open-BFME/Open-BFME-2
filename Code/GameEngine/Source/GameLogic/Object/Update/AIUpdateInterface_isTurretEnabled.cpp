@@ -7,7 +7,7 @@
 // reads the flag directly at TurretAI+0x3C with no call, so the inner query
 // is a non-virtual inline here too. m_turretAI lives at +0x20C.
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum WhichTurretType
 {

@@ -8,7 +8,7 @@
 // width +8, height +0xC, origin +0x10/+0x14; 16-byte cells whose type is the
 // low nibble at +0xC, type 5 (CELL_BRIDGE_IMPASSABLE in the header).
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/GameLogic/PathfindCell.h"
 #include "../../../Include/GameLogic/PathfindLayer.h"

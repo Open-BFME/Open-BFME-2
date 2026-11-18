@@ -7,7 +7,7 @@
 // two pointers and test al. Precedent is Rva002634E0Equal at 0x002634E0
 // with identical 24B shape and /O1 flags.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include <string.h>
 

@@ -7,7 +7,7 @@
 // (single turret, MAX_TURRETS is 1). TurretAI::setTurretEnabled is a direct
 // (non-virtual) call, resolved by pin.
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum WhichTurretType
 {

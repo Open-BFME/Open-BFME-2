@@ -11,8 +11,8 @@
 #include <bitset>
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 extern const char *DisabilityTypeNames[11]; ///< retail [0x00DC828C]
 

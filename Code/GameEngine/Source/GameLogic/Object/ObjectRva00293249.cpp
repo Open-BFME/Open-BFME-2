@@ -5,7 +5,7 @@
 // sole caller 0x00352C3C pushes ObjectID from [ebp-0x18] with this in edi;
 // TheGameLogic global plus rowed findObjectByID 0x00049DC5; AI +0x258 per
 // Object_isAbleToAttack; slot 0x248 from retail call; unblocks 0x00352BD0.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

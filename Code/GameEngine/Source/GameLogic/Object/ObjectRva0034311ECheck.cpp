@@ -8,7 +8,7 @@
 // AIAttackFireWeaponState::onEnter, 0x0034A879) proves the single stack arg.
 // Identity name is address-derived; it is not a retail symbol.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "object.h"
 

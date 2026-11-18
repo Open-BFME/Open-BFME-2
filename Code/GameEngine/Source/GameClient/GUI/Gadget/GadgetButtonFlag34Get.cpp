@@ -8,7 +8,7 @@
 // W3DGadgetPushButtonImageDrawOne 0x000A56ED, which picks the 0xFF808080
 // colour multiplier for a grayscale-drawn disabled button when it is set.
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

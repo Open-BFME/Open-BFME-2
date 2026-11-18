@@ -4,7 +4,7 @@
 // (GetGameLogicRandomSeedCRC), calling ComputeCRC instead of CRC_Memory:
 // retail hashes the 6-word logic seed with the rotate-add packet hash.
 // The seed array is shared with InitGameLogicRandom and both logic readers.
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 extern "C" UnsignedInt theGameLogicSeed[6];
 

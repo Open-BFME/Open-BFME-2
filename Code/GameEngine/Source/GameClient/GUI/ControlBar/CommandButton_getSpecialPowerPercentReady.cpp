@@ -7,7 +7,7 @@
 // return the module's vslot 2 (getPercentReady in Zero Hour's interface),
 // or -1.0 when the object has no such module. The method's original name is
 // not established; it is address-derived.
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 class SpecialPowerTemplate;
 

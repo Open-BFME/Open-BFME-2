@@ -11,7 +11,7 @@
 // removeFrom). Siblings 0x0039D429 / 0x0039D440 are the WorldBuilder-named
 // Team::dlink_prependTo / dlink_removeFrom of the same list.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/Common/TeamBFME2.h"
 

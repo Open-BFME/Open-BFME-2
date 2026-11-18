@@ -5,9 +5,9 @@
 // +0x10 of the listbox user data. Dedicated TU so the GadgetListBox.cpp
 // file-unit (twin-owned) stays untouched. The TU defines only this body.
 
-typedef int Int;
-typedef bool Bool;
-typedef short Short;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

@@ -5,7 +5,7 @@
 // present. Callers pass 4 (0x00570522/0x0057F7EE with Reset+SetMaxChars).
 // True owner and field names unknown; layout is honest offsets only.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

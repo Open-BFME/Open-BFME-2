@@ -9,7 +9,7 @@
 // (GameLogicModeGateChecks.cpp); owner unproven so honest Rva host,
 // same family as Rva0023C6A4Check.cpp.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/Common/Rva0023C6A4.h"
 

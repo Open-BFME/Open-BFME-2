@@ -9,7 +9,7 @@
 // is these same instructions; Team+0x38 is the head the matched
 // Team::iterate_TeamMemberList (0x00263864) reads. No direct caller in
 // game.dat: it is the out-of-line copy of a member the siblings inline.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

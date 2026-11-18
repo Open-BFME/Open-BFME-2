@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // ?scanInt@@YAHPBDAAH@Z
 Int scanInt(const char *source, Int &val)

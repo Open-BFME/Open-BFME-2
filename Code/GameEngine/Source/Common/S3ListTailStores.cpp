@@ -13,7 +13,7 @@
 // rest as an alias of AudioEventRTS::setPlayingHandle, whose parameter is what
 // names the argument type here.
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 class Gen_000c8990
 {

@@ -7,7 +7,7 @@
 // TurretAI::getTurnRate is an inline m_data->m_turnRate read (m_data at
 // TurretAI+8, rate at +0), matching retail's two-chase movss.
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum WhichTurretType
 {
