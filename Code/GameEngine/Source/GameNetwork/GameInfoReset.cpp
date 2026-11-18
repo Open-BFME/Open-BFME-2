@@ -18,7 +18,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // g_00DBC800 is only an alias of the owned global NET_CRC_INTERVAL (ledger names column); this unit reads the owner through its own view type.
 extern int NET_CRC_INTERVAL;

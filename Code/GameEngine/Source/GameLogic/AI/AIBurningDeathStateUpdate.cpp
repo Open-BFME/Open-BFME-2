@@ -17,7 +17,7 @@
 // SUCCESS -1, FAILURE -2). Structural inference: +0x20/+0x24 are the base
 // move's goal x/y.
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 
 

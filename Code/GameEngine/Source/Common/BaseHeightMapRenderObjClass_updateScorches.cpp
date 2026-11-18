@@ -13,12 +13,12 @@
 // overbright and clamped to 1, UVs span the scorch's own quad grid in 1/3
 // atlas cells, heights are ushort * 0.0390625 + 1.
 // Entry stride 0x1C at +0xE0 (as addScorch), counts at +0x3790/+0x3794.
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
+
 // Keep the CRT's inlined floorf local; its public body is owned by the
 // terrain-lightmap unit at 0x0004D649.
 extern "C" { static float __cdecl floorf(float); }

@@ -33,7 +33,7 @@
 #include <math.h>
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 Real normalizeAngle(Real angle);
 

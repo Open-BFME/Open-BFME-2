@@ -18,7 +18,7 @@
 // vtable slot at +0x0c for getTextLength/getTooltipTextLength.  The canonical
 // headers supply the +0x30 member and that DisplayString table.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/GameClient/DisplayString.h"
 

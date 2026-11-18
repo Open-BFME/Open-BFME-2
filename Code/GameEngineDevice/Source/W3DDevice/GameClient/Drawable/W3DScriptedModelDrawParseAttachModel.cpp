@@ -17,7 +17,7 @@
 // Pass actual providers/consumers, full bytes, EH, strings and normal linking.
 #include "ascii_string.h"
 #include "../../../../../GameEngine/Include/Common/INI/FieldParse.h"
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 struct WeightedModel { AsciiString name; Int probability; };
 struct WeightedModels { WeightedModel *m_start, *m_finish, *m_end; };
 #include "../../../../../GameEngine/Include/Common/WeaponTemplateSetHead.h"

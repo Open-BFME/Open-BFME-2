@@ -31,7 +31,7 @@
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include <math.h>
 Real Sin(Real);

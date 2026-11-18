@@ -9,8 +9,8 @@
 // clears the texture cache (rowed 0x0012641F) and re-inits the streak renderer.
 #include <d3d9.h>
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();

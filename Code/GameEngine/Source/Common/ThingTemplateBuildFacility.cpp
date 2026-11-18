@@ -7,7 +7,7 @@
 // Whole-file recovery: keep the existing frame-rate data owner, rather than
 // assert an original target variable name. Its mutable int ABI is retail-proven.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class Player;
 class ThingTemplate;

@@ -5,7 +5,7 @@
 // out-of-line getter 0x00264EB6, state machine +0x30, valid locomotor
 // surfaces +0x1dc, main turret AI +0x20c, Player type +0x5c.
 // ?getMoodMatrixActionAdjustment@AIUpdateInterface@@QBEIW4MoodMatrixAction@@@Z @0x00264FF8 331B. BFME1 donor game/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getMoodMatrixActionAdjustment.cpp plus ZH AIUpdate.cpp. Retail kindof at +0x108 (+0x10c word1) direct without override walk. Evidence: pin getMoodMatrixValue 0x00264F5E plus caller TurretAI friend_checkForIdleMoodTarget 0x004D88BE plus donor enums.
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum KindOfType
 {

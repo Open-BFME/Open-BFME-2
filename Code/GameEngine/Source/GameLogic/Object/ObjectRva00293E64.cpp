@@ -7,7 +7,7 @@
 // 0x00293275. Evidence: chain calls rowed 0x00293275, +0x244 null-term array,
 // +0x84 Rva00271AEA rowed, Dict getAsciiString rowed, flags /O1 /G7 like sibling.
 #include "ascii_string.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum NameKeyType
 {

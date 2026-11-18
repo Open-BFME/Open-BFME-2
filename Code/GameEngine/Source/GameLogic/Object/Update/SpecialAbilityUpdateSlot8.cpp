@@ -10,7 +10,7 @@
 // counts (+0x250 interface slots 69 and 28). The redundant m_moduleData
 // self-compare around the body (tautology carrier, zero bytes) keeps the
 // native block layout of the early null returns.
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 class Object;
 class Rva0044EDA6ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

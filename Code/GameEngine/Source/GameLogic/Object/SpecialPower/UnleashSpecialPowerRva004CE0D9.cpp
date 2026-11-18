@@ -9,7 +9,7 @@
 // its behavior modules (the null-terminated +0x244 list) hands out, from
 // slot 26 of its +0x0C interface, an interface whose slot 7 answers true.
 // Compiled with the +0x20 subobject this. Names by address.
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum NameKeyType
 {

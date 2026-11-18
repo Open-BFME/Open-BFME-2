@@ -8,9 +8,9 @@
 // BFME2 adds eight GameInfo slots, six network slots, and five text slots.
 // Popup setters retain the member ABI demonstrated by their WB bodies.
 // /Oi restores the native eight-DWORD zero-fill and consequent IAT scheduling.
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 template <typename T>
 const T &minimum(const T &first, const T &second)

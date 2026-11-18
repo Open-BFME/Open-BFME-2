@@ -5,7 +5,7 @@
 // same "Function curve time must be increasing" check, same tangent flags).
 // BFME2 differences read off the target: SSE arithmetic, and the curve set
 // at 0x00504EAD takes the two tangents as floats (fld/fstp), not as bits.
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 

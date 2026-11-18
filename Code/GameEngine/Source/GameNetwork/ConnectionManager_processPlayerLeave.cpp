@@ -19,11 +19,11 @@
 // local slot in EBX and the connection pointer in EDX across the call, which
 // MSVC does only when it has compiled the callee in the same unit.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 enum PlayerLeaveCode
 {

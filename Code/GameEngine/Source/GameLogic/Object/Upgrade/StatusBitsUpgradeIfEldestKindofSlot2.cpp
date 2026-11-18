@@ -8,7 +8,7 @@
 // so a null data pointer stays null) under this module's cached name key;
 // otherwise the UpgradeMux slot-2 base 0x004CE2B0. Named by the base's
 // address.
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 enum NameKeyType
 {
 	NK_UNKNOWN = 0

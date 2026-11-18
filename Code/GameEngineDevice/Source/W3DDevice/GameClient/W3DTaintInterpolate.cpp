@@ -35,8 +35,8 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 class TextureClass;
 struct ShroudTextureHandle { TextureClass *m_p; };
 void Rva00030830GameFree(void *);

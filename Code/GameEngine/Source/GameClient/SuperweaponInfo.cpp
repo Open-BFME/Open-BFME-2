@@ -21,10 +21,10 @@
 // are setFont at +0x18, setColors at +0x28, draw(x, y, xDrop, yDrop) at +0x38
 // and getWidth at +0x40.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 typedef int Color;
-typedef float Real;
-typedef bool Bool;
+
+
 
 class GameFont;
 

@@ -23,7 +23,7 @@
 class Object;
 class ModuleData;
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum ObjectStatusTypes
 {

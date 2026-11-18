@@ -14,8 +14,8 @@
 // overloads retain Version slot 0x28, IsLoading slot 0x4, IsLightCRC slot
 // 0x10, AsciiString 0x6c, unsigned int 0x78, int 0x7c and bool 0x90.
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 struct XferVersion
 {

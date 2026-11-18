@@ -17,11 +17,11 @@
 // CommandRequiresAck test is gone: only CommandRequiresDirectSend 0x005812C4
 // is called. A connection is live while its +0 quit frame is -1.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 enum
 {

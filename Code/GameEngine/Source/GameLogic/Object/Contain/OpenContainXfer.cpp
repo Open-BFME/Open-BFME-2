@@ -160,10 +160,10 @@ struct Coord3DBase;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 void XferObjectID(Xfer *xfer, ObjectID *value);
 

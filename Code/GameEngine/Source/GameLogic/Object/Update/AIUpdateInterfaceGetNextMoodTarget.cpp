@@ -14,10 +14,10 @@
 
 #include <math.h>
 inline float Coord3D::length() const { return (float)sqrt(x*x+y*y+z*z); }
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum NameKeyType
 {

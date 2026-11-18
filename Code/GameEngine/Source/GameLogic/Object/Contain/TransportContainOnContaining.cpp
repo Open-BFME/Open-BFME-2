@@ -63,7 +63,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum DisabledType { DISABLED_HELD = 3 };
 enum ObjectStatusTypes { OBJECT_STATUS_RVA0046781F = 0x3c };

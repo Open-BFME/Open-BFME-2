@@ -20,9 +20,9 @@
 #include "ascii_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 enum DamageType { DAMAGE_TYPE_ZERO = 0 };
 
 #include "../../../Include/Common/BitFlagsTemplate.h"

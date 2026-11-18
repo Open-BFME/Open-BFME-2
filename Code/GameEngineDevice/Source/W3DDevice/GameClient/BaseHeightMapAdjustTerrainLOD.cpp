@@ -13,7 +13,7 @@
 // 0x100/0xFC. The singleton read at VA 0x00DEBC5C is the existing
 // g_bfmeTaintModeView owner (W3DTaint.cpp names it by observed use only).
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 class RenderObjClass;
 

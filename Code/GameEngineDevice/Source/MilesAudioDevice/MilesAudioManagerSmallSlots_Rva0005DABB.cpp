@@ -18,9 +18,9 @@
 
 #include <windows.h>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 extern "C" __declspec(dllimport) int __stdcall AIL_get_preference(
 	unsigned int preference);

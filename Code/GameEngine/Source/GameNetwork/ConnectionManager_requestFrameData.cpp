@@ -17,11 +17,11 @@
 // frame-info command is the 0x28-byte type built by 0x004CEEC3 (frame +0x1C,
 // command count +0x24).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 enum NetCommandType
 {

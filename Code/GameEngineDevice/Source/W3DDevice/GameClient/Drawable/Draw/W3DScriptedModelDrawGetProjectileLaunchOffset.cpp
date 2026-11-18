@@ -52,10 +52,10 @@ public:
 	};
 };
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 enum WeaponSlotType { PRIMARY_WEAPON = 0 };
 enum WhichTurretType { TURRET_INVALID = -1 };

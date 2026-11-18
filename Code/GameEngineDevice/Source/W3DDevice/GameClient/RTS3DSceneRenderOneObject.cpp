@@ -37,10 +37,10 @@
 // 0x00731F1D / 0x00731F2E), and the lightmap sample is a Vector3 copied
 // field by field (WB 0x0072F438).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 #include <windows.h>
 
 #include "vector3.h"

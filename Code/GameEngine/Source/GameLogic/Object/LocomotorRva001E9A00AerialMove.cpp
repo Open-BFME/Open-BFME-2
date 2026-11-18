@@ -27,10 +27,10 @@ struct MemberwiseCoord3D : public Coord3D
 	MemberwiseCoord3D() {}
 	MemberwiseCoord3D(const Coord3D &other) { x = other.x; y = other.y; z = other.z; }
 };
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 Real normalizeAngle(Real angle);
 float Rva001E3FADGet(const Coord3D *a, const Coord3D *b);

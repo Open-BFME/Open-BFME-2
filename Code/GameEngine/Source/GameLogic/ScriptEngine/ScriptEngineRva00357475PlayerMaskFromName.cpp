@@ -15,7 +15,7 @@
 
 #include "ascii_string.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 

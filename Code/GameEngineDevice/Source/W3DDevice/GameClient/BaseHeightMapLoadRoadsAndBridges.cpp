@@ -13,7 +13,7 @@
 
 #include <d3d9.h>
 
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 void __cdecl BFME_DX8_Thread_Lock(void);
 bool __cdecl BFME_DX8_Thread_Assert(void);

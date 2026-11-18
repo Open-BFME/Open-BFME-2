@@ -20,8 +20,8 @@
 // result. Same +0x28/+0x3C/+0x40 trio shape as the AIGuard states (which
 // keep IDs there; here +0x3C is the inner pointer).
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt TeamID;
 
 #include <windows.h>

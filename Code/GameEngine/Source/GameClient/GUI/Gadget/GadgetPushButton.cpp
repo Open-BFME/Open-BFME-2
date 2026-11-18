@@ -9,9 +9,9 @@
 
 #include <windows.h>
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 typedef unsigned int Color;
 
 class DisplayString;
