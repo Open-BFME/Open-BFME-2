@@ -5,7 +5,7 @@
 // Z. As in VslotSmallBodiesA-Y, each class and method is address-derived
 // and models only what its body touches. Meanings are not recovered.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x00525886: of the sixteen 0x18-byte entries at +0x48, the first whose
 // leading word equals the argument takes the +0x10 object's +0x10 word.

@@ -27,9 +27,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 enum CommandSourceType {CMD_FROM_PLAYER,CMD_FROM_SCRIPT,CMD_FROM_AI};
 enum CanEnterType {CHECK_CAPACITY,DONT_CHECK_CAPACITY,COMBATDROP_INTO};
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 template<int N>class BitFlags {public:unsigned bits[7];BitFlags(){std::memset(bits,0,sizeof(bits));}};
-typedef int Int;
+
 class Player;
 // Partition filter views (matched Rva004AC7C9FindModuleObject.cpp spelling).
 template <int NUMBITS> class BitFlags;

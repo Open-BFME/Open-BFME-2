@@ -25,11 +25,11 @@
 #include <windows.h>
 #include "unicode_string.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 typedef int Color;
-typedef unsigned int UnsignedInt;
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };

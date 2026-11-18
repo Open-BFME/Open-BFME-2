@@ -23,7 +23,7 @@
 
 #include <windows.h>
 
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 

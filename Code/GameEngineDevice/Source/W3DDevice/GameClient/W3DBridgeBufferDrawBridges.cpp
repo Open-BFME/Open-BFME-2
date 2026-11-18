@@ -16,9 +16,9 @@
 // count +0x0C, buffers +0x00/+0x04 (as the matched loaders use them).
 #include <vector>
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class TextureClass
 {

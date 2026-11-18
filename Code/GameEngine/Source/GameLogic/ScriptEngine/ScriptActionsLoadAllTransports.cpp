@@ -32,7 +32,7 @@
 extern GameLogic *TheGameLogic;
 
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // Existing retail-compatible storage providers carry two 32-bit words.
 struct BfmeE8

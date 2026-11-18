@@ -8,8 +8,8 @@
 
 #include <windows.h>
 
-typedef unsigned short UnsignedShort;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 enum { MAX_PORT_SLOTS = 8 };
 

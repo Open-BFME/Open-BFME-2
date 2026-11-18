@@ -32,12 +32,12 @@ static inline const int &max(const int &a, const int &b)
 #include "Coord3D.h"
 #include "ICoord2D.h"
 
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 typedef int Color;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
+
+
+
+
 
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"

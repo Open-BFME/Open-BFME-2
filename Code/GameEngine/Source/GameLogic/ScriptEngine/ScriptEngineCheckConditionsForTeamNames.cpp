@@ -5,9 +5,9 @@
 // ScriptAction getParameter row 0x203553, caller 0x207C02. Donor: BFME1 ScriptEngineCheckConditionsForTeamNames.cpp.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
 extern int BfmeLogicFramesPerSecond;

@@ -14,7 +14,7 @@
 // and a pointer into the found record, the same thiscall ABI. That the lookup
 // here is a bling index is the row's naming claim, not evidence from these
 // callers.
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 class AsciiString;
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"

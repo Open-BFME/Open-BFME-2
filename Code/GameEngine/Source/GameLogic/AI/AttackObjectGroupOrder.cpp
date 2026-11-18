@@ -22,9 +22,9 @@ public:
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 // ?xfer@AttackObjectGroupOrder@@UAEXPAVXfer@@@Z @0x00546FC9 79B evidence: slot 3 of 0x0086A420 AttackObjectGroupOrder; base GroupOrder xfer rowed 0x00548AC2 then xferVersion 1-1 then XferObjectID rowed 0x003060B2 for +0x18 then Xfer slot 0x90 virtual for +0x1c then slot 0x60 for +0x20.
 // Proven slot 3 keeps real name xfer; owner AttackObjectGroupOrder via vtable.
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 class Snapshot;
 class AsciiString;
 class UnicodeString;

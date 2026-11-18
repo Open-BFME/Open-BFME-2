@@ -18,12 +18,12 @@
 // str() (its TheNullChr static), not the shared header's inline "" select.
 #include <vector>
 #include "ascii_string.h"
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #define BFME_SUBSYSTEM_SLOTS
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+
+
 
 enum NameKeyType { NAMEKEY_INVALID=0 };
 

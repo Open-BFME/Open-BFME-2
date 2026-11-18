@@ -14,8 +14,8 @@
 
 #include <vector>
 
-typedef float Real;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #define MAP_XY_FACTOR 10.0f
 

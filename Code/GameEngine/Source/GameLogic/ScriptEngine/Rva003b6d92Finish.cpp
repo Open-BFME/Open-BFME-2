@@ -23,8 +23,8 @@
 // ZH Template::getParameterType with DEBUG_CRASH compiled out (/DNDEBUG)
 // returns Parameter::INT (0) out of range, matching retail xor eax,eax.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef unsigned short DataChunkVersionType;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 

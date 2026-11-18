@@ -29,10 +29,10 @@
 
 #include <string.h>
 
-typedef bool Bool;
-typedef int Int;
-typedef short Short;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 
 extern Real Cos(Real);

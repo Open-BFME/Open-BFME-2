@@ -7,7 +7,7 @@
 // getFrame() is inline (member load at +0x40, Poisoned precedent) and
 // TheGameLogic is DIR32-masked; the awaken call resolves via its pin.
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum UpdateSleepTime
 {

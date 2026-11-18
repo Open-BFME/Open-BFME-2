@@ -18,9 +18,9 @@
 //   the retail offsets below (+0x437 status, +0x4C4 partition) are read from
 //   the binary and supersede the shim's stale notes.
 
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum DisabledType
 {

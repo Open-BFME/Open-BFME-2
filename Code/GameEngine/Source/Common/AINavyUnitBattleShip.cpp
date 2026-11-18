@@ -8,7 +8,7 @@
 // TheGameLogic 0x00DFE78C deref +0x40, caller 0x00506AC4 new 0x10 pushes Object
 // into vector<ModuleData*>.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 #include "../../Include/Common/Rva005DCC4BSource.h"
 #include "GameLogicObjectLookupView.h"
 #include <vector>

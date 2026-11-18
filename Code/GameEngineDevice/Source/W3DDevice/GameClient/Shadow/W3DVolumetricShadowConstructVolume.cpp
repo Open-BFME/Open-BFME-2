@@ -26,10 +26,10 @@
 // layout above.
 #include <windows.h>
 
-typedef float Real;
-typedef int Int;
-typedef short Short;
-typedef unsigned short UnsignedShort;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #define MAX_SHADOW_LIGHTS		1
 #define MAX_SHADOW_CASTER_MESHES	160

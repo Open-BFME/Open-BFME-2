@@ -16,8 +16,8 @@
 // Zero Hour's addDecal(RenderObjClass* ShadowTypeInfo*) is the nearest lead.
 // Flag meanings and the method name are not recovered.
 
-typedef float Real;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 class RenderObjClass;
 class W3DProjectedShadow;

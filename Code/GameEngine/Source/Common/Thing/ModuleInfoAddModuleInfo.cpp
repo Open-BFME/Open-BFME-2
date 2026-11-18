@@ -8,9 +8,9 @@
 // Native33D553..33D864 785B; four ModuleInfo offsets2E4..308, name64.
 #include "ascii_string.h"
 #include "Common/INIException.h"
-typedef unsigned char UnsignedByte;
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 class ThingTemplate; class ModuleData;
 #include "../../../Include/Common/Rva0033C8E8.h"
 struct BfmeStringRecord002CF4C6 {

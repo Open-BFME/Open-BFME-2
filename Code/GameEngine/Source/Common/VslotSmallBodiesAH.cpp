@@ -5,7 +5,7 @@
 // VslotSmallBodiesA-AG, classes and methods are address-derived unless the
 // ledger already names them, and model only what each body touches.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x00656A30 (seven tables from VA 0x00CE107C on): the rowed +0x254 getter
 // 0x00656F20 of the object virtual slot 0 of the secondary base at +0x04

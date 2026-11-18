@@ -25,9 +25,9 @@
 // TheSkirmishAIManager (pinned 0x002A8AB1), whose rowed
 // SkirmishAI::onUnitCreated 0x002C6A8D takes the same pair.
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 enum ObjectID
 {
 	INVALID_ID = 0

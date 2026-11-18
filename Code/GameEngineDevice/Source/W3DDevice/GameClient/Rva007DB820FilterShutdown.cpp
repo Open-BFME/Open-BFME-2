@@ -16,9 +16,9 @@
 
 #include <d3d9.h>
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 enum FilterModes { FM_NULL_MODE=0 };
 enum FilterTypes { FT_NULL_FILTER=0 };
 #define PAD_VIRTUALS10(p) \

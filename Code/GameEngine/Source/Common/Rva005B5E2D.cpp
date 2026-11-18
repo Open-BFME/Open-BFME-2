@@ -13,7 +13,7 @@ class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 

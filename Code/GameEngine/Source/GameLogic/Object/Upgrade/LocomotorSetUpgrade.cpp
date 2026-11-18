@@ -21,9 +21,9 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef float Real;
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

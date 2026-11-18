@@ -8,13 +8,13 @@
 // and destroy the head node until the list is empty, then clear the counters.
 // Each node's +4/+8 links are cleared before it is detached and deleted.
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef unsigned short UnsignedShort;
 
-typedef unsigned char UnsignedByte;
 
-typedef int Int;
+
+
+
 
 enum NetCommandType
 {

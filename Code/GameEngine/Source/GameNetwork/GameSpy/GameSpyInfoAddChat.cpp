@@ -46,8 +46,8 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef unsigned short WideChar;
 typedef int Color;
 

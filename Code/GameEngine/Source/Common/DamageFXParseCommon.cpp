@@ -11,9 +11,9 @@
 
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
-typedef int Int;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/Common/INI/INI.h"
 

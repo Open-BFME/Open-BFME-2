@@ -4,7 +4,7 @@
 // /O2 library range, batch AK: constants and field reads. Classes and
 // methods are address-derived and model only what each body touches.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x00661480 (four tables) and 0x006680D0 (two tables): answer 0 for one
 // resp. three arguments.

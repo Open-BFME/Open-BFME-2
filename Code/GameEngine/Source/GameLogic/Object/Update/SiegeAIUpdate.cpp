@@ -16,7 +16,7 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 class Thing;
 class ModuleData;
 class Object;

@@ -33,10 +33,10 @@
 // retail 0x0036C438, 603 bytes: the swoop target helper called only from
 // update (twice); the name is invented, the body is BFME 2 evidence only.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../Common/GameLogicObjectLookupView.h"
 

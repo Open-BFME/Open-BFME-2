@@ -8,7 +8,7 @@
 // (View::setAngleAndPitchToDefault then setCameraTransform); BFME2's field
 // meanings are only partly established, so the name stays address-derived.
 
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 // The two BFME 2 global settings read below.
 #include "../../../../GameEngine/Include/Common/GlobalData.h"

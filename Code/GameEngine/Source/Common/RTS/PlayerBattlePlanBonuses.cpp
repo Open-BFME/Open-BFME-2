@@ -25,10 +25,10 @@
 #include <stdlib.h>
 #include "unicode_string.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../GameLogicObjectLookupView.h"
 

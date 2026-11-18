@@ -9,7 +9,7 @@
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 class Object;
 class ModuleData;
 #include "../../Include/Common/Geometry.h"

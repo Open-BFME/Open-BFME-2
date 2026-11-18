@@ -46,9 +46,9 @@ vector<void *>::reference vector<void *>::operator[](size_type index)
 { return *(this->_M_start + index); }
 }
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class Snapshot;
 class AsciiString;
