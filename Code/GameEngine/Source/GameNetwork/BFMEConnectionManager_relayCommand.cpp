@@ -13,7 +13,7 @@ enum NetCommandType
 
 bool IsCommandSynchronized(NetCommandType type);
 
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
 
 class NetCommandMsg
 {

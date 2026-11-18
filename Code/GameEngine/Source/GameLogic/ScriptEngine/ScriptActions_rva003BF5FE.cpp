@@ -7,7 +7,7 @@
 // advance rva0036FBC5 rva0036FA56, externs g_Va009FE16C g_Va009FF0F8
 // TheTerrainLogic g_Va00BBB8D8, caller 0x003CA7E7 ret 0xc.
 #include "ascii_string.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Waypoint;

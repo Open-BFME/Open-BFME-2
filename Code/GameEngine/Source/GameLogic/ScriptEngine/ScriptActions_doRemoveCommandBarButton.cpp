@@ -17,7 +17,7 @@
 #include "ascii_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum { MAX_COMMANDS_PER_SET = 32 };
 

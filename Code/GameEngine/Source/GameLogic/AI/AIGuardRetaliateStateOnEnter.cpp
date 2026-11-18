@@ -13,9 +13,9 @@
 // Layout (target evidence): m_guardRetaliateMachine +0x20; the AI's state
 // machine +0x30 keeps the goal position at +0x24; the retaliate machine keeps
 // the position to guard at +0x3C and the nemesis id at +0x48; sizeof 0x4C.
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 enum ObjectID
 {
 	INVALID_ID = 0

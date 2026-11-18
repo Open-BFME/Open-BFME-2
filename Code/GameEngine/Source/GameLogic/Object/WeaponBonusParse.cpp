@@ -31,7 +31,7 @@
 typedef const char *ConstCharPtr;
 typedef const ConstCharPtr *ConstCharPtrArray;
 #include "../../../Include/Common/INI/INI.h"
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 class WeaponBonus
 {
 public:

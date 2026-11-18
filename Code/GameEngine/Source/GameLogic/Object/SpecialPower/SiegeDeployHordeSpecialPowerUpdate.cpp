@@ -13,7 +13,7 @@
 // constructor or destructor, no vtable emitted.
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum UpdateSleepTime
 {

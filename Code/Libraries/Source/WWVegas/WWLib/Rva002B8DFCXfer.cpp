@@ -26,8 +26,8 @@ void **vector<void*>::end()
 { return _M_finish; }
 }
 
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 
 class Snapshot;

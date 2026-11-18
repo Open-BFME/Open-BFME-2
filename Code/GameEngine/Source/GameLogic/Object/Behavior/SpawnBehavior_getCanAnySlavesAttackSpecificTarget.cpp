@@ -24,7 +24,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

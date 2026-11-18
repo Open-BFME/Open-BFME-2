@@ -9,8 +9,8 @@
 // the record with the instance to the userData callback. Evidence: single
 // chain caller context (prev 0x0050406E), string literal, FieldParse table,
 // Rowed frame rescale, Rva002BE7DB row, callback shape.
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"

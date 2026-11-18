@@ -23,7 +23,7 @@
 // address-derived (Rva precedent: Rva004B60D5_ParsePercentage) so no class
 // or provider is fabricated. All callees are rowed; no new pins.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include <string.h>
 

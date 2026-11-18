@@ -6,7 +6,7 @@
 // the 0x60 slot), the byte flag at +0x21 from version 2 and the +0x64 field from version 3.
 // Every call chains the xfer returned by the previous one; the labelled-enum helpers return it
 // in EAX. Field types behind the numbered slots are not established.
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
 
 
 enum ObjectID { INVALID_ID = 0 };

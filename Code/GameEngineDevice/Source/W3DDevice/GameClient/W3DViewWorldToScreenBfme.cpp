@@ -8,7 +8,7 @@
 // WTS_INVALID; every other projection is converted and offset by the origin,
 // and the return distinguishes inside from outside the frustum.
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

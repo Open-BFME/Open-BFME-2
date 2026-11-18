@@ -18,7 +18,7 @@
 // Windows types from their owning headers.
 #include <d3d9.h>
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 struct IDirect3DDevice8;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"

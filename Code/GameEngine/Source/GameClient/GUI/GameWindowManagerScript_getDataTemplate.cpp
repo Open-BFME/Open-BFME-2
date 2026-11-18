@@ -22,7 +22,7 @@
 //   direct E8 to the thunks at 0x006291C6/0x006291AE; string and static
 //   addresses fill from retail.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include <string.h>
 #include <windows.h>

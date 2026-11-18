@@ -9,8 +9,8 @@
 //   slot 4 for index -1); sole caller is this verb.
 // - dispatch table at 0x9BE198 pairs 'DRAWCALLBACK' with 0x7164CC.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #ifndef NULL
 #include <stddef.h>

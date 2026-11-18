@@ -10,10 +10,10 @@
 // HordeWorker AIUpdates. Sibling privateGuardObject 0x00264D0E slot 64 shares
 // guards, target logic, clear and state. ZH donor AIUpdate.cpp
 // privateGuardPosition supplies position/clip/state shape.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum ObjectStatusTypes
 {

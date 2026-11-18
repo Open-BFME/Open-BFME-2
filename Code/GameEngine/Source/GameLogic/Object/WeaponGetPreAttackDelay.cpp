@@ -30,7 +30,7 @@ enum WeaponPrefireType
 	PREFIRE_PER_POSITION = 3
 };
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class WeaponBonus
 {

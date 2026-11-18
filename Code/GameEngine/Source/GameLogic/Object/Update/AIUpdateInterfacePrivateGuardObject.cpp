@@ -7,9 +7,9 @@
 // guardMode +0x4C, object id +0x64 from +0x74, clear via slot 0x14 and
 // setState 0x10 via slot 0x20. Vtable slot 64 of DeployStyle/Siege/Supply/
 // Transport/Wander/HordeWorker AIUpdates. Prev/next same flags.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectStatusTypes
 {

@@ -10,7 +10,7 @@
 // flags at +0x108 bit 0x8000 and +0x632 plus status at +0x10c bits 0x20/0x10
 // and +0x438 bit 0 plus rva0028AE6D and setEffectivelyDead pins from retail.
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic; // ?TheGameLogic@@3PAVGameLogic@@A

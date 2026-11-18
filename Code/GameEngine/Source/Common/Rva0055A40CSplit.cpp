@@ -9,7 +9,7 @@
 // Original class/method names and full identity are unknown.
 // Difference locals are float triples with trivial copy/destruction constructed before scaling; only
 // copies of their three floats use intrinsic memcpy into live point objects.
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 class Rva0055A246
 {

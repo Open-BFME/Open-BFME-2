@@ -5,7 +5,7 @@
 class W3DShadowManager;
 extern W3DShadowManager *TheW3DShadowManager;
 
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "vector3.h"
 

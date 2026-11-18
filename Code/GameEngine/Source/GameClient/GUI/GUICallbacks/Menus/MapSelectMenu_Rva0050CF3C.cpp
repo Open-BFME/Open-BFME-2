@@ -22,8 +22,8 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 

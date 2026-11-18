@@ -25,7 +25,7 @@
 // testStatus(3) is OBJECT_STATUS_UNSELECTABLE (index 3; rowed at 0x0004E536,
 // declared only so the gate resolves the E8 by full mangled name).
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum ObjectStatusTypes;
 

@@ -16,8 +16,8 @@
 // the out-of-line getDrawable (0x005508E2), ID +0x74, experience tracker
 // +0x264.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum WeaponSlotType
 {

@@ -12,7 +12,7 @@
 
 #include "ascii_string.h"
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #define COORD3D_VIEW_INLINE
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"

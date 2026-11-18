@@ -9,7 +9,7 @@
 // vtable TheAudio +0x64; INI-free; neighbours OneRingPenaltyUpdateSlot0/Update.
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum ObjectStatusTypes
 {

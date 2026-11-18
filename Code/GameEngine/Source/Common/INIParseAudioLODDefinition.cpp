@@ -31,8 +31,8 @@
 
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../Include/Common/BfmeStringData.h"
 

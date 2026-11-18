@@ -24,7 +24,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include <list>
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 template<class OBJCLASS>
 class DLINK_ITERATOR

@@ -12,7 +12,7 @@
 // filtering, lookup, and AIGroup::add semantics; BFME2's offsets and helper
 // calls above are target evidence, not copied BFME1 layout facts.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Object;
 class Player;

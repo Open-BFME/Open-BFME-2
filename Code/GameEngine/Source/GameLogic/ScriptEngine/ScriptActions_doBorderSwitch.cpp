@@ -16,7 +16,7 @@
 
 #include <windows.h>
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum NameKeyType
 {

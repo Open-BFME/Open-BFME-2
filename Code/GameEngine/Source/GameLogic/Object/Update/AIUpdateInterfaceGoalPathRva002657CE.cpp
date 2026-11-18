@@ -25,8 +25,8 @@
 
 #include "Coord3D.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 enum PathfindLayerEnum
 {

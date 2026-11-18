@@ -10,9 +10,9 @@
 #include "unicode_string.h"
 #include "Common/Snapshot.h"
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 #include <windows.h>
-typedef int Int;
+
 enum SnapshotType { SNAPSHOT_SAVELOAD = 0, SNAPSHOT_DEEPCRC_LOGICONLY = 1, SNAPSHOT_NATIVE3 = 3, SNAPSHOT_NATIVE4 = 4 };
 
 class Snapshot;

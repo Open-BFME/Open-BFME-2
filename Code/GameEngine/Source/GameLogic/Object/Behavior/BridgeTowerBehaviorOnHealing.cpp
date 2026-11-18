@@ -13,7 +13,7 @@
 // +0x10A word (mask 0x140: ZH KINDOF_BRIDGE and KINDOF_BRIDGE_TOWER), and
 // out-of-line Object::attemptHealing 0x0028FE55.
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

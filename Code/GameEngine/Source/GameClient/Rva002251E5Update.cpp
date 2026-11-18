@@ -18,7 +18,7 @@
 #include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct RvaFlags
 {

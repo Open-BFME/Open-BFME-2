@@ -9,7 +9,7 @@
 // accepts, or when the emotion tracker at +0x24C reports true (0x004B0EBC).
 // Slot name not established: address-derived.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class ThingTemplate
 {

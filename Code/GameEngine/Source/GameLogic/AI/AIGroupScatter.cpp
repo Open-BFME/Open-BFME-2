@@ -19,10 +19,10 @@ static inline bool operator!=(const _List_iterator<T, L> &a,
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 inline Real sqr(Real x) { return x * x; }
 

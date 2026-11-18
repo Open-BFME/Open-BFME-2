@@ -14,7 +14,7 @@
 // The UChar (E) return is codegen-proven: retail ends neg al / sbb al,al /
 // inc al (byte), not the bool dword shape, per the STL recipe note.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef unsigned char UChar;
 
 class Object;

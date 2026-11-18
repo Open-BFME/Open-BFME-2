@@ -14,7 +14,7 @@
 // freed here and no ControlBar refresh follows. Callers 0x0021B590,
 // 0x00335587, 0x00486C3F.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class UpgradeTemplate
 {

@@ -14,8 +14,8 @@
 // at +0x2C (both unnamed).
 // Layout: AI +0x258 with goal path index +0x194, current locomotor +0x1F0
 // (flags +0x44, USE_PRECISE_Z_POS bit 3) and can-path-through-units +0x3BA.
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_90 = 90

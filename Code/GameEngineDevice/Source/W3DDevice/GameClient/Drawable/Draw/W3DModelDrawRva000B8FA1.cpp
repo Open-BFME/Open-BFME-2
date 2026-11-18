@@ -11,7 +11,7 @@
 // retail tail-merges them on the shared EDI zero. Address-derived names.
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 struct Rva000B8FA1HouseColor
 {

@@ -10,7 +10,7 @@
 // +0x6A7 and the delay filter provider at +0x9E4. Callees 0x0005A9F8 (float,
 // three args) and 0x000581FA (two args) are unrowed and keep address names.
 
-typedef float Real;
+#include "../../../GameEngine/Include/Common/ScalarTypes.h"
 typedef void *HSAMPLE;
 typedef void *HPROVIDER;
 

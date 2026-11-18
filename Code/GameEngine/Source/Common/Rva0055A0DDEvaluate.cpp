@@ -11,7 +11,7 @@
 // initializer or guessed original matrix/class/method name is required.
 // Original API/class identities and reachability remain unknown.
 // Inline dot products preserve the target's scalar SSE arithmetic.
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include <d3dx9math.h>
 struct _D3DXMATRIX : public D3DXMATRIX

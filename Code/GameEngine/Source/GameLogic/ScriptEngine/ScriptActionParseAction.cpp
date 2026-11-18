@@ -23,8 +23,8 @@
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef unsigned short DataChunkVersionType;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
