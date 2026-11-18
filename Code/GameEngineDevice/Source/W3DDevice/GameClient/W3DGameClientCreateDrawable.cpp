@@ -15,10 +15,10 @@
 
 class ThingTemplate;
 
-enum DrawableStatus
-{
-	DRAWABLE_STATUS_NONE = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DrawableStatus.h"
+
+
+
 
 // The 0x470-byte Drawable; only the rowed constructor is modelled.
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"

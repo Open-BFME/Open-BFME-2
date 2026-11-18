@@ -26,11 +26,11 @@ public:
 #include "ascii_string.h"
 
 
-enum CommandSourceType
-{
-    CMD_FROM_PLAYER = 0,
-    CMD_FROM_SCRIPT = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

@@ -47,7 +47,7 @@ void Rva005FEDCD::rva005FEDCD()
 // (+0x258) has a victim, defer to own slot 7 or slot 8 as the 0x005D896F
 // test on the object decides; false otherwise.
 class Weapon;
-enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 

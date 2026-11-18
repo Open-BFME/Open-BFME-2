@@ -11,7 +11,7 @@
 // handle set to 1) plus FlammableUpdate::stopBurningSound (null-checked
 // TheAudio remove). Semantic slot name unproven so this rides an
 // address-derived AudioLoopUpgrade-scoped name.
-enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 typedef unsigned int AudioHandle;
 

@@ -117,10 +117,10 @@ public:
 	Vector4 Row[3];
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 class Drawable
 {

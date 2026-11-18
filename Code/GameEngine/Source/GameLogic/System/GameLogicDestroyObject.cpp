@@ -32,10 +32,10 @@ _List_node<Object *> *list<Object *, allocator<Object *> >::_M_create_node(Objec
 }
 }
 
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 
 class DestroyModuleInterface
 {

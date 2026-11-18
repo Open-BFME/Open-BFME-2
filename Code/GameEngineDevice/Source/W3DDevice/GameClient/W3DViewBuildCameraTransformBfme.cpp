@@ -120,7 +120,7 @@ extern GameLogic *TheGameLogic;
 
 extern GameClient *TheGameClient;
 
-enum NameKeyType { NAMEKEY_INVALID = 0, NAMEKEY_MAX = 1 << 23 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Rva00148F5ECache{public:NameKeyType get();int key;const char*name;};
 class Dict{void*data;public:void setReal(int,float);};
 class MapObject { public: static Dict TheWorldDict; };
@@ -132,7 +132,7 @@ class W3DViewVtable
 {
 public:
 #define W3D_VOID(n) virtual void w3d##n() = 0;
- 
+
 	W3D_VOID(00) W3D_VOID(01) W3D_VOID(02) W3D_VOID(03)
 	W3D_VOID(04) W3D_VOID(05) W3D_VOID(06) W3D_VOID(07)
 	W3D_VOID(08) W3D_VOID(09) W3D_VOID(10) W3D_VOID(11)
