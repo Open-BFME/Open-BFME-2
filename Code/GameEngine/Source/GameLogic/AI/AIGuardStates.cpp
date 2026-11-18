@@ -89,9 +89,9 @@
 // centre follows the team through the rowed Team::rva0039E5B9). Owner team
 // +0x304; setTeamTargetObject is the rowed Team::setTeamTargetObject. TeamFactory's
 // findTeamByID is the pinned 0x0039F761 (prototype walk as in Generals).
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 #include <stddef.h>
 #include "../../Common/GameLogicObjectLookupView.h"
 typedef UnsignedInt TeamID;

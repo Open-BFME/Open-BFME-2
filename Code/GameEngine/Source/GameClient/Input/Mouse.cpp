@@ -58,8 +58,8 @@ class Mouse;
 #define __PLACEMENT_VEC_NEW_INLINE
 #define __SUBSYSTEMINTERFACE_H_
 #include "../../../../../reference/shims/bfme2_mouse/Common/MessageStream.h"
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #define MOUSE_NONE		0x00
 #define MOUSE_LOST		0xFF
 #define Matrix4x4 Matrix4
@@ -390,13 +390,13 @@ const char *g_00DB9058[] = {
 // A direct callee's argument count comes from its own ret N; an unnamed
 // callee is pinned by address in reverse/symbols.csv.
 
-typedef int Int;
 
-typedef bool Bool;
 
-typedef float Real;
 
-typedef unsigned int UnsignedInt;
+
+
+
+
 
 #include "../../../Include/Common/SizedForwarderSlots.h"
 

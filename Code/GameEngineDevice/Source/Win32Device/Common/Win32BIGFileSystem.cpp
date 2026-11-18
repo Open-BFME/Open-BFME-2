@@ -179,10 +179,10 @@ struct Rva00603E50 {
 	Rva00603E50Pair rva00603E50(const Rva00603E50Value &v);
 	Rva00603E50Pair rva00603FAC(const Rva00603E50Value &v);
 };
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 #include "../../../../GameEngine/Include/Common/File.h"
 #include "../../../../GameEngine/Include/Common/RAMFileClass.h"
-typedef int Int;
+
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > FilenameList;
 namespace _STL
 {

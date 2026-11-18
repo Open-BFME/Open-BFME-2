@@ -71,13 +71,13 @@ class RGBAColorInt;
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_STATIC_LIB 1
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef float Real;
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
+
 
 class Player;
 

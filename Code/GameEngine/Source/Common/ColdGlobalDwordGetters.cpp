@@ -421,9 +421,9 @@ float Rva00380517Array::getValue(int index) { return values[index]; }
 // established rate getter so ordinary /Ob2 inlining reuses its single data
 // owner and introduces no address-global declaration or alias.
 #include "GameLogicObjectLookupView.h"
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 extern GameLogic *TheGameLogic;
 #include <windows.h>
 

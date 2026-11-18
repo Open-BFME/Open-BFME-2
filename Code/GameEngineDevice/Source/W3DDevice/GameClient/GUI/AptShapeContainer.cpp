@@ -83,10 +83,10 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 void Rva00118990();
 // g_Va00DB5FB0 is only an alias of the owned global g_00DB5FB0 (ledger names column); this unit reads the owner through its own view type.
 extern int g_00DB5FB0;

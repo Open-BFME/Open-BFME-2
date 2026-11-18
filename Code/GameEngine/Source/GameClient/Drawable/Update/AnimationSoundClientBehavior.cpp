@@ -267,7 +267,7 @@ public:
 // part installs vptr 0xC07E54 then copies +0x08. B2 body-address name: the
 // class identity is not recovered.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 

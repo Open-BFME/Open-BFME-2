@@ -15,8 +15,8 @@
 // The interfaces are modelled only by those slots and argument counts;
 // every name is address-derived.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva003F7C53Inner
 {

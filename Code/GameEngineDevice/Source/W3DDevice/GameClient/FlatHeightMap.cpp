@@ -14,9 +14,9 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 #pragma comment(linker, "/alternatename:??1Rva00112291@@UAE@XZ=??1Rva00112291TerrainOwner@@QAE@XZ")
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 class TextureClass
 {
 public:

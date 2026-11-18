@@ -8,9 +8,9 @@ const unsigned &max<unsigned>(const unsigned &__a, const unsigned &__b) { return
 }
 #include <vector>
 #include "ascii_string.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 template <class T> class StringBase;
 class Rva004036B1
 {

@@ -45,8 +45,8 @@
 // - /EHsc: the by-value parameter forces the EH prolog/teardown pair retail
 //   shows. No unwind states: parameters carry none.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
@@ -606,7 +606,7 @@ struct LODDef
 // string literal 0x007D0FA4 "Unknown", table at 0x00DB96B0, default at 0x00BBE8E8.
 extern const char *bfmeTabEYC[];
 
-typedef float Real;
+
 
 class Xfer;
 

@@ -83,9 +83,9 @@ enum {CREDIT_STYLE_TITLE, CREDIT_STYLE_POSITION, CREDIT_STYLE_NORMAL, CREDIT_STY
 
 enum {CREDIT_SPACE_OFFSET=2};
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef bool Bool;
+
 
 enum {TRUE=1,FALSE=0};
 
@@ -226,9 +226,9 @@ private:
 	int m_at44;
 };
 
-typedef float Real;
 
-typedef unsigned char UnsignedByte;
+
+
 
 typedef int Color;
 
@@ -386,7 +386,7 @@ public:
 // cleared with XORPS/MOVSS, then receiver returned in EAX with RET.
 // Field purposes, original declared types and complete owner/lifetime
 // remain unknown; donor float representation preserves the witnessed zero.
-typedef unsigned int UnsignedInt;
+
 
 // slot at VA 0x00C6E3D8: true when the argument equals +0x10.
 // slot at VA 0x00C6E400: true when the argument's +0x74 byte is clear.

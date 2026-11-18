@@ -401,11 +401,11 @@ public:
 // ILT 0x0001512C.  Records are 0xE8 bytes and the count/dirty fields are at
 // +0x44540/+0x44544, as witnessed by the adjacent tree-buffer bodies.
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
 
-typedef unsigned char UnsignedByte;
+
+
 
 // Keep the declaration before its intrinsic directive when composing the TU.
 extern "C" {
@@ -450,7 +450,7 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-typedef float Real;
+
 
 class RenderObjClass;
 
@@ -760,7 +760,7 @@ struct TreeLookupRecord
     unsigned char padD8[0x10];
 };
 
-typedef bool Bool;
+
 
 class FXList
 {

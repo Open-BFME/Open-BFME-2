@@ -7,10 +7,10 @@
 // retail supplies the bytes. The address pair lands at ConnectionManager
 // +0x12050/+0x12054 (Zero Hour's m_localAddr and m_localPort).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 #include "ascii_string.h"
 #include "unicode_string.h"
 struct NetLocalAddress
@@ -251,7 +251,7 @@ private:
 		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
 	}
 
-typedef bool Bool;
+
 
 class DisconnectManager
 {
@@ -730,7 +730,7 @@ class WinInstanceData;
 // 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
-typedef float Real;
+
 
 template <int N> class VslotPad : public VslotPad<N - 1>
 {

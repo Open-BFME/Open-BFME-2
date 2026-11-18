@@ -38,10 +38,10 @@ struct IDirect3DBaseTexture8;
 struct IDirect3DDevice8;
 
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
-typedef unsigned char UnsignedByte;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 

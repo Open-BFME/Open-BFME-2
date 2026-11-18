@@ -121,11 +121,11 @@
 #include <windows.h>
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 typedef unsigned short WideChar;
 
 #pragma function(memcpy)

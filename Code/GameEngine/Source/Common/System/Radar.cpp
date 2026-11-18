@@ -9,9 +9,9 @@
 // Bodies that reach Radar through its second base (the frame tick at
 // 0x002D7DD5) keep their own unit, since their `this` is that subobject.
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 #define BFME_SNAPSHOT_NAME_SLOT
 #include <windows.h>
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
@@ -221,7 +221,7 @@ struct Rva002D76C6Node;
 struct Rva002D893BColorSource;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/BfmeAudioEventPrefix136.h"
-typedef unsigned int UnsignedInt;
+
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 struct RadarColorLookup
 {

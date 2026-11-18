@@ -6,10 +6,10 @@
 // compiles to and BFME 2 reshaped. The member offsets are the ones the rowed
 // StealthUpdate constructor (StealthUpdateCtor.cpp) and xfer establish; the
 // module data fields are named from the field parse table at 0x00C18210.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define NOMINMAX
 #include <windows.h>

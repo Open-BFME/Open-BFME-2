@@ -25,8 +25,8 @@
 // CreateUnit compiles identically either way. 0x0033AA1F (pinned) is called
 // on the template findTemplate returns; its name stays address-derived.
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class Image;
 class Object;

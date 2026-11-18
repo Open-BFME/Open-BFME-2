@@ -763,13 +763,13 @@ BFME_DISP_BYTE_SETTER(Rva00087A29ByteSlot, 0x2504)
 // A direct callee's argument count comes from its own ret N; an unnamed
 // callee is pinned by address in reverse/symbols.csv.
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef bool Bool;
 
-typedef float Real;
 
-typedef unsigned int UnsignedInt;
+
+
+
 
 #include "../../../../GameEngine/Include/Common/SizedForwarderSlots.h"
 

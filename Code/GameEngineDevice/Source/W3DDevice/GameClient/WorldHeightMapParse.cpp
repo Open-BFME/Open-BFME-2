@@ -23,8 +23,8 @@
 // (vtable 0x00BC9574) whose destructor unregisters its token.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 

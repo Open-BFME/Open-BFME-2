@@ -65,7 +65,7 @@ struct StringData
 	unsigned short capacity;
 	T text[1];
 };
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 class INI;
 typedef _STL::vector<AsciiString> AsciiStringVector;
 class Xfer;

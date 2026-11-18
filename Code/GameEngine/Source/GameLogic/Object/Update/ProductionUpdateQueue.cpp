@@ -63,10 +63,10 @@ enum KindOfType { KINDOF_NONE=0 };
 enum CellShroudStatus { SHROUD_NONE=0 };
 class Drawable; class Team; struct CreateMask; class Rva0049CD4FArg;
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 
 class Thing;

@@ -13,7 +13,7 @@ enum UpdateSleepTime
 };
 enum NameKeyType { NAMEKEY_INVALID=-1 };
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 class Snapshot;
 class AsciiString;
 class UnicodeString;

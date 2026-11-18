@@ -74,7 +74,7 @@ extern const struct FieldParse g_0080D720[];
 // The called helper names retain the existing ledger's address-derived types
 // where its current recovered declarations do not establish an original name.
 // Only the virtual slots observed by this body are declared in the call views.
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 typedef int Color;
 #define INT_TO_REAL(x) ((float)(x))
 #include <windows.h>

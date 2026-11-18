@@ -9,8 +9,8 @@
 #include <string.h>
 #pragma pop_macro("_CRTIMP")
 #include "ascii_string.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include <vector>
 #include <list>
 // Real STLport vectors. Retail keeps vector<AsciiString>::push_back

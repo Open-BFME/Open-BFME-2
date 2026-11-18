@@ -16,10 +16,10 @@
 // 0x00222A8B with owner at +0x274; global 0x009FE4CC; caller 0x004161F1.
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/Common/BfmeStringData.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class PSPlayerAllStats;

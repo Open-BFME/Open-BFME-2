@@ -9,7 +9,7 @@
 // MSVC 7.1 folds `delete []` onto the scalar ??3@YAXPAX@Z unless the array
 // form is declared where it can see it; retail calls ??_V@YAXPAX@Z here.
 #include <new>
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 #include <math.h>
 __forceinline Real bfmeFloatFloorFC(Real value)
 {

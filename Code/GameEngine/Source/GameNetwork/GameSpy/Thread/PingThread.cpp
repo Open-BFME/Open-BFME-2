@@ -142,11 +142,11 @@ void Rva00030830FreeAllocation(void *);
 // Zero Hour donor: GeneralsMD GameSpy/Thread/PingThread.cpp, doPing.
 // The retail thread caller passes its receiver in ECX.
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned char UnsignedByte;
 
-typedef int Int;
+
+
 
 struct PingIpOptionInfo
 {

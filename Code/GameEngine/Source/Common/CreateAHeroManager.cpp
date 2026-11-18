@@ -6,7 +6,7 @@
 #include "ascii_string.h"
 // SubsystemInterface's fourteen-slot BFME2 view, shared with the constructor
 // unit so both emit one CreateAHeroManager vftable (0x00BE648C).
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include "subsystem_interface.h"
 #include "string_base.h"
 #include "../../Include/Common/Rva000B6AA9Rec.h"
@@ -55,7 +55,7 @@ extern const char *g_CreateAHeroFilenameExtension;
 #include "unicode_string.h"
 #include <map>
 #include <algorithm>
-typedef unsigned int UnsignedInt;
+
 class AsciiString;
 #include "../../Include/Common/CreateAHeroHero.h"
 // A bling entry starts with its name and description string tags.
@@ -242,7 +242,7 @@ template <> void _STL::vector<CreateAHeroManager::CreateAHeroClass>::push_back(c
 
 Rva000B6AA9Rec *__cdecl Rva000B6AA9Build(Rva000B6AA9Rec *dest, void **srcpp, int val);
 
-typedef int Int;
+
 
 enum Rva0021B68DKey
 {

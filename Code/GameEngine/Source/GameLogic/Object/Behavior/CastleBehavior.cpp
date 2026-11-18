@@ -179,8 +179,8 @@ struct DisplacementCoord : Coord3D
 // Keep the final scalar copy in its own inline reference operation. MSVC 7.1
 // then preserves retail's operand order when this height is added to delta.z.
 inline void copyCoordinateComponent(float &out, const float &in) { out = in; }
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 #include "../../../../Include/Common/Geometry.h"
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva00261603Filter : public Rva000421C8

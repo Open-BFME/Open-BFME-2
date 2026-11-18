@@ -54,9 +54,9 @@ inline const int &(min)(const int &__a, const int &__b)
 { const int *__pa = &__a, *__pb = &__b; if (*__pb < *__pa) return __b; return __a; }
 }
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 // ---- the battle and its players -----------------------------------------
 

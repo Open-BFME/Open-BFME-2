@@ -48,7 +48,7 @@ Rva001E3E43Element::Rva001E3E43Element()
 class Xfer;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "Lib/Coord3D.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../../Common/Thing/thing.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../Include/GameClient/Drawable.h"

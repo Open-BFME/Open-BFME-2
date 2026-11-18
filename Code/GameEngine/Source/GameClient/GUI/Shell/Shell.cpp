@@ -31,7 +31,7 @@ extern IMEManager *TheIMEManager;
 class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;
 void Rva00548C1ACleanup();
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 class GameWindow;
 enum AnimTypes
 {

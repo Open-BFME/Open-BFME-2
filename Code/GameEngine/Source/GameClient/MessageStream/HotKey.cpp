@@ -32,9 +32,9 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-typedef int Int;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 typedef unsigned short WideChar;
 enum GameMessageDisposition
 {
@@ -386,7 +386,7 @@ struct Rva00358F33Iterator
 	Rva00358F33Iterator(const Rva00358F33Iterator &other) : m_node(other.m_node) {}
 };
 typedef void (Rva00358DC2::*Rva00358F33EraseFn)(Rva00358F33Iterator);
-typedef float Real;
+
 class Object;
 enum ObjectStatusTypes
 {

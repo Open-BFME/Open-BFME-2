@@ -4,7 +4,7 @@
 // The runtime label is "GlowMaterial"; the original C++ class spelling is unknown.
 // Preserve retail's second referent reload after registry erasure.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 class Image;
 class Rva0040AD80ReferenceState;
 struct Gen_t_0040abb0_p12cd

@@ -118,8 +118,8 @@ struct RGBAColorInt;
 #define Rva006F7DA0OneOver255 (1.0f / 255.0f)
 #define Rva006F7DA0OneDouble 1.0
 #define Rva006F7DA0Scale255 255.0f
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
 #include "../../../../Libraries/Include/Lib/Region3D.h"
@@ -393,11 +393,11 @@ struct LightingWeatherDispatch {virtual void p0();virtual void p1();virtual void
 
 struct LightingTerrainDispatch {virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void p6();virtual void p7();virtual void p8();virtual void p9();virtual void p10();virtual void p11();virtual void p12();virtual void p13();virtual void p14();virtual void p15();virtual void p16();virtual void p17();virtual void p18();virtual void p19();virtual void p20();virtual void p21();virtual void p22();virtual void p23();virtual void p24();virtual void p25();virtual void p26();virtual void p27();virtual void p28();virtual void p29();virtual void p30();virtual void p31();virtual void p32();virtual void p33();virtual void p34();virtual void p35();virtual void p36();virtual void p37();virtual void p38();virtual void p39();virtual void p40();virtual void p41();virtual void p42();virtual void p43();virtual void p44();virtual void p45();virtual void p46();virtual void p47();virtual void p48();virtual void p49();virtual void p50();virtual void p51();virtual void p52();virtual void p53();virtual void p54();virtual void p55();virtual void p56();virtual void p57();virtual void p58();virtual void p59();virtual void p60();virtual void p61();virtual void p62();virtual void p63();virtual void p64();virtual void p65();virtual void p66();virtual void p67();virtual void p68();virtual void p69();virtual void p70();virtual void p71();virtual void p72();virtual void p73();virtual void p74();virtual void p75();virtual void p76();virtual void p77();virtual void p78();virtual void p79();virtual void p80();virtual void p81();virtual void p82();virtual void p83();virtual void p84();virtual void p85();virtual void p86();virtual void p87();virtual void p88();virtual void p89();virtual void p90();virtual void p91();virtual void p92();virtual void p93();virtual void p94();virtual void p95();virtual void p96();virtual void p97();virtual void p98();virtual void p99();virtual void p100();virtual void p101();virtual void p102();virtual void p103();virtual void p104();virtual void p105();virtual void p106();virtual void p107();virtual void p108();virtual void p109();virtual void p110();virtual void p111();virtual void p112();virtual void p113();virtual void p114();virtual void p115();virtual void p116();virtual void p117();virtual void p118();virtual void p119();virtual void p120();virtual void p121();virtual void p122();virtual void p123();virtual void p124();virtual void p125();virtual void p126();virtual void p127();virtual void p128();virtual void p129();virtual void p130();virtual void p131();virtual void p132();virtual void p133();virtual void p134();virtual void p135();virtual void p136();virtual void p137();virtual void p138();virtual void p139();virtual void p140();virtual void p141();virtual void p142();virtual void p143();virtual void p144();virtual void p145();virtual void p146();virtual int mode();};
 
-typedef float Real;
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
+
 
 struct Coord3D;
 

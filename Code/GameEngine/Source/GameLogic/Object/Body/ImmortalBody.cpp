@@ -36,7 +36,7 @@ class Matrix3D;
 
 class Player;
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"

@@ -27,9 +27,9 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,

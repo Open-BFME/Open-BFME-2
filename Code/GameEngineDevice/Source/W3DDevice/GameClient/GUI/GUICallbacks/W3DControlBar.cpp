@@ -71,12 +71,12 @@
 // edge and corner images), drawing through the Real-coordinate drawImage
 // wrapper 0x0004D6B3 on TheDisplay.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 typedef Int Color;
-typedef unsigned char UnsignedByte;
+
 
 #include "ascii_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"

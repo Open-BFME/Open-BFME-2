@@ -197,7 +197,7 @@ struct Rva004786F8ObjectView {
     char m_gap[0x24];
     unsigned int m_containedByFrame;
 };
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include <list>
 #include "../../../../Include/Common/Rva002C9400ByteField.h"
@@ -462,11 +462,11 @@ public:
 	void rva00478231(bool exposeStealthUnits);
 };
 #include "../../../../Include/Common/XferVersion.h"
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+
+
+
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
-typedef unsigned short UnsignedShort;
+
 void XferObjectID( Xfer *xfer, ObjectID *value );
 void XferDrawableID( Xfer *xfer, Int *value );
 #include "../../../../Include/Common/XferException.h"

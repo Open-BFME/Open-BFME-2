@@ -22,9 +22,9 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include <stdlib.h>
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Include/Common/BfmeStringData.h"
 
@@ -179,7 +179,7 @@ int GameSpyMiscPreferences::rva005599C8()
 	return getInt("MaxMessagesPerUpdate", 100);
 }
 
-typedef unsigned short UnsignedShort;
+
 
 #include "../../../Include/GameNetwork/LadderPref.h"
 

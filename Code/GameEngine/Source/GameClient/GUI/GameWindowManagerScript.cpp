@@ -112,7 +112,7 @@ struct GameWindowParse
 #include <assert.h>
 #define DEBUG_LOG(x) ((void)0)
 #define MAX_TEXT_LABEL 128
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 #define _CRTIMP
 #include <mbstring.h>
 #undef _CRTIMP
@@ -199,9 +199,9 @@ public:
 //   0x715BA3 (entries are name@+0/fn@+4; the walker at 0x31701C compares
 //   names and calls [eax+4]).
 
-typedef int Int;
 
-typedef bool Bool;
+
+
 
 typedef unsigned short wchar_t;
 

@@ -166,7 +166,7 @@ struct Rva001FF6D7Node
 	Rva001FF6D7Node *m_next; // +8
 	Rva001FF6D7Node *m_child; // +0xc
 };
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 // Concrete Science memo providers are already owned by verified units.
 // Keep these operations out of line instead of emitting conflicting copies.
 typedef _STL::pair<const ScienceType, bool> ScienceMemoValue;

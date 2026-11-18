@@ -81,10 +81,10 @@ template<> void vector<BfmePod52, allocator<BfmePod52> >::_M_fill_insert(iterato
 }
 #include "Lib/Coord2D.h"
 #include "Lib/Coord3D.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 enum EvaEventID
 {
 	EVA_INVALID = -1

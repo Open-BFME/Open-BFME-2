@@ -6,8 +6,8 @@
 #include <cstddef>
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-typedef bool Bool;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 typedef int Color;
 #include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
 #define _MULTIPLAYERSETTINGS_H_
