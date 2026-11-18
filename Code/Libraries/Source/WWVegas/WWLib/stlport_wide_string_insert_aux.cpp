@@ -20,15 +20,13 @@
 //     expression the growth term becomes the base of the `lea` that adds it
 //     to the old length, and retail has the old length there.
 
-typedef unsigned int size_t;
-
-extern "C" __declspec(dllimport) void *__cdecl memmove(void *destination,
-    const void *source, size_t count);
-// Retail calls free directly (the game allocator at 0x00030830), not through
-// the CRT import: read <stdlib.h> without dllimport.
+// size_t and free come from <stdlib.h> without dllimport (retail calls the
+// game allocator at 0x00030830 directly); memmove comes from <string.h>
+// dllimport under /MD, matching the retail IAT call.
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+#include <string.h>
 
 inline void *operator new(size_t, void *place)
 {
