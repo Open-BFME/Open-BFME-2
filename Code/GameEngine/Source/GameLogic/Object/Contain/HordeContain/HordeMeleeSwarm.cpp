@@ -11,7 +11,7 @@
 #include <vector>
 class Object;
 enum ObjectStatusTypes { SWARM_STATUS_1C=0x1c };
-enum WeaponSlotType { PRIMARY_WEAPON=0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum CommandSourceType { SWARM_COMMAND=2 };
 #include "../../../../../Include/GameLogic/Weapon.h"
 template<int N> class SwarmSlots : public SwarmSlots<N-1> { public: virtual void gap(char (*)[N])=0; };

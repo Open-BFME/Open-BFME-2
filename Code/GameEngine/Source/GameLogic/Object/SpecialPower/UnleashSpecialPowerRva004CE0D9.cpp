@@ -11,10 +11,10 @@
 // Compiled with the +0x20 subobject this. Names by address.
 #include "../../../../Include/Common/ScalarTypes.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

@@ -10,7 +10,7 @@
 // from target access and the existing matched money/score providers.
 #include "unicode_string.h"
 #include "Coord3D.h"
-enum ScienceType { SCIENCE_INVALID=-1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 #include "../../../../Include/GameLogic/Module/Rva0039B795.h"
 #include "../../../../Include/Common/Rva0039B7AD.h"
 #include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"

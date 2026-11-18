@@ -14,19 +14,19 @@
 // command source 2).
 typedef bool Bool;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 

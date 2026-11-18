@@ -12,7 +12,7 @@
 
 class Player;
 class Module;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 struct Coord3D;
 
 class Rva00397BD9;

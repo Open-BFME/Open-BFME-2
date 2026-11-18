@@ -19,7 +19,7 @@
 #include "../../Common/GameLogicObjectLookupView.h"
 
 enum KindOfType { KINDOF_INVALID = -1 };
-enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 enum DamageType { DAMAGE_NONE = 0 };
 enum DeathType { DEATH_NONE = 0 };
 enum Relationship { REL_ENEMIES = 0, REL_NEUTRAL = 1, REL_ALLIES = 2 };

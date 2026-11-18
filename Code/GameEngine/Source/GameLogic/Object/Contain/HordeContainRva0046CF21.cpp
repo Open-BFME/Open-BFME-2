@@ -21,10 +21,10 @@
 
 #include <string.h>
 
-enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 enum WeaponSetType { WEAPONSET_NONE = 0 };
 enum CellShroudStatus { CELLSHROUD_CLEAR = 0 };
-enum PathfindLayerEnum { LAYER_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
 class ThingTemplate;
 class Team;

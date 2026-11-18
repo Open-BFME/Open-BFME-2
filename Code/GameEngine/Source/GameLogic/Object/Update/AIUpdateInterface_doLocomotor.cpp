@@ -37,11 +37,11 @@
 // Named constant preserves the retail SSE comparison operand order.
 static const float fastSentinel = 999999.0f;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 enum KindOfType
 {
@@ -53,16 +53,16 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_AIRBORNE_TARGET = 6
 };
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 enum LocomotorGoalType
 {

@@ -43,10 +43,10 @@ static inline bool operator!=(const _List_iterator<T, L> &a,
 { return a._M_node != b._M_node; }
 }
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 class Object
 {

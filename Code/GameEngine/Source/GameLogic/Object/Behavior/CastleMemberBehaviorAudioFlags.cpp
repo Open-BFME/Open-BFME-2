@@ -10,7 +10,7 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
 // ?rva00395BCB@Rva00395BCB@@QAEXPBX0@Z @0x00395BCB 181B: thiscall with two flag args plus audio event prefix plus TheAudio slots.
 // Evidence: callers at 0x00397A82 0x00397ADF; neighbors CastleMemberBehaviorDtor plus Rva00395C80Check; rowed BfmeAudioEventPrefix136 ctor plus BfmeStringTailRecord144 dtor plus TheAudio; vtable offsets +0x64 +0x6c +0xd0; member +0x20 handle plus +4 +0x14 plus +8 +0x74.
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 #include "../../../../Include/Common/BfmeAudioEventPrefix136.h"
 
 struct FlagArg { _STL::bitset<591> bits; };

@@ -21,7 +21,7 @@
 #include "Lib/Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum ObjectStatusTypes { BFME_STATUS_40 = 0x40 };
 
 #include "../../../../Include/Common/NameKeyGenerator.h"

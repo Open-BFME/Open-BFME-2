@@ -23,7 +23,7 @@ class Object {public:void* vptr;void* objectTemplate;};
 struct HealData {char pad[0x98];unsigned frames;};
 class DoorInterface {public:virtual void d0();virtual int reserve(void*,Object*);virtual void exit(Object*,int);};
 struct HealPrimary {void*vptr;HealData* data;char pad[0x30-8];DoorInterface doors;};
-enum UpdateSleepTime {UPDATE_SLEEP_NONE=1};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class OpenContain {public:virtual UpdateSleepTime update();};
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D {public:void*rva0046247D(Rva0046247DPair&);};

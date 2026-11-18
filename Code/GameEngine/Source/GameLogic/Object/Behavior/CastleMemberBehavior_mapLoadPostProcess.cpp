@@ -18,10 +18,10 @@
 
 extern GameLogic *TheGameLogic;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class StaticNameKey
 {

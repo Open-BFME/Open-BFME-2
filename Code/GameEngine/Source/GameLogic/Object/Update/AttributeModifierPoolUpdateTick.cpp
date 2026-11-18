@@ -49,7 +49,7 @@ extern AttributeModifierStore *TheAttributeModifierStore;
 class FXList {public:static void doFXObj(const FXList *,const Object *,const Object *);};
 struct CategoryView {char unknown00[12];int category;};
 struct DelayedUpgradeView {void *upgrade;unsigned delay;};
-enum UpdateSleepTime {UPDATE_SLEEP_FOREVER=0x3fffffff};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class AttributeDeepBase {public:virtual ~AttributeDeepBase();void *data;Object *object;};
 class AttributeBehaviorInterface {public:virtual void slot0()=0;};
 class AttributeUpdateInterface {public:virtual UpdateSleepTime update()=0;};

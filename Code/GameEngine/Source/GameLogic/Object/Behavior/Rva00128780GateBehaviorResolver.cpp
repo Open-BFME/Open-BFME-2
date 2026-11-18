@@ -6,7 +6,7 @@
 //   ?resolveGateBehavior@Rva00128780GateBehaviorOwner@@QAE_NXZ 0x00256996 (134B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
 
-enum NameKeyType { };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 // Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
 #include "../../../Common/GameLogicObjectLookupView.h"
 

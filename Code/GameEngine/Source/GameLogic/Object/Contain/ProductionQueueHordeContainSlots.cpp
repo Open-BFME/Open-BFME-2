@@ -77,10 +77,10 @@ class Rva004814D1Module : public Rva004814D1Slots<31>
 public:
 	virtual Rva004814D1Answer *rvaSlot31() = 0;
 };
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {

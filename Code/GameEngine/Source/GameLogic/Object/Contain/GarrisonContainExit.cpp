@@ -29,9 +29,9 @@ _Vector_base<Coord3D,allocator<Coord3D> >::~_Vector_base() {
  if (_M_start != 0) _M_end_of_storage.deallocate(_M_start,_M_end_of_storage._M_data-_M_start);
 }
 }
-enum ExitDoorType { DOOR_1=0 };
-enum CommandSourceType { CMD_FROM_AI=2 };
-enum PathfindLayerEnum { LAYER_GROUND=1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ExitDoorType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 class Locomotor;
 class LocomotorSet;
 class Object;

@@ -52,13 +52,13 @@ public:
 	AIUpdateInterface *m_ai;
 };
 
-enum MoodMatrixAction
-{
-	MM_Action_Idle,
-	MM_Action_Move,
-	MM_Action_Attack,
-	MM_Action_AttackMove
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/MoodMatrixAction.h"
+
+
+
+
+
+
 
 enum MoodMatrixParameter
 {

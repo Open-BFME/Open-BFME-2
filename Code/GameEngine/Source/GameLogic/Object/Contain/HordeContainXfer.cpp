@@ -140,15 +140,15 @@ struct Coord3DBase;
 class ModuleData;
 class Module;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 void XferObjectID(Xfer *xfer, ObjectID *value);
 void XferStancesEnum(Xfer *xfer, int *stances);

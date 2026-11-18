@@ -42,11 +42,11 @@ enum WeaponBonusConditionType
 	WEAPONBONUSCONDITION_HERO = 11
 };
 
-enum WorldAnimationOptions
-{
-	WORLD_ANIM_NO_OPTIONS = 0,
-	WORLD_ANIM_FADE_ON_EXPIRE = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WorldAnimationOptions.h"
+
+
+
+
 
 class Player;
 class UpgradeTemplate;

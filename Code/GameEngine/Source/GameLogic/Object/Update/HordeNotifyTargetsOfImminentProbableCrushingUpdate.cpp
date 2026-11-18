@@ -26,10 +26,10 @@ class Rva004CEAB7{public:float x,y,z;__forceinline Rva004CEAB7(const Rva004CEAB7
 
 class ModuleData;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 class Rva004CE700Notifier
 {
@@ -149,11 +149,11 @@ UpdateSleepTime Rva004CED4BUpdateInterface::update()
 	reinterpret_cast<Rva004CED15Owner *>(&targets)->rva004CED15(*position);
 
 	_STL::list<int>::iterator it = targets.begin();
-	
+
 	if (it != targets.end()) {
 		Rva004CE700Notifier *notifier = reinterpret_cast<Rva004CE700Notifier *>(self + 0x10);
 		do {
-			
+
 			data = *reinterpret_cast<const ModuleData *const *>(self - 0x0C);
 			rate = reinterpret_cast<const int *>(reinterpret_cast<const char *>(data) + 0x08);
 			if (notifier->rva004CE700(reinterpret_cast<Object *>(*it), rate, reinterpret_cast<UpdateSleepTime *>(&sleep))) {

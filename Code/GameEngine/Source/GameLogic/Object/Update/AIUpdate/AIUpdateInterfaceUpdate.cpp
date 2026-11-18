@@ -36,22 +36,22 @@
 #include "GameLogic/BfmeStoredAICommandView.h"
 
 enum AICommandType { AICMD_NO_COMMAND = -1 };
-enum CommandSourceType { CMD_FROM_AI = 2 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 struct AICommandParms : public Rva00351570Src
 {
 	AICommandParms(AICommandType, CommandSourceType);
 	~AICommandParms() { if (m_20.m_start) free(m_20.m_start); }
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 enum KindOfType
 {
 	KINDOF_INVALID = -1
