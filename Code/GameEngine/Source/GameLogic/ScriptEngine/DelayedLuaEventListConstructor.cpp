@@ -44,6 +44,8 @@ public:
 	DelayedLuaEventList(void);
 
 	virtual ~DelayedLuaEventList(void);
+	// Retail's slot 1 (vtable 0x00BC9CF0) is the shared empty body at 0x000B3FD0.
+	virtual void loadPostProcess(void) {}
 	virtual const char *GetSnapshotName() const;
 
 private:
