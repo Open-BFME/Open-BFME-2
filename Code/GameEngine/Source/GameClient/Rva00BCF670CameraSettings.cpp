@@ -97,9 +97,22 @@ class Rva00BCF670CameraSettings
 {
 public:
 	Rva00BCF670CameraSettings();
-	virtual void vslot00() = 0; virtual void vslot01() = 0; virtual void vslot02() = 0; virtual void vslot03() = 0;
-	virtual void vslot04() = 0; virtual void vslot05() = 0; virtual void vslot06() = 0; virtual void vslot07() = 0;
-	virtual void vslot08() = 0; virtual void vslot09() = 0; virtual void vslot10() = 0; virtual void vslot11() = 0;
+	// Slots 0..11: one-field accessors /OPT:ICF folded onto other rows
+	// (retail 0x00452D82, 0x004F5F92, 0x004F5F8A, 0x005D870D, 0x0049CB57,
+	// 0x00101CA0, 0x00101CB0, 0x00101CBE, 0x00101CCC, 0x00101CDA, 0x00101CE8,
+	// 0x00049F2B).
+	virtual float getMinHeight() { return m_minHeight04; }
+	virtual float getMaxHeight() { return m_maxHeight08; }
+	virtual float getPitchAngle() { return m_pitchAngle0C; }
+	virtual float getYawAngle() { return m_yawAngle10; }
+	virtual float getScrollSpeedScalar() { return m_scrollSpeedScalar14; }
+	virtual float getCustom() { return (float)m_custom18; }
+	virtual void setMinHeight(float v) { m_minHeight04 = v; }
+	virtual void setMaxHeight(float v) { m_maxHeight08 = v; }
+	virtual void setPitchAngle(float v) { m_pitchAngle0C = v; }
+	virtual void setYawAngle(float v) { m_yawAngle10 = v; }
+	virtual void setScrollSpeedScalar(float v) { m_scrollSpeedScalar14 = v; }
+	virtual void setCustom(bool v) { m_custom18 = v; }
 	virtual void loadMinHeight();					// slot 12
 	virtual void loadMaxHeight();					// slot 13
 	virtual void loadPitchAngle();					// slot 14
@@ -108,7 +121,8 @@ public:
 	virtual void reload();							// slot 17
 	virtual void getCameraOffset(Coord3D *offset, float *yaw);	// slot 18
 	virtual bool setTriggerArea(const AsciiString &name, const Coord3D *pos);	// slot 19
-	virtual void vslot20() = 0;
+	// Slot 20: folded onto the dword clearer at retail 0x002FD7D7.
+	virtual void clearTriggerArea() { m_trigger1C = 0; }
 	virtual void constrainPosition(Coord3D *pos);	// slot 21
 
 	void reset();
