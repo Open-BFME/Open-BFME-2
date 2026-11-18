@@ -11,7 +11,7 @@
 // (0x0026295E), whose target stores are +0x134/+0x3BF. The donor member
 // spelling currently resolves to a different-layout body in AIUpdate.cpp.
 #include "ascii_string.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 class Object;
 class AIUpdateInterface;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

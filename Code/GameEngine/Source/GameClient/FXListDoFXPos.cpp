@@ -11,7 +11,7 @@
 // pre-check through the pinned 0x7397F0 thunk, and a per-nugget gate plus a
 // consumption flag at +0x144. Virtual slots need no pins.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include <stddef.h>
 

@@ -11,7 +11,7 @@
 // lower of the module data's +0x118 level count and the room left under the
 // cap through the tracker's 0x0039B4EC (with 1, 0), then, when the Object's
 // 0x0029439D result exists, runs its slot 49 once per level granted.
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 class ModuleData;
 class Rva00406F9C;
 template <int NUMBITS> class BitFlags;

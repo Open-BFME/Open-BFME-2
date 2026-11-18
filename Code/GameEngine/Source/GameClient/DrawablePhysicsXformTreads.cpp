@@ -23,8 +23,8 @@
 #include <windows.h>
 #include <math.h>
 
-typedef float Real;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class DrawableLocoInfo
 {

@@ -7,7 +7,7 @@
 // Gen_008F7CD0, BfmeCellFD and member names are provisional donor labels;
 // the complete target cell layout is not asserted here.
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct BfmePointFD
 {

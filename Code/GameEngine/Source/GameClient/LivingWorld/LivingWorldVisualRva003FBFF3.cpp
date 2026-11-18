@@ -14,7 +14,7 @@
 // (slot 21) on the primary and, when present, the +0x14 render object.
 // The transform uses the shared WWMath matrix and RenderObjClass interface.
 #include "matrix3.h"
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Matrix3D;
 

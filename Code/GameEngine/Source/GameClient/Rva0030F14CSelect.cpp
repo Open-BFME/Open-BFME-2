@@ -41,7 +41,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 // bfme link decl-only begin
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 // bfme link decl-only end
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 enum KindOfType
 {
  KINDOF_73 = 0x49

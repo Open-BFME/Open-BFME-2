@@ -9,8 +9,8 @@
 // and its +0x6C member the 0x0028C6D6 class, which matches the default ctor's
 // layout.
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 #include "../../Include/Common/Rva0028C6D6.h"
 
 // ----------------- vptr + twenty-three ints + three bytes (retail 0x0028C62B)

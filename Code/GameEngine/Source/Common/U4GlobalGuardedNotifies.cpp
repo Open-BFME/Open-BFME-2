@@ -9,7 +9,7 @@
 // the verified LivingWorldVisual transform-family source. Scalar factor
 // by value reproduces full328B including retail's first MOVSS/MULSS pair.
 // No aliases, extra pins, canonical math definitions or assembly added.
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 class Matrix3D;
 

@@ -21,7 +21,7 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 template <int N>
 class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>

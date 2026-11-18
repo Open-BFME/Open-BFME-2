@@ -14,8 +14,8 @@
 // m_curFadeFrame 0x00DEC1AC, W3DFilters[FT_VIEW_BW_FILTER] 0x00DE1F30 and
 // screenBWFilter 0x00DB5B54.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 enum FilterTypes
 {

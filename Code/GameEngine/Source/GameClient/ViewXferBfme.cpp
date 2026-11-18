@@ -9,7 +9,7 @@
 // (version 3 layout through View+0xB0); Zero Hour View::xfer supplies the
 // angle/position/lookAt prologue. Field and Xfer slot names are donor labels
 // or slot offsets, not target facts.
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
 
 
 #include "Coord3D.h"

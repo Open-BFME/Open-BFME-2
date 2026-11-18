@@ -21,9 +21,9 @@
 //   inline-asm helper (same codegen blocker as SphereClassAddSphere.cpp),
 //   float return in ST0, plain ret.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

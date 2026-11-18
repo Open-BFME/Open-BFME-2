@@ -13,10 +13,10 @@
 // the queueForPath path only. Layout: destination +0x148, victim +0x144,
 // timestamp +0x160, flags +0x3B1..+0x3B5.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -7,7 +7,7 @@
 // (BfmeConv1730). Coord3D has a user copy constructor and destructor in BFME 2
 // (see BaseHeightMapAddProp.cpp); the float arguments are forwarded through the
 // x87 stack exactly as retail does.
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 // Coord3D: retail user ctors, opt-in view (Lib/Coord3DCtorView.h); no private copy.
 #define COORD3D_VIEW_DTOR

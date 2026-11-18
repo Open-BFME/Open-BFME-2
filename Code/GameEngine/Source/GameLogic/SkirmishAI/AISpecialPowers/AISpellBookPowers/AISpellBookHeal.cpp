@@ -11,7 +11,7 @@
 // Target facts: the statistics record, the base and the picker keep their
 // ledger's address-derived names.
 
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 

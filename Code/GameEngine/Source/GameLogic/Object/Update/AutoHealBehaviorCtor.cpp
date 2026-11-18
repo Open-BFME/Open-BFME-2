@@ -29,7 +29,7 @@ class Thing;
 class ModuleData;
 class Object;
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
 
 struct AutoHealBehaviorModuleData

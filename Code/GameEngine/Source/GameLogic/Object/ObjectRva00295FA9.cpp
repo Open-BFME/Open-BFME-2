@@ -16,8 +16,8 @@
 // +0x115), containedBy +0x274; Weapon +0x04 byte field. The 0x1E48CF arg
 // is this, the 0x1E415F args are (float, LogicFrames). Identity unproven:
 // honest address-derived names; neighbour range bodies reuse this TU.
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum Relationship
 {

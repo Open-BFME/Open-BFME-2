@@ -21,7 +21,7 @@
 //   keeps the division signed (bare sizeof goes unsigned div); the
 //   `Bool valid = ... != 0; return valid;` temp materializes cmp-imm + setne
 //   (direct return folds to xor+cmp-reg).
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // TU-local replica of one 0x94-byte validity-table record. Only the extent
 // (sizeof must stay 0x94: the divisor and the imul stride) and the flag byte

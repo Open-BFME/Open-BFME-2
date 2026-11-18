@@ -35,7 +35,7 @@ extern unsigned char isLoadingMap;
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define THINGFACTORY_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\Thing\\ThingFactory.cpp"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../GameLogicObjectLookupView.h"
 
 class ThingTemplate

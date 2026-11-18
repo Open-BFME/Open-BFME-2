@@ -10,8 +10,8 @@
 #include <bitset>
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // VeterancyNames104: the retail string table at VA 0xdbc2c8.
 const char *VeterancyNames104[104] = {

@@ -8,7 +8,7 @@
 // Target evidence: this body reads the same +0x144..+0x170 flags, counters,
 // range and color fields as the matched setFrameFade body immediately after it.
 
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

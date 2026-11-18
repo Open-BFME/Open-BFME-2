@@ -27,7 +27,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 struct ChecklistSelectNode;
 #include "../../../Include/Common/ChecklistIteratorView.h"

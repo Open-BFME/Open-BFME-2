@@ -33,7 +33,7 @@
 //   privately) so the free function can reach the truly-public compare;
 //   layout and emitted calls are identical either way.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/BfmeStringData.h"
 

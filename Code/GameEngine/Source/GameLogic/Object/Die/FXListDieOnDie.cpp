@@ -10,7 +10,7 @@
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 struct Coord3D;
 class Matrix3D;

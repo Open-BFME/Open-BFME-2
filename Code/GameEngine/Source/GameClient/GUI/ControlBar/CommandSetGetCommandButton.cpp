@@ -8,8 +8,8 @@
 // 0x00246F8E (a GameLogic map lookup keyed by name and slot that writes the
 // button and returns true when found; its name is not established), and
 // otherwise returns the button array at +0x14.
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "ascii_string.h"
 #include "../../../../Include/Common/ThingTemplate.h"

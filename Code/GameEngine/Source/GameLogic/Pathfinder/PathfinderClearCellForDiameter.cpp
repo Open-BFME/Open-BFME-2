@@ -9,7 +9,7 @@
 // Loop indices outside both branches plus the WB side/end ternary structure
 // reproduce the caller's 1C frame and CSE allocation. Layout facts below are
 // target loads; original function names and complete class extents are unknown.
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 enum PathfindLayerEnum { INVALID_PATHFIND_LAYER = -1 };
 class Object {public: signed char rva0028CE7B() const;};
 struct DiameterOccupant {DiameterOccupant *next; int unused; Object*object;};

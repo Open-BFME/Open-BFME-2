@@ -6,7 +6,7 @@
 // The BFME1 donor INI_stl.cpp only odr-uses it, so it has no donor .cpp
 // definition to copy. The header body is emitted out-of-line here; retail
 // 0x003389AC is that body.
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef UnsignedInt VeterancyLevelFlags;
 
 enum VeterancyLevel

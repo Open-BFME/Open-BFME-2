@@ -38,7 +38,7 @@ class Snapshot;
 // (TheGameLogic is DIR32-masked; all callees are inline). Row supersedes
 // the frameToSleepTime pin.
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum UpdateSleepTime
 {

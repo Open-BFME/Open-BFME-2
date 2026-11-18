@@ -15,10 +15,10 @@
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline bool less<unsigned int>::operator()(unsigned int const &x,unsigned int const &y)const  { return x < y; } }
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef unsigned int StateID;
-typedef int Int;
-typedef bool Bool;
+
+
 
 enum { INVALID_STATE_ID = 999999 };
 

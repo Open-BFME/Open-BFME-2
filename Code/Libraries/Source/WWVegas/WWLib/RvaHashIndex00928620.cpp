@@ -28,7 +28,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void *const &ve
 namespace _STL { template <> void **vector<void*>::begin(); }
 namespace _STL { template <> void **vector<void*>::end(); }
 
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 typedef _STL::pair<int, int> Rva00928590Key;
 typedef _STL::pair<const Rva00928590Key, int> Rva00928590Value;

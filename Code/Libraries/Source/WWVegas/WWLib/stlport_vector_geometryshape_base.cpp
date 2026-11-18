@@ -44,7 +44,7 @@ namespace _STL { template <> void _Construct<GeometryShape,GeometryShape>(Geomet
 struct GeometryShape;
 namespace _STL { template <> vector<GeometryShape,allocator<GeometryShape> >::vector(unsigned int); }
 
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 struct AsciiString
 {

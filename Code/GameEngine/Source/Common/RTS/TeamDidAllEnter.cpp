@@ -17,7 +17,7 @@
 // in-TU over the virtual-inheritance Object skeleton (TeamUpdateState.cpp);
 // with the declared-only iterator the member landed in EAX instead of ESI.
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class PolygonTrigger;
 class Object;

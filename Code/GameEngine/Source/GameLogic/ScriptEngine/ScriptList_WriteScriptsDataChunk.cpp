@@ -16,7 +16,7 @@
 // open through the matched 0x307C76 row, and the chunk close through the
 // 0x306C88 pin. Retail pushes version 1 for both chunks.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum
 {

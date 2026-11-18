@@ -16,7 +16,7 @@
 // the flag byte at +0x4B is clear (unnamed; Zero Hour has no such test).
 // Retail is size-optimised (/O1), unlike the /O2 W3DModelDraw.cpp port.
 
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 class Shadow
 {

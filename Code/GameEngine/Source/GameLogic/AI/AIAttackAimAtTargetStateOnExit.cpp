@@ -11,8 +11,8 @@
 // template's Real at +0x53C (unnamed) is below 360; the aiming status is
 // cleared through the rowed Object::setStatus(25, false).
 // Layout: m_canTurnInPlace +0x21, m_setLocomotor +0x22, AI +0x258.
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_IS_AIMING_WEAPON = 25,

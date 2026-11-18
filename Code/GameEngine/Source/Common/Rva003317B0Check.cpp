@@ -6,7 +6,7 @@
 // +4 via rowed 0x000B3ED3; return Equal(member temp) via rowed 0x00045473.
 // Evidence: sub esp-0x4c push esi lea ecx esi+0x50 call overlap 0x00263546
 // then copy-intersect-equal chain; unblocks 0x00335FE1; chain from 0xB3ED3.
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include "../../Include/Common/WeaponTemplateSetHead.h"
 class Rva00263546
 {

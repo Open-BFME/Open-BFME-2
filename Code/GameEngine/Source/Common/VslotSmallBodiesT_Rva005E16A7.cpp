@@ -7,9 +7,9 @@
 // method is address-derived unless the ledger already names it, and models
 // only what its body touches. Meanings are not recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 // 0x0057BC25: tail call of the rowed 0x0057BAC4 on this object.
 // Slot 8 of StrategicHUD::SelectionDetailsUIImpl's vftable 0x00C6F26C (its

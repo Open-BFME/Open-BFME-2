@@ -72,7 +72,7 @@ enum ObjectStatusTypes
 	DUMMY_00 = 0x00,
 	DUMMY_55 = 0x55
 };
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 struct Rva00396C43NameData
 {
