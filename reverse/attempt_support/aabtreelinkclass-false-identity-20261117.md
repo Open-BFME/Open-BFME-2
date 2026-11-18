@@ -91,6 +91,39 @@ construction lives there. Recovering that family is the path to retail's true
   `??1`, 4B `??_7` — unrowed) stay as-is until the true retail bodies surface; they keep the
   ZH donor shape, which is evidence, not progress.
 
+## Recovery attempt of the present-unmatched family (2026-11-18): bodies do not byte-match
+
+The in-lane path was tried and disproven; the family cannot be placed by byte-matching:
+
+- **Reloc-exact masked scan of the compiled `aabtreecull.obj` (mask = exactly the COFF
+  reloc offsets, not hand-derived immediates) finds ZERO retail copies of every hand-written
+  AABTree body**: all four `Collect_Objects_Recursive` overloads (73/483/158/299 B),
+  `Update_Bounding_Boxes_Recursive` (962 B), `??0AABTreeNodeClass` (55 B, reloc-free),
+  `??0SplitChoiceStruct` (54 B), `Partition` (883 B), `Compute_Score` (601 B),
+  `Select_Splitting_Plane` (580 B), `Select_Splitting_Plane_Brute_Force` (528 B),
+  `Split_Boxes` (90 B). Rowed siblings from the same object do match (pool ctor 19 B
+  @0x196350, `??4SplitChoiceStruct` 109 B @0x198BF0), so the TU's flags are partly right;
+  retail's hand-written AABTree bodies genuinely differ from this tree's compile (different
+  source revision or per-function flags). Recovery needs hand RE of retail's bodies, not a
+  byte scan.
+- The pool machinery confirms size/instance independence: `??0ObjectPoolClass<AABTreeNodeClass>`
+  (19 B, zeroing only) is ICF-foldable; `??2/??3AutoPoolClass<AABTreeNodeClass>` (10/20 B) have
+  1,191/5 retail copies and all five 20 B `??3` copies are rowed to other classes
+  (PolyRenderTask 0x1449B0, MatPassTask 0x1449E0, HAnimComboData 0x196900, MultiListNode
+  0x610780, GridLink 0x71B450).
+- **False-lead lesson (recorded blocked at 0x00196370):** the 40 B
+  `??1ObjectPoolClass<AABTreeNodeClass>` shape matches retail's single 0x196370 copy only
+  modulo the masked displacement; decisively, retail's call (`e8 a5a4e9ff`) resolves to CRT
+  `_free` 0x30830 while ours (`e8 d599e9ff`) resolves to `operator delete` 0x2FD60. A
+  reloc-masked scan MUST decode each hit's own targets before claiming identity. 0x196370 is
+  the address-named `?freeAll@Rva00196370List` row (restored by `e9e9b48b416`).
+- The Grid table at 0x8EFCB0 is exactly 10 slots (0x8EFCB0–0x8EFCD4, every slot rowed); the
+  AABTree table is not adjacent in .rdata, and `AABTreeIterator::Reset` callers 0x71C380 and
+  0x45A963 are rowed Grid/behavior bodies, not cull-system entry points.
+
+**Consequence:** the bridged queue row stays blocked on the class-reconciliation lane; the
+recovery the handoff prescribes first is a manual-RE unit, not a scan.
+
 ## Scratch probes used (untracked, `build/`)
 
 `probe_pool_dtor_scan.py`, `probe_pool_dtor_decode.py`, `probe_dtor_variants.py`,
