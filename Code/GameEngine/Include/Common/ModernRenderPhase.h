@@ -21,6 +21,11 @@ extern __declspec(thread) float g_modernVisualAlpha;
 void modernPresentFrame();
 // Push-button clocks drawn since the last update are cleared by it (W3DPushButton).
 void modernClearPushButtonClocks();
+// Unit model interpolation (W3DModelDrawDoDrawModule.cpp): prune and advance at
+// each update; apply the blend for a presentation and restore it afterwards.
+void modernBeginModelUpdate();
+void modernApplyModelInterpolation(float alpha);
+void modernRestoreModelInterpolation();
 void modernAdvanceViewEffects();
 void modernAdvanceCrossFade();
 void modernAdvanceBW();

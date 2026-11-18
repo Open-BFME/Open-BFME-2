@@ -449,6 +449,7 @@ void GameEngine::rva0022D290()
    {
     ModernRenderScope phase(modernFPS?MODERN_RENDER_UPDATE:MODERN_RENDER_LEGACY);
     modernClearPushButtonClocks();
+    if(modernFPS)modernBeginModelUpdate();
     if(modernFPS){
      QueryPerformanceCounter(&counter);
      double rate=(double)m_maxFPS*LOGIC_SCALE;

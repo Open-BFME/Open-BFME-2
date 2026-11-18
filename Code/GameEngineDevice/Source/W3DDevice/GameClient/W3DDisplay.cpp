@@ -42,6 +42,20 @@ bool __cdecl BFME_DX8_Thread_Assert(void);
 #if defined(BFME2_MODERN)
 #include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
 __declspec(thread) ModernRenderPhase g_modernRenderPhase = MODERN_RENDER_LEGACY;
+struct ModernModelScope
+{
+    bool active;
+    ModernModelScope() : active(g_modernRenderPhase == MODERN_RENDER_PRESENT)
+    {
+        if (active)
+            modernApplyModelInterpolation(g_modernVisualAlpha);
+    }
+    ~ModernModelScope()
+    {
+        if (active)
+            modernRestoreModelInterpolation();
+    }
+};
 __declspec(thread) float g_modernVisualAlpha = 1.0f;
 #endif
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
@@ -1378,6 +1392,8 @@ bool W3DDisplay::rva0004A462(unsigned int now)
         // Returning false also prevents draw()'s paused-camera loop from spinning
         // without another fixed update.
         if (!modernPresentsScene()) return false;
+        // Blend unit models toward their latest update for this presentation.
+        ModernModelScope modernModels;
 #endif
         if (TheGameLogic == 0 || !TheGameLogic->m_6d)
         {

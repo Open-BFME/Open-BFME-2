@@ -297,6 +297,122 @@ private:
 	Real m_fadeColor[3];				// 0x280
 };
 
+#if defined(BFME2_MODERN)
+#include "../../../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+// Unit interpolation between client updates. doDrawModule runs once per client
+// update (30 Hz) and sets each model's transform; presentations in between only
+// render. Record the last two transforms per render object and, during a
+// presentation, show the blend for g_modernVisualAlpha, then restore. Entries
+// hold a reference, so a model released between updates stays valid until it
+// is pruned at the next update. Large jumps (teleports, spawns) are not blended.
+struct ModernModelHistory
+{
+	RenderObjClass *object;
+	Matrix3D previous;
+	Matrix3D current;
+	Matrix3D saved;
+	unsigned previousSerial;
+	unsigned currentSerial;
+	bool applied;
+};
+enum { MODERN_MODEL_CAPACITY = 4096 };
+static ModernModelHistory s_modernModels[MODERN_MODEL_CAPACITY];
+static int s_modernModelCount = 0;
+static unsigned s_modernVisualSerial = 1;
+static void modernCaptureModel(RenderObjClass *object, const Matrix3D &transform)
+{
+	if (g_modernRenderPhase != MODERN_RENDER_UPDATE)
+		return;
+	for (int i = 0; i < s_modernModelCount; ++i)
+	{
+		ModernModelHistory &entry = s_modernModels[i];
+		if (entry.object != object)
+			continue;
+		if (entry.currentSerial != s_modernVisualSerial)
+		{
+			entry.previous = entry.current;
+			entry.previousSerial = entry.currentSerial;
+			entry.currentSerial = s_modernVisualSerial;
+		}
+		entry.current = transform;
+		return;
+	}
+	if (s_modernModelCount >= MODERN_MODEL_CAPACITY)
+		return;
+	ModernModelHistory &entry = s_modernModels[s_modernModelCount++];
+	object->Add_Ref();
+	entry.object = object;
+	entry.previous = transform;
+	entry.current = transform;
+	entry.previousSerial = s_modernVisualSerial;
+	entry.currentSerial = s_modernVisualSerial;
+	entry.applied = false;
+}
+void modernBeginModelUpdate()
+{
+	// Drop models that the last update did not draw (gone, hidden or culled).
+	int kept = 0;
+	for (int i = 0; i < s_modernModelCount; ++i)
+	{
+		ModernModelHistory &entry = s_modernModels[i];
+		if (entry.currentSerial != s_modernVisualSerial)
+		{
+			entry.object->Release_Ref();
+			continue;
+		}
+		if (kept != i)
+			s_modernModels[kept] = entry;
+		++kept;
+	}
+	s_modernModelCount = kept;
+	++s_modernVisualSerial;
+}
+void modernApplyModelInterpolation(float alpha)
+{
+	for (int i = 0; i < s_modernModelCount; ++i)
+	{
+		ModernModelHistory &entry = s_modernModels[i];
+		entry.applied = false;
+		// Only models drawn by the latest update.
+		if (entry.currentSerial != s_modernVisualSerial)
+			continue;
+		const Matrix3D &actual = entry.object->Get_Transform();
+		bool continuous = entry.previousSerial + 1 == entry.currentSerial;
+		bool still = memcmp(&entry.previous, &entry.current, sizeof(Matrix3D)) == 0;
+		bool overwritten = memcmp(&actual, &entry.current, sizeof(Matrix3D)) != 0;
+		Vector3 from = entry.previous.Get_Translation();
+		Vector3 to = entry.current.Get_Translation();
+		float dx = to.X - from.X, dy = to.Y - from.Y, dz = to.Z - from.Z;
+		bool jump = dx * dx + dy * dy + dz * dz > 100.0f * 100.0f;
+		if (!continuous || jump)
+			still = true;
+		// Logic that runs after the draw pass (a 5 Hz tick) writes the raw logic
+		// pose into the model; retail overwrote it before its next render, so
+		// show the draw-pass pose here as well and restore the logic one after.
+		if (still && !overwritten)
+			continue;
+		Matrix3D visual;
+		if (still)
+			visual = entry.current;
+		else
+			Matrix3D::Lerp(entry.previous, entry.current, alpha, visual);
+		entry.saved = actual;
+		entry.object->Set_Transform(visual);
+		entry.applied = true;
+	}
+}
+void modernRestoreModelInterpolation()
+{
+	for (int i = 0; i < s_modernModelCount; ++i)
+	{
+		ModernModelHistory &entry = s_modernModels[i];
+		if (!entry.applied)
+			continue;
+		entry.object->Set_Transform(entry.saved);
+		entry.applied = false;
+	}
+}
+#endif
 void W3DModelDraw::doDrawModule(const Matrix3D *transformMtx)
 {
 	if (!m_bA0 && m_A4)
@@ -374,6 +490,9 @@ void W3DModelDraw::doDrawModule(const Matrix3D *transformMtx)
 		}
 		adjustTransformMtx(mtx);
 		m_renderObject->Set_Transform(mtx);
+#if defined(BFME2_MODERN)
+		modernCaptureModel(m_renderObject, mtx);
+#endif
 
 		if (m_fading)
 		{
