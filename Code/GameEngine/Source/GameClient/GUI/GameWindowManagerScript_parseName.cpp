@@ -21,6 +21,10 @@
 //   compares names and calls [eax+4]).
 
 #include <string.h>
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl isspace(int);
+}
 
 #include <assert.h>
 
@@ -39,14 +43,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WinInstanceData
-{
-public:
-	unsigned char m_pad0[4];  // +0
-	Int m_id;  // +4
-	unsigned char m_pad1[0x18C - 8];  // +8
-	AsciiString m_decoratedNameString;  // +0x18C
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 
 // ?parseName@@YA_NPADPAVWinInstanceData@@0PAX@Z
@@ -60,7 +57,7 @@ Bool parseName(char *token, WinInstanceData *instData, char *buffer, void *data)
 	while (*ptr != '"')
 		ptr++;
 	ptr++;  // skip the first "
-	c = strtok(ptr, stringSeps);  // name value
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // name value
 	instData->m_decoratedNameString.set(c);
 
 	// given the name assign a window ID from the key generator

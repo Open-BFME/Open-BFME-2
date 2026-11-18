@@ -65,24 +65,7 @@ public:
 
 #include "../../../Include/Common/Rva003140CF.h"
 
-class WinInstanceData
-{
-public:
-	WinInstanceData();
-	virtual ~WinInstanceData();
-	void init();
-	int getTextLength();
-	UnicodeString getTooltipText();
-
-	unsigned char m_pad04[0xC - 4];
-	unsigned int m_style;
-	unsigned char m_pad10[0x14 - 0x10];
-	GameWindow *m_owner;
-	unsigned char m_pad18[0x184 - 0x18];
-	GameFont *m_font;
-	AsciiString m_textLabelString;
-	unsigned char m_pad18C[0x1A8 - 0x18C];
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 enum
 {

@@ -25,19 +25,7 @@
 class GameWindow { public: void winSetUserData(void *); };
 #include "../../../Include/Common/Rva003140CF.h"
 
-class WinInstanceData
-{
-public:
-	WinInstanceData();
-	virtual ~WinInstanceData();
-	void init();
-
-	unsigned char m_pad04[0xC - 4];
-	unsigned int m_style;
-	unsigned char m_pad10[0x188 - 0x10];
-	AsciiString m_textLabelString;
-	unsigned char m_pad18C[0x1A8 - 0x18C];
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 enum
 {

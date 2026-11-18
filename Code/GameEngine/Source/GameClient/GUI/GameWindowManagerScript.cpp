@@ -10,6 +10,26 @@ template<class A,class B> Rva001EB984PoolAllocator<B> __stl_alloc_create(const R
 // Keep the existing public buffer-clear operation inline, with no competing wrapper.
 template <> __declspec(dllimport) __forceinline void StringBase<char>::clear() { releaseBuffer(); }
 #define UNICODESTRING_H
+#define __SUBSYSTEMINTERFACE_H_
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+enum NameKeyType { NAMEKEY_INVALID = 0, NAMEKEY_MAX = 1<<23 };
+#define __NAMEKEYGENERATOR_H_
+#include "../../../Include/Common/NameKeyGenerator.h"
+#define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
+#define __GAMECLIENT_GAMETEXT_H_
+#include "../../../Include/GameClient/GameText.h"
+// WinInstanceData: the repo header, not Zero Hour's (same layout; the constants it also defined follow).
+#define __WININSTANCEDATA_H_
+#define WIN_STATE_HILITED 	0x00000002
+#define WIN_STATE_SELECTED	0x00000004
+enum { MAX_WINDOW_NAME_LEN = 64, MAX_DRAW_DATA = 9, MAX_TEXT_LABEL = 128 };
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
+// FunctionLexicon is not used by this unit: keep Zero Hour's definition out.
+#define __FUNCTIONLEXICON_H_
+// FontLibrary: the repo header, not Zero Hour's GameFont.h. GameFont is only passed by pointer here.
+#define __GAMEFONT_H_
+#include "../../../Include/GameClient/FontLibrary.h"
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #include <list>
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.

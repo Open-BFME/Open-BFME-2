@@ -59,6 +59,10 @@ extern AsciiString g_drawCallbackName;
 class WinInstanceData;
 
 #include <string.h>
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl isspace(int);
+}
 
 // ?parseDrawCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z
 Bool parseDrawCallback(char *token, WinInstanceData *instData, char *buffer, void *data)
@@ -70,7 +74,7 @@ Bool parseDrawCallback(char *token, WinInstanceData *instData, char *buffer, voi
 	while (*ptr != '"')
 		ptr++;
 	ptr++;
-	c = strtok(ptr, stringSeps);
+	c = NativeScriptCrt::strtok(ptr, stringSeps);
 	g_drawCallbackName.set(c);
 
 	NameKeyType key = TheNameKeyGenerator->nameToKey(g_drawCallbackName);

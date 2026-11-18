@@ -31,6 +31,10 @@ typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
 #include <string.h>
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl isspace(int);
+}
 // Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
 #define _CRTIMP
 #include <mbstring.h>
@@ -66,23 +70,23 @@ Bool parseFont(char *token, WinInstanceData *instData, char *buffer, void *data)
 	Int fontBold;
 
 	// "NAME"
-	c = strtok(buffer, seps);  // label
+	c = NativeScriptCrt::strtok(buffer, seps);  // label
 	// scan to the first " mark
 	ptr = buffer;
 	while (*ptr != '"')
 		ptr++;
 	ptr++;  // skip the "
-	c = strtok(ptr, stringSeps);  // value
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // value
 	_mbscpy((unsigned char *)fontName, (const unsigned char *)c);
 
 	// "SIZE"
-	c = strtok(NULL, seps);  // label
-	c = strtok(NULL, seps);  // value
+	c = NativeScriptCrt::strtok(NULL, seps);  // label
+	c = NativeScriptCrt::strtok(NULL, seps);  // value
 	scanInt(c, fontSize);
 
 	// "BOLD"
-	c = strtok(NULL, seps);  // label
-	c = strtok(NULL, seps);  // value
+	c = NativeScriptCrt::strtok(NULL, seps);  // label
+	c = NativeScriptCrt::strtok(NULL, seps);  // value
 	scanInt(c, fontBold);
 
 	if (TheFontLibrary != NULL)

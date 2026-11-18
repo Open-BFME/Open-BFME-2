@@ -17,6 +17,10 @@ enum NameKeyType
 };
 
 #include <string.h>
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl isspace(int);
+}
 
 #include "ascii_string.h"
 
@@ -64,7 +68,7 @@ Bool parseInputCallback(char *token, WinInstanceData *instData, char *buffer, vo
 	while (*ptr != '"')
 		ptr++;
 	ptr++;
-	c = strtok(ptr, stringSeps);
+	c = NativeScriptCrt::strtok(ptr, stringSeps);
 	g_inputCallbackName.set(c);
 
 	NameKeyType key = TheNameKeyGenerator->nameToKey(g_inputCallbackName);

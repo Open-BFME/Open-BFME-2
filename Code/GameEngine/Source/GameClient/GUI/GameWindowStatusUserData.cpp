@@ -60,12 +60,12 @@ GameWindow *bfmeAnchorGameWindowWinGetChild(GameWindow *gameWindow)
 // (+0x1B4): each pinned by its GUI callers at a one-load getter that retail
 // folded with an identical one already rowed.
 Int GameWindow::winGetWindowId(void) { return m_instData.m_id; }
-Color GameWindow::winGetEnabledTextColor(void) { return m_instData.m_enabledColor; }
-Color GameWindow::winGetEnabledTextBorderColor(void) { return m_instData.m_enabledBorderColor; }
-Color GameWindow::winGetDisabledTextColor(void) { return m_instData.m_disabledColor; }
-Color GameWindow::winGetDisabledTextBorderColor(void) { return m_instData.m_disabledBorderColor; }
-Color GameWindow::winGetHiliteTextColor(void) { return m_instData.m_hiliteColor; }
-Color GameWindow::winGetHiliteTextBorderColor(void) { return m_instData.m_hiliteBorderColor; }
+Color GameWindow::winGetEnabledTextColor(void) { return m_instData.m_enabledText.color; }
+Color GameWindow::winGetEnabledTextBorderColor(void) { return m_instData.m_enabledText.borderColor; }
+Color GameWindow::winGetDisabledTextColor(void) { return m_instData.m_disabledText.color; }
+Color GameWindow::winGetDisabledTextBorderColor(void) { return m_instData.m_disabledText.borderColor; }
+Color GameWindow::winGetHiliteTextColor(void) { return m_instData.m_hiliteText.color; }
+Color GameWindow::winGetHiliteTextBorderColor(void) { return m_instData.m_hiliteText.borderColor; }
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline GameFont *GameWindow::winGetFont(void) { return m_instData.m_font; }
@@ -80,8 +80,8 @@ GameFont *bfmeAnchorGameWindowWinGetFont(GameWindow *gameWindow)
 // six text colours as Zero Hour's m_imeCompositeText follows the hilite text:
 // both text-entry draw callbacks (0x000A03BF, 0x000A0581) call them where
 // Zero Hour's do, at one-load getters retail folded with identical rowed ones.
-Color GameWindow::winGetIMECompositeTextColor(void) { return m_instData.m_imecompositeColor; }
-Color GameWindow::winGetIMECompositeBorderColor(void) { return m_instData.m_imecompositeBorderColor; }
+Color GameWindow::winGetIMECompositeTextColor(void) { return m_instData.m_imeCompositeText.color; }
+Color GameWindow::winGetIMECompositeBorderColor(void) { return m_instData.m_imeCompositeText.borderColor; }
 
 // winGetInstanceData (0x00314046, lea +0x30), winGetNext (0x003140F1,
 // +0x1F8, just before m_prev/m_parent/m_child as in Zero Hour) and

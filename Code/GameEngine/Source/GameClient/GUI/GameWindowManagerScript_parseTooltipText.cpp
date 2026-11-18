@@ -27,6 +27,10 @@
 //   compares names and calls [eax+4]).
 
 #include <string.h>
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+extern "C" __declspec(dllimport) int __cdecl isspace(int);
+}
 #include <assert.h>
 
 #define DEBUG_LOG(x) ((void)0)
@@ -51,14 +55,7 @@ class AsciiString;
 
 extern GameTextInterface *TheGameText;
 
-class WinInstanceData
-{
-public:
-	void setTooltipText(UnicodeString text);
-
-	char m_pad[0x190];
-	AsciiString m_tooltipString;
-};
+#include "../../../Include/GameClient/Bfme2WinInstanceData.h"
 
 // ?parseTooltipText@@YA_NPADPAVWinInstanceData@@0PAX@Z
 Bool parseTooltipText(char *token, WinInstanceData *instData, char *buffer, void *data)
@@ -73,7 +70,7 @@ Bool parseTooltipText(char *token, WinInstanceData *instData, char *buffer, void
 	ptr++;  // skip the "
 	if (strlen(ptr) == 1)
 		return true;
-	c = strtok(ptr, stringSeps);  // value
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // value
 	if (strlen(c) >= MAX_TEXT_LABEL)
 	{
 		DEBUG_LOG(("TextTooltip label '%s' is too long, max is '%d'\n", c, MAX_TEXT_LABEL));

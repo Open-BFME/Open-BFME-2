@@ -948,32 +948,32 @@ GameWindow *GameWindow::winPointInAnyChild( Int x, Int y, bool ignoreHidden, boo
 
 void GameWindow::winSetEnabledTextColors(int color, int borderColor)
 {
-	m_instData.m_enabledColor = color;
-	m_instData.m_enabledBorderColor = borderColor;
+	m_instData.m_enabledText.color = color;
+	m_instData.m_enabledText.borderColor = borderColor;
 	if (m_instData.m_style & 0x8000)
 		GadgetComboBoxSetEnabledTextColors(this, color, borderColor);
 }
 
 void GameWindow::winSetDisabledTextColors(int color, int borderColor)
 {
-	m_instData.m_disabledColor = color;
-	m_instData.m_disabledBorderColor = borderColor;
+	m_instData.m_disabledText.color = color;
+	m_instData.m_disabledText.borderColor = borderColor;
 	if (m_instData.m_style & 0x8000)
 		GadgetComboBoxSetDisabledTextColors(this, color, borderColor);
 }
 
 void GameWindow::winSetHiliteTextColors(int color, int borderColor)
 {
-	m_instData.m_hiliteColor = color;
-	m_instData.m_hiliteBorderColor = borderColor;
+	m_instData.m_hiliteText.color = color;
+	m_instData.m_hiliteText.borderColor = borderColor;
 	if (m_instData.m_style & 0x8000)
 		GadgetComboBoxSetHiliteTextColors(this, color, borderColor);
 }
 
 void GameWindow::winSetIMECompositeTextColors(int color, int borderColor)
 {
-	m_instData.m_imecompositeColor = color;
-	m_instData.m_imecompositeBorderColor = borderColor;
+	m_instData.m_imeCompositeText.color = color;
+	m_instData.m_imeCompositeText.borderColor = borderColor;
 	if (m_instData.m_style & 0x8000)
 		GadgetComboBoxSetIMECompositeTextColors(this, color, borderColor);
 }
