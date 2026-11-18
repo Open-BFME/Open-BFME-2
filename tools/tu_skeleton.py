@@ -7522,6 +7522,129 @@ def queue(under="", limit=None, root=ROOT, entries=None):
     return out[:limit] if limit else out
 
 
+_ZH_INCLUDE_DIRS = ("common/", "gameclient/", "gamelogic/", "gamenetwork/", "lib/", "ww3d2/", "wwlib/", "wwmath/")
+
+
+def uses_zh_headers(text):
+    """True when TEXT includes the Zero Hour reference headers (PreRTS.h, or an include whose path
+    starts with Common/, GameClient/, GameLogic/, GameNetwork/, Lib/, WW3D2/, WWLib/ or WWMath/,
+    case-insensitive); False for the repo's own headers (relative `../`, shims, Bfme names) or none."""
+    for m in re.finditer(r'^[ \t]*#[ \t]*include[ \t]*[<"]([^>"\r\n]+)[>"]', text, re.M):
+        inc = m.group(1).strip().replace("\\", "/").lower()
+        if inc == "prerts.h" or inc.startswith(_ZH_INCLUDE_DIRS):
+            return True
+    return False
+
+
+def blocker_census(under="", root=ROOT, entries=None):
+    """Read-only dry-run plan over every queued TU: each donor file classified by what
+    stops its merge, without compiling. Classes (first match):
+
+      mixed          the file also holds rows of another TU or rows no TU claims
+      refused        deleting it is not mechanical (vendored, #included, expands __FILE__ ...)
+      class:NAME     its private view of NAME disagrees with another donor's of the same TU
+                     (header_adopt_lane.tu_blockers: the header lane's own static test)
+      flags          reverse/flag_overrides.csv gives it flags the TU's seed does not carry
+      clean          nothing static stops it; a compile may still reject it (bytes, link)
+    Additive label `headers`: the TU file exists and the donor's header set (Zero Hour or not,
+    uses_zh_headers) differs from the TU file's; it may follow any label, and a donor that would
+    be `clean` but has it is reported as ["headers"], never clean.
+    A TU's approved rows in Code/gen_asm or Code/gen_small are counted separately
+    (`placeholder_rows`): they are never donors, so they stay in their files. Bytes drifting
+    under the merged text needs a compile and is not judged here: `--merge-all --dry-run` does.
+    Returns {"tus": [per-TU dicts], "classes": [ranking], "histogram": Counter of donors}."""
+    import header_adopt_lane
+    import flag_defaults
+    entries = queue_entries(under, root) if entries is None else entries
+    canon = header_adopt_lane.registered()
+    over = flag_defaults.overrides()
+    sig_cache, tus = {}, []
+    gen = collections.Counter()
+    for r in map_rows():
+        if (r["confidence"] == "approved" and r["kind"].startswith("code") and r["tu"]
+                and re.search(r"/(gen_small|gen_asm)/", r["source"] or "")):
+            gen[r["tu"]] += 1
+    for e in entries:
+        tu = e["tu"]
+        don, mixed, refused = donors(tu, skeleton(tu))
+        for f in don:
+            if f not in sig_cache:
+                try:
+                    sig_cache[f] = header_adopt_lane.view_signatures((Path(root) / f).read_text(encoding="latin-1"))
+                except OSError:
+                    sig_cache[f] = {}
+        views = header_adopt_lane.tu_blockers(sorted(don), sig_cache, canon)
+        seed_flags = (over.get(tu) or {}).get("flags", "")
+        try:
+            tu_zh = uses_zh_headers((Path(root) / tu).read_text(encoding="latin-1"))
+        except OSError:
+            tu_zh = None   # no TU file yet: nothing to differ from
+        files = {}
+        for f in sorted(set(don) | set(mixed) | set(refused)):
+            if f in mixed:
+                files[f] = ["mixed"]
+            elif f in refused:
+                why = re.sub(r"^\d+ row\(s\) not approved for this TU.*", "rows only proposed for the TU", str(refused[f]))
+                files[f] = ["refused: " + why.split(":")[0][:48]]
+            else:
+                why = [f"class:{c}" for c, (_, fs) in sorted(views.items()) if f in fs]
+                if f != tu and (over.get(f) or {}).get("flags", "") != seed_flags and f in over:
+                    why.append("flags")
+                files[f] = why
+            if tu_zh is not None and f != tu:
+                try:
+                    f_zh = uses_zh_headers((Path(root) / f).read_text(encoding="latin-1"))
+                except OSError:
+                    f_zh = tu_zh
+                if f_zh != tu_zh:
+                    files[f] = files[f] + ["headers"]
+            files[f] = files[f] or ["clean"]
+        tus.append({"tu": tu, "files": files, "placeholder_rows": gen.get(tu, 0),
+                    "headers_donors": sum("headers" in v for v in files.values())})
+    hist = collections.Counter(c for t in tus for v in t["files"].values() for c in v[:1]
+                               if not c.startswith("class:") and c != "headers")
+    hist.update("class" for t in tus for v in t["files"].values() if v[0].startswith("class:"))
+    hist.update("headers" for t in tus for v in t["files"].values() if "headers" in v)
+    ranking = collections.defaultdict(lambda: {"tus": set(), "donors": 0, "exclusive": 0, "unblocks_tu": 0})
+    for t in tus:
+        blocked = {f: v for f, v in t["files"].items() if v != ["clean"]}
+        for f, v in t["files"].items():
+            cl = [c[6:] for c in v if c.startswith("class:")]
+            for c in cl:
+                d = ranking[c]
+                d["tus"].add(t["tu"])
+                d["donors"] += 1
+                d["exclusive"] += v == [f"class:{c}"]
+        sole = {c for v in blocked.values() for c in v}
+        if len(sole) == 1 and next(iter(sole)).startswith("class:") and not t["placeholder_rows"]:
+            ranking[next(iter(sole))[6:]]["unblocks_tu"] += 1
+    rank = sorted(({"class": c, "tus": len(d["tus"]), "donors": d["donors"], "exclusive_donors": d["exclusive"],
+                    "tus_unblocked_alone": d["unblocks_tu"], "registered": c in canon}
+                   for c, d in ranking.items()),
+                  key=lambda d: (-d["exclusive_donors"], -d["donors"], d["class"]))
+    return {"tus": tus, "classes": rank, "histogram": dict(hist),
+            "placeholder_tus": sum(1 for t in tus if t["placeholder_rows"])}
+
+
+def report_census(cen, top=25):
+    tus = cen["tus"]
+    n = sum(len(t["files"]) for t in tus)
+    print(f"{len(tus)} queued TUs, {n} candidate files; donors by what stops them (static; bytes/link need a compile):")
+    for k, v in sorted(cen["histogram"].items(), key=lambda kv: -kv[1]):
+        print(f"  {k:32s} {v:6d}")
+    clean_tus = sum(1 for t in tus if all(v == ["clean"] for f, v in t["files"].items()))
+    print(f"  TUs with every file clean: {clean_tus}; TUs with approved rows in gen_asm/gen_small: {cen['placeholder_tus']}")
+    hdr = sorted(((t["headers_donors"], t["tu"]) for t in tus if t.get("headers_donors")), key=lambda x: (-x[0], x[1]))
+    print(f"  (`headers` counts donors, also those with another label, whose Zero Hour vs repo header set differs from the TU file's; "
+          f"{len(hdr)} TUs have such donors)")
+    for k, tu in hdr[:top]:
+        print(f"    headers {k:4d} donors  {tu}")
+    print("class ranking (exclusive = donors this class alone blocks; unblocked = TUs it alone blocks):")
+    for d in cen["classes"][:top]:
+        print(f"  {d['class']:40s} blocks {d['tus']:4d} TUs  {d['donors']:4d} donors  exclusive {d['exclusive_donors']:4d}  "
+              f"TUs unblocked alone {d['tus_unblocked_alone']:3d}{'  registered' if d['registered'] else ''}")
+
+
 def list_tus(prefix):
     c = collections.defaultdict(set)
     for r in map_rows():
@@ -7559,6 +7682,8 @@ def main(argv=None):
                     help="with --merge: omit named donors before compiling/searching; no verified-plan "
                          "reuse or plan fingerprints; all admission checks remain")
     ap.add_argument("--under", default="")
+    ap.add_argument("--blockers", action="store_true",
+                    help="with --queue: read-only census of what stops each donor (no compiles), ranked by class")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--json")
     import merge_all
@@ -7568,6 +7693,12 @@ def main(argv=None):
         ap.error("--exclude requires --merge")
     if a.merge_all:
         return merge_all.run_main(a)
+    if a.queue and a.blockers:
+        cen = blocker_census(a.under)
+        if a.json:
+            Path(a.json).write_text(json.dumps(cen, indent=2, default=sorted) + "\n")
+        report_census(cen, a.limit or 25)
+        return 0
     if a.queue:
         q = queue(a.under, a.limit)
         if a.json:
