@@ -60,7 +60,8 @@ public:
  virtual Rva005D1A87UI *getChecklistUI();
 };
 class Rva005CB26A { public: int rva005CB26A(); };
-class Rva005CCCD0 { public: void rva005CCCFC(); };
+struct ListNode005CCCD0;
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva005CCCD0.h"
 class ChecklistUIItemNative {
 public:
  // Native binding calls folded vcall thunks at slots 1/3/5/7/9. Taking
