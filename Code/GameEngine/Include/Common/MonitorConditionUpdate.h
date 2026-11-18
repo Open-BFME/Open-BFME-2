@@ -20,6 +20,7 @@ public:
     MonitorConditionUpdate(Thing *thing, const ModuleData *moduleData);
     static Module *friend_newModuleInstance(Thing *,const ModuleData *);
     virtual ~MonitorConditionUpdate();
+    virtual NameKeyType getModuleNameKey() const;
     virtual UpdateSleepTime update();
     virtual void xfer(Xfer *xfer);
 };
