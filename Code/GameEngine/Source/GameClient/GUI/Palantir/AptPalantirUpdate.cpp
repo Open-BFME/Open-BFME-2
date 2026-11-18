@@ -352,7 +352,7 @@ extern GameWindowManager *TheWindowManager;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 WindowMsgHandledType LeftHUDInput(GameWindow *window, unsigned int msg, unsigned int mData1, unsigned int mData2);
 
 struct PalantirMovieWindow

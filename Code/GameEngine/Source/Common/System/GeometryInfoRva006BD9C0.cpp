@@ -18,12 +18,12 @@
 
 
 
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0,
-	GEOMETRY_CYLINDER,
-	GEOMETRY_BOX
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GeometryType.h"
+
+
+
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

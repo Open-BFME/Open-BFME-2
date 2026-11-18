@@ -17,10 +17,10 @@ typedef void (__cdecl *TransitionFunc)(INI *ini, void *instance, void *store, co
 
 #include "../../../Include/Common/ObjectLookupMap.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 

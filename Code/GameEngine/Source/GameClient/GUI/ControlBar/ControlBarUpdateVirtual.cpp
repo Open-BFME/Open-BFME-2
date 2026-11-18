@@ -25,7 +25,7 @@ extern GameClient *TheGameClient;
 extern GameWindowManager *TheWindowManager;
 extern PlayerList *ThePlayerList;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Rva0031AEFF
 {
 public:

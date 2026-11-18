@@ -46,7 +46,7 @@ public:
 };
 extern GameWindowManager *TheWindowManager;
 
-enum GameWindowMessage { GWM_NONE = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GameWindowMessage.h"
 GameWindowMessage rawMouseToWindowMessage(const GameMessage *msg);
 int Rva0043289DClassify(int type);
 void Rva006CC9A0(int a, int b, int c);

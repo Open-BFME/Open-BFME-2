@@ -14,7 +14,7 @@ enum PathfindLayerEnum
 #include "Thing/thing.h"
 
 // Zero Hour's AICommandInterface takes a CommandSourceType (row 0x0026C26D).
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object

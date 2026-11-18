@@ -30,7 +30,7 @@ namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
 
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 #include "../../Include/Common/Rva0033A23AElement.h"
 struct DynamicPortalLink;
 

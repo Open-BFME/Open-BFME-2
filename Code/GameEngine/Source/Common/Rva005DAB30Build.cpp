@@ -62,7 +62,7 @@ private:
  class CommandButton *m_command;
 };
 
-enum BuildableStatus { BSTATUS_YES, BSTATUS_IGNORE_PREREQUISITES, BSTATUS_NO, BSTATUS_ONLY_BY_AI };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/BuildableStatus.h"
 #include "../../Include/Common/ThingTemplate.h"
 #include "../../Include/Common/ThingFactory.h"
 #include "../../Include/GameClient/CommandButton.h"

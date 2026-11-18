@@ -82,10 +82,10 @@ class ModuleData;
 class Object;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/Common/XferVersion.h"
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 void XferObjectID(Xfer *xfer, ObjectID *id);
 struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
 // Suppress this TU's copy of the ushort/int map's insert_unique: it differs

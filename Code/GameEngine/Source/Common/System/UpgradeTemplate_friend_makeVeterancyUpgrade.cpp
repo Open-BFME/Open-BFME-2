@@ -5,7 +5,7 @@
 // Evidence: getVet 0x0026F08B AsciiString-assign pin releaseBuffer nameToKey.
 enum VeterancyLevel { LEVEL_REGULAR, LEVEL_VETERAN, LEVEL_ELITE, LEVEL_HEROIC };
 enum UpgradeType { UPGRADE_TYPE_OBJECT = 1 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "ascii_string.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

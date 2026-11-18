@@ -31,7 +31,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <windows.h>
 
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 enum { KINDOF_STRUCTURE = 7, KINDOF_INFANTRY = 8, KINDOF_CRATE = 48 };
 enum { CONTEXT_EVALUATE_ONLY = 2 };
 

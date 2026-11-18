@@ -6,7 +6,7 @@
 // winGetStatus 0x30F45F and GadgetButtonGetData 0x327D56 and PlaySound 0x412A51 with literals
 // Gui_PalantirCommandButtonClick and Gui_PalantirCommandButtonDisabledClick; msg 5 and 0xD with
 // status bit 8 and button data bit 0x80 at +0x1F; flags copy next GadgetPushButtonSystem.
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 void *GadgetButtonGetData(GameWindow *window);
 void PlaySound(const char *name);

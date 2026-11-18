@@ -12,10 +12,10 @@
 // Serves the OnVictoryGiveUpgrade entry of the table at 0x836560. The
 // callback name stays address-derived; the owning struct is BFME2-new.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Include/Common/Upgrade.h"
 

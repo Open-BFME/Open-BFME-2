@@ -48,10 +48,10 @@ struct XferVersion
 #include "XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 #include "../../../Include/Common/XferException.h"
 

@@ -26,10 +26,10 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/Common/XferVersion.h"
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"

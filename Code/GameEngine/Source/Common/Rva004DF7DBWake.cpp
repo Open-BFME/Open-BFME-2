@@ -11,12 +11,12 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_0 = 0
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_INVALID = 0,
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
+
 
 #include "../GameLogic/Object/object.h"
 

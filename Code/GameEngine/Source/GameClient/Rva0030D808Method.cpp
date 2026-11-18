@@ -5,10 +5,10 @@
 // 0x00148F5E on g_00DBDC6C. Evidence: packet disasm plus twin bytes.
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Rva00148F5ECache
 {

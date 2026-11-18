@@ -11,7 +11,7 @@ class UpgradeTemplate;
 class SpecialPowerTemplate;
 struct Coord3D;
 enum CommandSourceType { COMMANDSOURCE_AI=0, COMMANDSOURCE_PLAYER=1, COMMANDSOURCE_SCRIPT=2 };
-enum WeaponSlotType { PRIMARY_WEAPON=0, SECONDARY_WEAPON=1, TERTIARY_WEAPON=2 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 #include "../../../../Include/GameLogic/Module/ProductionEntry.h"
 #include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 #include "../../../GameLogic/Object/object.h"

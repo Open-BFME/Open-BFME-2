@@ -3,12 +3,12 @@
 // stlport
 // was ?rva0041E9D2@Rva0041E9D2@@QAE_NW4NameKeyType@@PBVModuleData@@@Z @0x0041E9D2 53B: Armor find plus ObjectLookup slot plus Rva0041E875 push wrapper. Evidence: callees rowed M_find 0x002888D4 plus findSlot 0x0041F4E5 plus 0x0041E8E6 caller 0x0041EEB3 unlocks 0x0041ED84.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
+
 
 #include "../../../Include/GameLogic/Armor.h"
 

@@ -5,10 +5,10 @@
 // Evidence: packet disasm plus Dict at +0x24 shared with 0x0030D773 sibling.
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Rva00148F5ECache
 {

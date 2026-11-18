@@ -8,6 +8,6 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 template _STL::pair<ObjectID, unsigned int>* _STL::copy_backward<_STL::pair<ObjectID, unsigned int>*, _STL::pair<ObjectID, unsigned int>*>(_STL::pair<ObjectID, unsigned int>*, _STL::pair<ObjectID, unsigned int>*, _STL::pair<ObjectID, unsigned int>*);
