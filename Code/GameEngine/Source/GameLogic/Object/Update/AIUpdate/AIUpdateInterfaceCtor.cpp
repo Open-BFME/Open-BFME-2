@@ -60,16 +60,19 @@ public:
 	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 };
 
+struct Coord3D;
+
 class AIUpdateInterfaceFifth
 {
 public:
-	virtual void v0() = 0;
-	// Retail table 0x00C40818: 5 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void slot5() = 0;
+	// Retail table 0x00C40818 is six __purecall entries. The signatures are the
+	// ones AIUpdate.h's AIUpdateInterface24 gives the same six slots.
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *) = 0;
+	virtual bool vslot24_01(int) = 0;
+	virtual bool vslot24_02() = 0;
+	virtual bool vslot24_03() = 0;
+	virtual bool vslot24_04() = 0;
+	virtual bool vslot24_05() = 0;
 };
 
 class AIUpdateModuleDataView
@@ -176,6 +179,15 @@ public:
 	virtual bool chooseLocomotorSet(int wst);
 	// +0x20 interface slot 0 (retail 0x00C47B88): the rowed 0x002673F6.
 	virtual void aiDoCommand(const AICommandParms *parms);
+	// +0x24 interface (retail 0x00C52F88): the rowed onCollide 0x0026DF0D, then
+	// the folded false defaults 0x005CB9FF and 0x0047A699 (header-inline in
+	// AIUpdate.h; rowed in SupplyTruckAIUpdateCtor.cpp).
+	virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
+	virtual bool vslot24_01(int) { return false; }
+	virtual bool vslot24_02() { return false; }
+	virtual bool vslot24_03() { return false; }
+	virtual bool vslot24_04() { return false; }
+	virtual bool vslot24_05() { return false; }
 protected:
 	virtual ~AIUpdateInterface();
 	const AIUpdateModuleDataView *getAIUpdateModuleData() const { return (const AIUpdateModuleDataView *)m_moduleData; }
