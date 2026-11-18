@@ -6,19 +6,7 @@
 // "BoneFXDamage" literal ModuleFactory registers alongside this stub.
 // Recipe: RainOfFireUpdateFriendNew.cpp.
 
-class Thing;
-class ModuleData;
-class Module;
-
-class BoneFXDamage
-{
-public:
-	BoneFXDamage(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x14];
-};
+#include "../../../../Include/GameLogic/Module/BoneFXDamageClass.h"
 
 // ?friend_newModuleInstance@BoneFXDamage@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *BoneFXDamage::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

@@ -121,11 +121,7 @@ BFME_SNAPSHOT_NAME_GETTER(CastleUpgrade, "CastleUpgrade")
 BFME_SNAPSHOT_NAME_GETTER(TooltipUpgrade, "TooltipUpgrade")
 BFME_SNAPSHOT_NAME_GETTER(RemoveUpgradeUpgrade, "RemoveUpgradeUpgrade")
 BFME_LITERAL_NAME_GETTER(Rva004B82C5Named, "BuildableHeroListUpgrade")
-class BoneFXDamage
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/Module/BoneFXDamageClass.h"
 
 const char *BoneFXDamage::GetSnapshotName() const
 {
