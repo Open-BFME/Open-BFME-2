@@ -84,9 +84,8 @@ public:
     virtual GameWindow *winCreateFromScript(AsciiString, Rva0031763A *, GameWindow *); // slot 31
     virtual WindowLayout *winCreateLayout(AsciiString); // slot 32
     virtual void freeStaticStrings(); // slot 33
-private:
-    virtual void slot34(); // slot 34
-public:
+    // slot 34: gogoGadgetListBox 0x002C1395 creates the gadget window through it
+    virtual GameWindow *createFromView(GadgetCreateView *); // slot 34
     virtual int winDestroy(GameWindow *); // slot 35
     virtual int winDestroyAll(); // slot 36
     virtual GameWindow *winGetWindowList(); // slot 37
