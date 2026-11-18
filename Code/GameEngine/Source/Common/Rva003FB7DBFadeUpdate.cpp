@@ -15,9 +15,9 @@
 // colour (kind 1, the +0xA0 colour, SetEmissive 0x0010E676); slots 4, 6
 // and 5 then run every frame. The method keeps its pinned spelling.
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class RenderObjClass;
 

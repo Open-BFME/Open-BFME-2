@@ -2,9 +2,9 @@
 // ?doSpecialPowerAtObject@Rva004C2A35@@UAEXPAVObject@@I@Z retail 0x004C2A35 53 bytes. SpecialPowerModule doSpecialPowerAtObject override slot 11 that guards disabled/null then calls base. Evidence: VTABLE slot 11 of table 0x0085C788 class SpecialPowerModule it overrides base and calls base 0x0049495B; rowed BitFlags<11>::any 0x0023C58B; REF table slot 0x0085C7B4 neighbours doSpecialPower; donor SpecialPowerModule.cpp:651 base body.
 #include <stddef.h>
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_26 = 0x26

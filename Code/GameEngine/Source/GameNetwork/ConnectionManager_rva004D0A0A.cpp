@@ -4,10 +4,10 @@
 // ?rva004D0A0A@ConnectionManager@@QAEXXZ @0x004D0A0A 154B: ConnectionManager keepalive-style send via Rva004D5795 plus slot byte plus TheGameLogic frame plus Does plus sendLocalCommand plus timeGetTime.
 // Target evidence: new Rva004D5795 0x004D5795 then setter 0x0006EDE3 via setDisconnectSlot pin plus TheGameLogic+0x38 plus DoesCommandRequireACommandID 0x005811B5 plus GenerateNextCommandID 0x005811A8 plus sendLocalCommand 0x004CFF21 plus detach 0x004D55BC plus timeGetTime IAT; caller 0x0025E75F.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define NOMINMAX
 #include <windows.h>

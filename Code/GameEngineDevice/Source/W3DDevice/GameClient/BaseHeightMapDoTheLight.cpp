@@ -21,10 +21,10 @@
 // Semantic donor: BFME 1 game/.../BaseHeightMap.cpp doTheLight (ZH port).
 // Field names follow the donor; the +0x944 scale's name is not recovered.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 

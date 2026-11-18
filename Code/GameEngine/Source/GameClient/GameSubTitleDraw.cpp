@@ -16,9 +16,9 @@
 //    alpha); then slot 10 (colour or alpha 0) and slot 13 (x y).
 // The method name is a placeholder for the vtable slot.
 
-typedef int Int;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class SubtitleDisplayString
 {

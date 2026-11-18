@@ -17,9 +17,9 @@
 // WorldBuilder twin; names are address-derived (class from the caller).
 #include <vector>
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

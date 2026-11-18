@@ -11,10 +11,10 @@
 // (+0x24), 0x2C032C and 0x2C0315. Draw-data arguments follow copyGadgetDrawData's
 // enabled, disabled, hilite order and retail's DIR32 targets.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef short Short;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../Include/GameClient/ListboxData.h"
 

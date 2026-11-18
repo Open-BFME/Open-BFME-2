@@ -26,9 +26,9 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 // this unit's vector<const ModuleData *> COMDATs are retail's own bodies, so they need no
 // declaration-only suppression.
 class ModuleData;
-typedef unsigned int UnsignedInt;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum ObjectID
 {
 	INVALID_OBJECT_ID = 0

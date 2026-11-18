@@ -7,9 +7,9 @@
 // homes the eventID reloads from [ebp+8] and the output pointer spills to
 // edi, giving the SIB flag access and lea copy source. Without /Oy- the
 // same source spills eventID to esi and reloads the output pointer.
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 enum EvaEventID
 {

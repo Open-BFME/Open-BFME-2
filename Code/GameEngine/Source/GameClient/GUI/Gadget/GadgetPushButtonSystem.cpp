@@ -25,9 +25,9 @@
 #include <stddef.h>
 #include <wchar.h>
 #include "unicode_string.h"
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 typedef unsigned int WindowMsgData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 enum

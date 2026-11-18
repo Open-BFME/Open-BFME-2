@@ -11,9 +11,9 @@
 // closeDataChunk and openDataChunk resolve via existing rows/pins, writeDict
 // is pinned at 0x00307D85 (ZH DataChunk.h identity).
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

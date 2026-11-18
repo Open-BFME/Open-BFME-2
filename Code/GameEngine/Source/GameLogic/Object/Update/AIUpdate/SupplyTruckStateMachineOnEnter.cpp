@@ -37,10 +37,10 @@
 // entries; the identical pair shares one address in retail. The
 // machine's dtor is the rowed 0x004A6C59 (11 bytes, vtable store and jmp to
 // the base dtor) and is only declared here.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 #include <string.h>
 class Object;
 class Player;

@@ -14,10 +14,10 @@
 // 0x004D55BC. BFME 2 also stamps the request's timestamp from TheGameLogic+0x38,
 // and loads frame and slack into registers before adding them (the locals).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum NetCommandType
 {

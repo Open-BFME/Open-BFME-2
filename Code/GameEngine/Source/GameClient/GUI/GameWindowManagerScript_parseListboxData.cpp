@@ -31,9 +31,9 @@
 #include <new>
 #include <stdio.h>
 
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class WinInstanceData;
 

@@ -18,10 +18,10 @@
 // locomotor set at +0x1CC; a destination closer than 20 to the object refuses
 // the path.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 // Coord3D uses the canonical three-float layout.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"

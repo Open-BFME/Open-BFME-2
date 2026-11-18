@@ -100,7 +100,7 @@
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef unsigned int StateID;
 enum
 {
@@ -143,9 +143,9 @@ template <> class AIDeadStateAISlots<0>
 };
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+
+
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 // TheTerrainLogic's getGroundHeight is virtual slot 6 (+0x18) and

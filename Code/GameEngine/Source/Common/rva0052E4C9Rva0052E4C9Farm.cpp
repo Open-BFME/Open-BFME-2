@@ -1,9 +1,9 @@
 // ?rva0052E4C9@Pathfinder@@QAEXPAVObject@@_N@Z
 // cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #define PATHFIND_CELL_SIZE_F 10.0f
 

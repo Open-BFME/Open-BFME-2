@@ -16,9 +16,9 @@
 // recovered.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 struct WWMath
 {

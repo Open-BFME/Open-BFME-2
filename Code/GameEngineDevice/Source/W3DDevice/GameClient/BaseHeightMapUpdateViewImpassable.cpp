@@ -25,9 +25,9 @@ namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_
 namespace _STL { template <> void vector<bool, allocator<bool> >::_M_fill_insert(_Bit_iter<_Bit_reference, _Bit_reference *>, unsigned int, bool); }
 // bfme link decl-only end
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 namespace _STL
 {

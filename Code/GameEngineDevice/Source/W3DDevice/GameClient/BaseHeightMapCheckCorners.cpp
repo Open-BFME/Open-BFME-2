@@ -18,9 +18,9 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include <math.h>
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #define MAP_XY_FACTOR 10.0f
 #define WWMATH_PI 3.141592654f

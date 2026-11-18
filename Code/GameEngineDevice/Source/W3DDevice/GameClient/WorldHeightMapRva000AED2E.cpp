@@ -16,9 +16,9 @@
 #include <string.h>
 #include <vector>
 
-typedef unsigned char UnsignedByte;
-typedef short Short;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 struct TBlendTileInfo
 {

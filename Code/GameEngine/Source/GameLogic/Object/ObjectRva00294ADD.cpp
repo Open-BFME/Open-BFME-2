@@ -13,9 +13,9 @@
 // 0x00290D2B with the +0x34 require-all flag; an unmet set returns 9 and
 // everything else 0. As in WB the object branch of the any-of case keeps
 // looping after marking the set blocked. Names are inferred.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Include/Common/Upgrade.h"
 

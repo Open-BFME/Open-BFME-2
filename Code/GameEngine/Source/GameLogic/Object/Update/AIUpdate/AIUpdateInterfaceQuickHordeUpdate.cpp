@@ -67,10 +67,10 @@
 #include <math.h>
 #include "Lib/Coord3D.h"
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum UpdateSleepTime
 {

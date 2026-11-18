@@ -6,9 +6,9 @@
 // function taking and returning the running value. /Oy- keeps the ebp frame;
 // without it MSVC omits the frame and the prologue/epilogue diverge.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 // The carry bit has to be written as a branch, exactly as the engine's own CRC
 // class writes it, even though MSVC compiles it to a shift either way. Written

@@ -17,10 +17,10 @@
 #include "Coord3D.h"
 #include "ICoord2D.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 

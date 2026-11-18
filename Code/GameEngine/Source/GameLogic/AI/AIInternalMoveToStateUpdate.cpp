@@ -86,7 +86,7 @@
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef unsigned int StateID;
 enum
 {
@@ -98,7 +98,7 @@ public:
 	unsigned char m_pad000[0x150];
 	bool m_bfmeFlag150; // +0x150
 };
-typedef float Real;
+
 // The rowed 4-byte float getter 0x0008BB38 (fld [ecx+0x40]).
 #include "../../../Include/GameLogic/Rva0008BB38FloatField.h"
 class Locomotor
@@ -139,8 +139,8 @@ template <> class AIDeadStateAISlots<0>
 {
 };
 #include "GameLogicObjectLookupView.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
+
+
 #include "Coord3D.h"
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond; // LOGICFRAMES_PER_SECOND

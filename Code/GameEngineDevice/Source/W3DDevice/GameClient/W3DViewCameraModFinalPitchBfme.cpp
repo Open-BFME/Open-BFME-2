@@ -6,9 +6,9 @@
 // Retail independently establishes the field offsets and the pitch operation
 // at virtual slot +0xF4, one slot beyond the donor. /O1 /arch:SSE follows
 // already matched W3DView siblings; the body needs no new callee pin.
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 // Rva00086761CameraMove.cpp owns this proven runtime frame period.
 extern Int TheW3DFrameLengthInMsec;

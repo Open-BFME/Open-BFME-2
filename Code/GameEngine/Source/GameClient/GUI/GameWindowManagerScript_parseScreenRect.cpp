@@ -26,10 +26,10 @@
 // - Identity: the retail caller at 0x00316FF1 passes exactly four Int* outputs
 //   in source order, and the name is carried from the reference source.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include <string.h>
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"

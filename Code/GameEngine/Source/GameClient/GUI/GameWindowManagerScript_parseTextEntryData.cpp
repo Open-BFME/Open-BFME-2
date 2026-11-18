@@ -23,9 +23,9 @@
 //   with 0x7152B2 (entries are name@+0/fn@+4; the walker at 0x31701C
 //   compares names and calls [eax+4]).
 
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include <windows.h>
 #include <string.h>

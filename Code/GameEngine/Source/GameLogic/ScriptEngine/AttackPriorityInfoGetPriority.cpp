@@ -17,9 +17,9 @@
 // called by its row name through a TU-local _Rb_tree view; the override walk is
 // the rowed getFinalOverride chain at 0x001E35DF.
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Include/Common/Overridable.h"
 #include "../../../Include/Common/ThingTemplate.h"

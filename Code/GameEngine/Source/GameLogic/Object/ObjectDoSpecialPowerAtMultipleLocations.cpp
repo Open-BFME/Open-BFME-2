@@ -8,9 +8,9 @@
 // locations (module vtable slot 0x34). BFME2 replaces Zero Hour's academy
 // bookkeeping with the rowed Object 0x0028C4B6 before the module call.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

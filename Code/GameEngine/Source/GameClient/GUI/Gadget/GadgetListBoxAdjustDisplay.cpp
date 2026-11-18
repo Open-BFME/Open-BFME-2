@@ -8,9 +8,9 @@
 // (endPos the short at +0x2C) and the display position (short at +0x44)
 // becomes that 16-byte row's listHeight (+0) less its height (short at +4),
 // indexing the row array at +0x18; 0x003249D2 then refreshes the display.
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

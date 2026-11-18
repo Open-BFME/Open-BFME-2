@@ -12,10 +12,10 @@
 // Views follow DrawableDrawVeterancy.cpp; slot names are inferred.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 
