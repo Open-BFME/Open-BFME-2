@@ -48,6 +48,11 @@ class Rva0057605D : public Rva0057605DBase, public Rva0057605DSecond
 {
 public:
 	virtual ~Rva0057605D();
+	// The class's two overrides, as Rva0057605DCtor.cpp declares and defines them
+	// (table 0x00C6E6A0 slot 1 and table 0x00C6E690 slot 1), so both units emit
+	// the same tables.
+	virtual void rva00575DE6();
+	virtual void slot1(int);
 private:
 	// Native+C pointer stays in the enclosing minimal view.
 	Rva0057605DOwner *m_owner;
