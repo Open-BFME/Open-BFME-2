@@ -4,6 +4,9 @@
 #define TheRvaTgt0040FCC0 (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
+#if defined(BFME2_MODERN)
+#include "../../../Include/Common/ModernAptLayout.h"
+#endif
 
 class AptLayoutWindowCallbacks {
 public:
@@ -208,6 +211,11 @@ void AptWindowLayout::rva0040FB9C(void *)
  const AptLayoutScale *scale=reinterpret_cast<AptLayoutPlayerScaleView *>(g_bfmeAptWindowManager)->scale();
  width=static_cast<int>(static_cast<float>(width)*scale->x);
  height=static_cast<int>(static_cast<float>(height)*scale->y);
+#if defined(BFME2_MODERN)
+ // The centred stage still owns the whole screen, as the stretched one did.
+ width+=static_cast<int>(2.0f*g_modernAptOffsetX);
+ height+=static_cast<int>(2.0f*g_modernAptOffsetY);
+#endif
  m_gameWindow->winSetSize(width,height);
  m_gameWindow->winHide(false);
  m_gameWindow->winEnable(true);

@@ -285,6 +285,20 @@ AptSizePair g_aptLastStageSize,g_aptLastDeviceSize; // DE61B8 and DE61C0, zero-f
 AptRenderTransform g_aptTransformBeforeLinearScale; // DE6130, before the linear scale
 void Rva006CD6F0Get(void **,void **);
 #include <math.h>
+#if defined(BFME2_MODERN)
+#include <stdlib.h>
+#include <string.h>
+#include "../../../../../GameEngine/Include/Common/ModernAptLayout.h"
+float g_modernAptOffsetX,g_modernAptOffsetY;
+bool modernAptKeepAspect() {
+ static int keep=-1;
+ if(keep<0) {
+  const char *option=getenv("BFME2_MODERN_HUD");
+  keep=!(option && strcmp(option,"stretch")==0);
+ }
+ return keep!=0;
+}
+#endif
 static __forceinline bool aptFar(float value) {
  float magnitude=(float)fabs((double)value);
  return magnitude>0.0001f;
@@ -309,12 +323,24 @@ void Rva000A92B0SetMatrix(const AptRenderTransform *input) {
  if(stage!=g_aptLastStageSize || device!=g_aptLastDeviceSize) {
   aptScaleX=stage.x ? (float)device.x/(float)stage.x : 1.0f;
   aptScaleY=stage.y ? (float)device.y/(float)stage.y : 1.0f;
+#if defined(BFME2_MODERN)
+  g_modernAptOffsetX=g_modernAptOffsetY=0.0f;
+  if(stage.x && stage.y && modernAptKeepAspect()) {
+   float uniform=aptScaleX<aptScaleY ? aptScaleX : aptScaleY;
+   aptScaleX=aptScaleY=uniform;
+   g_modernAptOffsetX=((float)device.x-(float)stage.x*uniform)*0.5f;
+   g_modernAptOffsetY=((float)device.y-(float)stage.y*uniform)*0.5f;
+  }
+#endif
   aptInvScaleX=aptScaleX ? 1.0f/aptScaleX : 1.0f;
   aptInvScaleY=aptScaleY ? 1.0f/aptScaleY : 1.0f;
   g_aptLastStageSize=stage;g_aptLastDeviceSize=device;
  }
  float *m=reinterpret_cast<float*>(&g_aptRenderTransform);
  m[4]*=aptScaleX;m[5]*=aptScaleY;
+#if defined(BFME2_MODERN)
+ m[4]+=g_modernAptOffsetX;m[5]+=g_modernAptOffsetY;
+#endif
  g_aptTransformBeforeLinearScale=g_aptRenderTransform;
  m[0]*=aptScaleX;m[2]*=aptScaleX;m[1]*=aptScaleY;m[3]*=aptScaleY;
  if(aptFar(m[0]-1.0f) || aptFar(m[1]) || aptFar(m[2]) || aptFar(m[3]-1.0f)) aptMatrixMode=1;

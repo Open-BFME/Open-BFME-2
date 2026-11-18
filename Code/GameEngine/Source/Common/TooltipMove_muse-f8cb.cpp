@@ -34,12 +34,20 @@ public:
 };
 
 #include "../../Include/Common/AptGuiFX.h"
+#if defined(BFME2_MODERN)
+#include "../../Include/Common/ModernAptLayout.h"
+#endif
 // WorldBuilder AptGuiFX::MoveToolTip, WB VA 0x00F659E0 (strings lead, score 1.0).
 void AptGuiFX::MoveToolTip(float x, float y)
 {
 	float *scale = (float *)(*(GuiScale **)&g_bfmeAptWindowManager)->getScale();
 	char bufX[16];
 	char bufY[16];
+#if defined(BFME2_MODERN)
+	// The modern stage is centred, not stretched: remove its offset first.
+	x -= g_modernAptOffsetX;
+	y -= g_modernAptOffsetY;
+#endif
 	_snprintf(bufX, 16, "%g", x * scale[0]);
 	_snprintf(bufY, 16, "%g", y * scale[1]);
 	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(TheRva00222A8BOwner, "MoveToolTip", 2, bufX, bufY, 0, 0, 0);

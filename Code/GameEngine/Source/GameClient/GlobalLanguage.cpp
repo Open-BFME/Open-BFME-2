@@ -257,6 +257,13 @@ __forceinline long fast_float2long_round(float f)
 Int GlobalLanguage::adjustFontSize(Int theFontSize)
 {
 	Real ratio = TheWritableGlobalData->m_xResolution / 1024.0f;
+#if defined(BFME2_MODERN)
+	// Width alone over-sizes window text on wide screens (5x at 5120x1440).
+	// Use the uniform 1024x768 stage scale, as the Apt menus do.
+	Real ratioY = TheWritableGlobalData->m_yResolution / 768.0f;
+	if (ratioY < ratio)
+		ratio = ratioY;
+#endif
 	Real size = theFontSize;
 	return REAL_TO_INT_FLOOR(size * ratio);
 }

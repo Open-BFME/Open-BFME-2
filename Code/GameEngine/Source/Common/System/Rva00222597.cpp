@@ -105,6 +105,10 @@ public:
 	void rva00222597(int *mousePos);
 };
 
+#if defined(BFME2_MODERN)
+// The modern stage offset (ModernAptLayout.h; defined in W3DAptAux.cpp).
+extern float g_modernAptOffsetX, g_modernAptOffsetY;
+#endif
 void Rva00222597::rva00222597(int *mousePos)
 {
 	Gen_00478220 *gen = TheWindowManager->slot53();
@@ -127,7 +131,13 @@ void Rva00222597::rva00222597(int *mousePos)
 	}
 scaled:
 	float *scale = slot16();
+#if defined(BFME2_MODERN)
+	// The modern stage is centred, not stretched: remove its offset first.
+	int sy = (int)(((float)mousePos[1] - g_modernAptOffsetY) * scale[1]);
+	int sx = (int)(((float)mousePos[0] - g_modernAptOffsetX) * scale[0]);
+#else
 	int sy = (int)((float)mousePos[1] * scale[1]);
 	int sx = (int)((float)mousePos[0] * scale[0]);
+#endif
 	Rva006CC950SetMousePos(sx, sy);
 }
