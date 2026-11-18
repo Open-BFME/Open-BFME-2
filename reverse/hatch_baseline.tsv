@@ -9481,6 +9481,8 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	"s",
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp	"s",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp	"",on	1	allow=b98f0110ebb09708ccec70162acee49bc219e20c
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp	"t",on	1	allow=b98f0110ebb09708ccec70162acee49bc219e20c
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp	"p",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	"y",off	1

@@ -81,6 +81,7 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/Common/BitFlags11.h"
 
 
 // One entry of the +0x30 table: retail builds the table through the non-EH vector constructor
@@ -115,6 +116,9 @@ private:
 public:
 	// retail vftable slot: the rowed override
 	virtual UpdateSleepTime update();
+	// UpdateModuleInterface slot 1 (0x003908A7, shared with PhysicsUpdate's
+	// table): the held-disabled mask, bit 4 alone.
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
 protected:
 	virtual const char *GetSnapshotName() const;	// primary slot 2: retail 0x00403A5B
 protected:
@@ -1172,3 +1176,12 @@ void AttributeModifierPoolUpdate::loadPostProcess()
 {
 	UpdateModule::loadPostProcess();
 }
+
+// Retail's body is the inlined mask constructor (memset, then or 0x10), the
+// speed-favouring expansion; /O1 alone keeps the constructor call.
+#pragma optimize("t", on)
+DisabledMaskType AttributeModifierPoolUpdate::getDisabledTypesToProcess() const
+{
+	return DisabledMaskType(DisabledMaskType::kInit, 4);
+}
+#pragma optimize("", on)
