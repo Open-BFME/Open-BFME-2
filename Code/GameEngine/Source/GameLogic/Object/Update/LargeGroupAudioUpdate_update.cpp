@@ -59,7 +59,7 @@ extern GameLogic *TheGameLogic;
 bool Rva000B3EECNotEqual(const void *a, const void *b);
 bool Rva002634F8NotEqual(const void *a, const void *b);
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class LGAUDeepBase {
 public: virtual void baseAnchor();
 protected: const void *m_moduleData; Object *m_object;

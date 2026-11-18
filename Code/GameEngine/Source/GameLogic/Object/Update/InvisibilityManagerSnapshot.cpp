@@ -29,10 +29,10 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
 class Xfer::Version { public:unsigned char version,current;};
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 class Rva00438758Interface;

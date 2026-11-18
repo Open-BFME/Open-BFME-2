@@ -15,11 +15,11 @@
 #include "Coord3D.h"
 #include "Coord2D.h"
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 
 enum { WAYPOINT_PATH_LIMIT = 1024 };
 

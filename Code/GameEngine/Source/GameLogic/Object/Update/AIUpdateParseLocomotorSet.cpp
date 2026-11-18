@@ -42,21 +42,21 @@ class LocomotorTemplate;
 
 // LocomotorSetType values from the Zero Hour donor
 // (GameEngine/Include/GameLogic/Module/AIUpdate.h); saved in save files.
-enum LocomotorSetType
-{
-	LOCOMOTORSET_INVALID = -1,
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
 
-	LOCOMOTORSET_NORMAL = 0,
-	LOCOMOTORSET_NORMAL_UPGRADED,
-	LOCOMOTORSET_FREEFALL,
-	LOCOMOTORSET_WANDER,
-	LOCOMOTORSET_PANIC,
-	LOCOMOTORSET_TAXIING,
-	LOCOMOTORSET_SUPERSONIC,
-	LOCOMOTORSET_SLUGGISH,
 
-	LOCOMOTORSET_COUNT
-};
+
+
+
+
+
+
+
+
+
+
+
+
 
 typedef _STL::vector<const LocomotorTemplate *> BfmeLocomotorTemplateVector;
 
@@ -85,10 +85,10 @@ enum INILoadType
 	INI_LOAD_UNKNOWN_4 = 4
 };
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "ascii_string.h"
 

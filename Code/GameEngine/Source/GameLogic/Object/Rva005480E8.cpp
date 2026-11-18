@@ -8,10 +8,10 @@
 // Calling/layout evidence: stack offsets show a cdecl wrapper whose middle
 // argument is the lookup key and whose outer arguments flow to 0x00548984.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Include/GameLogic/Rva00548984.h"
 

@@ -68,10 +68,10 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 void XferCommandResultTypes( Xfer *xfer, Int *value );
 void XferDeployStateTypes( Xfer *xfer, Int *value );

@@ -46,15 +46,15 @@ class Object;
 class Player;
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../Include/Common/StateMachine.h"
-enum CommandSourceType
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
-{
- CMD_FROM_PLAYER = 0,
- CMD_FROM_SCRIPT,
- CMD_FROM_AI
- 
-}
-;
+
+
+
+
+
+
+
 // BFME 2 KindOf bits, named by the KindOf name table at 0x009BBE18.
 enum KindOfType
 
@@ -62,7 +62,7 @@ enum KindOfType
  KINDOF_STRUCTURE = 7,
  KINDOF_COMMANDCENTER = 17,
  KINDOF_SUPPLY_GATHERING_CENTER = 34
- 
+
 }
 ;
 // Target mask storage is28B. Template116 retains the existing provider ABI
@@ -76,23 +76,23 @@ class BitFlags
  __declspec(dllimport) __forceinline BitFlags()
  {
   memset(m_bits, 0, sizeof(m_bits));
-  
+
  }
  BitFlags(const BitFlags &other);
  // Native clear is owned by SupplyTruckAIUpdate.cpp; retain only inlining here.
  __declspec(dllimport) __forceinline void clear()
  {
   memset(m_bits, 0, sizeof(m_bits));
-  
+
  }
  void set(Int bit) 
  {
   m_bits[bit >> 5] |= 1u << (bit & 31);
-  
+
  }
  private:
  UnsignedInt m_bits[7];
- 
+
 }
 ;
 typedef BitFlags<116> KindOfMaskType;
@@ -105,7 +105,7 @@ enum
  ST_REGROUPING,
  ST_DOCKING,
  ST_RVA004A699C
- 
+
 }
 ;
 class SupplyTruckAIInterface
@@ -133,7 +133,7 @@ class SupplyTruckAIInterface
 // +0x34
  virtual Bool isForcedIntoBusyState() const;
 // +0x38
- 
+
 }
 ;
 class AIUpdateInterfaceBase
@@ -239,7 +239,7 @@ class AIUpdateInterfaceBase
 // slot 95 (+0x17C)
  private:
  unsigned char m_pad04[0x20 - 0x04];
- 
+
 }
 ;
 class AICommandInterface
@@ -248,7 +248,7 @@ class AICommandInterface
  public:
  virtual void aiDoCommand(const void *parms) = 0;
  void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
- 
+
 }
 ;
 class AIUpdateInterface : public AIUpdateInterfaceBase, public AICommandInterface
@@ -256,7 +256,7 @@ class AIUpdateInterface : public AIUpdateInterfaceBase, public AICommandInterfac
 {
  public:
  void ignoreObstacle(const Object *obj);
- 
+
 }
 ;
 class Object
@@ -266,13 +266,13 @@ class Object
  const Coord3D *getPosition() const 
  {
   return &m_pos;
-  
+
  }
  // Retail inlines this +0x258 load; suppress the surplus external copy.
  __declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface()
  {
   return m_ai;
-  
+
  }
  Player *getControllingPlayer() const;
  private:
@@ -282,7 +282,7 @@ class Object
  unsigned char m_pad044[0x258 - 0x44];
  AIUpdateInterface *m_ai;
 // +0x258
- 
+
 }
 ;
 class Player
@@ -290,14 +290,14 @@ class Player
 {
  public:
  Object *findClosestByKindOf(Object *queryObject, KindOfMaskType setMask, KindOfMaskType clearMask);
- 
+
 }
 ;
 enum FindPositionFlags
 
 {
  FPF_NONE = 0
- 
+
 }
 ;
 #define RANDOM_START_ANGLE (-99999.9f)
@@ -305,7 +305,7 @@ struct FindPositionOptions
 
 {
  FindPositionOptions()
- 
+
  {
   flags = FPF_NONE;
   minRadius = 0.0f;
@@ -315,7 +315,7 @@ struct FindPositionOptions
   ignoreObject = 0;
   sourceToPathToDest = 0;
   relationshipObject = 0;
-  
+
  }
  FindPositionFlags flags;
  Real minRadius;
@@ -325,7 +325,7 @@ struct FindPositionOptions
  const Object *ignoreObject;
  const Object *sourceToPathToDest;
  const Object *relationshipObject;
- 
+
 }
 ;
 // BFME 2's findPositionAround is static (cdecl, pinned at 0x00285202).
@@ -348,7 +348,7 @@ class Rva004D759C : public StateMachine
  public:
  Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
  virtual ~Rva004D759C();
- 
+
 }
 ;
 // ZH's SupplyTruckBusyState (rowed ctor 0x004A6BCA).
@@ -364,7 +364,7 @@ class Rva004A6979 : public State
  Rva004A6979(StateMachine *machine);
  virtual StateReturnType onEnter();
 // slot 4
- 
+
 }
 ;
 // BFME 2's sixth supply truck state (rowed ctor 0x004A699C); it shares the
@@ -382,7 +382,7 @@ class SupplyTruckStateMachine : public Rva004D759C
  static Bool ownerNotDockingOrIdle(State *thisState, void *userData);
  static Bool isForcedIntoWantingState(State *thisState, void *userData);
  static Bool isForcedIntoBusyState(State *thisState, void *userData);
- 
+
 }
 ;
 StateReturnType Rva004A6956::onEnter()
@@ -399,10 +399,10 @@ StateReturnType Rva004A6956::onEnter()
  ownerAI->ignoreObstacle(0);
  SupplyTruckAIInterface *update = owner->getAIUpdateInterface()->getSupplyTruckAIInterface();
  if (!update)
- 
+
  {
   return STATE_FAILURE;
-  
+
  }
  Bool hasBoxes = update->getNumberBoxes() > 0;
  update->setForceWantingState(hasBoxes);
@@ -414,28 +414,28 @@ StateReturnType Rva004A6956::onEnter()
 // can't do best supply center of the player's resource brain, because that adds canTransfer checks.
  destinationObject = ownerPlayer->findClosestByKindOf(owner, kindof, kindofnot);
  if (!destinationObject)
- 
+
  {
   kindof.clear();
   kindof.set(KINDOF_COMMANDCENTER);
   kindofnot.clear();
   destinationObject = ownerPlayer->findClosestByKindOf(owner, kindof, kindofnot);
-  
+
  }
  if (!destinationObject)
- 
+
  {
   kindof.clear();
   kindof.set(KINDOF_STRUCTURE);
   kindofnot.clear();
   destinationObject = ownerPlayer->findClosestByKindOf(owner, kindof, kindofnot);
-  
+
  }
  if (!destinationObject)
- 
+
  {
   return STATE_FAILURE;
-  
+
  }
  Coord3D destination;
  FindPositionOptions fpOptions;
@@ -447,5 +447,5 @@ StateReturnType Rva004A6956::onEnter()
  ownerAI->aiMoveToPosition(&destination, CMD_FROM_AI);
  return STATE_CONTINUE;
 // Remember to say continue when you change ai command inside a state
- 
+
 }

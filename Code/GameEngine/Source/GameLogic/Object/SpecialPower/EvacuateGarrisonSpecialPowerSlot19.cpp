@@ -10,10 +10,10 @@
 // Object and the AI gets the rowed AICommandInterface command 0x0036EBB8 on
 // that Object, from the command source its slot 143 reports.
 #include "../../../Common/GameLogicObjectLookupView.h"
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_5D = 0x5d

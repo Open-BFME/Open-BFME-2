@@ -41,10 +41,10 @@ extern int BfmeLogicFramesPerSecond;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 class Object
 {

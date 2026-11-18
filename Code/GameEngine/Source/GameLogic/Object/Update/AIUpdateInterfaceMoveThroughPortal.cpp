@@ -9,7 +9,7 @@
 // the verified ABI. Original inline getObject is needed for argument order.
 #include <new>
 #include "Lib/Coord3D.h"
-enum PathfindLayerEnum { LAYER_INVALID=0,LAYER_GROUND=1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 class Object {public:char pad[0x38];Coord3D position;};
 #include "../../../../Include/GameLogic/PathfindPath.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"

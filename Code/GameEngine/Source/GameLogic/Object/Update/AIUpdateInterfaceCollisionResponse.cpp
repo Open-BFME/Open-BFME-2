@@ -14,7 +14,7 @@ class Thing {public:void getUnitDirectionVector2D(Coord3D&)const;};
 class Path {public:Rva003642DFResult rva00364521(const Rva0008BB38FloatField*);char pad[8];struct Node{char pad[12];Coord3D point;}*node;};
 class Rva0008BB38FloatField {public:char pad[0x44];union{unsigned flags;struct{unsigned lower:7;unsigned ignored:1;unsigned upper:24;};};bool ignores()const{return ignored!=0;}};
 #include "../../../../Include/Common/ThingTemplate.h"
-enum CommandSourceType{CMD_FROM_AI=2};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 class CollisionConditionBits{public:unsigned test(int n)const{return words[n>>5]&(1u<<(n&31));}void clear(int n){words[n>>5]&=~(1u<<(n&31));}unsigned words[19];};
 class Object:public Thing {public:
  Relationship getRelationship(const Object*)const;bool rva0029493F(Object*,int);int rva0028B511()const;

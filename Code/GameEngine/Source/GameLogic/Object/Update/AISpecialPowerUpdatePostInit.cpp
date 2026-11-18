@@ -16,7 +16,7 @@
 #include "ascii_string.h"
 
 #include "../../../../Include/Common/ScalarTypes.h"
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -56,7 +56,7 @@ struct ThingTemplateView
 	AsciiString m_name;
 };
 
-enum SpecialPowerType {};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SpecialPowerType.h"
 class SpecialAbilityUpdate;
 class Object
 {

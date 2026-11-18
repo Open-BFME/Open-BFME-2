@@ -22,10 +22,10 @@ namespace _STL {
 template <> void list<int, allocator<int> >::pop_back();
 }
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 void __cdecl rva005480E8(void *first, NameKeyType key, int third);
 

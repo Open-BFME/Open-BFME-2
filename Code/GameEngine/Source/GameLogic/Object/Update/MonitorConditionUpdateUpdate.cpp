@@ -47,10 +47,10 @@ class ModuleData;
 #include "ascii_string.h"
 #include "../../../../Include/Common/ObjectModule.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 // ModelConditionFlags view: constructed through the rowed 0x0042526,
 // compared through the rowed mask overlap 0x00263546.
