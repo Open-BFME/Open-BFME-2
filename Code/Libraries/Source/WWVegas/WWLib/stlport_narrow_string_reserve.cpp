@@ -10,13 +10,14 @@
 // takes to a zero pointer when the requested size wraps, and without it the
 // allocation is unconditional and the body is four bytes short.
 
-extern "C" __declspec(dllimport) void *__cdecl memmove(void *destination,
-		const void *source, unsigned int count);
 // Retail calls free directly (the game allocator at 0x00030830), not through
-// the CRT import: read <stdlib.h> without dllimport.
+// the CRT import: read <stdlib.h> without dllimport. memmove comes from
+// <string.h> dllimport under /MD (size_t is unsigned int), matching the
+// retail IAT call.
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+#include <string.h>
 
 namespace _STL
 {
