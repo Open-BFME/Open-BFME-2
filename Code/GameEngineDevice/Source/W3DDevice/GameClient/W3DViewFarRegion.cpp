@@ -13,8 +13,8 @@
 // declaring the inner counter before slopeY preserves the XOR/store order.
 #include "Coord3D.h"
 
-typedef float Real;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 

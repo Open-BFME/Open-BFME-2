@@ -14,9 +14,9 @@
 // of Zero Hour are gone in retail). Same receiver layout as the sibling
 // W3DDisplayRva000448CF.cpp. WB twin 0x00971150 (vtable evidence) is unnamed;
 // the method name and argument types are carried from Zero Hour.
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"

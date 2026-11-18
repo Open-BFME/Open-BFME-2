@@ -2,7 +2,7 @@
 // ?rva0052BAB2@Rva0052BAB2@@QBEHXZ @0x0052BAB2 15B. Unlock lane: conditional
 // getter returning (m_1C+0x28) if m_1C nonzero else this+4; callers at
 // 0x003B8C40/0x00522467/0x0056DB58/0x0056DB6F. Prev/next are Disp getters.
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class Rva0052BAB2
 {

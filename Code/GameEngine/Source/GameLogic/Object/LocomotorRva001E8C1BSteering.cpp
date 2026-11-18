@@ -17,8 +17,8 @@
 // idles the AI (AICommandInterface::aiIdle from AI). Names are
 // address-derived.
 
-typedef float Real;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 extern "C" void _ReadWriteBarrier();

@@ -15,8 +15,8 @@
 // leaves the inner find result in eax and this body tests it so it is
 // declared here as returning Locomotor.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include <windows.h>

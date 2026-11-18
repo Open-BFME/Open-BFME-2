@@ -3,7 +3,7 @@
 // dword store at +0x1C. NetCommandMsg's field sequence in
 // NetPacket_isRoomForFrameMessage.cpp places this member at +0x1C (object size
 // 0x20), so the two independently identified setters are an ICF pair.
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 class Rva004D57AE
 {

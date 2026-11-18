@@ -4,8 +4,8 @@
 // copied from Rva00219B9EAccessor.cpp to keep the class ABI identical while
 // using the native frame-pointer setting only for this lookup.
 #include "ascii_string.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 struct IntVec { int *m_start; int *m_finish; int *m_end; };
 

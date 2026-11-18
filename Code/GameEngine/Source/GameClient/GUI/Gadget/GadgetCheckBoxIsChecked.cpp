@@ -5,9 +5,9 @@
 // with a shift-and-mask rather than the mask-form BitTest, and keeps
 // WinInstanceData::m_state at +0x08. The TU defines only this body.
 
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

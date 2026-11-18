@@ -30,9 +30,9 @@
 extern "C" inline __declspec(noinline) bool __cdecl rva0007E394CursorEqual(const void*a,const void*b){return ((const unsigned*)a)[0]==((const unsigned*)b)[0]&&((const unsigned*)a)[1]==((const unsigned*)b)[1];}
 
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 // The native x87 FSQRT/FSIN/FCOS shapes require these scoped math helpers.
 class WWMath

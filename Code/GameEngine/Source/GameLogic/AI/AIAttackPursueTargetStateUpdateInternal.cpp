@@ -5,8 +5,8 @@
 // plus BFME1 game/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetState_updateInternal.cpp;
 // retail CritterDesync ComputePath14 log, testStatus 0x33, TurretStateMachine goal checks.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 
 enum WhichTurretType

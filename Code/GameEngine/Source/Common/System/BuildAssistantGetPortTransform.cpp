@@ -40,9 +40,9 @@
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include <windows.h>
 #define MAP_XY_FACTOR (10.0f)

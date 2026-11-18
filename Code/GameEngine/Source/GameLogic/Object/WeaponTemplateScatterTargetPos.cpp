@@ -19,10 +19,10 @@
 // TheTerrainLogic->getLayerForDestination without a victim) when the victim's
 // AI reports isDoingGroundMovement (slot 137, +0x224).
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum PathfindLayerEnum
 {

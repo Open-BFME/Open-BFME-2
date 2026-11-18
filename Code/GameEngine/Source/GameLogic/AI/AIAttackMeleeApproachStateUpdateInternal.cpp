@@ -16,8 +16,8 @@
 #include "Coord3D.h"
 
 struct ApproachCoordCopy:Coord3D{__forceinline ApproachCoordCopy(float X,float Y,float Z){x=X;y=Y;z=Z;} __forceinline ApproachCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;} __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}};
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 
 enum WeaponSlotType

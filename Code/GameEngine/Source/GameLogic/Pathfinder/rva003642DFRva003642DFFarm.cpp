@@ -7,9 +7,9 @@ extern "C" void _ReadWriteBarrier(void);
 #include <new>
 #include <math.h>
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum PathfindLayerEnum
 {

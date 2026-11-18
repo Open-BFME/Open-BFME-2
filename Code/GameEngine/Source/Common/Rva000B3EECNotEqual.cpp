@@ -6,7 +6,7 @@
 // al, pops the inner args to ecx, then booleanizes with sbb eax eax inc eax.
 // Caller at 0x004ABBBB passes two pointers and tests al.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 Bool Rva00045473Equal(const void *a, const void *b);
 

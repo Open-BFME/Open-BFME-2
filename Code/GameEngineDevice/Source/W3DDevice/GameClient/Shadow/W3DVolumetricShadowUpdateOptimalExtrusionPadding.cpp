@@ -19,8 +19,8 @@
 // again. The constant names are descriptive. operator+ adds b to a, which
 // is the operand order retail loads for the corner sum.
 
-typedef float Real;
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include <stddef.h>
 #include <math.h>

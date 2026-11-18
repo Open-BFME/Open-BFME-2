@@ -22,8 +22,8 @@
 // methods at the retail REL32 destinations. The machine view flattens the proven
 // AIGuardMachine +0x3C/+0x40 id pair.
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt TeamID;
 
 #include <windows.h>

@@ -18,9 +18,9 @@
 // and the object's +0x250 interface answers slot 2 non-zero, the object is
 // handed to the rowed Rva004F56FC::rva004F56FC 0x004F56FC.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum NameKeyType
 {

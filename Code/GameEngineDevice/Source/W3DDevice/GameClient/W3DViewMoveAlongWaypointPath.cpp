@@ -20,8 +20,8 @@
 #include "../../../../GameEngine/Source/GameClient/Rva000869CF.h"
 #include <math.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 typedef Rva00089894Point Coord3D;
 
 class GlobalData;

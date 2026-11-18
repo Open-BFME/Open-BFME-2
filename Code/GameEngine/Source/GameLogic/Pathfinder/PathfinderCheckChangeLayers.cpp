@@ -17,8 +17,8 @@
 // PathfindLayer::setDestroyed(Bool) donor. Target arithmetic gives 64-byte
 // layers at +0x60 and the final manager-like subobject at +0x460.
 #include <vector>
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum PathfindLayerEnum
 {
 	PATHFIND_LAYER_UNKNOWN = 0,

@@ -12,9 +12,9 @@
 // recovered; the method name stays address-derived as pinned.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/Common/Geometry.h"
 

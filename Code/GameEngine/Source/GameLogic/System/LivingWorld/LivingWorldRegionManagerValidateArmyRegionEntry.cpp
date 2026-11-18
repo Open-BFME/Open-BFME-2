@@ -4,8 +4,8 @@
 
 #include "ascii_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 // The center point is 2D: the region overload writes only x and y.
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"

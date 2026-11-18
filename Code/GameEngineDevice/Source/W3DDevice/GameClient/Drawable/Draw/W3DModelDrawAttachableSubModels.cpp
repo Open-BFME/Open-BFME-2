@@ -11,8 +11,8 @@
 
 #include "ascii_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 class WeaponTemplateSetHead
 {

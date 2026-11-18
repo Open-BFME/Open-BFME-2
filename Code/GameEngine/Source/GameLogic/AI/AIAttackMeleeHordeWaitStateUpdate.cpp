@@ -8,8 +8,8 @@
 // Upstream independently named this owner and moved the file; retain its path
 // and matching O1/G7 override while preserving the native identity evidence.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 extern "C" void _WriteBarrier(void);
 extern "C" void _ReadWriteBarrier(void);

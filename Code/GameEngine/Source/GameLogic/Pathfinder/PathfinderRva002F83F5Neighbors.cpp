@@ -4,8 +4,8 @@
 // that receive local addresses stay visible, so cl keeps those locals unaliased as retail's frame requires.
 // stlport
 #include <vector>
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum PathfindLayerEnum
 {
 PATHFIND_LAYER_UNKNOWN = 0,

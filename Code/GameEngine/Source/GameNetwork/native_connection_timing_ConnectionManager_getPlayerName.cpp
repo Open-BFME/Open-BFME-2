@@ -60,8 +60,8 @@ typedef std::map<unsigned short, AsciiString> FileCommandMap;
 typedef std::map<unsigned short, unsigned char> FileMaskMap;
 typedef std::map<unsigned short, int> FileProgressMap;
 
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 enum NetCommandType
 {

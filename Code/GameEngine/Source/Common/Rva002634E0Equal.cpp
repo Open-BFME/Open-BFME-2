@@ -7,7 +7,7 @@
 // two pointers and test al. Precedent is equalTag_Rva003B31C7 at 0x003B31C7
 // with identical 24B shape and /O1 flags.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include <string.h>
 

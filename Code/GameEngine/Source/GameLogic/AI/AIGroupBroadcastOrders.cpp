@@ -59,8 +59,8 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class AsciiString;
 class CommandButton;

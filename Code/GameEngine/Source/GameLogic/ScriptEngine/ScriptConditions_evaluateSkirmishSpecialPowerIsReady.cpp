@@ -24,8 +24,8 @@
 // ScriptConditions_evaluateTeamStateIs.cpp the member stays in ECX and is
 // copied (the 0.949 bank).
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "ascii_string.h"
 

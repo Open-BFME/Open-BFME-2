@@ -19,8 +19,8 @@ extern "C" void _ReadWriteBarrier(void);
 #include <vector>
 #include <new>
 #include "../../Common/GameLogicObjectLookupView.h"
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum PathfindLayerEnum
 {
  PATHFIND_LAYER_UNKNOWN = 0,

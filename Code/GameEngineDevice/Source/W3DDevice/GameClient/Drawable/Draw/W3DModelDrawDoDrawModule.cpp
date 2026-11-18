@@ -18,8 +18,8 @@
 #define SLOT(n) virtual void slot##n();
 #define ISLOT(n) virtual void islot##n();
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 extern GameLogic *TheGameLogic;
 class GlobalData;

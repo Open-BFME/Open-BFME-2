@@ -4,9 +4,9 @@
 // Open-BFME-1 W3DShrubBufferAddTreeType.cpp (BFME1 0x00735E10). BFME2 layout read from
 // retail: the type-changed flag is +0x44556, 64 types of 0x5C at +0x44558 (count +0x45C58).
 //
-typedef int Int;
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class MeshClass;
 class RenderObjClass;

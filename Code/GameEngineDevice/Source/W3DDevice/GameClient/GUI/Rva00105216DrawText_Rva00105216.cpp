@@ -19,9 +19,9 @@
 // It sits between the drawer's draw slot 0x0010500F and initBorders in the
 // W3DGameWindow.cpp region. Class identity is address-derived.
 
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 typedef int Color;
-typedef unsigned char UnsignedByte;
+
 class Image;
 
 #include "../../../../../../reference/shims/wwmath/Vector2.h"

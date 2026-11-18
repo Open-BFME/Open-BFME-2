@@ -23,9 +23,9 @@
 #include <stdlib.h>
 #include <d3d9.h>
 
-typedef float Real;
-typedef int Int;
-typedef unsigned short UnsignedShort;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 
 struct IDirect3DDevice8;

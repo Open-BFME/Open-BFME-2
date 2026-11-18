@@ -23,8 +23,8 @@
 // temporary's address). All three emit retail's exact bytes here; the Object
 // skeleton is ObjectDlinkPmf.h's (vbptr base at +0x68, DLINK base at +4).
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class AsciiString;
 class ThingTemplate;
