@@ -15,7 +15,8 @@ extern class ThingFactory *TheThingFactory;
 
 #include "../../../Include/Common/INI/INI.h"
 
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
+// _strcmpi comes from <string.h> (/MD => dllimport), matching the retail IAT binding.
+#include <string.h>
 
 #include "../debug.h"
 void __cdecl _bfme_debugRecordCallsite(int kind);
