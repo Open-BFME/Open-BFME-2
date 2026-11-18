@@ -5493,7 +5493,7 @@ Code/GameEngine/Source/Common/Rva005FCA00ListenerWalks.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FCA8BDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FCBitAccess.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FCBitThunks.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva005FCFEADtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva005FCFEADtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/Rva005FD034Setter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FD04BSetter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FD48ELoop.cpp,yes,0,0,0,0,0
@@ -10501,7 +10501,7 @@ Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpec
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPower.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPower.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/DominateEnemySpecialPowerModuleDataFriendNew.cpp,yes,0,0,0,0,0
@@ -10859,7 +10859,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/AngleFXInfoVectorInsertOverflow.c
 Code/GameEngine/Source/GameLogic/Object/Update/AnimationSteeringUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormFire.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorCtor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateBehaviorDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
@@ -11073,7 +11073,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateFriendNew.cpp,ye
 Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateSlot8.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp,yes,0,0,0,0,0
@@ -11137,7 +11137,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNew.cpp,yes,0
 Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNewData.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MarkerTypeUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MarkerTypeUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp,yes,0,0,0,0,0
@@ -11158,7 +11158,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataFriendNewFactories.cpp,
 Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataFriendNewFactories84.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataFriendNewFactories84_Friend_newModuleData.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataFriendNewFactoriesC.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdate.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateUpdate.cpp,yes,0,0,0,0,0
@@ -11178,7 +11178,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/NotifyTargetsOfImminentProbableCr
 Code/GameEngine/Source/GameLogic/Object/Update/NotifyTargetsOfImminentProbableCrushingUpdateXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateBehaviorCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp,yes,0,0,0,0,0
@@ -11279,7 +11279,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
@@ -11337,7 +11337,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/Rva0048E16CCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00490D3FCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492179Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492402Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/Rva00492C59Ctor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/Rva00492C59Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492D11Update.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492DABUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00492E10Xfer.cpp,yes,0,0,0,0,0
@@ -11362,7 +11362,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/Rva004C9D93Compare.cpp,yes,0,0,0,
 Code/GameEngine/Source/GameLogic/Object/Update/Rva004CEB76ListSort.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00589135VSlot.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/Rva00C6F248Iface.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdate.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdateSlot17.cpp,yes,0,0,0,0,0
@@ -11385,7 +11385,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdateFri
 Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdateInstanceNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SpawnedModelConditionCreateModuleDataDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateInitiateIntent.cpp,yes,0,0,0,0,0
@@ -11524,7 +11524,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdatePoolKey.cpp,yes,
 Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/WanderAIUpdateFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,yes,0,0,0,0,0
