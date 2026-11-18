@@ -52,9 +52,12 @@ namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void **vector<void*>::begin()
 { return _M_start; }
-template <> __declspec(dllimport) __forceinline
-void **vector<void*>::end()
+}
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 { return _M_finish; }
+}
+namespace _STL {
 template <> __declspec(dllimport) __forceinline
 size_t vector<void*>::size() const
 { return size_t(this->_M_finish - this->_M_start); }
@@ -96,12 +99,7 @@ struct Rva0031DCF0Layout
 	virtual void destroyWindows();	// +0x20
 };
 
-// class-gate: allow ControlBarSchemeManager retail calls the out-of-line dtor 0x003204D9; ControlBarSchemeManagerView.h declares none so its implicit dtor inlines the list teardown (proved by bytes)
-class ControlBarSchemeManager
-{
-public:
-	~ControlBarSchemeManager();
-};
+#include "ControlBarSchemeManagerView.h"
 
 #include "../../../../Include/GameClient/Rva000411084.h"
 struct Rva0031DCF0Iterator { char *m_current; void *m_owner; };

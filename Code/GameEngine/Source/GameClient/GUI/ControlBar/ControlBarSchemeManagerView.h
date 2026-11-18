@@ -16,6 +16,7 @@ class ControlBarSchemeManager
 {
 public:
 	ControlBarSchemeManager(void);	// 0x003200EB, built by ControlBar::init
+	~ControlBarSchemeManager(void);	// 0x003204D9, out of line: ControlBar's destructor calls it
 	void init(void);		// 0x00320205
 	ControlBarScheme *findControlBarScheme(AsciiString name);
 	ControlBarScheme *newControlBarScheme(AsciiString name);

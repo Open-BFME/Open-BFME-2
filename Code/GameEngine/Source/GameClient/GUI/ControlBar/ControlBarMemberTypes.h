@@ -56,12 +56,4 @@ struct Rva0031DBFCElement
 	char m_data[8];
 };
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-private:
-	void *m_ptr; // +0x00
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
