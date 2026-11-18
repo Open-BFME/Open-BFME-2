@@ -384,4 +384,49 @@ mixed units (EvaMessageVectorAssign.cpp and stlport_vector_stringrecord_111acf_a
 register both classes, then rename through the tools; headers take the full gate. Scheduled after
 the real link closes. No current `rename.py` route splits one spelling into two identities.
 
+#### 2026-11-18 (later): a scan for the same shape, and what it found outside this family
+
+A read-only scratch check (not in `tools/`; method below) looks for the EvaMessageInfo shape
+directly: a code symbol an object defines under a name the ledger places at a retail address owned
+elsewhere (another source's row, or a pin), whose compiled body does not call what retail calls at
+that address. It compares bytes outside relocation sites, requires each REL32 site to land in retail
+on an address the ledger gives the callee's name (thunks followed), and descends up to four calls
+through callees that have no ledger address or only a pin. The byte gate cannot see this: it
+resolves a callee by name and never reads the body another object defines under that name.
+`pin_consistency.py` compares only names with several addresses, and ProviderGuard compares a merge's
+before and after, not either with retail.
+
+**This family.** On `EvaMessageVectorAssign.cpp`'s object it flags all five pinned family-A names:
+`_Destroy<EvaMessageInfo*>` 0x000AFF52 (calls the row at 0x003F60C8, retail calls 0x00111B25),
+`__uninitialized_copy<const EvaMessageInfo*>` 0x00101ECF (calls `_Construct` 0x003F62C8, retail
+0x000AD77B), `vector::_M_clear` 0x000B0298 (bytes), and, one call lower,
+`_M_allocate_and_copy` 0x00101F5C and `__copy_ptrs` 0x00101F89. It adds one name the classification
+above did not list: `vector<EvaMessageInfo>::_M_insert_overflow` 0x003F6B24 calls `_M_clear` at
+0x000B0298 where retail calls 0x003F69A8.
+
+**Same shape elsewhere (target facts; hand-checked where stated).**
+
+| Name (pin) | Sources | Compiled calls | Retail calls | Checked |
+|---|---|---|---|---|
+| `map<int,BuddyInfo>::erase` 0x005E43D1 | WOLBuddyOverlay | `~BuddyInfo` 0x003820FE (93 bytes, EH) through `clear` 0x005E43A8 and the pair destructor 0x005E3B96 | 0x005E3B96 is `add ecx,4; jmp 0x005E3B83`, the 19-byte SBServer destructor; rows 0x005E43D1 and 0x005E43A8 are the SBServer map's (`stlport_map_int_sbserver.cpp`) | by hand, real |
+| `~_Rb_tree<int,pair<const int,void*>>` 0x000554FA | GameFont.cpp, AptPalantirConstructor.cpp | `_Rb_tree::clear` 0x00286656 / 0x004ABC5C | 0x00054B9A (`?rva00054B9A@Rva00053DC5`) | by hand, real (bytes equal but the callee) |
+| `hashtable::_M_initialize_buckets` 0x00148DDF | GameWindowTransitionsHandler.cpp, window_video_manager.cpp | `vector<void*>::insert` 0x0002A2D0 | `_M_fill_insert` 0x00029CA0 | callee only, not by hand |
+
+Not verified for any of them: which copy the real link keeps, and whether the difference is reached
+at run time.
+
+**Unchecked, EH-variant suspected (not counted as defects).** Five pinned STL helpers under
+`W3DDevice/GameClient` whose callee body in the same object differs from the retail function at the
+call site: `vector<W3DAnimationInfo>::_M_insert_overflow` 0x0047008E, `vector<WeightedModel>::push_back`
+0x000C3411, `list<Gen_uw_000e5033*>::push_front` 0x00392076 and `push_back` 0x0005548F, and
+`set<int,...>::insert` 0x000BC15D. Their bodies differ in length or frame shape, not in a callee's
+identity. Nobody has compared each pinned call site's target bytes with the object's helper.
+
+**Scale.** `GameClient/GUI` (648 objects): 4 callee mismatches, 7 transitive, 70 byte differences
+(67 differ in length, mostly an unoptimised or EH copy of a shared template helper).
+`W3DDevice/GameClient` (692 objects): 0 callee mismatches, 5 transitive, 75 byte differences.
+
+**Limits.** No indirect or vtable calls, no EH funclets, DIR32 operands unjudged, objects read from
+the store by source hash (a stale header variant can be read), link order not modelled.
+
 Clearance: pending (runtime defect, not a link blocker).
