@@ -76,14 +76,7 @@ void Rva0038204A::rva003828DF()
 	m_count = 0;
 }
 
-class Rva00382077
-{
-	Rva0038201DNode* m_head;
-	int m_count;
-public:
-	void rva00382077(Rva0038201DNode* n);
-	void rva00382908();
-};
+#include "../../Include/Common/Rva00382077.h"
 
 void Rva00382077::rva00382077(Rva0038201DNode* n)
 {
