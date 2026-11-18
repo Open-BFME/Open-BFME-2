@@ -95,7 +95,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 #include "Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 extern GameLogic *TheGameLogic;
 

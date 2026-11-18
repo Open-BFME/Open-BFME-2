@@ -70,9 +70,9 @@ enum NameKeyType
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/XferVersion.h"
 #include "../../../../Include/Common/Rva004CE56D.h"
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 extern int BfmeClientFramesPerSecond;
 enum MaxHealthChangeType
 {

@@ -117,8 +117,8 @@ class AsciiString;
 // - Losing status 10 clears all lists and sets list 0 in mode 4.
 // Every list goes through 0x0045628C, called as a thiscall member: retail
 // loads the module into ecx before each call.
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 struct BuildingBehaviorObjectStatusBits
 {

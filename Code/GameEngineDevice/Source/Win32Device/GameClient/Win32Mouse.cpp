@@ -3,12 +3,12 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef short Short;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
+
+
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #define MOUSE_NONE 0x00

@@ -43,9 +43,9 @@
 //    byte getter 0x002C9400 extends chase frames by half.
 // Layout (target evidence): state goal +0x20, adjusts-destination +0x48,
 // m_nextReturnScanTime +0x4C; TAiData m_guardEnemyReturnScanRate +0x44.
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 // platformsdk
 #include <windows.h>
 #include "../../Common/GameLogicObjectLookupView.h"

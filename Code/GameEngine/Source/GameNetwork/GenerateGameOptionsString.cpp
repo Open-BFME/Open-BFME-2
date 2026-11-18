@@ -14,7 +14,7 @@
 // records, which is Zero Hour's GameInfoToAsciiString.
 // BFME 2 difference: amIHost stays out of line.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "ascii_string.h"
 #include "unicode_string.h"

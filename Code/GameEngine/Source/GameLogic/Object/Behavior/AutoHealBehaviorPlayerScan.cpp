@@ -19,10 +19,10 @@
 // AutoHealBehaviorModuleData ctor and its field parse table, the behavior's
 // from the rowed ctor (0x00452592) and onDamage (0x0045266B). Names follow
 // the BFME 1 donor and Zero Hour where the body agrees with them.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include <windows.h>
 #include "GameLogicObjectLookupView.h"

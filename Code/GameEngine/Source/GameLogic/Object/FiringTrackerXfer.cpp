@@ -78,10 +78,10 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 }
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 
 class AsciiString;

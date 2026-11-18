@@ -8,9 +8,9 @@ static __forceinline void setHilightConstant(Vector4 &row,float x,float y,float 
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 class Vector2;
 #include <d3d9.h>
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 #define Rva007D85C0DeviceGlobal ((Rva007D85C0Device *)DX8Wrapper::_Get_D3D_Device8())
 #define Rva007D85C0TacticalViewGlobal ((Rva007D85C0TacticalView *)TheTacticalView)
 #include <vector>

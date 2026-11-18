@@ -13,9 +13,9 @@
 #include "ascii_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../Common/PartitionRangeQueryCallView.h"
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class PlayerTemplate;
 class Team;

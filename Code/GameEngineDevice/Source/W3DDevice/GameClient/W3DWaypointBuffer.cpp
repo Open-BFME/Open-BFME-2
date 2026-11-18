@@ -8,7 +8,7 @@
 // Target passes the address of the one-pointer texture handle to Set_Texture;
 // retain the existing provider declaration without asserting its pointee type.
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 #include "W3DWaypointBufferRenderView.h"
 #include <list>
 #include <bitset>
@@ -21,9 +21,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+
+
+
 #define MAX_DISPLAY_NODES 512
 enum KindOfType
 {

@@ -15,8 +15,8 @@
 // States come from plain operator new and their rowed constructors.
 #include <stddef.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt ObjectID;
 class Object;
 

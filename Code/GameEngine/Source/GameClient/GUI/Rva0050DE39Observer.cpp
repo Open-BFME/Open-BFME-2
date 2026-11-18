@@ -7,7 +7,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Image;
 #include "../../../Include/GameClient/Bfme2GameWindow.h"

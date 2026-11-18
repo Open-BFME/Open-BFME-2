@@ -43,13 +43,13 @@ enum
 #define STATE_SLEEP(n) ((StateReturnType)(n))
 #define AIGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIGuard.cpp"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef float Real;
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
+
 
 typedef UnsignedInt TeamID;
 

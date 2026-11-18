@@ -200,7 +200,7 @@ class ClientFrameSubsystem;
 
  extern class GameClient *TheGameClient;
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 Real GetGameClientRandomValueReal(Real lo, Real hi, char *file, int line);
 

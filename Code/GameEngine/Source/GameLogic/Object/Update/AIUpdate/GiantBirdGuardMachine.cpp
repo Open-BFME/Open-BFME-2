@@ -28,9 +28,9 @@
 //    (+0x54, valid flag +0x60) and the GiantBirdAIUpdate.cpp file/line random
 //    call, then chains to GiantBirdNormalFlightState::onEnter (0x00369064).
 
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 typedef unsigned int StateID;
 typedef UnsignedInt TeamID;
 

@@ -30,8 +30,8 @@
 #include "../../../../GameEngine/Include/GameClient/Rva0008990CArrayOwner.h"
 #include <vector>
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 // Camera-move records (ZH TRotateCameraInfo / TPitchCameraInfo /
 // TZoomCameraInfo shape: plain fields plus one ParabolicEase).

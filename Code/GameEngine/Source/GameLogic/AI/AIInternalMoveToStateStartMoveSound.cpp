@@ -26,8 +26,8 @@
 // structural.
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt AudioHandle;
 
 enum BodyDamageType

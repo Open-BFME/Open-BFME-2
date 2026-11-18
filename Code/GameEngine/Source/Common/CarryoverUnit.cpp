@@ -10,7 +10,7 @@
 // import thunk with no intrinsic. Callers at 0x0037E11D 0x004382A8 0x0045F4CA
 // pass two pointers and test al. Precedent is Rva002634E0Equal at 0x002634E0
 // and Rva00045473Equal at 0x00045473 with identical shape and /O1 flags.
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include <string.h>
 // ?GetCommandPointSize@Rva0037DCA5@@QAEHXZ, retail 0x0037DCA5 (39B).
 // Lookup via TheThingFactory global 0x00DFF000 plus AsciiString at +0x4 through

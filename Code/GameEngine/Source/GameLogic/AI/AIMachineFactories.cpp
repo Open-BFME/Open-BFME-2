@@ -9,7 +9,7 @@
 //  - WanderAIUpdate, retail 0x004A93C9 (vtable 0x00853D30), key 0x11224BB7
 // Each vtable's slot 150 holds the address; the class names are the data
 // ledger's for those vtables.
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 class Object;
 #include "../../../Include/GameLogic/AIStateMachineClass.h"
 class AIUpdateModuleView

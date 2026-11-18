@@ -5,7 +5,7 @@
 // BFME2 base148, name148, backwards14C, fallback150; canonical Coord3D.
 // Existing BFME2 factory, name-key and laser providers retain their landed names.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
@@ -120,11 +120,11 @@ private:
 	int m_expireTimer; // +0x150
 };
 
-typedef unsigned int UnsignedInt;
 
-typedef bool Bool;
 
-typedef float Real;
+
+
+
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 

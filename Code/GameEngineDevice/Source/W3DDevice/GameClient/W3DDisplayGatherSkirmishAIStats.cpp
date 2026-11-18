@@ -16,10 +16,10 @@
 #include "unicode_string.h"
 #include "../../../../GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 struct Coord3D;
 class GameFont;

@@ -29,8 +29,8 @@ struct AEXPBUCoord3D;
 // 20 bytes: slot 11; slot 12 at the target Object's position (+0x38) with the
 // same second argument.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../object.h"
 #include "../../../Common/debug.h"

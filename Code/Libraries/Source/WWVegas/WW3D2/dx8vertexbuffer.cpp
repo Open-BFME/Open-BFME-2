@@ -27,7 +27,7 @@
 // its vtable at +0 and its count at +4, and slot 0 is called with no argument
 // when the count reaches zero.
 
-typedef unsigned short UnsignedShort;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 // The matched target-side deinit traverses 15 slots; the adjacent
 // bfmeDynamicVBs table at VA 0x00DF2A04 rules out the 21-slot donor view.

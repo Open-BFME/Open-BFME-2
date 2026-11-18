@@ -12,7 +12,7 @@
 // BaseHeightMapRenderObjClass::addProp (0x0006831C), and retail builds that
 // argument through Coord3D's user copy constructor (field moves, the copy's
 // address spilled to [ebp+0x14] for the destructor's unwind).
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_DTOR

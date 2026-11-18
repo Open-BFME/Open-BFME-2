@@ -46,10 +46,10 @@ class ModuleData;
 // (+0xA4), 55 (+0xDC) per-frame update, 75 (+0x12C) and 146 (+0x248) the
 // rally position. Slot names are inferred from use, not from target symbols.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 #include <windows.h>
 #include "GameLogicObjectLookupView.h"
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond

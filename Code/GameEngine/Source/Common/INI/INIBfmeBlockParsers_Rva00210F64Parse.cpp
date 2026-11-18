@@ -12,8 +12,8 @@
 // where it has one.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class INI;
 typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void *userData);

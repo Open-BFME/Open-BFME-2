@@ -35,7 +35,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT
-typedef unsigned char UnsignedByte;
+#include "../../../../Include/Common/ScalarTypes.h"
 struct XferVersion
 {
 	UnsignedByte m_version;

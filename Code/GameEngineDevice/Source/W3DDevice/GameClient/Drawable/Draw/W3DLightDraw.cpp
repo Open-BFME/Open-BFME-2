@@ -27,8 +27,8 @@ inline ModuleData::~ModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot:
 // slot 4 -> 0x000CFAF9 pool key with string "W3DLightDraw"; base vtable 0x00BC9690
 // then folded base dtor 0x0049B47C (pinned ??1DrawableModule@@MAE@XZ).
 
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 class LightClass : public RenderObjClass

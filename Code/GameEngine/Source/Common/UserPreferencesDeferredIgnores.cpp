@@ -46,7 +46,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include <stdlib.h>
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/Common/BfmeStringData.h"
 

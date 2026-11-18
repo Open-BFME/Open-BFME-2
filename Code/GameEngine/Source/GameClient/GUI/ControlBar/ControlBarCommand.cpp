@@ -13,8 +13,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #define _STLP_NO_EXCEPTIONS 1
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 class ModuleData;
 struct XferVersion
 {
@@ -39,7 +39,7 @@ struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../../Include/Common/BfmeXfer.h"
 
-typedef unsigned int UnsignedInt;
+
 
 class ThingTemplate;
 

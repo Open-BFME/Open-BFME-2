@@ -53,10 +53,10 @@
 // turret's which-turret +0x0C and data +0x08 (recenter time +0x60); the AI's
 // turret sync +0x210 (resetNextMoodCheckTime is the rowed 0x00263025); the
 // states' m_nextIdleScan / m_timestamp at +0x20.
-typedef unsigned int UnsignedInt;
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include <math.h>
 #include "Coord3D.h"

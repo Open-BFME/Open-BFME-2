@@ -120,7 +120,7 @@ public:
 // /O2 library range, batch AN. Classes and methods are address-derived
 // unless the ledger names them, and model only what each body touches.
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 // 0x00665430 and 0x00743080: empty slots taking two resp. five arguments.
 // 0x006680C0: the first argument's +0x280 word.

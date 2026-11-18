@@ -22,7 +22,7 @@
 // defined as storage in Rva007B6880Thunks.cpp beside retail's atexit thunks.
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);

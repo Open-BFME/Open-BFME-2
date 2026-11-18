@@ -5,7 +5,7 @@
 // reach only through those vftables. Each body is retail's own; the Zero
 // Hour PartitionManager.cpp filter of the same shape is named beside it as
 // donor evidence, not as a proven identity.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum ObjectPrivateStatusBits
 {

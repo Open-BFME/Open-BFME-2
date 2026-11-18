@@ -8,8 +8,8 @@
 // names are address-derived, method names are the slot's where the ledger
 // names the slot in a sibling table. Meanings are not recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Object;
 class AsciiString;

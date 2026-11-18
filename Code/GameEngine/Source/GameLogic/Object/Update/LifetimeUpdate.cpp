@@ -13,9 +13,9 @@
 // ?rva003A4AD2@LifetimeUpdate@@QAEXXZ, retail 0x003A4AD2 (15 bytes):
 // honest-address wrapper reapplying moduleData min/max through the rowed
 // setLifetimeRange above; moduleData at +0x04 with min at +0x08 max at +0x0C.
-typedef unsigned int UnsignedInt;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 class Thing;
 class ModuleData;
 class Object;

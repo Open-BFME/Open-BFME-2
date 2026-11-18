@@ -18,9 +18,9 @@
 
 #include <math.h>
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 // Rva00086761CameraMove.cpp owns this proven runtime frame period.
 extern Int TheW3DFrameLengthInMsec;

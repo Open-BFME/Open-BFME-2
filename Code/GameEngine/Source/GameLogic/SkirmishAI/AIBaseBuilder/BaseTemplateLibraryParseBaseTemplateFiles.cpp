@@ -47,8 +47,8 @@ template <> __declspec(dllimport) __forceinline size_t vector<void*>::size() con
 }
 #include "ascii_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 enum ErrorCode
 {

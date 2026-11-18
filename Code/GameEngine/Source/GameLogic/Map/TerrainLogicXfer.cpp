@@ -65,12 +65,12 @@ void **vector<void*>::end()
 { return _M_finish; }
 }
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
+
+
 
 enum { INVALID_WAYPOINT_ID = 0x7fffffff };
 

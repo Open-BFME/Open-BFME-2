@@ -36,7 +36,7 @@ enum NameKeyType
 extern NameKeyGenerator *TheNameKeyGenerator;
 struct BfmePod16 { int a[4]; };
 #include "../../../../../../Libraries/Include/Lib/BfmeE16.h"
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> BfmeE16 * allocator<BfmeE16>::allocate(unsigned int, void const *) const; }
