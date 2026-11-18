@@ -245,8 +245,21 @@ char pad04[0x30-4]; DebugDisplayCallback *debugDisplayCallback;char pad34[0x115-
 };
 // The slice index takes the count by const reference: retail's add eax,0xEA0 / mov ecx,[eax] in that arm is the materialized reference.
 inline int panoramaSliceIndex(int i,const int&count){return (i+count/2)%count;}
+#if defined(BFME2_MODERN)
+static unsigned g_modernLastPresent;
+#endif
 void W3DDisplay::draw(){
  if(ApplicationHWnd && IsIconic((HWND)ApplicationHWnd))return;
+#if defined(BFME2_MODERN)
+ // A long update (map load) draws its loading screen from inside the fixed
+ // update; no scheduled presentation can run then, so draw it the legacy way.
+ if(g_modernRenderPhase==MODERN_RENDER_UPDATE && timeGetTime()-g_modernLastPresent>100){
+  ModernRenderScope legacy(MODERN_RENDER_LEGACY);
+  W3DDisplay::draw();
+  return;
+ }
+ if(modernPresentsScene())g_modernLastPresent=timeGetTime();
+#endif
  updateAverageFPS();rva00043FB9();
  // compute debug statistics for display later
  if(debugDisplayCallback==StatDebugDisplay)W3DDisplay::gatherDebugStats();
