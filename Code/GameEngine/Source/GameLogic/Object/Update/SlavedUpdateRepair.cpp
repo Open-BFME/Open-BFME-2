@@ -75,11 +75,11 @@
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../Libraries/Include/Lib/Coord3DInline.h"

@@ -7,10 +7,10 @@
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../Include/GameLogic/ContainmentListView.h"
 #include "../../../../../Include/GameLogic/BfmeStoredAICommandView.h"
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 extern int BfmeLogicFramesPerSecond;
 #include <windows.h>
 #define INVALID_STATE_ID 999999

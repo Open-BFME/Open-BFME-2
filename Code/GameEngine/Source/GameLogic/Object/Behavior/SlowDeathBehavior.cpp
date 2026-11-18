@@ -126,7 +126,7 @@ protected:
 //   0x0045E5A4, 0x0045E618 (SlowDeathBehaviorParsers.cpp) and 0x0045D636
 //   (SlowDeathRandomForceRva0045D636.cpp).
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 // PhysicsBehavior's two extra-damping setters are out-of-line COMDATs this
 // unit has always emitted (rows 0x000EFB3E and 0x000EFB5A, 14 B each:

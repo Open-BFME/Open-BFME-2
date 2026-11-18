@@ -250,9 +250,9 @@ public:
 // Object::rva002931BA, and both its taken branch and the callback body share
 // the RET at 0x0041B949. Retarget the row to this complete boundary.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 enum KindOfType
 {
 	KINDOF_STRUCTURE = 7,

@@ -144,9 +144,9 @@ BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva002A7EA0CmpBoolField, 0x14, 0x13, <)
 // Code/GameEngine/Source/Common/Gen_000cd680.cpp); trimmed to the two T1
 // bodies the sweep places.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef short Short;
+
 
 struct Gen_000cd680_Element
 {

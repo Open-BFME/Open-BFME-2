@@ -39,10 +39,10 @@
 #include <string.h>
 #include <d3d9.h>
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 enum FilterModes
 {

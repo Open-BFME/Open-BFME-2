@@ -17,8 +17,8 @@
 // complete destructor resolves through StateGetMachineGoalObject.cpp, without
 // the retired Rva004D7B93 pin or a synthetic vtable-emitting constructor.
 #include <windows.h>
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt StateID;
 class Object;
 #include "../../../Include/Common/StateConditionInfo.h"

@@ -16,7 +16,7 @@
 // copy through this body; AsciiString op= pin @0x366F0; ctor layout
 // @0x79514.
 
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 #include "ascii_string.h"
 
 class Rva000F1A32 {public:Rva000F1A32();private:char body[12];};
@@ -57,7 +57,7 @@ extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 // Inference: the target function keeps that owner and appends two checks. The
 // latter helpers retain address-derived names because their owners are unknown.
 
-typedef bool Bool;
+
 
 class RenderInfoClass;
 

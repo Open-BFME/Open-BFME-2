@@ -39,11 +39,11 @@ class DamageInfo;
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef bool Bool;
 
-typedef float Real;
+
+
 
 class Object;
 

@@ -16,9 +16,9 @@ AsciiString Rva000B992CBuild(const AsciiString &a1, const AsciiString &a2, int d
 #include <string.h>
 #include "../../../../../../GameEngine/Include/Common/BfmeVectorRecord000BDF17.h"
 
-typedef int Int;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef float Real;
+
 
 enum NameKeyType
 {

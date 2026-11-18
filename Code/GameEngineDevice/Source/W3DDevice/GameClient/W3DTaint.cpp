@@ -208,7 +208,7 @@ BfmeTaintModeView *g_bfmeTaintModeView;
  // consuming name for the retail BSS cell
 
 
-typedef unsigned char UnsignedByte;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"

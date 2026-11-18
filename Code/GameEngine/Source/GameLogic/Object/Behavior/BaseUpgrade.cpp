@@ -185,10 +185,10 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include <bitset>
 #include <string.h>
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 static const char *inlineStr(const AsciiString &asciiString)
 {
 	const char *text = *reinterpret_cast<const char *const *>(&asciiString);

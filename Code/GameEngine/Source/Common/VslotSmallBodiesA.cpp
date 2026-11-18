@@ -7,9 +7,9 @@
 // return types are what the bytes require (an unused stack argument is
 // typed Int); meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 template <int N> class VslotPad : public VslotPad<N - 1>
 {

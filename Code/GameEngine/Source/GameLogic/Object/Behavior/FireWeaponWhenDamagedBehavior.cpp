@@ -128,7 +128,7 @@ private:
 	Weapon *m_continuousWeaponRubble; // +0x48
 };
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp
 

@@ -11,7 +11,7 @@
 // weights), and the global lights are walked through a local LightClass **
 // (as Zero Hour's renderOneObject does with sceneLights), which keeps cl from
 // strength-reducing the index.
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class Matrix3D;
 class RenderObjClass { public: virtual ~RenderObjClass(); };

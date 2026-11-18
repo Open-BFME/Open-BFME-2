@@ -207,9 +207,9 @@ public:
 // address-derived and models only what its body touches. Meanings are not
 // recovered.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef float Real;
+
 
 // 0x0055B0B9 (tables of Rva0055B0CC and Rva00573B23): the larger of the
 // Reals at +0x18 and +0x04.

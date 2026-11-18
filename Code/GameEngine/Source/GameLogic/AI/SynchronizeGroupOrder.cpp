@@ -45,9 +45,9 @@ class Rva0036E346;
 class Xfer;
 struct Coord3D;
 struct GroupOrderCommand;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 struct Coord3DBase;
 class IRegion3D;
 class Xfer::Version

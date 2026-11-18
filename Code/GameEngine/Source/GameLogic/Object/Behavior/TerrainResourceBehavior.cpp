@@ -140,8 +140,8 @@ private:
 // and methods are address-derived unless the ledger already names them,
 // and model only what each body touches. Meanings are not recovered.
 
-typedef int Int;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_1C = 0x1C
@@ -285,7 +285,7 @@ private:
 	ParticleSystem *m_target;
 };
 #include "../../../../Include/Common/Rva003AFF06.h"
-typedef bool Bool;
+
 typedef int Color;
 class Rva0039B7AD;
 struct TerrainResourceLogicView

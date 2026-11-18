@@ -30,7 +30,7 @@ namespace _STL { template <> void vector<const ModuleData *, allocator<const Mod
 // unit's out-of-line copy (referenced from .debug$F alone) is not the one the link keeps.
 namespace _STL { template <> __declspec(dllimport) __forceinline void _STLP_CALL __malloc_alloc<0>::deallocate(void *__p, size_t) { free((char *)__p); } }
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum ObjectStatusTypes
 {

@@ -20,8 +20,8 @@
 #include "unicode_string.h"
 #include "../GameLogicObjectLookupView.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #define MAX_PLAYER_COUNT 20
 #define BitTest(x, i) (((x) & (i)) != 0)
 

@@ -32,9 +32,9 @@
 
 #include <d3d9.h>
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 
 

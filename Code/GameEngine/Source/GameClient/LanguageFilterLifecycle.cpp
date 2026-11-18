@@ -10,7 +10,7 @@
 // and this+0x18; its tree nodes are 24 bytes.
 #include <map>
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 typedef unsigned short WideChar;
 
 template<class T> class StringBase;

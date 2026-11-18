@@ -19,10 +19,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <limits.h>
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define NOMINMAX
 #include <windows.h>

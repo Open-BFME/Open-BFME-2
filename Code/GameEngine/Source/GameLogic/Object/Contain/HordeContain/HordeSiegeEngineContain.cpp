@@ -399,7 +399,7 @@ private:
 // body at 0x004635C0; the Zero Hour OpenContain declaration orders
 // removeFromContain immediately before removeAllContained.
 
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
 struct Rva0047CD98 : OpenContain
 {

@@ -55,11 +55,11 @@ public:
 // then advances the ten sway offsets by their steps, wrapping at 100. BFME2 layout read from retail: sway
 // offsets +0x90 (12 bytes each), current version +0x540, offsets +0x544, steps +0x56C, factors +0x594 and the
 // breeze period scale +0x5BC; the random calls pass the native vegetation-base literal at lines 0x1B5 and 0x1BA.
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef short Short;
 
-typedef float Real;
+
+
 
 struct BreezeInfo
 {

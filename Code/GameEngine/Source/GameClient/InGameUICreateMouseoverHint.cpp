@@ -45,7 +45,7 @@ template<> inline const unsigned short *StringBase<unsigned short>::str() const
 template<> int StringBase<unsigned short>::compare(const StringBase<unsigned short> &) const throw();
 
 typedef unsigned short wchar_t;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 enum DrawableID { INVALID_DRAWABLE_ID = 0 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum KindOfType { KINDOF_DISGUISER = 300 };

@@ -28,7 +28,7 @@ inline float __cdecl waveSin(float _X)
 #include "Lib/Coord2D.h"
 #include "Lib/RGBColor.h"
 
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 class DynamicIBAccessClass;
 class DynamicVBAccessClass;
 #include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"

@@ -155,7 +155,7 @@ template <> class DisguiseAudioSlots<0>
 };
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
-typedef unsigned char UnsignedByte;
+#include "../../../../Include/Common/ScalarTypes.h"
 class Snapshot;
 class UnicodeString;
 class PooledString;

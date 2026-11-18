@@ -33,7 +33,7 @@
 #define MAX_IB_SIZES 1024	// BFME, not ZH's 128: m_W3DIndexBuffers sits at this+0x263D0
 #define MAX_INDEX_BUFFERS_CREATED 32
 
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 // BFME's vertex buffer, defined in
 // Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp. Spelled

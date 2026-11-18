@@ -7,8 +7,8 @@
 // class, method and callee is address-named: the bytes prove only the hop,
 // the argument count and the fallback value.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // Real owners of the forwarders' targets, under their ledger names.
 class Drawable;

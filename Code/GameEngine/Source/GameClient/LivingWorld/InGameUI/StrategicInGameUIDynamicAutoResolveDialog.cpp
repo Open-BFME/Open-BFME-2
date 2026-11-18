@@ -41,8 +41,8 @@ class Rva005EB0CBState {public:
     virtual void rvaSlot3();
 };
 
-typedef int Int;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 struct DynamicAutoResolvePlayer
 {

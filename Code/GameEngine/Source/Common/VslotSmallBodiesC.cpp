@@ -6,9 +6,9 @@
 // models only what its body touches; the comment above each gives the vtable
 // and slot. Types are what the bytes require; meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 template <int N> class VslotPad : public VslotPad<N - 1>
 {

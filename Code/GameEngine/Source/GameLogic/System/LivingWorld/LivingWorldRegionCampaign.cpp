@@ -49,7 +49,7 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(un
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::size() const; }
 // bfme link decl-only end
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 struct FieldParse;
 

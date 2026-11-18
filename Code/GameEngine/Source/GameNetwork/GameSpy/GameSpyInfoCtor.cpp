@@ -23,9 +23,9 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 #include <vector>
 #include <list>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Include/Common/BfmeStringData.h"
 

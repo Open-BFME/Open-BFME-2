@@ -40,9 +40,9 @@ protected:
 // models only what its body touches; the comment above each gives the vtable
 // and slot. Types are what the bytes require; meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 template <int N> class VslotPad : public VslotPad<N - 1>
 {
 public:
@@ -496,7 +496,7 @@ private:
 	ConnectionManager *m_member;
 };
 #include "../../../../GameEngine/Include/Common/Rva000B3FD0.h"
-typedef unsigned int UnsignedInt;
+
 #include "../../../../GameEngine/Include/Common/SizedForwarderSlots.h"
 
 class Rva00068436

@@ -13,8 +13,8 @@
 // The by-value name is released by its callee-side destructor (the shared
 // header's inline ~UnicodeString -> releaseBuffer).
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 enum
 {
 	SLOT_OPEN,
@@ -27,8 +27,8 @@ enum
 };
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 #include "unicode_string.h"
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+
+
 #include "ascii_string.h"
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 #include "../../Include/GameNetwork/LANPlayerClass.h"

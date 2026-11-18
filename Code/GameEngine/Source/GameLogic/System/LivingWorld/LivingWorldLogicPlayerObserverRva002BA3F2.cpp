@@ -38,7 +38,7 @@
 #include "Coord3D.h"
 #include "Coord2D.h"
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameClient/GameText.h"
 
