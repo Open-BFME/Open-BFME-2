@@ -20,11 +20,11 @@
 // loop. Map, scene and water-area class names are the ledger's
 // address-derived owners.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

@@ -8,10 +8,10 @@
 // The Zero Hour Drawable::drawUIText group-number path supplies the rendering
 // purpose and field relationship; target offsets and branch order come from
 // the retail disassembly, not the donor layout.
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 class Object;
 class Player;

@@ -18,10 +18,10 @@
 // and a result of 1 sets the count to 1.
 #include "Coord3D.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 

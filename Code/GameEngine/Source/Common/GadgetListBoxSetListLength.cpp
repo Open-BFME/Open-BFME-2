@@ -6,12 +6,12 @@
 #include <assert.h>
 #include <new>
 #include <string.h>
-typedef short Short;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
+
 #define DEBUG_ASSERTCRASH(a,b)
 #define DEBUG_LOG(a)
 #define NEW new

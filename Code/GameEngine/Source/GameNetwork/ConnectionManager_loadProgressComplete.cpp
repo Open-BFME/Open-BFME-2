@@ -12,11 +12,11 @@
 // NetCommandMsg::detach 0x004D55BC. BFME 2 sets the type first, so the id
 // test reads the constant.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 enum NetCommandType
 {
