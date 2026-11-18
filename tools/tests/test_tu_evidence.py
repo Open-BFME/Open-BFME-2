@@ -526,3 +526,35 @@ def test_tu_map_build_passes_its_rows_through_the_promoted_signals(monkeypatch, 
     monkeypatch.setattr(te, "apply", lambda layout, out: seen.append(out) or out)
     tu_map.build(tu_map.Layout(tmp_path, zh=tmp_path / "zh"))
     assert seen == [[]]
+
+
+def _rich(entries, key=0x1234ABCD):
+    """A DOS stub's worth of padding, then a masked Rich table: DanS, three masked zeros, entries."""
+    words = [0x536E6144, 0, 0, 0]
+    for pid, build, count in entries:
+        words += [(pid << 16) | build, count]
+    blob = b"".join(struct.pack("<I", w ^ key) for w in words)
+    return b"\0" * 0x80 + blob + b"Rich" + struct.pack("<I", key) + b"\0" * 16
+
+
+def test_rich_header_and_budget():
+    entries = [(0x5D, 2067, 2), (0x60, 3077, 1762), (0x5F, 3077, 184), (0x60, 2179, 4), (0x01, 0, 742)]
+    got = te.rich_header(_rich(entries))
+    assert got == entries
+    b = te.rich_budget(got)
+    assert (b["build"], b["cpp"], b["c"], b["objects"]) == (3077, 1762, 184, 1946)
+    assert (b["other_compiled"], b["other"]) == (4, 744)
+    assert te.rich_header(b"MZ" + b"\0" * 300) == []
+
+
+def test_wilson_lower_is_conservative():
+    assert te.wilson_lower(0, 0) == 0.0
+    assert 0.97 < te.wilson_lower(185, 185) < 0.99
+    assert te.wilson_lower(236, 237) < 236 / 237
+    assert te.wilson_lower(5, 10) < 0.5
+
+
+def test_discordance_counts_reversed_pairs_only():
+    assert te.discordance([1, 2, 3, 4]) == (0, 6)
+    assert te.discordance([4, 3, 2, 1]) == (6, 6)
+    assert te.discordance([1, 1, 2, 2]) == (0, 4)       # same-TU pairs say nothing

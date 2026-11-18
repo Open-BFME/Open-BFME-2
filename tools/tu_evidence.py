@@ -852,9 +852,226 @@ def report(res, layout, out, st):
     return 0
 
 
+# ---------------------------------------------------------------- global map (read-only)
+RICH_PRODUCTS = {0x5F: "Utc1310_C", 0x60: "Utc1310_CPP"}
+HARD_BY = "FZSL"
+
+
+def rich_header(data):
+    """[(product id, build, object count)] of a PE's Rich header (XOR-masked `DanS` ... `Rich`),
+    oldest first; [] when the image has none."""
+    r = data.find(b"Rich")
+    if r < 0:
+        return []
+    key = struct.unpack_from("<I", data, r + 4)[0]
+    out, i = [], r - 8
+    while i >= 0x80:
+        comp = struct.unpack_from("<I", data, i)[0] ^ key
+        count = struct.unpack_from("<I", data, i + 4)[0] ^ key
+        if comp == 0x536E6144:                    # `DanS`: the start of the table
+            break
+        if comp or count:
+            out.append((comp >> 16, comp & 0xFFFF, count))
+        i -= 8
+    return out[::-1]
+
+
+def rich_budget(entries):
+    """Objects of the main C/C++ toolchain build, and the rest. The Rich header counts every
+    object the linker took, static-library members included, so `objects` bounds the translation
+    units a rebuild compiles, not the units of Code/ alone."""
+    cpp = {b: n for p, b, n in entries if p == 0x60}
+    c = {b: n for p, b, n in entries if p == 0x5F}
+    main = max(cpp, key=cpp.get) if cpp else 0
+    return {"build": main, "cpp": cpp.get(main, 0), "c": c.get(main, 0),
+            "objects": cpp.get(main, 0) + c.get(main, 0),
+            "other_compiled": sum(n for p, b, n in entries if p in RICH_PRODUCTS and b != main),
+            "other": sum(n for p, b, n in entries if p not in RICH_PRODUCTS)}
+
+
+def wilson_lower(ok, n, z=1.96):
+    """Lower end of the Wilson score interval for `ok` successes in `n` trials."""
+    if not n:
+        return 0.0
+    p = ok / n
+    d = 1 + z * z / n
+    return (p + z * z / (2 * n) - z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5)) / d
+
+
+def hard_labels(out):
+    """{code rva: TU key} of approved rows an F/Z/S/L anchor placed."""
+    return {int(r["rva"], 16): r["tu"].lower() for r in out
+            if r["kind"].startswith("code") and r["confidence"] == "approved" and r["by"] in HARD_BY and r["tu"]}
+
+
+def discordance(seq):
+    """(pairs in the opposite order, pairs) among the pairs of differing ranks in `seq`, a
+    layout's ranks in its own address order: 0 when the layout keeps .text's object order.
+    Every pair when n is small, else a fixed stride (deterministic)."""
+    n = len(seq)
+    stride = max(1, n // 60)
+    disc = tot = 0
+    for i in range(n):
+        for j in range(i + 1, n, stride):
+            if seq[j] != seq[i]:
+                tot += 1
+                disc += seq[j] < seq[i]
+    return disc, tot
+
+
+def layout_concordance(st, hard):
+    """{layout: (entries, discordant pairs, pairs)}: how far each layout keeps the object order
+    .text has, over entries whose function a hard anchor places. A TU's rank is its median
+    .text address's place among the anchored TUs."""
+    by_tu = collections.defaultdict(list)
+    for a, k in hard.items():
+        by_tu[k].append(a)
+    mid = {k: sorted(v)[len(v) // 2] for k, v in by_tu.items()}
+    rank = {k: i for i, k in enumerate(sorted(mid, key=mid.get))}
+    res = {}
+
+    def put(name, seq):
+        d, t = discordance(seq)
+        res[name] = (len(seq), d, t)
+    put(".text (hard rows)", [rank[hard[a]] for a in sorted(hard)])
+    put(".text$x funclets, by parent", [rank[hard[p]] for _, (p, _) in sorted(st.parent.items()) if p in hard])
+    ri = []
+    for a, refs in st.items.items():
+        ts = {hard[x] for x in refs if x in hard}
+        if len(ts) == 1 and all(x in hard for x in refs):
+            ri.append((a, rank[next(iter(ts))]))
+    put(".rdata items one TU's rows reference", [r for _, r in sorted(ri)])
+    vs = sorted((v + 4 * i, rank[hard[s]]) for v, slots in st.vfts for i, s in enumerate(slots) if s in hard)
+    put(".rdata vftable slots", [r for _, r in vs])
+    return res
+
+
+def initializer_runs(layout, st, hard):
+    """Dynamic initializers per hard-anchored TU. data_xrefs.tsv has no entry for an initializer's
+    own references, so each initializer's bytes are scanned for pointers into .data; it belongs
+    to a TU when every hard-anchored function referencing one of those globals is in that TU.
+    ({TU key: .CRT$XCU slot indices}, ambiguous initializers, initializers)."""
+    img = st.img
+    sizes = {a: e - a for a, e in zip(st.code.starts, st.code.ends)}
+    lo = hi = None                              # .data with its .bss tail, up to the next section
+    starts = sorted(va for _, va, _, _ in img.secs)
+    for n, va, size, _ in img.secs:
+        if n == ".data":
+            nxt = [v for v in starts if v > va]
+            lo, hi = img.base + va, img.base + (nxt[0] if nxt else va + size)
+    refs = collections.defaultdict(set)        # global -> hard TUs of the functions referencing it
+    path = layout.path("data_xrefs.tsv")
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines()[1:]:
+        f = line.split("\t")
+        if len(f) < 8 or f[1] != ".data":
+            continue
+        for c in filter(None, f[7].split(",")):
+            o = st.code.owner(int(c, 16))
+            o = st.parent[o][0] if o in st.parent else o
+            if o in hard:
+                refs[int(f[0], 16)].add(hard[o])
+    runs, ambiguous = collections.defaultdict(list), 0
+    for pos, (_, fn) in enumerate(st.inits):
+        body = img.read(fn, sizes.get(fn, 0)) or b""
+        tus = set()
+        for i in range(len(body) - 3):
+            v = struct.unpack_from("<I", body, i)[0]
+            if lo is not None and lo <= v < hi:
+                tus |= refs.get(v - img.base, set())
+        if len(tus) == 1:
+            runs[next(iter(tus))].append(pos)
+        elif len(tus) > 1:
+            ambiguous += 1
+    return dict(runs), ambiguous, len(st.inits)
+
+
+def holdout_anchors(out, st, by="F"):
+    """Leave-one-out prediction of each approved row whose `by` is BY from the other anchors (a
+    layout's own entries never anchor the row): ({signal or 'consensus': (predicted, correct)},
+    rows tested). Consensus: at least one signal reaches the row and every one names one TU."""
+    anchor, _ = anchors_of(out)
+    lay = layouts(st, anchor)
+    test = {int(r["rva"], 16): r["tu"].lower() for r in out
+            if r["kind"].startswith("code") and r["confidence"] == "approved" and r["by"] == by and r["tu"]}
+    res = collections.defaultdict(lambda: [0, 0])
+    for rva, want in test.items():
+        got = {s: p[0] for s, ly in lay.items() for p in [ly.predict(rva)] if p}
+        for s, t in got.items():
+            res[s][0] += 1
+            res[s][1] += t == want
+        if got and len(set(got.values())) == 1:
+            res["consensus"][0] += 1
+            res["consensus"][1] += next(iter(got.values())) == want
+    return {k: tuple(v) for k, v in res.items()}, len(test)
+
+
+def budget_accounting(out):
+    """Units of the map (anchored by F/Z/S/L, provisional, every TU name) and the runs of code
+    no TU holds, with bytes."""
+    code = sorted((r for r in out if r["kind"].startswith("code")), key=lambda r: int(r["rva"], 16))
+    size = collections.Counter()
+    anchored, prov, runs, cur = set(), set(), [], 0
+    for r in code:
+        n = tu_map._int(r["size"])
+        if r["confidence"] == "approved" and r["tu"]:
+            size[r["tu"].lower()] += n
+            if r["by"] in HARD_BY:
+                anchored.add(r["tu"].lower())
+            if tu_map.provisional_name(r):
+                prov.add(r["tu"].lower())
+        if r["tu"]:
+            runs += [cur] if cur else []
+            cur = 0
+        else:
+            cur += n
+    runs += [cur] if cur else []
+    prov -= anchored
+    return dict(total=sum(tu_map._int(r["size"]) for r in code), approved=sum(size.values()),
+                anchored=len(anchored), provisional=len(prov), named={r["tu"].lower() for r in code if r["tu"]}.__len__(),
+                anchored_bytes=sum(size[k] for k in anchored), prov_bytes=sum(size[k] for k in prov),
+                runs=len(runs), runs_64=sum(1 for b in runs if b >= 64))
+
+
+def global_map(layout, out, st):
+    """Facts a global segmentation of the image into objects can stand on, all read-only."""
+    hard = hard_labels(out)
+    res = {"rich": rich_budget(rich_header(st.img.data)), "budget": budget_accounting(out),
+           "concordance": layout_concordance(st, hard)}
+    res["holdout_F"], res["holdout_F_rows"] = holdout_anchors(out, st, "F")
+    runs, ambiguous, total = initializer_runs(layout, st, hard)
+    res["inits"] = dict(total=total, ambiguous=ambiguous, attributed=sum(len(v) for v in runs.values()),
+                        tus=len(runs), multi=sum(1 for v in runs.values() if len(v) > 1),
+                        contiguous_multi=sum(1 for v in runs.values() if len(v) > 1 and v[-1] - v[0] + 1 == len(v)))
+    return res
+
+
+def report_global(res):
+    rich, b = res["rich"], res["budget"]
+    print(f"Rich header: build {rich['build']}: {rich['cpp']} C++ + {rich['c']} C objects = {rich['objects']}; "
+          f"{rich['other_compiled']} compiled by other builds, {rich['other']} other (MASM, imports)")
+    print(f"Map: {b['anchored']} units a hard anchor (F/Z/S/L) places, {b['provisional']} provisional, "
+          f"{b['named']} TU names in all (approved or not); {b['runs']} runs of code with no TU "
+          f"({b['runs_64']} of at least 64 bytes)")
+    print(f"  bytes: {b['approved']}/{b['total']} approved; anchored mean "
+          f"{b['anchored_bytes'] // max(b['anchored'], 1)}, provisional mean {b['prov_bytes'] // max(b['provisional'], 1)}")
+    print("Order across layouts (entries, discordant pairs / pairs of differing TUs):")
+    for name, (n, d, t) in res["concordance"].items():
+        print(f"  {name:40s} {n:6d}  {d}/{t} = {d / t if t else 0:.4f}")
+    pred, total = res["holdout_F"], res["holdout_F_rows"]
+    print(f"Hold-out of the {total} F anchors, each predicted from the others:")
+    for s, (p, ok) in sorted(pred.items()):
+        print(f"  {s:10s} predicted {p:4d}  correct {ok:4d}  precision {ok / p:.4f}  "
+              f"Wilson95 lower {wilson_lower(ok, p):.4f}  recall {ok / total:.3f}")
+    i = res["inits"]
+    print(f"Initializers: {i['total']} `.CRT$XCU` entries; {i['attributed']} attributed to one hard TU "
+          f"({i['tus']} TUs, {i['ambiguous']} ambiguous); {i['multi']} of those TUs hold more than one, "
+          f"{i['contiguous_multi']} in consecutive slots")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     g = ap.add_mutually_exclusive_group(required=True)
+    g.add_argument("--global-map", action="store_true")
     g.add_argument("--validate", action="store_true")
     g.add_argument("--source")
     g.add_argument("--write", nargs="?", const="build/tu_evidence.csv")
@@ -868,6 +1085,9 @@ def main(argv=None):
     if st.img is None:
         print(f"tu_evidence: no retail image at {layout.image}", file=sys.stderr)
         return 2
+    if a.global_map:
+        report_global(global_map(layout, out, st))
+        return 0
     if a.validate:
         return report(validate(layout, out, st), layout, out, st)
     if a.source:
