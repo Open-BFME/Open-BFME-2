@@ -12,6 +12,13 @@ public:
 	Rva000AAD06();
 protected:
 	virtual void _0();
+	// Slots 1..4 of retail table 0x00BC9454: /OPT:ICF folded constant bodies
+	// 0x000910FB (return 1), 0x000D43D0 (return 0), 0x0047A6A9 (return this)
+	// and 0x000D43D0 again.
+	virtual int vslot1() { return 1; }
+	virtual int vslot2() { return 0; }
+	virtual Rva000AAD06 *vslot3() { return this; }
+	virtual int vslot4() { return 0; }
 private:
 	int m_04;
 	_STL::vector<BfmeE16> m_vec08;
