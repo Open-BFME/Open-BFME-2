@@ -93,7 +93,8 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
 struct MyHeroBlingBlock {~MyHeroBlingBlock();MyHeroBlingRecord *first,*last,*capacity;};
 int GetGameClientRandomValue(int,int,char *,int);
-extern "C" __declspec(dllimport) char *__cdecl strstr(const char *,const char *);
+// <string.h> (/MD => dllimport) declares strstr; the local copy is dropped.
+#include <string.h>
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
 // The Object fields the location map reads; offsets are retail's.
 class Object {public: char pad00[0x44];float field44;char pad48[0x74-0x48];int field74;char pad78[0x88-0x78];AsciiString name88;};
