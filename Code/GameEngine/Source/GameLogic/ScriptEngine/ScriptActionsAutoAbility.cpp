@@ -9,9 +9,9 @@
 #include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 class Object;
 class Module;
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Player;
-enum CommandSourceType { CMD_FROM_AI=2 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/ThingTemplate.h"
 class Thing { public: virtual ~Thing(); };

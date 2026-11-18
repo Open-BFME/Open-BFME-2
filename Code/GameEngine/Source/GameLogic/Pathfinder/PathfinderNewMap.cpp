@@ -54,10 +54,10 @@ __forceinline long fast_float2long_round(Real f)
 
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 #include "../../../Include/GameLogic/PathfindCell.h"
 typedef PathfindCell *PathfindCellP;

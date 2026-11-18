@@ -22,7 +22,7 @@ public:
  float m_radius;
  unsigned char m_pad564[8];
 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Rva00148F5ECache
 {
 public:

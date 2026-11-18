@@ -11,7 +11,7 @@
 // g_Rva0107301CEmptyString, "%s%d", caller 0x003CA855 ret 0xc.
 #include "ascii_string.h"
 #include "../../../Include/Common/ScalarTypes.h"
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Waypoint;
 class Object;

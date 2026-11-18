@@ -8,7 +8,7 @@
 // separate byte-offset products; one shared copy flips only one site.
 #include <vector>
 #include "ascii_string.h"
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum ScienceType { SCIENCE_UNKNOWN=0 };
 class Script;
 class Rva0023DAA5List {public:void clear();void*head;};
