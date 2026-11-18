@@ -187,12 +187,12 @@ private:
 	Real m_alpha; // +0x1C
 };
 
-enum WorldAnimationOptions
-{
-	WORLD_ANIM_NO_OPTIONS = 0x00000000,
-	WORLD_ANIM_FADE_ON_EXPIRE = 0x00000001,
-	WORLD_ANIM_PLAY_ONCE_AND_DESTROY = 0x00000002
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WorldAnimationOptions.h"
+
+
+
+
+
 
 struct WorldAnimationData
 {

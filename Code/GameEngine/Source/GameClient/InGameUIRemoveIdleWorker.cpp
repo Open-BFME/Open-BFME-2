@@ -51,7 +51,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 void GadgetButtonSetText(GameWindow *g, UnicodeString text);
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 
@@ -67,7 +67,7 @@ extern GameWindowManager *TheWindowManager;
 
 extern PlayerList *ThePlayerList;
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 class Drawable;
 

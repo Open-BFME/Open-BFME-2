@@ -125,7 +125,7 @@ public:
 };
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager* TheAudio;
-enum ObjectID { INVALID_ID=0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 void XferObjectID(Xfer*, ObjectID*);
 void CastleMemberBehavior::xfer(Xfer* xfer) {
  Xfer::Version v; v.loaded = 1; v.current = 1; *xfer == v;

@@ -45,18 +45,18 @@ class Object;
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 enum AIStateType
 {

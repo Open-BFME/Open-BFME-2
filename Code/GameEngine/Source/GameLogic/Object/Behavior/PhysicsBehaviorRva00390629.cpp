@@ -13,11 +13,11 @@
 // 0x003906BF sets model condition 4*32+0, sets +0x5C, copies module data +0x20
 // into +0x58 and wakes the module (setWakeFrame UPDATE_SLEEP_NONE).
 // Condition bits: Object word array at +0x10C, notifier 0x0028AE6D on change.
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 #include "../../../../Include/GameClient/ModelConditionFlags.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object

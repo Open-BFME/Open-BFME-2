@@ -27,11 +27,11 @@ public:
 	class Object *m_object; // +0x08
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 class Thing;
 class ModuleData;
@@ -47,7 +47,7 @@ unsigned words[19];
 };
 enum ObjectStatusTypes { OBJECT_STATUS_RVA_46 = 0x46 };
 enum CommandSourceType { CMD_FROM_RVA_2 = 2 };
-enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
 class AICommandInterface
 {

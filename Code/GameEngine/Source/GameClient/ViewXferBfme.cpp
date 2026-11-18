@@ -16,7 +16,7 @@
 #include "Coord2D.h"
 #include "ICoord3D.h"
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 class Snapshot;
 class AsciiString;

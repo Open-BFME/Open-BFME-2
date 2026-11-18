@@ -27,10 +27,10 @@ typedef unsigned int ObjectID;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class Weapon;
-enum LocomotorSetType
-{
-	LOCOMOTORSET_NORMAL = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:

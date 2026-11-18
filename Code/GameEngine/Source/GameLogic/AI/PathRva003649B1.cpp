@@ -7,11 +7,11 @@ typedef int Int;
 typedef float Real;
 typedef bool Bool;
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 
 struct Rva003642DFNode;
 #include "../../../Include/GameLogic/Rva003642DFResult.h"

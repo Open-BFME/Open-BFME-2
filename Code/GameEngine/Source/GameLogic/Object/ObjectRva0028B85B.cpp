@@ -9,10 +9,10 @@
 // address-derived; true method name unproven.
 // Second body reuses the same +0x254/slot15 pair, then mask at +0xC through
 // ThePlayerList::getPlayerFromMask row 0x002A7B91, returning Player+0x54.
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 struct Rva0028B85BResult
 {

@@ -21,10 +21,10 @@ class Thing;
 class ModuleData;
 class Object;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 // The canonical UpdateModule, as GettingBuiltBehaviorCtor.cpp (first in link
 // order) reads it, so both units emit the same GettingBuilt primary,

@@ -22,10 +22,10 @@ private:
 	const Rva002C9400ByteField *m_template; // +0x04
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

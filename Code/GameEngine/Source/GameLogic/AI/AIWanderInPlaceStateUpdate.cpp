@@ -53,11 +53,11 @@ int GetGameLogicRandomValue(int low, int high, char *file, int line);
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
-enum LocomotorSetType
-{
-	LOCOMOTORSET_NORMAL = 0,
-	LOCOMOTORSET_WANDER = 3
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
+
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
 public:

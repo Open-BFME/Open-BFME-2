@@ -10,7 +10,7 @@
 // spellings below describe the recovered operations, not original names.
 #include "ascii_string.h"
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Dict;
 #include "../../../Include/Common/DataChunkOutput.h"
 #include "../../../Include/GameLogic/SidesInfo.h"

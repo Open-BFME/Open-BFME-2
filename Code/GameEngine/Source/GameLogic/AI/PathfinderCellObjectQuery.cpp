@@ -75,7 +75,7 @@ public:
 #include "../../../Include/Common/Rva002E6DC4.h"
 // 0x002E6C23 is the row ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z
 // (Rva002E6C23Obstacle.cpp, WB lead PathfindCell::IsObstaclePresent).
-enum ObjectID {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 #include "../../../Include/GameLogic/PathfindCell.h"
 
 // BFME1 cf0a80c2 AIPathfind.cpp:82 supplies this clean static predicate.

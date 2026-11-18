@@ -56,10 +56,10 @@ class Snapshot;
 // The state base: only its virtual table matters to these bodies.
 #include "../../../Include/Common/StateMachine.h"
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 

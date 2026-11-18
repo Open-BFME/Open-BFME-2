@@ -37,12 +37,12 @@
 
 
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
+
+
 
 enum ObjectStatusTypes
 {
@@ -58,25 +58,25 @@ enum DisabledType
 	DISABLED_BFME_8 = 8
 };
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
 
-enum MoodMatrixAction
-{
-	MM_Action_Idle = 0
-};
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/MoodMatrixAction.h"
+
+
+
 
 enum
 {

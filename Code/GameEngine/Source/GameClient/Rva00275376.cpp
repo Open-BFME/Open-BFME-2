@@ -6,10 +6,10 @@
 // Keep the existing 2752F8 sibling on its address-derived class until named;
 // its nonvirtual base has the same verified data prefix and no pointer adjustment.
 
-enum WeaponSlotType
-{
-    PRIMARY_WEAPON = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 enum WhichTurretType
 {
     TURRET_INVALID = -1

@@ -24,7 +24,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 enum AbleToAttackType { ABLE_TO_ATTACK_TYPE_0 = 0 };
 enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0 };
-enum CommandSourceType {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 
 enum ObjectStatusTypes

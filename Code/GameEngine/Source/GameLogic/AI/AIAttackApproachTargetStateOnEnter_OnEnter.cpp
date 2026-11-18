@@ -120,10 +120,10 @@ enum KindOfType
 {
 	KINDOF_CE = 0xCE
 };
-enum MoodMatrixAction
-{
-	MM_Action_Attack = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/MoodMatrixAction.h"
+
+
+
 enum WeaponStatus
 {
 	READY_TO_FIRE = 0,
@@ -177,10 +177,10 @@ class Rva002C9B80Owner;
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

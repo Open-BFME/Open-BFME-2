@@ -39,7 +39,7 @@ static bool g_Va00DFDBC8;
 // slot view 0x0041F4E5 / 0x0054883B, vector<const ModuleData *>::push_back
 // 0x004DFCB0 and vector<void *>::erase 0x0031BD55. find's _M_find 0x002888D4
 // has its own pinned ArmorTemplate spelling.
-enum NameKeyType { NAMEKEY_INVALID = 0, NAMEKEY_MAX = 1 << 23, FORCE_NAMEKEYTYPE_LONG = 0x7fffffff };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 namespace rts { template <class T> struct hash { size_t operator()(const T &value) const { return (size_t)value; } }; }
 // rts::hash<NameKeyType>::operator() otherwise emits a per-TU COMDAT that loses to
 // another unit's copy; this explicit dllimport+forceinline specialization keeps it inline.

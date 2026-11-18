@@ -68,12 +68,12 @@ inline UnsignedInt &maskWord(unsigned char (&mask)[4])
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -166,7 +166,7 @@ struct GiantBirdObjectView { unsigned char m_pad000[0x74]; Int m_id; };
 #include "../../../../../Include/Common/Rva0023C6A4.h"
 class GameLogic;
 extern GameLogic *TheGameLogic;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Rva00355B61 { public: Bool rva003552C2(NameKeyType key); };
 class AiOrdersManager;
 extern AiOrdersManager *TheAiOrdersManager;

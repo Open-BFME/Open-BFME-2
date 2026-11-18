@@ -35,10 +35,10 @@ enum WeaponLockType
 	LOCKED_TEMPORARILY = 1
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 enum WeaponStatus
 {
@@ -52,10 +52,10 @@ enum ObjectStatusTypes
 
 struct Coord3D;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 enum ObjectPrivateStatusBits
 {

@@ -52,10 +52,10 @@ enum Relationship
 	NEUTRAL = 1,
 	ALLIES = 2
 };
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 enum WhichTurretType
 {
 	TURRET_INVALID = -1,

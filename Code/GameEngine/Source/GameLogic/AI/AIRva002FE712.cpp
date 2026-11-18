@@ -30,10 +30,10 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include <algorithm>
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
