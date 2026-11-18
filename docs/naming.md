@@ -1281,8 +1281,8 @@ The route refuses unless:
   source, no `gen-` note), is the only row at its address, and is the only row
   of the source bound to its ordinal (one initializer claimed by two rows is
   ledger cleanup first);
-- each sits exactly once in retail's table, and table order and address order
-  agree;
+- each sits exactly once in retail's table (or is an atexit callback, below),
+  and table order and address order agree;
 - the object registers exactly as many `_$E` initializers, each once, each one
   local code definition (a COMDAT registration whose copy retail kept from
   another object has no row in this source, and the counts then differ);
@@ -1296,8 +1296,19 @@ ordinal is the reason), and only the first field of its record changes. A row
 bound through `object-symbol=` keeps its name: only the ordinal in that note
 changes, and it is not tombstoned. `./build.sh` over the source
 is the byte proof; then the rebuilt object is paired again and must give every
-row the ordinal planned. An atexit callback (`_$E` with no table entry) is not
-paired by this route: a unit that rows one is refused.
+row the ordinal planned.
+
+An atexit callback (`_$E` with no table entry) pairs through the one
+initializer that registers it. Retail's initializer must hold `push <callback
+VA>; call _atexit` (`68 imm32`, then `E8 rel32` landing on the row named
+`_atexit`), in exactly one registered row of the source. The object's
+initializer paired with that row must hold `push` at the same offset, its
+operand carried by exactly one DIR32 relocation with addend 0 against a `_$E`
+STATIC code symbol the object defines once and registers nowhere; no callback
+symbol may serve two rows. The byte gate cannot stand in: it copies the pushed
+operand from retail, so callbacks of one size compile to the same bytes
+(GameWindowManagerScript.cpp's four `static AsciiString` cleanups). A callback
+no initializer, or more than one, registers is refused as before.
 
 ### `rename.py global --retype`: a rowed global's type and extent
 

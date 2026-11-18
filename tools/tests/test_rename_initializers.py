@@ -724,3 +724,141 @@ def test_an_operand_defined_in_the_object_pairs(tree, monkeypatch, tmp_path):
                       2: [(2, KEY_A, link_cycle.DIR32), (6, STR_A, link_cycle.DIR32)]}, ("_$E1", "_$E3"))
     monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
     assert plan(root).renamed_rows == [("_$E16", "_$E3", FIRST), ("_$E88", "_$E1", SECOND)]
+
+
+# ------------------------------------------------------------ atexit callbacks pair through their initializer
+#
+# GameWindowManagerScript.cpp's shape: four `static AsciiString` globals, each with a registered initializer
+# (`mov ecx,&G; call ctor; push callback; call _atexit; pop ecx; ret`, 22 bytes) and an atexit callback of 10
+# bytes that no .CRT$XCU entry names. All four callbacks have one size, so the stale-ordinal fallback cannot
+# tell them apart and the byte gate masks the pushed operand.
+
+INIT_A, INIT_B = 0x007B1000, 0x007B1020
+CALL_A, CALL_B = 0x007B7B50, 0x007B7B5A
+ATEXIT_AT, ELSEWHERE = 0x00630000, 0x00640000
+CLEAN_TABLE = [0x007B0000, INIT_A, INIT_B, POOL]
+EA, EB, FA, FB = "??__Ea@@YAXXZ", "??__Eb@@YAXXZ", "??__Fa@@YAXXZ", "??__Fb@@YAXXZ"
+THUNK = b"\xB9\x00\x00\x00\x00\xE9\x00\x00\x00\x00"
+
+
+def init_body(at=0, pushed=0, callee=ATEXIT_AT, push=b"\x68"):
+    """An initializer at `at` that pushes `pushed` and calls `callee` (object bodies leave all three zero)."""
+    rel = (callee - (at + 20)) & 0xFFFFFFFF if at else 0
+    return (b"\xB9" + b"\0" * 4 + b"\xE8" + b"\0" * 4 + push + struct.pack("<I", pushed)
+            + b"\xE8" + struct.pack("<I", rel) + b"\x59\xC3")
+
+
+def clean_rows(extra=""):
+    return functions(f"{EA},,0x{INIT_A:08X},22,{SRC},matched,object-symbol=_$E15\n"
+                     f"{EB},,0x{INIT_B:08X},22,{SRC},matched,object-symbol=_$E18\n"
+                     f"{FA},,0x{CALL_A:08X},10,{SRC},matched,object-symbol=_$E16\n"
+                     f"{FB},,0x{CALL_B:08X},10,{SRC},matched,object-symbol=_$E19\n"
+                     f"_atexit,,0x{ATEXIT_AT:08X},40,Code/crt/atexit.c,matched,\n" + extra)
+
+
+CLEAN_RETAIL = {INIT_A: init_body(INIT_A, CALL_A + rename.IMAGE_BASE), INIT_B: init_body(INIT_B, CALL_B + rename.IMAGE_BASE),
+                CALL_A: THUNK, CALL_B: THUNK}
+
+
+def clean_object(path, *, pushes=("_$E15", "_$E18"), registered=("_$E14", "_$E17"), first=None, addend=0,
+                 kind=link_cycle.DIR32, extra_relocs=()):
+    """One plain .text: initializer _$E14, callback _$E15, initializer _$E17, callback _$E18; each initializer
+    pushes the symbol `pushes` names, by one relocation at +11."""
+    first = first if first is not None else init_body(pushed=addend)
+    text = first + THUNK + init_body() + THUNK
+    symbols = [("_$E14", 1, 0, link_cycle.STATIC), ("_$E15", 1, 22, link_cycle.STATIC),
+               ("_$E17", 1, 32, link_cycle.STATIC), ("_$E18", 1, 54, link_cycle.STATIC)]
+    symbols += [(name, 0, 0, link_cycle.EXTERNAL) for name in sorted(set(pushes) - {s[0] for s in symbols})]
+    relocs = {1: [(11, pushes[0], kind), (43, pushes[1], link_cycle.DIR32), *extra_relocs],
+              2: [(4 * i, name, link_cycle.DIR32) for i, name in enumerate(registered)]}
+    sections = [(".text", CODE, text, 0), (".CRT$XCU", XCU, b"\0" * 4 * len(registered), 0)]
+    return link_cycle.write_coff(path, sections, symbols, relocs)
+
+
+def clean_tree(tree, monkeypatch, tmp_path, *, retail=None, fn=None, **object_args):
+    tree.tree_args = dict(tree.tree_args, fn=fn or clean_rows())
+    root, _obj = tree(retail=CLEAN_RETAIL if retail is None else retail, table=CLEAN_TABLE)
+    obj = clean_object(tmp_path / "clean.obj", **object_args)
+    monkeypatch.setattr(rename, "_source_object", lambda ctx, rel, current=True: obj if rel == SRC else None)
+    return root
+
+
+def test_callbacks_take_the_ordinal_their_initializer_pushes(tree, monkeypatch, tmp_path):
+    root = clean_tree(tree, monkeypatch, tmp_path)
+    result = plan(root)
+    assert result.renamed_rows == []
+    assert result.notes_rows == [(EA, INIT_A), (EB, INIT_B), (FA, CALL_A), (FB, CALL_B)]
+    fns = result.after["reverse/functions.csv"].decode()
+    for name, at, size, ordinal in ((EA, INIT_A, 22, 14), (EB, INIT_B, 22, 17), (FA, CALL_A, 10, 15), (FB, CALL_B, 10, 18)):
+        assert f"{name},,0x{at:08X},{size},{SRC},matched,object-symbol=_$E{ordinal}\n" in fns
+    assert set(result.after) == {"reverse/functions.csv"}
+
+
+def test_a_callback_pairs_by_what_is_pushed_not_by_order(tree, monkeypatch, tmp_path):
+    # the object's first initializer pushes the later callback: row FA (pushed by the first row) takes _$E18
+    root = clean_tree(tree, monkeypatch, tmp_path, pushes=("_$E18", "_$E15"))
+    fns = plan(root).after["reverse/functions.csv"].decode()
+    assert f"{FA},,0x{CALL_A:08X},10,{SRC},matched,object-symbol=_$E18\n" in fns
+    assert f"{FB},,0x{CALL_B:08X},10,{SRC},matched,object-symbol=_$E15\n" in fns
+
+
+def test_refuses_a_callback_pushed_to_another_function(tree, monkeypatch, tmp_path):
+    # retail's first initializer pushes the callback's address, but the call that follows is not _atexit
+    retail = dict(CLEAN_RETAIL)
+    retail[INIT_A] = init_body(INIT_A, CALL_A + rename.IMAGE_BASE, callee=ELSEWHERE)
+    root = clean_tree(tree, monkeypatch, tmp_path, retail=retail)
+    with pytest.raises(Refusal, match=r"\?\?__Fa@@YAXXZ \(_\$E16\) at 0x007B7B50 is no entry of retail's .CRT\$XCU "
+                                      r"table.*0 registered initializer\(s\)"):
+        plan(root)
+
+
+def test_refuses_a_callback_two_initializers_push(tree, monkeypatch, tmp_path):
+    retail = dict(CLEAN_RETAIL)
+    retail[INIT_B] = init_body(INIT_B, CALL_A + rename.IMAGE_BASE)
+    root = clean_tree(tree, monkeypatch, tmp_path, retail=retail)
+    with pytest.raises(Refusal, match=r"\?\?__Fa@@YAXXZ.*2 registered initializer\(s\)"):
+        plan(root)
+
+
+def test_refuses_an_object_initializer_with_no_push_there(tree, monkeypatch, tmp_path):
+    root = clean_tree(tree, monkeypatch, tmp_path, first=init_body(push=b"\xB8"))
+    with pytest.raises(Refusal, match=r"_\$E14 \(paired with 0x007B1000\) holds no `push imm32` at \+10"):
+        plan(root)
+
+
+def test_refuses_a_pushed_symbol_that_is_no_local_callback(tree, monkeypatch, tmp_path):
+    root = clean_tree(tree, monkeypatch, tmp_path, pushes=("?cleanup@@YAXXZ", "_$E18"))
+    with pytest.raises(Refusal, match=r"pushes \?cleanup@@YAXXZ at \+11, which is no `_\$E` STATIC code definition"):
+        plan(root)
+
+
+def test_refuses_a_pushed_callback_past_its_entry(tree, monkeypatch, tmp_path):
+    root = clean_tree(tree, monkeypatch, tmp_path, addend=4)
+    with pytest.raises(Refusal, match=r"pushes _\$E15\+0x4 at \+11, not the callback's entry"):
+        plan(root)
+
+
+def test_refuses_a_push_relocated_as_anything_but_dir32(tree, monkeypatch, tmp_path):
+    root = clean_tree(tree, monkeypatch, tmp_path, kind=link_cycle.REL32)
+    with pytest.raises(Refusal, match=r"a pushed callback takes exactly one DIR32 there"):
+        plan(root)
+
+
+def test_refuses_two_relocations_over_the_pushed_operand(tree, monkeypatch, tmp_path):
+    root = clean_tree(tree, monkeypatch, tmp_path, extra_relocs=[(13, "_$E18", link_cycle.DIR32)])
+    with pytest.raises(Refusal, match=r"has relocations at \+11, \+13 over the operand at \+11"):
+        plan(root)
+
+
+def test_refuses_one_callback_pushed_for_two_rows(tree, monkeypatch, tmp_path):
+    root = clean_tree(tree, monkeypatch, tmp_path, pushes=("_$E15", "_$E15"))
+    with pytest.raises(Refusal, match=r"_\$E15 is pushed for both \?\?__Fa@@YAXXZ and \?\?__Fb@@YAXXZ"):
+        plan(root)
+
+
+def test_refuses_a_pushed_callback_the_object_also_registers(tree, monkeypatch, tmp_path):
+    # the object registers its "callback" as an initializer too: three registrations against two table rows
+    # would refuse on the count, so the callback rows are the only two retail lists none of
+    root = clean_tree(tree, monkeypatch, tmp_path, pushes=("_$E17", "_$E18"))
+    with pytest.raises(Refusal, match=r"_\$E17 is defined 1 time\(s\) and registered 1 time\(s\) in .CRT\$XCU"):
+        plan(root)

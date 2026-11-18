@@ -14720,12 +14720,97 @@ def template_identities(ctx, path, comdat, placed, index_of):
     return pairs
 
 
+# An atexit callback (`_$E<n>` too, but no `.CRT$XCU` entry) pairs through the one initializer that
+# registers it. Retail's initializer holds `push <callback VA>; call _atexit` (68 imm32, E8 rel32 landing
+# on the row named _atexit); the object's initializer paired with that row must hold `push` at the same
+# offset, its operand carried by exactly one DIR32 relocation, addend 0, against a `_$E` STATIC code
+# symbol the object defines once and registers nowhere. The byte gate cannot stand in: it copies every
+# DIR32 operand from retail, so callbacks of one size compile to the same bytes.
+ATEXIT = "_atexit"
+
+
+def cleanup_owners(ctx, source, placed, cleanups):
+    """[(callback rva, callback row, owner rva, operand offset)]: each row of `cleanups` (a `_$E` row
+    outside retail's table) with the one registered row of `placed` whose retail body pushes its address
+    to _atexit. Refuses a row no initializer, or more than one, registers."""
+    import build
+    out = []
+    bodies = {at: build.read_target_bytes(at, int(row["target_size"])) for _index, at, row in placed}
+    for at, row in cleanups:
+        needle = b"\x68" + struct.pack("<I", (at + IMAGE_BASE) & 0xFFFFFFFF)
+        sites = []
+        for owner, code in sorted(bodies.items()):
+            found = code.find(needle)
+            while found >= 0:
+                call = found + 5
+                if call + 5 <= len(code) and code[call] == 0xE8 and ATEXIT in {
+                        r["name"] for r in ctx.rows() if _rva(r.get("target_rva")) == rel32_target(owner, code, call)}:
+                    sites.append((owner, found + 1))
+                found = code.find(needle, found + 1)
+        if len(sites) != 1:
+            raise Refusal(f"{row['name']} ({initializer_ordinal(row)}) at 0x{at:08X} is no entry of retail's "
+                          f".CRT$XCU table (an atexit callback, a misrowed body, or a registration retail did not "
+                          f"keep), and {len(sites)} registered initializer(s) of {source} push its address to "
+                          f"{ATEXIT}: a callback pairs only through the one initializer that registers it")
+        out.append((at, row, *sites[0]))
+    return out
+
+
+def cleanup_pairs(path, pairs, owners, names, defined, index_of):
+    """[(callback row, the object's name for it)]: each callback of `owners` paired with the symbol the
+    object's initializer (the one `pairs` gives the callback's owner row) pushes at the same offset."""
+    import build
+    import link_cycle
+    if not owners:
+        return []
+    data = Path(path).read_bytes()
+    sections, symbols = link_cycle.parse_coff(data)
+    stat = Path(path).stat()
+    starts = build._function_starts(str(path), stat.st_mtime_ns, stat.st_size)
+    name_at = {_rva(row["target_rva"]): name for row, name in pairs}
+    out, taken = [], {}
+    for at, row, owner, slot in owners:
+        name = name_at[owner]
+        symbol = symbols[index_of[name]]
+        section = sections[symbol.sec - 1]
+        end = min([value for value in starts.get(symbol.sec, []) if value > symbol.value] + [section.size])
+        where = f"{Path(path).name}: {name} (paired with 0x{owner:08X})"
+        if symbol.value + slot + 4 > end or data[section.ptr + symbol.value + slot - 1] != 0x68:
+            raise Refusal(f"{where} holds no `push imm32` at +{slot - 1}, where retail pushes {row['name']}")
+        touching = [(off - symbol.value, target, kind) for off, target, kind in section.relocs
+                    if off < symbol.value + slot + 4 and off + 4 > symbol.value + slot]
+        if len(touching) != 1 or touching[0][0] != slot or touching[0][2] != link_cycle.DIR32:
+            raise Refusal(f"{where} has relocations at "
+                          + (", ".join(f"{off:+d}" for off, _t, _k in touching) or "no offset")
+                          + f" over the operand at +{slot}; a pushed callback takes exactly one DIR32 there")
+        target = symbols.get(touching[0][1])
+        spelled = target.name if target is not None else f"#{touching[0][1]}"
+        if not (target is not None and ledger_io.LOCAL_STATIC.fullmatch(target.name)
+                and target.cls == link_cycle.STATIC and 0 < target.sec <= len(sections)
+                and sections[target.sec - 1].flags & CODE_SECTION):
+            raise Refusal(f"{where} pushes {spelled} at +{slot}, which is no `_$E` STATIC code definition")
+        addend = struct.unpack_from("<I", data, section.ptr + symbol.value + slot)[0]
+        if addend:
+            raise Refusal(f"{where} pushes {spelled}+0x{addend:X} at +{slot}, not the callback's entry")
+        if defined[target.name] != 1 or target.name in names:
+            raise Refusal(f"{Path(path).name}: {spelled} is defined {defined[target.name]} time(s) and registered "
+                          f"{names.count(target.name)} time(s) in .CRT$XCU: a callback is defined once and "
+                          "registered nowhere")
+        if target.name in taken:
+            raise Refusal(f"{Path(path).name}: {spelled} is pushed for both {taken[target.name]} and {row['name']}")
+        taken[target.name] = row["name"]
+        out.append((row, target.name))
+    return out
+
+
 def initializer_pairs(ctx, source, path):
     """[(row, the object's name for it)]: `source`'s `_$E` rows in retail's `.CRT$XCU` order, paired
     with the `_$E` initializers the object at `path` registers. A row is a `_$E` row when the byte gate
     reads it from a `_$E<n>` object symbol: by its own name, or through an `object-symbol=_$E<n>` note
     (initializer_ordinal). Plain registrations pair by order; COMDAT ones by exact template
-    (template_identities). Raises Refusal unless every check of the route holds."""
+    (template_identities). A row outside retail's table is an atexit callback and pairs through the
+    initializer that registers it (cleanup_owners, cleanup_pairs); those pairs follow the registered
+    ones. Raises Refusal unless every check of the route holds."""
     rows = [r for r in ctx.rows()
             if (r.get("source") or "").replace("\\", "/") == source and initializer_ordinal(r) is not None]
     if not rows:
@@ -14751,13 +14836,16 @@ def initializer_pairs(ctx, source, path):
     positions = collections.defaultdict(list)
     for index, entry in enumerate(table):
         positions[entry].append(index)
-    placed = []
+    placed, cleanups = [], []
     for row in rows:
         at = _rva(row["target_rva"])
         if at_rows[at] != 1:
             raise Refusal(f"{at_rows[at]} rows sit at 0x{at:08X} ({row['name']}): two rows at one address pair "
                           "with nothing")
         hits = positions.get(at, [])
+        if not hits:
+            cleanups.append((at, row))
+            continue
         if len(hits) != 1:
             raise Refusal(f"{row['name']} ({initializer_ordinal(row)}) at 0x{at:08X} is "
                           f"{'no entry' if not hits else f'{len(hits)} entries'} of retail's .CRT$XCU table (an atexit "
@@ -14769,6 +14857,7 @@ def initializer_pairs(ctx, source, path):
     if addresses != sorted(addresses):
         raise Refusal(f"{source}'s `_$E` rows run in a different order in retail's .CRT$XCU table than by address ("
                       + ", ".join(f"0x{at:08X}" for at in addresses) + "): the two orders must agree")
+    owners = cleanup_owners(ctx, source, placed, cleanups)
     names, defined, comdat, index_of = object_initializers(path)
     for name in names:
         if names.count(name) != 1 or defined[name] != 1:
@@ -14800,7 +14889,7 @@ def initializer_pairs(ctx, source, path):
                 raise Refusal(f"order pairs plain {name} with {row['name']} at 0x{at:08X}, but that row is not "
                               f"{name}'s template with its operands (" + ", ".join(f"0x{v:08X}" for v in found[1])
                               + "): a COMDAT match took a plain row, or the order is not retail's")
-    return pairs
+    return pairs + cleanup_pairs(path, pairs, owners, names, defined, index_of)
 
 
 def plan_initializers(ctx, source, evidence="", **_ignored):
