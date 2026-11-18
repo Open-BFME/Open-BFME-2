@@ -1,11 +1,6 @@
 // cl: /O2 /DNDEBUG /MD /EHsc
 // ?rva006C21C0@Rva006C17B0@@QAE_NIPAX@Z 0x006C21C0 118B hash insert with resize check via rowed 0x006C1920 and alloc via +0x14; after rva006C21B0 0x006C21B0; caller 0x006C39F0
-struct Rva006C17B0Node
-{
-	void *m_pad0;
-	void *m_data;
-	Rva006C17B0Node *m_next;
-};
+#include "../../Include/Common/Rva006C17B0Node.h"
 
 // Hash table whose rowed clear 0x006C21B0 is its unwind action.
 class Rva006C17B0
@@ -55,7 +50,7 @@ bool Rva006C17B0::rva006C21C0(unsigned int len, void *buf)
 	if (node) {
 		unsigned int h = (len >> 3) % m_count;
 		Rva006C17B0Node *head = ((Rva006C17B0Node **)m_array)[h];
-		node->m_pad0 = (void *)len;
+		node->m_key = (unsigned int)len;
 		node->m_data = buf;
 		node->m_next = head;
 		((Rva006C17B0Node **)m_array)[h] = node;

@@ -194,7 +194,8 @@ void Rva005F122DVector::reserve(unsigned int n)
     }
 }
 
-class Rva004EE540 { public: void rva004EE540(); };
+class Rva0052BFB5Elem;
+#include "../../../../GameEngine/Include/Common/Rva004EE540.h"
 class Rva004EE55EVector
 {
     typedef ProductionPrerequisite::PrereqUnitRec Element;

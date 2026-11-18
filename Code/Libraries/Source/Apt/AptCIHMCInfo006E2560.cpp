@@ -18,11 +18,8 @@ void __debugbreak();
 
 #include "Rva006CFCD0.h"
 
-class Rva006F7AC0List
-{
-public:
-	void rva006F7AF0(int arg);
-};
+class AptCIH;
+#include "Rva006F7AC0List.h"
 
 struct AptMCInfo
 {
