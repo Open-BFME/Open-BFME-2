@@ -201,8 +201,8 @@ public:
   int second,first;
  };
  void AddRenderObj(unsigned unused,const AsciiString &name,const StringBase<char> &mode);
- void Render(int x, int y, int width, int height);
- char unknown00[0xC];
+ virtual void Render(int x, int y, int width, int height);
+ char unknown04[8];
  AptSceneView *scene;
  CameraClass *camera;
  bool aspect;

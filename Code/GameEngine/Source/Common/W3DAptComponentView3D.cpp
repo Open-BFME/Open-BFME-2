@@ -1041,7 +1041,7 @@ Rva007401F6::Rva007401F6()
 
 // tu-skeleton: 0x007402C0 661B ?rva007402C0@W3DAptComponentView3D@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp (not merged yet)
 
-// tu-skeleton: 0x007405A9 312B ?Render@W3DAptComponentView3D@@QAEXHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
+// tu-skeleton: 0x007405A9 312B ?Render@W3DAptComponentView3D@@UAEXHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp (not merged yet)
 
 // tu-skeleton: 0x00740A96 30B ?rva00740A96@Rva00740A96@@QAEXHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp (not merged yet)
 
