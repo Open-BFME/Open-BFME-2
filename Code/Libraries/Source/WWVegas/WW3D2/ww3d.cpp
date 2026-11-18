@@ -247,7 +247,7 @@ public:
 	using DX8Wrapper::Registry_Load_Render_Device;
 };
 
-void __cdecl operator delete(void *);
+// operator delete is declared by <new> (line 90).
 
 void bfmeRva0011F340(const char *text, void *context);
 
