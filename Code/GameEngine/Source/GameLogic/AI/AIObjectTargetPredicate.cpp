@@ -6,8 +6,8 @@
 // Retail handler B790A9 names FuncInfo D21430: its sole unwind entry at
 // D21428 is {-1,B7909C}. The compiler emits this 13B guard reset beside
 // this parent, sharing its private initialization guard at DFF100.
-enum NameKeyType {NAMEKEY_INVALID=0};
-enum ObjectStatusTypes {OBJECT_STATUS_NONE=0};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 enum WeaponSlotType {WEAPON_FIRST=0};
 class Object;class Module;
 #include "../../../Include/Common/NameKeyGenerator.h"

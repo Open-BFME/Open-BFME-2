@@ -9,10 +9,10 @@
 // 0x00036410 releaseBuffer; global 0x00DF36A4 is TheNameKeyGenerator; ctor
 // zeroes 48B tail at +0x0C (12 table slots, indices 0-11 seen in callers).
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "ascii_string.h"
 

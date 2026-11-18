@@ -41,8 +41,8 @@ _String_base<char, allocator<char> >::~_String_base() { _M_deallocate_block(); }
 }
 #undef free
 // Same seven donor enum values, without unrelated PeerDefs inline bodies.
-enum GameSpyBuddyStatus { BUDDY_OFFLINE, BUDDY_ONLINE, BUDDY_LOBBY,
-    BUDDY_STAGING, BUDDY_LOADING, BUDDY_PLAYING, BUDDY_MATCHING, BUDDY_MAX };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GameSpyBuddyStatus.h"
+
 #define DEBUG_LOG(m) ((void)0)
 
 // Ghidra extent and seven native status literals establish this identity.

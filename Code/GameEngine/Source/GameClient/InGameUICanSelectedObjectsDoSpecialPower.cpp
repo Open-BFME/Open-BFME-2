@@ -35,10 +35,10 @@ class Object;
 class SpecialPowerTemplate;
 struct Coord3D;
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../GameLogic/Object/object.h"
 

@@ -104,7 +104,7 @@ Xfer *Rva000BC559Xfer(Xfer *xfer, SetInt *set)
 // XferObjectID. The Xfer slots they call are the ones modeled above.
 
 void XferLivingWorldRegionBonusRuleID(Xfer *xfer, int *value);
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 void XferObjectID(Xfer *xfer, ObjectID *value);
 
 // ?Rva002E208AXfer@@YAPAVXfer@@PAV1@PAV?$set@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@@Z @0x002E208A 196B

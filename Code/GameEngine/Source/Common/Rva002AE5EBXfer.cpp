@@ -47,10 +47,10 @@ public:
 	unsigned char m_minimum;
 };
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 void XferObjectID(Xfer *xfer, ObjectID *value);
 

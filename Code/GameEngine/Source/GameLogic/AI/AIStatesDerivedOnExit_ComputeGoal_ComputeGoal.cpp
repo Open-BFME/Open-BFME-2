@@ -130,22 +130,22 @@ extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond; // LOGICFRAMES_PER_SECOND
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
-enum PathfindLayerEnum
-{
-	LAYER_GROUND = 1
-};
-enum MoodMatrixAction
-{
-	MM_Action_Move = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/MoodMatrixAction.h"
+
+
+
 enum
 {
 	MAA_Action_To_AttackMove = 0x04
 };
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 enum KindOfType
 {
 	KINDOF_IMMOBILE = 2,

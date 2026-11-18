@@ -14,7 +14,7 @@
 
 int __cdecl Rva002E6E8AGet(int v);
 #include "../../Include/Common/PathfinderCellPoint.h"
-enum PathfindLayerEnum { LAYER_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 PathfinderCellPoint rva002E79A8(bool centerInCell, int cellX, int cellY, PathfindLayerEnum layer);
 
 struct Rva002E7ED6Info

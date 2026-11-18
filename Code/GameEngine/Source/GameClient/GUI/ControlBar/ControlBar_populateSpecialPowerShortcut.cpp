@@ -20,10 +20,10 @@ typedef bool Bool;
 
 enum { FALSE = 0, TRUE = 1 };
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 enum
 {

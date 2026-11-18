@@ -17,7 +17,7 @@ public:
  static void parseReal(INI *, void *, void *, const void *);
  char pad[8]; int loadType;
 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/Common/Overridable.h"

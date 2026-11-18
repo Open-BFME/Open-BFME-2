@@ -23,10 +23,10 @@ enum AICommandType
 	AICMD_3A = 0x3A
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

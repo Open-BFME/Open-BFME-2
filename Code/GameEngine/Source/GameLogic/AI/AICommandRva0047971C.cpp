@@ -22,10 +22,10 @@ enum AICommandType
 {
 	AICMD_0A = 0x0A
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 class Rva0035149F
 {
 public:

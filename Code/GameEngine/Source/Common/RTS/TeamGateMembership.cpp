@@ -61,7 +61,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-enum NameKeyType {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 class AsciiString;
 #include "../../../Include/Common/NameKeyGenerator.h"

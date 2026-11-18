@@ -6,10 +6,10 @@
 // caller 0x003B7951.
 extern class ScriptEngine *TheScriptEngine;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Rva00148F5ECache
 {

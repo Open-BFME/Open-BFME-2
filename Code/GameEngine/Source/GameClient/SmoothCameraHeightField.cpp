@@ -23,7 +23,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 typedef unsigned short R3HeightSample;
-enum NameKeyType {NAMEKEY_INVALID=0};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class StaticNameKey { public: NameKeyType key() const; mutable NameKeyType cached; const char*name; };
 #include "../../Include/Common/Dict.h"
 class MapObject { public: static Dict TheWorldDict; };

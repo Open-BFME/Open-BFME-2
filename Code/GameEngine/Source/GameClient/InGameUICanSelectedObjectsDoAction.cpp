@@ -19,13 +19,13 @@
 // The address-named ActionManager methods retain uncertain original names.
 // Native command accessed-prefix: options+1C, weapon slot+80; bit5 location, low3 bits object.
 struct Coord3D;
-enum WeaponSlotType { PRIMARY_WEAPON=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 #include "../../Include/GameClient/CommandButton.h"
 enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0,ATTACKRESULT_INVALID_SHOT=1,ATTACKRESULT_POSSIBLE_AFTER_MOVING=2,ATTACKRESULT_POSSIBLE=3 };
 enum AbleToAttackType { ATTACK_NEW_TARGET=0,ATTACK_NEW_TARGET_FORCED=1 };
 enum KindOfType { KINDOF_INVALID=0 };
-enum ObjectID { INVALID_ID=0 };
-enum CommandSourceType { CMD_FROM_PLAYER=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 enum CanEnterType { CHECK_CAPACITY=0,DONT_CHECK_CAPACITY=1,COMBATDROP_INTO=2 };
 enum SpecialPowerType { SPECIAL_POWER_INVALID=0 };
 class ContainModuleInterface; class ExitInterface; class SpecialPowerModuleInterface; class CapturePowerView;

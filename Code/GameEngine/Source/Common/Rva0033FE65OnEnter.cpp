@@ -9,7 +9,7 @@
 // rva00263025 plus fprintf plus GetGameLogicRandomValue. Externs
 // theLogicRandomLogFile plus g_Rva0107301CEmptyString plus g_00E01E04.
 // Layout from Rva0033FE65Ctor (State base plus m_20 m_22 m_24 m_25).
-enum StateReturnType { STATE_CONTINUE = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
 class StateMachine;
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../Include/GameClient/Drawable.h"

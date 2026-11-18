@@ -25,7 +25,7 @@ extern GameLogic*TheGameLogic;
 // Existing data-ledger owner of the mutable FPS integer, RVA009BA4E8.
 extern int BfmeClientFramesPerSecond;
 extern "C" FILE*theLogicRandomLogFile;
-enum UpdateSleepTime {UPDATE_SLEEP_NONE=1};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class CastleObjectModule {public:virtual ~CastleObjectModule();CastleData*data;Object*object;};
 #include "../../../../Include/Common/CastleBehaviorInterface.h"
 class CastleBehavior:public CastleObjectModule,public CastleBehaviorInterface,public UpdateModuleInterface {public:virtual UpdateSleepTime update();void rva00398E9A();bool checkForInstantUnPack();bool checkForAutoPack();void initiatePack();void rva00398BC7();void teleportStragglersFromWallToGround(bool);Object*getObject()const{return object;}void rva0039A7D6();void rva00397D0A(bool);void rva00397B03(ObjectStatusTypes,bool);
@@ -33,7 +33,7 @@ class CastleBehavior:public CastleObjectModule,public CastleBehaviorInterface,pu
  _STL::vector<ObjectID>owned50,owned5C,owned68,owned74;char pad80[0x20];Rva00395CEB mapA0;
 };
 #include "../../../../Include/GameLogic/Module/Rva00397E50.h"
-enum NameKeyType{NAMEKEY_INVALID=0};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 #include "../../../../Include/Common/PlayerList.h"

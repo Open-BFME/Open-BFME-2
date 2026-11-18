@@ -26,12 +26,12 @@
 typedef UnsignedInt StateID;
 typedef UnsignedInt TeamID;
 #include "../../Common/GameLogicObjectLookupView.h"
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
+
+
 enum GuardTargetType
 {
 	GUARDTARGET_LOCATION = 0,
@@ -44,11 +44,11 @@ enum GuardMode
 {
 	GUARDMODE_NORMAL = 0
 };
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class Team;

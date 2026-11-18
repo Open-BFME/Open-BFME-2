@@ -25,10 +25,10 @@ namespace _STL { template <> void allocator<Object *>::deallocate(Object **, siz
 class Object;
 namespace _STL { template <> _Vector_base<Object *, allocator<Object *> >::~_Vector_base(); }
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 // Bind allocator<ObjectID>::deallocate to the kept retail copy.
 namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t) const; }
 // Likewise the ObjectID vector's destructors (called only by the implicit

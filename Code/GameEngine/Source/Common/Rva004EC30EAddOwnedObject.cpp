@@ -9,10 +9,10 @@
 // kept address-derived; the more specific add-on-ownership interpretation is
 // supported by the new-owner call path but remains an inference.
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 #include "../../Include/Common/ThingTemplate.h"
 

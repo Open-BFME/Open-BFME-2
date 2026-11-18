@@ -5,10 +5,10 @@
 // plus rowed Dict getInt at 0x003131CA. First hit writes +0x280 and +0x284
 // second hit overwrites +0x284 with alpha 0xFF000000 ORed. Caller 0x002AFCDF.
 // Evidence: retail calls rowed get 0x00148F5E twice and rowed getInt twice.
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Rva00148F5ECache
 {
