@@ -3,10 +3,10 @@
 // TU-local member dtor for the +0x3AC field of the 0x0033DDA1 teardown. The
 // body runs the rowed LocomotorSetType tree clear 0x0026DEE4 on this, then
 // the inline CRT buffer member at +0 (the tree header) frees its block.
-enum LocomotorSetType
-{
-	LOCOMOTORSET_INVALID = -1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
 class LocomotorTemplate;
 
 namespace _STL

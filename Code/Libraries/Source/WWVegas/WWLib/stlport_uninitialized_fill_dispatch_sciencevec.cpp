@@ -7,7 +7,7 @@
 // Algorithm and dispatch type are from STLport 4.5.3 at BFME 1 revision c1bb9ed9.
 #include <memory>
 #include <vector>
-enum ScienceType {SCIENCE_INVALID=-1};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 // Native scalar-vector cleanup uses the rowed game-memory free wrapper.
 // Keep the first compatible ScienceType destructor's allocator identity.
 void __cdecl Rva00030830GameFree(void *);

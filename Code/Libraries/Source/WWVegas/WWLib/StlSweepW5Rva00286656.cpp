@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <map>
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::_Rb_tree<ObjectID, _STL::pair<ObjectID const, int>, _STL::_Select1st<_STL::pair<ObjectID const, int> >, _STL::less<ObjectID>, _STL::allocator<_STL::pair<ObjectID const, int> > >::clear(void);

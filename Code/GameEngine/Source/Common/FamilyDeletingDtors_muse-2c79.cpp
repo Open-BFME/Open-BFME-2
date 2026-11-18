@@ -10,7 +10,7 @@ struct EmitVtableTag;
 // with the string at 0x20. Match their inheritance when emitting tables.
 class Thing;
 class ModuleData;
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 
 #include "ascii_string.h"

@@ -78,7 +78,7 @@ namespace _STL {
 template<> list<Snapshot *>::iterator list<Snapshot *>::erase(iterator);
 }
 
-enum LocomotorSetType { LOCOMOTORSET_INVALID = -1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
 class LocomotorTemplate;
 typedef _STL::pair<const LocomotorSetType, _STL::vector<const LocomotorTemplate *> > Rva002ADC03Pair;
 struct Rva002ADC03Ref { int m_value; };

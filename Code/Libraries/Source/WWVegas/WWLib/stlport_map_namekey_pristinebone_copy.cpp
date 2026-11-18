@@ -9,11 +9,11 @@
 // rowed NameKeyType->ModuleTemplate 0x004136B4 and int-int 0x002CF6CF copies.
 #include <map>
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 struct PristineBoneInfo
 {

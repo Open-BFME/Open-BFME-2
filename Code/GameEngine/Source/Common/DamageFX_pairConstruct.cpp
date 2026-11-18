@@ -17,11 +17,11 @@
 #include <utility>
 #include <stl/_construct.h>
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 #include "../../Include/Common/DamageFXClass.h"
 

@@ -21,8 +21,8 @@
 
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
 
-enum ObjectID {};
-enum DrawableID {};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
 
 union GameMessageArgumentType
 {

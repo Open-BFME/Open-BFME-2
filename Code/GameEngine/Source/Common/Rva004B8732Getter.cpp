@@ -112,10 +112,10 @@ struct XB00 { virtual void f00(); const XModuleData *m_data; Object *m_object; }
 struct XB0C { virtual void f0C(); };
 // UpdateModuleInterface::update's return type (UpdateModule.h): an int-sized
 // enum, returned in eax like an int.
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 struct XB10 { virtual UpdateSleepTime update() = 0; unsigned char m_pad[12]; };
 class XIface20 { public: virtual AsciiString rva004B8851() const = 0; };
 class SpawnUnitBehavior : public XB00, public XB0C, public XB10, public XIface20

@@ -33,10 +33,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "unicode_string.h"
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 // Native scalar-vector cleanup uses the rowed game-memory free wrapper.
 // Keep the first compatible ScienceType destructor's allocator identity.
 void __cdecl Rva00030830GameFree(void *);
@@ -46,10 +46,10 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 }
 
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 enum
 {

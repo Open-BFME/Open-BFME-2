@@ -11,7 +11,7 @@
 #include <vector>
 // The vectors hold ObjectIDs: the key is read from Object+0x74 (the object's ID), and
 // retail's erase 0x0025BF5D is the enum (false_type) vector<ObjectID>::erase row.
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 class AIStatBase
 {
 public:

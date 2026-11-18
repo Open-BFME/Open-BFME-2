@@ -23,8 +23,8 @@ typedef bool Bool;
 #include "ascii_string.h"
 #include <list>
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
-enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 enum KindOfType { KINDOF_INVALID = -1 };
 enum Relationship { REL_ENEMIES = 0, REL_NEUTRAL = 1, REL_ALLIES = 2 };
 

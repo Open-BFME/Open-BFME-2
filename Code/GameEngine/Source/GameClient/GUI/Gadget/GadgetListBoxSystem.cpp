@@ -46,7 +46,7 @@ extern "C" void _ReadWriteBarrier();
 
 typedef UnsignedInt WindowMsgData;
 
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 
 enum
 {

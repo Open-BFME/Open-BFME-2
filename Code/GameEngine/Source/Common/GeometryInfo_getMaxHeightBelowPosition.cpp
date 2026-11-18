@@ -6,12 +6,12 @@ inline const Real &bfmeMax(const Real &a, const Real &b)
 	return (a > b) ? a : b;
 }
 
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0,
-	GEOMETRY_CYLINDER,
-	GEOMETRY_BOX
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GeometryType.h"
+
+
+
+
+
 
 class GeometryInfo
 {

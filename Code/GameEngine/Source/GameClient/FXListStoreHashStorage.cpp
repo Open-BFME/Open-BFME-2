@@ -7,7 +7,7 @@
 #include <vector>
 // Only the existing clear provider's decoration is reused. It touches the
 // bucket array, node links and element count, with no mapped-value destructor.
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class ArmorTemplate;
 namespace rts { template<class T> struct hash; }
 namespace _STL {

@@ -20,7 +20,7 @@ struct Rva00539997Sub
 	int m_FC;
 };
 
-enum CBCommandStatus { CBC_COMMAND_NOT_USED = 0, CBC_COMMAND_USED = 1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/CBCommandStatus.h"
 enum GadgetGameMessage { GGM_NONE = 0 };
 class GameWindow;
 class ControlBar

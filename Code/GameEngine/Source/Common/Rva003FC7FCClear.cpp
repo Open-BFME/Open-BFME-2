@@ -4,10 +4,10 @@
 // destroy by ID via TheParticleSystemManager then dtor handle and clear
 // both to 0. Callees rowed handle dtor 0x0004CBC0 plus pinned destroy
 // 0x001F5B79. Callers 0x002118C2 and 0x003FCD71. Owner unproven.
-enum ParticleSystemID
-{
-	INVALID_PARTICLE_SYSTEM_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
+
+
+
 #include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 #include "../../Include/GameClient/BfmeParticleSystemHandle.h"

@@ -7,7 +7,7 @@
 class ModuleData;
 namespace _STL { template<> void vector<const ModuleData *>::push_back(const ModuleData *const &); }
 class Xfer;
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 void XferObjectID(Xfer *, ObjectID *);
 struct Rva002AE71DVersion {
 	Rva002AE71DVersion() : value(1), limit(1) {}
