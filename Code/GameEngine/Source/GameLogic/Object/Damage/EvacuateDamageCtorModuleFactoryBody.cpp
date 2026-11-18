@@ -9,6 +9,8 @@
 
 class Thing;
 class ModuleData;
+// The rowed EvacuateDamage::onDamage (0x004BAF55) spells its argument as a struct.
+struct DamageInfo;
 
 #include "../../../../Include/Common/PB_Iface1.h"
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DamageModule.h
@@ -23,6 +25,13 @@ class EvacuateDamage : public DamageModule
 {
 public:
     EvacuateDamage(Thing *, const ModuleData *);
+    // The class's virtual list as EvacuateDamage.cpp declares it, so both units emit
+    // the same three tables (retail 0x00C59E2C: xfer at slot 3, getModuleNameKey at 4).
+    virtual NameKeyType getModuleNameKey() const;
+    virtual void onDamage(DamageInfo *damageInfo);
+protected:
+    virtual void xfer(Xfer *xfer);
+    virtual ~EvacuateDamage();
 
 private:
     std::list<EvacuationRecord> m_pendingEvacuations;

@@ -70,20 +70,9 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-#include "../../../../Include/Common/PB_Iface1.h"
-
-class EvacuateDamageInterface { public: virtual void slot() = 0; };
-
-// The target's three-vptr base is only address-identified at 0x004B96CC.
-class Rva004B96CC : public ObjectModule,
-                     public PB_Iface1,
-                     public EvacuateDamageInterface
-{
-public:
-	virtual ~Rva004B96CC();
-};
-
-typedef Rva004B96CC DamageModule;
+// The three-vptr base whose destructor is 0x004B96CC is DamageModule (rowed
+// ??1DamageModule@@UAE@XZ there): BehaviorModule at +0 and +0x0C, DamageModuleInterface at +0x10.
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
 class EvacuateDamageModuleData : public ModuleData
 {
@@ -130,6 +119,8 @@ class EvacuateDamage : public DamageModule
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	// DamageModuleInterface slot 0: rowed 0x004BAF55 (EvacuateDamageRva004BAF55.cpp).
+	virtual void onDamage(DamageInfo *damageInfo);
 protected:
 	virtual void xfer(Xfer *xfer);
 protected:
