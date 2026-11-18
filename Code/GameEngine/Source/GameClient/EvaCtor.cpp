@@ -129,8 +129,10 @@ public:
 	virtual const char *GetSnapshotName() const;
 
 protected:
-	virtual void xfer(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
+	// Snapshot table 0x00BDC5A8: slot 3 is the rowed xfer 0x001DD031, slot 1 the
+	// shared empty body 0x000B3FD0 (defined below).
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
 
 private:
 	_STL::map<int, Rva001DDBC6Record> m_10;					// +0x10
@@ -162,7 +164,8 @@ Eva::Eva()
 	}
 }
 
-// ?Eva::loadPostProcess present-unmatched
+// ?loadPostProcess@Eva@@MAEXXZ, retail 0x000B3FD0 (the shared 1-byte ret): slot 1
+// of the snapshot table 0x00BDC5A8.
 void Eva::loadPostProcess()
 {
 }

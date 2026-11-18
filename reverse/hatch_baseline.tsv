@@ -3493,7 +3493,6 @@ class_gate_allow	Code/GameEngine/Source/Common/parseAutoResolveBodyDefinition.cp
 class_gate_allow	Code/GameEngine/Source/Common/parseAutoResolveBodyDefinition.cpp	Rva00418A12Node	1
 class_gate_allow	Code/GameEngine/Source/Common/parseAutoResolveBodyDefinition.cpp	Rva00418A12Result	1
 class_gate_allow	Code/GameEngine/Source/Common/parseAutoResolveBodyDefinition.cpp	Rva00418A8EHost	1
-class_gate_allow	Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp	ControlBarSchemeManager	1
 class_gate_allow	Code/GameEngine/Source/GameClient/MapUtil_ParseObjectsDataChunk_Thunk_Rva00302b06.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp	ICoord2D	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp	GameLogic	1
@@ -10278,7 +10277,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/CameraMarkerListFind.cpp	rem
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	Range::Range	1
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp	1BeaconClientUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp	1BeaconClientUpdateModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/EvaCtor.cpp	Eva::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXList@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	1FXListStore@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/FXList.cpp	doFXObj@FXNugget@@	1

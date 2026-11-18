@@ -111,6 +111,8 @@ class Eva : public SubsystemInterface, public SnapBase
 {
 public:
 	virtual ~Eva();
+	// retail slot 2: the rowed ?GetSnapshotName@Eva@@UBEPBDXZ
+	virtual const char *GetSnapshotName() const;
 private:
 	Rva001DD70F m_tree10;
 	char m_pad18[0x1C - 0x10 - sizeof(Rva001DD70F)];
@@ -124,6 +126,8 @@ private:
 protected:
 	// retail slot 3: the rowed ?xfer@Eva@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
+	// retail slot 1: the shared empty body 0x000B3FD0, defined and rowed in EvaCtor.cpp
+	virtual void loadPostProcess();
 };
 
 Eva::~Eva()
