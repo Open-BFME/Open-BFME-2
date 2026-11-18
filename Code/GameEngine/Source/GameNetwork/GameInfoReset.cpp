@@ -46,21 +46,38 @@ public:
 
 #include "../../Include/Common/EmptyBase.h"
 
+class Xfer;
+class Image;
+
 class GameInfo : public EmptyBase
 {
 public:
 	GameInfo();
 	virtual ~GameInfo();
-	virtual void bfmeVtSlot1() = 0;
-	virtual void bfmeVtSlot2() = 0;
-	virtual void bfmeVtSlot3() = 0;
-	virtual void bfmeVtSlot4() = 0;
-	virtual void bfmeVtSlot5() = 0;
-	virtual void bfmeVtSlot6() = 0;
-	virtual void bfmeVtSlot7() = 0;
-	virtual void bfmeVtSlot8() = 0;
-	virtual void bfmeVtSlot9() = 0;
+	// Retail table 0x00C193C8 (23 slots), spelled as Include/GameNetwork/GameInfo.h
+	// spells them, so every unit's copy of the table names the same functions.
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
+	virtual void *vslot04();
+	virtual void *vslot05();
+	virtual const Image *rva00401015(int);
+	virtual int vslot07();
+	virtual int vslot08();
+	virtual int vslot09();
 	virtual void reset(); // slot 10
+	virtual void startGame(int gameID);
+	virtual bool amIHost() const;
+	virtual int getLocalSlotNum() const;
+	virtual void resetAccepted();
+	virtual void resetStartSpots();
+	virtual void adjustSlotsForMap();
+	virtual void closeOpenSlots();
+	virtual bool isSkirmish();
+	virtual bool isMultiPlayer();
+	virtual bool isSandbox();
+	virtual void *vslot21();
+	virtual UnicodeString vslot22() const;
 private:
 	UnicodeString m_04;
 	Int m_08;
