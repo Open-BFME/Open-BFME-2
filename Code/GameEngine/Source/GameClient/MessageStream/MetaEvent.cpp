@@ -63,6 +63,11 @@ class MetaMap : public SubsystemInterface
 public:
 	MetaMap();
 	virtual ~MetaMap();
+	// Retail's slots 1, 9 and 10 (vtable 0x00BDBA7C) are the shared empty body
+	// at 0x000B3FD0: Zero Hour's MetaMap declares all three as `{ }`.
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 	void *rva001DB66A(unsigned int flags);
 	const MetaMapRec *getFirstMetaMapRec() const { return m_metaMaps; }
 	static void parseMetaMap(INI *ini);
