@@ -58,11 +58,11 @@ struct Rva004DF207Outer;
 
 #include "../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
 
 #include "../../../Include/Common/PlayerList.h"
 

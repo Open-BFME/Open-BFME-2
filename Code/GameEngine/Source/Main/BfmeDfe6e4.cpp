@@ -20,7 +20,7 @@ private:
 	CRITICAL_SECTION &m_section;
 };
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../../Libraries/Source/WWVegas/WWLib/mutex.h"
 

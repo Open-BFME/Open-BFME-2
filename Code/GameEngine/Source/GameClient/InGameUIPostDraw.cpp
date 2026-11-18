@@ -20,11 +20,11 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/Libraries/Include/Lib/ICoord2D.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 typedef int Color;
 
 extern "C" __declspec(dllimport) double __cdecl floor(double);

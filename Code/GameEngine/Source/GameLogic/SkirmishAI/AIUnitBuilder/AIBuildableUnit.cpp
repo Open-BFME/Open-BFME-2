@@ -4,9 +4,9 @@
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include <windows.h>
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum CanMakeType { CANMAKE_OK = 0, CANMAKE_NO_PREREQ, CANMAKE_NO_MONEY, CANMAKE_FACTORY_IS_DISABLED, CANMAKE_QUEUE_FULL };
 class Player;
 #include "../../../../Include/Common/ThingTemplate.h"
@@ -88,7 +88,7 @@ private:
 	AsciiString m_3C;				// +0x3C, destroyed by ~Rva005DAC85
 	Int m_40;					// +0x40
 };
-typedef unsigned int UnsignedInt;
+
 // 0x0057BC25: tail call of the rowed 0x0057BAC4 on this object.
 // Slot 8 of StrategicHUD::SelectionDetailsUIImpl's vftable 0x00C6F26C (its
 // rowed ctor and dtor install it): virtual.

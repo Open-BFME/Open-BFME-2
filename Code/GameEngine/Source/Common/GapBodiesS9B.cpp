@@ -6,7 +6,7 @@
 // out-of-line copies); the embedding classes are not recovered, so each view
 // is address-named and reaches its owner by the proven offset.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 enum WeaponSlotType { PRIMARY_WEAPON = 0 };
 enum ObjectID { INVALID_ID = 0 };
 struct LivingWorldArmy;

@@ -34,7 +34,7 @@
 #include "ascii_string.h"
 #include <vector>
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Shadow
 {

@@ -170,8 +170,8 @@ private:
 // its body touches; the comment above each gives the .rdata slot address(es)
 // that reference it. Meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 // slot at VA 0x00BCEEA8: raises five flag bytes deep inside the object.
 // slots 3 and 5 of the vtable at VA 0x00BCF7FC (slot 0 is the rowed
 // ??_GRva00104DB0Base): the first adds the extents of the rectangle given by

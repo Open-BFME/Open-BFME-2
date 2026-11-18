@@ -32,8 +32,8 @@ inline BfmeObjectIdPoolAllocator<U> __stl_alloc_create(const BfmeObjectIdPoolAll
 }
 #include "ascii_string.h"
 
-typedef float Real;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 enum ObjectID { INVALID_ID = 0 };

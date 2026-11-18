@@ -27,10 +27,10 @@
 #include "Coord3D.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();

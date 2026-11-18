@@ -13,8 +13,8 @@ struct _iobuf;
 #include <stdio.h>
 #undef _CRTIMP
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Object;
 class Weapon;

@@ -52,10 +52,10 @@
 // (+0x19 records it); at the end frame it is released through slot +0x108
 // with !(+0x18). The audio slot names are not established.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef int Color;
 
 #ifndef NULL

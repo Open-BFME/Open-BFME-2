@@ -21,8 +21,8 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 
 class GameWindow;
 class Rva0043DA65;

@@ -42,9 +42,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #define CREATE_CRATE_DIE_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Die\\CreateCrateDie.cpp"
 

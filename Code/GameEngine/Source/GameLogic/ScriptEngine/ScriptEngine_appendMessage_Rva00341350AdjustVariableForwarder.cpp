@@ -76,8 +76,8 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // The shared empty string retail substitutes for a null buffer.
 

@@ -10,13 +10,13 @@
 #define KEY_STATE_CAPSLOCK 0x0200
 #include "DirectInputKeyboardFormat.h"
 
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef unsigned char UnsignedByte;
 
-typedef unsigned short UnsignedShort;
 
-typedef unsigned int UnsignedInt;
+
+
+
 
 struct DIDEVICEOBJECTDATA
 {

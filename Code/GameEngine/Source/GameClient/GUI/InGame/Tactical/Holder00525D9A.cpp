@@ -5,8 +5,8 @@
 #include <list>
 #pragma inline_depth(0)
 #pragma inline_depth()
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 #include "../../../../Common/GameLogicObjectLookupView.h"
 //
 // Listener-list walks around 0x005253A0.  Each list's forEach packs a vcall
@@ -76,7 +76,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-typedef int Int;
+
 class CommandButton;
 class GameWindow;
 struct BfmeMsgDN;

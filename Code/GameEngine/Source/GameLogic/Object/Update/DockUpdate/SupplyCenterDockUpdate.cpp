@@ -4,7 +4,7 @@ enum NameKeyType { NK_UNKNOWN = 0 };
 #include "Code/GameEngine/Include/Common/ObjectModule.h"
 #include "reference/shims/bfme2_ascii/unicode_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 enum ScienceType { SCIENCE_INVALID = -1 };
 class Rva0039B7AD;

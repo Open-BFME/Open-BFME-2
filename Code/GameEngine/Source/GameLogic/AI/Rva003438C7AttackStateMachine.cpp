@@ -12,8 +12,8 @@
 // read from the retail call sequence (Zero Hour's defineState pattern).
 #include <windows.h>
 #include "Code/Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;

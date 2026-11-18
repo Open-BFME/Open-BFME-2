@@ -42,7 +42,7 @@ extern const char g_Rva0107301CEmptyString[];
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef unsigned short WideChar;
 
 enum { MAX_BUDDY_CHAT_LEN = 0x80 };

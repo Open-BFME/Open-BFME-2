@@ -47,7 +47,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
 class GameWindow;
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);

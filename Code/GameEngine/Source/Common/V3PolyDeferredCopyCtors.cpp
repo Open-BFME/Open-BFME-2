@@ -4,8 +4,8 @@
 // 0x005CB243, 0x005DA663), so the views define them inline and empty.
 // Partitioned intact from V3PolyCopyCtors.cpp so independent owners can link.
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 #include <new.h>
 #include "../../Include/Common/Rva0028C6D6.h"
 

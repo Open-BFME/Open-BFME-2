@@ -16,9 +16,9 @@
 // masked-word accessors around the pinned notifier 0x0028AE6D; the no-attack
 // status goes through the matched Object::setStatus(type, bool) (status 5).
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0

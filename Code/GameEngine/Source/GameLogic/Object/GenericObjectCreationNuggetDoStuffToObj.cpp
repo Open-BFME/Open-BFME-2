@@ -26,9 +26,9 @@
 // 1/2/4/8 at VA 0x00DFDCF4); their reset funclets 0x0076B1DF/20F/21C/229 are
 // this parent's unwind actions.
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class Object;
 class Player;

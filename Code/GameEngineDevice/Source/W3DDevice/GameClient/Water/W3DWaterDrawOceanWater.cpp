@@ -41,9 +41,9 @@ namespace _STL {
  { return a._M_node != b._M_node; }
 }
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class RefCountClass
 {

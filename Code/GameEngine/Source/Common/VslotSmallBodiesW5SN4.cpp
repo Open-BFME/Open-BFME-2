@@ -8,7 +8,7 @@
 // argument count its ret shows. Classes are address-derived and model only
 // the member.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x0057845C is rowed as the virtual AptRadialMenu::Impl::Show; called directly.
 class AptRadialMenu { public: class Impl; };

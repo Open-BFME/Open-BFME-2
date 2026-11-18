@@ -89,7 +89,7 @@ void Rva005962E7::rva005962E7()
 // Check 0x004884B7 rowed; base 0x0025C061 rowed; element 0x003ECB52 rowed;
 // vector push_back 0x002E01C6 rowed; callers at 0x004E024A unclaimed;
 // prev 0x005962E7 step next 0x00596366 ctor prove Common owner.
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 Int __stdcall Rva005960FFGet(void *arg);
 bool __cdecl rva004884B7(Object *obj);
 enum ScienceType

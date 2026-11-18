@@ -12,8 +12,8 @@
 // MilesAudioManager +0xBE8 one; TheAudio is VA 0x00DFE6E8. Method names stay
 // address derived: the bytes prove the hops, offsets and argument counts only.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include <new>
 #include <d3d9.h>

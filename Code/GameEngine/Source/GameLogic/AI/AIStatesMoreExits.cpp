@@ -43,9 +43,9 @@
 // only from its vtable slot.
 // The sub-machines are deleted with a global-scope delete (vslot 0 with flag
 // 0, then ::operator delete).
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 typedef UnsignedInt StateID;
 // platformsdk
 #include <windows.h>

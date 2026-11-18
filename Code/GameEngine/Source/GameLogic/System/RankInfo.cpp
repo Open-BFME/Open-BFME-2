@@ -25,7 +25,7 @@ template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return _M_finish; }
 }
 // Use the same proven twelve-byte subsystem base as the constructor.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "subsystem_interface.h"
 
 class Rva002000D7Store
@@ -51,7 +51,7 @@ private:
 // trivial StringBase does not change; the inline string dtor here emits the
 // releaseBuffer call and the inline vector dtor emits the test-free.
 
-typedef int Int;
+
 
 #include <stdlib.h>
 

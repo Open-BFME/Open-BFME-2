@@ -41,12 +41,12 @@
 #include <mmsystem.h>
 #include <string.h>
 
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef UnsignedInt WindowMsgData;
-typedef unsigned char UnsignedByte;
+
 typedef unsigned short WideChar;
 
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };

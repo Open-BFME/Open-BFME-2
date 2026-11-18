@@ -37,8 +37,8 @@ extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")
 // Bodies: the Zero Hour ExperienceScalarUpgrade.cpp body adding the module data scalar
 // (+0x118) to the experience tracker's scalar (Object+0x264, tracker +0x1C);
 // the removal subtracts it.
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 #include "../object.h"
 class ModuleData;

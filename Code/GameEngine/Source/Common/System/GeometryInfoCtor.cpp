@@ -27,8 +27,8 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 
 extern "C" float INV;
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum GeometryType
 {

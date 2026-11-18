@@ -88,9 +88,9 @@ struct CondStore
 // with a positive duration in seconds (+0x1B4), sets it for that many logic
 // frames (frame rate BfmeLogicFramesPerSecond). The module data view below
 // models only the fields the body reads.
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 #include "../../../../Include/GameClient/ModelConditionFlags.h"
 enum ModelConditionFlagType
 {

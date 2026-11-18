@@ -2,9 +2,9 @@
 #include "ascii_string.h"
 // BFME1 donor 0bef414b52a39a3ab1ec98dca60d8a214de4260e; native BFME2 7EF35..7F0F9.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 // BFME2 owns six 0x7C-byte WaterSetting records at VA 0x00DFF1A0.
 // The configuration view below preserves every field offset read by retail.

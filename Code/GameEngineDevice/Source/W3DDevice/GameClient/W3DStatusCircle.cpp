@@ -9,9 +9,9 @@
 // dxsdk
 // platformsdk
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 class RenderInfoClass;
 class IndexBufferClass;
 class VertexBufferClass;

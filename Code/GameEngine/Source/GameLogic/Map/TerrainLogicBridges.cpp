@@ -40,9 +40,9 @@
 #include "Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include <math.h>
 #include <stddef.h>

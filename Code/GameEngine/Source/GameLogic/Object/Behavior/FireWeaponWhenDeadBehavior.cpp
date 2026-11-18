@@ -17,10 +17,10 @@
 // initially-active flag (+0x118) is set. BFME 2 adds the +0xA8 count: the
 // module data's +0x11C count clamped to at least 1 when it is positive.
 // The module sleeps forever.
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 enum NameKeyType
 {
 	NK_UNKNOWN = 0

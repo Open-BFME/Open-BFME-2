@@ -17,8 +17,8 @@
 #include "ascii_string.h"
 #include <vector>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum NameKeyType
 {

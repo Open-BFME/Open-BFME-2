@@ -18,10 +18,10 @@
 #include "unicode_string.h"
 #include <stdlib.h>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 // Retail calls the game format-and-append helper at 0x002CEC42,
 // matching the non-dllimport <stdio.h> declaration here.

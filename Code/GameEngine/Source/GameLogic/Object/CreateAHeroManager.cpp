@@ -7,11 +7,11 @@
 #include <vector>
 #include <map>
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
 
-typedef bool Bool;
+
+
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 

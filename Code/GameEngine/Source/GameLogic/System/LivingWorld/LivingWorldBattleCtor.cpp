@@ -24,8 +24,8 @@
 #define BFME_SNAPSHOT_CONSTRUCTOR_ONLY
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 // The +8 list base: rowed out-of-line ctor at 0x00330757 (vector plus an
 // int defaulted to -1).

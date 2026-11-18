@@ -44,9 +44,9 @@ class CountermeasuresBehaviorInterface;
 #include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 #include <string.h>
 #include "Common/BfmeAudioEventPrefix136.h"
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 #define CRUSHDIE_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Die\\CrushDie.cpp"
 Int GetGameLogicRandomValue( Int lo, Int hi, char *file, Int line );
 #include "../../../Common/GameLogicObjectLookupView.h"

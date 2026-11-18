@@ -14,9 +14,9 @@
 #include <map>
 namespace _STL { template<class T,class L,class R> static inline bool operator!=(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b){return a._M_node!=b._M_node;} }
 
-typedef int Int;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "ascii_string.h"
 

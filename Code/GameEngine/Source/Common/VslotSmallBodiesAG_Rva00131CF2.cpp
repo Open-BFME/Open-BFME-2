@@ -11,8 +11,8 @@
 // bytes). As in VslotSmallBodiesA-AF, classes and methods are
 // address-derived and model only what each body touches.
 
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // 0x00131CF2 and 0x00151415 (texture tables): true when the +0x14 object's
 // +0x08 (resp. +0x04) is set, else the rowed 0x00130FCE on this object.

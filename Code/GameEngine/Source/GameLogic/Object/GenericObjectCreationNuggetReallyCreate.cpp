@@ -36,10 +36,10 @@
 #include "../../Common/PartitionRangeQueryCallView.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 class Object;
 class Team;
