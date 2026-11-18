@@ -25,7 +25,7 @@ public:
     void CreateTexture(int a, int b, int c, int d, int e, int f, int g) throw();
 };
 
-void *__cdecl operator new(unsigned int size) throw();
+#include <new>
 
 class Rva00131BE5 : public GenBase009EB7D0
 {
