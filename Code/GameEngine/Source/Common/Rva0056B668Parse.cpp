@@ -38,10 +38,7 @@ private:
 	unsigned char m_showOnlyAfterMoveOrder;
 };
 
-struct Rva004DFCB0Element
-{
-	const ModuleData *module;
-};
+#include "../../Include/Common/Rva004DFCB0Element.h"
 
 int Rva0056B7DEGet(void);
 
@@ -66,10 +63,10 @@ void Rva0056B668Parse(INI *ini, void *instance, void *store, const void *userDat
 	if (ini->m_loadType == 5)
 		throw INIException(8, "Reload of LivingWorldArmyIconSubObjectTemplate not supported");
 	const char *token = ini->getNextToken(0);
-	Rva004DFCB0Element item = { new Rva0056B63E(&AsciiString(token)) };
+	Rva004DFCB0Element item = { (unsigned int)new Rva0056B63E(&AsciiString(token)) };
 	MultiIniFieldParse parse;
 	parse.add((const FieldParse *)Rva0056B7DEGet(), 0);
 	parse.add(g_00C6D4D0, 0);
-	ini->initFromINIMulti((void *)item.module, parse);
+	ini->initFromINIMulti((void *)item.word0, parse);
 	((_STL::vector<Rva004DFCB0Element> *)store)->push_back(item);
 }

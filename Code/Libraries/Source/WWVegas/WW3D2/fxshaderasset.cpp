@@ -209,10 +209,7 @@ struct Rva0007BB16Record : Rva00151248
     { ((Rva0042CBB6 *)this)->rva002B230F((int)type); }
 };
 
-struct Rva004DFCB0Element
-{
-	D3DXHANDLE m_handle;
-};
+#include "../../../../GameEngine/Include/Common/Rva004DFCB0Element.h"
 
 class FXShaderAsset
 {
@@ -347,8 +344,8 @@ void FXShaderAsset::Impl::Load(const char *filename)
 
 	for (int t = 0; t < num_techniques; t++) {
 		Rva004DFCB0Element technique;
-		technique.m_handle = m_effect->GetTechnique(t);
-		if (technique.m_handle != 0 && m_effect->ValidateTechnique(technique.m_handle) >= 0)
+		technique.word0 = (unsigned int)m_effect->GetTechnique(t);
+		if (technique.word0 != 0 && m_effect->ValidateTechnique((D3DXHANDLE)technique.word0) >= 0)
 			m_techniques.push_back(technique);
 	}
 	m_shadowTechnique = m_effect->GetTechniqueByName("_CreateShadowMap");
