@@ -10,7 +10,7 @@
 // target region (0x0020EC99, LivingWorldRegionManager::ValidateArmyRegionEntry
 // per WorldBuilder), accepting results 0 and 1, the same test as the rowed
 // LivingWorldLogic::rva002B27B5. Address-named storage views.
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct LivingWorldArmy;
 struct Rva002B4BC9Arg;

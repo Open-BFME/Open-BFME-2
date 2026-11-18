@@ -7,7 +7,7 @@
 // this-relative cast idiom with ITS offsets (+0x08/+0x20); the offsets here
 // are BFME2 retail immediates. Callees resolve by name (isKindOfMulti pin).
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/BitFlagsTemplate.h"
 

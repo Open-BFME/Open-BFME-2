@@ -9,7 +9,7 @@
 // the news. The shadow-info role comes from the rowed ctor callee; the
 // callback name stays address-derived.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "ascii_string.h"
 

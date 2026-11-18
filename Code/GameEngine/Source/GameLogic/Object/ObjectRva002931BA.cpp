@@ -11,7 +11,7 @@
 // FAERIE_FIRE per ZH ObjectStatusTypes.h and ObjectScriptStatus.cpp;
 // template +0x115 &0x20 matches isAbleToAttack container gate.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

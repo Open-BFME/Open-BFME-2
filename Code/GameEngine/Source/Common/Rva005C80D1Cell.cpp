@@ -5,7 +5,7 @@
 // Owner and meaning unproven: maps a point to the cell indices of a grid origin (+0x08/+0x0C) at a cell size,
 // rounding up (origin - point) / size on each axis. The ceil reaches the CRT import (msvcr71!ceil, 0x00BBA578) and the float-to-int store is
 // the fistp the tree's own helpers use (Bfme5SeventySix.cpp's bfmeFloatToLongFC).
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include <math.h>
 

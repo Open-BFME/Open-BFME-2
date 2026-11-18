@@ -8,7 +8,7 @@
 // didEnter 0x0028D718 (+4) and didExit 0x0028D757 (+5) stashes prove +0x3C0
 // stride-8 layout and +0x43A signed count; BFME2 non-const signature matches
 // sibling QAE_NPAV didEnter/didExit pins.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class PolygonTrigger;
 

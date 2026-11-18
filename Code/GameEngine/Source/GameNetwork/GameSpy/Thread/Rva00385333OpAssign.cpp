@@ -2,7 +2,7 @@
 // stlport
 // ??4Rva00385333@@QAEAAV0@ABV0@@Z 0x00387A68 91B
 // Evidence: pin operator= tournament block; calls Rva003844D7 operator= 0x3874F9 and basic_string assign 0x120C0; LINK 2 files wait.
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 namespace _STL
 {

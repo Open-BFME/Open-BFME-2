@@ -14,7 +14,7 @@
 // into the return slot. The triple's real type is not established.
 // Owner identity unproven; honest Rva names.
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct Rva001E34B2Point
 {

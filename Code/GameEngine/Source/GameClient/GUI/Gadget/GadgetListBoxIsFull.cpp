@@ -8,9 +8,9 @@
 // the reg-arg bottom-entry worker (B1 static role, true name unknown). The
 // TU defines only this body.
 
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

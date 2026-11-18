@@ -8,7 +8,7 @@
 // (imul eax,eax,0x28 / mov eax,[eax+ecx+0x80cc]) after returning from the
 // loop, so the struct is result@+0, start@+4, extent@+8, size 0x28, and the
 // array base sits at this+0x80cc with the count at this+0x80c8.
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 Int WorldHeightMap::rva000AC4C6(Int coord)
 {

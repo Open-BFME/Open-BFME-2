@@ -4,7 +4,7 @@
 // slot 1 (allow) of partition filter vftable 0x00BF91F0, whose object is at
 // +0x08 (constructor copy 0x00263061); the +0x3C1 byte is on that object's AI.
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 class Object;
 class Player;

@@ -6,8 +6,8 @@
 // Evidence: winGetUserData 0x005C4ACD, vector-delete 0x0002FD80,
 // winSetInputFunc 0x00314147, caller at 0x00326F87.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType

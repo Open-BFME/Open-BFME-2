@@ -20,7 +20,7 @@
 // Target callers 0x2C9B05/0x2C9B44 load Weapon::m_template at +4.
 // Retail reads the range at +0x18 and subtracts 2.5f (VA 0xBCFB10);
 // the quarter-cell interpretation follows the donor.
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 #define PATHFIND_CELL_SIZE_F 10.0f
 Real WeaponTemplate::getMinimumAttackRange() const

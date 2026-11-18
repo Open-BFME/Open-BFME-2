@@ -4,7 +4,7 @@
 // ADC carry boolean through a hoisted constant; retail uses /O1 inc-shape.
 // Split TU in the string_inline pattern so seedRandom keeps its flags.
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 // Add with carry. SUM is replaced with A + B + C, C is replaced with 1  if there was a carry, 0 if there wasn't. A carry occurred if the sum is  less than one of the inputs. This is addition, so carry can never be  more than one.
 #define ADC(SUM, A, B, C)   SUM = (A) + (B) + (C); C = ((SUM < (A)) || (SUM < (B)))

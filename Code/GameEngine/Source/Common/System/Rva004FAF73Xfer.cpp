@@ -4,9 +4,9 @@
 // Honest Rva thiscall taking Xfer returning void ret-4.
 #include <vector>
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ScienceType
 {

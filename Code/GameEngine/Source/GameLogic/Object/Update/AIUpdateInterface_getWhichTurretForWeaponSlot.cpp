@@ -8,8 +8,8 @@
 // and pitch out-params from TurretAI+0x18/+0x1C. TurretAI::isWeaponSlotOnTurret
 // is a direct (non-virtual) call, resolved by pin.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 enum WeaponSlotType
 {

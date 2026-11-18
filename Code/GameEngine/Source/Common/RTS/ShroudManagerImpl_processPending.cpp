@@ -8,7 +8,7 @@
 
 #include <deque>
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 struct BfmeE32
 {

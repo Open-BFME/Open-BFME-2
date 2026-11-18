@@ -5,7 +5,7 @@
 // The existing donor-named easing view is identical in both source units.
 // Reference constructor forwarding is a semantic lead only: the target's
 // constructor-versus-initializer identity and original name remain unknown.
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 class ParabolicEase
 {
 public:

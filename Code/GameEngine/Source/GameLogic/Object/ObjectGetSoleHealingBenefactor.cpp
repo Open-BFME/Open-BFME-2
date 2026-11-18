@@ -8,7 +8,7 @@
 // and WorkerAIUpdate compare getSoleHealingBenefactor to getID; frame at
 // GameLogic+0x40 via Rva002039B6Host; return type W4ObjectID proven by the
 // rowed ?getID@Object@@QBE?AW4ObjectID@@XZ at 0x000421C4.
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

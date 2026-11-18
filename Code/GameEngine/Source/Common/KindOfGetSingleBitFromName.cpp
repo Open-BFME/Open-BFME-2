@@ -21,8 +21,8 @@
 #include <bitset>
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 extern const char *TheKindOfBitNames[0xDA + 1]; ///< retail [0x00DBBE18]
 

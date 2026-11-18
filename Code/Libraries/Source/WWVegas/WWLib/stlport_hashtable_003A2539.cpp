@@ -10,7 +10,7 @@
 // constructs pair at +4 via rowed _Construct 0x2058E3. Caller at 0x3A2F33
 // links node into Eva buckets and returns pair at +4. Layout follows
 // _Hashtable_node (next + value).
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include <map>
 

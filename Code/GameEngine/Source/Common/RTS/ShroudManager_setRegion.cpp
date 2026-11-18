@@ -11,8 +11,8 @@
 // the 123-byte size: the NaN-aware cell-size compare, the default cell size
 // at +0x1C, and the by-value Region3D hand-off to _ReallocCells (0x73DBF0 pin).
 
-typedef float Real;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

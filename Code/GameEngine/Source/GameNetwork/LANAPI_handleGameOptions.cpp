@@ -8,9 +8,9 @@
 // at slot+0 plus virtual slot 45 (0xB4) with addr plus index plus narrow
 // StringBase temp from msg+0x1E.
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "ascii_string.h"
 

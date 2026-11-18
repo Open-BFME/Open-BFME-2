@@ -2,7 +2,7 @@
 // 0x005CB432 (56B): a TU of its own because retail keeps a frame pointer for this body (/Oy-); the region
 // default (/O1 /arch:SSE /G7) plus /Oy- is exact. RegionUI view as in VslotSmallBodiesW5SN4.cpp.
 // Bank for 0x005CB432; RegionUI view as in Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 class Image; class UnicodeString;
 class RegionUI {
 public:

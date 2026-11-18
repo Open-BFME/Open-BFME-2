@@ -8,8 +8,8 @@
 // list at Object+0x440 (rowed list<BfmePod124>::push_back 0x002947D6), else
 // the DamageInfo goes straight to 0x002975AC. Field and callee names past
 // that are placeholders. Flags follow ObjectKill.cpp, the kill row beside it.
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum ObjectStatusTypes
 {

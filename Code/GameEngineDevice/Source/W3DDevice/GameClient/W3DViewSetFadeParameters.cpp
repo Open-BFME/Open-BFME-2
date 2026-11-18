@@ -4,8 +4,8 @@
 // direction to the screen filters: ScreenBWFilter's inline static setter (0x00DEC1A4..AC),
 // the rowed 0x00085553 for the next filter, and the cross-fade filter's frame/direction
 // statics (0x00DEBFF8..0x00DEC000, defined in ScreenCrossFadeFilterUpdateFadeLevel.cpp).
-typedef int Int;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 class ScreenBWFilter
 {

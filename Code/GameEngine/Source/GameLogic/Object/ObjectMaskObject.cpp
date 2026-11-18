@@ -11,7 +11,7 @@
 // through the rowed GameLogic::deselectObject 0x0023C9F8 with force TRUE.
 // Callers 0x0046016B 0x004833B3 0x004838D4 0x004A415D.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef unsigned int PlayerMaskType;
 
 #include "../../../Include/Common/Player.h"

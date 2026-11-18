@@ -22,7 +22,7 @@ public:
 #include <math.h>
 extern unsigned int g_00DBD33C[];
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 static const Real INV = 1.0f / 10.0f;
 

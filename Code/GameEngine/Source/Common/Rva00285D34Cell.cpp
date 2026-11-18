@@ -8,7 +8,7 @@
 // comparing the result against 1 and 2; owner unproven so honest Rva class.
 #include <math.h>
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 extern float g_Va007C26F0;
 

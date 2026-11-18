@@ -1,7 +1,7 @@
 // cl: /Ob0
 // The 32B list check-then-remove at 0x004F040F is rowed as
 // AIPlayer::removeFrom_TeamBuildQueue in AIPlayerTeamQueues.cpp.
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct BfmeNode_00161220
 {

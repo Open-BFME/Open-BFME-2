@@ -7,7 +7,7 @@
 // 0x0044EDA6 first (its false stands), then true unless the Object named by
 // +0x40 still exists without bit 0 of its +0x438 byte. Named vslot08 after
 // the canonical SpecialPowerUpdateInterface slot 8 (no donor name).
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../object.h"
 extern GameLogic *TheGameLogic;

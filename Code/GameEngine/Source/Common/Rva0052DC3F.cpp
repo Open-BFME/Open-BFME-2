@@ -10,7 +10,7 @@
 // arg plus ecx (thiscall) with ret 4; prev 0x0052DC29 next 0x0052DD41.
 #include <math.h>
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/Common/MixFileInfoBuffer.h"
 #include "../../Include/GameLogic/PathfindCell.h"

@@ -5,9 +5,9 @@
 // m_currentGame +0x44 plus game flag +0x11 plus 8 slots stride 0x1D0 with address
 // at slot+0 plus virtual slot 38 (0x98, OnAccept) with the msg+0x40 Bool.
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 

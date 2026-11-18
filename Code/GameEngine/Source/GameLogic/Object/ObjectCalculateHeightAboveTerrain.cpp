@@ -11,7 +11,7 @@
 // sits between setID 0x0028B532 and the list unlink 0x0028B595, Zero Hour's
 // order.
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum PathfindLayerEnum
 {

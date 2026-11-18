@@ -10,7 +10,7 @@
 // or WorldBuilder twin; names are address-derived.
 #include <vector>
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Rva002E2903Player;
 
