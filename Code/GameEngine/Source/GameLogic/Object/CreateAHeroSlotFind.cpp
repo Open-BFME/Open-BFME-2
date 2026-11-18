@@ -6,8 +6,8 @@
 // neighbours CreateAHeroManager accessors same ascii flags.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum NameKeyType
 {

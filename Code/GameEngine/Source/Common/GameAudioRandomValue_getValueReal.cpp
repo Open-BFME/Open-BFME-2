@@ -4,8 +4,8 @@
 // (GetGameAudioRandomValueReal). Dedicated TU mirroring the landed client
 // Real twin; release drops the assert. Audio seed follows the client seed
 // by 24 bytes.
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // Shared writable multiplier RandomValue.cpp defines and initializes.
 extern "C" Real theMultFactor;

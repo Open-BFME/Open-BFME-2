@@ -3,8 +3,8 @@
 // BFME2 init at 0x38873F calls this reader at 0x3887F6 with File and word-buffer
 // arguments. Target File::read is vtable slot +0x0C; /O1 reproduces all149 bytes.
 
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../Include/Common/File.h"
 

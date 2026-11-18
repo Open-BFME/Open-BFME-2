@@ -4,8 +4,8 @@
 // Hour's body - no invalid or already-owned science, the prerequisites
 // (0x002A9EAC, Zero Hour's hasPrereqsForScience, pinned from this call)
 // met, and a nonzero cost no greater than the +0x24 purchase points.
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum ScienceType
 {

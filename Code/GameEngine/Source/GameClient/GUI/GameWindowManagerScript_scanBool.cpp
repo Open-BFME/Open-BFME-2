@@ -11,8 +11,8 @@
 
 #include <stdio.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // ?scanBool@@YAHPBDAA_N@Z
 Int scanBool(const char *source, Bool &val)

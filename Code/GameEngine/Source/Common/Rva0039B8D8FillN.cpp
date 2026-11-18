@@ -5,8 +5,8 @@
 // Evidence: callees rowed copy ctor 0x0039B893; callers 0x0039BA85 (27B pushes 4 args caller-cleans) and 0x0039C1C3 (186B same ebp+0x1b false_type as rowed 0x0039BA22); stride matches sizeof Rva0039B893.
 #include <new.h>
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 namespace _STL
 {

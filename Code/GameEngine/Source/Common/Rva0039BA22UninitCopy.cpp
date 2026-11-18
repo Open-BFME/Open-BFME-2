@@ -9,8 +9,8 @@
 #include <stl/type_traits.h>
 #include <stl/_epilog.h>
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva0039B893
 {

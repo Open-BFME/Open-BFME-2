@@ -6,8 +6,8 @@
 // OpaqueRefElement4 assignment (0x00239099) and stamps TheGameLogic's frame
 // (+0x40). Name and the slots' purpose are unproven; layout is retail's.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../Include/Common/OpaqueRefElement4.h"
 #include "../../Include/GameClient/Drawable.h"

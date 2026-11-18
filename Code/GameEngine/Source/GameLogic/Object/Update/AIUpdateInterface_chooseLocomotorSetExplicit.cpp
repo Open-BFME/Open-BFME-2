@@ -11,8 +11,8 @@
 // second argument of 0) and records the set type at +0x1F4. The set's
 // valid-surface word at +0x1DC (+0x10 in it) matches getMoodMatrixValue.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 class LocomotorTemplate;
 

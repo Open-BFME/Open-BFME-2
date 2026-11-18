@@ -3,8 +3,8 @@
 // from Open-BFME-1 Code/GameEngine/Source/Common/System/random_value.cpp
 // (69B). Dedicated TU so GameClientRandomVariable::getValue keeps its
 // pin-call shape.
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // The native shared multiplier at VA 0x00DFE738; RandomValue.cpp defines and
 // initializes it before the three readers run.

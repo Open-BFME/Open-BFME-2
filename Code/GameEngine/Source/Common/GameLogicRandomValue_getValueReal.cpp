@@ -9,8 +9,8 @@
 #include <string.h>
 #undef _CRTIMP
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // Shared writable multiplier RandomValue.cpp defines and initializes.
 extern "C" Real theMultFactor;

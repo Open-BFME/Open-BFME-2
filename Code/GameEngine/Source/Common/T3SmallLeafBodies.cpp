@@ -2,8 +2,8 @@
 // Leaf bodies carrying no relocation (trimmed to the placed 63E50 less-than
 // body; the other seven are declared-only here).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 Int __stdcall Rva000695C0Less(const void *a, const void *b);
 Int __stdcall Rva000699A0Less(const void *a, const void *b);

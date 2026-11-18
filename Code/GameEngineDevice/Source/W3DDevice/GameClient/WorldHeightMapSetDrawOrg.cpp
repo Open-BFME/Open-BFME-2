@@ -7,8 +7,8 @@
 // stretch size 0x41. The ZH-header port in WorldHeightMap.cpp places these
 // fields elsewhere, so the body lives here. Retail clamps with cmovg, which
 // MSVC 7.1 emits only under /arch:SSE.
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 enum
 {
 	STRETCH_DRAW_WIDTH = 65,

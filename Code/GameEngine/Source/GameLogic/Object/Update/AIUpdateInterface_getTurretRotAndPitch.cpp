@@ -7,8 +7,8 @@
 // Turret angle/pitch are direct inline reads at TurretAI+0x18/+0x1C,
 // matching the getWhichTurretForWeaponSlot TU.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 enum WhichTurretType
 {

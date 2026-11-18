@@ -1,7 +1,7 @@
 // cl: /O2 /G6
 
-typedef int Int;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include <string.h>
 

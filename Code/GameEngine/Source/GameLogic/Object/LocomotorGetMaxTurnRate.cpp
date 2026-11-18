@@ -11,8 +11,8 @@
 
 extern class GlobalData *TheWritableGlobalData;
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum BodyDamageType
 {

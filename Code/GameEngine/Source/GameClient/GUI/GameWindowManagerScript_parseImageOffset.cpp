@@ -15,8 +15,8 @@
 // - Identity: the .data dispatch table at 0x9BE198 pairs 'IMAGEOFFSET'
 //   with 0x714F99.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include <windows.h>
 #include <string.h>

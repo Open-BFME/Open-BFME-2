@@ -10,8 +10,8 @@
 // (reverse/symbols.csv). Only the placed bodies are carried; the donor's other
 // definitions are omitted.
 
-typedef bool Bool;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/ConnectionManager.h
 #include "../../Include/GameNetwork/ConnectionManager.h"

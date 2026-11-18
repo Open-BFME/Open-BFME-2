@@ -5,8 +5,8 @@
 // +0x1CC to +0x1B8, set UnicodeString at +0x1AC from name at +0x30 via pinned
 // set 0x00037150, zero +0x1BC, return &m_1AC else NULL. Evidence: unlock lane;
 // callee isHuman rowed 0x003FF0F1; callers in 0x00449258; neighbours share flags.
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 typedef unsigned short WideChar;
 
 #include "ascii_string.h"

@@ -8,8 +8,8 @@
 #include <string.h>
 #undef _CRTIMP
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 extern "C" UnsignedInt theGameLogicSeed[6];
 

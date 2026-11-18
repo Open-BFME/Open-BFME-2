@@ -4,8 +4,8 @@
 // 0x0039B92D with a stack tag at ebp-1 plus null distance. Evidence: chain
 // from just-landed 0x0039B92D; sole caller 0x0039C485 pushes four args.
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva0039B893
 {

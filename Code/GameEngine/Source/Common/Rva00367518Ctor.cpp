@@ -7,8 +7,8 @@
 // 0x5d5fa789. Base layout copied from AIStateRva0034005DCtor.cpp. Caller
 // at 0x00367C6E in 0x0036792F.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 class StateMachine;
 class Xfer;
 #include "../../Include/Common/StateMachine.h"

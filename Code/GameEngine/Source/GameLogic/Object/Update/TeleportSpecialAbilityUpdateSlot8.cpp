@@ -10,9 +10,9 @@
 // Object's position (+0x38) is refused; otherwise the SpecialAbilityUpdate
 // +0x20 slot-8 base 0x0044EDA6 decides. Named vslot08 after the canonical
 // SpecialPowerUpdateInterface slot 8 (no donor name).
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-typedef float Real;
+
 #include "../object.h"
 struct Rva00492C59ModuleData
 {

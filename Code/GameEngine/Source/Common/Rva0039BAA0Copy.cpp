@@ -4,8 +4,8 @@
 // from landed assign; caller 0x0039BDAE pushes five args (first last result
 // plus tag at ebp-1 plus null distance) and caller cleans.
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva0039B893
 {

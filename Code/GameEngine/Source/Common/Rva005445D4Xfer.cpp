@@ -4,9 +4,9 @@
 // Version(1,2) via slot 0x28 then ObjectID at +0x24 via rowed XferObjectID
 // 0x003060B2 then uint at +0x20 via slot 0x78 when version>=2. Evidence:
 // vslot slot 3; rowed XferObjectID 0x003060B2; ctor layout m_20/m_24.
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectID
 {

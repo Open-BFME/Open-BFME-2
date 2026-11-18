@@ -4,8 +4,8 @@
 // at 0x0039B900 with stride 0x14. Evidence: chain from just-landed assign;
 // two callers 0x0039C492/0x0039C4D2 each push three args and caller cleans.
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva0039B893
 {

@@ -6,9 +6,9 @@
 // here, so the existing address-derived ledger name is used). The struct layouts below
 // are the minimum the body needs.
 
-typedef bool Bool;
-typedef int Int;
-typedef short Short;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "unicode_string.h"
 

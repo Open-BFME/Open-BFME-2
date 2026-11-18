@@ -1,8 +1,8 @@
 // ?allow@Rva002613AFFilter@@UAE_NPAVObject@@@Z @ 0x002613AF 50B: vtable 0x00C1FDE0 slot 1 and adjacent getPlayerMask rows identify this filter override.
 // cl: /DNDEBUG /O1 /arch:SSE /G7 /MD
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../Include/Common/Player.h"
 #include "../GameLogic/Object/object.h"

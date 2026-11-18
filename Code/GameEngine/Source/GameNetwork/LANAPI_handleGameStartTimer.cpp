@@ -5,9 +5,9 @@
 // m_currentGame +0x44 plus game flag +0x11 plus slot0 address +0x114 plus
 // virtual slot 44 (0xB0) with msg+0x1E dword.
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 
 #include "../../Include/GameNetwork/LANAPI.h"

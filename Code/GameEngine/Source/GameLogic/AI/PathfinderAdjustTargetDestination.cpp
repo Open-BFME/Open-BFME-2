@@ -10,8 +10,8 @@
 // Target facts: argument roles beyond the object and goal position, the
 // context layout (0x20 bytes) and the search keep address-derived names.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 

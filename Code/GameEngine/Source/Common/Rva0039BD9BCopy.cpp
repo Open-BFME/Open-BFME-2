@@ -4,8 +4,8 @@
 // stack tag at ebp-1 plus null distance. Evidence: chain from just-landed
 // 0x0039BAA0; three callers push four args each.
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva0039B893
 {

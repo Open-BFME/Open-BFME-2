@@ -10,8 +10,8 @@
 // distribution. Target evidence: the particle-system FieldParse rows Alpha1..
 // (0x00C6B988 +0x10 stride, stores +0x0C/+0x1C/..) point here.
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Include/Common/INI/INI.h"
 

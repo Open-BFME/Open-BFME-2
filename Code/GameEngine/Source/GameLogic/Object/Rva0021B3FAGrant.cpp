@@ -4,8 +4,8 @@
 // Evidence: chain from 0x0021B37A Find plus caller 0x00248558; getNthPlayer row plus Find row plus isEmpty row plus findUpgrade row plus Player addUpgrade row; prev Find and next GetHeroForPlayer same ascii flags.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Include/GameNetwork/GameInfo.h"
 
