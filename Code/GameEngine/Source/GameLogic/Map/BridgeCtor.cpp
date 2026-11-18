@@ -35,10 +35,10 @@
 #include <algorithm>
 #include <string.h>
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum ObjectID
 {

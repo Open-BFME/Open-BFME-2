@@ -17,8 +17,8 @@
 #include "Lib/Coord2D.h"
 #include "PartitionRangeQueryCallView.h"
 
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 enum PathfindLayerEnum { LAYER_GROUND = 1 };
 
 #include "../../Include/Common/Geometry.h"

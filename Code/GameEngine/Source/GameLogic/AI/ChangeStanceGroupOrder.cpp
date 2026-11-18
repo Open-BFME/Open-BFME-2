@@ -3,9 +3,9 @@
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 // ?xfer@ChangeStanceGroupOrder@@UAEXPAVXfer@@@Z @0x00546B91 54B evidence: slot 3 of 0x0086A36C ChangeStanceGroupOrder; base GroupOrder xfer rowed 0x00548AC2 then xferVersion 1-1 then XferStancesEnum rowed 0x0045ED66 for this+0x18; member int at +0x18 (the stance).
 // Proven method keeps real name xfer.
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 class Snapshot;
 class AsciiString;
 class UnicodeString;

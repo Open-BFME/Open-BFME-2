@@ -6,8 +6,8 @@
 // Evidence: caller 0x0073EBB0 passes Xfer plus short ptr; slots 0x78 count and 0x80 per-short;
 // throws XferException (constructor 0x0060C36E, throw info 0x00CFFD18) through _CxxThrowException 0x00629094.
 
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 class Snapshot;
 class AsciiString;
 class UnicodeString;
@@ -31,8 +31,8 @@ struct XferUnknown11;
 #undef inline
 #pragma intrinsic(sin,cos)
 #include <deque>
-typedef float Real;
-typedef int Int;
+
+
 enum CellShroudStatus
 {
 	CELLSHROUD_CLEAR,
@@ -79,7 +79,7 @@ class Region2D;
 class IRegion2D;
 class RGBColor;
 
-typedef unsigned short UnsignedShort;
+
 
 #include "../../../Include/Common/XferException.h"
 

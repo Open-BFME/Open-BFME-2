@@ -6,12 +6,12 @@
 // SubsystemInterface. The target vtable stores and member offsets come from
 // this body; the destructor operation follows BFME1 LANAPI::~LANAPI.
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
 typedef unsigned short WideChar;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
-typedef int Int;
+
+
+
 
 #include "ascii_string.h"
 

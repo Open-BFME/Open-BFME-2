@@ -27,9 +27,9 @@
 // atexit cleanup 0x007B6C9B also calls Rva0009990D::clear) before stopping
 // the mouse thread object at 0x009E5DA8.
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class TextureBaseClass;
 class RenderObjClass;

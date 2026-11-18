@@ -42,7 +42,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
 
 struct BfmePod32 { int a[8]; };

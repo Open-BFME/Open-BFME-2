@@ -6,9 +6,9 @@
 // each gives the .rdata slot address(es) that reference it. Meanings are not
 // recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

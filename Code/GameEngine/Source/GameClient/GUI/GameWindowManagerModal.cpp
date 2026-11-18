@@ -10,8 +10,8 @@
 // ??_GRva002C1283 (vtable 0x00BFE5B4). GameWindow: status +0x8 (destroyed
 // 0x800), next/prev +0x1F8/+0x1FC, parent/child +0x200/+0x204, layout +0x210.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum
 {

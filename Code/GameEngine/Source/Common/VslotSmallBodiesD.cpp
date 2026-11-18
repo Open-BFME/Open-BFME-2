@@ -8,8 +8,8 @@
 
 #include "ascii_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // slot at VA 0x00BFAF8C (0x00271B3C): Rva00271B3CFilter::allow, now in
 // GameLogic/Object/PartitionFilterAllowSlots.cpp.

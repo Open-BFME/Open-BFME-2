@@ -40,7 +40,7 @@
 // push edi before the copy. ZH has no averaging counterpart (its
 // getEstimateTeamPosition returns the first member's position).
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

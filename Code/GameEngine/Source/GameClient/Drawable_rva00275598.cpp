@@ -232,8 +232,8 @@ private:
 // Exact TintEnvelope attack/decay/play moved here before their caller.
 // MSVC observes preserved EDX and XMM4; forward declarations alone erase
 // those clobber facts and shift the entire update body.
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
 const Real FADE_RATE_EPSILON = 0.001f;
 

@@ -33,9 +33,9 @@
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class UnicodeString;
 class PooledString;

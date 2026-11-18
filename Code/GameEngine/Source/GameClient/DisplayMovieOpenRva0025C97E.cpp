@@ -22,10 +22,10 @@
 #include <windows.h>
 #include "ascii_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 class GameFont;
 

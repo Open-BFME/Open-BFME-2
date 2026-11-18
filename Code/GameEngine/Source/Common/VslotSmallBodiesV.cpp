@@ -5,9 +5,9 @@
 // method is address-derived unless the ledger already names it, and models
 // only what its body touches. Meanings are not recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 // 0x000FBA0F (tables from VA 0x00BCF36C on): clears the flag out, starts the
 // pinned W3DShaderManager render-to-texture and answers true.

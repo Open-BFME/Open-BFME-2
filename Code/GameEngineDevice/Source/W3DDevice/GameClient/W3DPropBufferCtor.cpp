@@ -21,9 +21,9 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 static __forceinline Vector3 &copyStorageVector3(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}

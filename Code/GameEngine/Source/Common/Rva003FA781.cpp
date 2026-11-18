@@ -9,7 +9,7 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 #include <math.h>
 #include <algorithm>
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 class LocomotorTemplate;
 class RenderObjClass;
 bool Rva0010E676_SetEmissive(RenderObjClass *, float, float, float);

@@ -11,10 +11,10 @@
 #include "ascii_string.h"
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 class GameFont;
 

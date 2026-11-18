@@ -19,10 +19,10 @@
 #include <vector>
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);

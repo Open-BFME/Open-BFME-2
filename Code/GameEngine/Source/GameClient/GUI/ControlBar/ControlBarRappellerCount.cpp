@@ -22,10 +22,10 @@ namespace _STL { void __cdecl free(void *block); }
 #include "Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum BuildableStatus { BSTATUS_YES = 0 };
 enum ScienceType { SCIENCE_INVALID = -1 };

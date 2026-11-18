@@ -16,8 +16,8 @@
 // 0x30. Caller 0x00355100 xfers a map entry's int key, then this for its
 // GroupOrder* value. Name is the address name: the original is unknown.
 
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 
 class GroupOrder;

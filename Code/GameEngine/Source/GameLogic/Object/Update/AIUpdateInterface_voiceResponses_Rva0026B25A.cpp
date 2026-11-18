@@ -37,8 +37,8 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); // no EH state store before retail's calls
 }
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

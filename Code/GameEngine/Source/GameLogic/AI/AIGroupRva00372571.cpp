@@ -23,10 +23,10 @@
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 // platformsdk
 #include <windows.h>

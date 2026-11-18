@@ -79,10 +79,10 @@ struct WeaponScatterPoint : Coord3D
         z = weaponScatterPoint.z;
     }
 };
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "Common/GameLogicObjectLookupView.h"
 

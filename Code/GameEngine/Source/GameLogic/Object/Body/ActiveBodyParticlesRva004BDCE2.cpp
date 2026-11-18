@@ -16,9 +16,9 @@
 // (deleteAllParticleSystems/createParticleSystems).  Globals use the ledger's
 // converged spellings (?TheWritableGlobalData@@3PAVGlobalData@@A 0x009FE758 and
 // TheParticleSystemManager).  Class name stays address-derived.
-typedef unsigned int UnsignedInt;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "ascii_string.h"
 

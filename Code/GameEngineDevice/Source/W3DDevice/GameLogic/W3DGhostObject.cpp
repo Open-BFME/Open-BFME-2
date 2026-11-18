@@ -47,9 +47,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // The +0x7C field is typed BfmeThingCDE rather than the sibling's PartitionData
 // because retail loads it straight into ecx for a direct call to
 // BfmeThingCDE::bfmeGoCDE (0x73B220).
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef bool Bool;
+
 
 class BfmeThingCDE
 {

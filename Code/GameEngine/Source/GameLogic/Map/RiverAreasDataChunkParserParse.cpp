@@ -32,9 +32,9 @@
 #include "AreaSetEntryView.h"
 #include "Lib/RGBColor.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Include/Common/DataChunk.h"
 

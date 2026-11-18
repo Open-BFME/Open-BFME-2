@@ -41,7 +41,7 @@ public:
 // SpecialAbilityUpdate +0x20 slot-8 base 0x0044EDA6 (the slot-8 entry of the
 // special-ability +0x20 tables; pinned by address). Named vslot08 after the
 // canonical SpecialPowerUpdateInterface slot 8 (no donor name).
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum KindOfType
 {

@@ -26,7 +26,7 @@ void *&vector<void*>::operator[](size_t __n) { return *(begin() + __n); }
 }
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Snapshot;
 

@@ -238,9 +238,9 @@ void InGameUI::updateIdleWorker(void)
 // "IdleWorker.wnd:ButtonSelectNextIdleWorker"; selectNextIdleWorker is the
 // rowed slot 107 above.
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 typedef UnsignedInt WindowMsgData;
-typedef bool Bool;
+
 enum { GWM_INPUT_FOCUS = 0x17, GBM_SELECTED = 0x4008 };
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
 

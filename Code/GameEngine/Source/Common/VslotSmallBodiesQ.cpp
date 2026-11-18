@@ -7,7 +7,7 @@
 // above each gives the .rdata slot address that references it. Meanings are
 // not recovered.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // slots at VA 0x00CE3170, 0x00CE3188 and 0x00CE36A4: the message's integer
 // for the key held at VA 0x00DD8280 (resp. 0x00DD8288 and 0x00DD8310),

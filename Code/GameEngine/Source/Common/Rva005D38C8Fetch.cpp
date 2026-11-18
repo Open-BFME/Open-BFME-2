@@ -6,7 +6,7 @@
 // already models.
 // Evidence: unlock; TheGameText fetch slot 0x3C STRATEGICHUD:ArmyUnitSwapperCP; UnicodeString format 0x006CB5D0; releaseBuffer 0x00036E70; copy ctor 0x00037050; caller 0x005D3966
 typedef unsigned short wchar_t;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 template <typename T> class StringBase;

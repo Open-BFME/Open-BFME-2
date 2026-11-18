@@ -6,9 +6,9 @@
 // +0x08 (WB member name); the state values 2 (rotating) and 3 (arrived) come
 // from the accessor names.
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 
 // STLport vector<Int> view.
 class AttackInfoVector

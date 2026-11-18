@@ -12,8 +12,8 @@
 // unless the ledger already names them, and model only what each body
 // touches. Meanings are not recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 // 0x00041B85 (tables VA 0x00BC24E8/0x00BC8748): the rowed Mouse
 // 0x001EE5EE with both arguments, then the pinned 0x00041A83 with +0x4FA4.
 #include "../../../../GameEngine/Include/GameClient/Mouse.h"
@@ -102,8 +102,8 @@ public:
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "../../../Include/Lib/Coord3D.h"
 #include <math.h>
-typedef bool Bool;
-typedef float Real;
+
+
 enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0,
