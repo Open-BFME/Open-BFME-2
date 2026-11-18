@@ -119,17 +119,7 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class MonitorConditionUpdate : public UpdateModule
-{
-public:
-	MonitorConditionUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
-	virtual void xfer(Xfer *xfer);
-	virtual ~MonitorConditionUpdate();
-private:
-	AsciiString m_rememberedCommandSet; // +0x20
-};
+#include "../../../../Include/Common/MonitorConditionUpdate.h"
 
 // tu-skeleton: 0x004915B5 17B ?buildFieldParse@MonitorConditionUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
