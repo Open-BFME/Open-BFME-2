@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_CRTIMP= /Ivendor/stlport -Ireference/open-bfme-1/inputs/reference/shims/stlp_nodealloc -Ireference/open-bfme-1/inputs/reference/shims/controlbarvtables -Ireference/open-bfme-1/inputs/reference/shims/controlbarlayout -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /Ireference/shims/moduledata /Ireference/shims/iniexception /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ivendor/stlport -Ireference/open-bfme-1/inputs/reference/shims/stlp_nodealloc -Ireference/open-bfme-1/inputs/reference/shims/controlbarvtables -Ireference/open-bfme-1/inputs/reference/shims/controlbarlayout -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /Ireference/shims/moduledata /Ireference/shims/iniexception /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -Ireference/open-bfme-1/inputs/vendor/stlport
 // stlport
 // TU Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define Matrix4x4 Matrix4  // BFME renamed it
@@ -17,10 +17,6 @@
 // Member offsets are target evidence; their names follow the donor where
 // the donor statement is the same, and are address-derived otherwise.
 typedef bool Bool;
-// The cl line sets /D_CRTIMP= so the CRT headers declare free without
-// dllimport: retail calls the game allocator's _free directly. strncmp
-// stays a CRT import (setControlCommand calls it through FF15), so read
-// <string.h> first with dllimport for the include only.
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #include <string.h>
@@ -562,7 +558,6 @@ public:
 };
 #include "../../../../Include/Common/PlayerList.h"
 #include "ControlBarMemberTypes.h"
-#include <string.h>
 #include "unicode_string.h"
 typedef void (*GameWinTooltipFunc)(GameWindow *,WinInstanceData *,unsigned int);
 class AsciiString;
@@ -882,6 +877,51 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define BFME_SUBSYSTEM_SLOTS
 #define _STLP_NO_EXCEPTIONS 1
 #include <stl/_algobase.h>
+#define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+// map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
+// COMDAT (one byte shape per TU flags); an explicit specialization declaration
+// suppresses this TU's copy so callers bind retail's instead.
+namespace _STL {
+template <> bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b) const;
+}
+// bfme link decl-only end
+// Suppress this TU's non-retail copy of ??1?$vector@UPlayerAITypeEntry@@V?$allocator@UPlayerAITypeEntry@@@_STL@@@_STL@@QAE@XZ:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+struct PlayerAITypeEntry;
+namespace _STL { template <> vector<PlayerAITypeEntry,allocator<PlayerAITypeEntry> >::~vector(); }
+namespace _STL { template <> _Vector_base<PlayerAITypeEntry,allocator<PlayerAITypeEntry> >::~_Vector_base(); }
+namespace _STL { template <> void allocator<PlayerAITypeEntry>::deallocate(PlayerAITypeEntry *,unsigned int) const; }
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+}
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+size_t vector<void*>::size() const
+{ return size_t(this->_M_finish - this->_M_start); }
+template <> __declspec(dllimport) __forceinline
+void *&vector<void*>::operator[](size_t __n)
+{ return *(begin() + __n); }
+}
+inline UnsignedInt GameMakeColor(int r, int g, int b, int a) { return (a << 24) | (r << 16) | (g << 8) | b; }
+#include "ControlBarMemberTypes.h"  // the +0x30 map and the +0x2A4 holder
+// The hash-map provider owns these helpers; its element view has eight bytes.
+namespace _STL {
+typedef hashtable<pair<const int, Rva0031DBFCElement>, int, hash<int>,
+    _Select1st<pair<const int, Rva0031DBFCElement> >, equal_to<int>,
+    allocator<pair<const int, Rva0031DBFCElement> > > ControlBarTable;
+template <> void ControlBarTable::clear();
+}
+#include "../../../../Include/Common/PlayerAITypeEntry.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Include/Common/SubsystemInterfaceList.h"
+extern SubsystemInterfaceList *TheSubsystemList;
+class ControlBarSchemeManager;
+#include "../../../../Include/GameClient/Rva0053B914.h"
 
 class ModuleData;
 
@@ -1278,6 +1318,7 @@ namespace _STL {
 template <> size_t vector<void*>::size() const;
 template <> void **vector<void*>::begin();
 }
+
 // end() and the fill insert(pos, n, x) are taken inline, as retail's
 // hashtable::_M_initialize_buckets does (59 bytes: it reads _M_finish and
 // calls the rowed _M_fill_insert); dllimport + forceinline emits no copy.
@@ -1285,6 +1326,7 @@ namespace _STL {
 template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 { return _M_finish; }
 }
+
 namespace _STL {
 template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void **pos, size_t n, void *const &x)
 { _M_fill_insert(pos, n, x); }
@@ -1318,6 +1360,28 @@ public:
     _STL::vector<const ModuleData *> m_removed;
     void rva0031BF1B(ModuleData *data);
 };
+
+class Rva0053ED1A
+{
+public:
+	Rva0053ED1A();
+private:
+	char m_pad[0x5C];
+};
+
+class Rva0053ED1A_InitView
+{
+public:
+	virtual void v00();
+	virtual void v01();
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
+
+// The cl line sets /D_CRTIMP= so the CRT headers declare free without
+// dllimport: retail calls the game allocator's _free directly. strncmp
+// stays a CRT import (setControlCommand calls it through FF15), so read
+// <string.h> first with dllimport for the include only.
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
@@ -2867,34 +2931,6 @@ void ControlBar::forgetStaleCommandSet(const AsciiString &name)
     }
 }
 
-// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B031 42B ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B4A8 18B ??$_Construct@VRva002390CB@@V1@@_STL@@YAXPAVRva002390CB@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B4BA 28B ??_GRva002390CB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B99A 81B ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp (not merged yet)
-
-// tu-skeleton: 0x0031B9EB 45B ??$_M_allocate_and_copy@PBURva0031B9EBElement@@@?$vector@URva0031B9EBElement@@V?$allocator@URva0031B9EBElement@@@_STL@@@_STL@@IAEPAURva0031B9EBElement@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031B9EB.cpp (not merged yet)
-
-// tu-skeleton: 0x0031BAC3 658B ?rva0031BAC3@ControlBar@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp (not merged yet)
-
-// tu-skeleton: 0x0031BD55 34B ?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp (not merged yet)
-
-// tu-skeleton: 0x0031BD77 45B ??$_M_allocate_and_copy@PBVRva002390CB@@@?$vector@VRva002390CB@@V?$allocator@VRva002390CB@@@_STL@@@_STL@@IAEPAVRva002390CB@@IPBV2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
-
-// tu-skeleton: 0x0031BDA4 29B ??$__copy_ptrs@PBUBfmeAsciiScalarValue8@@PAU1@@_STL@@YAPAUBfmeAsciiScalarValue8@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_copy_ptrs_scalar8.cpp (not merged yet)
-
-// tu-skeleton: 0x0031BDEE 25B ??$_Destroy@PAVRva002390CB@@@_STL@@YAXPAVRva002390CB@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
-
-// tu-skeleton: 0x0031BF16 5B ?rva0031BF16@Rva0031BF16@@QAEHPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0031BF1BRemove.cpp
 
 // ?rva0031BF1B@Rva0031BF1B@@QAEXPAVModuleData@@@Z @0x0031BF1B 73B
@@ -2929,6 +2965,34 @@ found_node:
     reinterpret_cast<Rva0031BF1BRecordView *>(data)->m_removed = 1;
 }
 
+// tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031ABD4 5B ?processContextSensitiveButtonTransition@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B031 42B ??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B4A8 18B ??$_Construct@VRva002390CB@@V1@@_STL@@YAXPAVRva002390CB@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B4BA 28B ??_GRva002390CB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B99A 81B ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_Rva0031B99A.cpp (not merged yet)
+
+// tu-skeleton: 0x0031B9EB 45B ??$_M_allocate_and_copy@PBURva0031B9EBElement@@@?$vector@URva0031B9EBElement@@V?$allocator@URva0031B9EBElement@@@_STL@@@_STL@@IAEPAURva0031B9EBElement@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031B9EB.cpp (not merged yet)
+
+// tu-skeleton: 0x0031BAC3 658B ?rva0031BAC3@ControlBar@@QAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp (not merged yet)
+
+// tu-skeleton: 0x0031BD55 34B ?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp (not merged yet)
+
+// tu-skeleton: 0x0031BD77 45B ??$_M_allocate_and_copy@PBVRva002390CB@@@?$vector@VRva002390CB@@V?$allocator@VRva002390CB@@@_STL@@@_STL@@IAEPAVRva002390CB@@IPBV2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
+
+// tu-skeleton: 0x0031BDA4 29B ??$__copy_ptrs@PBUBfmeAsciiScalarValue8@@PAU1@@_STL@@YAPAUBfmeAsciiScalarValue8@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_copy_ptrs_scalar8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031BDEE 25B ??$_Destroy@PAVRva002390CB@@@_STL@@YAXPAVRva002390CB@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
+
+// tu-skeleton: 0x0031BF16 5B ?rva0031BF16@Rva0031BF16@@QAEHPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
 // tu-skeleton: 0x0031BF64 1194B ?switchToContext@ControlBar@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp (not merged yet)
 
 // tu-skeleton: 0x0031C79D 57B (unledgered) -- unmatched, no code, never credited
@@ -2951,7 +3015,84 @@ found_node:
 
 // tu-skeleton: 0x0031E92D 31B ??0?$hash_map@HURva0031DBFCElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0031E92D.cpp (not merged yet)
 
-// tu-skeleton: 0x0031E94C 558B ??0ControlBar@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp
+
+ControlBar::ControlBar() : m_showBuildToolTipLayout(false), m_commandWindowUserData(0)
+{
+	m_commandButtons = 0;
+	m_controlBarSchemeManager = 0;
+	m_isObserverCommandBar = false;
+	m_observerLookAtPlayer = 0;
+	m_01F4 = 0;
+	m_01F0 = 0;
+	m_01E4 = 0;
+	m_01E0 = 0;
+	m_01FC = 0;
+	m_01F8 = 0;
+	m_01EC = 0;
+	m_01E8 = 0;
+	m_animateDownWindow = 0;
+	m_0204 = 0;
+	for (int i = 0; i < 32; ++i)
+		m_015C[i] = 0;
+	UnsignedInt clock = GameMakeColor(0, 0, 0, 100);
+	buildUpClockColor = clock;
+	m_022C = clock;
+	context = 0;
+	m_defaultControlBarPosition.y = 0;
+	m_defaultControlBarPosition.x = 0;
+	m_genStarFlash = false;
+	m_genStarOff = 0;
+	m_genStarOn = 0;
+	m_UIDirty = false;
+	for (int i = 0; i < 9; ++i)
+		m_contextParent[i] = 0;
+	for (int i = 0; i < 32; ++i)
+		m_commandWindows[i] = 0;
+	for (int i = 0; i < 5; ++i)
+	{
+		m_specialPowerShortcutButtons[i] = 0;
+		m_specialPowerShortcutButtonParents[i] = 0;
+	}
+	m_specialPowerShortcutParent = 0;
+	m_specialPowerLayout = 0;
+	m_rightHUDWindow = 0;
+	m_rightHUDCameoWindow = 0;
+	m_rightHUDUnitSelectParent = 0;
+	m_communicatorButton = 0;
+	selectedDrawable = 0;
+	context = 0;
+	m_rallyPointDrawableID = 0;
+	m_displayedConstructPercent = -1.0f;
+	m_displayedOCLTimerSeconds = 0;
+	((Rva0053B914 *)this)->rva0053B914();
+	int white = (int)GameMakeColor(255, 255, 255, 0);
+	m_0080 = 0;
+	m_videoManager = 0;
+	m_animateWindowManager = 0;
+	m_generalsScreenAnimate = 0;
+	m_animateWindowManagerForGenShortcuts = 0;
+	m_p0250 = 0;
+	m_p0254 = 0;
+	m_p0258 = 0;
+	m_p025C = 0;
+	m_p0260 = 0;
+	m_p0264 = 0;
+	m_p0270 = 0;
+	m_p0274 = 0;
+	m_genArrow = 0;
+	m_sideSelectAnimateDown = false;
+	rva0031AD14(white, white, white, white, white);
+	m_0290 = false;
+	m_0294 = 0;
+	m_radarAttackGlowWindow = 0;
+	m_rva0031C83D29C = 0;
+	Rva0053ED1A *overlay = new Rva0053ED1A;
+	m_commandWindowUserData = overlay;
+	((Rva0053ED1A_InitView *)overlay)->v01();
+	if (TheSubsystemList != 0)
+		TheSubsystemList->rva001B5018(this);
+}
 
 // tu-skeleton: 0x0031EB7A 28B ??_GRva0031DCF0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp (not merged yet)
 
@@ -2995,8 +3136,6 @@ found_node:
 
 // tu-skeleton: 0x0077AE4B 10B __ehhandler$??1Rva0031DCF0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0077AE55 8B $L6745 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp (not merged yet)
-
 // tu-skeleton: 0x0077AE5D 11B uw_0077ae5d -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AE68 14B uw_0077ae68 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
@@ -3006,7 +3145,3 @@ found_node:
 // tu-skeleton: 0x0077AE84 14B uw_0077ae84 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AE92 14B uw_0077ae92 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AEA0 10B $L8439 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AEAA 10B __ehhandler$??0ControlBar@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp (not merged yet)
