@@ -12,6 +12,25 @@
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
+// The two anchors below need the same size-optimised state, so they share this block:
+// rendobj.h ends with #pragma optimize("", on), which returns everything after it, the
+// later headers and this unit's rows, to the command-line state.
+// Retail links the size-optimized WeightInfoStruct vector deleting destructor (??_E,
+// the copy htree.cpp emits); it takes the optimization state of the first function
+// that needs it, so this unemitted anchor needs it first. The private struct is reached
+// by befriending the anchor while hanim.h is first read; layout and names are unchanged.
+struct BfmeWeightInfoVddAnchor;
+#define private private: friend struct BfmeWeightInfoVddAnchor; private
+#include "hanim.h"
+#undef private
+struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
+static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
+// Likewise for HTreeClass's scalar deleting destructor: retail links one copy,
+// the /O1-shaped body at 0x0017FADF (pop ecx after operator delete), where this
+// unit's command-line state emits add esp,4. If a later HTree delete here will
+// not match, try it without this.
+#include "htree.h"
+static void bfmeHTreeDeleteAnchor(HTreeClass * tree) { delete tree; }
 #include "rendobj.h"	// the verified BFME2 base object must win the include guard
 #include "composite.h"
 /*
@@ -72,15 +91,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-// Retail links the size-optimized WeightInfoStruct vector deleting destructor (??_E,
-// the copy htree.cpp emits); it takes the optimization state of the first function
-// that needs it, so this unemitted anchor needs it first. The private struct is reached
-// by befriending the anchor while hanim.h is first read; layout and names are unchanged.
-struct BfmeWeightInfoVddAnchor;
-#define private private: friend struct BfmeWeightInfoVddAnchor; private
 #include "hanim.h"
-#undef private
-struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
 #include "animobj.h"
 #include "htree.h"
 #include "assetmgr.h"
@@ -149,17 +160,8 @@ struct BfmeTreeView
 // float-frame Simple_Evaluate_Bone 0x001A4F50 at 132, called via +0x210).
 
 
-static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
 
 
-// Likewise for HTreeClass's scalar deleting destructor: retail links one copy,
-// the /O1-shaped body at 0x0017FADF (pop ecx after operator delete), where this
-// unit's command-line state emits add esp,4. The ??_H anchor cannot share this
-// block: it has to precede the includes, and this one needs the complete
-// HTreeClass. If a later HTree delete here will not match, try it without this.
-
-
-static void bfmeHTreeDeleteAnchor(HTreeClass * tree) { delete tree; }
 
 #pragma optimize("", on)
 
