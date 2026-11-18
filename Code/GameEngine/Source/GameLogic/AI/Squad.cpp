@@ -122,15 +122,15 @@ public:
 
 #include "../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
-typedef unsigned short UnsignedShort;
+
 
 enum ObjectID
 {

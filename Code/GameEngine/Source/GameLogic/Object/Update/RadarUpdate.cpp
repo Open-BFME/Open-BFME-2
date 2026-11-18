@@ -15,9 +15,9 @@
 // mask 0x1000); the notifier is the pinned 0x0028AE6D; TheGameLogic's frame is
 // at +0x40; update clears the done frame before setting the complete flag.
 // The ZH twin supplies the labels only.
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum ModelConditionFlagType
 {
 	MODELCONDITION_RADAR_EXTENDING = 2 * 32 + 11,

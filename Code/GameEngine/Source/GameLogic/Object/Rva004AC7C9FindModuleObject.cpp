@@ -13,7 +13,7 @@
 #include "../../Common/PartitionRangeQueryCallView.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 class Object;
 class PartitionManager;
 extern PartitionManager *ThePartitionManager;

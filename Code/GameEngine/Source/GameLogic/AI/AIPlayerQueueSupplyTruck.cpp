@@ -22,9 +22,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 #include "Lib/Coord3D.h"
 #include "Lib/Coord2D.h"
 #include <math.h>

@@ -6,10 +6,10 @@
 // each gives the .rdata slot address(es) that reference it. Meanings are not
 // recovered.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 // slot at VA 0x00C6E3D8: true when the argument equals +0x10.
 class Rva00574365

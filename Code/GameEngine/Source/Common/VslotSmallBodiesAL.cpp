@@ -8,8 +8,8 @@
 // stlport
 #include <vector>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // 0x00330AF6 and 0x00330BA3 (siblings of the rowed 0x00330AD8/0x00330B85):
 // the pinned setter 0x0030BAD8 (index, pair) resp. 0x0030B232 (one

@@ -17,8 +17,8 @@
 // the flip returns mode 1. The palantir, banner and InGameUI part names and
 // the 0x0031AFDE flip keep their address names.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "ascii_string.h"
 

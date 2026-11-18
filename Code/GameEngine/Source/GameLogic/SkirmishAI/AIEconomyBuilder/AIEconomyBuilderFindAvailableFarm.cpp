@@ -17,9 +17,9 @@
 #include "Coord3D.h"
 #include "PartitionRangeQueryCallView.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;

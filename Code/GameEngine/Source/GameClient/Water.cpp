@@ -14,9 +14,9 @@ extern "C" const void *const vtbl_00C082E8[];
 #include <stddef.h>
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef float Real;
+
 
 #include "../../Include/Common/RGBAColorInt.h"
 

@@ -27,12 +27,12 @@
 // ConnectionManager.cpp:2107; align lead, score 4): same thiscall, no
 // arguments, plain ret, and the same NetFrameCommandMsg build and router send.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
+
 enum NetCommandType
 {
 	NETCOMMANDTYPE_UNKNOWN = -1

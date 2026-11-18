@@ -15,7 +15,7 @@
 // (no unwind state around it: it cannot throw). Returning the handle by value under /EHsc is what keeps retail's
 // zeroed but never-read return-object flag at [ebp-4]; both empty returns use the inline default constructor.
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 enum ParticleSystemID
 {

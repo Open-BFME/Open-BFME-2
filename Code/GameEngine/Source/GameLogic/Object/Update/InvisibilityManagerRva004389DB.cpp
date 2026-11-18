@@ -34,10 +34,10 @@ bool less<int>::operator()(const int &a, const int &b) const
 #include "unicode_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum Relationship
 {

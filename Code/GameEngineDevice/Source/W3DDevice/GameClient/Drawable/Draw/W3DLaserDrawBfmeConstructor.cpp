@@ -21,11 +21,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include <windows.h>
 
-typedef char Char;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
+
 typedef int Color;
 
 #include "ascii_string.h"

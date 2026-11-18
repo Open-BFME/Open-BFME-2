@@ -32,7 +32,7 @@
 
 #include <d3d9.h>
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (SetRenderState, vtable slot 57). The wrapper's state parameter is the

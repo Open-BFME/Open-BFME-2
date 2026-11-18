@@ -8,8 +8,8 @@
 // already establishes: base Rva0053947D with the -99999 sentinel, child vector
 // +0x2C, owner +0x38, queue +0x3C, zeroed +0x4C/+0x50/+0x54, speed 5.0f +0x58,
 // active +0x5C; the owner's +0x54 color lookup goes through TheLivingWorldLogic.
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #include <vector>

@@ -22,8 +22,8 @@
 // of vtable 0x00C12A08 (name getter AIFollowWaypointPathExactState), the Zero
 // Hour body: Version1, base xfer, IsLightCRC check, lastWaypoint ID xfer,
 // and TheTerrainLogic waypoint ID lookup on load.
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum StateExitType
 {
 	EXIT_NORMAL = 0,

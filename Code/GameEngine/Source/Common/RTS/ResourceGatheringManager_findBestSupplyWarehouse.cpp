@@ -28,8 +28,8 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef unsigned int ObjectIDValue;
 
 enum NameKeyType

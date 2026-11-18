@@ -16,9 +16,9 @@
 
 #include <windows.h>
 
-typedef int Int;
-typedef bool Bool;
-typedef short Short;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 class GameWindow;
 class ListboxData;

@@ -32,8 +32,8 @@
 // before pushing it, which the local copy reproduces. The roles of AI +0x4EC
 // and +0x534 are not recovered.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 

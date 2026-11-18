@@ -17,7 +17,7 @@ extern "C" void __cdecl free(void*);
 // overlap. Locals, loop order and init order follow the WB frame; the m_extent reference
 // and the barrier before the dirty test reproduce retail's operand order and spills.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/GameLogic/Rva0052E02F.h"
 

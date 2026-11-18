@@ -15,8 +15,8 @@
 // out-of-line isNone / isEmpty (0x00037DE0 / 0x00001E2F).
 #include "ascii_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 enum NameKeyType
 {

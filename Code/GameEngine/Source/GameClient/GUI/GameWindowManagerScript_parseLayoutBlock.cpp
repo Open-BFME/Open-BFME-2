@@ -23,9 +23,9 @@
 //   so MSVC keeps its register convention; its 90-byte body is also rowed).
 // - layoutScriptTable lives at 0x00DBE318 (DIR32, masked by the byte gate).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include <ctype.h>
 #include <string.h>

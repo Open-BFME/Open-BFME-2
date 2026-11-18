@@ -27,7 +27,7 @@
 // operator delete) each entry whose team (+0x1C) is the dying one and
 // restarting the walk after every removal.
 #include <stddef.h>
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 class Team;
 
 template <class OBJCLASS> class DLINK_ITERATOR

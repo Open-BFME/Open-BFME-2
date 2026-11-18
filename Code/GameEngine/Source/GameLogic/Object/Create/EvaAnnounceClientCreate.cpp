@@ -76,7 +76,7 @@ class ModuleData;
 
 class Xfer;
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 struct EvaAnnounceClientCreateModuleData
 {

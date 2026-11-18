@@ -30,7 +30,7 @@ class Object;
 #include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 #include "../../../../../../GameEngine/Include/Common/ObjectModule.h"
 
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 enum NameKeyType
 {

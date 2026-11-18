@@ -23,10 +23,10 @@
 // W3DVolumetricShadow.cpp, with BFME 1's flags argument and constructor
 // (Open-BFME-1 W3DVolumetricShadowAllocateShadowVolume.cpp, 0x007BAE90).
 // Release is __forceinline: retail's destructor is Release's body inline.
-typedef float Real;
-typedef int Int;
-typedef unsigned short UnsignedShort;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 #include <windows.h>
 #include <new>
 #define NEW new

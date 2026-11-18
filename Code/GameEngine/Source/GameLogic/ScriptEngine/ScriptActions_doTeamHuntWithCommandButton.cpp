@@ -30,7 +30,7 @@
 // where retail loads ESI directly.
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum NameKeyType
 {

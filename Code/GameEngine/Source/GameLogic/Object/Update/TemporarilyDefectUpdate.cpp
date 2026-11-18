@@ -33,7 +33,7 @@ class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 enum ObjectStatusTypes;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,

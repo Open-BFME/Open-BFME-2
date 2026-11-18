@@ -51,11 +51,11 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 }
 
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

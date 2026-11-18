@@ -38,7 +38,7 @@ namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> copy<_B
 namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_bit_alloc(unsigned int); }
 // bfme link decl-only end
 
-typedef short Short;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 class ModuleData;
 class Rva002E2903Player;

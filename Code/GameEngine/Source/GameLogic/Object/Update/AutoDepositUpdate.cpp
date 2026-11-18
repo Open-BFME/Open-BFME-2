@@ -6,10 +6,10 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Lib/Coord3D.h"
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef Int Color;
 #define CONSTRUCTION_COMPLETE -1.0f
 #define GameMakeColor(r, g, b, a) (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))

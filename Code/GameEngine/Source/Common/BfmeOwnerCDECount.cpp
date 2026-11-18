@@ -11,8 +11,8 @@ extern float g_Va00BBB8D8;
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);
 
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

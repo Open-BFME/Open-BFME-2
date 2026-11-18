@@ -17,7 +17,7 @@
 #include "ascii_string.h"
 #include <utility>
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Team;
 class TeamPrototype;

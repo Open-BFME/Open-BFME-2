@@ -9,7 +9,7 @@
 // immediate-only drift. The grid reset itself is the empty fold at
 // 0x0069E440 (pin); SetRegion resolves via pin at 0x006C1500.
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include <math.h>
 
