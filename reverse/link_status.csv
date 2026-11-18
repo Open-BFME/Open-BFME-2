@@ -7240,7 +7240,6 @@ Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandCountMap.cpp,y
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandCountMapCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCopyPointerList.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowerShortcut.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarMultiSelect.cpp,yes,0,0,0,0,0
