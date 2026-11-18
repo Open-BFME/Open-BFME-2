@@ -19,8 +19,9 @@ Do not use a declaration-only helper: the call is then not expanded and Compute_
 Not published: the shim is named `vector3.h`, so `tools/header_dependents.py --staged` counts 2,354
 dependents by name, exceeds its 2,000 limit and the pre-commit hook runs the whole-tree gate
 (over 22 minutes here without finishing; the pre-push hook repeats it on every attempt). A seat
-with that budget can apply the patch below as it stands. Renaming the shim first (it is included
-by explicit path from four units) would bound the gate to those four.
+with that budget can apply the patch below as it stands. Renaming the shim does not help: measured
+with the rename staged (`vector3.h` -> `tri_math_vector3.h`, the four includers repointed), the
+tool still counts the removed name and reports the same 2,354 dependents.
 
 ```diff
 diff --git a/Code/Libraries/Source/WWVegas/WWMath/tri_compute_normal.cpp b/Code/Libraries/Source/WWVegas/WWMath/tri_compute_normal.cpp
