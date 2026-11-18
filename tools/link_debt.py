@@ -23,7 +23,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKIP = ("Code/gen_small/", "Code/gen_asm/")
 SUFFIXES = (".cpp", ".c", ".h", ".hpp", ".inl")
-COMMENTS = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\])*"', re.S)
+# Comments, string literals and character literals. A character literal is consumed too: the quote
+# in `'"'` otherwise opens a string that runs to the next `"` anywhere, hiding the code between them
+# and exposing whatever a later comment holds. A literal is at most four characters, so no address
+# fits inside one.
+COMMENTS = re.compile(r"""//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\\n]){1,4}'""", re.S)
 CAST = re.compile(r'\(\s*(?:(?:const|volatile)\s+)*[\w:<>\s]+\*+\s*(?:const\s*)?\)\s*\(?\s*(0x[0-9A-Fa-f]{6,8})\b'
                   r'|reinterpret_cast\s*<[^>]*\*\s*>\s*\(\s*(0x[0-9A-Fa-f]{6,8})\b')
 LOW, HIGH = 0x00400000, 0x00EDA000  # game.dat's image: masks and flag words fall outside

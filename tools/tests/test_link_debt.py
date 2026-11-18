@@ -217,3 +217,26 @@ EXTERN ?g_vp6IdctConstantBlock@@3PAGA:WORD     ; retail 0x00E22980
     assert L.addresses(text, "Code/Libraries/Source/VP6/MmxIDct.asm") == ["0x00E1C340"]
     # C++ keeps ';' as a statement end: an address after it is still counted.
     assert L.addresses("int x; int *p = (int *)0x00E1C340;", "Code/A.cpp") == ["0x00E1C340"]
+
+
+def test_a_quote_character_literal_opens_no_string():
+    # GameWindowManagerScript.cpp, 2026-11-18: `'"'` in code opened a string that swallowed the start
+    # of a later comment and exposed the address inside it; LinkGuard refused a merge for an address no
+    # source held.
+    text = r"""
+    while (*p != '"') p++;
+    // - seps "\n\"" lives at 0xC0C2B8.
+"""
+    assert L.addresses(text) == []
+    assert L.literals(text) == []
+
+
+def test_a_quote_character_literal_hides_no_address():
+    # the same misreading hid real code: everything from `'"'` to the next `"` was a "string"
+    text = r"""char c = '"'; int *p = (int *)0x00E1C340; // " """
+    assert L.addresses(text) == ["0x00E1C340"]
+    assert len(L.literals(text)) == 1
+    # an escaped quote literal and a literal after the address change nothing
+    assert L.addresses(r"""char q = '\''; int *p = (int *)0x00E1C340; char r = '"';""") == ["0x00E1C340"]
+    # more than four characters is no character literal: nothing inside quotes that long is skipped
+    assert L.addresses("int *p = (int *)'0x00E1C340';") == ["0x00E1C340"]
