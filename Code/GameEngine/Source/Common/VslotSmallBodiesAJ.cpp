@@ -888,7 +888,7 @@ void AptObject::RegisterReferences() const
 }
 
 // Constant and field slots.
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 // 0x00444680 (22 tables): answers 1 for any two arguments.
 class Rva00444680
 {

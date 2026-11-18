@@ -43,11 +43,11 @@ struct GameSlotConnectInfo;
 // XferEnumHelpers GameSlot map (state@4, color@C, startPos@10,
 // template@18, origColor@24, origStartPos@28, origTemplate@2C).
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef bool Bool;
 
-typedef unsigned int UnsignedInt;
+
+
 
 class Rva003FF1C2
 {

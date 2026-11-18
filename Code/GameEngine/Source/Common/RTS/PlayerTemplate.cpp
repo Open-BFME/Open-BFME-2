@@ -403,9 +403,9 @@ template <> void _Construct<AsciiString, AsciiString>(AsciiString *, const Ascii
 template _STL::_List_node<AsciiString> *
 _STL::list<AsciiString, _STL::allocator<AsciiString> >::_M_create_node(const AsciiString &);
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
+
 
 class AsciiString;
 

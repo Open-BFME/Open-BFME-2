@@ -484,9 +484,9 @@ private:
 // in EAX at RET; no extra caller cleanup or callee pins are introduced.
 typedef int Color;
 
-typedef unsigned int UnsignedInt;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef unsigned char UnsignedByte;
+
 
 void GameGetColorComponents(Color,UnsignedByte *,UnsignedByte *,UnsignedByte *,UnsignedByte *);
 
@@ -500,7 +500,7 @@ inline const int &(min)(const int &__a, const int &__b)
 { const int *__pa = &__a, *__pb = &__b; if (*__pb < *__pa) return __b; return __a; }
 }
 
-typedef int Int;
+
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/Member0C00739C70.h"
 

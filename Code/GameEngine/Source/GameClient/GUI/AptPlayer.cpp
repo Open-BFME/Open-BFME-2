@@ -84,7 +84,7 @@ TreeHintRef002BF0D6 &Rva002BFC59::rva002BFC59(const AsciiString &key)
 // pointer is at +0x300; popping the top focus marks the player dirty at
 // +0x308.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class AptFocusTarget;
 class GameWindow;
@@ -295,7 +295,7 @@ int AptPlayer::AddLevel(AsciiString directory,AsciiString file,bool show,int par
 
 // WorldBuilder B958E0 names the static level-index query. Native
 // 222547..222597 returns -1, 14, or the integer at reply+274.
-typedef unsigned int UnsignedInt;
+
 typedef unsigned int WindowMsgData;
 
 enum WindowMsgHandledType

@@ -9,7 +9,7 @@
 // 12-byte table object (count, StringInfo array, sorted StringLookUp array)
 // with its own STR/CSF readers; the manager holds two of them, the game's
 // strings and the map's.
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include <vector>
 #include <algorithm>

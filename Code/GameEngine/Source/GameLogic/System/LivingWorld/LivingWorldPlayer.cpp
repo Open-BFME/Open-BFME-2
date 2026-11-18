@@ -12,7 +12,7 @@
 // through the folded pointer-vector erase (rowed as vector<void *>), so the
 // view below holds void pointers.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {

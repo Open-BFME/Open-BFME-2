@@ -12,10 +12,10 @@
 // reinstalls vtable 0x860130 then frees via rowed ??3@YAXPAX@Z at 0x0002FD60.
 // Abbuts the word getter at 0x004CEEA1 (prev ret) and the next body at
 // 0x004CEEC3; same TU emits it byte-exact from the inline empty dtor.
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef int Int;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -29,7 +29,7 @@ enum NetCommandType
 
 class MemoryPool;
 class AsciiString;
-typedef bool Bool;
+
 
 // Retail vtable 0x860130 has four slots and no memory-pool slot (??_G frees
 // through global operator delete): the deleting dtor, getSortNumber 0x004CEEA1

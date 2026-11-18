@@ -489,8 +489,8 @@ Rva005C865B::Rva005C865B(void *owner, float *coordinates)
 // Target W3DView vftable BC756C slot21 also points directly to 48D807.
 #include "ascii_string.h"
 
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "Lib/Coord3D.h"
 // bfme link decl-only begin

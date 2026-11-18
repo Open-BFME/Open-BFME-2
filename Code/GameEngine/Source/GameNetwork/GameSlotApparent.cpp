@@ -23,8 +23,8 @@
 // slot pointer in ECX across that call. The +0x50/+0x60/+0x64 fields are
 // unidentified, hence the address name.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "ascii_string.h"
 #include "unicode_string.h"

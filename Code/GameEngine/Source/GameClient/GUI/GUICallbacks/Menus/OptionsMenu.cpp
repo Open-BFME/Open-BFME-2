@@ -4,17 +4,17 @@
 #include <map>
 #include <stdlib.h>
 #include <string.h>
-typedef bool Bool;
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 #include "../../../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
-typedef float Real;
+
 #include "../../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 #pragma const_seg(".data")
 #pragma const_seg()
 #include "unicode_string.h"
-typedef unsigned short UnsignedShort;
+
 #include <stdio.h>
 #pragma comment(linker, "/alternatename:?find@SkirmishFindMap@@QBEPAUSkirmishFindNode@@ABVAsciiString@@@Z=??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@1@ABVAsciiString@@@Z")
 enum GameDifficulty
@@ -85,7 +85,7 @@ namespace _STL {
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &);
 }
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
-typedef unsigned int UnsignedInt;
+
 class EnumeratedIP
 {
 public:
@@ -133,7 +133,7 @@ struct Rva00DFE144Globals
 // defining a second variable the rest of the game never sees.
 extern class GameLODManager *TheGameLODManager;
 extern GameLODManager *TheGameLODManager;
-typedef unsigned char UnsignedByte;
+
 extern const char g_volumePreferenceKeys[5][20] = {
 	"SFXVolume", "VoiceVolume", "MusicVolume", "AmbientVolume", "MovieVolume",
 };
@@ -271,7 +271,7 @@ struct ScriptEngineDifficultyView
 };
 #include "../../../../../Include/Common/OptionPreferences.h"
 
-typedef short Short;
+
 
 // ---- from Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp
 

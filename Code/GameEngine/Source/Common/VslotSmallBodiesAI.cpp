@@ -6,8 +6,8 @@
 // VslotSmallBodiesA-AH, classes and methods are address-derived unless the
 // ledger names them, and model only what each body touches.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // Native 0x0059B14E..0x0059B19A (RET 4): a nonzero input selects an
 // experience-level handle with the receiver's +0x08 value; a valid handle

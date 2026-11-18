@@ -287,7 +287,7 @@ extern const FieldParse g_00BDF1D8[5] = {
 //   0x00068D43 +0x3850 -> Rva000EDB47NullTarget::rva000EDB47 (0 arg)
 //   0x0007E17B +0x100 -> WaterTracksRenderSystem::rva0010004D (1 arg)
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 class ShellMenuScheme
 {
 public:

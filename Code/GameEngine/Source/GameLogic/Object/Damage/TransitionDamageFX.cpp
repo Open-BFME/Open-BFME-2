@@ -113,8 +113,8 @@ class Snapshot;
 class Thing;
 class ModuleData;
 #include "../../../../Include/Common/BfmeXfer.h"
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 #include <string.h>
 template <typename T> struct BfmeStringData;
 #include "GameLogicObjectLookupView.h"
@@ -222,7 +222,7 @@ template <> void _STL::vector<Rva004BA1D0>::push_back(const Rva004BA1D0 &value)
         _M_insert_overflow(_M_finish, value, _STL::__false_type(), 1UL, true);
     }
 }
-typedef int Int;
+
 struct TransitionDamageFXRecordA
 {
 	void *m_value;
@@ -406,7 +406,7 @@ struct Rva004B9C4DLoc {
 // walk 0x004B9DA9 when the transition enters or leaves state 3. Module data
 // layout: masks +8/+0x54C/+0xA90 ahead of FX/OCL/particle [4][12] arrays of
 // 0x1C entries; particle IDs [4][12] at +0x14 of the module.
-typedef unsigned int UnsignedInt;
+
 enum KindOfType
 {
 	KINDOF_FIRST = 0

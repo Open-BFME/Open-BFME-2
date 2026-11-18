@@ -11,7 +11,7 @@
 // thunk56655F come from the native call operands, not donor addresses.
 // The original record class name is unknown. Its function-scope lifetime
 // preserves VC7.1's separate8-byte exception and16-byte record EH slots.
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 struct _s__ThrowInfo;

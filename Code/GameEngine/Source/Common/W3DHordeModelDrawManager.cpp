@@ -34,7 +34,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // ShadowTypeInfo holds a char name instead. The type at +8 is the word
 // addShadow reads; the other member names are neutral.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 #include <windows.h>
 #include "ascii_string.h"
 #include <stdlib.h>
@@ -551,9 +551,9 @@ struct Rva00078F95Item
 };
 typedef Rva00079D14Out (Rva00079D14Tree::*Rva00079D14FindFn)(
 	const Rva00079D14Value &);
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+
+
+
 #include "../../Include/Common/SizedForwarderSlots.h"
 class Rva00078AC6Forwarder
 {

@@ -122,11 +122,11 @@
 // +0x2B4). RequestGameOptions is slot 25; both requests take a zeroed
 // address temporary by reference.
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 typedef unsigned short WideChar;
 #include "ascii_string.h"
 #include "unicode_string.h"

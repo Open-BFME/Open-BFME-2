@@ -9,10 +9,10 @@
 // ids at +0x14/+0x18. The 31-byte lookup at 0x004079D5 (unnamed in WB) finds
 // the node and reports whether it is not the end.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 Real GetGameClientRandomValueReal(Real lo, Real hi, char *file, Int line);	// 0x00234111
 // Retail's __FILE__ for this unit; the call sites pass their original line.

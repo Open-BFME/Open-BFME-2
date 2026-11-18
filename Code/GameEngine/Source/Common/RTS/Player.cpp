@@ -1241,9 +1241,9 @@ public:
 // immediates 0x12-0x1A (status-range, with paired setter 0x290963 for
 // 0x18-0x1A); +0x13C takes computed bits (register/memory, no immediates).
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
+
 
 class Rva002AA8BF
 {

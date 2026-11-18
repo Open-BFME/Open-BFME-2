@@ -486,7 +486,7 @@ private:
 // ?rva003B24C7@Rva003B24C7@@QAEX_N@Z 0x003B24C7 20B
 // Evidence: bool setter storing flag at +0; when false zeroes dword at +4
 // and byte at +1 reusing the parameter register; callers 0x00207557.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Rva003B24C7
 {
@@ -521,7 +521,7 @@ public:
 	Rva0034FE00 &operator=(const Rva0034FE00 &other);
 };
 
-typedef int Int;
+
 
 // BF1 9cbfb551fe Common/RvaTinyBodies_20260920.cpp is the clean semantic donor.
 // Target 3B31F6..3B3204 RET0 followsRET0; sets dwords0/4/8 to0/-1/0 and returnsreceiver
@@ -709,7 +709,7 @@ public:
 	int rva003B7EC2(int key);
 };
 
-typedef short Short;
+
 
 struct Rva003B483DEntry
 {

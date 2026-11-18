@@ -80,12 +80,12 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
+
+
 
 enum { MAX_PLAYER_COUNT = 20 };
 

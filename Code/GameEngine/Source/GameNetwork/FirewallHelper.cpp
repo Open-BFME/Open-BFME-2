@@ -305,9 +305,9 @@ private:
     unsigned long m_18c;
 };
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef unsigned short UnsignedShort;
+
 
 struct NetworkAddress
 {

@@ -15,8 +15,8 @@
 #include <windows.h>
 #include <vector>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt StateID;
 class Object;
 class Waypoint;

@@ -58,9 +58,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #pragma pop_macro("_CRTIMP")
 #include <crtdbg.h>
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/Common/BfmeStringData.h"
 

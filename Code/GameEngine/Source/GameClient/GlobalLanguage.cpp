@@ -17,7 +17,7 @@ enum INILoadType{INI_LOAD_INVALID,INI_LOAD_OVERWRITE};
 #include "../../Include/Common/File.h"
 #include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include "subsystem_interface.h"
 #include <stl/_alloc.h>
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
@@ -113,9 +113,9 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // that literal for initSubsystem<GlobalLanguage>) and feed eax to
 // FontLibrary::getFont float size; floor reaches msvcr71 through IAT.
 
-typedef int Int;
 
-typedef float Real;
+
+
 
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 

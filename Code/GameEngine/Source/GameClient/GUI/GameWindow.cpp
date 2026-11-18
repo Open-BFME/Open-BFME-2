@@ -106,8 +106,8 @@
 // winSetPosition were folded in from split units with these exact flags, as
 // was the address-named list link/unlink pair at 0x0031455E/0x00314581.
 
-typedef int Int;
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
+
 class GameFont;
 class DisplayString;
 enum { GWS_SCROLL_LISTBOX = 0x20 };
@@ -115,7 +115,7 @@ enum { GWS_COMBO_BOX=0x8000, GWS_ENTRY_FIELD=0x40, GWS_STATIC_TEXT=0x80 };
 struct WindowPickCoord { int x; int y; };
 enum { WIN_STATUS_TAB_STOP = 0x100 };
 enum { WIN_STATUS_HIDDEN = 0x10 };
-typedef unsigned int UnsignedInt;
+
 typedef UnsignedInt WindowMsgData;
 enum WindowMsgHandledType
 {
@@ -346,7 +346,7 @@ public:
 	virtual void Virtual18(GameWindow *win);
 	virtual void Virtual1C(GameWindow *win);
 };
- typedef bool Bool;
+ 
 enum { WIN_STATUS_ABOVE=0x20, WIN_STATUS_BELOW=0x40, WIN_STATUS_ENABLED=8, WIN_STATUS_NO_INPUT=0x200 };
 struct CursorCoord { int x,y; };
 struct CursorRegion { CursorCoord lo,hi; };

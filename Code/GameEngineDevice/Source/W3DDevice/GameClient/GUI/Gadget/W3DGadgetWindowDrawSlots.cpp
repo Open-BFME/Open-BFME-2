@@ -30,8 +30,8 @@
 //   0x000A4795  0x00BC91D8#3  W3DGadgetCheckBoxImageDraw
 //   0x000A6007  0x00BC9204#3  W3DGadgetPushButtonDraw
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType

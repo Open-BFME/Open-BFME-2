@@ -468,10 +468,10 @@ void XferLivingWorldRegionBonusRuleID(Xfer *xfer, int *value)
 // slot-10 transfer operator. Xfer.cpp's model verbatim.
 #include "../../../Include/Common/XferVersion.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 // TU-scoped strings: 4-byte ref-counted handles, the MapMetaData TU pattern
 // stripped to the layout (no methods, so no extra literals or code).

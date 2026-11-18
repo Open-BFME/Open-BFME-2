@@ -51,11 +51,11 @@ template <> basic_string<char, char_traits<char>, allocator<char> > &
 basic_string<char, char_traits<char>, allocator<char> >::operator=(const char *s);
 }
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
+
 typedef int Color;
 
 enum { MAX_SLOTS = 8 };

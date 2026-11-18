@@ -23,10 +23,10 @@
 //   and WM_IME_SETCONTEXT forwards to DefWindowProc without
 //   ISC_SHOWUICOMPOSITIONWINDOW.
 // Structural inferences: names of BFME2-only members and the helper are ours.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef char Char;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef unsigned short WideChar;
 
 // STLport frees through a C++-linkage free; its decoration is what keeps the

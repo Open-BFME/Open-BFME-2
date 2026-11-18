@@ -386,7 +386,7 @@ public:
 // 0x006E0500: tail jump to BfmeAptValue006DCD20::rva006E04A0.
 // 0x0070DFD0: tail jump to Rva006D6360::rva006DCC00.
 // Constant and field slots.
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // 0x00444680 (22 tables): answers 1 for any two arguments.
 // 0x005B8012 (three tables): answers 1 for any four arguments.
@@ -898,7 +898,7 @@ struct BfmePairEL
 
 BfmePairEL __cdecl bfmeMakePairEL(const BfmeWordEL &first, const BfmeWordEL &second);
 
-typedef bool Bool;
+
 
 extern const StaticNameKey TheKey_teamOwner;
 
@@ -1059,7 +1059,7 @@ public:
 
 namespace _STL {template<> void _Construct<Rva0032CD3BRecord,Rva0032CD3BRecord>(Rva0032CD3BRecord*,const Rva0032CD3BRecord&);}
 
-typedef float Real;
+
 
 // 0x00131CF2 and 0x00151415 (texture tables): true when the +0x14 object's
 // +0x08 (resp. +0x04) is set, else the rowed 0x00130FCE on this object.

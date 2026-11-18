@@ -15,8 +15,8 @@
 // inline coordinate-buffer free through the C++-linkage free pinned at
 // 0x00030830 (pin note: that decoration is what carries the unwind state).
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

@@ -79,8 +79,8 @@
 //     WeaponStore::createAndFireTempWeapon (rowed 0x002CE904).
 // Both return nothing (RET 0xC / RET 0x10, eax not set).
 
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include <windows.h>
 

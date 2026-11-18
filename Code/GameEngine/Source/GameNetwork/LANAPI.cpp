@@ -47,11 +47,11 @@
 // MSG_ENABLE_MPSETUP_UI (12) with the Bool at +0x40, sent and flushed through
 // Transport::update.
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 typedef unsigned short WideChar;
 #include <windows.h>
 #include <string.h>
