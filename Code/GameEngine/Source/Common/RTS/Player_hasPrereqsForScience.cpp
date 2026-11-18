@@ -11,10 +11,10 @@
 // null-checked `this ? this+4 : 0`), the same Rva0043D3A8 view the rowed
 // ScienceStore neighbour 0x001FF4D3 is pinned with.
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 class Rva0043D3A8
 {

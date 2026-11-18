@@ -7,10 +7,10 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 #include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;

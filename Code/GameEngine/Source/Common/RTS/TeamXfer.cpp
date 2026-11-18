@@ -65,10 +65,10 @@ class Snapshot;
 
 #include "../../../Include/Common/XferException.h"
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 void XferObjectID(Xfer *xfer, ObjectID *value);
 Xfer *Rva002F1CDDXfer(Xfer *xfer, _STL::set<int, _STL::less<int>, _STL::allocator<int> > *data);

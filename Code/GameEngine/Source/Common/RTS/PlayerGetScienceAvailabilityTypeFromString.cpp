@@ -48,16 +48,16 @@
 #include "ascii_string.h"
 
 
-enum ScienceAvailabilityType
-{
-    SCIENCE_AVAILABILITY_INVALID = -1,
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceAvailabilityType.h"
 
-    SCIENCE_AVAILABLE,
-    SCIENCE_DISABLED,
-    SCIENCE_HIDDEN,
 
-    SCIENCE_AVAILABILITY_COUNT,
-};
+
+
+
+
+
+
+
 
 static const char *ScienceAvailabilityNames[] =
 {

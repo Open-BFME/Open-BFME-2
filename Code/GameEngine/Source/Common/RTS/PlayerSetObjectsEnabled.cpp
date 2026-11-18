@@ -52,11 +52,11 @@ private:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-enum ObjectScriptStatusBit
-{
-	OBJECT_STATUS_SCRIPT_DISABLED = 0x01,
-	OBJECT_STATUS_SCRIPT_UNPOWERED = 0x02
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectScriptStatusBit.h"
+
+
+
+
 
 class Object;
 

@@ -43,11 +43,11 @@ namespace _STL { template <> void *__malloc_alloc<0>::allocate(size_t); }
 namespace _STL { template <> __declspec(dllimport) __forceinline void **allocator<void *>::allocate(size_t __n, const void *)
 { return __n != 0 ? (void **)__sgi_alloc::allocate(__n * sizeof(void *)) : 0; } }
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 #include "../../Include/Common/DamageFXClass.h"
 

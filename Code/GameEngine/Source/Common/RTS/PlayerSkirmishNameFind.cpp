@@ -17,10 +17,10 @@
 // the matched findSideInfo), which fixes the getSkirmishSideInfo identity.
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Rva00148F5ECache
 {

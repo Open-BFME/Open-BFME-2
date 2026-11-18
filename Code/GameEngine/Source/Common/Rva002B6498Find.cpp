@@ -7,12 +7,12 @@
 // 0x002E3570 0x003F1BE2 0x003F2287 0x004FBA17 0x0050306A; same map as
 // Rva003ED2A3ManagerRemove.cpp; minimal _STL forward declares (no <hash_map>
 // to avoid private-inheritance macro breakage and generic emission).
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
+
 
 class Rva002B6498;
 

@@ -119,7 +119,7 @@ extern ControlBar *TheControlBar;
 // GetHeroForPlayer's views. A game slot keeps the name compared with the
 // player's key at +0x34 and its created hero at +0x64, valid when the byte
 // at +0x60 is set; the player's name key is at +0x50.
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 

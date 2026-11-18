@@ -76,7 +76,7 @@ namespace _STL {
 template<> list<Snapshot *>::iterator list<Snapshot *>::erase(iterator);
 }
 
-enum LocomotorSetType { LOCOMOTORSET_INVALID = -1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
 class LocomotorTemplate;
 // Use the rowed 0x000796BC pair teardown rather than emitting a private copy.
 // MSVC still synthesizes the implicit destructor with a member specialization;

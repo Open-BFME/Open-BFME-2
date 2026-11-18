@@ -4,10 +4,10 @@
 // Thin wrapper over the landed char* overload at 0x00148E1A. Header text
 // lives at +8; empty strings go through the "" literal.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "ascii_string.h"
 

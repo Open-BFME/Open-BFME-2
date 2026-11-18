@@ -16,7 +16,7 @@
 // hand-written view because the retail resize passes the element by value.
 #include <vector>
 
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void allocator<ScienceType>::deallocate(ScienceType* __p, size_t __n) const {

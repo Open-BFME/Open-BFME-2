@@ -8,10 +8,10 @@
 // pushes [esi+4] into the rowed nameToKey with ecx from 0xDF36A4; 40+ callers
 // are static-init jmp stubs like 0x0045EE2C caching class strings.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../Include/Common/NameKeyGenerator.h"
 

@@ -7,10 +7,10 @@
 // vector<ScienceType>::erase at 0x00532803. Caller at 0x002AE258. Prev
 // PlayerRva002AC629 next PlayerRva002ACD09.
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 #include <vector>
 

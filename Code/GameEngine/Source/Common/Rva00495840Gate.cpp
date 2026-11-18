@@ -4,7 +4,7 @@
 // The argument's slot 110 gates the command-button path. A null scan
 // returns 0x3FFFFFFF. Every other exit returns the int at holder+8.
 
-enum SpecialPowerType {};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SpecialPowerType.h"
 #include "../../Include/Common/Overridable.h"
 #include "../../Include/Common/SpecialPower.h"
 

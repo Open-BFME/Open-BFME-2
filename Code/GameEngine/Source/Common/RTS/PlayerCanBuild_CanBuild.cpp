@@ -37,13 +37,13 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-enum BuildableStatus
-{
-	BSTATUS_YES,
-	BSTATUS_IGNORE_PREREQUISITES,
-	BSTATUS_NO,
-	BSTATUS_ONLY_BY_AI
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/BuildableStatus.h"
+
+
+
+
+
+
 
 enum PlayerType
 {

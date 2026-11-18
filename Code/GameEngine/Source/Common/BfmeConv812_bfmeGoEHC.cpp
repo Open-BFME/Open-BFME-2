@@ -5,7 +5,7 @@
 // Native GameWindow table C0BBCC slot 2 selects this complete35B body.
 // The placeholder method name is retained; this recovers its class/ABI,
 // not an original method name. Only the prefix through callback+1E4 is used.
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 
 WindowMsgHandledType GameWindow::bfmeGoEHCb(

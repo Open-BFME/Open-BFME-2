@@ -6,10 +6,10 @@
 // (Rva0033FE65::onEnter) when m_28==2; float ==0.0f via Rva001E3F08
 // returning 0/1 into m_2C; getGoalObject null plus m_28 checks
 // returning -2/0; 0 callers (state virtual).
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
 
 class StateMachine;
 class Object;

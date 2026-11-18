@@ -35,7 +35,7 @@ public:
 };
 
 
-enum ObjectID { INVALID_ID=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 void XferParticleSystemID(Xfer*, int*);
 void XferDrawableID(Xfer*, int*);
 void XferObjectID(Xfer*, ObjectID*);

@@ -5,10 +5,10 @@
 // three flag bytes at stride 0x10 from index*0x30+0x2c. Object at
 // this-0x3DC idles through AI+0x258+0x20. /G7 selects imul by 0x30.
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 

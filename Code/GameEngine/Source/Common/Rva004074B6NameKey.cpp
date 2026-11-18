@@ -2,10 +2,10 @@
 //
 // ?rva004074B6@Rva004074B6@@QAEXABVAsciiString@@@Z retail 0x004074B6 25B
 // Evidence: unlock lane; NameKey at +0x30 via TheNameKeyGenerator 0x00DF36A4 nameToKey 0x0009FA65 precedent NameKeyGeneratorRvaLowercaseKey plus memory findWeaponTemplate; caller 0x00408150; prev StringRecordCopy same /O1.
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 class AsciiString;
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

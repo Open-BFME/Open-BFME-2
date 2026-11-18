@@ -7,10 +7,10 @@
 // TheScienceStore, pushing kept ones via the rowed push_back at 0x002E01C6. Caller 0x0040F323.
 // The argument of isScienceGrantable is an equal-arm conditional (late-folded ?:),
 // which reproduces retail's register order for the call (W7-R1 lever).
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 namespace _STL
 {

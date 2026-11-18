@@ -2,10 +2,10 @@
 // ?rva00469075@Rva00469075@@QAEXM@Z 0x00469075 52B evidence: chain from setOrientation 0x30AB9D; calls setWakeFrame 0x44DF71 with 1; null Object at this-0x114
 class Object;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 #include "Thing/thing.h"
 

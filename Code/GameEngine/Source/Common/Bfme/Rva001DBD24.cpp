@@ -2,10 +2,10 @@
 // ?rva001DBD24@Rva00489360@@QAE_NXZ @0x001DBD24 57B: Rva00489360 element init via NameKeyGenerator and WindowManager then inner v04; evidence caller 0x001DC164 passes Rva00489360 values and NameKeyGenerator row 0x0009FA65
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-  NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 

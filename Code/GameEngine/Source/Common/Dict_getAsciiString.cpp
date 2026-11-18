@@ -12,7 +12,7 @@
 // compare and the equal/unequal tail. Nothing about the value's type enters it.
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Dict.h
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../Include/Common/Dict.h"
 
