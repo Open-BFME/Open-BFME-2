@@ -22,10 +22,13 @@ private:
     void *m_end;
 };
 
-// SubsystemInterface with the 14 virtual slots of its retail vtable 0x00BD77A0,
-// spelled as reference/shims/subsystem_bfme2/subsystem_interface.h does (ctor
-// 0x001B4E63 / dtor 0x001B4E74 rowed as ??0/??1SubsystemInterface), so the
-// derived vtable below gets the retail 14-slot shape.
+// SubsystemInterface with the 14 virtual slots of its retail vtable 0x00BD77A0.
+// The canonical header keeps those slots behind BFME_SUBSYSTEM_SLOTS (the shim
+// reference/shims/subsystem_bfme2/subsystem_interface.h defines it before the
+// include), so define it here too; without it the class has no virtual base and
+// the vtable below is four slots. Ctor 0x001B4E63 / dtor 0x001B4E74 are rowed as
+// ??0/??1SubsystemInterface, so the derived vtable gets the retail 14-slot shape.
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class Rva00220CD4 : public SubsystemInterface
