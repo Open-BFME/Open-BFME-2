@@ -21,9 +21,9 @@
 //   into the rowed Rva0007BF77Copy; the 1-byte flag local matches the
 //   callee's const _STL::__false_type& parameter by address.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 // Reuse the shared Vector3 view and donor34f59164f6 PlaneClass/CollisionMath.
 // Native7B638 reads normal0/4/8 and distance12; native7B5C8 consumes the

@@ -3,7 +3,7 @@
 // ?rva005A6709@Rva005A6709@@QBEHXZ @0x005A6709 20B. Unlock lane: predicate
 // returning (m_0C != 8 && m_0C == m_14); 9 callers including 0x005A6931 and
 // 0x005BA3B0; unblocks 7. Prev/next are list append and cmp-bool getter.
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class Rva005A6709
 {

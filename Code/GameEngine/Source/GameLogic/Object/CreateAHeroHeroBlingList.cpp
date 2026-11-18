@@ -31,9 +31,9 @@ namespace _STL { template <> void vector<unsigned int, allocator<unsigned int> >
 // the kept retail copy instead.
 namespace _STL { template <> void vector<unsigned int, allocator<unsigned int> >::push_back(const unsigned int &); }
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum NameKeyType
 {

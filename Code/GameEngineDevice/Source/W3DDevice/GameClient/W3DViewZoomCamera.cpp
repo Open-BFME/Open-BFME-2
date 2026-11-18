@@ -7,8 +7,8 @@
 // the ParabolicEase (+0x1FC) gets its in/out times and the duration, and a
 // one-millisecond request runs the first step at once (rowed 0x00086E24).
 
-typedef int Int;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

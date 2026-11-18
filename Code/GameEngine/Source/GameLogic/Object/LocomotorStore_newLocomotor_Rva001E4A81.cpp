@@ -9,7 +9,7 @@
 // with plain operator new and passes the extra flag to the constructor at
 // 0x001E449A.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class LocomotorTemplate;
 

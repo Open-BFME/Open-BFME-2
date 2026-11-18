@@ -15,7 +15,7 @@
 // 0x001B4FE9 on the list before answering. Their Zero Hour counterparts are
 // not identified.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/Common/GlobalData.h"
 

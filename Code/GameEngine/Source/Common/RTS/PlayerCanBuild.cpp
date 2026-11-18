@@ -32,8 +32,8 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 #include <vector>
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum BuildableStatus
 {

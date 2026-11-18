@@ -26,7 +26,7 @@
 //
 // Its own TU because BFME has no WindowXlat.cpp yet.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/GameClient/Shell.h"
 
@@ -144,7 +144,7 @@ typedef GameWindowMessage (*RawMouseToWindowMessageType)( const GameMessage * );
 // manager and two global gates can keep the message; the shell/input checks
 // run only in mode 1 (and for clicks not in mode 0 while the guard object at
 // VA 0x00DFEF18 runs unpaused).
-typedef unsigned char UnsignedByte;
+
 enum WinInputReturnCode { WIN_INPUT_NOT_USED = 0, WIN_INPUT_USED };
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 enum { KEY_ESC = 0x01, KEY_STATE_UP = 0x0001 };

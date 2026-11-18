@@ -12,8 +12,8 @@
 // (load-then-test). The GameSpy staging room override 0x004FDC78 is the same
 // body on its own flag. The names follow the base's address.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "ascii_string.h"
 

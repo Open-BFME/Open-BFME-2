@@ -33,9 +33,9 @@ template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(ch
 }
 
 typedef void *PEER;
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 static const Int MAX_SLOTS = 8;
 
 enum MessageType

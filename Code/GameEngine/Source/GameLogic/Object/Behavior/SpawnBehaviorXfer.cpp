@@ -25,8 +25,8 @@ void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<i
 { __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
 }
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 
 // Retail ThrowInfo identifies the 8-byte XferException class and its

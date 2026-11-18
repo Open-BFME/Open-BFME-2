@@ -17,8 +17,8 @@
 // vslot 31; TheLAN is the canonical global at VA 0x00DFE958) before unaccepting the
 // slots, without Zero Hour's host start-button refresh.
 // Layout: m_inGame +0x10.
-typedef bool Bool;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 enum
 {
 	MAX_SLOTS = 8

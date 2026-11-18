@@ -4,7 +4,7 @@
 // Code/GameEngine/Source/Common/S3GuardedSetters.cpp); trimmed to the three
 // T1 bodies the sweep places.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct Gen_00750550Impl
 {

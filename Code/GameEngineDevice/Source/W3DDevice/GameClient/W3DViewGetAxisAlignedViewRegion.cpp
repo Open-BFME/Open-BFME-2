@@ -9,8 +9,8 @@
 // BFME's Coord3D carries an out-of-line empty constructor and destructor, so the
 // four-corner array is built through the vector constructor iterator.
 
-typedef float Real;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #define COORD3D_VIEW_EXTERN_CTOR
 #define COORD3D_VIEW_EXTERN_DTOR

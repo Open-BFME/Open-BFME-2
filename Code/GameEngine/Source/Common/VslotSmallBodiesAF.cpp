@@ -5,7 +5,7 @@
 // unless the ledger already names them, and model only what each body
 // touches. Meanings are not recovered.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 namespace _STL
 {
@@ -116,7 +116,7 @@ Int Rva0051847B::rva00518557(Int msg, unsigned char b, Int flags)
 // argument, swaps model condition 82 for 83 (the word array at Object
 // +0x10C, as in ObjectWeaponSetFlags.cpp), notifying through the pinned
 // Object 0x0028AE6D whenever 82 is set or 83 is not.
-typedef unsigned int UnsignedInt;
+
 class Rva0010CConditionBits
 {
 public:

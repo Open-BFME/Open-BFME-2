@@ -26,8 +26,8 @@
 // Static helper's compiler-selected ESI argument is preserved by the emission
 // anchor below; that anchor is build scaffolding and claims no retail bytes.
 // stlport
-typedef bool Bool;
-typedef int Int;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 class RenderObjClass;
 #include "htree.h"
 // Target call sites prove BFME2 slots 30/36/48/101. The shared RenderObj

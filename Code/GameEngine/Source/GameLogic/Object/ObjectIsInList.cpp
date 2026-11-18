@@ -10,7 +10,7 @@
 // setLayer does in Zero Hour's Object.cpp; its body changed shape in BFME,
 // so the name stays address-derived.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum PathfindLayerEnum
 {

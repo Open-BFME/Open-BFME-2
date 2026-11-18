@@ -2,7 +2,7 @@
 // stlport
 // ?rva00387479@Rva00386374@@UAEXUGen_uw_00385371@@@Z 0x00387479 55B
 // Evidence: vtable slot 38 of 0x00819500 class Rva00386374; calls PSPlayerAllStats operator= 0x3874B0 and Gen_uw dtor 0x385371; by-value 0x548 param ret 0x548.
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/GameNetwork/Rva003844D7.h"
 

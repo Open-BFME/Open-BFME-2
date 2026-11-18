@@ -7,8 +7,8 @@
 // init and filterLine call this on a UnicodeString reference. Target header:
 // refcount at 0, length at 4, capacity at 6, wide characters at 8.
 typedef unsigned short WideChar;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 #include <string.h>
 class UnicodeString;
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"

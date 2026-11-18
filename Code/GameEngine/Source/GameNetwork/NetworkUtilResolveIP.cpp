@@ -13,7 +13,7 @@
 // provider and a weak alias for existing callers. No class/header changes.
 #include <winsock2.h>
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include <ctype.h>
 #include "ascii_string.h"

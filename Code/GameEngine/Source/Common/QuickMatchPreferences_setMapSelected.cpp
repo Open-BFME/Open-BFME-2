@@ -7,7 +7,7 @@
 
 #include <map>
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include "ascii_string.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);

@@ -10,9 +10,9 @@
 // that fails, setState(AI_GUARD_RETURN = 5003) (vslot 8).
 // Layout (target evidence): m_guardMachine +0x20; the TN guard machine keeps
 // its position to guard at +0x3C and its guard mode at +0x4C; sizeof 0x50.
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 typedef UnsignedInt StateID;
 enum
 {

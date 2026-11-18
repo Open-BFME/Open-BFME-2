@@ -18,8 +18,8 @@
 // 29), AI +0x258 (getAiFreeToExit vslot 106); ExitInterface isExitBusy,
 // reserveDoorForExit and exitObjectViaDoor are its vslots 0..2; state id +4,
 // machine current state +4 (INVALID_STATE_ID 999999), m_entryToClear +0x20.
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt StateID;
 #define INVALID_STATE_ID 999999
 #include <windows.h>

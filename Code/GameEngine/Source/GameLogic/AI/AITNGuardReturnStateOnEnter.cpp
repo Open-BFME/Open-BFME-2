@@ -6,9 +6,9 @@
 // The local noinline helper preserves the banked caller's register allocation;
 // Its target 0x00545F80 (129B) keeps the end iterator in EDI across lookups;
 // caching end reproduces that lifetime and both bodies byte-match.
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include <windows.h>
 #include "../../Common/GameLogicObjectLookupView.h"

@@ -24,9 +24,9 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef int Int;
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 enum NameKeyType
 {

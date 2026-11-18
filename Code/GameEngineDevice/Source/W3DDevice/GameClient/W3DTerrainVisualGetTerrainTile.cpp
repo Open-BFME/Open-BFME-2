@@ -16,7 +16,7 @@
 
 #include "ascii_string.h"
 
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 class TerrainType;
 

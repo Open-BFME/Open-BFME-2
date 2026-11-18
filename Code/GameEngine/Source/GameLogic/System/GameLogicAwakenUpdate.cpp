@@ -47,8 +47,8 @@ public:
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-typedef unsigned int UnsignedInt;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum UpdateSleepTime
 {

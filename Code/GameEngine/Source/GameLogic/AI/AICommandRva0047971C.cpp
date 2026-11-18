@@ -6,8 +6,8 @@
 // ctor 0x00351BD0 plus assign 0x0035149F plus virtual slot 0 plus free;
 // callers 0x00479A9E 0x0048823F 0x004A0B48 0x004A68F3 0x004F4A5F; shape
 // follows AICommandInterfaceAttackCommands precedent.
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport. /EHs lets free throw,

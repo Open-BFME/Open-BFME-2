@@ -3,8 +3,8 @@
 // Chain lane: calls rowed 0x0054840A which you just landed; version 1,1 via slot 0x28 plus isLoading slot 4 plus news 0x14.
 // Evidence: callers at 0x00355130 pass obj and obj+4 proving Xfer plus out-pointer; callees rowed ctor 0x0054829B plus xfer 0x0054840A plus new 0x0002FDA0.
 
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 
 class Snapshot;

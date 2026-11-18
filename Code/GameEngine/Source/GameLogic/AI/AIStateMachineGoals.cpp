@@ -14,7 +14,7 @@
 //    whose slot 3 is the rowed Squad::xfer 0x004D6EC4; retail has no unwind
 //    frame around it, hence throw().
 #include <windows.h>
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 class Team;
 class AIGroup;

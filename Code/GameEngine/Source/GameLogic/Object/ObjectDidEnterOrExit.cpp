@@ -28,8 +28,8 @@
 // didEnterOrExit call, which cl only does when that callee was compiled
 // earlier in the same TU, so they follow it here.
 
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class PolygonTrigger;
 

@@ -2,10 +2,10 @@
 // ??0Rva004D62A9@@QAE@XZ retail 0x004D62A9 78B.
 // Ctor: base NetCommandMsg plus vptr 0x860494 plus Ascii +0x1c plus word +0x20 plus byte +0x22 plus type 0x15 plus clear via 0x36410 pin.
 // Evidence: vtable 0x860494 plus callers 0x004D2DE6 0x005923EE plus Rva004D6208 ctor precedent.
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 class AsciiString;
 enum NetCommandType
 {

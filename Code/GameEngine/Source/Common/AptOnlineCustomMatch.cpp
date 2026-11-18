@@ -5,9 +5,9 @@
 #include "unicode_string.h"
 #define g_00E05FB4 (*(G00E05FB4Provider * *)&TheGameSpyConfig)
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef bool Bool;
+
 
 class GameWindow;
 

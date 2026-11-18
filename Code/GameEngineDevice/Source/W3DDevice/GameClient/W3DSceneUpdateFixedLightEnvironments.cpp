@@ -16,8 +16,8 @@
 // the fog fraction is the global data's byte +0xBE9 over +0xBE8. Retail
 // builds this body at /O1 (EBP frame), unlike the /O2 rows of W3DScene.cpp.
 
-typedef int Int;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "vector3.h"
 

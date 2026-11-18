@@ -18,8 +18,8 @@
 #include <string.h>
 #include "ascii_string.h"
 
-typedef int Int;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include <stdio.h>
 

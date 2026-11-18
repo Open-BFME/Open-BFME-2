@@ -19,8 +19,8 @@
 #include "ascii_string.h"
 #include <stdio.h>
 
-typedef int Int;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 extern int BfmeLogicFramesPerSecond;
 

@@ -21,9 +21,9 @@
 // (pathfinder_layer.cpp). Callers 0x002E8F2F 0x0052F746 0x0052F774.
 #include <math.h>
 
-typedef int Int;
-typedef float Real;
-typedef unsigned short UnsignedShort;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
