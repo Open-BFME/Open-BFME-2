@@ -8,9 +8,9 @@
 #include "ascii_string.h"
 #include <windows.h>
 
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef int Int;
+
 
 typedef int Color;
 

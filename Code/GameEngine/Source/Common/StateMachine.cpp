@@ -22,9 +22,9 @@ class Xfer;
 // stride 0xC matches StateConditionInfo (test/toState/userData) null-terminated.
 
 class StateMachine;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 typedef unsigned int StateID;
-typedef bool Bool;
+
 enum
 {
 	EXIT_MACHINE_WITH_SUCCESS = 9998,

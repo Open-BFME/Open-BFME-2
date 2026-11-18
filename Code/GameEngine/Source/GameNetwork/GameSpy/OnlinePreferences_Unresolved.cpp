@@ -35,9 +35,9 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 // Retail's tree node deallocators call the game's local free, not the import.
 extern "C" void __cdecl free(void *);
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Include/Common/BfmeStringData.h"
 
@@ -107,7 +107,7 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 
 
 typedef long time_t;
-typedef unsigned short UnsignedShort;
+
 
 class LadderPref
 {

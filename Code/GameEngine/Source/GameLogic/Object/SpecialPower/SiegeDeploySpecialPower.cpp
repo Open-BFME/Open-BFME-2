@@ -24,9 +24,9 @@
 // shares them when the earlier temporary does not escape through a call that
 // may throw, so computeApproachPoint is declared throw() (it is pinned at
 // 0x004C5877). findModule is Object's protected member (row 0x0028B6D6).
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum ObjectStatusTypes { BFME_STATUS_40 = 0x40 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI };

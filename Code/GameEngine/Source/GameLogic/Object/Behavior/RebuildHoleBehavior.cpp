@@ -209,8 +209,8 @@ virtual void slot12();
 virtual void slot13();
 virtual Object *build(Object*,const ThingTemplate*,const Coord3D*,float,Player*);};
 #include "../../../../Include/GameLogic/ScriptEngine.h"
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;

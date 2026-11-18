@@ -4,9 +4,9 @@
 #include "ascii_string.h"
 #include "../../Include/Common/BfmeAccessorMacros.h"
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
+
 
 #include "../../Include/Common/BfmePairWI.h"
 

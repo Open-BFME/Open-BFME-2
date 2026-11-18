@@ -4,9 +4,9 @@
 #include "Coord3D.h"
 #include <math.h>
 #include "../../../Common/PartitionRangeQueryCallView.h"
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 namespace _STL
 {
 template <class T> class allocator

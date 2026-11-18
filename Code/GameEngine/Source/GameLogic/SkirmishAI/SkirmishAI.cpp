@@ -16,7 +16,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 extern GameLogic *TheGameLogic;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 #include <string.h>
 struct Coord3DBase;
 class UnicodeString;

@@ -448,9 +448,9 @@ BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva00497960CmpBoolField, 0x10, !=)
 // names are address-derived, method names are the slot's where the ledger
 // names the slot in a sibling table. Meanings are not recovered.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
+
 
 class AsciiString;
 
@@ -697,9 +697,9 @@ struct Payload0049797F
 	OpaqueRefElement4 m_holdTheLineAnnouncementName; // +0x4c
 };
 
-typedef float Real;
 
-typedef bool Bool;
+
+
 
 class Rva002AA14DBonuses
 {

@@ -5,7 +5,7 @@
 // supplies the bytes. Three static-image slots of 0x18 bytes start at +0x68;
 // each draws through its rowed method (0x0025C829) with the display.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 #include "DisplayStaticDebugView.h"
 #include <windows.h>
 #include <string.h>
@@ -70,7 +70,7 @@ public:
 // cleared, +0x104 takes the display width and +0x108 the scaled extent plus
 // the margin. The unsigned display sizes convert with the usual 2^32 fixup.
 // Class names are placeholders for the address.
-typedef unsigned int UnsignedInt;
+
 
 class Rva0025C3AAVideo
 {
@@ -84,9 +84,9 @@ public:
 
 #include "../../Include/Common/Rva0025C3AA.h"
 
-typedef bool Bool;
 
-typedef float Real;
+
+
 
 #include "../../Include/GameClient/View.h"
 

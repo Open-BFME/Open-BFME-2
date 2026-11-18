@@ -9,10 +9,10 @@ class Object;
 #include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 class DrawModule;
 #include "../../../../../../GameEngine/Include/Common/ObjectModule.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 #define NAMEKEY(x) (TheNameKeyGenerator->nameToKey(x))
 #include "../../../../../../../reference/shims/wwmath/Vector2.h"
 #define REF_PTR_RELEASE(x) { if (x) x->Release_Ref(); x = 0; }

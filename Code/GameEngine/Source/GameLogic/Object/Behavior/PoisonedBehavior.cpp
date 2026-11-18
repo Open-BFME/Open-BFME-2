@@ -111,7 +111,7 @@ enum BodyDamageType;
 // at +0x20). frameToSleepTime pinned at 0x44DF71-family 0x44DF28 via the four
 // pushes this call site emits.
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 extern GameLogic *TheGameLogic;
 

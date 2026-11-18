@@ -229,8 +229,8 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 // ObjectCreationUpgrade.cpp: bodies retail links from this TU (tu_map
 // approved), folded from the pool-key and vslot-8 split units, which shared
 // these exact flags.

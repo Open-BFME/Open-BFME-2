@@ -107,8 +107,8 @@ public:
 // +0x10. It only reports "ShareExperienceBehavior::update" through the Debug
 // singleton (the DevastateSpecialPowerSlots.cpp reporting shape) and sleeps
 // forever: the behavior does its work elsewhere.
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 #include "../../../Common/debug.h"
 extern Debug *theDebug;
 Bool bfmeRva000387C0(void);

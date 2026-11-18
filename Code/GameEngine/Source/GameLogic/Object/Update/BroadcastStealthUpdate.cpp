@@ -97,7 +97,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 // A list<ObjectID>: STLport nodes (+0 next, +8 the ID) behind the header node.
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 // Four-byte STLport list storage: construction and teardown use the existing
 // out-of-line member providers at 0x0029FB3B and 0x00268902.
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BAlloc.h"
@@ -192,8 +192,8 @@ protected:
 	virtual void performUpgradeFX();
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
-typedef bool Bool;
-typedef int Int;
+
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,

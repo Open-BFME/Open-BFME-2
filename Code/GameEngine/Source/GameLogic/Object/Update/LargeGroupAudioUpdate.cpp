@@ -97,7 +97,7 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 // ??0Rva004ABB03@@QAE@ABV0@@Z @0x004ABB03 24B: derived copy calls rowed base 0x004AB7EB copy then reinstalls vptr 0x0084ED70. Base declared only so the E8 stays outlined. Caller at 0x004ABCED. Prev stlport_map_int_ptr_o1 next UpdateModuleDeletingDtors but model and flags from V3Poly family.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 

@@ -2,8 +2,8 @@
 // Complete-lifetime copy/holder owners. Deferred lifetime views remain in
 // V3PolyDeferredCopyCtors.cpp; function bodies and class layouts are unchanged.
 
-typedef int Int;
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // ----------------------------------- vptr + two ints (retail 0x003AE11B)
 // B2 body-address name: no B1 class has exactly this shape.

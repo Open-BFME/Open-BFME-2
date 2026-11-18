@@ -171,11 +171,11 @@ public:
 
 #include "../../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
 
 #include "../../../../Include/GameLogic/Module/SpecialDisguiseUpdate.h"
 

@@ -555,7 +555,7 @@ class Matrix3D;
 
 class Object;
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 // BFME 2's particle-system nugget (vftable 0x00BDD908): five slots, ??_G, doFXPos, doFXObj,
 // slot 3 (rowed 0x001E0C77 under a placeholder) and the base's rva001DFF5D.

@@ -19,7 +19,7 @@ template <> void _STLP_alloc_proxy<_Rb_tree_node<pair<const unsigned char, float
 }
 #include <vector>
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class XferStub;
 

@@ -73,8 +73,8 @@
 //
 // The meaning of the status, condition and AI bytes is not recovered.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum StateExitType
 {
 	EXIT_NORMAL = 0

@@ -21,9 +21,9 @@ class MetaMapRec;
 
 class INI;
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
+
 
 #include <stdlib.h>
 

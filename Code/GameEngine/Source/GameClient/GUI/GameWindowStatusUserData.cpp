@@ -10,8 +10,8 @@
 // CategoryModuleClass<1>::getName; winSetUserData replaces a gen-alias
 // placeholder (Matrix3D::Set_Z_Translation's identical bytes).
 
-typedef unsigned int UnsignedInt;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef int Color;
 class GameFont;
 

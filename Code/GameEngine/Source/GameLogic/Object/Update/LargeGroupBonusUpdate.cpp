@@ -93,9 +93,9 @@ class Object;
 #include "../../../../Include/Common/XferVersion.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../Common/RTS/XYDistanceCallView.h"
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 class Player;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 template <int N> class Rva00490225Slots : public Rva00490225Slots<N - 1>

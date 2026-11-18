@@ -4,9 +4,9 @@
 // Dedicated TU so GameWindowManager.cpp bodies cannot see this wrapper.
 // Null-checks the listbox then GLM_DEL_ALL (0x4013) through vtable +0xE8.
 
-typedef int Int;
-typedef bool Bool;
-typedef short Short;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 class WinInstanceData;
 class GameFont;

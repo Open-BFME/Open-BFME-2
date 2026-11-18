@@ -4,8 +4,8 @@
 // AM. Classes and methods are address-derived unless the ledger names them,
 // and model only what each body touches. Meanings are not recovered.
 
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Snapshot;
 class AsciiString;

@@ -83,11 +83,11 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
 
 class Coord3DBase
 {

@@ -24,13 +24,13 @@ class Snapshot;
 #pragma comment(linker, "/alternatename:?TheEmptyString@AsciiString@@2V1@A=?TheEmptyString@AsciiString@@2V1@B")
 #pragma comment(linker, "/alternatename:?slot@PB_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
 
-typedef float Real;
+
+
+
 
 // (CRT prototype from the standard header)
 

@@ -26,7 +26,7 @@ template <> inline __declspec(noinline) bool StringBase<unsigned short>::isEmpty
 #pragma optimize("", on)
 #include "GameLogicObjectLookupView.h"
 #include <bitset>
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 class ThingTemplate;
 class HelpHealth { public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();

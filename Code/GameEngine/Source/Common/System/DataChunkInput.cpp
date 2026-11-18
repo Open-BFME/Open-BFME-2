@@ -25,10 +25,10 @@
 // pumps the engine's window messages first, through slot 16 of the GameEngine
 // vtable.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef unsigned short DataChunkVersionType;
 
 enum NameKeyType

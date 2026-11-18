@@ -13,7 +13,7 @@
 #include "ascii_string.h"
 #include <utility>
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);	// 0x0007DEEF

@@ -5,8 +5,8 @@
 // names the callee; the bytes prove only the shapes described per group.
 
 #include <new>
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // --- Two-field setters: store both stack arguments at two adjacent fields.
 #include "../../Include/Common/BfmeAccessorMacros.h"

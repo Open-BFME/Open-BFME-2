@@ -57,10 +57,10 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef unsigned int StateID; // Zero Hour StateMachine.h: typedef UnsignedInt StateID; retail 0x00357180 compares the key unsigned
-typedef bool Bool;
+
 
 enum { MACHINE_DONE_STATE_ID = 999998, INVALID_STATE_ID = 999999 };
 

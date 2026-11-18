@@ -25,13 +25,13 @@
 // ConnectionManager::areAllQueuesEmpty (0x004CF3C6) and ConnectionManager::update
 // (0x004D36B2), which name it. BFME 1 row of the same name: 0x00661C90.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 class NetCommandRef;
 class NetCommandMsg;
 #include "../../Include/GameNetwork/NetCommandListClass.h"
-typedef unsigned short UnsignedShort;
-typedef float Real;
+
+
 struct NetPacketAddress
 {
 	NetPacketAddress() : ip(0), port(0) {}
@@ -46,7 +46,7 @@ struct ConnectionBlock0C
 class Transport;
 class NetAckBothCommandMsg;
 struct InitAddrs;
-typedef unsigned char UnsignedByte;
+
 extern const float g_00BC26EC;
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 #include "../../Include/GameNetwork/NetGameCommandMsg.h"
@@ -70,7 +70,7 @@ public:
 };
 // ?rva0058BAA7@Connection@@QAEXPAUInitAddrs@@ABVUnicodeString@@H@Z @0x0058BAA7 181B Connection init with address block plus name plus id new NetCommandList plus latencies; evidence: StringBase wide set 0x00037150 NetCommandList new 0x10 ctor 0x0058B06A reset 0x0058B283x2 rep stosd 0xC8 frameGrouping 0x344; callers 0x004D1703 0x004D175B
 struct InitAddrs { unsigned int a; unsigned int b; };
-typedef bool Bool;
+
 #include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 #include "../../Include/Common/GlobalData.h"
 

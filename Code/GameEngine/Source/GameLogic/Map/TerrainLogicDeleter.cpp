@@ -57,13 +57,13 @@ void allocator<_List_node<list<Coord3D> > >::deallocate(_List_node<list<Coord3D>
 }
 
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
-typedef bool Bool;
+
 #include "subsystem_interface.h"
 
 // Root tables BC6F34: empty RET4 followed by three pure callbacks.

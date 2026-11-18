@@ -74,7 +74,7 @@ public:
 // plus BfmeLogicFramesPerSecond int plus attemptHealingFromSoleBenefactor row; neighbours 0x00481A54 and
 // BitFlags 0x00481B7F share /O1.
 
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 class Object;
 class Rva0028ADECmpBoolField
 {
@@ -272,9 +272,9 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
 };
 
-typedef unsigned char UnsignedByte;
 
-typedef unsigned short UnsignedShort;
+
+
 
 // Retail ThrowInfo identifies the 8-byte XferException class and its
 // established constructor, copy constructor and destructor providers.

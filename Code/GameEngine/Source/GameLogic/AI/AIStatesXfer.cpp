@@ -60,9 +60,9 @@ class RGBAColorInt;
 
 #include "../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 

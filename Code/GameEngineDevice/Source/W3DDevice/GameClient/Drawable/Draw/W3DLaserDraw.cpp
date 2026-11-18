@@ -97,9 +97,9 @@ namespace _STL { template <> vector<AsciiString, allocator<AsciiString> >::~vect
 
 typedef unsigned int Color;
 
-typedef unsigned int UnsignedInt;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef float Real;
+
 
 struct OrnamentData
 {

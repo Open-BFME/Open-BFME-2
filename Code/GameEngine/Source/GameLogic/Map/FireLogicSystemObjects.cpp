@@ -42,7 +42,7 @@ extern "C" { static float __cdecl floorf(float); }
 #include "Lib/Coord2DCtorView.h"
 #include "Lib/ICoord2D.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include <math.h>
 
@@ -188,7 +188,7 @@ class PolygonTrigger;
 
 // The subsystem base (ctor 0x001B4E63, dtor 0x001B4E74) and Snapshot at
 // +0x0C, the second base whose vtable 0x00BBB554 the destructor restores.
-typedef bool Bool;
+
 #include "../../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"

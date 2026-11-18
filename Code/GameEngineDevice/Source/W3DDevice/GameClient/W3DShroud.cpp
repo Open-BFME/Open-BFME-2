@@ -10,8 +10,8 @@
 // 0x00072B72..0x00072D5D. Retail establishes the height-map field offsets,
 // 64-byte shroud layout, three buffer allocations and ShroudManager receiver.
 // WWMath's established x87 conversion preserves retail's FISTP rounding.
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 // Retail IAT: MSVCR71.dll!ceil at VA 0x01359394, floor at 0x013593B8.
 #include <math.h>
 __forceinline Real ShroudCeil(Real value)
@@ -236,8 +236,8 @@ private:
 	char m_pad41[3];
 	Rva000740CESet m_differences;	// +0x44
 };
-typedef int Int;
-typedef unsigned int UnsignedInt;
+
+
 #include "../../../../GameEngine/Include/Common/Overridable.h"
 // VA 0x00DFF488 is the ledger's TheWaterTransparency (data_rows.csv); its
 // single word is the held object pointer read below.
@@ -335,7 +335,7 @@ struct BfmeE8;
 // (it follows this one in link order). dllimport + forceinline: no __imp_ remains.
 namespace _STL { template <> __declspec(dllimport) __forceinline void allocator<_Rb_tree_node<int> >::deallocate(_Rb_tree_node<int> *p,size_t n)const { _STLP_ASSERT((p==0)==(n==0)) if(p) ::free((void*)p); } }
 
-typedef unsigned char UnsignedByte;
+
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 
