@@ -26,12 +26,12 @@
 
 
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
+
+
 
 enum StateID
 {

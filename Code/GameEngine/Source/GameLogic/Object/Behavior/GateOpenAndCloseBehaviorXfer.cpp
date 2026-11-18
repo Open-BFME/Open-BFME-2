@@ -52,10 +52,10 @@ typedef unsigned int AudioHandle;
 // The existing link definition is the AudioManager singleton at this VA.
 extern AudioManager *TheAudio;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 

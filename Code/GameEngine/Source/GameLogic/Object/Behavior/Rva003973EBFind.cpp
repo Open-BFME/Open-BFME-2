@@ -9,10 +9,10 @@
 // Tree and find idiom follow Rva0028951FFind.cpp; the key temp is int so the
 // member-template deduces the rowed H instantiation.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "ascii_string.h"
 

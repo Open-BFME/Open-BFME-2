@@ -33,11 +33,11 @@ class ModuleData;
 class DamageInfo;
 class WeaponTemplate;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 enum ObjectStatusTypes
 {

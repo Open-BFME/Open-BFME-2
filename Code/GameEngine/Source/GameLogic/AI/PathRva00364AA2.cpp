@@ -30,7 +30,7 @@ inline __declspec(noinline) float rva00363B4BAngle(const Rva00363B4BVector *a, c
     return ACos(dot);
 }
 
-enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
 #include "../../../Include/GameLogic/PathNode.h"
 

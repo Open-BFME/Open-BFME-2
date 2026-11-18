@@ -28,14 +28,14 @@ extern "C" void _ReadWriteBarrier(void);
 #include "../../../../Include/Common/ScalarTypes.h"
 
 
-enum UpdateSleepTime
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
-{
- UPDATE_SLEEP_NONE = 1,
- UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
- 
-}
-;
+
+
+
+
+
+
 enum WeaponSetType
 
 {
@@ -44,13 +44,13 @@ enum WeaponSetType
  
 }
 ;
-enum CommandSourceType
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
-{
- CMD_FROM_AI = 2
- 
-}
-;
+
+
+
+
+
 class Thing;
 class ModuleData;
 class Object;

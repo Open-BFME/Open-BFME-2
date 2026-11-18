@@ -93,7 +93,7 @@ private:
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 #include "../../../Include/GameClient/GameClientRandomVariable.h"
 #include "../../../Include/GameClient/ParticleRegion.h"
 struct ParticleSystemHandleView { void *ptr; Int prev, next; };

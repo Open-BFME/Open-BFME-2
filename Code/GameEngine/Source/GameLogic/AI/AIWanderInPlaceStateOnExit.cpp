@@ -9,11 +9,11 @@
 // at the same slot) when the owner (+0x14 of the machine +0x18) has an AI
 // (+0x258). The base onExit is the pinned AIInternalMoveToState body.
 typedef bool Bool;
-enum LocomotorSetType
-{
-	LOCOMOTORSET_NORMAL = 0,
-	LOCOMOTORSET_WANDER = 3
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
+
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
 public:

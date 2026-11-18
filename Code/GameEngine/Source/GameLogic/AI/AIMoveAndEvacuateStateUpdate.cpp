@@ -11,12 +11,12 @@
 // AI +0x258, team +0x304; Team m_active +0x5D and m_created +0x5E.
 #include "../../../Include/Common/ScalarTypes.h"
 #include <windows.h>
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/TeamBFME2.h"
 class Object

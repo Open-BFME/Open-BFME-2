@@ -19,10 +19,10 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_IGNORING_STEALTH = 0x1B,
 	OBJECT_STATUS_BFME_52 = 0x52
 };
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 enum WeaponStatus
 {
 	READY_TO_FIRE = 0,

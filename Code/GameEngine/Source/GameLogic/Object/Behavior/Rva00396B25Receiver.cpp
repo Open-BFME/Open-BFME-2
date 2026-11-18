@@ -26,10 +26,10 @@ class Player;
 class Rva0039B795;
 class Rva003B0D7C;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 

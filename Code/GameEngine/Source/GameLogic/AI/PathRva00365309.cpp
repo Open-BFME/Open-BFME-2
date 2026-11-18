@@ -17,7 +17,7 @@
 #include "Lib/Coord3DCtorView.h"
 #include <math.h>
 #include <new>
-enum PathfindLayerEnum {LAYER_GROUND=1};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 struct Rva0028AC4EEntry;
 class Object {public:const Rva0028AC4EEntry *rva0028AC4E()const;};
 #include "../../../Include/GameLogic/Rva001E3F27FloatChaseField.h"

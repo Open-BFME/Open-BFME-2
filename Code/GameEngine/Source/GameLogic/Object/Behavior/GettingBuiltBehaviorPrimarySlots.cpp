@@ -41,10 +41,10 @@ static inline const ThingTemplate *rva004534F5Find(ThingFactory *thingFactory, c
 
 extern ThingFactory *TheThingFactory;
 
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 
 template <int N> class Rva004534F5Slots : public Rva004534F5Slots<N - 1>
 {

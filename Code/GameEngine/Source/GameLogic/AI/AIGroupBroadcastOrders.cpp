@@ -68,7 +68,7 @@ class Player;
 struct Coord3D;
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
-enum AttitudeType {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/AttitudeType.h"
 enum SpecialPowerType { SPECIAL_INVALID = 0 };
 enum UpgradeType { UPGRADE_TYPE_PLAYER = 0, UPGRADE_TYPE_OBJECT = 1 };
 enum CanMakeType { CANMAKE_QUEUE_FULL = 4 };

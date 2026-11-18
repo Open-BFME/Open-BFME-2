@@ -10,7 +10,7 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 extern GameLogic *TheGameLogic;
-enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class Player;
 class WeaponTemplate;
 #include "../../../../Include/Common/ThingTemplate.h"

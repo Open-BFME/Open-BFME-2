@@ -1,10 +1,10 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva0032C84F@Rva0032C84F@@QAEXXZ @0x0032C84F 64B
 // evidence: unlock caller 0x0032D554; rowed NameKeyGenerator::nameToKey UNASSIGNED plus rowed vector erase 0x0032BEE8
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class AsciiString;
 #include "../../../Include/Common/NameKeyGenerator.h"

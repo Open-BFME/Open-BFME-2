@@ -26,8 +26,8 @@ static inline bool operator!=(const _List_iterator<T, L> &a,
 
 inline Real sqr(Real x) { return x * x; }
 
-enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

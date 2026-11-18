@@ -19,10 +19,10 @@ enum AICommandType
 	AICMD_DUMMY_17 = 17
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../../../Include/Common/RvaCoords.h"
 

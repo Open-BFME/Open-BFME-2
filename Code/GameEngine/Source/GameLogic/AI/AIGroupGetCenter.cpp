@@ -34,8 +34,8 @@ typedef float Real;
 
 inline Real sqr(Real x) { return x * x; }
 
-enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 // Only the word computeGroundPath reads: Object::m_ai+0x1DC is handed to
 // Pathfinder::IsLineBlocked as its second argument (Zero Hour passes the

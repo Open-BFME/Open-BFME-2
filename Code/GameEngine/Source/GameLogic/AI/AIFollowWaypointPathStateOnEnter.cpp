@@ -62,11 +62,11 @@ extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
 
-enum LocomotorSetType
-{
-	LOCOMOTORSET_NORMAL = 0,
-	LOCOMOTORSET_WANDER = 3
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #define PATHFIND_CELL_SIZE 10
 #define PATHFIND_CELL_SIZE_F 10.0f

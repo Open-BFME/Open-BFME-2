@@ -47,10 +47,10 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 typedef bool Bool;
 
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 enum WeaponLockType
 {
