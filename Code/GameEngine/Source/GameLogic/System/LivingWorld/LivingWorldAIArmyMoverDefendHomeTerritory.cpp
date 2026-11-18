@@ -104,10 +104,10 @@ struct Rva004FFB00Hero
 };
 
 // The row's spelling of 0x00500659's return vector (an int-sized enum).
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Rva0059CFAACallee
 {

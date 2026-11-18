@@ -24,7 +24,7 @@ public:
  __forceinline ~BfmeParticleSystemHandle() { if(m_system) rva0004CBC0(); }
  operator bool() const { return m_system != 0; }
 };
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 class W3DModelDraw;
 #include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;

@@ -48,12 +48,12 @@ bool operator==(const BfmePrototypeIterator &__x, const BfmePrototypeIterator &_
 // case-insensitively (tolower fold, times 33), buckets via div 0xAFCF,
 // compares with strcmp and allocates 12-byte nodes via operator new;
 // it returns the interned integer ID, or 0 for a null name.
-enum NameKeyType
-{
-    NAMEKEY_INVALID = 0,
-    NAMEKEY_MAX = 1 << 23,
-    FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
+
 
 #include "../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 

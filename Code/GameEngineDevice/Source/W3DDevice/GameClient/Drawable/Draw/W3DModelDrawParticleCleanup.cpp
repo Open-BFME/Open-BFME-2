@@ -27,7 +27,7 @@
 // unlink exactly as this caller does; the linker alias uses the existing
 // verified provider rather than defining a second manager function.
 #include "../../../../../../GameEngine/Include/GameClient/ParticleSystemClass.h"
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
 #include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct BfmeW3DParticleHandle {

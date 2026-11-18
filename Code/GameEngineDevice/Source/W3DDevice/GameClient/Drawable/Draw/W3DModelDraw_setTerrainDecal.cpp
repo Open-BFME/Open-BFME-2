@@ -45,10 +45,10 @@ enum TerrainDecalType
 	TERRAIN_DECAL_DEMORALIZED = 0,
 	TERRAIN_DECAL_MAX = 7
 };
-enum ShadowType
-{
-	SHADOW_ALPHA_DECAL = 0x20
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ShadowType.h"
+
+
+
 // Retail RVA 0x009B4E8C has these seven pointers. Entry 6 deliberately
 // repeats entry 4; the ZH donor's EXHordeC_UP does not apply to BFME 2.
 const char *TerrainDecalTextureName[TERRAIN_DECAL_MAX] =

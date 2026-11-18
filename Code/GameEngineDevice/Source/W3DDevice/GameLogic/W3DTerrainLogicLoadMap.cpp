@@ -41,7 +41,7 @@ private:
 class MapCache;
 extern MapCache *TheMapCache;
 
-enum TimeOfDay { TIME_OF_DAY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/TimeOfDay.h"
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 

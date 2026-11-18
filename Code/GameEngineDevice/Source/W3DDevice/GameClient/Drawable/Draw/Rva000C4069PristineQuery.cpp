@@ -28,11 +28,11 @@
 
 
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 class ModelConditionFlags;
 
