@@ -20,7 +20,7 @@
 // 0x0027653A on the beacon's drawable.
 
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 typedef UnsignedInt WindowMsgData;
 class GameWindow;
 

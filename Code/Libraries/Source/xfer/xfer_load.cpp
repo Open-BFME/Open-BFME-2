@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 // Load-side block traversal recovered under its reciprocal WorldBuilder TU.
 
-typedef bool Bool;
+#include "../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../GameEngine/Include/Common/XferException.h"
 

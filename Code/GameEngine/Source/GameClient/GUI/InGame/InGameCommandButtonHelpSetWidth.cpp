@@ -19,8 +19,8 @@
 // +0x2C the +0x10 cost text or L" " when empty (rowed isEmpty 0x00035740).
 #include "unicode_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Include/Common/FloatPair.h"
 

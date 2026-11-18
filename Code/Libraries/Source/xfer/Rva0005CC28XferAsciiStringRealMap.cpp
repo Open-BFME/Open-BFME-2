@@ -12,10 +12,10 @@
 // address-derived.
 #include "ascii_string.h"
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 namespace _STL
 {

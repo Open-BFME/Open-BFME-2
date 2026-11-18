@@ -6,7 +6,7 @@
 // ledger already names it, and models only what its body touches. Meanings
 // are not recovered.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class AsciiString;
 

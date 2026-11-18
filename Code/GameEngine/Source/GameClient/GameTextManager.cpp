@@ -16,7 +16,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
 // Base dtor at 0x001B4E74 by its row name ??1SubsystemInterface@@UAE@XZ (SubsystemInterface.cpp).
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 #include "subsystem_interface.h"
 
 extern "C" const void *const __identifier("??_7Rva002E55D8@@6B@")[];

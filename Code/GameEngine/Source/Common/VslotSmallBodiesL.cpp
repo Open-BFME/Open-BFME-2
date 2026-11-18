@@ -7,8 +7,8 @@
 // comment above each gives the .rdata slot address(es) that reference it.
 // Meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 namespace _STL
 {

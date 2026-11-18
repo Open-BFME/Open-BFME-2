@@ -7,7 +7,7 @@
 // ledger already names it, and models only what its body touches. Meanings
 // are not recovered.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x0018E6F0: 0x54 plus the rowed 0x0018D220 size of each of the +0x48
 // entries (0x24 bytes each) at +0x50.
