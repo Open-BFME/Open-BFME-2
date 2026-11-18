@@ -145,13 +145,14 @@ protected:
 class Rva00DFF024Registry
 {
 public:
-	void *lookup(int key, int index);
-public:
+	__forceinline void *lookup(int key, int index) { return ((FunctionLexicon *)(void *)this)->findFunction((NameKeyType)key, (FunctionLexicon::TableIndex)index); }
 	void *lookup34(int key, int index);
-public:
 	void *lookup56(int key, int index);
-public:
 	__forceinline void *bfme_lookup_4742d(int key, int index) { return ((FunctionLexicon *)(void *)this)->findFunction((NameKeyType)key, (FunctionLexicon::TableIndex)index); }
+	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the lookup copy loses to the first-in-order copy. No flags touched.
+	__forceinline void *bfme_lookup_c3028(int key, int index) { return ((FunctionLexicon *)(void *)this)->findFunction((NameKeyType)key, (FunctionLexicon::TableIndex)index); }
+	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the lookup copy loses to the first-in-order copy. No flags touched.
+	__forceinline void *bfme_lookup_7fde7(int key, int index) { return ((FunctionLexicon *)(void *)this)->findFunction((NameKeyType)key, (FunctionLexicon::TableIndex)index); }
 };
 
 class AsciiString;
