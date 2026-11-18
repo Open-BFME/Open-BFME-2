@@ -1,4 +1,4 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ??0Rva0022C9F6@@QAE@XZ @0x0022C987 75B: ctor for the class whose
@@ -15,10 +15,8 @@
 // after it. Reproducing that live range needs the address local to survive
 // past the flag write, hence the two |0x28 stores rather than one.
 #include <list>
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_List_node@UBfmePod8@@@_STL@@@_STL@@QBEXPAU?$_List_node@UBfmePo:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod8;
-namespace _STL { template <> void allocator<_List_node<BfmePod8> >::deallocate(_List_node<BfmePod8> *,unsigned int) const; }
+// With the static STLport configuration this unit's allocator calls are the ones
+// every other BfmePod8 list unit makes, so its copies of the list helpers are theirs.
 // Suppress this TU's non-retail copy of ?clear@?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod8;
