@@ -20,21 +20,21 @@
 
 typedef unsigned int WindowMsgData;
 
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 
-enum GameWindowMessage
-{
-	GWM_NONE = 0,
-	GWM_LEFT_DOWN = 5,
-	GWM_LEFT_UP = 6,
-	GWM_MIDDLE_DOWN = 9,
-	GWM_MIDDLE_UP = 10,
-	GWM_RIGHT_DOWN = 13,
-	GWM_RIGHT_UP = 14,
-	GWM_MOUSE_ENTERING = 17,
-	GWM_MOUSE_LEAVING = 18,
-	GWM_MOUSE_POS = 24
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GameWindowMessage.h"
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 

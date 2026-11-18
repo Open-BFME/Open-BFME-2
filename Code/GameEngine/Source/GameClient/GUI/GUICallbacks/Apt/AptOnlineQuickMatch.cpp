@@ -699,7 +699,7 @@ public:
 // 0x006E0500: tail jump to BfmeAptValue006DCD20::rva006E04A0.
 // 0x0070DFD0: tail jump to Rva006D6360::rva006DCC00.
 // Constant and field slots.
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
 // 0x00444680 (22 tables): answers 1 for any two arguments.
 // 0x005B8012 (three tables): answers 1 for any four arguments.
 // 0x004BF8DF (eleven tables): 0 while +0xC6 is set, else +0x48.
@@ -738,7 +738,7 @@ template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 template <> pair<Lk6AsciiSetTree::iterator, bool> Lk6AsciiSetTree::insert_unique(const AsciiString&);
 template <> _Rb_tree_node<AsciiString> *Lk6AsciiSetTree::_M_create_node(const AsciiString&);
 }
-typedef bool Bool;
+
 typedef int Color;
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 Int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, Color color);

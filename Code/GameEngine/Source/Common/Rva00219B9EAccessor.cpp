@@ -34,8 +34,8 @@ int g_00DFE364;
 int g_00DFE3E4;
 int g_00DFE3E0;
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 struct IntVec { int *m_start; int *m_finish; int *m_end; };
 struct Elem16 { char m_data[16]; };

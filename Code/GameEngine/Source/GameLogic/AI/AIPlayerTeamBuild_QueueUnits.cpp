@@ -203,8 +203,8 @@ enum BodyDamageType { BODY_PRISTINE = 0 };
 #include "../../../Include/GameLogic/Rva0037EE4C.h"
 #include "../../../Include/GameLogic/Rva0037E6E8.h"
 
-enum ScienceType { SCIENCE_INVALID = -1 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 class TeamPrototype;
 // Retail calls the team list's base destructor (0x002ABB44) with no EH state
@@ -340,7 +340,7 @@ public:
 	};
 };
 
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_AI = 2 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 // The rowed wrapper at 0x0047971C takes the exit path by reference; its
 // placeholder class is this vector of points.

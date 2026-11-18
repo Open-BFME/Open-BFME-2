@@ -30,10 +30,10 @@ typedef int Int; typedef unsigned int UnsignedInt; typedef bool Bool;
 #define BitTest(v,m) (((v)&(m))!=0)
 #define BitClear(v,m) ((v)&=~(m))
 #define SHORTTOLONG(a,b) ((unsigned short)(a)|((unsigned short)(b)<<16))
-enum GameWindowMessage { GWM_NONE=0, GWM_LEFT_DOWN=5,GWM_LEFT_UP=6,GWM_LEFT_DRAG=8,GWM_MIDDLE_UP=10,GWM_RIGHT_UP=14,GWM_MOUSE_ENTERING=17,GWM_MOUSE_LEAVING=18,GWM_MOUSE_POS=24 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GameWindowMessage.h"
 enum { MOUSE_EVENT_NONE=0, WIN_STATUS_ACTIVE=1,WIN_STATUS_DRAGABLE=4,WIN_STATUS_HIDDEN=0x10,WIN_STATUS_ABOVE=0x20,WIN_STATUS_BELOW=0x40,WIN_STATUS_NO_INPUT=0x200,GWS_COMBO_BOX=0x8000 };
 enum WinInputReturnCode { WIN_INPUT_NOT_USED=0, WIN_INPUT_USED=1 };
-enum WindowMsgHandledType { MSG_IGNORED=0, MSG_HANDLED=1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 #include <stddef.h>
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"

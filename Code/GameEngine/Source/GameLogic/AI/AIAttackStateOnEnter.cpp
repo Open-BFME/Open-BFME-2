@@ -12,10 +12,10 @@
 // Canonical AsciiString and Coord3D; all direct callees retain existing owners.
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-enum WeaponSlotType {};
-enum MoodMatrixAction {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/MoodMatrixAction.h"
 enum Relationship {};
-enum ObjectStatusTypes {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class Object; class Team; class Player;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

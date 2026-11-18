@@ -33,12 +33,12 @@ inline RefCountClass::~RefCountClass() {}
 #include "../../../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 // Scalar types needed by the shadow interfaces. The donor BaseType.h also
 // defines coordinate classes that conflict with the canonical render headers.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 typedef int Color;
-typedef char Char;
+
 enum TimeOfDay;
 long fast_float2long_round(float);
 float fast_float_trunc(float);
@@ -1228,7 +1228,7 @@ void Rva00108E33EmissionPattern(float a, float b, float c, float d, Rva00108E33P
     out[0] = minMax4Rva00108E33(a, b, c, d);
     out[1] = minMax4Rva00108E33(b, c, d, a);
 }
-typedef unsigned short UnsignedShort;
+
 __forceinline long fast_float2long_round(float f)
 {
 	long i;
@@ -1633,7 +1633,7 @@ class GameClient;
 
 extern GameClient *TheGameClient;
 
-typedef unsigned char UnsignedByte;
+
 
 class Rva007AE5E0Referenced;
 
