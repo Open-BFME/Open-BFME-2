@@ -82,6 +82,8 @@ class HordeContainModuleData : public TransportContainModuleData
 public:
 	HordeContainModuleData();
 	virtual ~HordeContainModuleData();	// rowed 0x00475942 (HordeContainModuleDataDtor.cpp)
+	// Slot 21 of retail's table 0x00C457B0 returns this (0x0047A6A9); rowed in HordeContain.cpp.
+	virtual const HordeModuleData *getHordeModuleData() const { return (const HordeModuleData *)this; }
 
 private:
 	_STL::vector<BfmeE16> m_vec18C;

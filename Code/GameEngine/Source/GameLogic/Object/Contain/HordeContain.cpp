@@ -322,6 +322,11 @@ public:
 	HordeContainModuleData();
 public:
 	virtual ~HordeContainModuleData();
+	// Retail's slot 21 (vtable 0x00C457B0) is the 3-byte `mov eax,ecx; ret` at
+	// 0x0047A6A9, where TransportContainModuleData's table 0x00C442F8 keeps
+	// ModuleData's `return 0`: the horde data this accessor hands out is the
+	// module data itself.
+	virtual const HordeModuleData *getHordeModuleData() const { return (const HordeModuleData *)this; }
 private:
 	_STL::vector<Rva004703E0 *> m_vec18C;
 private:
