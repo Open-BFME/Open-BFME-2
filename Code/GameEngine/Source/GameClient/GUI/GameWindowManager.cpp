@@ -32,6 +32,7 @@ enum { GBM_MOUSE_ENTERING = 0x4006, GBM_MOUSE_LEAVING = 0x4007, GBM_SELECTED = 0
 
 
 
+
 #endif
 #include "PreRTS.h"
 #include <algorithm>
@@ -58,6 +59,21 @@ class GameWindow;
 typedef unsigned short UnsignedShort;
 typedef void (*GameWinMsgBoxFunc)(void);
 #include "ascii_string.h"
+enum { WIN_STATUS_HIDDEN = 0x10 };
+enum { GWS_SCROLL_LISTBOX = 0x20 };
+enum
+{
+	WIN_ERR_INVALID_WINDOW = -2,
+	WIN_STATUS_BORDER = 0x1000,
+	WIN_STATUS_SEE_THRU = 0x10000
+};
+class GameWindowChild
+{
+public:
+	virtual void drawBorder(GameWindow *window);
+	virtual void draw(GameWindow *window, void *instanceData);
+	virtual void onChildPosition(int curX, int curY, int newX, int newY);
+};
 
 // PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
 GameWindowManager *TheWindowManager = NULL;
@@ -132,6 +148,8 @@ extern GameWindowManager *TheWindowManager;
 typedef unsigned int UnsignedInt;
 
 typedef bool (__cdecl *IntFunLess)(int a, int b);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_processDestroyList.cpp
 
@@ -440,11 +458,8 @@ void GameWindowManager::winSetLoneWindow(GameWindow *window)
 // comp(pivot,*last), swap on cross, return the split. Callers 0x0021DDC5
 // 0x002C56E7 are the 123B introsort_loops.
 
-// tu-skeleton: 0x002C0A0F 77B ?init@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp (not merged yet)
 
-// tu-skeleton: 0x002C0A5C 24B ?reset@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
 
-// tu-skeleton: 0x002C0A74 21B ?update@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_linkWindow.cpp
 
@@ -668,16 +683,6 @@ done:
 	return result;
 }
 
-// tu-skeleton: 0x002C0D3D 95B ?windowHiding@GameWindowManager@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0E04 23B ?winCapture@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0E1B 18B ?winRelease@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0E7D 44B ?winSendSystemMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
-
-// tu-skeleton: 0x002C0EA9 44B ?winSendInputMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winSetFocus.cpp
 
 Int GameWindowManager::winSetFocus(GameWindow *window)
@@ -707,14 +712,6 @@ Int GameWindowManager::winSetFocus(GameWindow *window)
     return WIN_ERR_OK;
 }
 
-// tu-skeleton: 0x002C0FC9 198B ?drawWindow@GameWindowManager@@IAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_drawWindow_Thunk.cpp (not merged yet)
-
-// tu-skeleton: 0x002C108F 185B ?rva002C108F@Rva0008FF12Host@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp (not merged yet)
-
-// tu-skeleton: 0x002C1148 43B ?dumpWindow@GameWindowManager@@IAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_dumpWindow.cpp (not merged yet)
-
-// tu-skeleton: 0x002C1173 217B ?winDestroy@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winDestroyAll.cpp
 
 // ?winDestroyAll@GameWindowManager@@UAEHXZ @0x002C124C 46B.
@@ -741,6 +738,97 @@ int GameWindowManager::winDestroyAll()
 	return 0;
 }
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntrySetText.cpp
+
+void GadgetTextEntrySetText(GameWindow *gameWindow, UnicodeString text)
+{
+	TheWindowManager->winSendSystemMsg(gameWindow, 0x4030, (WindowMsgData)&text, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoMessageBox.cpp
+
+GameWindow *GameWindowManager::gogoMessageBox(Int x, Int y, Int width, Int height, UnsignedShort buttonFlags, UnicodeString titleString, UnicodeString bodyString, GameWinMsgBoxFunc yesCallback, GameWinMsgBoxFunc noCallback, GameWinMsgBoxFunc okCallback, GameWinMsgBoxFunc cancelCallback)
+{
+	return gogoMessageBox(x, y, width, height, buttonFlags, titleString, bodyString, yesCallback, noCallback, okCallback, cancelCallback, false);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winTextLabelToText.cpp
+
+UnicodeString GameWindowManager::winTextLabelToText(AsciiString label)
+{
+	if (label.isEmpty())
+		return UnicodeString::TheEmptyString;
+
+	UnicodeString tmp;
+	tmp.translate(label);
+	return tmp;
+}
+
+// tu-skeleton: 0x002C0A0F 77B ?init@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_init.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0A5C 24B ?reset@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0A74 21B ?update@GameWindowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0D3D 95B ?windowHiding@GameWindowManager@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0E04 23B ?winCapture@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0E1B 18B ?winRelease@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0E7D 44B ?winSendSystemMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
+
+// tu-skeleton: 0x002C0EA9 44B ?winSendInputMsg@GameWindowManager@@UAE?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_drawWindow_Thunk.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
+
+// ?drawWindow@GameWindowManager@@IAEHPAVGameWindow@@@Z
+Int GameWindowManager::drawWindow(GameWindow *window)
+{
+	if (!window)
+		return WIN_ERR_INVALID_WINDOW;
+
+	if (!(window->m_status & WIN_STATUS_HIDDEN))
+	{
+		if (!(window->m_status & WIN_STATUS_SEE_THRU))
+		{
+			if (window->draw(&window->m_instData) != 1 && window->m_positionSink)
+				window->m_positionSink->draw(window, &window->m_instData);
+		}
+
+		if (window->winGetStyle() & GWS_SCROLL_LISTBOX)
+		{
+			if ((window->m_status & WIN_STATUS_BORDER) &&
+				!(window->m_status & WIN_STATUS_SEE_THRU))
+				window->winDrawBorder();
+		}
+
+		GameWindow *child = window->m_child;
+		while (child && child->m_next)
+			child = child->m_next;
+
+		for (; child; child = child->m_prev)
+			drawWindow(child);
+
+		if (!(window->winGetStyle() & GWS_SCROLL_LISTBOX))
+		{
+			if ((window->m_status & WIN_STATUS_BORDER) &&
+				!(window->m_status & WIN_STATUS_SEE_THRU))
+				window->winDrawBorder();
+		}
+	}
+
+	return WIN_ERR_OK;
+}
+
+// tu-skeleton: 0x002C108F 185B ?rva002C108F@Rva0008FF12Host@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp (not merged yet)
+
+// tu-skeleton: 0x002C1148 43B ?dumpWindow@GameWindowManager@@IAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_dumpWindow.cpp (not merged yet)
+
+// tu-skeleton: 0x002C1173 217B ?winDestroy@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
+
 // tu-skeleton: 0x002C127A 9B ??0Rva002C1283@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
 
 // tu-skeleton: 0x002C1283 29B ??_GRva002C1283@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
@@ -755,35 +843,9 @@ int GameWindowManager::winDestroyAll()
 
 // tu-skeleton: 0x002C17D6 21B ??$__copy_backward_ptrs@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00ABU__true_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntrySetText.cpp
-
-void GadgetTextEntrySetText(GameWindow *gameWindow, UnicodeString text)
-{
-	TheWindowManager->winSendSystemMsg(gameWindow, 0x4030, (WindowMsgData)&text, 0);
-}
-
 // tu-skeleton: 0x002C182D 80B ?winSetModal@GameWindowManager@@UAEHPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoMessageBox.cpp
-
-GameWindow *GameWindowManager::gogoMessageBox(Int x, Int y, Int width, Int height, UnsignedShort buttonFlags, UnicodeString titleString, UnicodeString bodyString, GameWinMsgBoxFunc yesCallback, GameWinMsgBoxFunc noCallback, GameWinMsgBoxFunc okCallback, GameWinMsgBoxFunc cancelCallback)
-{
-	return gogoMessageBox(x, y, width, height, buttonFlags, titleString, bodyString, yesCallback, noCallback, okCallback, cancelCallback, false);
-}
-
 // tu-skeleton: 0x002C1C74 633B ?gogoGadgetTextEntry@GameWindowManager@@UAEPAVGameWindow@@PAVGadgetCreateView@@PAU_EntryData@@PAVGameFont@@_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_gogoGadgetTextEntry.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_winTextLabelToText.cpp
-
-UnicodeString GameWindowManager::winTextLabelToText(AsciiString label)
-{
-	if (label.isEmpty())
-		return UnicodeString::TheEmptyString;
-
-	UnicodeString tmp;
-	tmp.translate(label);
-	return tmp;
-}
 
 // tu-skeleton: 0x002C1F6F 16B ?rva002C1F6F@Rva002C1F6F@@QAE?AURva002C1F6FIterator@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
