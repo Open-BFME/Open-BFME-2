@@ -7,8 +7,12 @@
 // platformsdk
 #include <stdio.h>
 #include <windows.h>
+// Retail's PE import at IAT BBA5AC names the bounded C++ CRT export; strsafe.cpp
+// owns the worker COMDATs with this selection, so this copy must make it too.
+#define _vsnwprintf vswprintf
 #define STRSAFE_NO_DEPRECATE
 #include <strsafe.h>
+#undef _vsnwprintf
 extern "C" {
 const char *__stdcall DXGetErrorString9A(HRESULT);
 const wchar_t *__stdcall DXGetErrorString9W(HRESULT);
