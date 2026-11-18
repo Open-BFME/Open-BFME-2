@@ -17,12 +17,12 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "Common/Snapshot.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef unsigned char UnsignedByte;
+
+
+
+
 class Debug;
 #include "../../../Include/Common/XferVersionFields.h"
 

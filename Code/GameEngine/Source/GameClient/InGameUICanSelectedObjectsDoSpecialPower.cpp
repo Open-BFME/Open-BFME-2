@@ -26,9 +26,9 @@
 // 0x0041CFCC / pinned canDoSpecialPowerAtLocation 0x0041D60B. Callers
 // 0x0042A1DE and 0x0042A2A8. WorldBuilder twin 0xDBAA80 (callgraph lead).
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class Drawable;
 class Object;

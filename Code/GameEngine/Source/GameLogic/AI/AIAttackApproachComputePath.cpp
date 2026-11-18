@@ -96,11 +96,11 @@
 #include "Code/Libraries/Include/Lib/Coord2D.h"
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include "../../../Include/Common/StateMachineClass.h"
 enum WhichTurretType

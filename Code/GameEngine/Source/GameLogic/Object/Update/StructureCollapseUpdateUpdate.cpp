@@ -52,10 +52,10 @@
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define SC_MAX(a, b) (((a) > (b)) ? (a) : (b))
 

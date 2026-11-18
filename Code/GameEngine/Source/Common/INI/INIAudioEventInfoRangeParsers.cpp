@@ -8,8 +8,8 @@
 // (0x00BD9DC8) -> 0x0002F5F4, Delay (0x00BD9DE8, store +0x34) -> 0x0002F642.
 // The float swap compares with fcompi and copies through SSE (/arch:SSE).
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 template <class T> inline void swapRange(T &lhs, T &rhs)
 {

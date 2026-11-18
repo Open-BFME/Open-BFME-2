@@ -20,9 +20,9 @@
 // getAreaToGuard 121, getGuardTargetType 123, getGuardMode 125.
 // AIGuardMachine::setTargetToGuard (0x0033F83D) and setTeamToGuard
 // (0x0033F852) are the rowed opaque setters, pinned by these names.
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 typedef UnsignedInt StateID;
 typedef UnsignedInt TeamID;
 #include "../../Common/GameLogicObjectLookupView.h"

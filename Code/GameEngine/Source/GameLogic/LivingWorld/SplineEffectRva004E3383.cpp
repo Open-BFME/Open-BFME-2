@@ -73,9 +73,9 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 

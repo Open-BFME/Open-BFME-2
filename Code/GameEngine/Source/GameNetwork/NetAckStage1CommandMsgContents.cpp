@@ -7,10 +7,10 @@
 // and empty fallback g_Rva0107301CEmptyString.
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum NetCommandType
 {

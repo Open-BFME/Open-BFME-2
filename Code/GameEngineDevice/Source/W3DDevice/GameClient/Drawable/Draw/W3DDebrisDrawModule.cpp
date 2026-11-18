@@ -31,9 +31,9 @@
 // interpolating getter at 0x002763E6 (rowed from its BFME 1 donor as
 // BFMERopeDrawable::getPosition).
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 

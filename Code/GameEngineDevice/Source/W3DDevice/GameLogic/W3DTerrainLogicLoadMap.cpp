@@ -13,10 +13,10 @@
 #include <stdlib.h>
 #include "ascii_string.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned short UnsignedShort;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #define MAP_HEIGHT_SCALE (10.0f / 256.0f)
 

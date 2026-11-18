@@ -25,9 +25,9 @@
 
 #include <math.h>
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_DTOR

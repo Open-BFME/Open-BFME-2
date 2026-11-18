@@ -9,8 +9,8 @@
 // +0x138. Callees are the rowed DataChunkInput::readDict 0x00307833,
 // Dict::operator= 0x003133E1, StaticNameKey::key 0x00148F5E, Dict::getInt
 // 0x003131CA and Dict::releaseData 0x0031339C.
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 

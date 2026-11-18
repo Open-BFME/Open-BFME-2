@@ -21,9 +21,9 @@
 // Every border goes through the rowed W3DGameWindow::blitBorderRect 0x00105584.
 #include "unicode_string.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class GameFont;
 

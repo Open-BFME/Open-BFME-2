@@ -4,10 +4,10 @@
 // ControlBarMultiSelect.cpp lines 431..437, establish this+6C selection,
 // windows DC, common commands 15C, color208 and InGameUI vslot73.
 // Field labels follow donor workflow; the observed native offsets are target facts.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include <string.h>
 

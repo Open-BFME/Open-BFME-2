@@ -14,9 +14,9 @@
 #include <string.h>
 #include "GameWindowManagerRecordView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

@@ -20,9 +20,9 @@
 #include <math.h>
 #include "Coord3D.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #define PI 3.14159265358979323846f
 

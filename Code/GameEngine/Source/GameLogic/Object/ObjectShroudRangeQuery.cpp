@@ -17,7 +17,7 @@
 // overrides (vslots +0x25C/+0x258). WorldBuilder twin 0x00CE0DD0 is an older
 // unnamed variant; the slot name is not recovered.
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum KindOfType
 {

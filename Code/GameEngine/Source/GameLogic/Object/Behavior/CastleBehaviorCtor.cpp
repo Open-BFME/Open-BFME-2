@@ -23,10 +23,10 @@
 #include <vector>
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum ObjectID
 {

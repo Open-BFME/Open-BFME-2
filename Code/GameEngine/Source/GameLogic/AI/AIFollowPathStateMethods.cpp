@@ -26,10 +26,10 @@
 // state id +4 (AI_FOLLOW_EXITPRODUCTION_PATH 7), goal +0x20,
 // adjusts-destination +0x48, m_index +0x4C, m_adjustFinal +0x50; the
 // PROJECTILE kind bit is the owner template's byte +0x10B mask 0x02.
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef UnsignedInt StateID;
 // platformsdk
 #include <windows.h>

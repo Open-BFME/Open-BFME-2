@@ -34,9 +34,9 @@
 // two extra zero arguments; the decal's render flag follows m_shadowEnabled
 // unless the +0x4B flag is set (as in setShadowsEnabled).
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 #include <windows.h>
 #include "ascii_string.h"
 

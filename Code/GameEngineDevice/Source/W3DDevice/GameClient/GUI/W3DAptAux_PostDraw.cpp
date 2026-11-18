@@ -33,11 +33,11 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
-typedef int Int;
+
+
+
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

@@ -131,11 +131,11 @@ struct Coord3DBase;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 class ModuleData;
 class Module;

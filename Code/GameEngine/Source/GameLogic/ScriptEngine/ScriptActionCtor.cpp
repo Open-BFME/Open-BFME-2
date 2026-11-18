@@ -5,8 +5,8 @@
 // warnings, tail 1, zero tail; caller 0x003B5EA5.
 #include <string.h>
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum { MAX_PARMS = 12 };
 

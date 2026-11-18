@@ -11,8 +11,8 @@
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

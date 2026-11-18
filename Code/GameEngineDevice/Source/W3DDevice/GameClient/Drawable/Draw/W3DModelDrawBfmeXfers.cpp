@@ -37,9 +37,9 @@ class Snapshot;
 
 #include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 class W3DScriptedModelDraw
 {

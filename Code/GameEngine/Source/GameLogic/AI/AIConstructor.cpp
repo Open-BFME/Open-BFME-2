@@ -10,9 +10,9 @@
 // the subsystem relationship. Extra field meanings remain unresolved.
 // Existing global owner BfmeLogicFramesPerSecond is read normally twice as retail does.
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 class Xfer;
 

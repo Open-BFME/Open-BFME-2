@@ -24,9 +24,9 @@
 // (vtable evidence, 3355 bytes) is unnamed.
 #include <math.h>
 
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/wwmath.h"
 #include "../../../../../reference/shims/wwmath/Vector2.h"

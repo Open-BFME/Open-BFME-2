@@ -23,10 +23,10 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 

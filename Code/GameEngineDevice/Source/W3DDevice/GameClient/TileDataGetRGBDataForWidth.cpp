@@ -10,8 +10,8 @@
 // @0x00111850 vtable 0x007CFAC0 prove 16-bit 2BPP layout. Caller pin read
 // from WorldHeightMap::getRGBAlphaDataForWidth @0x000AC6F1 (row 0x000AC6A6).
 
-typedef int Int;
-typedef unsigned char UnsignedByte;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 extern "C" void __cdecl Rva001117E3Downsample(
 	unsigned short *source, Int width, unsigned short *destination);

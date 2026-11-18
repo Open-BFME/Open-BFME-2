@@ -18,8 +18,8 @@
 // opacity setter pushes its argument and calls instead of reusing the
 // argument slot for a tail call, which /O2 (W3DModelDraw.cpp's flags) does.
 
-typedef float Real;
-typedef int Int;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 class Shadow
 {

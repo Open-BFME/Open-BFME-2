@@ -17,8 +17,8 @@
 #include <stddef.h>
 #include <d3d9.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 void BFME_DX8_Thread_Lock(void); // retail 0x0011F520
 bool BFME_DX8_Thread_Assert(void); // retail 0x00120F50

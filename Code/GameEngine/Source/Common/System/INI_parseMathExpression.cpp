@@ -22,9 +22,9 @@
 // which retail does neither of; the closing token of #SUBTRACT/#DIVIDE is
 // read before strcmp's arguments are pushed.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include <windows.h>
 #include <string.h>

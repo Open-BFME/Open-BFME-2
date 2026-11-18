@@ -7,11 +7,11 @@
 // its caller invokes this on the same LANAPI object as two matched handlers.
 // Keep the address-based name: donor semantics are not established.
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include "ascii_string.h"
 #include "unicode_string.h"

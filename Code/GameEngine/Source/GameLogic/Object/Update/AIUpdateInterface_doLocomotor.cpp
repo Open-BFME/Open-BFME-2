@@ -28,10 +28,10 @@
 #include "Lib/Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define FAST_AS_POSSIBLE 999999.0f
 // Named constant preserves the retail SSE comparison operand order.

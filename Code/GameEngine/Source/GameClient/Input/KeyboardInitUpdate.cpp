@@ -21,10 +21,10 @@
 // MSG_RAW_KEY_UP are 0x15 and 0x16 here; appendMessage is MessageStream's
 // slot 18 (+0x48).
 
-typedef int Int;
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum
 {

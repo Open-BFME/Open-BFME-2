@@ -26,9 +26,9 @@
 // reads it from its module data). Coord3D has a user-declared copy
 // constructor and destructor in BFME 2.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 // The canonical header first: its WWMath sphere.h and vector3.h serve the
 // prop buffer header (Code's SphereClass.h shares the SPHERE_H guard).
