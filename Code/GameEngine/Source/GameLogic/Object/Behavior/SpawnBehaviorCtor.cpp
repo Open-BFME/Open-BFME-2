@@ -43,23 +43,33 @@ public:
 
 
 
+class Object;
+class DamageInfo;
+struct Coord3D;
+enum ObjectID;
+enum CommandSourceType;
+enum CanAttackResult;
+enum AbleToAttackType;
+
 class SpawnBehaviorInterface
 {
 public:
 	virtual void spawnBehaviorAnchor() = 0;
-	// Retail table 0x00C42518: 12 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void slot5() = 0;
-	virtual void slot6() = 0;
-	virtual void slot7() = 0;
-	virtual void slot8() = 0;
+	// Retail table 0x00C42518: 12 __purecall entries follow. Slots 1 to 8, 10 and
+	// 12 take the signatures of the rowed SpawnBehavior overrides retail's table
+	// 0x00C425AC holds there (Zero Hour's SpawnBehaviorInterface order for 1 to 8).
+	virtual void onSpawnDeath(ObjectID deadSpawn, DamageInfo *damageInfo) = 0;
+	virtual Object *getClosestSlave(const Coord3D *pos) = 0;
+	virtual void orderSlavesToAttackTarget(Object *target, int maxShotsToFire, CommandSourceType cmdSource) = 0;
+	virtual void orderSlavesToAttackPosition(const Coord3D *pos, int maxShotsToFire, CommandSourceType cmdSource) = 0;
+	virtual CanAttackResult getCanAnySlavesAttackSpecificTarget(AbleToAttackType attackType, const Object *target, CommandSourceType cmdSource) = 0;
+	virtual CanAttackResult getCanAnySlavesUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *victim, const Coord3D *pos, CommandSourceType cmdSource) = 0;
+	virtual bool canAnySlavesAttack() = 0;
+	virtual void orderSlavesToGoIdle(CommandSourceType cmdSource) = 0;
 	virtual void slot9() = 0;
-	virtual void slot10() = 0;
+	virtual void rva0045FD9F() = 0;
 	virtual void slot11() = 0;
-	virtual void slot12() = 0;
+	virtual void rva004601CC() = 0;
 };
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
@@ -130,6 +140,20 @@ public:
 	virtual void onHealing(DamageInfo *damageInfo) {}
 	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 	virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data);
+	// SpawnBehaviorInterface table 0x00C425AC, slots 1 to 8, 10 and 12: the rowed
+	// overrides 0x0045FCFB, 0x0045F87C, 0x0046070E, 0x00460757, 0x0045F8E0,
+	// 0x0045F93D, 0x0045F99E, 0x004607A0, 0x0045FD9F and 0x004601CC. Slots 0, 9
+	// and 11 (0x0045F2F8, 0x0045F37D, 0x00498802) are rowed under other classes.
+	virtual void onSpawnDeath(ObjectID deadSpawn, DamageInfo *damageInfo);
+	virtual Object *getClosestSlave(const Coord3D *pos);
+	virtual void orderSlavesToAttackTarget(Object *target, int maxShotsToFire, CommandSourceType cmdSource);
+	virtual void orderSlavesToAttackPosition(const Coord3D *pos, int maxShotsToFire, CommandSourceType cmdSource);
+	virtual CanAttackResult getCanAnySlavesAttackSpecificTarget(AbleToAttackType attackType, const Object *target, CommandSourceType cmdSource);
+	virtual CanAttackResult getCanAnySlavesUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *victim, const Coord3D *pos, CommandSourceType cmdSource);
+	virtual bool canAnySlavesAttack();
+	virtual void orderSlavesToGoIdle(CommandSourceType cmdSource);
+	virtual void rva0045FD9F();
+	virtual void rva004601CC();
 	// Primary table 0x00C426AC, slot 8: the rowed onDelete 0x0045F75D.
 	virtual void onDelete();
 	// BehaviorModuleInterface table 0x00C425F0: the null-preserving conversions of
