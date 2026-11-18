@@ -19,7 +19,7 @@ extern int BfmeLogicFramesPerSecond;
 
 class Object;
 class PolygonTrigger;
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

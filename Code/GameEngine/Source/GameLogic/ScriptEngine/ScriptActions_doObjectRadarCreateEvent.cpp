@@ -12,7 +12,7 @@ extern class ScriptEngine *TheScriptEngine;
 class Radar;
 extern Radar *TheRadar;
 // Rowed 0x002D88A4: Radar::createEvent (Radar_createEvent.cpp).
-enum RadarEventType { RADAR_EVENT_INVALID };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/RadarEventType.h"
 #include "../../../Include/Common/Radar.h"
 #include "../../../Include/Common/Rva001DDAE1.h"
 extern class Eva *TheEva;

@@ -31,7 +31,7 @@ public:
 
 #include "../Object/object.h"
 
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"

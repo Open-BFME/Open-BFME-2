@@ -20,10 +20,10 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 
 #include "../Object/object.h"
 

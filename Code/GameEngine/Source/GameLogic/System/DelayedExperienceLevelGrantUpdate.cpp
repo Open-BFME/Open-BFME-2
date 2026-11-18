@@ -20,7 +20,7 @@ static inline bool operator!=(const _List_iterator<T,L> &a, const _List_iterator
 { return a._M_node != b._M_node; }
 }
 #include "Common/Snapshot.h"
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Overridable;

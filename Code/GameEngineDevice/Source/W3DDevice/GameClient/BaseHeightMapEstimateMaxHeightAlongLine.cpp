@@ -21,10 +21,10 @@ extern "C" { static float __cdecl floorf(float); }
 
 #include "Lib/Coord3D.h"
 
-enum PathfindLayerEnum
-{
-	LAYER_GROUND = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 // BFME's REAL_TO_INT_FLOOR: CRT floor() then the engine's x87 round.
 static __forceinline Real fast_float_floor(Real f)

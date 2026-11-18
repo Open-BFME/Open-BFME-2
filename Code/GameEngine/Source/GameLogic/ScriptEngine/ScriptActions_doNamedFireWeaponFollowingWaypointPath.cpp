@@ -12,7 +12,7 @@
 class Object;
 class Waypoint;
 struct RvaWeaponSlot;
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

@@ -49,16 +49,16 @@ public:
 };
 #include "../../../Include/W3DDevice/GameClient/W3DBridgeBufferClass.h"
 #include "../../../Include/W3DDevice/GameClient/W3DFloorBuffer.h"
-enum DrawableID
-{
-	INVALID_DRAWABLE_ID = 0,
-	FORCE_DRAWABLEID_TO_LONG_SIZE = 0x7ffffff
-};
-enum ObjectID
-{
-	INVALID_ID = 0,
-	FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
+
 class Vector3;
 class W3DBibBuffer
 {

@@ -5,7 +5,7 @@
 // The lookup's ArmorTemplate return spelling is reused only for its ABI;
 // this store's returned record supplies a key pointer at +0x2C.
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class CreateAHeroData;
 class ArmorTemplate;
 class Rva002B6498

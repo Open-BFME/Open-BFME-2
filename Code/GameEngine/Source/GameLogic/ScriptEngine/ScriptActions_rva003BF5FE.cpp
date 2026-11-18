@@ -8,7 +8,7 @@
 // TheTerrainLogic g_Va00BBB8D8, caller 0x003CA7E7 ret 0xc.
 #include "ascii_string.h"
 #include "../../../Include/Common/ScalarTypes.h"
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Waypoint;
 class Object;

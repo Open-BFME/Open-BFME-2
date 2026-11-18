@@ -16,10 +16,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "Rva00210390.h"
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 struct Rva002103B6Node
 {

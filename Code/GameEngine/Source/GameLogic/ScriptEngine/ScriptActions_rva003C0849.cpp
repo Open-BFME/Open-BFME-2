@@ -13,7 +13,7 @@ typedef bool Bool;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/GameLogic/Waypoint.h"
 class CommandButton;
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 class Team;
 class AIGroup;

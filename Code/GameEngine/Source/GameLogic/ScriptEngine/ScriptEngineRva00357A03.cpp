@@ -7,10 +7,10 @@
 // caller at 0x002AC694 passes Player+0x54 index plus ScienceVec +0x2F0 element; callee erase at 0x0025BF5D is ICF-shared with Science single-erase (its body calls Science copy helper).
 // Donor shape: BFME1 isScienceAcquired erase branch (reference/open-bfme-1/.../ScriptEngineIsScienceAcquired.cpp) without bounds check or remove flag.
 
-enum ScienceType
-{
-    SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
