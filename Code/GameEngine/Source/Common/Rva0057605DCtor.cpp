@@ -20,6 +20,8 @@ struct Parent0057605D;
 // Preserve the existing inlined native constructor path.
 __forceinline Rva0057605DSecond::Rva0057605DSecond() {}
 #include "../../Include/Common/Rva005A0B4CList.h"
+#include "../../Include/Common/Rva000AD6F4.h"
+class Rva0057590E { public: void rva0057590E(int value); };	// rowed 0x0057590E
 struct Parent0057605D
 {
 	char pad[8];
@@ -33,7 +35,7 @@ public:
 	// Retail table 0x00C6E60C holds __purecall at slot 1; the derived table
 	// 0x00C6E6A0 holds 0x00575DE6 there.
 	virtual void rva00575DE6() = 0;
-private:
+protected:
 	int m_a4;
 };
 class Rva0057605D : public Rva0057605DBase, public Rva0057605DSecond
@@ -41,6 +43,12 @@ class Rva0057605D : public Rva0057605DBase, public Rva0057605DSecond
 public:
 	Rva0057605D(int a, Parent0057605D *b);
 	virtual ~Rva0057605D();
+	// Table 0x00C6E6A0 slot 1: retail 0x00575DE6, passes +0xC to the rowed
+	// 0x0057590E on the +4 object. ICF fold.
+	virtual void rva00575DE6() { ((Rva0057590E *)m_a4)->rva0057590E((int)m_parentC); }
+	// Table 0x00C6E690 slot 1: retail 0x005756F2, tears down the +0x2C member
+	// of the +4 object. ICF fold.
+	virtual void slot1(int) { ((Rva000AD6F4 *)((char *)m_a4 + 0x2C))->~Rva000AD6F4(); }
 private:
 	Parent0057605D *m_parentC;
 };
