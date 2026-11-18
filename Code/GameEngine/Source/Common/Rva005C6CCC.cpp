@@ -196,6 +196,14 @@ void Rva005C6D4D::rva005C6D9C()
     if (radius == 0) {
         width = (int)(((DisplayView005C6D9C *)TheDisplay)->width() * (48.0f / 1024.0f));
         height = (int)(((DisplayView005C6D9C *)TheDisplay)->height() * (48.0f / 768.0f));
+#if defined(BFME2_MODERN)
+        // Retail sizes the buttons by width/1024 and height/768 separately,
+        // which stretches them on wide screens. Keep them round.
+        if (width > height)
+            width = height;
+        else
+            height = width;
+#endif
         if (count > 2) {
             float half = width * 0.5f;
             radius = (unsigned)((half * 1.175f) / sinf(3.1415927f / count));

@@ -203,6 +203,31 @@ inline Int BitTest( UnsignedInt bits, UnsignedInt mask )
 
 #define WIN_DRAW_LINE_WIDTH 1.0f
 #define RADIAL_CLOCK_SCALE ( 46.0f / 48.0f )
+#if defined(BFME2_MODERN)
+#include "../../../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+// Retail draws a button clock once and clears it, and the next logic update
+// sets it again. Extra presentations between updates would lose it and the
+// clock would flicker, so the modern variant clears it at the next update.
+static UnsignedByte *s_modernClockPending[256];
+static int s_modernClockCount;
+static void modernDeferClockClear( UnsignedByte *drawClock )
+{
+	for( int i = 0; i < s_modernClockCount; ++i )
+		if( s_modernClockPending[i] == drawClock )
+			return;
+	if( s_modernClockCount < 256 )
+		s_modernClockPending[s_modernClockCount++] = drawClock;
+	else
+		*drawClock = NO_CLOCK;
+}
+void modernClearPushButtonClocks()
+{
+	for( int i = 0; i < s_modernClockCount; ++i )
+		*s_modernClockPending[i] = NO_CLOCK;
+	s_modernClockCount = 0;
+}
+#endif
+
 
 extern GameWindowManager *TheWindowManager;
 extern ImageCollection *TheMappedImageCollection;
@@ -490,7 +515,11 @@ void W3DGadgetPushButtonImageDrawThree( GameWindow *window, WinInstanceData *ins
 			{
 				((Rva000A4826 *)TheDisplay)->rva000A4875( start.x, start.y, size.x, size.y, pData->percentClock, pData->colorClock );
 			}
+#if defined(BFME2_MODERN)
+			modernDeferClockClear( &pData->drawClock );
+#else
 			pData->drawClock = NO_CLOCK;
+#endif
 			window->winSetUserData( pData );
 		}
 
@@ -659,7 +688,11 @@ void W3DGadgetPushButtonDraw( GameWindow *window, WinInstanceData *instData )
 			{
 				((Rva000A4826 *)TheDisplay)->rva000A4875( origin.x, origin.y, size.x, size.y, pData->percentClock, pData->colorClock );
 			}
+#if defined(BFME2_MODERN)
+			modernDeferClockClear( &pData->drawClock );
+#else
 			pData->drawClock = NO_CLOCK;
+#endif
 			window->winSetUserData( pData );
 		}
 
@@ -841,7 +874,11 @@ void W3DGadgetPushButtonImageDrawOne( GameWindow *window, WinInstanceData *instD
 					((Rva000A4826 *)TheDisplay)->rva000A48C4( (Int)radialClockOverlay2, centerX - radiusX, centerY - radiusY,
 						centerX + radiusX, centerY + radiusY, pData->percentClock, clockColor );
 				}
+#if defined(BFME2_MODERN)
+				modernDeferClockClear( &pData->drawClock );
+#else
 				pData->drawClock = NO_CLOCK;
+#endif
 				window->winSetUserData( pData );
 			}
 

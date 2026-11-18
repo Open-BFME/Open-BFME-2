@@ -19,6 +19,8 @@ enum ModernRenderPhase
 extern __declspec(thread) ModernRenderPhase g_modernRenderPhase;
 extern __declspec(thread) float g_modernVisualAlpha;
 void modernPresentFrame();
+// Push-button clocks drawn since the last update are cleared by it (W3DPushButton).
+void modernClearPushButtonClocks();
 void modernAdvanceViewEffects();
 void modernAdvanceCrossFade();
 void modernAdvanceBW();
