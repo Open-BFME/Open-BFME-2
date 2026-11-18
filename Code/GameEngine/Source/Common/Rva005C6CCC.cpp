@@ -131,7 +131,7 @@ template<> TreeHintRef00218787 &TreeHintMap00218787::operator[](const int &key)
 }
 template class _STL::map<int, TreeHintRef00218787>;
 
-void *__cdecl operator new(unsigned int) throw();
+#include <new>
 class Display;
 extern Display *TheDisplay;
 class DisplayView005C6D9C {
