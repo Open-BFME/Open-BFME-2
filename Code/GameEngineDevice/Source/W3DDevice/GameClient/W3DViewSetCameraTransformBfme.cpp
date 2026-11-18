@@ -123,6 +123,8 @@ static void modernCaptureCamera(const void *view,CameraClass *camera,const Matri
  modernCameraOwner = view;
  modernCameraIdentity = camera;
 }
+// Filled in below the camera block, which stays self-contained.
+void (*g_modernTerrainForCamera)(CameraClass *camera) = 0;
 ModernCameraPresentation::ModernCameraPresentation(const void *view,CameraClass *camera)
  : m_camera(0)
 {
@@ -133,6 +135,10 @@ ModernCameraPresentation::ModernCameraPresentation(const void *view,CameraClass 
  memcpy(m_original,&camera->modernTransform,sizeof(m_original));
  camera->Set_Transform(visual);
  m_camera=camera;
+ // The terrain selected its tiles for the logic camera; the interpolated one
+ // can look past them (black gaps on fast turns). Select them for this view.
+ if (g_modernTerrainForCamera)
+  g_modernTerrainForCamera(camera);
 }
 ModernCameraPresentation::~ModernCameraPresentation()
 {
@@ -348,3 +354,18 @@ void W3DView::setCameraTransform(){
 // W3DView::forceRedraw is its only virtual whose whole body is
 // setCameraTransform(): a tail jump to the rowed 0x0008BE6B above.
 void W3DView::forceRedraw(){setCameraTransform();}
+
+#if defined(BFME2_MODERN)
+// The terrain block of setCameraTransform above, for the interpolated camera.
+static void modernTerrainForCamera(CameraClass *camera)
+{
+ if(TheTerrainRenderObject){
+  RefMultiListIterator<RenderObjClass>*it=W3DDisplay::m_3DScene->createLightsIterator();Rva0008B470 cameras;
+  cameras.push_back(Rva000897C8(camera));
+  if(Rva00DE1FF8Manager){reinterpret_cast<Rva0007D9B5Host*>(Rva00DE1FF8Manager)->rva0007D9B5((int)camera);Rva0008B689Element extra=reinterpret_cast<Rva0007BB79Owner*>(Rva00DE1FF8Manager)->rva0007BB79();if(!extra.isNull())cameras.push_back(extra);}
+  if(W3DGCData00DE2000){Rva0008B689Element extra=reinterpret_cast<Rva0007FD57Owner*>(W3DGCData00DE2000)->rva0007FD57(camera);if(!extra.isNull())cameras.push_back(extra);}
+  TheTerrainRenderObject->updateCenter(*reinterpret_cast<std::vector<Rva0008B689Element>*>(&cameras),it);if(it)reinterpret_cast<Rva0006ED29*>(W3DDisplay::m_3DScene)->rva0006ED29(it);
+ }
+}
+static int modernTerrainHook = (g_modernTerrainForCamera = &modernTerrainForCamera, 0);
+#endif

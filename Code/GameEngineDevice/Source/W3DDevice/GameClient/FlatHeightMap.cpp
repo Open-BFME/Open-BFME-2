@@ -751,6 +751,10 @@ Rva00072A94 *__cdecl Rva000E1D51Forward(Rva00072A94 *first, Rva00072A94 *last, R
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapOnFrameUpdate.cpp
 
 // ?On_Frame_Update@Rva000E3B41@@UAEXXZ @0x000E1185: slot 13 of retail's table 0x00BCE788.
+#if defined(BFME2_MODERN)
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *);
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64 *);
+#endif
 void Rva000E3B41::On_Frame_Update()
 {
 	if (g_00DFE7A8.m_enabled)
@@ -774,8 +778,24 @@ void Rva000E3B41::On_Frame_Update()
 		numToUpdate = 2;
 		break;
 	}
+#if defined(BFME2_MODERN)
+	// Retail re-renders up to 99 tile textures in the frame after any camera
+	// move. At 30 FPS that hid in the update; with interpolated presentation it
+	// is one long frame (about 1 ms per tile at 5120x1440). Update tiles for
+	// about 1 ms per presentation and keep updating (state 3) until done.
+	if (m_camerasMoved)
+	{
+		numToUpdate = 99;
+		m_updateState = 3;
+	}
+	__int64 modernStart, modernNow, modernFrequency;
+	QueryPerformanceCounter(&modernStart);
+	QueryPerformanceFrequency(&modernFrequency);
+	bool modernOutOfTime = false;
+#else
 	if (m_camerasMoved)
 		numToUpdate = 99;
+#endif
 	if (numToUpdate > 0)
 	{
 		Int i, j;
@@ -785,12 +805,26 @@ void Rva000E3B41::On_Frame_Update()
 			{
 				W3DTerrainBackground *tile = (W3DTerrainBackground *)m_tiles + j * m_tilesWidth + i;
 				if (tile->updateTexture())
+				{
 					numToUpdate--;
+#if defined(BFME2_MODERN)
+					QueryPerformanceCounter(&modernNow);
+					if ((modernNow - modernStart) * 1000 > modernFrequency)
+					{
+						modernOutOfTime = true;
+						numToUpdate = 0;
+					}
+#endif
+				}
 				tile->rva00115DD2();
 			}
 		}
 		if (numToUpdate >= 1)
 			m_updateState = 0;
+#if defined(BFME2_MODERN)
+		if (modernOutOfTime)
+			m_updateState = 3;
+#endif
 	}
 	m_camerasMoved = false;
 }
