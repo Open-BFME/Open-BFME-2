@@ -4,7 +4,7 @@
 
 #include <d3d9.h>
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 typedef unsigned long UnsignedLong;
 
 // The rectangle and surface types keep the names this unit's decorations carry

@@ -7,7 +7,7 @@
 // Target calls rowed Condition::getUiText @3B5BA4 and ScriptAction::getUiText
 // @3B54DC; no parser or pool declaration is needed for this UI body.
 #include "ascii_string.h"
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../../../Include/GameLogic/ScriptCondition.h"
 class OrCondition {
 public:
