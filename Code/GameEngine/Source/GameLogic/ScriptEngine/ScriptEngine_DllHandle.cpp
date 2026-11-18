@@ -12,10 +12,10 @@
 // whose TU names this base BfmeDualVtableReleaseBase). The base vtable
 // (0xBE3990) has a single slot.
 
-typedef void *HMODULE;
-typedef int (__stdcall *FARPROC)();
-extern "C" __declspec(dllimport) HMODULE __stdcall LoadLibraryA(const char *name);
-extern "C" __declspec(dllimport) FARPROC __stdcall GetProcAddress(HMODULE module, const char *name);
+// HMODULE/FARPROC and the dllimport LoadLibraryA/GetProcAddress come from
+// <windows.h>; the local class exception below is the game's own catchable
+// type (throw info 0x00D11F4C), not std::exception.
+#include <windows.h>
 
 class exception
 {
