@@ -56,7 +56,7 @@ void DamageNugget::rva00507991(void *source, void *target)
 // slot-2 test, normalised to bool.
 bool DamageNugget::rva00507943(const void *a, int b)
 {
-	return rva0050774A(a, b) ? true : false;
+	return Rva00507823::rva0050774A(a, b) ? true : false;
 }
 
 // Slot 3 (0x0050797D; also 0x00864C44 and 0x008650C4): slot 4 on the

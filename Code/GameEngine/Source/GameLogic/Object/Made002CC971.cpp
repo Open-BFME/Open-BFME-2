@@ -45,7 +45,7 @@ class Rva00507823
 public:
 	virtual ~Rva00507823();
 	Rva00507823();
-	unsigned char rva005075D6(const void *arg, Object *source);
+	virtual unsigned char rva005075D6(const void *arg, Object *source);
 private:
 	char m_pad04[0x128 - 4];
 };
@@ -161,7 +161,7 @@ void Made002CC971::rva0050AC09(Rva0050ACE0Arg *arg, Object *unused)
 // The local static owns both the name key and its compiler-generated EH guard.
 bool Made002CC971::rva0050AB37(const Rva0050ACE0Arg *arg, Object *source)
 {
-	if (!rva005075D6(arg, source))
+	if (!Rva00507823::rva005075D6(arg, source))
 		return false;
 	Object *object = TheGameLogic->findObjectByID(arg->m_id);
 	if (object != 0)

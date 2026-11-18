@@ -72,3 +72,45 @@ unsigned char Rva00507823::rva0050774A(const void *arg, int unused)
 {
 	return rva00507558(arg) != 0;
 }
+
+// The rest of retail table 0x00864010 (slot 1 is rva005075D6, slots 5..7 pure,
+// slot 8 rva00507877). Each body is byte-identical to the shared one retail
+// holds in its slot, which /OPT:ICF folded onto an existing row: slot 2 is
+// 0x0050774A (rva0050774A above), 3/4/9 the `ret 8` at 0x0050B238, 10/11 the
+// zero return at 0x000D43D0, 12/13 the false return at 0x0047A699.
+unsigned char Rva00507823::vslot02(const void *arg, int unused)
+{
+	return rva00507558(arg) != 0;
+}
+
+void Rva00507823::vslot03(const void *, void *)
+{
+}
+
+void Rva00507823::vslot04(const void *, void *)
+{
+}
+
+void Rva00507823::vslot09(const void *, void *)
+{
+}
+
+void *Rva00507823::vslot10()
+{
+	return 0;
+}
+
+void *Rva00507823::vslot11()
+{
+	return 0;
+}
+
+bool Rva00507823::vslot12()
+{
+	return false;
+}
+
+bool Rva00507823::vslot13()
+{
+	return false;
+}

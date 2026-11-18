@@ -168,7 +168,7 @@ public:
 };
 bool Rva00508925::rva00508925(Int a, Int target)
 {
-	return (bool)reinterpret_cast<Rva00507823 *>(this)->rva005075D6((const void *)a, (Object *)target);
+	return (bool)reinterpret_cast<Rva00507823 *>(this)->Rva00507823::rva005075D6((const void *)a, (Object *)target);
 }
 
 class Player;

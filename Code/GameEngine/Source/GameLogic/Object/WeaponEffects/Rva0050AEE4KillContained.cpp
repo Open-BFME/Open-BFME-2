@@ -74,7 +74,7 @@ void Rva0050AEE4Nugget::rva0050AEE4(SourceRecord*record,Object*target){
 // Retail .CRT$XCU 0x007B3664 is this unit's Drawable.h copy (static 0x00E045A0).
 #include "../../../../Include/GameClient/Drawable.h"
 bool Rva0050AEE4Nugget::rva0050ADEE(SourceRecord *record,Object *target) {
- if(((Rva00507823 *)this)->rva005075D6(record,target) && target && TheGameLogic->findObjectByID(record->source)) {
+ if(((Rva00507823 *)this)->Rva00507823::rva005075D6(record,target) && target && TheGameLogic->findObjectByID(record->source)) {
   Contain *contain=target->contain;
   if(contain && contain->getCount(false)>0 && contain->slot4() && !contain->slot7()) {
    Rva0036AE51ListView view=contain->getList();

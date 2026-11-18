@@ -82,7 +82,7 @@ class Rva00507823
 public:
 	Rva00507823();
 	virtual ~Rva00507823();
-	unsigned char rva005075D6(const void *,Object *);
+	virtual unsigned char rva005075D6(const void *,Object *);
 private:
 	char m_pad[0x128 - 4];
 };
@@ -162,7 +162,7 @@ void Made002CC907::rva0050A9F2(const Rva0050A9F2Context *context,Object *target)
 
 bool Made002CC907::rva0050A98F(const Rva0050A9F2Context *context,Object *target) {
  Object *source=TheGameLogic->findObjectByID(static_cast<ObjectID>(context->sourceId));
- if(source && target && rva005075D6((const void *)context,target)) {
+ if(source && target && Rva00507823::rva005075D6((const void *)context,target)) {
   GrabContainView *contain=source->contain;
   return contain && contain->accept(target,true,0)==true;
  }

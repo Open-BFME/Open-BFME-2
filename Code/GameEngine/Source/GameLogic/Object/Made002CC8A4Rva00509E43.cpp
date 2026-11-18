@@ -101,7 +101,7 @@ bool Made002CC8A4::rva00509E43(int weapon, Object *obj)
 					}
 					else if (m_154)
 						return false;
-					return reinterpret_cast<Rva00507823 *>(this)->rva005075D6((const void *)weapon, (Object *)obj);
+					return reinterpret_cast<Rva00507823 *>(this)->Rva00507823::rva005075D6((const void *)weapon, (Object *)obj);
 				}
 			}
 		}

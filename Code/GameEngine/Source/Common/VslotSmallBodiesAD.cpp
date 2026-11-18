@@ -206,7 +206,7 @@ public:
 // ?rva00508F1E@Rva00508F1E@@QAE_NPBXPAVObject@@@Z @0x00508F1E (51B)
 bool Rva00508F1E::rva00508F1E(const void *weapon, Object *target)
 {
-	if (!rva005075D6(weapon, target))
+	if (!Rva00507823::rva005075D6(weapon, target))
 		return false;
 	if (target && target->isKindOf((KindOfType)0x220))
 		return false;
@@ -226,7 +226,7 @@ private:
 // ?rva005092D4@Rva005092D4@@QAE_NPBXPAVObject@@@Z @0x005092D4 (51B)
 bool Rva005092D4::rva005092D4(const void *arg, Object *target)
 {
-	if (rva005075D6(arg, target) && m_128)
+	if (Rva00507823::rva005075D6(arg, target) && m_128)
 		return m_128->rva002CAA59(reinterpret_cast<int>(target), arg);
 	return false;
 }
@@ -245,7 +245,7 @@ private:
 // ?rva0050B92D@Rva0050B92D@@QAEEPBXPAVObject@@@Z @0x0050B92D (46B)
 unsigned char Rva0050B92D::rva0050B92D(const void *arg, Object *target)
 {
-	if (!rva005075D6(arg, target))
+	if (!Rva00507823::rva005075D6(arg, target))
 		return 0;
 	return m_filter128.accepts(target, 0) != 0;
 }

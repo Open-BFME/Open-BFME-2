@@ -13,8 +13,8 @@ class Rva00507823
 public:
 	Rva00507823();
 	virtual ~Rva00507823();
+	virtual unsigned char rva005075D6(const void *obj, Object *arg);		// 0x005075D6
 	virtual void rva00507877();		// slot 8 of 0x00864010, 0x00507877
-	unsigned char rva005075D6(const void *obj, Object *arg);		// 0x005075D6
 private:
 	unsigned char m_pad[0x128 - 4];
 };
@@ -420,7 +420,7 @@ void ProjectileNugget::doEffectObject(const ProjectileNuggetFireInfo *info, Obje
 // ProjectileNugget::canAffectObject, retail 0x00509720.
 Bool ProjectileNugget::canAffectObject(const Object *obj, Int arg)
 {
-	if (!rva005075D6((const void *)obj, (Object *)arg))
+	if (!Rva00507823::rva005075D6((const void *)obj, (Object *)arg))
 		return false;
 	const WeaponTemplate *weapon = m_detonationWeapon;
 	if (weapon == 0)

@@ -192,7 +192,7 @@ bool DamageNugget::rva005084FC(void *weapon, Object *target, const Coord3D *posi
 bool DamageNugget::rva005086CE(void *weapon,Object *target)
 {
  Rva005084FCWeaponView *descriptor=(Rva005084FCWeaponView*)weapon;
- if(!rva005075D6(weapon,target)) return false;
+ if(!Rva00507823::rva005075D6(weapon,target)) return false;
  Rva00263895Member info;
  generateDamageInfo(weapon,target,(DamageInfo*)&info,true,0);
  if(!target) return false;

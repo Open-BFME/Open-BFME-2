@@ -176,7 +176,7 @@ void Made002CCBCA::rva0050B843(const Rva0050B7D2Arg *arg, int value)
 // apply.
 bool Made002CCBCA::rva0050B745(const Rva0050B7D2Arg *arg, Object *source)
 {
-	if (!rva005075D6(arg, source))
+	if (!Rva00507823::rva005075D6(arg, source))
 		return false;
 	Object *object = TheGameLogic->findObjectByID(arg->m_targetID);
 	if (object && object->m_250)

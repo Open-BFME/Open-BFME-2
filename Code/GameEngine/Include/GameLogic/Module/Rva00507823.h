@@ -14,7 +14,7 @@ public:
     Rva00507823();
     virtual ~Rva00507823();
 
-    virtual unsigned char vslot01(const void *, Object *);
+    virtual unsigned char rva005075D6(const void *, Object *);
     virtual unsigned char vslot02(const void *, int);
     virtual void vslot03(const void *, void *);
     virtual void vslot04(const void *, void *);
@@ -29,7 +29,6 @@ public:
     virtual bool vslot13();
 
     unsigned char rva00507558(const void *);
-    unsigned char rva005075D6(const void *, Object *);
     unsigned char rva0050774A(const void *, int);
 
     unsigned long m_mask04[32];
