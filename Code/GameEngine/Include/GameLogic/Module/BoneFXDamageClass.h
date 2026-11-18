@@ -10,6 +10,7 @@ class DamageInfo;
 class Module;
 class ModuleData;
 class Thing;
+class Xfer;
 
 class BoneFXDamage : public DamageModule {
 public:
@@ -19,6 +20,12 @@ public:
     virtual void onDamage(DamageInfo *damageInfo);
     virtual void onHealing(DamageInfo *damageInfo);
     virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+    virtual NameKeyType getModuleNameKey() const;
+protected:
+    virtual void onObjectCreated();
+    virtual void loadPostProcess();
+    virtual const char *GetSnapshotName() const;
+    virtual void xfer(Xfer *xfer);
 };
 
 typedef char canonical_BoneFXDamage_33bbbf2c_sizeof[sizeof(BoneFXDamage) == 20 ? 1 : -1];
