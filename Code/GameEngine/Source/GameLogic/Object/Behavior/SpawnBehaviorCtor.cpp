@@ -130,7 +130,20 @@ public:
 	virtual void onHealing(DamageInfo *damageInfo) {}
 	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 	virtual int rva0045FE4A(Rva0045FE4ACallback func, void *data);
+	// Primary table 0x00C426AC, slot 8: the rowed onDelete 0x0045F75D.
+	virtual void onDelete();
+	// BehaviorModuleInterface table 0x00C425F0: the null-preserving conversions of
+	// the +0x0C receiver retail holds in slots 4 (0x004523A9, the +0x28 interface),
+	// 7 (0x003730FC, +0x24), 10 (0x0039852B, +0x30) and 42 (0x004647C0, +0x2C).
+	virtual DamageModuleInterface *getDamage() { return this; }
+	virtual DieModuleInterface *getDie() { return this; }
+	virtual UpgradeModuleInterface *getUpgrade() { return reinterpret_cast<UpgradeModuleInterface *>(static_cast<UpgradeMux *>(this)); }
+	virtual void *slot42() { return static_cast<SpawnExtraBase *>(this); }
 protected:
+	// Primary table 0x00C426AC, slots 1 and 3: the rowed loadPostProcess 0x0045F382
+	// and xfer 0x00460586.
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
 	virtual void getUpgradeActivationMasks(struct UpgradeMaskType &, struct UpgradeMaskType &) const;
 };
 
