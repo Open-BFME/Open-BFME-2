@@ -147,29 +147,33 @@ template<int NumBits> class BitFlags;
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
+class Object;
+
 class DockUpdateInterface
 {
 public:
-	virtual void dockAnchor() = 0;
-	// Retail table 0x00C52EE8: 19 __purecall entries follow.
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void slot5() = 0;
-	virtual void slot6() = 0;
-	virtual void slot7() = 0;
-	virtual void slot8() = 0;
-	virtual void slot9() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
+	// Retail table 0x00C52EE8 is twenty __purecall entries. Each slot takes the
+	// signature of the rowed DockUpdate override retail's table 0x00C70328 holds
+	// there (Zero Hour's DockUpdateInterface order, with BFME2's extra slot 16).
+	virtual Bool isClearToApproach(const Object *docker) const = 0;
+	virtual Bool reserveApproachPosition(Object *docker, Coord3D *position, Int *index) = 0;
+	virtual Bool advanceApproachPosition(Object *docker, Coord3D *position, Int *index) = 0;
+	virtual Bool isClearToEnter(const Object *docker) const = 0;
+	virtual Bool isClearToAdvance(const Object *docker, Int dockerIndex) const = 0;
+	virtual void getEnterPosition(Object *docker, Coord3D *pos) = 0;
+	virtual void getDockPosition(Object *docker, Coord3D *pos) = 0;
+	virtual void getExitPosition(Object *docker, Coord3D *pos) = 0;
+	virtual void onApproachReached(Object *docker) = 0;
+	virtual void onEnterReached(Object *docker) = 0;
+	virtual void onDockReached(Object *docker) = 0;
+	virtual void onExitReached(Object *docker) = 0;
 	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual void slot17() = 0;
-	virtual void slot18() = 0;
+	virtual void cancelDock(Object *docker) = 0;
+	virtual Bool isDockOpen() = 0;
+	virtual void setDockOpen(Bool open) = 0;
+	virtual Bool vslot16(Int) = 0;
+	virtual void setDockCrippled(Bool setting) = 0;
+	virtual Bool isAllowPassthroughType() = 0;
 	virtual void slot19() = 0;
 };
 
@@ -185,7 +189,36 @@ public:
 	virtual void objectModuleAnchor();
 	virtual void behaviorAnchor();
 	virtual void updateAnchor() = 0;
-	virtual void dockAnchor();
+
+	// Dock interface table 0x00C70328: the rowed overrides in slots 0 to 11, 13 to
+	// 15, 17 and 18, and the shared one-argument `return false` 0x005CB9FF in
+	// slot 16. Slot 12 is __purecall in retail too; slot 19 is the shared
+	// `return false` 0x0047A699.
+	virtual Bool isClearToApproach(const Object *docker) const;
+	virtual Bool reserveApproachPosition(Object *docker, Coord3D *position, Int *index);
+	virtual Bool advanceApproachPosition(Object *docker, Coord3D *position, Int *index);
+	virtual Bool isClearToEnter(const Object *docker) const;
+	virtual Bool isClearToAdvance(const Object *docker, Int dockerIndex) const;
+	virtual void getEnterPosition(Object *docker, Coord3D *pos);
+	virtual void getDockPosition(Object *docker, Coord3D *pos);
+	virtual void getExitPosition(Object *docker, Coord3D *pos);
+	virtual void onApproachReached(Object *docker);
+	virtual void onEnterReached(Object *docker);
+	virtual void onDockReached(Object *docker);
+	virtual void onExitReached(Object *docker);
+	virtual void cancelDock(Object *docker);
+	virtual Bool isDockOpen();
+	virtual void setDockOpen(Bool open);
+	virtual Bool vslot16(Int) { return FALSE; }
+	virtual void setDockCrippled(Bool setting);
+	virtual Bool isAllowPassthroughType();
+
+protected:
+	// Primary table 0x00C70378, slots 1 and 3: the rowed loadPostProcess
+	// 0x00589909 and xfer 0x0058A410.
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
+public:
 
 	Coord3D m_enterPosition;
 	Coord3D m_dockPosition;
