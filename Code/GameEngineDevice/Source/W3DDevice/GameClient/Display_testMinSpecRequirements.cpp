@@ -8,8 +8,8 @@
 // The BFME1 donor W3DDisplay.cpp only emits it through that header. Retail
 // 0x00049F35 writes memPassed, cpuPassed then videoPassed and returns true with
 // ret 0x14; emitted out-of-line here, the donor's other bodies omitted.
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 enum StaticGameLODLevel
 {

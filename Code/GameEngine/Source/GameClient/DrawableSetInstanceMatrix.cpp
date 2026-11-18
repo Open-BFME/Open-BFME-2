@@ -16,8 +16,8 @@
 // members are WWMath's WWINLINE (__forceinline); plain inline leaves the
 // assignment out of line at /O1.
 
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 

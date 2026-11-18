@@ -25,8 +25,8 @@ class Rva00261ABBMatrix { public:
  __forceinline Rva00261ABBVector Get_X_Vector() const { return Rva00261ABBVector(row[0][0],row[1][0],row[2][0]); }
 };
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 
 

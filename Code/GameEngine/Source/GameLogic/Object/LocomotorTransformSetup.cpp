@@ -5,8 +5,8 @@
 // Native 0x001E68D7..0x001E6B8B is a four-argument Locomotor movement step.
 // Its offsets, speed clamp, reverse flag and turn scaling come from retail.
 // The writable scale name describes its use; its original EA name is unknown.
-typedef float Real;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 extern "C" void _ReadWriteBarrier();

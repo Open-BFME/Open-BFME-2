@@ -22,9 +22,9 @@ Coord3D * _STLP_alloc_proxy<Coord3D*,Coord3D,allocator<Coord3D> >::allocate(size
 
 #include "../../../../reference/shims/bfme_coord3d_construct_link/coord3d_construct_link.h"
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/Common/Rva00390729Element.h"
 // Bind to the kept retail copy instead of emitting this unit's own.

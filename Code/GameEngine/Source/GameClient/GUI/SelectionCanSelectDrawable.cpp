@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 // ?CanSelectDrawable@@YA_NPBVDrawable@@_N@Z @0x0042FA63 300B: selection gate for selectFriends. Evidence: donor SelectionXlatCanSelectDrawable plus retail callers 0x0042FE95 0x00430F98, rowed callees, TheWindowManager TheTacticalView.
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

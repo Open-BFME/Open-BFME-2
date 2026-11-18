@@ -12,8 +12,8 @@
 // 0x000D50CE. BFME 2's TRoadPt zeroes itself, which is what orders the two
 // ends' stores ahead of the scalars. The Zero Hour W3DRoadBuffer.cpp header
 // view keeps the older TRoadPt, so the constructor is compiled here.
-typedef float Real;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 

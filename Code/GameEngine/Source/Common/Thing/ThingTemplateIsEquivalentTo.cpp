@@ -18,8 +18,8 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Include/Common/ThingTemplate.h"
 

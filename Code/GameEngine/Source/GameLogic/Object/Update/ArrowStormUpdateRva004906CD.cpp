@@ -4,8 +4,8 @@
 // Shape follows WeaponFireSpecialAbilityUpdateSlot8.cpp (same slot-8 override pattern over UpdateModule+0x04/+0x08 via second base at +0x20, same bit 0x108&4, same dist<min*min then optional range check): ArrowStorm looks up WeaponTemplate from ModuleData and uses default bonus, no -2.5.
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

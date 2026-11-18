@@ -3,8 +3,8 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include "Code/Libraries/Include/Lib/ICoord3D.h"
 #include "../../../Include/GameLogic/PolygonTrigger.h"
 struct WallCellInfo 

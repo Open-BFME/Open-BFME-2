@@ -13,9 +13,9 @@
 // register allocation without barriers; separate player-ID scopes allow the
 // loop offset to reuse the incoming argument slot. No native EH states.
 #include <vector>
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 struct XferVersion {UnsignedByte m_version,m_currentVersion;};
 class Snapshot;
 class AsciiString;

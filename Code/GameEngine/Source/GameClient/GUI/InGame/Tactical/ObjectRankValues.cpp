@@ -20,8 +20,8 @@
 // Reference vs pointer parameters follow the WB assert text (obj.); the out
 // parameters' spelling is a structural inference.
 
-typedef int Int;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 
 struct ExperienceLevelNode;
 class ExperienceLevelList;

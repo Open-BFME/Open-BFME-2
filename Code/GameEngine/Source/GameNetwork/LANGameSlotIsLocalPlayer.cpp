@@ -14,9 +14,9 @@
 // update stops cl from forwarding the stored dword into a register add.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 template <int N> class VSlots : public VSlots<N - 1>
 {

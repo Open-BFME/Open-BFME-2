@@ -12,8 +12,8 @@
 // at vtable byte offset 0x194), shadow +0x58 and terrain decal +0x5C
 // (enableShadowRender inline, flag +4), track render object +0x60.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 

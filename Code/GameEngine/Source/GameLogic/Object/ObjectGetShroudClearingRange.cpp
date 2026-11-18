@@ -11,9 +11,9 @@
 //    template through 0x0028A8B5 (between its +0x4C4 and +0x4C0).
 // Both helpers and the two template floats are unnamed (address-derived).
 
-typedef float Real;
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectStatusTypes
 {

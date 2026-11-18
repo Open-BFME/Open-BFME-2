@@ -19,9 +19,9 @@
 // STLport4.5.3 iterator comparison is its node-pointer comparison.
 // Spell that native comparison here so no competing operator copy is emitted.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

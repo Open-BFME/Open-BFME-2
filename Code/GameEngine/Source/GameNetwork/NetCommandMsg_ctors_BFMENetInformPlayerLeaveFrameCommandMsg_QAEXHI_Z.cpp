@@ -30,12 +30,12 @@
 // locally rather than through a shim header because any file under
 // inputs/reference/shims/ forces the full gate.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 enum { MAX_SLOTS = 8 };
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+
+
+
 
 enum NetCommandType
 {

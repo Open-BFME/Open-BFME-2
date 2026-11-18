@@ -17,8 +17,8 @@
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 #include <math.h>
 
-typedef float Real;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // BaseType.h's inline fld/fistp rounding; retail floors through msvcr71.
 __forceinline long fast_float2long_round(float f)

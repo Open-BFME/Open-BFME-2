@@ -14,8 +14,8 @@
 
 #include <vector>
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 
 enum GeometryType

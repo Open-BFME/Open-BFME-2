@@ -10,8 +10,8 @@
 // money transfers take at +0x3BC. The lender reports its state through
 // virtual slot 7 (3: a player is gone, 2: done).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 class Rva0039B795;
 class Rva0039B7AD;

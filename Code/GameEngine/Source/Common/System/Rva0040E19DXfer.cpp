@@ -12,9 +12,9 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 #include "XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ScienceType
 {

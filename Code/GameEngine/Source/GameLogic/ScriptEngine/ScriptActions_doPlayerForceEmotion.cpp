@@ -17,8 +17,8 @@
 // the Zero Hour DLINK_ITERATOR team walk follow the BFME2 bytes.
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class Object;
 class Team;

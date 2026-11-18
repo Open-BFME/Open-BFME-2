@@ -3,8 +3,8 @@
 // Canonical by-value ABI provider: PathfinderSameCellRva002EE49B.cpp.
 #include "../AI/PathfinderPositionValue.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum PathfindLayerEnum { PATHFIND_LAYER_UNKNOWN=0, PATHFIND_LAYER_GROUND=1 };
 struct Rva002F06A3Template { char pad0[0x56c]; Int m_slopeLimitIndex; char pad570[0x634-0x570]; unsigned char m_canPathThroughGates; };
 class Object {

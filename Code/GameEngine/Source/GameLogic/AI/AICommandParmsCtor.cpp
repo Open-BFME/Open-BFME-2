@@ -17,8 +17,8 @@
 // constructor and erase spellings resolve through alias pins to the rowed
 // Vector_base, erase, and init bodies.
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class Object;
 

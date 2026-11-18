@@ -9,9 +9,9 @@
 // inline-copy/stack-layout mismatch. No new pins or shared header changes.
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
 // stlport
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "Coord3D.h"
 

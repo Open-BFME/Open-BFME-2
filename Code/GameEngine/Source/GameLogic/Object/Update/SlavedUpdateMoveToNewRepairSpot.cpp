@@ -10,8 +10,8 @@
 // SlavedUpdateModuleDataCtor (repairRange +0x28, min +0x2C, max +0x30);
 // Object position +0x38 and AI +0x258; AI curLocomotor +0x1F0 and
 // chooseLocomotorSet slot 142; TerrainLogic getGroundHeight slot 6.
-typedef int Int;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../Libraries/Include/Lib/Coord3DInline.h"

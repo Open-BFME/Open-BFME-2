@@ -21,8 +21,8 @@
 // Retail reads min/max at E8/EC and rate-of-fire bonus at 0C; its random-call
 // diagnostic fixes the donor file and line. The full ret4 ends at RVA 2C93DF.
 #include <math.h>
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 class WeaponBonus
 {
 public:

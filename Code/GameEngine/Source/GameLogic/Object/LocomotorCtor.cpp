@@ -19,10 +19,10 @@
 // Coord3D's three-float constructor zeroes the two coords in member order.
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define BIGNUM 99999.0f
 

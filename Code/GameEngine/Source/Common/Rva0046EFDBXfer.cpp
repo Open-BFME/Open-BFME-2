@@ -17,9 +17,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class ModuleData;
 

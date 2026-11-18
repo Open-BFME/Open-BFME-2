@@ -18,8 +18,8 @@
 
 #include <vector>
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 typedef int NameKeyType;
 
 enum { MAX_TURRETS = 1 };

@@ -17,9 +17,9 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 struct XferVersion
 {
