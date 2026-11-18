@@ -110,6 +110,11 @@ public:
 	virtual const char *GetSnapshotName() const;
 	virtual void DoXfer(Xfer *);
 	virtual void reset();
+	// Retail holds the shared empty body 0x000B3FD0 in slots 1 and 10 of the
+	// subsystem table 0x00C3C408 and in slot 1 of the snapshot table 0x00C3C3F8.
+	virtual void init() {}
+	virtual void update() {}
+	virtual void LoadPostProcess() {}
 
 private:
 	Rva00426745Owned *m_owned; // +0x10

@@ -159,6 +159,10 @@ public:
 	virtual void reset();
 	virtual const char *GetSnapshotName() const;
 	virtual void DoXfer(Xfer *);
+	// The three empty slots (0x000B3FD0); rowed in BfmeStringRecord00426A5B.cpp.
+	virtual void init() {}
+	virtual void update() {}
+	virtual void LoadPostProcess() {}
 };
 
 // ?<Rva00426745::Rva00426745> absent-from-retail
