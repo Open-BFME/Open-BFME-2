@@ -4,12 +4,18 @@
 // which is the eight the retail Allocate adds to the request and the eight it
 // steps past on the way out.
 
-typedef unsigned int size_t;
+// size_t and the dllimport CRT malloc/free come from the real headers; this
+// TU is not /MD, so _DLL makes <stdlib.h> declare them dllimport (the
+// retail bodies call msvcr71 through the IAT).
+#define _DLL
+#include <stdlib.h>
+#undef _DLL
+#include <string.h>
+
+// SIZE_T stays unsigned int: the SDKs ULONG_PTR is unsigned long, which
+// would re-mangle Allocate(SIZE_T) from PAXI to PAXK. BYTE likewise has no
+// SIZE_T-free Windows header in this include set.
 typedef unsigned int SIZE_T;
-
-extern "C" __declspec(dllimport) void *__cdecl malloc(size_t size);
-extern "C" __declspec(dllimport) void __cdecl free(void *block);
-
 typedef unsigned char BYTE;
 
 namespace ATL
