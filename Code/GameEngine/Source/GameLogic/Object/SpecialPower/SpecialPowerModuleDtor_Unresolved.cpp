@@ -29,6 +29,10 @@
 // latter stored at +0x18; module data +0x0D pauses through slot 9 (pinned
 // pauseCountdown 0x00492FC2); the superweapon is added only for a structure
 // (template KindOf 7, the donor's KINDOF_STRUCTURE, tested inline at +0x108).
+// This unit emits BehaviorModule's tables (its inline destructor below): slot 1 of
+// ??_7BehaviorModule@@6BObjectModule@@@ is ?loadPostProcess@BehaviorModule@@MAEXXZ
+// (retail 0x00BEEA7C), as in CreateModule.cpp and FXListDie.cpp.
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 #include "ascii_string.h"
 
 
@@ -96,12 +100,31 @@ public:
 	// retail 0x002533D3, the +0x10 interface (inline, the COMDAT SpecialPowerModuleCtor.cpp emits)
 	virtual SpecialPowerModuleInterface *getSpecialPower() { return this; }
 	virtual ~SpecialPowerModule();
+	// The virtual list is SpecialPowerModuleCtor.cpp's, so both units emit the same
+	// three tables: twelve unrecovered primary slots, and the class's own
+	// getSpecialPowerTemplate, loadPostProcess and getModuleNameKey overrides.
+	virtual void s00() = 0;
+	virtual void s01() = 0;
+	virtual void s02() = 0;
+	virtual void s03() = 0;
+	virtual void s04() = 0;
 	virtual AsciiString getPowerName() const;
+	virtual void s06() = 0;
 	virtual void onSpecialPowerCreation();
+	virtual void s08() = 0;
 	virtual void pauseCountdown(bool pause);
+	virtual void s10() = 0;
+	virtual void s11() = 0;
+	virtual void s12() = 0;
+	virtual void s13() = 0;
+	virtual void s14() = 0;
 	virtual void startPowerRecharge(float percent);
 protected:
 	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return (const SpecialPowerModuleData *)getModuleData(); }
+	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return getSpecialPowerModuleData()->m_specialPowerTemplate; }
+	virtual void loadPostProcess();
+public:
+	virtual NameKeyType getModuleNameKey() const;
 private:
 	int m_unknown14;
 	unsigned int m_availableOnFrame;
