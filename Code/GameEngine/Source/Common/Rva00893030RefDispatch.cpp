@@ -40,11 +40,8 @@ public:
 	void *m_value;
 };
 
-class Rva008951B0Owner
-{
-public:
-	void rva006D25C0(Rva006D07E0Key value, void *first, void *second, void *third);
-};
+class Rva008951B0Node;
+#include "../../Include/Common/Rva008951B0Owner.h"
 
 class Rva00893030Manager;
 extern Rva00893030Manager *g_rva00893030Manager;

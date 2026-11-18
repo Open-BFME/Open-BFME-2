@@ -5,11 +5,8 @@
 // ((Rva007E3410Object*)this)->invokeForMode() via rowed 0x00106A06;
 // return this->rva00106970(a1,a2) via pin 0x00106970.
 // Names opaque (callee class view minimal for rowed call); pin proves nothing.
-class Rva007E3410Object
-{
-public:
-	void invokeForMode(void);
-};
+class Rva007E3410Target;
+#include "../../Include/Common/Rva007E3410Object.h"
 
 class Rva00106C79Holder
 {
