@@ -14,10 +14,10 @@
 // ThingTemplate::isEquivalentTo (0x0033BB04). ZH declares it static; it is
 // external here so the unit emits it. Retail compares with fcompi, which
 // MSVC 7.1 emits only under /arch:SSE.
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 enum KindOfType
 {
 	KINDOF_220 = 0x220

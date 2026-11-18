@@ -45,10 +45,10 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-enum ObjectStatusTypes
-{
-    OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 enum DisabledType
 {
     DISABLED_DEFAULT = 0
@@ -61,10 +61,10 @@ enum DamageType
 {
     DAMAGE_UNRESISTABLE = 8
 };
-enum DeathType
-{
-    DEATH_NORMAL = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+
+
+
 
 class Object;
 class Team;

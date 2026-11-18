@@ -31,11 +31,11 @@ enum DisabledType
 	DISABLED_SCRIPT_UNDERPOWERED = 10
 };
 
-enum ObjectScriptStatusBit
-{
-	OBJECT_STATUS_SCRIPT_DISABLED = 0x01,
-	OBJECT_STATUS_SCRIPT_UNPOWERED = 0x02
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectScriptStatusBit.h"
+
+
+
+
 
 // Saved status bits (Zero Hour donor ObjectStatusTypes.h; values are inert
 // in this TU -- setStatus forwards its arguments without comparing them).
@@ -116,7 +116,7 @@ extern TerrainLogic *TheTerrainLogic;
 bool isPosDifferent(const Coord3D *,const Coord3D *);
 bool isAngleDifferent(float,float);
 #include "../../../Include/GameLogic/Module/ObjectTransformContain.h"
-enum PathfindLayerEnum { LAYER_GROUND = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

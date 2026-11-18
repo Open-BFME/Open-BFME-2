@@ -12,7 +12,7 @@
 // ObjectAdjustModelConditionThunk.cpp guide status-purpose and branch structure.
 // Retail 28DB3C..28DCC4; all offsets below read independently from its instructions.
 enum ObjectStatusTypes { AIM=22,FIRE=25,ATTACK=13 };
-enum WeaponSlotType { PRIMARY_WEAPON=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum WeaponStatus { READY_TO_FIRE=0,OUT_OF_AMMO,BETWEEN_FIRING_SHOTS,RELOADING_CLIP,PRE_ATTACK,UNUSED };
 enum WeaponSetConditionType { WSF_INVALID=-1,WSF_NONE=0,WSF_FIRING,WSF_BETWEEN,WSF_RELOADING,WSF_UNUSED,WSF_PREATTACK };
 #include "../../../Include/GameLogic/WeaponTemplate.h"

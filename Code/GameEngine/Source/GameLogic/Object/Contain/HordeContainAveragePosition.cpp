@@ -51,10 +51,10 @@ extern GameLogic *TheGameLogic;
 
 
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 

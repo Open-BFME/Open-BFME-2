@@ -59,10 +59,10 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_HORDE_3F = 0x3F
 };
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 class Weapon;
 class Object
 {

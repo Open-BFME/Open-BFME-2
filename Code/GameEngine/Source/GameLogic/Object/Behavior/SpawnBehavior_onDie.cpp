@@ -46,10 +46,10 @@ enum DamageType
 	DAMAGE_UNRESISTABLE = 8
 };
 
-enum DeathType
-{
-	DEATH_NORMAL = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+
+
+
 
 class Object;
 class DamageInfo;

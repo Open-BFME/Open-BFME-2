@@ -20,7 +20,7 @@ public:
 
 
 
-enum SpecialPowerType {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SpecialPowerType.h"
 #include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Object

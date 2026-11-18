@@ -3,10 +3,10 @@
 // Fill Pod16 slot from 6 args via decorated name key plus subscript lookup.
 // Evidence: chain lane (calls just-landed 0x00257252); caller passes key at
 // +0x14 and fills 16B at returned pointer; unblocks 0x000652CA.
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 enum ModuleType
 {
 	MODULETYPE_FIRST = 0

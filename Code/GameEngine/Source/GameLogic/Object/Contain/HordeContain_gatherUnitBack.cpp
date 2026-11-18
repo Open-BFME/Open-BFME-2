@@ -10,10 +10,10 @@
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Object
 {

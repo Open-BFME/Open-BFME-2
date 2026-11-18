@@ -47,7 +47,7 @@ template <> void UpdateIntPtrTree::clear();
 bool Rva00045473Equal(const void *, const void *);
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 class Object {
 public:
     char pad00[0x38];
@@ -72,7 +72,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 struct UpdateLogicView { char pad00[0x40]; unsigned int frame; };
 extern int BfmeLogicFramesPerSecond;
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class TransportContain : public BehaviorModule, public UpdateModuleInterface {
 public: virtual UpdateSleepTime update();

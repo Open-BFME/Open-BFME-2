@@ -24,10 +24,10 @@ enum WeaponLockType
 	LOCKED_TEMPORARILY = 1
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 enum ObjectStatusTypes
 {

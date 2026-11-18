@@ -11,10 +11,10 @@
 // plain ret proves 0 args; name stays address-derived (Object owner proven by
 // +0x244 and callers, identity unproven).
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Rva0028C513Result
 {

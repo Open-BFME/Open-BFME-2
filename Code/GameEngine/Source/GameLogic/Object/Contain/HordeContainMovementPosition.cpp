@@ -148,10 +148,10 @@ class Object
     unsigned char m_438; // +0x438
 };
 
-enum PathfindLayerEnum
-{
-    LAYER_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 

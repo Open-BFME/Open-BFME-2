@@ -64,10 +64,10 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-enum ExitDoorType
-{
-	DOOR_NONE_AVAILABLE = -1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ExitDoorType.h"
+
+
+
 
 enum CellShroudStatus
 {

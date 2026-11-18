@@ -25,12 +25,12 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

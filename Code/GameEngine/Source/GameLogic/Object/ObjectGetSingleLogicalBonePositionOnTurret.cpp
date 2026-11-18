@@ -15,7 +15,7 @@
 #include "Lib/Coord3D.h"
 #include "matrix3d.h"
 enum WhichTurretType {TURRET_PRIMARY=0};
-enum WeaponSlotType {PRIMARY_WEAPON=0};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 #include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/DrawableBFME2.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

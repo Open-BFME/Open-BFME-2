@@ -50,10 +50,10 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class ArmorTemplate;
 class Rva0035516C
