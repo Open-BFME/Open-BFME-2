@@ -110,15 +110,31 @@ void Rva0089851_Anchor(FlightDeckBehavior::RunwayInfo *object)
 	delete object;
 }
 
-class Rva0090771
+// Retail's deleting destructor 0x000910FF calls 0x00090771, the body rowed as
+// ~Rva000906DE: this class (table 0x00BC7F74) has an implicit destructor over
+// that base, whose empty virtual destructor is inline, so its own destructor is
+// the same seven bytes (store the base table, return) and retail folded the two.
+// The base view is InlineDtorDeletingDtorsC01.cpp's, which rows that body; the
+// destructor is expanded here without emitting a second copy of it.
+class Rva000906DE
+{
+public:
+	Rva000906DE();
+	virtual void slot0() = 0;
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	__declspec(dllimport) __forceinline virtual ~Rva000906DE() {}
+};
+
+class Rva0090771 : public Rva000906DE
 {
 public:
 	Rva0090771(EmitVtableTag *);
-	virtual ~Rva0090771();
 };
 
 // The tag constructor (no retail counterpart) makes this TU emit the vtable
-// and with it the scalar deleting destructor; the destructor is only declared here.
+// and with it the scalar deleting destructor and the implicit destructor.
 // ?<Rva0090771::Rva0090771> absent-from-retail
 Rva0090771::Rva0090771(EmitVtableTag *)
 {
