@@ -15,8 +15,8 @@
 // address-named view other units use) and TheAudio's addAudioEvent is vslot 25.
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

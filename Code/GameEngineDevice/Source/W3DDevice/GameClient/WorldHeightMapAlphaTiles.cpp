@@ -13,8 +13,8 @@
 // its declaration preserves construction cleanup and exact compiler EH data.
 // This unit isolates the target /O1 settings from the /O2 donor home unit;
 // existing matched home functions and the owned global remain unchanged.
-typedef int Int;
-typedef unsigned char UnsignedByte;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 

@@ -6,8 +6,8 @@
 // Changes from donor: INI +0x420, member scanReal, twenty-slot arrays, /O1 SSE.
 // MultiPlayMults is the donor's descriptive facade, not a recovered type spelling.
 // Full 336-byte body verified through final ret; no Xbox bytes count as recovery.
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include <string.h>
 

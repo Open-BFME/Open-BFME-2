@@ -37,8 +37,8 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0,
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
-typedef unsigned short UnsignedShort;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class AsciiString;
 class UnicodeString;

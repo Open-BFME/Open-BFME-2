@@ -14,9 +14,9 @@
 // tail indices inside Pathfinder; BFME 2 factors it into this ring. The
 // ring's class and member names are descriptive, not recovered.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectID
 {

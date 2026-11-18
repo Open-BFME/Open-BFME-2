@@ -21,8 +21,8 @@
 #include "ascii_string.h"
 #include <string.h>
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -12,7 +12,7 @@
 // novtable here.
 #include <new.h>
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 enum { MAX_SLOTS = 8 };
 

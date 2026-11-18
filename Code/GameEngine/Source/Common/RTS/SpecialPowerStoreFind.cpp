@@ -13,8 +13,8 @@
 #include <vector>
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include <windows.h>
 
 #include "../../../Include/Common/Overridable.h"

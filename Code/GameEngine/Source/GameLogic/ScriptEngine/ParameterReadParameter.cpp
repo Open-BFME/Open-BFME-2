@@ -16,8 +16,8 @@
 // AsciiString assignment gives the native copy-call scheduling and unwind state.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "Coord3D.h"
 

@@ -54,8 +54,8 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 }
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameClient/Drawable.h"

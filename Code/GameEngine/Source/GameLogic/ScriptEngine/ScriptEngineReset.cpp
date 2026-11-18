@@ -100,8 +100,8 @@ private:
 };
 }
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond

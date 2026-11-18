@@ -6,9 +6,9 @@
 // setWeaponLock slot+0x40 then inline aiAttackPosition (parms ctor 0x351BD0 builds
 // 0xC0 block, 3x movsd pos, int at +0x34, slot-0 aiDoCommand, inline free teardown),
 // static NAMEKEY RadiusDecalUpdate via TheNameKeyGenerator, findModule, createRadiusDecal.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #pragma warning(disable : 4716)
 

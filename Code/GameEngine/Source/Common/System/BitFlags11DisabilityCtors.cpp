@@ -11,8 +11,8 @@
 // the body memsets exactly 4 bytes, then sets bit (idx & 31) of word
 // (idx >> 5) with unsigned shifts.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include <string.h>
 

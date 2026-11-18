@@ -12,9 +12,9 @@ namespace StrategicHUD
 	void __cdecl SetTurnNumberString(int level, Rva0057A51CTeam **ppTeam, int turn);
 }
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class AsciiString;
 

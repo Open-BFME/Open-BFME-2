@@ -33,9 +33,9 @@
 #include <windows.h>
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };

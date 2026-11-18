@@ -24,8 +24,8 @@
 // compiler saw StringBase<char>::reverseFind (row 0x00035930) as nothrow.
 template<> const char *StringBase<char>::reverseFind(char c) const throw();
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 enum NameKeyType
 {

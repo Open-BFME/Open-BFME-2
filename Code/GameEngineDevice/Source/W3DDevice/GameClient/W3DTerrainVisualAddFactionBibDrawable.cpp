@@ -18,8 +18,8 @@
 // argument meanings are carried from Zero Hour and BFME 1.
 #include "Coord3D.h"
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 enum ObjectID
 {

@@ -2,8 +2,8 @@
 // BFME1 MultiPlayMultParseCallbacks.cpp donor, reconciled to PC retail.
 // Descriptive donor type name; PC callbacks establish each array's semantics.
 // All setters test signed slot-1 in [0,20); arrays are 0x50 bytes apart.
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 #include "../../Include/Common/MultiPlayMults.h"
 
 

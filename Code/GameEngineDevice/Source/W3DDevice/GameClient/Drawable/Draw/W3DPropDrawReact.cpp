@@ -28,9 +28,9 @@
 // Coord3D has a user-declared (empty) destructor in BFME 2, which is what
 // gives this body its unwind frame around the by-value location argument.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_DTOR

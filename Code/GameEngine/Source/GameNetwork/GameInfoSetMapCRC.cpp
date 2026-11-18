@@ -12,9 +12,9 @@
 // Callers at 0x401EC4 0x444F9C etc. No new pins.
 #include <map>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../Include/Common/BfmeStringData.h"
 

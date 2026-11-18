@@ -27,9 +27,9 @@
 // a mood target sets AI +0x48 to 2 and +0x3C7. The roles of AI +0x4EC,
 // +0x534, +0x3C7 and the state's +0x21 byte are not recovered.
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -22,9 +22,9 @@
 // the same symbol.
 #include "ascii_string.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 typedef Int Color;
 
 enum ShadowType

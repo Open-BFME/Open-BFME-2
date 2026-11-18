@@ -14,8 +14,8 @@
 // undefined because it owns no row. Out-of-line copies fold with the string
 // rows like the sibling TUs.
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 

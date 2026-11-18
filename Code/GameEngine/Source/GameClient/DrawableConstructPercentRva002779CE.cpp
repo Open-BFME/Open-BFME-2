@@ -22,10 +22,10 @@
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 typedef unsigned int Color;
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"

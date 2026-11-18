@@ -35,8 +35,8 @@ inline void Coord3D::sub(const Coord3DBase *coord3DBase) { x -= coord3DBase->x; 
 inline void Coord3D::add(const Coord3DBase *coord3DBase) { x += coord3DBase->x; y += coord3DBase->y; z += coord3DBase->z; }
 inline void Coord3D::scale(float s) { x *= s; y *= s; z *= s; }
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 typedef _STL::list<Coord3D> Coord3DList;
 

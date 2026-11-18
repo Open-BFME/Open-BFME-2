@@ -25,8 +25,8 @@
 // WorldHeightMap::parse registrations; the field names stay address-derived.
 #include "ascii_string.h"
 
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 class Dict;
 struct DataChunkInfo;

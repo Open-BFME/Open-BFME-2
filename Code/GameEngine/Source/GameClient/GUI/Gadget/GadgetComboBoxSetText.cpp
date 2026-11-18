@@ -7,7 +7,7 @@
 // 0x00324798 SetSelected then 0x002C032C entry accessor at +0x28 rowed as
 // GetListBox then 0x002C17EB TextEntrySetText; 8 callers include 0x0043F88F.
 typedef unsigned short wchar_t;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include <windows.h>
 #include "unicode_string.h"

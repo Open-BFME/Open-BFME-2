@@ -20,8 +20,8 @@
 #include <stdio.h>
 #include "Coord3D.h"
 
-typedef int Int;
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 static __forceinline void copyVector4(Vector4 &row,const Vector4 &other){row.X=other.X;row.Y=other.Y;row.Z=other.Z;row.W=other.W;}

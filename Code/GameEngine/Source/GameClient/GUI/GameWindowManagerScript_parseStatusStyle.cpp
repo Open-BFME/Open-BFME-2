@@ -20,9 +20,9 @@
 //   0x714FDC and 'STYLE' with 0x714FFB (entries are name@+0/fn@+4; the
 //   walker at 0x31701C compares names and calls [eax+4]).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #include <string.h>
 // Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.

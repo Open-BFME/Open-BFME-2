@@ -28,9 +28,9 @@
 #include <vector>
 #include <deque>
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum PathfindLayerEnum
 {

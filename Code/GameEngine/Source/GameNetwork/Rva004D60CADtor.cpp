@@ -5,8 +5,8 @@
 
 #include "../../../../reference/shims/bfme2_ascii/string_base.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 class AsciiString;
 
 // Retail base vtable 0x860130: deleting dtor, getSortNumber, a bool slot,

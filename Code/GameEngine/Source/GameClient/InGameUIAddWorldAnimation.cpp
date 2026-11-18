@@ -48,8 +48,8 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 enum WorldAnimationOptions
 {

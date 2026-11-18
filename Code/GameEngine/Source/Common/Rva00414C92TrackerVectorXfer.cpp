@@ -17,9 +17,9 @@
 // The filter handle default constructor is declared in
 // ScoredKillTrackerView.h (Rva00360D26Member(); row 0x003623E5). Bank by a
 // claude-opus-5-5 helper agent; landed by X1 with that header line.
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 #include <vector>
 #include "ScoredKillTrackerView.h"
 

@@ -38,9 +38,9 @@ _Vector_base<Object *, allocator<Object *> >::~_Vector_base()
 { if (_M_start != 0) _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start); }
 }
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI };

@@ -85,8 +85,8 @@ int Rva00404781::rva00404CF5(bool useCellRatio)
 // the original target class identity and shared ownership remain unproven.
 // Byte-matched BFME cell-channel decay helper.
 
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class Rva004047E3
 {

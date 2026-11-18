@@ -24,9 +24,9 @@
 //  - the third argument is advanced by the storage slot 7 count.
 #include <vector>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 template <class T>
 class RefCountPtr

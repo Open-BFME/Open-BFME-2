@@ -5,11 +5,11 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // BFME1 GameClientRandomVariable::getValue transferred to the BFME2 layout.
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include <math.h>
 
-typedef unsigned int UnsignedInt;
+
 
 // The multiplier the three getValueReal readers scale a raw random value by
 // (VA 0x00DFE738). Retail builds it as this unit's only dynamic initializer,

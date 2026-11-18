@@ -7,8 +7,8 @@
 // ?selectFriends@SelectionTranslator@@QAE_NPAVDrawable@@PAVGameMessage@@_N@Z @0x0042FE7F 321B: CanSelect gate plus max-limit warning plus selectCountMap inc plus append plus selectDrawable. Evidence: pin, LINK BONUS 29B from selectFriendsWrapper, donor SelectionTranslator_selectFriends, rowed CanSelectDrawable 0x0042FA63, retail slots 0x11c/0x118/0x40/0x108 plus fetch 0x3c plus UnicodeString plus ImageSubscriptMap 0x002077D6 plus append 0x0030F979.
 #include "ascii_string.h"
 #include "unicode_string.h"
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum ObjectID
 
 {

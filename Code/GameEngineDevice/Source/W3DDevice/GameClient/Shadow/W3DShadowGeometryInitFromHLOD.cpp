@@ -7,8 +7,8 @@
 #define MAX_SHADOW_CASTER_MESHES 160
 #define MAX_SHADOW_VOLUME_VERTS 16384
 
-typedef unsigned short UnsignedShort;
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "vector3.h"
 #include "string_base.h"

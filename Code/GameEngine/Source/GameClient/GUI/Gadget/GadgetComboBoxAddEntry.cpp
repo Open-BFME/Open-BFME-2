@@ -5,9 +5,9 @@
 // GCM_ADD_ENTRY 0x4022 via TheWindowManager at 0x9FEF1C slot 58 0xE8 with &text and color.
 // Retail calls 0x00036E70 releaseBuffer; 40+ callers include 0x0043F306 0x0043F3C3.
 typedef unsigned short wchar_t;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 typedef Int Color;
-typedef unsigned int UnsignedInt;
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType

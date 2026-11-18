@@ -20,8 +20,8 @@
 //
 // The menu's methods and 0x00381900 are not identified (address names).
 
-typedef bool Bool;
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 class LANGameInfo;
 

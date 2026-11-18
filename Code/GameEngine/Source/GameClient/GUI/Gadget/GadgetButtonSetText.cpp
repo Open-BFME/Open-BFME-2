@@ -8,8 +8,8 @@
 // ctor (0x002C19A3 0x0029D79A 0x00303B59 0x00303B96).
 
 typedef unsigned short wchar_t;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType
