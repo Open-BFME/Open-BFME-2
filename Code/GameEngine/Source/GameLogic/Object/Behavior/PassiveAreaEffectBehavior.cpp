@@ -60,6 +60,8 @@ public:
 private:
 	int m_handle;
 };
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #include "Common/GameLogicObjectLookupView.h"
 class UnicodeString;
@@ -198,54 +200,16 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class ModuleData;
-// Slot 0 of each module's primary vftable is its deleting destructor
-// (0x00484C3C in 0x00C4A448), so the base's first virtual is the destructor.
-class BehaviorModuleBase
-{
-private:
-	virtual ~BehaviorModuleBase();
-public:
-	const AreaData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
+// The module bases are the canonical headers: retail's primary table 0x00C4A448
+// and the BehaviorModule interface table 0x00BEFF90 hold their shared bodies.
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_INVALID = 0,
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-// Slot 0 of 0x00C4A438 is update (0x00484B6B), whose this is this base.
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	// Retail's Snapshot slots 1 and 2 precede xfer (slot 3).
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void xfer(Xfer *xfer);
-
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime frame);
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 Xfer *Rva0036ABAFXfer(Xfer *xfer, _STL::list<int> *values);
 // Primary vftable 0x00C4A448: slot 3 xfer, slot 4 getModuleNameKey, slot 13
 // the scan, slots 14-16 the pulses (called through 0x3C and 0x40). The other
@@ -257,18 +221,16 @@ public:
 	virtual ~PassiveAreaEffectBehavior();
 
 protected:
+	// Primary slots 1 and 2: 0x00497805 (the shared tail jump to
+	// UpdateModule::loadPostProcess) and 0x00484AD7 (the class name).
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 
 public:
 	virtual NameKeyType getModuleNameKey() const;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
+	// Slots 5 to 12 are Module's, ObjectModule's, BehaviorModule's and
+	// UpdateModule's shared bodies; the class's own begin at slot 13.
 	virtual void rva00484C8B();
 	virtual void rva004848E6(Object *obj);
 	virtual void rva0048491F(Object *obj);
@@ -374,7 +336,7 @@ void PassiveAreaEffectBehavior::rva0048491F(Object *obj)
 	if (obj->rva0028C264(&gate, 4))
 		return;
 
-	const AreaData *passiveAreaEffectBehaviorModuleData = m_moduleData;
+	const AreaData *passiveAreaEffectBehaviorModuleData = reinterpret_cast<const AreaData *>(m_moduleData);
 	if (passiveAreaEffectBehaviorModuleData->m_healPercentPerSecond > 0.0f)
 	{
 		BodyModule *body = obj->getBodyModule();
@@ -405,7 +367,7 @@ void PassiveAreaEffectBehavior::rva00484A08(Object *obj)
 	if (obj == 0)
 		return;
 
-	const AreaData *passiveAreaEffectBehaviorModuleData = m_moduleData;
+	const AreaData *passiveAreaEffectBehaviorModuleData = reinterpret_cast<const AreaData *>(m_moduleData);
 	for (const AsciiString *it = passiveAreaEffectBehaviorModuleData->m_14Begin; it != passiveAreaEffectBehaviorModuleData->m_14End; ++it)
 		obj->addAttributeModifierToPool(*it, -1);
 
@@ -462,7 +424,7 @@ void PassiveAreaEffectBehavior::xfer(Xfer *xfer)
 
 void PassiveAreaEffectBehavior::rva00484C8B()
 {
- Object *owner=m_object;const AreaData *areaData=m_moduleData;
+ Object *owner=m_object;const AreaData *areaData=reinterpret_cast<const AreaData *>(m_moduleData);
  m_trackedIds.clear();
  Rva00260EB1Filter relationship(owner,4,false);
  Rva0026119DFilter alive;
@@ -581,7 +543,7 @@ PassiveAreaEffectBehavior::~PassiveAreaEffectBehavior()
 
 UpdateSleepTime PassiveAreaEffectBehavior::update()
 {
- const AreaData *data=m_moduleData;
+ const AreaData *data=reinterpret_cast<const AreaData *>(m_moduleData);
  Object *owner=m_object;
  unsigned delay=data->m_pingDelay;
  if(!delay)delay=1;
@@ -629,4 +591,14 @@ UpdateSleepTime PassiveAreaEffectBehavior::update()
 // ??1PassiveAreaEffectBehaviorModuleData@@UAE@XZ @0x00484EA9
 PassiveAreaEffectBehaviorModuleData::~PassiveAreaEffectBehaviorModuleData()
 {
+}
+
+void PassiveAreaEffectBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
+
+const char *PassiveAreaEffectBehavior::GetSnapshotName() const
+{
+	return "PassiveAreaEffectBehavior";
 }
