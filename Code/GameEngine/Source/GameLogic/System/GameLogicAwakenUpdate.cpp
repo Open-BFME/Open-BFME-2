@@ -50,10 +50,10 @@ extern AI *TheAI;
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 class Object
 {
