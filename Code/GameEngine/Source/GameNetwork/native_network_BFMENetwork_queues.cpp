@@ -15,7 +15,7 @@
 #include <new>
 #include <windows.h>
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 class BFMENetworkQueue;
 class BFMENetworkQueue1;

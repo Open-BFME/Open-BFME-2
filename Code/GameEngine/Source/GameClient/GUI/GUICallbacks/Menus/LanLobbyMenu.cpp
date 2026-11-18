@@ -4,9 +4,9 @@
 #include <map>
 #include <stdlib.h>
 #include <string.h>
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 #include "../../../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 #include "unicode_string.h"

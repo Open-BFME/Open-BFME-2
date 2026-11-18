@@ -38,7 +38,7 @@
 #include <stddef.h>
 #include <math.h>
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 enum ModelConditionFlagType
 {
 	MODELCONDITION_PANICKING = 2 * 32 + 13,
@@ -54,8 +54,8 @@ enum ModelConditionFlagType
 #pragma pop_macro("_CRTIMP")
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-typedef float Real;
-typedef int Int;
+
+
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 enum LocomotorSetType

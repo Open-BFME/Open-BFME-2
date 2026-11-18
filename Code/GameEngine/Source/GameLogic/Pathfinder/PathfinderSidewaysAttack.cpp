@@ -12,7 +12,7 @@
 // Structural inference: the body follows WorldBuilder's sideways attack search.
 // stlport
 #include <vector>
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef int Int; typedef float Real; struct Coord3D;
 enum PathfindLayerEnum
 {

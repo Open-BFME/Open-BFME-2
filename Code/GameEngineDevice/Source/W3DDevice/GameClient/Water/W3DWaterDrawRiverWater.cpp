@@ -35,11 +35,11 @@ template <> inline const Coord3D &_STL::vector<Coord3D, _STL::allocator<Coord3D>
 }
 #pragma optimize("", on)
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 

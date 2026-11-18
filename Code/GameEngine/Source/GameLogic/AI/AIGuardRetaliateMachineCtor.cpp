@@ -10,8 +10,8 @@
 // creates the states with plain operator new and their rowed constructors.
 #include <windows.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;

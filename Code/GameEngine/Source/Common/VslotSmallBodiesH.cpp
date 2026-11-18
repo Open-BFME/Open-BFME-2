@@ -6,9 +6,9 @@
 // its body touches; the comment above each gives the .rdata slot address(es)
 // that reference it. Meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 Real normalizeAngle(Real angle);
 

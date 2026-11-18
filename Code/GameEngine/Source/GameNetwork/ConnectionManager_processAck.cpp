@@ -18,10 +18,10 @@
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum NetCommandType
 {

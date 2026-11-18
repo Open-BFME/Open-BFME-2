@@ -22,7 +22,7 @@
 
 #include <windows.h>
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/INI/INI.h"
 

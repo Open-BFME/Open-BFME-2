@@ -22,9 +22,9 @@
 #include "Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectStatusTypes
 {

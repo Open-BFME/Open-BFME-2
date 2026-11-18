@@ -24,9 +24,9 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // aiForceAttackObject 0x0036F05A; the base calls 0x0026BCD2/0x0026BEE6 are slots 34/38 of every non-overriding
 // AIUpdateInterface vtable (aiDoCommand commands 0x0B/0x0C per re_attempts); names from the ZH TransportAIUpdate donor.
 // Evidence: vtable 0x00853AA8 slot 40 off 0xA0; ret 0xc three args; contain +0x250 isPassengerAllowedToFire +0xb4 CMD 0 or 1 getContainedItemsList +0x118 Bfme ring; kindof byte +0x10f bit1 disabled mask +0x1c8 0x14 ai +0x258 +0x20 aiAttackPosition 0x29599A base privateAttackPosition 0x26DB1A; ZH TransportAIUpdate::privateAttackPosition donor.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 enum CommandSourceType
 {

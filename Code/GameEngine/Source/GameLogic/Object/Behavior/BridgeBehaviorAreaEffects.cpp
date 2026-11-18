@@ -11,13 +11,13 @@
 // height +0x144 and FX-per-type count +0x148, owning Object at this+8.
 // The minimal views keep only these witnessed offsets.
 
-typedef float Real;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
 
-typedef unsigned int UnsignedInt;
+
 
 class Matrix3D;
 

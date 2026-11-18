@@ -15,9 +15,9 @@ class Object;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ActionManager;
 class Xfer;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 class Snapshot;
 class AsciiString;
 class UnicodeString;

@@ -16,11 +16,11 @@
 // older one unless 0x00581318 accepts its type, before the duplicate filter
 // 0x004D2667 and the dispatcher 0x004D2F04.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 enum NetCommandType
 {

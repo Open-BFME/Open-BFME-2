@@ -70,7 +70,7 @@ static __forceinline void transformVertex(const Matrix3D &matrix3D, const Vector
 }
 
 
-typedef unsigned short UnsignedShort;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 struct Rva000B36CEPackedEntry
 {

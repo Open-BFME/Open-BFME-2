@@ -57,11 +57,11 @@ const _List_iterator<T,Traits>&b)
 #include "../../../../Libraries/Include/Lib/Coord2DCtorView.h"
 #include "../GameLogicObjectLookupView.h"
 #include "../PartitionRangeQueryCallView.h"
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
+
 typedef int Color;
 #define GameMakeColor(r, g, b, a) (((a) << 24) | ((r) << 16) | ((g) << 8) | (b))
 enum KindOfType

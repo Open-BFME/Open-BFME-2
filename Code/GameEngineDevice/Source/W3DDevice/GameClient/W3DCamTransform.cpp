@@ -32,9 +32,9 @@
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include "Code/Libraries/Include/Lib/ICoord2D.h"
 

@@ -7,11 +7,11 @@
 // BFME2 has twenty players and 168-byte cells. Xfer's native table 7BB910
 // establishes Version slot10, float slot28 and unsigned-int slot30.
 // Original method names remain unresolved; address-derived names are retained.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 #include "../../Include/Common/XferVersionFields.h"
 class Snapshot;
 class AsciiString;

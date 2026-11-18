@@ -6,13 +6,13 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "ObjectDefectionHelperView.h"
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
 
-typedef float Real;
+
+
+
 
 enum ObjectStatusTypes
 {

@@ -16,10 +16,10 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef int Int;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include <windows.h>
 #define NEW new

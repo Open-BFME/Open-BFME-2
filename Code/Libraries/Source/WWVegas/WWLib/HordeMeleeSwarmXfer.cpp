@@ -16,8 +16,8 @@
 #include "ascii_string.h"
 #include <vector>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 class AsciiString;
 class UnicodeString;

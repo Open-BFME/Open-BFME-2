@@ -18,8 +18,8 @@
 #include <vector>
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;

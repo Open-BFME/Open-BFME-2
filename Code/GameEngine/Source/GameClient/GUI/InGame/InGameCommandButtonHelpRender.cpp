@@ -25,8 +25,8 @@
 #define _OPERATOR_NEW_DEFINED_
 #include "wwmath.h"
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 struct FloatPair
 {

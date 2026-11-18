@@ -17,11 +17,11 @@ extern LivingWorldManager *TheLivingWorldManager;
 
 struct Rva00539141ManagerView { char pad[0xF8]; unsigned pointCount; };
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
 
 class Vector3;
 

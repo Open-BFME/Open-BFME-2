@@ -6,8 +6,8 @@
 // its body touches; the comment above each gives the .rdata slot address(es)
 // that reference it. Meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // slot at VA 0x00BCEEA8: raises five flag bytes deep inside the object.
 class Rva000EAF80

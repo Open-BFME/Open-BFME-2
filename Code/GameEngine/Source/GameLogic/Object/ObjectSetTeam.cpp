@@ -18,7 +18,7 @@
 // ZH's body plus BFME2's skirmish-AI registry UnRegister/Register
 // (0x002A8F56/0x002A9365 on 0x00DFEEF8) around the switch when the controlling
 // player changes. /EHsc: its temp AsciiStrings need the unwind table.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "ascii_string.h"
 

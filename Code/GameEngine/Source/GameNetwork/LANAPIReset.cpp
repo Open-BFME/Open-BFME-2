@@ -12,11 +12,11 @@
 // reverse order with EH states 1/0/-1), then next at +0x10 for reset's walk.
 // Callers: reset 0x0044B50D and ??_G in this file, plus Rva00447B0E 0x00447B3B.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include "../../Include/GameNetwork/BfmeNetAddress.h"
 

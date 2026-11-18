@@ -13,7 +13,7 @@
 // see reference/shims/disconnectmanager) and are refreshed from winmm
 // timeGetTime.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 int Rva004D39DEGet(int a, int b);
 

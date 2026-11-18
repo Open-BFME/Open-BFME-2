@@ -15,9 +15,9 @@ extern "C" void _ReadWriteBarrier(void);
 #include <string.h>
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
