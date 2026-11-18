@@ -11,10 +11,10 @@
 // The shared headers declare these members with the access/virtual spelling
 // retail's vftables reference; the ledger row keeps the spelling this TU
 // compiled to. Same function, same address: bind the header spelling here.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../../Libraries/Include/Lib/Coord3DBase.h"
 

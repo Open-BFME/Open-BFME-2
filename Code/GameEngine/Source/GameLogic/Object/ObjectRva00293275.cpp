@@ -4,7 +4,7 @@
 // 0x00036D90 and UpgradeCenter findUpgrade 0x0026F26D, granting via rowed
 // Object 0x0028C197/0x00293077 and slots 0xB4/0xB8. Evidence: EH prolog,
 // loop over tokens, [ebx+4]+0x115 bit 0x20 selects path, callers unblock.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "ascii_string.h"
 

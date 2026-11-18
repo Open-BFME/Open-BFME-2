@@ -6,8 +6,8 @@
 // temp then copy. TheWindowManager at 0x9FEF1C slot 58 0xE8, empty at 0xA0C898.
 
 typedef unsigned short wchar_t;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType

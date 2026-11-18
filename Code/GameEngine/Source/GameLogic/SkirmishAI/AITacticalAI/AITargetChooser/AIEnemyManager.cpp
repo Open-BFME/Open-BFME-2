@@ -34,7 +34,7 @@ class Object;
 #include "../../../../../Include/Common/XferVersion.h"
 class Player;
 #include "../../../../../Include/Common/PlayerList.h"
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
 namespace _STL
 {
 // Bind the append to the rowed 8-byte-element worker.

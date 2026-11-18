@@ -13,10 +13,10 @@
 // Array new and delete bind to the game's array operators, not the scalar ones.
 #include <new>
 
-typedef int Int;
-typedef bool Bool;
-typedef short Short;
-typedef unsigned char UnsignedByte;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 #define TILE_PIXEL_EXTENT 64
 

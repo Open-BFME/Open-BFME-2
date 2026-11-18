@@ -46,10 +46,10 @@
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.

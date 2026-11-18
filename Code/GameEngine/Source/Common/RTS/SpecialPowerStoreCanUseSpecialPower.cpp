@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include <vector>
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum ScienceType { SCIENCE_INVALID = -1 };
 // Native scalar-vector cleanup uses the rowed game-memory free wrapper.

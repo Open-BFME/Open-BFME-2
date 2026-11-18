@@ -19,7 +19,7 @@
 // ParticleSystemManagerMappedTextureUVs.cpp binds it).
 template <> bool StringBase<char>::isEmpty() const throw();
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 struct Coord3D;
 
 // The local record is a Snapshot-derived FX info (Rva001F376ECtor.cpp gives

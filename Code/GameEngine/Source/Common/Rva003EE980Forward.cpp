@@ -7,7 +7,7 @@
 // Rva003EE966/A1A family (// cl: /O1 /MD) plus /arch:SSE for movss.
 #include <map>
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/Common/BfmeStringData.h"
 

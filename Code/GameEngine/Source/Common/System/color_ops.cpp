@@ -9,7 +9,7 @@
 // (shr 0x18, sar 0x10) matches the reference shape.
 
 typedef int Color;
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // ?GameGetColorComponents@@YAXHPAE000@Z
 void GameGetColorComponents(Color color, UnsignedByte *red, UnsignedByte *green, UnsignedByte *blue, UnsignedByte *alpha)

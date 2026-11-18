@@ -7,7 +7,7 @@
 // (?getHandicap@Handicap@@QBEMW4HandicapType@1@PBVThingTemplate@@@Z @0x000C8410):
 // retail ThingTemplate flag byte is at +0x108 (not +0xC8).
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 

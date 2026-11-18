@@ -4,7 +4,7 @@
 // shape needs /O1 /G7 (imul by a constant), batch AO. Classes and methods
 // are address-derived and model only what each body touches.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // 0x0058AD9F (42 tables): five times the Int at VA 0x00DBA4E4.
 extern int BfmeLogicFramesPerSecond;

@@ -40,12 +40,12 @@
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 #include "../Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 typedef int Color;
-typedef bool Bool;
+
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum CellShroudStatus { CELLSHROUD_CLEAR = 0 };

@@ -62,7 +62,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 
 

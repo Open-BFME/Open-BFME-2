@@ -25,10 +25,10 @@
 // are non-zero tests, and the members at +0x14, +0x28, +0x2C, +0x30.
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 #include <windows.h>
 
 class Thing;

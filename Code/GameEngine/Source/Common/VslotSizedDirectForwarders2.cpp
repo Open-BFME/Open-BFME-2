@@ -10,10 +10,10 @@
 // A direct callee's argument count comes from its own ret N; an unnamed
 // callee is pinned by address in reverse/symbols.csv.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 class RadiusDecal
 {

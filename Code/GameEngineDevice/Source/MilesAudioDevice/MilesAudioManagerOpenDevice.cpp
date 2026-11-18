@@ -17,7 +17,7 @@
 
 #include <time.h>
 
-typedef bool Bool;
+#include "../../../GameEngine/Include/Common/ScalarTypes.h"
 typedef __int64 Time64;
 extern "C" __declspec(dllimport) void __stdcall AIL_set_redist_directory(const char *);
 extern "C" __declspec(dllimport) void __stdcall AIL_startup();

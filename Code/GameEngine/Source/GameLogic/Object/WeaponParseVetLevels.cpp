@@ -40,7 +40,7 @@ enum
 	LEVEL_LAST = 3
 };
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // ?parseAllVetLevelsFXList@@YAXPAVINI@@PAX1PBX@Z
 void parseAllVetLevelsFXList(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)

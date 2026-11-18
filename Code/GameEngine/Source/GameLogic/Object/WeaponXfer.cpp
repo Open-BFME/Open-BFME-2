@@ -81,8 +81,8 @@ enum WeaponSlotType
 
 extern WeaponStore *TheWeaponStore;
 
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // Retail ThrowInfo names the 8-byte XferException class and its rowed
 // copy constructor and destructor (see Common/System/XferException.cpp).

@@ -30,10 +30,10 @@ static inline bool operator!=(const _Rb_tree_iterator<T, L>& a, const _Rb_tree_i
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "../Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 template <class T> class EvaVectorView
 {

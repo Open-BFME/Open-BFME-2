@@ -11,7 +11,7 @@
 // frame exists for, and its constructor is nothing but the null. The rest are
 // body assignments.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // The +0x04 member is an AsciiString: the unwind funclet destroys it through
 // ??1AsciiString 0x0048BA39 and bfmeAttach copies it through the StringBase

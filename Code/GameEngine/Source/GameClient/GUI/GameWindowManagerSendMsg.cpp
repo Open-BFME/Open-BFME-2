@@ -10,7 +10,7 @@
 // +0x1DC or its own vftable. Retail keeps a frame pointer here, hence /Oy-.
 // The Zero Hour bodies left GameWindowManager.cpp for these.
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType

@@ -11,7 +11,7 @@
 
 #include "ascii_string.h"
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/INI/INI.h"
 

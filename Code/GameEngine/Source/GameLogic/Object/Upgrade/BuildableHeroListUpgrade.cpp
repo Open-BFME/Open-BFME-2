@@ -6,7 +6,7 @@ extern "C" void _ReadWriteBarrier();
 #include "ascii_string.h"
 #include <vector>
 class TeamPrototype;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 class ModuleData;
 class ThingTemplate;
 struct PlayerTeamNode;

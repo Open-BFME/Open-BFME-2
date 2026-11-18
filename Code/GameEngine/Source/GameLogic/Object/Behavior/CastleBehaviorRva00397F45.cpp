@@ -13,7 +13,7 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 enum NameKeyType { NK_UNKNOWN = 0 };
 class AsciiString;
 #include "../../../../Include/Common/NameKeyGenerator.h"

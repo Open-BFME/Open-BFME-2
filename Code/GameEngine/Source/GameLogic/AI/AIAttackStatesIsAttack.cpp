@@ -18,7 +18,7 @@
 // Common/StateMachine.h (GeneralsMD tree vendored under
 // reference/open-bfme-1/inputs/reference); StateMachine's current state is
 // at +0x04.
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 class State;
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/Common/StateMachine.h"

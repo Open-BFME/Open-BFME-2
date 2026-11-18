@@ -27,9 +27,9 @@
 
 #include <stddef.h>
 
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 enum ObjectStatusTypes
 {

@@ -33,10 +33,10 @@
 
 // Member IDs copy directly, and construction cost uses the caller's template.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include <math.h>
 #include <string.h>

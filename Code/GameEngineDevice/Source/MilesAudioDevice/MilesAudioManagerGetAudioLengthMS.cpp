@@ -21,7 +21,7 @@
 #include "ascii_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 
-typedef float Real;
+#include "../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 

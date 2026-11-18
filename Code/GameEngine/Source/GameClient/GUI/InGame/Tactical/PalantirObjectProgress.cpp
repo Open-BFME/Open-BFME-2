@@ -23,10 +23,10 @@
 
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef float Real;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum NameKeyType
 {

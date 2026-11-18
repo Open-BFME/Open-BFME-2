@@ -7,7 +7,7 @@
 // the script debug messages; every member with an AI then gets the attack
 // command 0x003C7653 on the victim from a script (source 1).
 #include "ascii_string.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 class Object;
 class AIUpdateInterface;
 template<class OBJCLASS> class DLINK_ITERATOR

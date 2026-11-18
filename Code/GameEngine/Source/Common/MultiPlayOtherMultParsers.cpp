@@ -7,8 +7,8 @@
 // MultiPlayMults is a descriptive donor facade, not a recovered type spelling.
 #include <string.h>
 
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
 #include "../../Include/Common/INI/INI.h"

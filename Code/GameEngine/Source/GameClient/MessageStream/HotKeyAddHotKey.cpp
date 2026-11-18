@@ -19,7 +19,7 @@
 
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // The reference-counted action handle (rowed under this address name).
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"

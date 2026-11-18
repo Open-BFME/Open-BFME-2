@@ -239,7 +239,7 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "AIXferTypes.h"
 #include "../../Include/Common/BfmeXfer.h"

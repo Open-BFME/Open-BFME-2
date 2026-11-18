@@ -37,7 +37,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #define NULL 0
 

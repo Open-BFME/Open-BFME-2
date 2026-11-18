@@ -40,7 +40,7 @@ template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 #include "../../../../Libraries/Source/WWVegas/WWLib/Rva0021C21BElement.h"
 namespace _STL { template <> vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &); }
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/Common/Overridable.h"
 

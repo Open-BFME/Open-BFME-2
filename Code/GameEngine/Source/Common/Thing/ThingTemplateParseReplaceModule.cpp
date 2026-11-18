@@ -7,8 +7,8 @@
 // Target removeModuleInfo call uses the existing rowed113-byte four-list
 // chain at33C8E8 under its established opaque spelling. The home TU supplies
 // s_objectFieldParseTable. Shared BFME2 AsciiString owns direct36410 cleanup.
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // The empty-string constant at retail 0x0107388B.
 

@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include <map>
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 // No EH state around a retail key temporary, so the lookup and the
 // conversion below are declared throw(). The find spelling reuses the

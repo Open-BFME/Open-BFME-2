@@ -11,8 +11,8 @@
 
 #include "ascii_string.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #define MY_INNER_PERIMETER "[Skirmish]MyInnerPerimeter"
 #define MY_OUTER_PERIMETER "[Skirmish]MyOuterPerimeter"

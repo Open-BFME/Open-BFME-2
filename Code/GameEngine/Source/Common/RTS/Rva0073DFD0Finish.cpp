@@ -8,8 +8,8 @@
 // (elements at +0x2C, bool enabled at +0x68) and its element is 0xA8 bytes.
 // Address-derived names only.
 
-typedef float Real;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
