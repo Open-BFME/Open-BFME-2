@@ -13,21 +13,17 @@ template <> __declspec(dllimport) __forceinline void StringBase<char>::clear() {
 #define __SUBSYSTEMINTERFACE_H_
 #define BFME_SUBSYSTEM_SLOTS
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
-enum NameKeyType { NAMEKEY_INVALID = 0, NAMEKEY_MAX = 1<<23 };
 #define __NAMEKEYGENERATOR_H_
 #include "../../../Include/Common/NameKeyGenerator.h"
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
 #define __GAMECLIENT_GAMETEXT_H_
 #include "../../../Include/GameClient/GameText.h"
-// WinInstanceData: the repo header, not Zero Hour's (same layout; the constants it also defined follow).
 #define __WININSTANCEDATA_H_
 #define WIN_STATE_HILITED 	0x00000002
 #define WIN_STATE_SELECTED	0x00000004
 enum { MAX_WINDOW_NAME_LEN = 64, MAX_DRAW_DATA = 9, MAX_TEXT_LABEL = 128 };
 #include "../../../Include/GameClient/Bfme2WinInstanceData.h"
-// FunctionLexicon is not used by this unit: keep Zero Hour's definition out.
 #define __FUNCTIONLEXICON_H_
-// FontLibrary: the repo header, not Zero Hour's GameFont.h. GameFont is only passed by pointer here.
 #define __GAMEFONT_H_
 #include "../../../Include/GameClient/FontLibrary.h"
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
@@ -66,6 +62,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 
 
 #endif
@@ -114,6 +111,49 @@ struct GameWindowParse
 #include <assert.h>
 #define DEBUG_LOG(x) ((void)0)
 #define MAX_TEXT_LABEL 128
+typedef unsigned int UnsignedInt;
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
+class AsciiString;
+class GameFont;
+extern FontLibrary *TheFontLibrary;
+// TheFontLibrary: matched references place it at VA 0xdfe33c (zero-filled .bss).
+FontLibrary * TheFontLibrary;
+#define DEBUG_LOG(x) ((void)0)
+#define MAX_TEXT_LABEL 128
+class UnicodeString;
+extern GameTextInterface *TheGameText;
+enum NameKeyType { NAMEKEY_INVALID = 0, NAMEKEY_MAX = 1<<23 };
+extern NameKeyGenerator *TheNameKeyGenerator;
+class FunctionLexicon;
+extern FunctionLexicon *TheFunctionLexicon;
+extern AsciiString g_systemCallbackName;
+// Opaque registry holder (see header note). Decls match the same-batch pins.
+// The registry is TheFunctionLexicon; its lookup is FunctionLexicon::findFunction
+// 0x002D225F (rowed in Common/System/FunctionLexicon.cpp), reached through
+// this unit's forwarding view.
+class Rva00DFF024Registry;
+class FunctionLexicon
+{
+public:
+	enum TableIndex { TABLE_ANY = -1 };
+protected:
+	void *findFunction(NameKeyType key, TableIndex index);	// 0x002D225F
+	friend class Rva00DFF024Registry;
+};
+class Rva00DFF024Registry
+{
+public:
+	void *lookup(int key, int index);
+public:
+	void *lookup34(int key, int index);
+public:
+	void *lookup56(int key, int index);
+public:
+	__forceinline void *bfme_lookup_4742d(int key, int index) { return ((FunctionLexicon *)(void *)this)->findFunction((NameKeyType)key, (FunctionLexicon::TableIndex)index); }
+};
+
 class AsciiString;
 
 // platformsdk
@@ -180,10 +220,13 @@ GameWindow *createGadget(char *, void *, GadgetCreateView *, GameWindow *);
 AsciiString g_systemCallbackName;
 
 
+
 AsciiString g_inputCallbackName;
 
 
+
 AsciiString g_tooltipCallbackName;
+
 
 
 // Expose the original fourth string at native RVA A01314, preserving order.
@@ -677,6 +720,45 @@ extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
 
 class WinInstanceData;
 
+  // end scanShort
+
+// scanInt ====================================================================
+//=============================================================================
+Int scanInt( const char *source, Int& val );
+
+  // end pushWindow
+
+// parseColor =================================================================
+/** Parse a color entry and store it in the value pointed to by the 
+	* 'color' parm. */
+//=============================================================================
+Bool parseColor( Color *color, char *buffer );
+
+  // end parseData
+
+// Retail's GameTextInterface has fetch(const char *, bool *) at slot 15 (setWindowText 0x003161F2 calls [edx+0x3C]); the reference
+// header this unit compiles against puts it at slot 10.
+struct GameTextFetchView
+{
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0; virtual void slot04() = 0;
+	virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
+	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0;
+	virtual UnicodeString fetch( const char *label, bool *exists = 0 ) = 0;
+};
+
+// scanInt lives in GameWindowManagerScript.cpp (file-static at 0x00314E96).
+// Declared extern (not static: MSVC rejects defined-never statics with
+// C2129); the decoration is identical and the pin resolves the address.
+Int scanInt(const char *source, Int &val);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+
+// WinInstanceData: the repo header, not Zero Hour's (same layout; the constants it also defined follow).
+
+// FunctionLexicon is not used by this unit: keep Zero Hour's definition out.
+
+// FontLibrary: the repo header, not Zero Hour's GameFont.h. GameFont is only passed by pointer here.
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
@@ -881,13 +963,6 @@ static Int scanShort( const char *source, Short& val )
 	return ret;
 }
 
-  // end scanShort
-
-// scanInt ====================================================================
-//=============================================================================
-Int scanInt( const char *source, Int& val );
-
-
 // scanUnsignedInt ============================================================
 //=============================================================================
 static Int scanUnsignedInt( const char *source, UnsignedInt& val )
@@ -972,15 +1047,6 @@ static void pushWindow( GameWindow *window )
   *stackPtr++ = window;
 
 }
-
-  // end pushWindow
-
-// parseColor =================================================================
-/** Parse a color entry and store it in the value pointed to by the 
-	* 'color' parm. */
-//=============================================================================
-Bool parseColor( Color *color, char *buffer );
-
 
 // parseDefaultColor ==========================================================
 /** Parse a default color entry and store it in the value pointed to by 
@@ -1353,18 +1419,6 @@ static __declspec(noinline) Bool parseData( void **data, char *type, char *buffe
   return TRUE;
 
 }
-
-  // end parseData
-
-// Retail's GameTextInterface has fetch(const char *, bool *) at slot 15 (setWindowText 0x003161F2 calls [edx+0x3C]); the reference
-// header this unit compiles against puts it at slot 10.
-struct GameTextFetchView
-{
-	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0; virtual void slot04() = 0;
-	virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
-	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0;
-	virtual UnicodeString fetch( const char *label, bool *exists = 0 ) = 0;
-};
 
 // setWindowText ==============================================================
 /** Set the default text for a window or gadget control */
@@ -2257,49 +2311,204 @@ Bool parseTooltip(char *token, WinInstanceData *instData, char *buffer, void *da
 	return true;
 }
 
-// tu-skeleton: 0x00315BF5 218B ?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseHeaderTemplate.cpp
+// Native binary calls CRT _mbscpy without dllimport; mask _CRTIMP around <mbstring.h>.
 
-// tu-skeleton: 0x00315CFD 112B ?parseTooltipText@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipText.cpp (not merged yet)
+// ?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseFont(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *c, *ptr;
+	char *seps = " ,\n\r\t";
+	char *stringSeps = ":,\n\r\t\"";
+	char fontName[256];
+	Int fontSize;
+	Int fontBold;
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseText.cpp
+	// "NAME"
+	c = NativeScriptCrt::strtok(buffer, seps);  // label
+	// scan to the first " mark
+	ptr = buffer;
+	while (*ptr != '"')
+		ptr++;
+	ptr++;  // skip the "
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // value
+	_mbscpy((unsigned char *)fontName, (const unsigned char *)c);
+
+	// "SIZE"
+	c = NativeScriptCrt::strtok(NULL, seps);  // label
+	c = NativeScriptCrt::strtok(NULL, seps);  // value
+	scanInt(c, fontSize);
+
+	// "BOLD"
+	c = NativeScriptCrt::strtok(NULL, seps);  // label
+	c = NativeScriptCrt::strtok(NULL, seps);  // value
+	scanInt(c, fontBold);
+
+	if (TheFontLibrary != NULL)
+	{
+		GameFont *font;
+		{
+			AsciiString asciiName(fontName);
+
+			font = TheFontLibrary->getFont(&asciiName, (float)fontSize, fontBold != 0);
+		}
+		if (font != NULL)
+			instData->m_font = font;
+	}
+
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipText.cpp
 
 // platformsdk
 //
-// ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315D6D, 68 bytes.
+// ?parseTooltipText@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315CFD, 112 bytes.
 // Dedicated TU.
 //
 // Battle for Middle-earth reference
 // (reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,
-// parseText): quote-scan, strtok value, length check, label store. BFME2
-// stores the label through AsciiString::set (retail calls the matched
-// narrow row at 0x55F5 on instData+0x188); the BFME1 ancestor assigns a
-// char* directly.
+// parseTooltipText): quote-scan, strlen guards, strtok value, length check,
+// m_tooltipString.set plus setTooltipText(TheGameText->fetch(c)).
 // BFME2 facts (all retail-measured):
 // - strlen rides a plain extern decl (E8 to the 0x629170 slot); /Oi-
 //   keeps it out-of-line (initDelayFilter precedent).
 // - strtok rides the msvcr71 import at 0xBBA5EC (dllimport decl; the
 //   single site emits the direct indirect call like retail).
 // - stringSeps "\n\r\t\"" lives at 0xC0C2B8.
-// - The length guard compares against 0x80 (MAX_TEXT_LABEL, 128,
-//   retail-measured; no in-tree define exists).
+// - The length guard compares against 0x80 (MAX_TEXT_LABEL has no in-tree
+//   define; 128 is retail-measured).
 // - StringBase::set is the matched narrow row at 0x55F5 (public QAEXPBD).
-// - Identity: the .data dispatch table at 0x9BE198 pairs 'TEXT'
-//   with 0x715D6D (entries are name@+0/fn@+4; the walker at 0x31701C
+// - TheGameText fetch is vtable slot 0x3C returning UnicodeString by
+//   value (VersionUnicode.cpp recipe, 14 pad virtuals); the fetch result
+//   flows by value into setTooltipText with copy elision (no push, no
+//   caller-side dtor, like retail).
+// - m_tooltipString sits at instData+0x190 (retail lea ecx,[esi+0x190]).
+// - Identity: the .data dispatch table at 0x9BE198 pairs 'TOOLTIPTEXT'
+//   with 0x715CFD (entries are name@+0/fn@+4; the walker at 0x31701C
 //   compares names and calls [eax+4]).
 
 // Retail-measured (no in-tree define exists).
 
+// Retail fetch call uses vtable offset 0x3c (VersionUnicode.cpp recipe).
+
+// ?parseTooltipText@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseTooltipText(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *ptr = buffer;
+	char *c;
+	char *stringSeps = "\n\r\t\"";
+
+	// scan to the first " mark
+	while (*ptr != '"')
+		ptr++;
+	ptr++;  // skip the "
+	if (strlen(ptr) == 1)
+		return true;
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // value
+	if (strlen(c) >= MAX_TEXT_LABEL)
+	{
+		DEBUG_LOG(("TextTooltip label '%s' is too long, max is '%d'\n", c, MAX_TEXT_LABEL));
+		assert(0);
+		return false;
+	}
+	instData->m_tooltipString.set(c);
+	instData->setTooltipText(TheGameText->fetch(c));
+
+	return true;
+}
+
 // tu-skeleton: 0x00315DB1 1089B ?parseDrawData@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
 
-// tu-skeleton: 0x003161F2 355B ?setWindowText@@YAXPAVGameWindow@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseName.cpp
 
-// tu-skeleton: 0x00316355 71B ?parseName@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseName.cpp (not merged yet)
+//
+// ?parseName@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00316355, 71 bytes.
+// Dedicated TU.
+//
+// Battle for Middle-earth reference
+// (reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,
+// parseName): quote-scan, strtok the name, store it, key it.
+// BFME2 facts (all retail-measured):
+// - strtok rides the msvcr71 import at 0xBBA5EC (dllimport decl; the
+//   single site emits the direct indirect call like retail).
+// - stringSeps "\"" lives at 0xC0C2B4.
+// - StringBase::set is the matched narrow row at 0x55F5 (public QAEXPBD;
+//   AsciiString inline set forwards to it).
+// - m_decoratedNameString sits at instData+0x18C, m_id at instData+0x04.
+// - nameToKey(const AsciiString&) at 0x9FA65 is a matched row (declared,
+//   never defined here); TheNameKeyGenerator is the extern pointer at
+//   0xDF36A4 (DIR32 from retail).
+// - Identity: the .data dispatch table at 0x9BE198 pairs 'NAME'
+//   with 0x716355 (entries are name@+0/fn@+4; the walker at 0x31701C
+//   compares names and calls [eax+4]).
 
-// tu-skeleton: 0x0031639C 76B ?parseWinClass@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseWinClass.cpp (not merged yet)
+// ?parseName@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseName(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *c, *ptr;
+	char *stringSeps = "\"";
 
-// tu-skeleton: 0x003163E8 76B ?parseSystemCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseSystemCallback.cpp (not merged yet)
+	// scan to the first " mark
+	ptr = buffer;
+	while (*ptr != '"')
+		ptr++;
+	ptr++;  // skip the first "
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // name value
+	instData->m_decoratedNameString.set(c);
+
+	// given the name assign a window ID from the key generator
+	assert(TheNameKeyGenerator);
+	if (TheNameKeyGenerator)
+		instData->m_id = (Int)TheNameKeyGenerator->nameToKey(instData->m_decoratedNameString);
+
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseWinClass.cpp
+
+// ?parseWinClass@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseWinClass(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *c, *ptr;
+	char *stringSeps = "\"";
+
+	// scan to the first " mark
+	ptr = buffer;
+	while (*ptr != '"')
+		ptr++;
+	ptr++;  // skip the first "
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // name value
+	g_systemCallbackName.set(c);
+
+	NameKeyType key = TheNameKeyGenerator->nameToKey(g_systemCallbackName);
+	g_windowScriptCreateRecord.winClass = ((Rva00DFF024Registry *)TheFunctionLexicon)->lookup56(key, -1);
+
+	return true;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseSystemCallback.cpp
+
+// ?parseSystemCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z
+Bool parseSystemCallback(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *c, *ptr;
+	char *stringSeps = "\"";
+
+	// scan to the first " mark
+	ptr = buffer;
+	while (*ptr != '"')
+		ptr++;
+	ptr++;  // skip the first "
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // name value
+	g_systemCallbackName.set(c);
+
+	NameKeyType key = TheNameKeyGenerator->nameToKey(g_systemCallbackName);
+	g_windowScriptCreateRecord.system = ((Rva00DFF024Registry *)TheFunctionLexicon)->bfme_lookup_4742d(key, 0);
+
+	return true;
+}
 
 // tu-skeleton: 0x00316434 76B ?parseInputCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp (not merged yet)
 
@@ -2308,8 +2517,6 @@ Bool parseTooltip(char *token, WinInstanceData *instData, char *buffer, void *da
 // tu-skeleton: 0x003164CC 76B ?parseDrawCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp (not merged yet)
 
 // tu-skeleton: 0x00316518 1722B ?createGadget@@YAPAVGameWindow@@PADPAXPAVGadgetCreateView@@PAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp (not merged yet)
-
-// tu-skeleton: 0x00316BD2 294B ?createWindow@@YAPAVGameWindow@@PADHPAXPAVGadgetCreateView@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
 
 // tu-skeleton: 0x0031721D 68B ?parseInit@@YA_NPAD0IPAVWindowLayoutInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
 
@@ -2336,20 +2543,6 @@ Bool parseTooltip(char *token, WinInstanceData *instData, char *buffer, void *da
 // tu-skeleton: 0x0077A567 8B $L41376 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A56F 10B __ehhandler$?parseDrawData@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A579 8B Unwind@00b7a579 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A581 8B Unwind@00b7a581 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A589 8B Unwind@00b7a589 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A591 8B Unwind@00b7a591 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A599 10B __ehhandler$?setWindowText@@YAXPAVGameWindow@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A5A3 8B $L1207 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A5AB 10B __ehhandler$?parseFont@@YA_NPADPAVWinInstanceData@@0PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A5D2 8B $L35380 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp (not merged yet)
 
@@ -2393,6 +2586,96 @@ Bool parseTooltip(char *token, WinInstanceData *instData, char *buffer, void *da
 
 // tu-skeleton: 0x0077A69D 10B __ehhandler$?winCreateLayout@GameWindowManager@@UAEPAVWindowLayout@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseHeaderTemplate.cpp
+
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseText.cpp
+
+// platformsdk
+//
+// ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x00315D6D, 68 bytes.
+// Dedicated TU.
+//
+// Battle for Middle-earth reference
+// (reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,
+// parseText): quote-scan, strtok value, length check, label store. BFME2
+// stores the label through AsciiString::set (retail calls the matched
+// narrow row at 0x55F5 on instData+0x188); the BFME1 ancestor assigns a
+// char* directly.
+// BFME2 facts (all retail-measured):
+// - strlen rides a plain extern decl (E8 to the 0x629170 slot); /Oi-
+//   keeps it out-of-line (initDelayFilter precedent).
+// - strtok rides the msvcr71 import at 0xBBA5EC (dllimport decl; the
+//   single site emits the direct indirect call like retail).
+// - stringSeps "\n\r\t\"" lives at 0xC0C2B8.
+// - The length guard compares against 0x80 (MAX_TEXT_LABEL, 128,
+//   retail-measured; no in-tree define exists).
+// - StringBase::set is the matched narrow row at 0x55F5 (public QAEXPBD).
+// - Identity: the .data dispatch table at 0x9BE198 pairs 'TEXT'
+//   with 0x715D6D (entries are name@+0/fn@+4; the walker at 0x31701C
+//   compares names and calls [eax+4]).
+
+// Retail-measured (no in-tree define exists).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 static const void *s_parseHeaderTemplateAnchor = (const void *)parseHeaderTemplate;
 
 static const void *s_parseTextAnchor = (const void *)parseText;
+
+static const void *s_parseFontAnchor = (const void *)parseFont;
+
+static const void *s_parseTooltipTextAnchor = (const void *)parseTooltipText;
+
+static const void *s_parseWinClassAnchor = (const void *)parseWinClass;
+
+static const void *s_parseSystemCallbackAnchor = (const void *)parseSystemCallback;

@@ -30919,7 +30919,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE31C,4,.data,global,?ThePlayerAITypeSet@@3PAVPlayerAITypeSet@@A,Code/GameEngine/Source/Common/System/SubsystemSingletonPointers.cpp,owned,,0,4
 0x009FE32C,4,.data,global,?TheBannerUI@@3PAVBannerUI@@A,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,owned,,1,17
 0x009FE330,12,.data,global,_DRAWABLE_FRAMES_PER_FLASH,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp,owned,,1,1
-0x009FE33C,4,.data,global,?TheFontLibrary@@3PAVFontLibrary@@A,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp,owned,,1,57
+0x009FE33C,4,.data,global,?TheFontLibrary@@3PAVFontLibrary@@A,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,owned,,1,57
 0x009FE344,4,.data,global,?TheCreateAHeroManager@@3PAVCreateAHeroManager@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp,owned,,1,161
 0x009FE348,4,.data,global,?g_Va00DFE348@@3HA,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,owned,,1,6
 0x009FE34C,1,.data,global,?g_rva005B5C02Flag@@3EA,Code/GameEngine/Source/Common/GapBodiesGE34.cpp,owned,,1,8
