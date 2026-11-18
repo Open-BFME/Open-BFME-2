@@ -1,5 +1,5 @@
 ### LINK-691: retired `#pragma optimize` directives undid COMDAT-shape anchors in first-in-order providers
-Status: Repair landed / awaiting verification (animobj.cpp, dx8renderer.cpp, LadderDefs.cpp). Updated: 2026-11-18; inspected revision: `d72acd01df`.
+Status: Repair landed / awaiting verification (animobj.cpp, dx8renderer.cpp, LadderDefs.cpp); Blocked for rawfile.cpp (hatch re-admission or a TU approval). Updated: 2026-11-18; inspected revision: `d72acd01df`.
 
 Evidence / affected units: the 2026-11-18 10:35 census (`147fd3e52b`) holds 143 units out, and
 `link_check.py --paths-from` over all 160 census-blocked sources at `d72acd01df` links none. Three
@@ -56,6 +56,21 @@ LadderDefs.cpp with its 7 other consumers and string_base_inline.cpp: 9 of 9 lin
 bytes (index `147fd3e52b`). Its unreferenced `?getCharAt@AsciiString@@QBEDH@Z` forwarder copy is now
 the expanded 22-byte body where four later units carry the 5-byte jump: a diagnostic; the name has no
 retail address and those four link.
+
+Blocked, rawfile.cpp (3,305 B; `??_GFileClass@@UAEPAXI@Z`, "unproven and differs from the kept
+copy"): `793701890c` retired the `#pragma optimize("gsy", on)` ahead of its `WWFILE.H` include as
+overwritten and `7facb77827` the reset after it. The unit's copy is the 31-byte `/O2` shape; the row
+(0x00078257, W3DFileSystem.cpp) is the 29-byte `/O1` one. No reordering helps: the unit builds `/O2`,
+has no size-optimised block left to share, and must keep emitting FileClass's table because it rows
+`??1FileClass@@UAE@XZ` 0x00078246 and `?Tell@FileClass@@UAEHXZ` 0x0007824D. Those two rows are also
+why it precedes W3DFileSystem.cpp (first row 0x00078257) in the census's order: they are the inline
+members retail's W3DFileSystem object emitted beside its `??_G`. Two routes, neither open to a
+matching seat: re-admit the retired pair (the register holds no `pragma_optimize` line for the unit;
+`cfbcc23bab` is the precedent, `Verifier-Change: hatch-admit`), or a `tu_map.csv` approval that sends
+0x00078246 and 0x0007824D to W3DFileSystem.cpp, after which rawfile.cpp sorts behind the owner and
+its unproven copy no longer decides.
+The `"t",on` pair `16ad168ccf` retired from `Rva001DBBAD.cpp` must NOT come back: LINK-692 shows the
+size-optimised body is retail's, under another class.
 
 Remaining / next check: `SidesList.cpp` and `AptMessengerOnlineResponse.cpp` still emit the
 size-shaped `StringBase<char>::getCharAt`; they come after string_base_inline.cpp in the census's
