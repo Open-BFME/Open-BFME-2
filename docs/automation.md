@@ -89,6 +89,11 @@ non-retail base. Only this measures a buildable game; the census's "linked" is p
 `/FORCE`. The artifact holds `scoreboard.json` (the summary), `errors.tsv` (each linker error with
 the source that referenced it), `result.json` and `link.log`.
 
+Only exit 0, 1120 (unresolved) and 1169 (duplicates) mean the linker reached symbol resolution. Any other
+exit (LNK1104 on a path past 260 characters, for one) means it stopped first: `exit_link.py` exits 1, names
+the fatal line, and `result.json` has `errors.unresolved` and `errors.duplicates` null with
+`errors.not_measured` set. A null count is no result, never zero; `--report` and `--blockers` refuse it.
+
 On a prepared native Windows checkout, the same full proof and link can be run explicitly with
 `python tools/exit_link.py --link --local`. `--local` only bypasses the Windows-host refusal; it
 does not change object population, currency, data-row, omission, EH, or linker checks, and it cannot

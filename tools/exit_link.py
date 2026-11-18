@@ -517,6 +517,9 @@ def write_blockers(errors, commit):
     if record is not None and (record.get("mode") != "exit-link" or record.get("stubs")
                                or record.get("force") or not same_commit):
         raise ValueError("bridge queue requires the matching unstubbed real-link result")
+    if record is not None and (record.get("link", {}).get("stopped_before_resolution")
+                               or (record.get("errors") or {}).get("not_measured")):
+        raise ValueError("bridge queue requires a link that ran to symbol resolution")
     with open(errors, encoding="utf-8", errors="replace", newline="") as handle:
         blockers = blockers_from_errors(handle, export_sources(census.ledger()))
     with open(ROOT / BLOCKERS, "w", encoding="utf-8", newline="\n") as out:
@@ -875,6 +878,24 @@ ERROR_LINE = re.compile(r"^(?P<object>\S+\.(?:obj|exp)|LINK) : (?:fatal )?(?P<se
                         r"(?P<code>LNK\d+): (?P<text>.*)$")
 UNRESOLVED = census.UNRESOLVED
 DUPLICATE = census.DUPLICATE
+
+
+# Exit codes of a link that ran to symbol resolution: LNK1120 (unresolved externals) and
+# LNK1169 (multiply defined symbols). Any other nonzero exit stopped earlier (LNK1104 cannot
+# open a file, LNK1181, LNK1000...) and its unresolved/duplicate counts mean nothing.
+RESOLVED_EXITS = (0, 1120, 1169)
+
+
+def stopped_before_resolution(code, log):
+    """The fatal linker line when this link never reached symbol resolution, else None."""
+    if code in RESOLVED_EXITS:
+        return None
+    lines = log.splitlines()
+    for wanted in (r"\bfatal error LNK(?!(?:1120|1169)\b)\d+", r"\berror LNK\d+"):
+        for line in lines:
+            if re.search(wanted, line):
+                return line.strip()
+    return f"link.exe exited {code}"
 
 
 def parse_errors(log, sources_of=None, exports_of=None):
@@ -1372,6 +1393,9 @@ def run_link(rows, diagnostic=False, stub_seed=None, *, local=False):
     exclusive = set(proof["exclusive_names"])
     still_wanted = sorted(name for name in detail if name in exclusive)
     image_written = image.exists()
+    stopped = stopped_before_resolution(code, log)
+    if stopped:
+        detail, classes, duplicates, duplicate_classes, still_wanted = {}, {}, [], {}, []
     image_receipt(image, diagnostic, stubbed, proof=proof, vtables=setup.get("vtable_bridge"),
                   seed=seed_summary(seed), execution=execution)
     record = {
@@ -1409,18 +1433,20 @@ def run_link(rows, diagnostic=False, stub_seed=None, *, local=False):
             "log": (OUT / "link.log").relative_to(ROOT).as_posix(),
             "image_written": image_written,
             "pe_defect": census.pe_defect(image) if image_written else None,
+            "stopped_before_resolution": stopped,
         },
         "errors": {
             "total": len(errors),
-            "unresolved": len(detail),
-            "unresolved_classes": dict(classes),
+            "unresolved": None if stopped else len(detail),
+            "not_measured": ("link.exe stopped before symbol resolution: " + stopped) if stopped else None,
+            "unresolved_classes": None if stopped else dict(classes),
             "unresolved_detail": {name: {"kind": entry.get("kind"),
                                          "refs": sorted(entry.get("refs") or ()),
                                          "address": entry.get("address"),
                                          "defined_as": entry.get("defined_as")}
                                   for name, entry in detail.items()},
-            "duplicates": len(duplicates),
-            "duplicate_classes": dict(duplicate_classes),
+            "duplicates": None if stopped else len(duplicates),
+            "duplicate_classes": None if stopped else dict(duplicate_classes),
             "unresolved_exclusive_to_omitted": still_wanted,
         },
         **setup,
@@ -1439,10 +1465,16 @@ def run_link(rows, diagnostic=False, stub_seed=None, *, local=False):
           f"({len(omitted)} placement-only left out), exit {code}")
     print(f"exit_link: omission {proof['funclet_covered']:,}/{proof['funclet_rows']:,} funclets "
           f"covered by an EXACT kept parent; {len(proof['uncovered_funclets'])} uncovered")
-    print(f"exit_link: {len(detail):,} unresolved name(s), {len(duplicates):,} duplicate name(s), "
-          f"{len(errors):,} error/warning line(s); {len(still_wanted)} name(s) still wanted from an "
-          "omitted object")
+    if stopped:
+        print(f"exit_link: the link did not run to symbol resolution (exit {code}); no unresolved or "
+              f"duplicate count is a result. Fatal: {stopped}", file=sys.stderr)
+    else:
+        print(f"exit_link: {len(detail):,} unresolved name(s), {len(duplicates):,} duplicate name(s), "
+              f"{len(errors):,} error/warning line(s); {len(still_wanted)} name(s) still wanted from an "
+              "omitted object")
     print(f"exit_link: {OUT.relative_to(ROOT).as_posix()}/result.json")
+    if stopped:
+        return 1
     return int(code != 0 or not image_written) if diagnostic else 0
 
 
@@ -1509,6 +1541,10 @@ def report():
         return 1
     record = json.loads(path.read_text(encoding="utf-8"))
     errors = record["errors"]
+    if errors.get("unresolved") is None:
+        print(f"exit_link: {record['when']} at {record['commit']}: {errors.get('not_measured')}; "
+              "no unresolved or duplicate count was measured")
+        return 1
     print(f"exit_link: {record['when']} at {record['commit']}, base {record['base']}, "
           f"{record['objects']['linked']:,} object(s), {record['objects']['omitted_count']} omitted")
     print(f"exit_link: exit {record['link']['exit']}, image "

@@ -500,8 +500,7 @@ def test_local_link_keeps_every_preflight_gate_before_native_linker(tmp_path, mo
         E.run_link([], local=True)
 
 
-def test_local_run_result_and_receipt_are_marked_with_real_environment(tmp_path, monkeypatch):
-    import json
+def stage_local_link(tmp_path, monkeypatch, returncode=0, stdout="", classified=None):
     import struct
     monkeypatch.setattr(E.sys, "platform", "win32")
     monkeypatch.delenv("GITHUB_ACTIONS", raising=False)
@@ -546,7 +545,7 @@ def test_local_run_result_and_receipt_are_marked_with_real_environment(tmp_path,
         head[0x80:0x84] = b"PE\0\0"
         image.write_bytes(head)
         image.with_suffix(".map").write_text("map")
-        return type("Completed", (), {"returncode": 0, "stdout": "", "stderr": ""})()
+        return type("Completed", (), {"returncode": returncode, "stdout": stdout, "stderr": ""})()
 
     monkeypatch.setattr(E, "run_native", fake_link)
     monkeypatch.setattr(E.census, "census_state", lambda *args: {})
@@ -554,12 +553,17 @@ def test_local_run_result_and_receipt_are_marked_with_real_environment(tmp_path,
     monkeypatch.setattr(E, "snapshot_image_objects", lambda *args: {})
     monkeypatch.setattr(E, "object_sources", lambda rows: {})
     monkeypatch.setattr(E, "export_sources", lambda rows: {})
-    monkeypatch.setattr(E.census, "classify", lambda *args: ({}, {}, {}, []))
+    monkeypatch.setattr(E.census, "classify", lambda *args: classified or ({}, {}, {}, []))
     monkeypatch.setattr(E, "placement_objects", lambda rows: [])
     monkeypatch.setattr(E, "published_index_meta", lambda: {})
     monkeypatch.setattr(E.census, "head", lambda: "a" * 40)
     monkeypatch.setattr(E.census, "pe_defect", lambda image: None)
+    return captured
 
+
+def test_local_run_result_and_receipt_are_marked_with_real_environment(tmp_path, monkeypatch):
+    import json
+    captured = stage_local_link(tmp_path, monkeypatch)
     assert E.run_link([], local=True) == 0
     assert "/FORCE" not in captured["arguments"]
     assert f"/BASE:0x{E.BASE:X}" in captured["arguments"]
@@ -570,6 +574,55 @@ def test_local_run_result_and_receipt_are_marked_with_real_environment(tmp_path,
     assert result["execution"] == expected
     assert receipt["execution"] == expected
     assert receipt["authoritative"] is True
+
+
+LNK1104 = ("LINK : fatal error LNK1104: cannot open file "
+           "'C:\\very\\long\\path\\Code\\Foo.obj'\n")
+
+
+def test_a_link_that_stops_at_lnk1104_reports_no_counts_and_fails(tmp_path, monkeypatch, capsys):
+    import json
+    stage_local_link(tmp_path, monkeypatch, returncode=1104, stdout=LNK1104)
+    assert E.run_link([], local=True) == 1
+    captured = capsys.readouterr()
+    assert "0 unresolved" not in captured.out + captured.err
+    assert "did not run to symbol resolution" in captured.err and "LNK1104" in captured.err
+    record = json.loads((E.OUT / "result.json").read_text())
+    assert record["errors"]["unresolved"] is None and record["errors"]["duplicates"] is None
+    assert "LNK1104" in record["errors"]["not_measured"]
+    assert "LNK1104" in record["link"]["stopped_before_resolution"]
+
+
+def test_report_and_blocker_queue_refuse_a_stopped_link(tmp_path, monkeypatch, capsys):
+    stage_local_link(tmp_path, monkeypatch, returncode=1104, stdout=LNK1104)
+    E.run_link([], local=True)
+    capsys.readouterr()
+    assert E.report() == 1
+    assert "no unresolved or duplicate count" in capsys.readouterr().out
+    with pytest.raises(ValueError, match="ran to symbol resolution"):
+        E.write_blockers(E.OUT / "errors.tsv", "a" * 40)
+
+
+def test_a_link_that_resolves_with_unresolved_externals_still_counts_them(tmp_path, monkeypatch, capsys):
+    import json
+    log = ("Foo.obj : error LNK2001: unresolved external symbol _a\n"
+           "Foo.obj : error LNK2001: unresolved external symbol _b\n"
+           "LINK : fatal error LNK1120: 2 unresolved externals\n")
+    detail = {"_a": {}, "_b": {}}
+    stage_local_link(tmp_path, monkeypatch, returncode=1120, stdout=log,
+                     classified=({"x": 2}, detail, {}, []))
+    assert E.run_link([], local=True) == 0
+    assert "2 unresolved name(s), 0 duplicate name(s)" in capsys.readouterr().out
+    record = json.loads((E.OUT / "result.json").read_text())
+    assert record["errors"]["unresolved"] == 2 and record["errors"]["not_measured"] is None
+    assert record["link"]["stopped_before_resolution"] is None
+
+
+def test_stopped_before_resolution_keeps_exit_0_1120_1169_and_names_other_fatals():
+    assert E.stopped_before_resolution(0, "") is None
+    assert E.stopped_before_resolution(1120, "LINK : fatal error LNK1120: 2 unresolved externals") is None
+    assert E.stopped_before_resolution(1169, "LINK : fatal error LNK1169: multiply defined") is None
+    assert "LNK1181" in E.stopped_before_resolution(1181, "LINK : fatal error LNK1181: cannot open input")
 
 
 @pytest.mark.parametrize("flag", ["--allow-missing", "--skip-eh-proof", "--build", "--prepare"])
