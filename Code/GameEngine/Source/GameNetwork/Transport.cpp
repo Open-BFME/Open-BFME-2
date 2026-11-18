@@ -45,11 +45,11 @@ unsigned int ComputeCRC(const unsigned char *, unsigned int, unsigned int);
 #include "../../Include/GameNetwork/Transport.h"
 #define NULL 0
 #include <string.h>
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
+
 #define NULL 0
 #define TRUE 1
 #define FALSE 0

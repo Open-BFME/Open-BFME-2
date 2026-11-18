@@ -4,8 +4,8 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "ascii_string.h"
 #define BRIDGE_FLOAT_AMT (0.25f)
-typedef float Real;
-typedef unsigned char UnsignedByte;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #define TheGlobalLighting ((const BridgeLightingGlobals *)TheWritableGlobalData)
@@ -48,7 +48,7 @@ typedef RefMultiListIterator<RenderObjClass> RefRenderObjListIterator;
 // caller 0x000DF745 49B forwards its first arg and reads D7B6 D7B5 C count layout stride 0x114
 // layout: bridges[200] at +0x10 size 0x114 visible at +0x104 count at +0xD7B0 flags at +0xD7B5 +0xD7B6 size 0xD7C0
 
-typedef int Int;
+
 //
 // W3DBridgeBuffer::~W3DBridgeBuffer, Zero Hour's body: free the vertex and
 // index buffers (the ledger's Rva0074011F, called as freeBridgeBuffers by the
@@ -122,7 +122,7 @@ class Dict;
 
 // The body uses only the visibility byte from the target bridge layout.
 // The verified target clear methods locate it at +0x104 in a 0x114-byte bridge.
-typedef bool Bool;
+
 extern void BFME_DX8_Thread_Lock(void);
 extern bool BFME_DX8_Thread_Assert(void);
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"

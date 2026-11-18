@@ -4,10 +4,10 @@
 #include "../GameLogicObjectLookupView.h"
 #include "TunnelTrackerNemesisView.h"
 #include <list>
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
 class Object;
 class DamageInfoInput
 {
@@ -102,7 +102,7 @@ class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 #include "../../../Include/Common/XferVersion.h"
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
-typedef unsigned short UnsignedShort;
+
 // The native four-byte append is the rowed list<int> member at 0x0005548F,
 // also used by TunnelTracker's other ID list. Keep it out of line here.
 namespace _STL { template <> void list<int, allocator<int> >::push_back(const int &); }

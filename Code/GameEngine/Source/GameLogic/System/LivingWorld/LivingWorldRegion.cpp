@@ -34,9 +34,9 @@ void **vector<void*>::end()
 // global (0x00DFEF10) resolves player ids through its rowed find (0x002B51F8);
 // the player's team id is at +0x34.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 class CreateAHeroData;
 class Xfer;

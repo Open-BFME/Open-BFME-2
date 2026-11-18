@@ -6,7 +6,7 @@
 // reverse/symbols.csv under an address-derived name with the argument count
 // its ret shows. Classes are address-derived and model only the member.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 class DataChunkInput;
 struct DataChunkInfo;

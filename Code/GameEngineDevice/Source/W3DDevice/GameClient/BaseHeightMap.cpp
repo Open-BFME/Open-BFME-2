@@ -31,11 +31,11 @@ typedef unsigned short UShort;
 #include <set>
 #include <vector>
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-typedef float Real;
 
-typedef bool Bool;
+
+
 
 class BFME2ScopedRenderEvent
 {

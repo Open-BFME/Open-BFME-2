@@ -141,7 +141,7 @@ public:
 // (INI_parseAngularVelocityReal.cpp), which uses the 0.2 global. The
 // original helper name is unknown; the RadiusDecal update (0x00330F98)
 // nearby reads the same two values.
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 extern float opacityLogicStepSeconds;
 
@@ -173,7 +173,7 @@ extern const FieldParse s_radiusDecalFieldTable[];
 
 #include "../../Include/Common/INI/INI.h"
 
-typedef int Int;
+
 
 //
 // RadiusDecal::clear, retail 0x00330DBA, 28 bytes.

@@ -66,9 +66,9 @@
 // Rva0031D5F8 lookup on TheControlBar keyed by Object::rva00290E67, and the
 // production interface from Object::rva0028BC58(0), whose slot 3 queues.
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum NameKeyType
 {

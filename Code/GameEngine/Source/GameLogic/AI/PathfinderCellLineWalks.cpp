@@ -37,8 +37,8 @@
 #include <stdlib.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"

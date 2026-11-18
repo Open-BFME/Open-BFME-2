@@ -41,8 +41,8 @@ enum { GBM_MOUSE_ENTERING = 0x4006, GBM_MOUSE_LEAVING = 0x4007, GBM_SELECTED = 0
 #include "../../../Include/GameClient/ModalWindow.h"
 #include <new>
 #include <windows.h>
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 enum { WIN_ERR_OK = 0 };
 enum { WIN_STATUS_NO_FOCUS = 0x400, GWM_INPUT_FOCUS = 23 };
 // ?GadgetTextEntrySetText@@YAXPAVGameWindow@@VUnicodeString@@@Z @0x002C17EB 66B
@@ -57,7 +57,7 @@ typedef unsigned short wchar_t;
 class UnicodeString;
 class AsciiString;
 class GameWindow;
-typedef unsigned short UnsignedShort;
+
 typedef void (*GameWinMsgBoxFunc)(void);
 #include "ascii_string.h"
 #include <string.h>
@@ -177,7 +177,7 @@ struct BfmeManagerWindowLinks { char opaque00[8]; unsigned status; char opaque0C
 extern GameWindowManager *TheWindowManager;
 
 // Match the seed TU's BFME message ABI independently of its Zero Hour header.
-typedef unsigned int UnsignedInt;
+
 
 typedef bool (__cdecl *IntFunLess)(int a, int b);
 

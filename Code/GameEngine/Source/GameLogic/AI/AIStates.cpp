@@ -8,11 +8,11 @@
 #include "Coord2D.h"
 #include "Common/Snapshot.h"
 #include "RTS/XYDistanceCallView.h"
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned char UnsignedByte;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
+
+
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,

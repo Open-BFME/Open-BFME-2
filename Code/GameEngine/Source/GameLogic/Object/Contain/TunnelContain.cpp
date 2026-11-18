@@ -134,7 +134,7 @@ public:
  virtual void onDelete();
 };
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum CommandSourceType
 {

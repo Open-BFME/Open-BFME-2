@@ -147,10 +147,10 @@
 #include "ascii_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 // platformsdk
 #include <windows.h>

@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class ThingTemplate;

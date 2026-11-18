@@ -562,11 +562,11 @@ public:
 	virtual void slot18();
 };
 
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
 
 // Retail stores no HordeTransportContain vptr (novtable): its dtor is a
 // bare jmp to the TransportContain base dtor.

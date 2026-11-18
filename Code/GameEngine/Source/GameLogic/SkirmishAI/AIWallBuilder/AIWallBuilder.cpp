@@ -47,7 +47,7 @@ struct XferUnknown11;
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #pragma comment(linker, "/alternatename:?v1@Rva004E9B46@@UAEXXZ=?update@AIWallBuilder@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?v2@Rva004E9B46@@UAEXXZ=?rva004E9B70@Rva004E9B70@@QAEXXZ")
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
 class ModuleData;
 // Keep the real STL append definition visible: a declaration-only
 // specialization changes aliasing spills in tryToStartWallProduction.

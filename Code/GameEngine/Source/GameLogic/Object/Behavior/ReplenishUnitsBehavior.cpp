@@ -107,7 +107,7 @@ private:
 	bool m_138;			// +0x138
 	bool m_139;			// +0x139 replenish horde members only
 };
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
 class Player;
 #include "../../../../Include/GameLogic/Rva002611BFFilter.h"

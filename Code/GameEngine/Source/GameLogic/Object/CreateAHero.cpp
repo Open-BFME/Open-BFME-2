@@ -73,9 +73,9 @@ template <> inline void vector<unsigned int>::_M_clear()
 }
 }
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 // Retain the already rowed signed-vector tree lookup while the native bling
 // index table uses unsigned elements. Both are real STLport instantiations;

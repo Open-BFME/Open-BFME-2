@@ -7,9 +7,9 @@
 #define inline static inline
 #include <math.h>
 #undef inline
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 #define PI 3.14159265359f
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -354,7 +354,7 @@ private:
 
 #include "../../../Include/Common/XferVersion.h"
 
-typedef unsigned int UnsignedInt;
+
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 

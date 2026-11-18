@@ -343,10 +343,10 @@ public:
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 #include "../../../../GameEngine/Include/Common/D3DXVECTOR4.h"
 #include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"

@@ -205,7 +205,7 @@ class Snapshot;
 // stopMoveDebris is the rowed opaque ?rva000CE0EA@W3DTankDraw (it acts on
 // the two tread-debris particle handles at +0x2E8/+0x2F4).
 
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 #include "../../../../../../GameEngine/Source/Common/Thing/thing.h"
 #include "../../../../../Include/W3DDevice/GameClient/Rva001F3C43Arg.h"
 #include "../../../../../../GameEngine/Include/Common/Rva001F3C43Slot.h"
@@ -220,9 +220,9 @@ class Rva0055A88BDwordField;
 #include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3C20Slot.h"
 struct Rva001F3C43Arg;
 
-typedef float Real;
 
-typedef int Int;
+
+
 
 class Rva000C79C9
 {

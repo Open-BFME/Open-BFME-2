@@ -8,7 +8,7 @@
 // the argument count. Callee names already in the ledger are reused through
 // their own pins when present; otherwise each callee is pinned by address.
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 // LINK: views of the rowed owners these forwarders reach (respelled from the address-named targets).
 #include "../../../../reference/shims/bfme2_ascii/string_base.h"

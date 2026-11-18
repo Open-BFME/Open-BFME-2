@@ -182,7 +182,7 @@ public:
 	void rva001DC164(); // init
 };
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 // Retain bfmealloc's native null-checked free and proxy forwarding inline.
 // The matched bodies already inline these STLport ownership wrappers.

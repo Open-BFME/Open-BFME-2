@@ -30,9 +30,9 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // Its CaveContainOnContaining.cpp also supports the call sequence; target
 // vtable placement, rowed callees, and body bytes establish this identity/ABI.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 enum DisabledType
 {
 	DISABLED_HELD = 3

@@ -128,9 +128,9 @@ struct AICommandParms : public Rva00351570Src {
  ~AICommandParms() { if(m_20.m_start) free(m_20.m_start); }
 };
 
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
+
 
 enum WhichTurretType { TURRET_INVALID=-1 };
 

@@ -21,10 +21,10 @@
 // Shared W3DDisplay unit view: one declaration of each class for every body
 // retail built into this unit. Display slots follow the retail W3DDisplay
 // vtable 0x007C3C80 (101 slots); unnamed slots are ABI padding.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 typedef __int64 Int64;
 struct Coord3D;
 struct RGBColor;

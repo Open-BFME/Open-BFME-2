@@ -171,7 +171,7 @@ class Thing;
 
 class ModuleData;
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/Common/XferVersion.h"
 

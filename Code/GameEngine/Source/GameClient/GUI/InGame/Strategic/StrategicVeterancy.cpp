@@ -63,8 +63,8 @@ private:
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../../Include/Common/ScalarTypes.h"
+
 
 // The Apt player (VA 0x00DFE4CC, address-named in the ledger): WB names its
 // slot callees AptPlayer::ShowLevel (rowed 0x002224FE) and HideLevel

@@ -72,10 +72,10 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 // A reference maximum that compares with '>': retail keeps the entry's frame
 // when it is strictly later, which STLport's max (a < b) spells the other way.
 template <class T> inline const T &maxOf(const T &a, const T &b) { return a > b ? a : b; }

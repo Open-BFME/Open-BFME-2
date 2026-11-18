@@ -243,8 +243,8 @@ int __cdecl Rva000B2BE5Get(const Rva000B2BE5Src *p, int fallback)
 	return fallback;
 }
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 class Debug
 {

@@ -27,8 +27,8 @@ class Rva00330C50 { public: void rva00330AA6(int); };
 //    Hour's body over the center above; the height is
 //    TheTerrainLogic->getGroundHeight (vslot 6) when there is a terrain logic,
 //    else the integer at PolygonTrigger +0x30 (no assert in retail).
-typedef float Real;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include <stddef.h>
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #define COORD3D_VIEW_INLINE

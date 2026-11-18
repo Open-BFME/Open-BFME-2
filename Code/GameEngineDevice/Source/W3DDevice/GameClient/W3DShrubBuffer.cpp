@@ -155,8 +155,8 @@ private:
 // (+0x1960 so the first three floats land at -8/-4/0), key at row+0x50, count at +0x4FB58, dirty byte at +0x4FB5C.
 // The BFME2 build clears the position and fade fields as floats.
 
-typedef int Int;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 struct Rva000E7140Record
 {
     Vector3 position;
@@ -257,7 +257,7 @@ struct Rva000E7546TypeRecord {
  Coord2D m_shadowA; char at34[0x3C-0x34];
  Coord2D m_shadowB; bool m_ready; char at45[0x5C-0x45];
 };
-typedef unsigned int UnsignedInt;
+
 class RenderObjClass;
 bool Rva0010E87A_SetOpacity(RenderObjClass *object, float value);
 struct Rva000E7A40TypeData
@@ -290,7 +290,7 @@ struct Rva000E912ATree
 	Int m_key;
 	unsigned char m_pad5c[0xa0 - 0x5c];
 };
-typedef bool Bool;
+
 struct Rva000E72B3GlobalData
 {
 	unsigned char m_pad00[0x1c];
@@ -326,7 +326,7 @@ struct Rva000E72B3Type
 	Rva000E72B3TypeData *m_data;
 	unsigned char m_pad24[0x5c - 0x24];
 };
-typedef short Short;
+
 struct Rva000E7734GlobalData
 {
 	unsigned char m_pad00[0x1c];

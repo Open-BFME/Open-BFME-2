@@ -16,14 +16,14 @@ struct TransportAddress
     unsigned int ip;
     unsigned short port;
 };
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 class GameSpyStagingRoom : public GameInfo
 {
 };
 extern GameSpyStagingRoom *TheGameSpyGame;
-typedef unsigned short UnsignedShort;
-typedef int Int;
-typedef bool Bool;
+
+
+
 typedef unsigned long UnsignedLong;
 struct Rva00A063B0Obj;
 extern Rva00A063B0Obj *g_a063b0;

@@ -19,8 +19,8 @@
 
 class GameWindow;
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 
 void GadgetComboBoxReset(GameWindow *comboBox);

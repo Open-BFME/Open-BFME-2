@@ -84,9 +84,9 @@ template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(Constru
 // production id at +0x10, upgrade entries (type 2) through slot 4 with the
 // upgrade at +0x0C. Unknown types stop the loop.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
-typedef bool Bool;
+
 
 class UpgradeTemplate;
 
@@ -473,7 +473,7 @@ template void _STL::vector<QuantityModifier>::push_back(const QuantityModifier &
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-typedef unsigned int UnsignedInt;
+
 
 class ModuleData;
 

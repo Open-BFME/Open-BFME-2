@@ -18,8 +18,8 @@
 // the forwarded arg count. Callees are pinned here under their addresses.
 // Identities beyond these shapes are not recovered.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
 

@@ -104,10 +104,10 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 }
 #undef free
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 typedef int NameKeyType;
 
 enum { MAX_TURRETS = 1 };

@@ -57,7 +57,7 @@ namespace _STL
 	}
 }
 
-typedef int Int;
+#include "../../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
@@ -92,8 +92,8 @@ extern GameLogic *TheGameLogic;
 // IsBuilderOnScreen's view of the tactical view (VA 0x00DFEA3C, a View*):
 // the slot +0x120 screen test takes a world position and a 1.0 scale.
 
-typedef float Real;
-typedef bool Bool;
+
+
 
 class Drawable
 {

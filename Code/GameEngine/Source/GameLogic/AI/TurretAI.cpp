@@ -61,7 +61,7 @@ enum WeaponSlotType
 	WEAPONSLOT_COUNT = 6
 };
 #include "../../../Include/GameLogic/Weapon.h"
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 void XferTurretTargetType( Xfer *xfer, int *value );
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -217,11 +217,11 @@ public:
 
 #include "../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
 
-typedef int Int;
 
-typedef unsigned int UnsignedInt;
+
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 

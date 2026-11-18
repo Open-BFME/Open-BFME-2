@@ -6,8 +6,8 @@
 // ??0AIInternalMoveToState@@QAE@PAVStateMachine@@I@Z at 0x0033F279 with hash
 // 0x6e6fe691. Base layout and flags copied from AIStatesSmallUpdates.cpp.
 // Callers include 0x00346CDD which chains this as its base.
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
 class StateMachine;
