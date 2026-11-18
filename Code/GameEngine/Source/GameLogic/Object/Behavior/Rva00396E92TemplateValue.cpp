@@ -15,8 +15,8 @@
 
 enum NameKeyType { NAMEKEY_INVALID=0 };
 
-typedef float Real;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 struct Rva00395D77
 {

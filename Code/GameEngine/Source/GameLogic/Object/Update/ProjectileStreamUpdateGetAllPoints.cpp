@@ -16,8 +16,8 @@
 // integer register), and the X store is shared by both arms after the
 // branch, as retail's tail-merged movss [edi-8] shows.
 
-typedef int Int;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"

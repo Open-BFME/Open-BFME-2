@@ -18,7 +18,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 unsigned char Rva0023D607Get();
 

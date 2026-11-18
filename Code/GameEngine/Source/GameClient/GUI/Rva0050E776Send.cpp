@@ -4,8 +4,8 @@
 // Identity via TheWindowManager plus 0x400D plus slot 0xE8 (precedent
 // GameWindowManager_winSetFocus) plus caller 0x0050F2A6; cdecl 2 args.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
+
 typedef UnsignedInt WindowMsgData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
@@ -26,7 +26,7 @@ int __cdecl Rva0050E776Send(GameWindow *window, int data)
 // TheNetwork (VA 0x00DFEA28), or when TheNetwork's virtual slot 51 (+0xCC)
 // accepts the index. No call to it survives in the image; the anchor below
 // only forces cl to emit it in that convention. Identity unproven.
-typedef bool Bool;
+
 
 #include "../../../Include/GameNetwork/GameInfo.h"
 

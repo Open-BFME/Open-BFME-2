@@ -6,8 +6,8 @@
 // the DEBUG_LOG block, leaving delta plus divide plus return. The client
 // seed (RVA 0x9BA3A0) matches the landed client Real twin; the audio seed
 // follows 24 bytes later, matching the BFME1 seed order.
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 extern "C" UnsignedInt theGameClientSeed[6];
 

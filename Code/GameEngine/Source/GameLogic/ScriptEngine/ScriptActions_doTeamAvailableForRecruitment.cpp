@@ -10,7 +10,7 @@
 // doTeamAvailableForRecruitment and calls Team::setRecruitable. Target-backed
 // writes establish only the two byte offsets and values.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "ascii_string.h"
 

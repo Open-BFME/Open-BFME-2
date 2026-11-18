@@ -17,8 +17,8 @@
 // (0x002AE329) calls it in its complete branch as ZH does. The int flag's
 // meaning is a donor inference.
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum Relationship
 {

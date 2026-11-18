@@ -14,8 +14,8 @@ extern "C" void _ReadWriteBarrier(void);
 class Matrix3D;
 struct ThingKindBytes;
 enum ObjectStatusTypes { OBJECT_STATUS_PLACEHOLDER = 0 };
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include "../../Common/Thing/thing.h"
 
 class Object : public Thing {

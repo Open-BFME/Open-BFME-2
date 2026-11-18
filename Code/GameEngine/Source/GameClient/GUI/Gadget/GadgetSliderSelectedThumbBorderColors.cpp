@@ -8,7 +8,7 @@
 // (Disabled, +0xC4) and 0x004B6990 (Hilite, +0x130). The winGetChild calls
 // resolve through the existing ?winGetChild pin at 0x003140C8; no new pins.
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

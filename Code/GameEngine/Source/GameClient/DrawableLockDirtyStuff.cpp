@@ -11,7 +11,7 @@
 // Drawable::s_modelLockCount; the loop body's getDrawModules() call leaves no
 // code in retail). The count has no other reader in the ledger, so it is
 // defined here under the donor's static-member name.
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

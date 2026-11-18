@@ -9,8 +9,8 @@
 // no-argument form passes 0.0f. The caller-facing row keeps its pinned Object
 // spelling; the worker's identity beyond the donor shape is address-derived.
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;

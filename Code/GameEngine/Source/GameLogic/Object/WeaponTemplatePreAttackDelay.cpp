@@ -25,8 +25,8 @@
 // offset 0x138; twins validate table method via 0x002C9055/0x002C9136).
 // Bonus PRE_ATTACK is field 4 (+0x10); RATE_OF_FIRE at +0x0C proven by
 // landed clip/delay siblings in same family. Direct donor reuse first.
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 class WeaponBonus
 {
 public:

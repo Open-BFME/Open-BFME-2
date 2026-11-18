@@ -4,8 +4,8 @@
 // descriptor sits at WeaponTemplate+0x120 (BFME1 +0x4E8) and the owner's ammo
 // provider at Object+0x250 (BFME1 +0x1FC). Retail calls the provider's
 // getRemainingAmmo through vtable slot 0x114, hence the placeholder virtuals.
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

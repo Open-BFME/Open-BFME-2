@@ -7,7 +7,7 @@
 // the shared empty ctor here, rowed as a genuine ICF fold.
 #include "../../../Libraries/Include/Lib/Region3D.h"
 
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 class ParabolicEase
 {

@@ -15,8 +15,8 @@
 // PartitionManager.cpp keeps Zero Hour's base and does not match.
 #include "Lib/Coord3D.h"
 
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 class Object;
 class GeometryInfo;

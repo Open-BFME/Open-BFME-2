@@ -21,11 +21,11 @@
 
 #include <stddef.h>
 #include "Coord3D.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 enum AbleToAttackType { ABLE_TO_ATTACK_TYPE_0 = 0 };
 enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0 };
 enum CommandSourceType {};
-typedef float Real;
+
 
 enum ObjectStatusTypes
 {

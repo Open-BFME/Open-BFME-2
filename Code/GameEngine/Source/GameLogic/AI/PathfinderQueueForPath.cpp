@@ -13,8 +13,8 @@
 // lives in its own unit: retail reloads ecx before each ring call, which a
 // caller only does when the callees are compiled elsewhere.
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum ObjectID
 {

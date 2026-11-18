@@ -19,8 +19,8 @@
 // AIFaceState::onExit, retail 0x003423A6 (34 bytes): slot 5 of the same
 // vtable. Zero Hour's is empty; BFME 2 stops the mode-2 turner (its vslot 133).
 // Layout: machine goal position +0x24, m_canTurnInPlace +0x2C.
-typedef bool Bool;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

@@ -25,9 +25,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "matrix3d.h"
 #include "GameLogicObjectLookupView.h"
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Libraries/Include/Lib/Region2D.h"
 struct CameraRealTriplet:Coord3D {CameraRealTriplet&operator=(const Coord3D&p){x=p.x;y=p.y;z=p.z;return *this;}};

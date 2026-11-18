@@ -13,7 +13,7 @@
 
 #include <windows.h>
 
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #define PI 3.14159265359f
 

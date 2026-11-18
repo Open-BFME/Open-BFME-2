@@ -20,10 +20,10 @@
 #undef inline
 #include "Lib/Coord3D.h"
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #define INT_TO_REAL(x) ((Real)(x))
 

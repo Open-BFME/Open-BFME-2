@@ -6,8 +6,8 @@
 // its body touches; the comment above each gives the .rdata slot address that
 // references it. Meanings are not recovered.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // slot at VA 0x00C3BE24: deleteOverrides on every non-NULL entry of the
 // pointer array [+0x0C, +0x10) (rowed Overridable::deleteOverrides).

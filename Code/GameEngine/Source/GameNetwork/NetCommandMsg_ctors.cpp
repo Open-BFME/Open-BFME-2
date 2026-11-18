@@ -5,8 +5,8 @@
 // (BFME1 0x006741A0). Trimmed to the placed leave-frame setter;
 // the 58 sibling ctors/accessors are declared-only here.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 enum NetCommandType
 {

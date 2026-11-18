@@ -4,9 +4,9 @@
 // BFME2 diverges per retail: provider-gated ammo (getRemainingAmmo), conditional
 // RELOADING_CLIP store, float frame+reload via ftol2, setDisabledUntil sharing
 // gated on template+0x80 with DisabledType 8. Callers 0x002CE1DE/0x002CE21B.
-typedef unsigned int UnsignedInt;
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 enum DisabledType
 {

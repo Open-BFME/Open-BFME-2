@@ -5,7 +5,7 @@
 // Retail BFME2 keeps m_localSlot at the same offset (+0x12028); the layout
 // authority is reference/shims/connectionmanager/GameNetwork/ConnectionManager.h.
 
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/GameNetwork/ConnectionManager.h"
 

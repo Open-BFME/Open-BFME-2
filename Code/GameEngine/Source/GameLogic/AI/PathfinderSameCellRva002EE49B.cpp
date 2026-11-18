@@ -14,8 +14,8 @@
 bool __cdecl Rva002EBBFBIsOdd(void *object);
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool odd, const Coord3D *position);
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 enum PathfindLayerEnum
 {

@@ -13,7 +13,7 @@ enum ObjectScriptStatusBit
 	OBJECT_STATUS_SCRIPT_UNSTEALTHED = 0x08
 };
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../Object/object.h"
 

@@ -15,8 +15,8 @@
 // The address-derived method name and const qualification are ABI views;
 // WorldBuilder alone does not establish the original public method name.
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
 struct BfmeShapeE15;

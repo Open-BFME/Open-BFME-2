@@ -7,7 +7,7 @@
 // (single turret, MAX_TURRETS is 1). Both TurretAI queries are direct
 // (non-virtual) const calls, resolved by pins.
 
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 enum TurretTargetType
 {

@@ -7,7 +7,7 @@
 // then ZH's m_id and m_sellFrame. BuildAssistant::xferTheSellList, which
 // news these entries, lives in BuildAssistantXferSellList.cpp.
 
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes.h"
 
 enum ObjectID
 {

@@ -5,7 +5,7 @@
 // two words record, and its copy constructor is that body. Its dtor is inline
 // and empty: retail's deleting dtor 0x005DB832 (slot 0 of 0x00C767D4) only
 // re-stores the vptr before the delete.
-typedef short Short;
+#include "../../Include/Common/ScalarTypes.h"
 
 struct Elem003AF7A0
 {

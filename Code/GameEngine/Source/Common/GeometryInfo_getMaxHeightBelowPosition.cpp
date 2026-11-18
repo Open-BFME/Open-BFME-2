@@ -1,5 +1,5 @@
 // Ported from BFME1; retain only after independent BFME2 placement.
-typedef float Real;
+#include "../../Include/Common/ScalarTypes.h"
 
 inline const Real &bfmeMax(const Real &a, const Real &b)
 {

@@ -24,8 +24,8 @@
 #include <string.h>
 #include <math.h>
 
-typedef int Int;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
+
 
 #include "../../../Include/Common/INI/INI.h"
 // Preserve the retail inlined accessor in this TU.

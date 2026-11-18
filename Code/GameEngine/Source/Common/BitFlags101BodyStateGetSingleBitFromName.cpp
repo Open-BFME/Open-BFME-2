@@ -11,8 +11,8 @@
 #include <bitset>
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // Target evidence: 0x0045D908 uses the 101-entry BodyStateNames table and
 // calls this rowed lookup for each set bit. Keep its cross-TU view identical

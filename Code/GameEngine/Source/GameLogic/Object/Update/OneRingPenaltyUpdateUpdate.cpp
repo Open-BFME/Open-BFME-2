@@ -15,8 +15,8 @@
 // address (0x00499C46 is also rowed as BfmeC987::bfmeGo987C from a BFME 1
 // donor placement). 0x00499C35 (17 bytes) is carried here: it clears the
 // +0x30 frame and sets the Object's status 0x12.
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
 
 enum ObjectStatusTypes
 {

@@ -11,7 +11,7 @@
 // enableEmitters is the rowed ?enableEmitters@W3DTankTruckDraw (0x000CB826),
 // so it is modelled on that intermediate class.
 
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 class W3DModelDraw
 {
@@ -25,7 +25,7 @@ protected:
 	void enableEmitters(Bool enable);
 };
 
-typedef int Int;
+
 class RenderObjClass;
 
 class W3DTruckDraw : public W3DTankTruckDraw

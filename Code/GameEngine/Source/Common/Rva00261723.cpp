@@ -8,7 +8,7 @@
 // /O1 /G7) frame the 00261xxx Common page; donor pointInTrigger in BFME1
 // PolygonTrigger_pointInTrigger.cpp and ZH PolygonTrigger.cpp.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../../Libraries/Include/Lib/ICoord3D.h"
 
