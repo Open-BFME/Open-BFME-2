@@ -5,22 +5,23 @@
 // /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
 // lookuptable.cpp pattern) so this unit's copy is that body.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
-#define BFME_MESHMATDESC_UV_ARRAY_EXTERNAL
-// Keep native color-array calls bound to the separately matched D1FBD owner.
-#define BFME_MESHMATDESC_COLOR_ARRAY_EXTERNAL
 // FastCriticalSectionClass::LockClass's destructor is retail's /O2 body
 // (0x000657D0): define it ahead of the size-optimised region below.
 #include "mutex.h"
-// Link view first: Matrix3D(), Matrix3D(bool) and Matrix3D(const Matrix3D&) stay inline without
-// emitting /O2 copies that compete with retail's owners (0x000423C5, 0x0004C91A, 0x0006645C).
+#pragma optimize("gsy", on)
+static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 // multilist.h's inline members are retail's size-optimised bodies: compile
 // them for size (as hlod.cpp/decalsys.cpp do) so this unit's copies match.
+// It shares the anchor's size-optimised block; the reset below is what ends it.
 #include "multilist.h"
+#pragma optimize("", on)
+#define BFME_MESHMATDESC_UV_ARRAY_EXTERNAL
+// Keep native color-array calls bound to the separately matched D1FBD owner.
+#define BFME_MESHMATDESC_COLOR_ARRAY_EXTERNAL
+// Link view first: Matrix3D(), Matrix3D(bool) and Matrix3D(const Matrix3D&) stay inline without
+// emitting /O2 copies that compete with retail's owners (0x000423C5, 0x0004C91A, 0x0006645C).
 #include "refcount.h"
 // Link view first: Vector4(x,y,z,w) stays inline without emitting an SSE
 // copy that competes with retail's integer-move owner (0x006D8A30).

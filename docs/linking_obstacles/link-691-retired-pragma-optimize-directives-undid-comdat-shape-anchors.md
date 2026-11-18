@@ -1,5 +1,5 @@
 ### LINK-691: retired `#pragma optimize` directives undid COMDAT-shape anchors in first-in-order providers
-Status: Repair landed / awaiting verification (animobj.cpp); Open for the other providers below. Updated: 2026-11-18; inspected revision: `d72acd01df`.
+Status: Repair landed / awaiting verification (animobj.cpp, dx8renderer.cpp); Open for LadderDefs.cpp. Updated: 2026-11-18; inspected revision: `d72acd01df`.
 
 Evidence / affected units: the 2026-11-18 10:35 census (`147fd3e52b`) holds 143 units out, and
 `link_check.py --paths-from` over all 160 census-blocked sources at `d72acd01df` links none. Three
@@ -31,12 +31,22 @@ added: the unit keeps one `"gsy",on` and one `"",on`. `./build.sh` 55/55 matched
 bytes (index `147fd3e52b`). The one left, `W3DModelDraw.cpp` (198 bytes), fails on
 `??$__copy@PAV?$BitFlags@$0HF@@@PAV1@H@_STL@@...`, an unrelated copy.
 
-Remaining / next check: LadderDefs.cpp (`9317f5872f` retired a `"t",on` / `"",on` pair) and
-dx8renderer.cpp (`793701890c` retired `"s",on`, `ab706d5c75` a `"",on`) by the same test: disassemble
-the unit's copy against the owner's (`string_base_inline.cpp`, `multilist.cpp`) and restore the state
-without raising a hatch line. The other units those four commits and their siblings touched
+dx8renderer.cpp (its own commit): `793701890c` retired the `#pragma optimize("s", on)` ahead of
+`#include "multilist.h"` as "overwritten" by the reset after the include, and `ab706d5c75` then
+retired that reset as a duplicate, so multilist.h's classes compiled in the command-line state and
+`??_GMultiListObjectClass` / `??_GGenericMultiListClass` came out 30 bytes (`add esp,4`) against
+retail's 28 (`pop ecx`). `multilist.h` now sits in the `bfmeVciAnchor` block, between the unit's one
+`"gsy",on` and its one `"",on`, with `mutex.h` moved ahead of that block so
+`FastCriticalSectionClass::LockClass` keeps its `/O2` destructor. `./build.sh` 91/91 matched;
+`link_check.py` dx8renderer.cpp with its 24 consumers: 25 of 25 link, 0 -> 26,146 bytes (index
+`147fd3e52b`). The unit's unreferenced `??0MultiListObjectClass` copy is 13 bytes against a majority
+16: a diagnostic, as it was under the retired `"s",on`.
+
+Remaining / next check: LadderDefs.cpp (`9317f5872f` retired a `"t",on` / `"",on` pair) by the same
+test: disassemble the unit's `getCharAt` copy against `string_base_inline.cpp`'s and restore the
+state without raising a hatch line. The other units those four commits and their siblings touched
 (`git log --grep "pragma optimize" --since 2026-11-13`) emit no first-in-order wrong copy today, but
 a later row that moves one of them ahead in link order would expose the same loss: compare an
 anchor unit's COMDAT digests before and after retiring a directive, not only its rows.
-Clearance: animobj.cpp scope cleared by the current-object preview above; the rest pending.
+Clearance: animobj.cpp and dx8renderer.cpp scopes cleared by the current-object previews above; LadderDefs.cpp pending.
 Census confirmation: awaiting; the preview does not change the headline.
