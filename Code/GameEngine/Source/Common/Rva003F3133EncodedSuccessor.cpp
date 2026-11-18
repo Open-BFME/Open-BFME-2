@@ -4,10 +4,7 @@
 // then returns its updated+4 word through a hidden result pointer.
 // The existing Gen_00528EC0 caller/copy views establish the8-byte value
 // and nontrivial copy ABI. Its original application type name is unknown.
-class Rva003F2352 {
-public: Rva003F2352 *rva003F2947(Rva003F2352 *src);
-private: char m_head[4];unsigned m_value;
-};
+#include "../../Include/Common/Rva003F2352.h"
 class Gen_00528EC0 {
 public:
  Gen_00528EC0() {}

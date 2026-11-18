@@ -9,7 +9,8 @@ struct Rva005D1255Owner{char pad[8];Rva005D1255State*state;};
 class Rva005D1255:public Rva005CF872{public:Rva005D1255(void*p):Rva005CF872(p){}virtual void Update();};
 void Rva005D1255::Update(){((Rva005D1255Owner*)owner)->state->slot1();}
 class Rva005EB8CA{public:void rva005EB8CA();};
-class Rva005EB87A{public:bool rva005EB87A();};
+class Rva005EB87AInner;
+#include "../../../../Include/Common/Rva005EB87A.h"
 class Object;class Rva00575674{public:void rva00575674(Object*);Rva005D1255State*state;};
 struct Rva005CFF0FOwner{char pad[0x18];void*data;Rva00575674 state;};
 class Rva005CFFB8:public Rva005CF872{public:Rva005CFFB8(void*,void*);virtual~Rva005CFFB8();virtual void Update();void*view;};
