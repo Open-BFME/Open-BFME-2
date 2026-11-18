@@ -17,10 +17,10 @@
 // the unrowed 812-byte writer 0x00447CA9, which takes the game, the buffer
 // and its size; otherwise the buffer is cleared with memset.
 // Names are address-derived: no donor body is known for either.
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../Include/Common/Rva00248CDD.h"
 

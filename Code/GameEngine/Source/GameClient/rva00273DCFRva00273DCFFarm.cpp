@@ -53,9 +53,9 @@ private:
 	Rva00270025 *m_354; // +0x354
 };
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 
 

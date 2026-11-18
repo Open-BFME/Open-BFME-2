@@ -10,11 +10,11 @@
 // (reference/open-bfme-1/Code/GameEngine/Source/GameClient/ShadowSetOpacity.cpp,
 // matched 169 bytes there).
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
-typedef unsigned int UnsignedInt;
 
-typedef float Real;
+
+
 
 class Shadow
 {

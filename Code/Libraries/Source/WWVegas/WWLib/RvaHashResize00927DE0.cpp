@@ -55,7 +55,7 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 struct Gen_p16pod { int a[4]; };
 

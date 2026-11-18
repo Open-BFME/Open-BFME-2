@@ -9,7 +9,7 @@
 // fld-dword; without it the toolchain promotes to fld-qword), comiss range
 // tails. calcPitches resolves via the rowed GeometryInfo
 // spelling; the +0x4c combined pitch-check flag gates everything.
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

@@ -10,8 +10,8 @@
 #include <bitset>
 #include <string.h>
 
-typedef int Int;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
 
 // SpecialPowerNames: the retail string table at VA 0xdc0b40.
 const char *SpecialPowerNames[154] = {

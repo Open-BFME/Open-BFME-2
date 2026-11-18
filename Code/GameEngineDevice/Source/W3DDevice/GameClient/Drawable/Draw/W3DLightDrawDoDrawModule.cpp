@@ -16,8 +16,8 @@
 // light slots 20 (Validate_Transform) / 21 (Set_Transform), the pinned
 // drawable position getter 0x00276470 and WWMath::Random_Float 0x00711B90.
 
-typedef float Real;
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 #include "Coord3D.h"
 

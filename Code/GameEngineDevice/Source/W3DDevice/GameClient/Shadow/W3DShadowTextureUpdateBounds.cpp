@@ -18,7 +18,7 @@
 #include "sphere.h"
 #include <math.h>
 
-typedef float Real;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 

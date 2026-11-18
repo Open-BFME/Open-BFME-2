@@ -11,7 +11,7 @@
 // 0x0052E0CE) and six passes spread it through type 7/1 neighbours via bit
 // 22 (rowed setter 0x0052E02F). Callgraph twin WB 0x012D86D0.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Include/GameLogic/Rva0052E02F.h"
 

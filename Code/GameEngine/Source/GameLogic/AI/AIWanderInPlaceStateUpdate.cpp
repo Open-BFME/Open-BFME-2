@@ -24,9 +24,9 @@
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 #define PATHFIND_CELL_SIZE 10
 #define PATHFIND_CELL_SIZE_F 10.0f

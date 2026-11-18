@@ -30,9 +30,9 @@
 // isEmpty (byte-identical to 0x00001E2F); with it the register roles of
 // `this` (EDI) and the record (ESI) and dumpWindow's EDX-preserving walk come
 // out as retail's.
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 #include <windows.h>
 class AsciiString;
 class UnicodeString;

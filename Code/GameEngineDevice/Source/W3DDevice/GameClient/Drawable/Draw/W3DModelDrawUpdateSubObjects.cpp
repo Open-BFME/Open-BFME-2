@@ -24,7 +24,7 @@ static __forceinline const char *bfmeFind(const AsciiString &asciiString, char c
 {
 	return ((const StringBase<char> *)&asciiString)->find(c);
 }
-typedef int Int;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 class RenderObjClass
 
 {

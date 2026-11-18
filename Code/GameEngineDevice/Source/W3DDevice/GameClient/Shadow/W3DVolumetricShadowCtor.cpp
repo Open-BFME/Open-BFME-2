@@ -14,11 +14,11 @@
 // constructor (ZH body); BFME 2 adds one byte flag at +0x4900, cleared after
 // the enable flags.
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned char UnsignedByte;
-typedef short Short;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
+
 
 #include <windows.h>
 

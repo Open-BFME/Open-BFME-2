@@ -28,9 +28,9 @@
 // math.h copies of it and of atan2f (0x000422A0) are retail's bodies.
 #include <math.h>
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 // Zero Hour's inline Coord3D members (GeneralsMD BaseType.h). At /O1 they stay out of
 // line (retail 0x00003571 and 0x000035B6), but their visible bodies let the compiler

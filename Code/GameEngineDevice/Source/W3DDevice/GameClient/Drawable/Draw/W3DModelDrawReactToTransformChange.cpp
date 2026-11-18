@@ -20,7 +20,7 @@
 
 #define SLOT(n) virtual void slot##n();
 
-typedef float Real;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 #include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 

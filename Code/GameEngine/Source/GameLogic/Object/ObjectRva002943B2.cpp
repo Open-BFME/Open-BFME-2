@@ -26,7 +26,7 @@
 // TheGameLogic at 0x00DFE78C; callers 0x002933CD (chain + testStatus
 // 0x5F/0x60) and 0x00293926 (isKindOf gate) prove Object owner.
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

@@ -8,7 +8,7 @@
 // (Object_isAbleToAttack), template +0x108 gate and AI slot match retail
 // immediates; this +0x08 byte read from caller context; no callers yet.
 
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
 typedef unsigned char UByte;
 
 #include "../../Include/Common/ThingTemplate.h"

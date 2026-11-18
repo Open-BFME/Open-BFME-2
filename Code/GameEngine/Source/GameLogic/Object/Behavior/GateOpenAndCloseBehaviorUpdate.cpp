@@ -32,10 +32,10 @@
 // - The owner of the object at 0x0028BD17 gets its vftable slot 2 each frame;
 //   TheAudio's slot 27 removes the gate's sound when the owner dies.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum ArmorSetType { ARMORSET_NONE = 0 };
 

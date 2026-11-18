@@ -44,7 +44,7 @@ vector<Rva0021C21BElement, allocator<Rva0021C21BElement> >::operator=(
     const vector<Rva0021C21BElement, allocator<Rva0021C21BElement> > &);
 }
 
-typedef int Int;
+#include "../../Include/Common/ScalarTypes.h"
 
 #include "../../Include/Common/Overridable.h"
 

@@ -38,7 +38,7 @@ enum ObjectStatusTypes
 #include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 #include "../../../Include/GameClient/ModelConditionFlags.h"
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
 enum PathfindLayerEnum

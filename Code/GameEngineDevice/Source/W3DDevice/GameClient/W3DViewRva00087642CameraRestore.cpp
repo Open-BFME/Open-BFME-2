@@ -29,9 +29,9 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include <math.h>
 
-typedef float Real;
-typedef int Int;
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 extern float BfmeFollowSavedB0;
 extern float BfmeFollowSavedAC;

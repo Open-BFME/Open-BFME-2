@@ -19,10 +19,10 @@
 // 0x004D1EB1; the router passes the next logic frame.
 #include <bitset>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 enum NetCommandType
 {

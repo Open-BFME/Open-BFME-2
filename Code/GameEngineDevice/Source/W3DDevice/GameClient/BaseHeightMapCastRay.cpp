@@ -29,10 +29,10 @@ extern "C" { static float __cdecl floorf(float); }
 #define MAP_HEIGHT_SCALE (MAP_XY_FACTOR / 256.0f)
 #define ADJUST_FROM_INDEX_TO_REAL(k) ((k-m_map->m_border)*MAP_XY_FACTOR)
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef short Short;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 static inline Real bfmeFloorD(Real f) { double floorValue = floor(f); return (Real)floorValue; }
 static inline Real bfmeCeilD(Real f) { double ceilValue = ceil(f); return (Real)ceilValue; }

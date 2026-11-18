@@ -21,9 +21,9 @@
 // (BfmeLogicFramesPerSecond frames).
 #include "GameLogicObjectLookupView.h"
 
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 enum UpdateSleepTime
 {

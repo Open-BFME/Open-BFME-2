@@ -12,9 +12,9 @@
 // Consumed declaration-only Xfer slots include the BFME2 boolean slot90.
 // All direct callees have existing owners; no instantiated local vtables.
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes.h"
+
+
 
 struct XferVersion
 {

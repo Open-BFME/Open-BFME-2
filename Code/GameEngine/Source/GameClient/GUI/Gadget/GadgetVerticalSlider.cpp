@@ -13,10 +13,10 @@
 // 0x4004 (resized: the thumb is sized to the width by 16), 0x4008 (selected:
 // 0x400F to the owner), GGM_LEFT_DRAG, 0x400D (set position) and 0x400E (set
 // range, 16 pixels left for the thumb), as in BFME1.
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };

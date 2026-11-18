@@ -9,7 +9,7 @@
 // and back in the remembered mode otherwise. HLodClass's BFME 2 slots:
 // Peek_Animation_And_Info +0x208, Set_Animation +0xB4. Storage view as in
 // W3DModelDrawGetCurrentBonePositions.cpp.
-typedef bool Bool;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 class HAnimClass;
 

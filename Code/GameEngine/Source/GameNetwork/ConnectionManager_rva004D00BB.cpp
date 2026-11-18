@@ -12,10 +12,10 @@
 #include <windows.h>
 #include "GameLogicObjectLookupView.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef unsigned char UnsignedByte;
+#include "../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 #include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"

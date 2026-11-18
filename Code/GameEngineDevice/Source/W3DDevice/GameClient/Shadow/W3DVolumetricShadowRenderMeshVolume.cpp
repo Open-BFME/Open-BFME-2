@@ -26,8 +26,8 @@
 #include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 
 #include <d3d9.h>
-typedef float Real;
-typedef int Int;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
 
 
 struct IDirect3DDevice8;

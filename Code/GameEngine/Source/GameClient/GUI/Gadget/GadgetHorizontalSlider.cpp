@@ -14,10 +14,10 @@
 //
 // GadgetHorizontalSliderSystem 0x00321E5C (779B, Ghidra boundary): as in
 // BFME1, with a 13 pixel thumb (resize and set range subtract 0xD).
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 typedef UnsignedInt WindowMsgData;
 
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };

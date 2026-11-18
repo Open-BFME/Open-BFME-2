@@ -11,10 +11,10 @@
 // each other in retail in the donor's order.
 #include "Coord3D.h"
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 
 enum CellShroudStatus
 {

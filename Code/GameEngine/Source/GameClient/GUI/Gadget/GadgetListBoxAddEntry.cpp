@@ -19,10 +19,10 @@
 #include <string.h>
 #include "unicode_string.h"
 
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 
 #include <new>
 

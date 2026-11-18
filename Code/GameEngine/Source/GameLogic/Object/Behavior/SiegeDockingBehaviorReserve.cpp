@@ -18,9 +18,9 @@
 #include "Lib/Coord3D.h"
 #include "Common/GameLogicObjectLookupView.h"
 
-typedef float Real;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../../Include/Common/ThingTemplate.h"
 

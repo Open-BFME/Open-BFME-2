@@ -11,9 +11,9 @@
 // initialises through DisconnectManager::init. Method names stay address
 // derived: the bytes prove the hops, offsets and argument counts only.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../Include/Common/ScalarTypes.h"
+
+
 
 class ConnectionManager;
 

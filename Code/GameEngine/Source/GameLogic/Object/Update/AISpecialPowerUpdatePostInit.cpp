@@ -15,7 +15,7 @@
 // together with their AOE/targeted tests. Literals copied from retail.
 #include "ascii_string.h"
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 #include "../../../../Include/Common/NameKeyGenerator.h"

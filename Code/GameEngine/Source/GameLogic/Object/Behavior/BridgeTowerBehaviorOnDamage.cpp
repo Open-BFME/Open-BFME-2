@@ -11,7 +11,7 @@
 // the damage type (+0x10) and death type (+0x1C) into Object::attemptDamage
 // 0x0029848E.
 
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

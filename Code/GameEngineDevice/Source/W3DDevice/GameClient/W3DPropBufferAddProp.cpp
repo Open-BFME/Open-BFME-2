@@ -32,9 +32,9 @@
 // inlines the WWMath Vector3 copy; addProp inlines the WWMath Matrix3D
 // identity, Rotate_Z, Scale and Set_Translation.
 
-typedef int Int;
-typedef bool Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
 
 #include <math.h>
 

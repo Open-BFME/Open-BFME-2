@@ -77,9 +77,9 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

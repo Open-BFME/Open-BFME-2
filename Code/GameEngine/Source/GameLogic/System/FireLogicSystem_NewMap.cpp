@@ -40,7 +40,7 @@
 extern "C" { static float __cdecl floorf(float); }
 #include "Lib/Coord3D.h"
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes.h"
 
 #include <math.h>
 
