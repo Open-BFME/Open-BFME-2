@@ -10,6 +10,11 @@
    "inherited_slots": 0,
    "inherited_spans": []
   },
+  "reset_layout": {
+   "source": "Code/GameEngine/Source/Common/Rva00528F30Reset.cpp",
+   "rva": "0x00528F30",
+   "evidence": "169-byte native reset accesses level +4, flags +0x2C/+0x2D, value +0x30, string +0x34, rank +0x38, cost +0x50, portrait +0x60 and six 20-byte records from +0x70. Storage extents retain the existing owner view; opaque member types do not assert recovered identities."
+  },
   "retail_access": {},
   "retail_layout": {},
   "retail_member_rows": 1,
@@ -23,7 +28,71 @@
   "witness_offsets": [],
   "zh": {}
  },
- "fields": [],
+ "fields": [
+  {
+   "name": "level04",
+   "kind": "P",
+   "type": "void*",
+   "offset": 4,
+   "size": 4
+  },
+  {
+   "name": "flag2C",
+   "kind": "i1",
+   "type": "bool",
+   "offset": 44,
+   "size": 1
+  },
+  {
+   "name": "shown2D",
+   "kind": "i1",
+   "type": "bool",
+   "offset": 45,
+   "size": 1
+  },
+  {
+   "name": "value30",
+   "kind": "i4",
+   "type": "int",
+   "offset": 48,
+   "size": 4
+  },
+  {
+   "name": "text34",
+   "kind": "A",
+   "type": "char[4]",
+   "offset": 52,
+   "size": 4
+  },
+  {
+   "name": "rank38",
+   "kind": "A",
+   "type": "char[8]",
+   "offset": 56,
+   "size": 8
+  },
+  {
+   "name": "cost50",
+   "kind": "A",
+   "type": "char[8]",
+   "offset": 80,
+   "size": 8
+  },
+  {
+   "name": "portrait60",
+   "kind": "P",
+   "type": "void*",
+   "offset": 96,
+   "size": 4
+  },
+  {
+   "name": "records70",
+   "kind": "A",
+   "type": "char[120]",
+   "offset": 112,
+   "size": 120
+  }
+ ],
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
@@ -107,7 +176,7 @@
   }
  ],
  "queue": [],
- "size": 1,
- "size_by": "majority",
+ "size": 232,
+ "size_by": "native member extent and existing owner view",
  "vslots": {}
 }
