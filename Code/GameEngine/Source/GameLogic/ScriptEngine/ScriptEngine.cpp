@@ -257,9 +257,7 @@ private:
 	Rva00206706Head *m_head; // +0x00
 	int m_count; // +0x04
 };
-#define free bfmeUnusedCRTFree
 #include <cstdlib>
-#undef free
 void free(void *);
 #include <memory>
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
