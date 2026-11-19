@@ -1,7 +1,7 @@
 // cl: /D_OPERATOR_NEW_DEFINED_ /O1 /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ??1W3DTerrainVisual@@UAE@XZ, retail 0x0009203A..0x00092123 (233 bytes,
-// EH): the destructor the scalar deleting destructor ??_GRva009203A calls
+// EH): the destructor its scalar deleting destructor ??_GW3DTerrainVisual calls
 // (call at 0x00092126). Zero Hour's W3DTerrainVisual::~W3DTerrainVisual,
 // ported from Open-BFME-1's
 // game/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualDestructorBfme.cpp
@@ -18,15 +18,20 @@
 
 // Rva002DAB18's bases: the Snapshot table 0x00BBB554 (slots 1-3 __purecall)
 // and the SubsystemInterface table 0x00C039A0.
+// Each base has its destructor in slot 0, as retail's tables do: 0x00BC80A0
+// slot 0 is the scalar deleting destructor 0x00092123 and 0x00BC8068 slot 0
+// its this-4 thunk 0x00092032.
 class Rva002DAB18Primary
 {
 public:
+	virtual ~Rva002DAB18Primary();
 	virtual void loadPostProcess() = 0;
 };
 
 class Rva002DAB18Secondary
 {
 public:
+	virtual ~Rva002DAB18Secondary();
 	virtual void init() = 0;
 private:
 	int m_04;

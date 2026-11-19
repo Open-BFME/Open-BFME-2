@@ -169,3 +169,27 @@ official proposals on canonical LF content passed normal hooks in42d083ebc5;
 ordinary name_lane application and all73 function/76data checks passed again.
 No gate was weakened or vote fingerprint restamped. The archived native run
 measured the preserved pre-recovery C++ content, not a later runtime success.
+
+## 2026-11-19: the last B09 name, `??1Rva009203A@@UAE@XZ`
+
+At base `46209f1011` the real link (measured at `424a8a1cb3`) stopped on this one
+name alone. Rva009203A is W3DTerrainVisual: the destructor 0x0009203A has been rowed
+`??1W3DTerrainVisual@@UAE@XZ` since its recovery, while B09 kept the 28-byte wrapper
+0x00092123 and its this-4 thunk 0x00092032 under the opaque class, calling a
+destructor only a pin named. `rename.py class --fold` cannot carry it (constructor
+`Rva00091A80`, destructor `W3DTerrainVisual` and wrapper `Rva009203A` refuse on each
+other), and the canonical-header route waits on TerrainVisual's slot names (ceb0c54d63).
+
+Repair: W3DTerrainVisualDestructor.cpp's base views take the slot-0 destructor each of
+retail's two tables has (0x00BC80A0 slot 0 = 0x00092123, 0x00BC8068 slot 0 =
+0x00092032), so its object emits `??_GW3DTerrainVisual@@UAEPAXI@Z` and
+`??_EW3DTerrainVisual@@W3AEPAXI@Z` beside the destructor they call.
+`add_match.py --icf-owner` verified both against the opaque rows, which were then
+retired with their class, tag constructor and two pins. The rows sit with their parent
+in the destructor's unit; the map approves all three addresses for
+W3DTerrainVisual.cpp and they move together when that merge takes the destructor.
+
+Verification: `./build.sh` on both units 22/22; `link_check.py` (index `53b35fb75b`)
+B09 0 -> 454 B and W3DTerrainVisualDestructor.cpp 243 -> 279 B, both LINK; no object in
+build/match spells Rva009203A. Real-link confirmation waits for the next measured run.
+`reverse/exit_link_blockers.tsv` at that measure lists no other source.

@@ -30,7 +30,6 @@
 //   0x0008DE5E  0x0008BD5E  +0xB4 @ 0x0008BD43
 //   0x0008E533  0x0008E4EC  +0x8 @ 0x0008E52B
 //   0x0008F379  0x0008F00D  +0xC @ 0x0008F371
-//   0x00092123  0x0009203A  +0x4 @ 0x00092032
 
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "Common/Snapshot.h"
@@ -421,32 +420,6 @@ public:
 
 // ?<Rva008F00D::Rva008F00D> absent-from-retail
 Rva008F00D::Rva008F00D(EmitVtableTag *)
-{
-}
-
-class __declspec(novtable) Rva009203ABase0
-{
-public:
-	virtual ~Rva009203ABase0();
-};
-
-// Secondary base at +0x4: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0x4) at 0x00092032 in its vtable is target evidence for it.
-class __declspec(novtable) Rva009203ABase4
-{
-public:
-	virtual ~Rva009203ABase4();
-};
-class Rva009203A : public Rva009203ABase0, public Rva009203ABase4
-{
-public:
-	Rva009203A(EmitVtableTag *);
-public:
-	virtual ~Rva009203A();
-};
-
-// ?<Rva009203A::Rva009203A> absent-from-retail
-Rva009203A::Rva009203A(EmitVtableTag *)
 {
 }
 
