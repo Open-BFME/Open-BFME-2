@@ -12,7 +12,7 @@ typedef unsigned short wchar_t;
 typedef bool Bool;
 
 template <typename T> class StringBase;
-class UnicodeString;
+
 
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 

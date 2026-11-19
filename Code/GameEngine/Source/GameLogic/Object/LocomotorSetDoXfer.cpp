@@ -64,7 +64,7 @@ class Snapshot;
 #include "../../../Include/GameLogic/LocomotorClass.h"
 
 class LocomotorTemplate;
-class ModuleData;
+
 #include "../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;
 

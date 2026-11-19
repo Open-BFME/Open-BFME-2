@@ -71,7 +71,7 @@ enum DeathType
 };
 
 class GettingBuiltBehaviorInterface;
-class Object;
+
 
 #include "../../../../Include/Common/ScoreKeeperClass.h"
 

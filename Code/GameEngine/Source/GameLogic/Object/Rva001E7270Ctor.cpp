@@ -15,9 +15,9 @@ class Object;
 namespace _STL { template <> vector<Object *,allocator<Object *> >::~vector(); }
 // Import-inline: this unit's bfmealloc _Vector_base<Object*> dtor copy is not retail's
 // EH-framed body (0x001F1609); its uses here are all inlined, so none is emitted.
-class Object;
+
 namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (this->_M_start != 0) this->_M_end_of_storage.deallocate(this->_M_start, this->_M_end_of_storage._M_data - this->_M_start); } }
-class Object;
+
 // Only the destructor slot is modelled: the Rva001E72B4Dtor.cpp and
 // OpaqueScalarDeletingDtorsB03.cpp views emit the same one-slot vtable copy.
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"

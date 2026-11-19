@@ -30,25 +30,25 @@ struct Rva003328B6Element;
 namespace _STL { template <> void vector<Rva003328B6Element,allocator<Rva003328B6Element> >::push_back(Rva003328B6Element const &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAURva003328B6Element@@IU1@@_STL@@YAPAURva003328B6Element@@PAU1@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003328B6Element;
+
 namespace _STL { template <> Rva003328B6Element * __uninitialized_fill_n<Rva003328B6Element *,unsigned int,Rva003328B6Element>(Rva003328B6Element *,unsigned int,Rva003328B6Element const &,__false_type const &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAURva003328B6Element@@PAU1@@_STL@@YAPAURva003328B6Element@@PAU1@0:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003328B6Element;
+
 namespace _STL { template <> Rva003328B6Element * __uninitialized_copy<Rva003328B6Element *,Rva003328B6Element *>(Rva003328B6Element *,Rva003328B6Element *,Rva003328B6Element *,__false_type const &); }
 // Suppress this TU's non-retail copy of ?reserve@?$vector@URva003328B6Element@@V?$allocator@URva003328B6Element@@@_STL@@@_STL@@QAE:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void vector<Rva003328B6Element,allocator<Rva003328B6Element> >::reserve(unsigned int); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@URva003328B6Element@@V?$allocator@URva003328B6Element@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003328B6Element;
+
 namespace _STL { template <> void vector<Rva003328B6Element,allocator<Rva003328B6Element> >::_M_insert_overflow(Rva003328B6Element *,Rva003328B6Element const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAURva003328B6Element@@U1@V?$allocator@URva003328B6Element@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003328B6Element;
+
 namespace _STL { template <> Rva003328B6Element * _STLP_alloc_proxy<Rva003328B6Element *,Rva003328B6Element,allocator<Rva003328B6Element> >::allocate(unsigned int); }
 // Inline the allocator release so vector cleanup uses the native game free.
-struct Rva003328B6Element;
+
 namespace _STL { template <> __declspec(dllimport) __forceinline void allocator<Rva003328B6Element>::deallocate(Rva003328B6Element *p,unsigned int) const { if (p) free(p); } }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.

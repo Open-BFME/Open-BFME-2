@@ -70,13 +70,13 @@ public:
 		CanEnterType mode, bool passThrough, bool *outFlag);
 };
 
-class ActionManager;
+
 
 extern ActionManager *TheActionManager;
 
 extern GameLogic *TheGameLogic;
 
-class Xfer;
+
 
 // Retail vftable 0x00C6A3C4: slot 3 is xfer (0x00546D15) and slot 4 the
 // garrison step 0x00546DD4, as in the twin AttackObjectGroupOrder.cpp.

@@ -40,7 +40,7 @@ public:
 
 class StaticNameKey;
 extern const StaticNameKey TheKey_playerName;	// "playerName"
-class StaticNameKey;
+
 extern const StaticNameKey TheKey_teamOwner;	// "teamOwner"
 
 class BfmeThingUBB

@@ -21,23 +21,23 @@ namespace _STL { template <> Rva004F8D92Element * __uninitialized_copy<Rva004F8D
 namespace _STL { template <> Rva004F8D92Element * __uninitialized_fill_n<Rva004F8D92Element *,unsigned int,Rva004F8D92Element>(Rva004F8D92Element *,unsigned int,Rva004F8D92Element const &,__false_type const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@URva004F8D92Element@@V?$allocator@URva004F8D92Element@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva004F8D92Element;
+
 namespace _STL { template <> void vector<Rva004F8D92Element,allocator<Rva004F8D92Element> >::_M_insert_overflow(Rva004F8D92Element *,Rva004F8D92Element const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ?push_back@?$vector@URva004F8D92Element@@V?$allocator@URva004F8D92Element@@@_STL@@@_STL@@Q:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva004F8D92Element;
+
 namespace _STL { template <> void vector<Rva004F8D92Element,allocator<Rva004F8D92Element> >::push_back(Rva004F8D92Element const &); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAURva004F8D92Element@@U1@V?$allocator@URva004F8D92Element@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva004F8D92Element;
+
 namespace _STL { template <> Rva004F8D92Element * _STLP_alloc_proxy<Rva004F8D92Element *,Rva004F8D92Element,allocator<Rva004F8D92Element> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@URva004F8D92Element@@@_STL@@QBEXPAURva004F8D92Element@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva004F8D92Element;
+
 namespace _STL { template <> void allocator<Rva004F8D92Element>::deallocate(Rva004F8D92Element *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ??$_Destroy@PAURva004F8D92Element@@@_STL@@YAXPAURva004F8D92Element@@0@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva004F8D92Element;
+
 namespace _STL { template <> void _Destroy<Rva004F8D92Element *>(Rva004F8D92Element *,Rva004F8D92Element *); }
 // Suppress this TU's non-retail copy: the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void vector<Rva004F8D92Element, allocator<Rva004F8D92Element> >::_M_clear(); }

@@ -20,7 +20,7 @@ class AsciiString;
 
 // slot at VA 0x00C6F100: when the argument differs from +0x3C, runs the rowed
 // cdecl 0x0057A51C with (+0x08, &+0x0C, argument) and stores it at +0x3C.
-struct Rva0057A51CTeam;
+
 class Rva0057A83C
 {
 public:

@@ -380,7 +380,7 @@ class Rva0035149F : public _STL::vector<Coord3D>
 {
 };
 
-class Object;
+
 
 class LocomotorSet;
 

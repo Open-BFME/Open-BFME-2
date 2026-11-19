@@ -14,7 +14,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 
 class File;
 

@@ -7,7 +7,7 @@ void __cdecl Rva00511730(int unused);
 #include "../../Include/Common/Rva00224455.h"
 #include "../../Include/GameClient/Rva002244CA.h"
 class Rva00222A8BTarget;
-class Rva00222A8BTarget;
+
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class CreateAHeroData;

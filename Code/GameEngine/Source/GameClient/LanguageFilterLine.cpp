@@ -20,7 +20,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 #include "../../Include/Common/ScalarTypes.h"
 
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 #define NEW new
 #define DEBUG_CRASH(x) ((void)0)
 #define DEBUG_LOG(x) ((void)0)

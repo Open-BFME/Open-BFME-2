@@ -121,11 +121,11 @@ template <> void vector<Rva0040CB11Entry, allocator<Rva0040CB11Entry> >::reserve
 #include "Common/Snapshot.h"
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@VRva0040CB11Entry@@V?$allocator@VRva0040CB11Entry@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Rva0040CB11Entry;
+
 namespace _STL { template <> void vector<Rva0040CB11Entry,allocator<Rva0040CB11Entry> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@VRva0040CB11Entry@@@_STL@@QBEXPAVRva0040CB11Entry@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Rva0040CB11Entry;
+
 namespace _STL { template <> void allocator<Rva0040CB11Entry>::deallocate(Rva0040CB11Entry *,unsigned int) const; }
 
 class ArmySummary : public Snapshot

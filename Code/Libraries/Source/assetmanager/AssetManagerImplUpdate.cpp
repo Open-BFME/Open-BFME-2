@@ -117,7 +117,7 @@ template <> template <> __declspec(noinline) inline _Rb_tree<Rva001408C0Target *
 #define THREAD_PRIORITY_BELOW_NORMAL (-1)
 #endif
 
-struct Rva001408C0Target;
+
 typedef _STL::set<Rva001408C0Target *> Rva001408C0Set;
 
 // The receiver's 0x14-byte set wrapper (the name the pinned 0x009EFD40 member

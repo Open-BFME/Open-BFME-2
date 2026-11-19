@@ -32,11 +32,11 @@ struct BfmePod264;
 namespace _STL { template <> pair<int const ,list<BfmePod264,allocator<BfmePod264> > > & hashtable<pair<int const ,list<BfmePod264,allocator<BfmePod264> > >,int,hash<int>,_Select1st<pair<int const ,list<BfmePod264,allocator<BfmePod264> > > >,equal_to<int>,allocator<pair<int const ,list<BfmePod264,allocator<BfmePod264> > > > >::_M_insert(pair<int const ,list<BfmePod264,allocator<BfmePod264> > > const &); }
 // Suppress this TU's non-retail copy of ?insert@?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@QAE?AU?$_List_iterator:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod264;
+
 namespace _STL { template <> _List_iterator<BfmePod264,_Nonconst_traits<BfmePod264> > list<BfmePod264,allocator<BfmePod264> >::insert(_List_iterator<BfmePod264,_Nonconst_traits<BfmePod264> >,BfmePod264 const &); }
 // Suppress this TU's non-retail copy of ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod264;
+
 namespace _STL { template <> unsigned int hashtable<pair<int const ,list<BfmePod264,allocator<BfmePod264> > >,int,hash<int>,_Select1st<pair<int const ,list<BfmePod264,allocator<BfmePod264> > > >,equal_to<int>,allocator<pair<int const ,list<BfmePod264,allocator<BfmePod264> > > > >::_M_bkt_num_key(int const &) const; }
 // Keep bucket access inline so the key-only search reproduces retail's
 // complete 47-byte body without emitting a competing public accessor.

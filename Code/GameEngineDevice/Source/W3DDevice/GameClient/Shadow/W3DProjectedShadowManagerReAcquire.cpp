@@ -7,7 +7,7 @@
 // Donor evidence: BFME1 W3DProjectedShadowManager::ReAcquireResources names
 // the owner; BFME2 body uses BfmeDynamicNativeVB + DX8IndexBufferClass.
 // Inference: two buffer members at +0/+4, no vtable in this layout.
-typedef unsigned int Uint;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Source/Uint.h"
 typedef unsigned short UShort;
 void *__cdecl operator new(Uint s);
 #include <new>

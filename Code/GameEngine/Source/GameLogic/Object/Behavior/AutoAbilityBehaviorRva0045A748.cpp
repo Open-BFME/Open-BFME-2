@@ -72,7 +72,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 }
 }
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class Drawable;
+
 class Object {
 public:
     Drawable *getDrawable() const;

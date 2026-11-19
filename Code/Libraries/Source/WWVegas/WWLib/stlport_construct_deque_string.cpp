@@ -40,23 +40,23 @@ struct BfmeWordValue4;
 namespace _STL { template <> void allocator<BfmeWordValue4 *>::deallocate(BfmeWordValue4 * *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UBfmeWordValue4@@@_STL@@QBEXPAUBfmeWordValue4@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeWordValue4;
+
 namespace _STL { template <> void allocator<BfmeWordValue4>::deallocate(BfmeWordValue4 *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAPAUBfmeWordValue4@@PAU1@V?$allocator@PAUBfmeWordValue4@@@_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeWordValue4;
+
 namespace _STL { template <> BfmeWordValue4 * * _STLP_alloc_proxy<BfmeWordValue4 * *,BfmeWordValue4 *,allocator<BfmeWordValue4 *> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAPAV?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeWordValue4;
+
 namespace _STL { template <> deque<BfmeWordValue4,allocator<BfmeWordValue4> > * * _STLP_alloc_proxy<deque<BfmeWordValue4,allocator<BfmeWordValue4> > * *,deque<BfmeWordValue4,allocator<BfmeWordValue4> > *,allocator<deque<BfmeWordValue4,allocator<BfmeWordValue4> > *> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_S:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeWordValue4;
+
 namespace _STL { template <> void allocator<deque<BfmeWordValue4,allocator<BfmeWordValue4> > >::deallocate(deque<BfmeWordValue4,allocator<BfmeWordValue4> > *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@PAV?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeWordValue4;
+
 namespace _STL { template <> void allocator<deque<BfmeWordValue4,allocator<BfmeWordValue4> > *>::deallocate(deque<BfmeWordValue4,allocator<BfmeWordValue4> > * *,unsigned int) const; }
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).

@@ -64,8 +64,8 @@ template<> inline __declspec(noinline) _List_base<const Object*,allocator<const 
     _M_node.deallocate(_M_node._M_data, 1);
 }
 }
-class Object;
-class Drawable;
+
+
 enum ObjectStatusTypes { STATUS_ZERO=0 };
 #include "../../Include/Common/ThingTemplate.h"
 class SelectionContain

@@ -21,7 +21,7 @@ struct BfmeRecord001ECAF9;
 namespace _STL { template <> void vector<BfmeRecord001ECAF9,allocator<BfmeRecord001ECAF9> >::push_back(BfmeRecord001ECAF9 const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeRecord001ECAF9;
+
 namespace _STL { template <> void vector<BfmeRecord001ECAF9,allocator<BfmeRecord001ECAF9> >::_M_insert_overflow(BfmeRecord001ECAF9 *,BfmeRecord001ECAF9 const &,__false_type const &,unsigned int,bool); }
 
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };

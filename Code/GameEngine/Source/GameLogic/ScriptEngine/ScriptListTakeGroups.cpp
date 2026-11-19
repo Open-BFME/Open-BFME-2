@@ -37,7 +37,7 @@ public:
 #include "../../../Include/Common/Rva003B40A1Holder.h"
 struct CapturedGroup { int unknown; ScriptGroupLink *groups; ScriptEntryLink *scripts; };
 class BfmeKeyZK;
-struct BfmeNodeZK;
+
 class ScriptList {
 public:
     __declspec(noinline) void doTakeGroup(ScriptList *source,ScriptGroupLink **from,ScriptGroupLink **to);

@@ -47,7 +47,7 @@ template <> __declspec(dllimport) __forceinline void _Construct<BfmePod8, BfmePo
 }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@UBfmePod8@@@_STL@@QBEPAUBfmePod8@@IPBX@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod8;
+
 namespace _STL { template <> BfmePod8 *allocator<BfmePod8>::allocate(size_t, const void *) const; }
 
 // The element retail really holds here is the 8-byte record whose

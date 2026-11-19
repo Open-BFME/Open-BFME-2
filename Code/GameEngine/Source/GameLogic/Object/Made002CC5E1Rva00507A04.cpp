@@ -80,7 +80,7 @@ public:
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
 
-class DelayedLuaEventList;
+
 class DelayedLuaEventUpdate
 {
 public:

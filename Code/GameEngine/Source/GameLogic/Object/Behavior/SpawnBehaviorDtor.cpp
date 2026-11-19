@@ -47,7 +47,7 @@ public:
 // SpawnBehavior primary, BehaviorModuleInterface and +0x10 tables (LINK-177).
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class Object;
+
 class DamageInfo;
 struct Coord3D;
 enum ObjectID;

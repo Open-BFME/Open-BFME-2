@@ -15,7 +15,7 @@ class ModuleData;
 namespace _STL {
 template<> void vector<const ModuleData *>::reserve(unsigned int);
 }
-class ModuleData;
+
 
 class Rva0022300F
 {

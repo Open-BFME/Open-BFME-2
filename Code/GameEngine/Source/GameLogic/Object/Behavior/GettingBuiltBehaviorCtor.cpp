@@ -42,7 +42,7 @@ class Object;
 // Retail table 0x00C40434 (+0x10) slot 0 is the rowed override 0x00454DF9.
 
 
-class Object;
+
 class Rva004530ED;
 
 class GettingBuiltBehaviorInterface

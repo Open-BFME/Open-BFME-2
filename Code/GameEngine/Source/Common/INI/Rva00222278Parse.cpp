@@ -27,7 +27,7 @@ class AsciiString; struct TreeHintRef00221D6B;
 namespace _STL { template <> _Rb_tree_node<pair<AsciiString const ,TreeHintRef00221D6B> > * _Rb_tree<AsciiString,pair<AsciiString const ,TreeHintRef00221D6B>,_Select1st<pair<AsciiString const ,TreeHintRef00221D6B> >,less<AsciiString>,allocator<pair<AsciiString const ,TreeHintRef00221D6B> > >::_M_create_node(pair<AsciiString const ,TreeHintRef00221D6B> const &); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintRef00221D6B@@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString; struct TreeHintRef00221D6B;
+ struct TreeHintRef00221D6B;
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<AsciiString const ,TreeHintRef00221D6B> > >::deallocate(_Rb_tree_node<pair<AsciiString const ,TreeHintRef00221D6B> > *,unsigned int) const; }
 #include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/Rva00221A58.h"

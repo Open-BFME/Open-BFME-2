@@ -5,7 +5,7 @@
 // Callees rowed isSelectionLocked 0x4253A rva002E0687 0x2E0687 set 0x37150 releaseBuffer 0x36E70 format 0x6CB660 copyCtor 0x37050 setMissionHelpText 0x29B16A; TheGameText fetch slot 0x3C TheInGameUI VA 0xDFEDF0 empty wide literal VA 0xBBB5C4.
 #include "unicode_string.h"
 
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 
 #include "../../Include/Common/BfmeSelectionState.h"
 

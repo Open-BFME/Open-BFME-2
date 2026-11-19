@@ -96,7 +96,11 @@ __forceinline long fast_float2long_round(float f)
  }
  return i;
 }
-typedef int Int;typedef bool Bool;
+
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
+
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Bool.h"
+
 // The matched camera one-frame bodies establish this two-Real easing object.
 struct BfmeSpeedEase
 {

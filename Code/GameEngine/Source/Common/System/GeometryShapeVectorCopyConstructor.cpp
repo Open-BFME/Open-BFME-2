@@ -28,28 +28,28 @@ typedef bool Bool;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 // Suppress this TU's non-retail copy of ?push_back@?$vector@UBfmeStringRecord00063BE4@@V?$allocator@UBfmeStringRecord00063BE4@@@_STL@@@_STL@@QAEXABUGeom:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord00063BE4;
+
 namespace _STL { template <> void vector<BfmeStringRecord00063BE4,allocator<BfmeStringRecord00063BE4> >::push_back(BfmeStringRecord00063BE4 const &); }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@UBfmeStringRecord00063BE4@@V?$allocator@UBfmeStringRecord00063BE4@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord00063BE4;
+
 namespace _STL { template <> void vector<BfmeStringRecord00063BE4,allocator<BfmeStringRecord00063BE4> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@UBfmeStringRecord00063BE4@@V?$allocator@UBfmeStringRecord00063BE4@@@_STL@@@_STL@@IA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord00063BE4;
+
 namespace _STL { template <> void vector<BfmeStringRecord00063BE4,allocator<BfmeStringRecord00063BE4> >::_M_insert_overflow(BfmeStringRecord00063BE4 *,BfmeStringRecord00063BE4 const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ??$_Construct@UBfmeStringRecord00063BE4@@U1@@_STL@@YAXPAUBfmeStringRecord00063BE4@@ABU1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord00063BE4;
+
 namespace _STL { template <> void _Construct<BfmeStringRecord00063BE4,BfmeStringRecord00063BE4>(BfmeStringRecord00063BE4 *,BfmeStringRecord00063BE4 const &); }
 // The native count-base and its inline allocator path are emitted here.
 // Suppress this TU's non-retail copy of ??1?$_Vector_base@UBfmeStringRecord00063BE4@@V?$allocator@UBfmeStringRecord00063BE4@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord00063BE4;
+
 namespace _STL { template <> _Vector_base<BfmeStringRecord00063BE4,allocator<BfmeStringRecord00063BE4> >::~_Vector_base(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UBfmeStringRecord00063BE4@@@_STL@@QBEXPAUBfmeStringRecord00063BE4@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord00063BE4;
+
 namespace _STL { template <> void allocator<BfmeStringRecord00063BE4>::deallocate(BfmeStringRecord00063BE4 *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.

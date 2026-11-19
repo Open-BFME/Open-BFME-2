@@ -25,7 +25,7 @@ class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 
 class UpgradeTemplate;
-class SpecialPowerTemplate;
+
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 

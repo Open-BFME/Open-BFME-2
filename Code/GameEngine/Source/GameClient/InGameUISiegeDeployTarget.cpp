@@ -33,7 +33,7 @@ namespace _STL {
 template<> _List_base<const Object*,allocator<const Object*> >::_List_base(const allocator<const Object*>&);
 template<> _List_base<const Object*,allocator<const Object*> >::~_List_base();
 }
-class Object;
+
 class Drawable;
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 enum ObjectStatusTypes { STATUS_ZERO=0 };

@@ -5,7 +5,7 @@
 // Same recipe as ?Rva0043A568Get@@YA?AVUnicodeString@@H@Z 0x0043A568.
 // Evidence: same callees format 0x006CB5D0 set 0x00037150 releaseBuffer
 // 0x00036E70 copy ctor 0x00037050; callers 0x005D6123 0x005D6133.
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 
 #include "unicode_string.h"
 
