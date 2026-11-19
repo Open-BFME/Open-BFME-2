@@ -4,15 +4,13 @@
 // STLport 4.5.3 basic_string<char>::_M_insert_aux, the reallocating half of
 // insert(iterator, char).
 
-typedef unsigned int size_t;
-
-extern "C" __declspec(dllimport) void *__cdecl memmove(void *destination,
-    const void *source, size_t count);
-// Retail calls free directly (the game allocator at 0x00030830), not through
-// the CRT import: read <stdlib.h> without dllimport.
+// size_t and free come from <stdlib.h> without dllimport (retail calls the
+// game allocator at 0x00030830 directly); memmove comes from <string.h>
+// dllimport under /MD, matching the retail IAT call.
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+#include <string.h>
 
 inline void *operator new(size_t, void *place)
 {
