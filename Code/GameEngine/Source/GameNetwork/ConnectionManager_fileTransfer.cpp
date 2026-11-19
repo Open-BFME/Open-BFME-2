@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc_alloconly
 // stlport
 // ConnectionManager's file-transfer handlers:
 //   processFileProgress, retail 0x004D2852, 116 bytes
@@ -26,9 +26,10 @@
 
 #include <map>
 #include "ascii_string.h"
-// Suppress this TU's non-retail copy of ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBGH@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> _Rb_tree_node<pair<unsigned short const ,int> > * allocator<_Rb_tree_node<pair<unsigned short const ,int> > >::allocate(unsigned int,void const *) const; }
+// The progress maps' nodes come from retail's raw byte allocator: retail
+// 0x004DCC62 (the Gen_lt_00940b40 tree's _M_create_node)
+// inlines `push 0 / push 0x18 / call 0x004307F0`. The stock __malloc_alloc
+// node allocate made this unit's copy `push 1 / call allocate` instead (LINK-682).
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline pair<unsigned short const ,int>::pair(unsigned short const &a,int const &b) : first(a), second(b) {} }
 // Bind to the kept retail copy instead of emitting this unit's own.

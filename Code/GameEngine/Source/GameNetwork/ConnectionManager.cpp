@@ -109,6 +109,10 @@ static inline bool operator==(const _Rb_tree_iterator<T, LeftTraits>& a,
 // bfme link decl-only begin
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<unsigned short const, unsigned char>, _Nonconst_traits<pair<unsigned short const, unsigned char> > >, bool> _Rb_tree<unsigned short, pair<unsigned short const, unsigned char>, _Select1st<pair<unsigned short const, unsigned char> >, less<unsigned short>, allocator<pair<unsigned short const, unsigned char> > >::insert_unique(pair<unsigned short const, unsigned char> const &); }
 namespace _STL { template <> pair<unsigned short const, unsigned char>::pair(unsigned short const &, unsigned char const &); }
+// Retail processFileAnnounce calls the /O1 FileMaskMap subscript 0x004D26E6
+// (StlO1Instantiations.cpp), whose chain 0x004D21EC, 0x004D1F1A, 0x004D1B6D and
+// 0x004D0FD4 is rowed with it; this unit's own copies were not those bodies (LINK-682).
+namespace _STL { template <> unsigned char &map<unsigned short, unsigned char, less<unsigned short>, allocator<pair<unsigned short const, unsigned char> > >::operator[](const unsigned short &); }
 namespace _STL { template <> _Rb_tree<unsigned short, pair<unsigned short const, int>, _Select1st<pair<unsigned short const, int> >, less<unsigned short>, allocator<pair<unsigned short const, int> > >::~_Rb_tree(); }
 namespace _STL { template <> void _Rb_tree<unsigned short, pair<unsigned short const, int>, _Select1st<pair<unsigned short const, int> >, less<unsigned short>, allocator<pair<unsigned short const, int> > >::_M_erase(_Rb_tree_node<pair<unsigned short const, int> > *); }
 namespace _STL { template <> void _Rb_tree<unsigned short, pair<unsigned short const, int>, _Select1st<pair<unsigned short const, int> >, less<unsigned short>, allocator<pair<unsigned short const, int> > >::clear(); }
