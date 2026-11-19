@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -ICode/Libraries/Source/WWVegas/WW3D2
 //
 // Bodies ported from Open-BFME-1's GameEngineDevice/Source/W3DDevice/GameClien
 // t/Water/W3DWaterTracksTestUpdate.cpp (donor revision
@@ -35,10 +35,6 @@
 #include "unicode_string.h"
 #include "vector2.h"
 #include <windows.h>
-extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int);
-extern "C" __declspec(dllimport) int __stdcall GetCursorPos(POINT*);
-extern "C" __declspec(dllimport) int __stdcall ScreenToClient(void*,POINT*);
-enum { VK_F5=0x74,VK_F6=0x75,VK_F7=0x76,VK_F8=0x77,VK_DELETE=0x2e,VK_INSERT=0x2d };
 typedef int Int; typedef float Real; typedef bool Bool;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 // Target FF921/FF93C registers two empty static-point destructors. Use the
