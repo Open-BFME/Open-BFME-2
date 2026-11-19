@@ -21,6 +21,8 @@ private:
 
 #include "../../Include/Common/MiBase1.h"
 
+enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
+
 class Rva00253E19_B2
 {
 public:
@@ -69,10 +71,11 @@ Rva0033EEC9::~Rva0033EEC9()
 {
 }
 
+// The +0x10 update interface: slot 0 of its retail table is the rowed StealthUpdate::update.
 class Rva00373CB1_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 };
 
 // StealthUpdate (retail module class, module_factory_registrations.csv): its
@@ -83,6 +86,7 @@ class StealthUpdate : public UpdateModule, public MiBase1, public Rva00373CB1_B2
 {
 public:
 	virtual ~StealthUpdate();
+	virtual UpdateSleepTime update();
 };
 
 StealthUpdate::~StealthUpdate()
@@ -137,16 +141,18 @@ Rva003A4CAE::~Rva003A4CAE()
 {
 }
 
+// The +0x10 update interface: slot 0 of its retail table is the rowed BuildingBehavior::update.
 class Rva004561A2_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class BuildingBehavior : public UpdateModule, public MiBase1, public Rva004561A2_B2
 {
 public:
 	virtual ~BuildingBehavior();
+	virtual UpdateSleepTime update();
 };
 
 BuildingBehavior::~BuildingBehavior()
@@ -219,16 +225,18 @@ Rva0048D742::~Rva0048D742()
 {
 }
 
+// The +0x10 update interface: slot 0 of its retail table is the rowed HeightDieUpdate::update.
 class Rva0048FBBA_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class HeightDieUpdate : public UpdateModule, public MiBase1, public Rva0048FBBA_B2
 {
 public:
 	virtual ~HeightDieUpdate();
+	virtual UpdateSleepTime update();
 };
 
 HeightDieUpdate::~HeightDieUpdate()
@@ -257,16 +265,18 @@ Rva0049188D::~Rva0049188D()
 
 
 
+// The +0x10 update interface: slot 0 of its retail table is the rowed BannerCarrierUpdate::update.
 class Rva004969FF_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class BannerCarrierUpdate : public UpdateModule, public MiBase1, public Rva004969FF_B2
 {
 public:
 	virtual ~BannerCarrierUpdate();
+	virtual UpdateSleepTime update();
 };
 
 BannerCarrierUpdate::~BannerCarrierUpdate()
@@ -289,32 +299,36 @@ Rva00499F45::~Rva00499F45()
 {
 }
 
+// The +0x10 update interface: slot 0 of its retail table is the rowed AutoDepositUpdate::update.
 class Rva0049A1AB_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class AutoDepositUpdate : public UpdateModule, public MiBase1, public Rva0049A1AB_B2
 {
 public:
 	virtual ~AutoDepositUpdate();
+	virtual UpdateSleepTime update();
 };
 
 AutoDepositUpdate::~AutoDepositUpdate()
 {
 }
 
+// The +0x10 update interface: slot 0 of its retail table is the rowed Rva0049B2A2::update.
 class Rva0049B2A2_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class Rva0049B2A2 : public UpdateModule, public MiBase1, public Rva0049B2A2_B2
 {
 public:
 	virtual ~Rva0049B2A2();
+	virtual UpdateSleepTime update();
 };
 
 Rva0049B2A2::~Rva0049B2A2()
@@ -390,7 +404,6 @@ Rva004AE78E::~Rva004AE78E()
 // this destructor stores; slot 0 of 0x0085693C is the rowed
 // EntEnragedUpdate::update. The +0x10 interface is the one-slot view
 // EntEnragedUpdateCtorThunk.cpp uses, so the shared vftable copies agree.
-enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
 
 
@@ -441,20 +454,14 @@ ObjectHelper::~ObjectHelper()
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?f2@Rva00253E19_B2@@UAEXXZ=?update@Rva004CED4BUpdateInterface@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva00253EF5_B2@@UAEXXZ=?update@NotifyTargetsOfImminentProbableCrushingUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva00373CB1_B2@@UAEXXZ=?update@StealthUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva003A4322_B2@@UAEXXZ=?update@Rva003A4322_B2@@QAEHXZ")
 #pragma comment(linker, "/alternatename:?f2@Rva003A49D1_B2@@UAEXXZ=?update@LifetimeUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva003A4CAE_B2@@UAEXXZ=?update@StrafeAreaUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva004561A2_B2@@UAEXXZ=?update@BuildingBehavior@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva0047F92D_B2@@UAEXXZ=?update@CivilianSpawnUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva0048B671_B2@@UAEXXZ=?update@FireSpreadUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva0048D742_B2@@UAEXXZ=?update@FloatUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0048FBBA_B2@@UAEXXZ=?update@HeightDieUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva0049188D_B2@@UAEXXZ=?update@AttachUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva004969FF_B2@@UAEXXZ=?update@BannerCarrierUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva00499F45_B2@@UAEXXZ=?update@SpecialEnemySenseUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0049A1AB_B2@@UAEXXZ=?update@AutoDepositUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0049B2A2_B2@@UAEXXZ=?update@Rva0049B2A2@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva004A3F8B_B2@@UAEXXZ=?update@HijackerUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva004AE78E_B2@@UAEXXZ=?update@DetachableRiderUpdateUpdateReceiver@@QAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva004CC63A_B2@@UAEXXZ=?update@TemporarilyDefectUpdate@@UAE?AW4UpdateSleepTime@@XZ")

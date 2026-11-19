@@ -75,10 +75,11 @@ public:
 	virtual void f1();
 };
 
+// The +0x10 update interface: slot 0 of its retail table is the rowed StealthUpdate::update.
 class __declspec(novtable) Rva00373CB1_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class StealthUpdateModuleData
@@ -98,6 +99,7 @@ class StealthUpdate : public UpdateModule, public MiBase1, public Rva00373CB1_B2
 public:
 	StealthUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~StealthUpdate();
+	virtual UpdateSleepTime update();
 private:
 	const StealthUpdateModuleData *getStealthUpdateModuleData() const { return (const StealthUpdateModuleData *)m_moduleData; }
 
