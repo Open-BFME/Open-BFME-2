@@ -47,7 +47,12 @@ struct Iface24 { virtual void f24(); };
 #include "../../../../Include/Common/Iface2C.h"
 struct Iface30 { virtual void f30(); };
 struct Iface34 { virtual void f34(); unsigned char m_pad[0xFC - 0x38]; };
-struct IfaceFC { virtual void fFC(); };
+class Object;
+class ThingTemplate;
+class PayloadContainView;
+// The +0xFC interface: retail's one-slot table 0x00C47834 holds the rowed
+// TransportContain::createPayloadMember (0x00466FE0, TransportContain.cpp).
+struct IfaceFC { virtual Object *createPayloadMember(const ThingTemplate *, PayloadContainView *, Object *, const char *, int) = 0; };
 
 class TransportContain
 	: public Iface00
@@ -64,6 +69,7 @@ class TransportContain
 public:
 	TransportContain(Thing *thing, const ModuleData *moduleData);
 	virtual ~TransportContain();
+	virtual Object *createPayloadMember(const ThingTemplate *what, PayloadContainView *contain, Object *parent, const char *name, int initial);	// 0x00466FE0
 
 private:
 	unsigned char m_pad100[0x11C - 0x100];
