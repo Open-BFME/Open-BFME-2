@@ -127,7 +127,7 @@ extern void buildRegion(const ICoord2D *, const ICoord2D *, IRegion2D *);
 
 #ifndef _DRAWABLE_H_
 #define _DRAWABLE_H_
-enum DrawableStatus { DRAWABLE_STATUS_NONE = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DrawableStatus.h"
 class Drawable : public Thing {
 public:
  Object *getObject() const { return *(Object *const *)((const char *)this + 0xFC); }

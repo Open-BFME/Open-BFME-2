@@ -18,7 +18,7 @@ class StrategicStatsPreferences:public ProfilePreferences {
  public: StrategicStatsPreferences(const UnicodeString&);virtual ~StrategicStatsPreferences();
 };
 #include "../../Include/GameClient/SkirmishPreferencesClass.h"
-enum NameKeyType {NAMEKEY_INVALID=0};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../Include/Common/NameKeyGenerator.h"
 class PlayerTemplate {public:const AsciiString&getSide()const{return side;}char gap[24];AsciiString side;};
 class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};

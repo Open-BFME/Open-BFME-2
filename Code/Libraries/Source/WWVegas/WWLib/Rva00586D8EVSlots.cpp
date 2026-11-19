@@ -19,7 +19,7 @@ struct BfmeV84 { int m_00; char _pad1c[0x1c - 4]; unsigned char m_1c; char _pad2
 struct Elem28 { char _pad[0x18]; int m_18; };
 struct Held188 { char _pad[0x188]; Elem28 *m_arr; };
 
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1, CMD_FROM_AI = 2 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 

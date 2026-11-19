@@ -14,7 +14,7 @@
 // SpecialAbilityUpdateDtor.cpp; element types and owner unrecovered.
 // Native secondary table 0x00851D68: DockUpdate::update, followed by
 // UpdateModule's disabled-mask getter and wake-delay slot.
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 template<int NumBits> class BitFlags;
 
 #include <vector>

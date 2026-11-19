@@ -108,12 +108,12 @@ BODY_REALLYDAMAGED
 };
 typedef UnsignedInt PlayerMaskType;
 const PlayerMaskType PLAYERMASK_ALL=0xFFFFF;
-enum CommandSourceType
-{
-CMD_FROM_PLAYER,
-CMD_FROM_SCRIPT,
-CMD_FROM_AI
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 enum PathfindLayerEnum
 {
 LAYER_INVALID=0,
@@ -145,11 +145,11 @@ enum CellShroudStatus
 {
 CELLSHROUD_CLEAR
 };
-enum ObjectScriptStatusBit
-{
-OBJECT_STATUS_SCRIPT_DISABLED=0x01,
-OBJECT_STATUS_SCRIPT_UNPOWERED=0x02
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectScriptStatusBit.h"
+
+
+
+
 enum GUICommandType
 {
 GUI_COMMAND_DOZER_CONSTRUCT=1,
@@ -398,13 +398,13 @@ extern TerrainLogic*TheTerrainLogic;
 extern AI*TheAI;
 extern PartitionManager*ThePartitionManager;
 extern GameLogic*TheGameLogic;
-enum DistanceCalculationType
-{
-FROM_CENTER_2D,
-FROM_CENTER_3D,
-FROM_BOUNDINGSPHERE_2D,
-FROM_BOUNDINGSPHERE_3D
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DistanceCalculationType.h"
+
+
+
+
+
+
 #include "../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"

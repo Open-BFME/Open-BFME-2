@@ -519,7 +519,7 @@ extern FreelistPool g_freelistPool009BBD2C;
 // science of the record's +0x38 list through Player's rowed private
 // addScience; 0x002B1192 (21B): the +4 interface stores Player's rowed
 // 0x002AB855 answer for the hero data.
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 class CreateAHeroData;
 
 #include "../../Include/Common/Rva0039B668.h"

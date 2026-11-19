@@ -45,10 +45,10 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum CommandSourceType
-{
-	CMD_FROM_SCRIPT = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 // The +0x254 body module interface; only the slot this action calls.
 #include "../../../Include/GameLogic/Module/BodyModule.h"

@@ -45,20 +45,20 @@ enum ModelConditionFlagType
 	MODELCONDITION_COUNT = 0x24F
 };
 class Object;
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 enum WeaponLockType
 {
 	NOT_LOCKED = 0,
 	LOCKED_TEMPORARILY = 1,
 	LOCKED_PERMANENTLY = 2
 };
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 class Rva0028C570
 {

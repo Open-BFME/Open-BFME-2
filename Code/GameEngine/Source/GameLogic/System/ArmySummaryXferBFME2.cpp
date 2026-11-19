@@ -63,10 +63,10 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 void XferLivingWorldArmyID(Xfer *xfer, int *armyID);
 void XferReinforcementState(Xfer *xfer, void *state);

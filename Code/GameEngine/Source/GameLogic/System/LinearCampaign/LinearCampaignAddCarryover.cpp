@@ -115,7 +115,7 @@ public:
 	void setTeamNumber(int teamNumber);
 };
 
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 class UpgradeTemplate;
 class Upgrade;
 enum UpgradeStatusType { UPGRADE_STATUS_2 = 2 };

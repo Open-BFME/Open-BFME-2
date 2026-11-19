@@ -20,7 +20,7 @@
 
 
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include <windows.h>
 #define NEW new
 #define DEBUG_ASSERTCRASH(condition, message) ((void)0)

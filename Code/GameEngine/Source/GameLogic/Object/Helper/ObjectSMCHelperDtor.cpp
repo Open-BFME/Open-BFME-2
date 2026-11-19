@@ -51,7 +51,7 @@ private:
 
 #include "../../../../Include/Common/MiBase1.h"
 
-enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 // The update interface at +0x10: retail's ObjectSMCHelper table there (0x00BFC07C)
 // holds ObjectSMCHelper::update (rowed) in slot 0.

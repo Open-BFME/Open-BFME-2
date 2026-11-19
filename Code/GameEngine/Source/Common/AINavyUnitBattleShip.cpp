@@ -15,10 +15,10 @@
 
 extern GameLogic *TheGameLogic;
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../../Include/Common/Rva005DCC4B.h"
 

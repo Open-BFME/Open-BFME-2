@@ -20,7 +20,7 @@ namespace _STL { template <> vector<AsciiString, allocator<AsciiString> >::~vect
 namespace _STL { template <> void _STLP_alloc_proxy<AsciiString *, AsciiString, allocator<AsciiString> >::deallocate(AsciiString *, unsigned int); }
 namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString *, unsigned int) const; }
 // bfme link decl-only end
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 class FileClass;
 

@@ -69,7 +69,7 @@ namespace _STL { template <> Rva00153729 * vector<Rva00153729,allocator<Rva00153
 // The stack's 4-byte elements append through the ICF-shared push_back
 // 0x002E01C6, rowed under its established ScienceType spelling (as the
 // PushDynamicSetStack row 0x0015354E also spells it).
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 
 // The binder's stack parsing record: the parameter being bound and the
 // dynamic-set stack (the 4-byte vector the Push/PopDynamicSetStack rows use).

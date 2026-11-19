@@ -15,9 +15,9 @@
 #include <math.h>
 #include <vector>
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum AICommandType { AICMD_MOVE_TO_POSITION = 0 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 class Module;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

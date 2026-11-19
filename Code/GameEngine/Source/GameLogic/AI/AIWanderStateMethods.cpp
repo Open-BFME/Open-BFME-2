@@ -58,11 +58,11 @@ extern "C" void *theLogicRandomLogFile;
 
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
-enum LocomotorSetType
-{
-	LOCOMOTORSET_NORMAL = 0,
-	LOCOMOTORSET_WANDER = 3
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #define PATHFIND_CELL_SIZE 10
 #define PATHFIND_CELL_SIZE_F 10.0f
@@ -226,7 +226,7 @@ StateReturnType AIWanderState::update()
 		if (m_currentWaypoint == NULL)	{
 			/// Trigger "end of waypoint path" scripts (jba)
 			ai->setCompletedWaypoint(m_priorWaypoint);
-			
+
 			return STATE_SUCCESS;
 		}
 
@@ -312,7 +312,7 @@ StateReturnType AIPanicState::update()
 		if (m_currentWaypoint == NULL)	{
 			/// Trigger "end of waypoint path" scripts (jba)
 			ai->setCompletedWaypoint(m_priorWaypoint);
-			
+
 			return STATE_SUCCESS;
 		}
 		Locomotor* curLoco = ai->getCurLocomotor();

@@ -13,7 +13,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 template void _STL::vector<NameKeyType>::push_back(const NameKeyType &);
 template void _STL::vector<NameKeyType>::_M_insert_overflow(NameKeyType *,
     const NameKeyType &, const _STL::__false_type &, unsigned int, bool);

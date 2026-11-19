@@ -20,11 +20,11 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 #include "../../../../Include/Common/ScalarTypes.h"
 
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 enum ModelConditionFlagType
 {
 	MODELCONDITION_FIRST = 0,

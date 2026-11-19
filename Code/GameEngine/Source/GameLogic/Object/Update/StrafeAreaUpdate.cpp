@@ -35,7 +35,7 @@ class Thing;
 class ModuleData;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
-enum CommandSourceType {CMD_FROM_AI=2};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 class AIUpdateInterface;
 #include "../../../Common/Thing/thing.h"
 class Object:public Thing {public:char pad[0x258 - 0x60];AIUpdateInterface *ai;};

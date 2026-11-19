@@ -26,7 +26,7 @@ enum
 	WIN_STATUS_USE_OVERLAY_STATES = 0x00200000,
 	WIN_STATUS_RVA0031C83D_20000000 = 0x20000000
 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 // Target string text access is inlined: one Header pointer and text at+8,
 // with the compiler empty literal when null. The emptiness test below instead

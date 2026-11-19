@@ -44,10 +44,10 @@
 #define COORD3D_VIEW_INLINE
 #include "Code/Libraries/Include/Lib/Coord3DCtorView.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 

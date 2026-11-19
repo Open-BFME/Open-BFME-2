@@ -73,7 +73,7 @@ private:
 
 // Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
 // Keep the existing slot placeholder: no original method name is proven.
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 
 class WinInstanceData;
 

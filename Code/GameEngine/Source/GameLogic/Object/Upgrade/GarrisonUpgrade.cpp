@@ -26,10 +26,10 @@ public:
 	virtual void slot01();
 	virtual void slot02(int value);
 };
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameClient/ModelConditionFlags.h"

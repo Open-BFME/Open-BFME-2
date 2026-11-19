@@ -28,7 +28,7 @@ class Rva0030DBD5 {public:
  Rva0030DBD5(Coord3D,const AsciiString&,float,int,const Dict*,void*);
  char unknown04[0x24-4]; Dict dict; char unknown28[0x44-0x28]; unsigned flags; char unknown48[0x5C-0x48];
 };
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Rva00148F5ECache {public: NameKeyType get(); NameKeyType key;const char *name;};
 class StaticNameKey;
 extern Rva00148F5ECache g_00DBDC74;			// "waypointID"

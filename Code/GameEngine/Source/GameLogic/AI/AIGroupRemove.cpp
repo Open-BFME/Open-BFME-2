@@ -52,10 +52,10 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include <algorithm>
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Rva0036D805If
 {

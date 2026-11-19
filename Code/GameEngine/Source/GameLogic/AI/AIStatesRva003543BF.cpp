@@ -13,10 +13,10 @@
 #include "../../Common/PartitionRangeQueryCallView.h"
 #include <math.h>
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 enum WeaponSlotType;
 class Weapon;

@@ -26,10 +26,10 @@
 
 
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 // Version block (read-back version then the writer's version); retail's
 // frame places it as a four-byte object (BFME 1 donor note).
