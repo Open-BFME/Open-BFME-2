@@ -13,11 +13,11 @@
 // 0x400D through manager slot 58) to range - displayPos (short +0x44), at
 // least 0; a set byte at +0x11 shows the scroll bar through 0x003248F5 only
 // while the rows overflow the display.
-typedef int Int;
-typedef short Short;
-typedef bool Bool;
-typedef float Real;
-typedef unsigned int UnsignedInt;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
+
 typedef UnsignedInt WindowMsgData;
 
 enum { GSM_SET_SLIDER = 0x400D };
