@@ -53,11 +53,11 @@ class Object;
 	}
 class Coord3D;
 class Xfer;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/Common/Rva00589079_E1.h"
 class Rva00589079_E2

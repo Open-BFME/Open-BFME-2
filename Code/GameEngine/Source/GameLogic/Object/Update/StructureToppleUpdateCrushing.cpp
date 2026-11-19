@@ -158,7 +158,7 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary = 0);
 };
 
-class Object;
+
 
 #include "../../../../Include/GameLogic/ObjectCreationListClass.h"
 

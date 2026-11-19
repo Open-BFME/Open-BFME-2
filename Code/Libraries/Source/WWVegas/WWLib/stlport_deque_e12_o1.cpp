@@ -29,7 +29,7 @@ struct BfmeE12;
 namespace _STL { template <> _Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> > __uninitialized_copy_copy<_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Const_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> > >(_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Const_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Const_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,__false_type); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy_copy@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeE12;
+
 namespace _STL { template <> _Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> > __uninitialized_copy_copy<_Deque_iterator<BfmeE12,_Const_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> > >(_Deque_iterator<BfmeE12,_Const_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Const_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,__false_type); }
 struct BfmeE12 { float x, y, z; };
 #include "DequeE12Copy.h"

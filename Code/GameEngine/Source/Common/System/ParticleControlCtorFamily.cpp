@@ -35,7 +35,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@VAsciiString@@@_STL@@QBEXPAVAsciiString@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString;
+
 namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString *, size_t) const; }
 // Bind ~_Vector_base<AsciiString> to the copy the link keeps.
 namespace _STL { template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base(); }

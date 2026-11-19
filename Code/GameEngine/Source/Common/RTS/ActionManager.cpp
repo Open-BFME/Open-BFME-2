@@ -355,10 +355,10 @@ enum ObjectID
 {
 	OBJECTID_INVALID = 0
 };
-class ThingTemplate;
-class VisIface;
-class SpawnBehaviorInterface;
-class BfmeContainModule;
+
+
+
+
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 class Player;
@@ -443,7 +443,7 @@ struct Provider28
 	virtual bool slot28(Object *other);
 };
 
-class Rva0041B8D2Obj;
+
 
 struct Coord3D;
 

@@ -202,7 +202,7 @@ private:
 	unsigned char m_68;
 };
 
-class Rva0057FE6B_P64;
+
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp
 

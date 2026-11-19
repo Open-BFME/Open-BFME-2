@@ -16,7 +16,7 @@
 #include "ascii_string.h"
 class ParticleSystemTemplate;
 class ParticleSystem;
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 class Rva001F5467;
 ParticleSystem *Make001FCBD7();
 class RvaSmartPtr12 {

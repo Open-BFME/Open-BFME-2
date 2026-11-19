@@ -112,12 +112,12 @@ class Rva002A7E42 { public: void rva002A7E42(Player *player); };
 #include "../../../Include/Common/Rva0036CA00Str.h"
 #include <windows.h>
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
+
 
 class Rva000DF920
 {

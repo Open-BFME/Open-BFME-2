@@ -153,7 +153,7 @@ public:
 
 #include "../../../../Include/W3DDevice/GameClient/Rva00109DCF.h"
 
-class R2GlobalReceiver;
+
 
 #include "../../../../Include/W3DDevice/GameClient/W3DVolumetricShadowManager.h"
 

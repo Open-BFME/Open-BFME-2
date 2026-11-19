@@ -326,7 +326,7 @@ extern RecorderClass* TheRecorder;
 class LookAtTranslator;
 class BfmeOwnVVD { public: unsigned char Rva0042E8C1(); };
 // Use the canonical translator global; casts retain the verified local member view.
-class LookAtTranslator; extern LookAtTranslator *TheLookAtTranslator;
+ extern LookAtTranslator *TheLookAtTranslator;
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData

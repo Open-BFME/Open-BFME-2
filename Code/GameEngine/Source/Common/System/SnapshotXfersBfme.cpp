@@ -195,7 +195,7 @@ public:
 }
 struct BfmeAssignRecord172;
 struct Rva005334A4Element;
-class CarryoverUnit;
+
 Xfer *Rva001EC0A0Xfer( Xfer *xfer, _STL::vector<CarryoverUnit> *units );
 Xfer *Rva001ECA2DXfer( Xfer *xfer, void *sciences );
 #include <string.h>

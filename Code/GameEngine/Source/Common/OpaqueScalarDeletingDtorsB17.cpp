@@ -147,7 +147,7 @@ Rva005EE05E::Rva005EE05E(EmitVtableTag *)
 {
 }
 
-class INI;
+
 
 class MappedImageCache
 {

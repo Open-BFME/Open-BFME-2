@@ -162,7 +162,7 @@ extern const int g_emptyFieldParseTable[4];
 
 class BfmeFixedStorage0004543D;
 
-class MultiIniFieldParse;
+
 
 class CallHelpOnDamageModuleData : public UpdateModuleData
 {

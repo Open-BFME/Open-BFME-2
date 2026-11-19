@@ -233,7 +233,7 @@ protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
 
-class Rva000E6AC0;
+
 
 // The render buffer the shading pass registers as the current one, retail VA
 // 0x00DEBC90 (RVA 0x009EBC90): the rowed 0x000E663B body stores `this` into it

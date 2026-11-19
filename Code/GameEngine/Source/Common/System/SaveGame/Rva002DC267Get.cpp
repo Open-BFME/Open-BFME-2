@@ -17,7 +17,7 @@ extern class GlobalData *TheWritableGlobalData;
 extern class FileSystem *TheFileSystem;
 
 typedef int Int;
-typedef unsigned short WideChar;
+#include "../../../../Include/Common/ScalarTypes/WideChar.h"
 
 #include <windows.h>
 #include "ascii_string.h"

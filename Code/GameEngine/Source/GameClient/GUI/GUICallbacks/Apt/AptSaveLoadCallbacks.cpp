@@ -117,7 +117,7 @@ struct AptSaveLoadSlot
 	int m_profileID; // +0x1AC
 };
 
-class GameSpyGameSlot;
+
 
 class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;

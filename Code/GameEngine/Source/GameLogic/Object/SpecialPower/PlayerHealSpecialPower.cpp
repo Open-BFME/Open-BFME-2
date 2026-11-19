@@ -123,9 +123,9 @@ struct Rva004C7EC7Holder
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Object;
+
 struct Coord3D;
-struct PlayerHealSpecialPowerModuleData;
+
 #include "../../../Common/Thing/thing.h"
 //
 // ??0PlayerHealSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail
@@ -178,10 +178,10 @@ struct Inner
 	FXList *m_a4;
 };
 
- 
- 
- 
- 
+
+
+
+
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:

@@ -439,7 +439,7 @@ class Rva003AE50B { public: Rva003AE50B(void *a, void *b); };
 class Rva003ACC7C { public: Rva003ACC7C(void *a, void *b); };
 class Rva003ABD20 { public: Rva003ABD20(const RvaSmartPtr12 &a, int b); };
 class Rva003ABD81 { public: Rva003ABD81(const RvaSmartPtr12 &a, int b); };
-struct Rva005641EDInput;
+
 // Borrowed footprint of the existing constructor/copy owner. Its native
 // fields extend through byte+0x3C; four-byte alignment gives a0x40 footprint.
 // this declaration only calls that provider and emits no base lifetime code.

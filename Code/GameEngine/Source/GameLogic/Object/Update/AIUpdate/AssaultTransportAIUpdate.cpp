@@ -250,7 +250,7 @@ enum NameKeyType { NK_UNKNOWN = 0 };
 
 enum ObjectStatusTypes;
 
-class AIUpdateInterface;
+
 
 class Object
 {

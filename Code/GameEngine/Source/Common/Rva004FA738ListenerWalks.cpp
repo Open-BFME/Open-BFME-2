@@ -277,7 +277,7 @@ public:
 // LivingWorldPlayer.cpp); same receiver-view + temp-storage idiom as the
 // landed rva002E074E call below, so this resolves to the rowed body
 // instead of the unrowed Rva002E2903Player spelling.
-class SpawnArmy;
+
 #include "../../Include/GameLogic/LivingWorldPlayer.h"
 
 #include "../../Include/Common/Rva003F0F13Elem.h"
@@ -356,7 +356,7 @@ void Rva004FA992Owner::rva004FA9B1(int index)
 // this unit's current names.
 // The ledger rows the void worker at 0x002E074E under its own address-derived
 // receiver; the call passes the same Player pointer and temp address.
-class SpawnArmy;
+
 class Rva002E074E
 {
 public:

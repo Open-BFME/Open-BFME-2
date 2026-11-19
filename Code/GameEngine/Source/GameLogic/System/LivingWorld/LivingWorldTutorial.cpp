@@ -100,7 +100,7 @@ char storage14[12];
 }
 ;
 
-class LivingWorldPendingBattle;
+
 
 class Rva0056ACC5:public Rva0056AC26
 {

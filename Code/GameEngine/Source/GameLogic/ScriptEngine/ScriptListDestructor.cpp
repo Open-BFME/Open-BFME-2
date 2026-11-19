@@ -84,7 +84,7 @@ const char *ScriptList::GetSnapshotName() const { return "ScriptList"; }
 // 3B7836 consumes count+20 pointers; only count is initialized by this reader.
 // Original receiver and method names are unknown: retain an address identity.
 #include "ascii_string.h"
-class ScriptList;
+
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 class GlobalData;

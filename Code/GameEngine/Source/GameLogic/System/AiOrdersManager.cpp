@@ -165,7 +165,7 @@ struct GroupOrderMapWords
 	void **m_bucketCapacityEnd;
 	unsigned int m_count;
 };
-class GroupOrder;
+
 struct Rva00355100Pair
 {
 	int m_key;
@@ -210,7 +210,7 @@ class ObjectOrderQueue { public:
 struct ObjectPatrolView { char pad[0x38]; Coord3D position; char pad44[0x74-0x44]; unsigned id; };
 extern GameLogic *TheGameLogic;
 
-class Rva0054840A;
+
 
 struct Rva0035511BPair
 {

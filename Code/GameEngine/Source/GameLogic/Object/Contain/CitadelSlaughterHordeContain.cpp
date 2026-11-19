@@ -231,7 +231,7 @@ private:
 
 class Xfer;
 
-class CitadelContainDieView;
+
 
 // Keep the intrinsic directive after its declaration when composing this TU.
 extern "C" {

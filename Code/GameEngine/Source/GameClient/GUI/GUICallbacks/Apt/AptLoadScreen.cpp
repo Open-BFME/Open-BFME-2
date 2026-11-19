@@ -10,7 +10,7 @@
 // Evidence: TheGameText 0x00DFF0BC slot 0x3C precedent GameSlotSetState;
 // rowed format 0x006CB5D0 set 0x00037150 releaseBuffer 0x00036E70 copy ctor
 // 0x00037050; caller 0x0043A979; prev cleanup same flags.
-typedef unsigned short WideChar;
+#include "../../../../../Include/Common/ScalarTypes/WideChar.h"
 
 // The window base (rowed destructor 0x00355D66).
 class Rva00355D66

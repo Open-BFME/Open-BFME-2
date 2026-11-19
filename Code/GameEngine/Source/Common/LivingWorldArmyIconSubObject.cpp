@@ -100,7 +100,7 @@ public:
 	Record0056B88A *m_38;
 };
 
-class LivingWorldArmyIconSubObject;
+
 
 // The visitor handed to vtable slots 1 and 2 (0x0086D810): each calls back
 // with the icon.

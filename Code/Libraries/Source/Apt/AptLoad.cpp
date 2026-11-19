@@ -234,7 +234,7 @@ class AptCIH;
 class BfmeNestedBE;
 BfmeNestedBE *__cdecl bfmeUnlinkNestedBE(BfmeNestedBE *);
 
-class AptCIH;
+
 class AptSpriteInstBase
 {
 public:

@@ -47,9 +47,9 @@ namespace _STL {
 template <> void vector<BfmeE12, allocator<BfmeE12> >::swap(vector &);
 }
 class DataChunkInput;
-struct BfmeE8;
+
 struct BfmeFloat4Record00469C61;
-class W3DAnimationInfo;
+
 class Matrix3D;
 class QuadStrip2D
 {

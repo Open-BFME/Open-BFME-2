@@ -12,8 +12,8 @@
 
 extern int BfmeLogicFramesPerSecond;
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../Include/Common/ScalarTypes/Int.h"
+#include "../../Include/Common/ScalarTypes/UnsignedInt.h"
 typedef int Bool;
 
 #include <time.h>

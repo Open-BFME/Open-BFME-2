@@ -133,7 +133,7 @@ private:
 	friend class ShroudManagerCell;
 };
 
-class ShroudManagerImpl;
+
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h
 #include "../../../Include/GameLogic/PartitionData.h"

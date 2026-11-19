@@ -160,7 +160,7 @@ void AptOnlineCustomMatch::GamesListTooltipFunc(GameWindow *window, WinInstanceD
 // Native 0059F496..0059F94E populates a seven-column game-list row.
 // WB14F6FF0 and reference games-list code guide purpose; target reads prove
 // all offsets, virtual slots, column widths, flags and labels used below.
-class GameWindow;class Image;class ThingTemplate;
+class Image;class ThingTemplate;
 int GadgetListBoxGetNumColumns(GameWindow*);
 void GadgetListBoxSetColumnWidths(GameWindow*,int,int*);
 int GadgetListBoxAddEntryText(GameWindow*,UnicodeString,int,int,int,bool);

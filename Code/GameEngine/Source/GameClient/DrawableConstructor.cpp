@@ -147,7 +147,7 @@ struct DrawableICoord2D { int x, y; };
 // push_back, _M_insert_overflow, _M_clear and allocator copies itself, so the
 // former declaration-only specializations of _M_insert_overflow and
 // allocator::deallocate are gone.
-class ModuleData;
+
 
 class Rva0010F149Handle
 {

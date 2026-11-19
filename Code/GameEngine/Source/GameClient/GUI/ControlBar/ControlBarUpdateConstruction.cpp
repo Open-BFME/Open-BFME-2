@@ -327,12 +327,12 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
+
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 

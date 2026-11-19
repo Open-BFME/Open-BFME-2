@@ -218,13 +218,13 @@ extern PartitionManager *ThePartitionManager;
 
 #include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 
-class Object;
+
 
 class Rva004CD4DCItem;
 
 struct Coord3D;
 
-struct TeleportThingTemplate;
+
 
 class Rva004CD4DCItem
 {

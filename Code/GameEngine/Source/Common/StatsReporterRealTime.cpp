@@ -65,7 +65,7 @@ extern PlayerTemplateStore*ThePlayerTemplateStore;
 // GameEngine::init registers this storage with the TheVictoryConditions literal
 // and rowed420353 factory. Use the ledger's existing opaque pointer owner;
 // the accessed interface slots above remain proven by this retail body.
-class VictoryConditionsInterface; extern VictoryConditionsInterface *TheVictoryConditions;
+ extern VictoryConditionsInterface *TheVictoryConditions;
 extern int BfmeLogicFramesPerSecond;
 
 Bool Rva005BF28EIsAlly(const GameInfo*,const GameSlot*);
