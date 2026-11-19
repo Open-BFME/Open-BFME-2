@@ -51,10 +51,10 @@ void XferObjectID(Xfer *xfer, ObjectID *value);
 
 struct BfmeAudioEventPrefix136;
 class Xfer;
-struct BfmeAudioEventPrefix136;
-class Xfer;
-struct BfmeAudioEventPrefix136;
-class Xfer;
+
+
+
+
 struct AbilityMiscAudio;
 #include "../../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;

@@ -23,8 +23,8 @@ union XferVersion
 
 class Snapshot;
 
-class Snapshot;
-class AsciiString;
+
+
 class UnicodeString;
 class PooledString;
 struct Coord3DBase;

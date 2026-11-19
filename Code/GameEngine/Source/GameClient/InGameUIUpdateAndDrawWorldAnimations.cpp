@@ -45,9 +45,9 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 
 typedef int Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../Include/Common/ScalarTypes/Int.h"
+#include "../../Include/Common/ScalarTypes/UnsignedInt.h"
+#include "../../Include/Common/ScalarTypes/Real.h"
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

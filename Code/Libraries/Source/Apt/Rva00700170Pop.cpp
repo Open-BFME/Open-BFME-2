@@ -41,7 +41,7 @@ public:
 	int isString(void) const;
 	BfmeAptValue006DCD20 *checkedString(void);
 };
-class AptValue;
+
 #include "AptActionInterpreter.h"
 #include "AptBasePtrStack.h"
 void AptBasePtrStack::rva00700170(void *a1, void *a2)

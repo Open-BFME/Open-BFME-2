@@ -19,11 +19,11 @@ struct Rva00587375;
 namespace _STL { template <> void fill<Rva00587375 *,Rva00587375>(Rva00587375 *,Rva00587375 *,Rva00587375 const &); }
 // Suppress this TU's non-retail copy of ?_M_fill_insert@?$vector@URva00587375@@V?$allocator@URva00587375@@@_STL@@@_STL@@QAEXPAURva:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva00587375;
+
 namespace _STL { template <> void vector<Rva00587375,allocator<Rva00587375> >::_M_fill_insert(Rva00587375 *,unsigned int,Rva00587375 const &); }
 // Suppress this TU's non-retail copy of ??$__copy_backward@PAURva00587375@@PAU1@H@_STL@@YAPAURva00587375@@PAU1@00ABUrandom_access_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva00587375;
+
 namespace _STL { template <> Rva00587375 * __copy_backward<Rva00587375 *,Rva00587375 *,int>(Rva00587375 *,Rva00587375 *,Rva00587375 *,random_access_iterator_tag const &,int *); }
 struct Rva00587375Block16 { unsigned int words[4]; Rva00587375Block16(); };
 struct Rva00587375 {

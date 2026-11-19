@@ -139,7 +139,7 @@ public:
 	virtual bool v60();
 };
 
-class Object;
+
 
 
 extern GameLogic *TheGameLogic;

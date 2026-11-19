@@ -51,7 +51,7 @@ public:
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
-class ThingFactory;
+
 extern ThingFactory *TheThingFactory;
 
 #include "../../../../GameEngine/Include/GameLogic/AIDozerManager.h"

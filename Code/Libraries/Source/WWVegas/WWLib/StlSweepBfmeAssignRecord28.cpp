@@ -11,7 +11,7 @@ struct Rva003F5FD0Record;
 namespace _STL { template <> vector<Rva003F5FD0Record,allocator<Rva003F5FD0Record> > & vector<Rva003F5FD0Record,allocator<Rva003F5FD0Record> >::operator=(vector<Rva003F5FD0Record,allocator<Rva003F5FD0Record> > const &); }
 // Suppress this TU's non-retail copy of ??$__copy@PBURva003F5FD0Record@@PAU1@H@_STL@@YAPAURva003F5FD0Record@@PBU1@0PAU1@ABUrandom_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003F5FD0Record;
+
 namespace _STL { template <> Rva003F5FD0Record * __copy<Rva003F5FD0Record const *,Rva003F5FD0Record *,int>(Rva003F5FD0Record const *,Rva003F5FD0Record const *,Rva003F5FD0Record *,random_access_iterator_tag const &,int *); }
 
 #include "../../../../GameEngine/Include/Common/Rva003F5FD0Record.h"

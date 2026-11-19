@@ -29,7 +29,7 @@ enum ObjectID;
 enum ObjectStatusTypes;
 class Team;
 class AIUpdateInterface;
-class Rva00373EC6;
+
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DamageType.h"
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
 class Object : public Thing

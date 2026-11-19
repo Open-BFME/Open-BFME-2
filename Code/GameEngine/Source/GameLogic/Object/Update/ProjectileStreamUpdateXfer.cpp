@@ -28,9 +28,9 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class Thing;
-class ModuleData;
-class Object;
+
+
+
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 

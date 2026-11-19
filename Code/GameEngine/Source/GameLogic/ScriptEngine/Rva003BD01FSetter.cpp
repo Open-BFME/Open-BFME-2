@@ -10,7 +10,7 @@ public:
 	unsigned char m_pad[0xC1];
 	unsigned char m_c1;
 };
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 void ScriptActions::Rva003BD01FSet(bool val)
 {

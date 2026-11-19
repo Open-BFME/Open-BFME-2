@@ -91,7 +91,7 @@ enum FilterModes
 	FM_VIEW_MB_PAN_ALPHA = 16
 };
 
-struct IDirect3DDevice8;
+
 
 
 class BfmeTacticalView

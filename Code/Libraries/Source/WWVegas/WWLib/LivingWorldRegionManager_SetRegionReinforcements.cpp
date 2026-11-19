@@ -8,7 +8,7 @@ class Rva003F1AB9
 public:
 	void rva003F1AB9(int a1, int a2, int a3, int a4, int a5, int a6);
 };
-class Rva0020E89C;
+
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 void LivingWorldRegionManager::SetRegionReinforcements(int idx, int a2, int a3, int a4, int a5, int a6, int a7)
 {

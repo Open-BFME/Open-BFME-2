@@ -46,7 +46,7 @@ public:
 	virtual Color winMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte blue, UnsignedByte alpha); // slot 70
 };
 
-class Image;
+
 #include "../../../../../GameEngine/Include/GameClient/Bfme2GameWindow.h"
 struct Rva0010500FDrawData {
  char unknown00[8]; unsigned int state;

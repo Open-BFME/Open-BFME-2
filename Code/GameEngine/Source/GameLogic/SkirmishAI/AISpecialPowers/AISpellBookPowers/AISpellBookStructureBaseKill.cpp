@@ -29,7 +29,7 @@ public:
 	StructureTemplate *m_template;
 };
 
-class Player;
+
 
 // 0x002A8AB1 by its row name (Rva002A8AB1.cpp): the AI record for a player.
 // Declared a struct to keep the pinned mangling (PAU, not PAV).

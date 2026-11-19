@@ -10,7 +10,11 @@
 // Window/manager view names disclaim original owner identity and full sizes.
 #include <windows.h>
 #include "Common/BfmeAudioEventPrefix136.h"
-typedef int Int; typedef bool Bool;
+
+#include "../../../Include/Common/ScalarTypes/Int.h"
+
+#include "../../../Include/Common/ScalarTypes/Bool.h"
+
 #define BitTest(value,mask) (((value)&(mask))!=0)
 enum { WIN_STATUS_ABOVE=0x20, WIN_STATUS_BELOW=0x40, WIN_STATUS_ENABLED=8, WIN_STATUS_NO_INPUT=0x200 };
 enum { WIN_STATUS_HIDDEN = 0x10 };

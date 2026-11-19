@@ -23,15 +23,15 @@ struct BfmePod52;
 namespace _STL { template <> void _Construct<BfmePod52,BfmePod52>(BfmePod52 *,BfmePod52 const &); }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@UBfmePod52@@V?$allocator@UBfmePod52@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod52;
+
 namespace _STL { template <> void vector<BfmePod52,allocator<BfmePod52> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$_STLP_alloc_proxy@PAUBfmePod52@@U1@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod52;
+
 namespace _STL { template <> void _STLP_alloc_proxy<BfmePod52 *,BfmePod52,allocator<BfmePod52> >::deallocate(BfmePod52 *,unsigned int); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAUBfmePod52@@U1@V?$allocator@UBfmePod52@@@_STL@@@_STL@@QAEP:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod52;
+
 namespace _STL { template <> BfmePod52 * _STLP_alloc_proxy<BfmePod52 *,BfmePod52,allocator<BfmePod52> >::allocate(unsigned int); }
 
 struct BfmePod52 {

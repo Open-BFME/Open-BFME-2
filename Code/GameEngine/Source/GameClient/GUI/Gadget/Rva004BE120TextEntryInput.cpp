@@ -17,7 +17,7 @@
 // every message then forwards to the rowed base dispatch 0x003145B1 and its
 // result is returned. Donor shape: Open-BFME-1 BfmeConv983.cpp
 // BfmeG983::bfmeGo983 (retail 0x004BE180), whose manager slot is 44 there.
-typedef unsigned short WideChar;
+#include "../../../../Include/Common/ScalarTypes/WideChar.h"
 
 class GameWindow;
 

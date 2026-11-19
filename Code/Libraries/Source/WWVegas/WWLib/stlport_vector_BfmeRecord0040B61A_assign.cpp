@@ -33,11 +33,11 @@ struct BfmeRecord0040B61A;
 namespace _STL { template <> void vector<BfmeRecord0040B61A,allocator<BfmeRecord0040B61A> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAUBfmeRecord0040B61A@@U1@V?$allocator@UBfmeRecord0040B61A@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeRecord0040B61A;
+
 namespace _STL { template <> BfmeRecord0040B61A * _STLP_alloc_proxy<BfmeRecord0040B61A *,BfmeRecord0040B61A,allocator<BfmeRecord0040B61A> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UBfmeRecord0040B61A@@@_STL@@QBEXPAUBfmeRecord0040B61A@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeRecord0040B61A;
+
 namespace _STL { template <> void allocator<BfmeRecord0040B61A>::deallocate(BfmeRecord0040B61A *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.

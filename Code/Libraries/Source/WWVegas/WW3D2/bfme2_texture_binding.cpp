@@ -16,7 +16,7 @@ struct BFME2TextureRef {
 };
 
 #include "RenderStateStruct.h"
-struct BFME2TextureRef;
+
 void BFME2Set_Texture(unsigned stage,const BFME2TextureRef& texture);
 // The stage pointers at VA 0x00DEE5E0 are render_state's, read by Apply_Render_State_Changes, and the
 // dirty mask at 0x00DEC4F4 is render_state_changed: both are DX8Wrapper's protected statics, defined

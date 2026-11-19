@@ -65,7 +65,7 @@ public:
 class AiOrdersManager;
 extern AiOrdersManager *TheAiOrdersManager;
 
-class Drawable;
+
 #include "../../Common/Thing/thing.h"
 
 int rva002AE435(const Thing *thing, std::list<Drawable *> *output)

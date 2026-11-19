@@ -34,8 +34,8 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class Thing;
-class ModuleData;
+
+
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 

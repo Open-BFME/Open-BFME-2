@@ -24,11 +24,11 @@ class Rva0054000B;
 namespace _STL { template <> void vector<Rva0054000B,allocator<Rva0054000B> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAVRva0054000B@@V1@V?$allocator@VRva0054000B@@@_STL@@@_STL@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Rva0054000B;
+
 namespace _STL { template <> Rva0054000B * _STLP_alloc_proxy<Rva0054000B *,Rva0054000B,allocator<Rva0054000B> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@VRva0054000B@@@_STL@@QBEXPAVRva0054000B@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Rva0054000B;
+
 namespace _STL { template <> void allocator<Rva0054000B>::deallocate(Rva0054000B *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.

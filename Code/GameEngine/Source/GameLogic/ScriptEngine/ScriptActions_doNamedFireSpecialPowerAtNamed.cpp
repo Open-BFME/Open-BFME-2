@@ -12,7 +12,7 @@ class SpecialPowerModuleInterface;
 
 class Parameter;
 class Object;
-class SpecialPowerTemplate;
+
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

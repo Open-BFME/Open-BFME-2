@@ -11,7 +11,7 @@ namespace StrategicHUD
 	void __cdecl SetLocalPlayerNameString(int level, Rva005FDF1COuter *outer, const UnicodeString &text);
 }
 
-struct Rva005FDF1COuter;
+
 
 class Rva005FE750
 {

@@ -198,7 +198,7 @@ static __forceinline void clearCondition(Object *obj, int bit)
     }
 }
 
-class Team;
+
 #include "../../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
