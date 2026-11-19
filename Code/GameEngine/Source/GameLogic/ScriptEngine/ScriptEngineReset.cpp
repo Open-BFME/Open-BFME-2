@@ -110,10 +110,10 @@ extern int BfmeLogicFramesPerSecond;
 Real Sin(Real x);
 Real Cos(Real x);
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 class ObjectTypes;
 class SequentialScript;

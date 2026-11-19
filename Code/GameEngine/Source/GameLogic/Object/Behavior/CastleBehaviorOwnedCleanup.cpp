@@ -8,7 +8,7 @@
 // Target callback producer/status cleanup395EB8 independently recovered.
 #include <vector>
 #include "GameLogicObjectLookupView.h"
-enum NameKeyType{NAMEKEY_INVALID=0};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum ObjectStatusTypes{STATUS79=79};
 enum DamageType{DAMAGE8=8};enum DeathType{DEATH0=0};
 class Module;class Object{friend class CastleBehavior;protected:Module*findModule(NameKeyType)const;public:void kill(DamageType,DeathType);};

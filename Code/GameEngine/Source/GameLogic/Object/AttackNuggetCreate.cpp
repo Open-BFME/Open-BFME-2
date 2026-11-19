@@ -20,10 +20,10 @@ class Waypoint;
 class PolygonTrigger;
 
 enum AICommandType { AICMD_ATTACK_POSITION = 0x0E };
-enum CommandSourceType { CMD_FROM_AI = 2 };
-enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum WeaponLockType { LOCKED_TEMPORARILY = 1 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 typedef int NameKeyTypeHack;
 

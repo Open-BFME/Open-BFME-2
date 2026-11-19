@@ -5,10 +5,10 @@
 // 55B, same Object.cpp TU family); the DEBUG_ASSERTCRASH compiles out under
 // /DNDEBUG. m_id lives at +0x74; TheGameLogic at retail 0x00DFE78C.
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Object;
 

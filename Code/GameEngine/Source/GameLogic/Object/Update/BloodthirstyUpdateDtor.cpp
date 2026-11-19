@@ -17,15 +17,15 @@ class Object;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 // The +0x20 interface's vftable 0x00C3EFC4 opens with sacrificeHorde (0x0044E374).
 class BloodthirstyUpdateIface

@@ -96,22 +96,22 @@ class Object;
 class ThingTemplate;
 class LocomotorSet;
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
-enum ExitDoorType
-{
-	DOOR_1 = 0
-};
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT,
-	CMD_FROM_AI
-};
+
+
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ExitDoorType.h"
+
+
+
+
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

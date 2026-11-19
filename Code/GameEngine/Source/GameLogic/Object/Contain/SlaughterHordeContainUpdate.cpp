@@ -37,10 +37,10 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 0
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 enum KindOfType
 {

@@ -33,11 +33,11 @@ class Object;
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 // Retail table 0x00C40434 (+0x10) slot 0 is the rowed override 0x00454DF9.
 

@@ -19,10 +19,10 @@ inline float Coord3D::length() const { return (float)sqrt(x*x+y*y+z*z); }
 
 
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_10 = 0x10,
@@ -35,11 +35,11 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_46 = 0x46,
 	OBJECT_STATUS_4A = 0x4A
 };
-enum AttitudeType
-{
-	AI_PASSIVE = -1,
-	AI_NORMAL = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/AttitudeType.h"
+
+
+
+
 enum CanAttackResult
 {
 	ATTACKRESULT_NOT_POSSIBLE = 0
@@ -48,14 +48,14 @@ enum AbleToAttackType
 {
 	ATTACK_NEW_TARGET = 0
 };
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 class Object;
 class Player;

@@ -18,11 +18,11 @@ struct Rva003909FAModuleData;
 class Object;
 #include "../../../../Include/Common/Rva003909FAObj.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 class Thing;
 class ModuleData;

@@ -38,12 +38,12 @@ _Vector_base<Coord3D,allocator<Coord3D> >::~_Vector_base() {
 class Object;
 class Rva0035149F;
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 // Reuse the verified Coord3D push-back specialization at 0x002CE7DC.
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D &); }

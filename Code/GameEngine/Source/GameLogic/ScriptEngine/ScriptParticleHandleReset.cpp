@@ -19,7 +19,7 @@ public:
  ParticleSystem *system;
  BfmeParticleSystemHandle *previous,*next;
 };
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 class Rva0020453CHolderBase;
 #include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;

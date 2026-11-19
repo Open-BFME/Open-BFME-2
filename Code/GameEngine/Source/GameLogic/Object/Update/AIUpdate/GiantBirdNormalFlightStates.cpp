@@ -42,12 +42,12 @@ template <> class GiantBirdFlightSlots<0>
 {
 };
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
+
+
 
 enum ObjectStatusTypes
 {
@@ -153,10 +153,10 @@ private:
 	unsigned char m_status438; // +0x438
 };
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateExitType.h"
+
+
+
 
 class StateMachine;
 

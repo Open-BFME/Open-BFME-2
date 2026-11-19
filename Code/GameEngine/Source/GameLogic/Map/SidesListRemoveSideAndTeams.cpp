@@ -26,7 +26,7 @@
 
 #include "../../../Include/Common/Dict.h"
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 // The lazily keyed static name caches (TheKey_* in WorldBuilder).
 class Rva00148F5ECache

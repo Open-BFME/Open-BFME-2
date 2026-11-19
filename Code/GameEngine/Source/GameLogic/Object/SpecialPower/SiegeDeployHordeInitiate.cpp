@@ -42,9 +42,9 @@ _Vector_base<Object *, allocator<Object *> >::~_Vector_base()
 
 
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI };
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 #include "Lib/Coord3D.h"
 #include "GameLogicObjectLookupView.h"

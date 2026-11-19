@@ -4,10 +4,10 @@
 // Dedicated TU. Walks the null-terminated module pointer list at +0x244
 // and compares virtual name-key slot 0x10.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 enum ArmorSetType { ARMORSET_NONE = 0 };
 

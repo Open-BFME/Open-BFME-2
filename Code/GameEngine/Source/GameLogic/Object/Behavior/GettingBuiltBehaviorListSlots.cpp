@@ -49,10 +49,10 @@ public:
 	float m_10; // +0x10
 };
 
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 
 struct Rva00453E5CTemplate
 {

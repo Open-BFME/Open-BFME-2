@@ -38,10 +38,10 @@ enum PathfindLayerEnum
 	LAYER_WALL = 0x10
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 #include "../../../../../Include/GameLogic/Weapon.h"
 

@@ -16,7 +16,7 @@ extern "C" { static float __cdecl floorf(float); }
 #include "Code/Libraries/Include/Lib/ICoord2D.h"
 enum PathfindLayerEnum {OBSERVED_LAYER_1=1};
 enum WeaponSlotType {OBSERVED_SLOT_0=0};
-enum NameKeyType {NAMEKEY_INVALID=0};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object;class Module;class Weapon;

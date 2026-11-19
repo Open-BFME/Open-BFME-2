@@ -7,10 +7,10 @@
 // Evidence: static BoneFXUpdate key via TheNameKeyGenerator->nameToKey (same as StructureCollapseUpdate::doCollapseDoneStuff at 0x004A4DBE and poolkey at 0x004A429F); Object::findModule row 0x0028B6D6; BoneFXUpdate::stopAllBoneFX row 0x00487A95; GameLogic::destroyObject row 0x00242C09; caller 0x004A46BF.
 // Same UpdateModule layout as StructureCollapseUpdate (m_object at +8).
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Module;
 class Object;

@@ -8,10 +8,10 @@
 // through Object +0x258 (the AI interface). Zero Hour's isQuickPathAvailable is the plain form.
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

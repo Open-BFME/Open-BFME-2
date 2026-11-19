@@ -17,7 +17,7 @@ class Object;
 enum ObjectStatusTypes;
 #include "../../../Include/GameLogic/Waypoint.h"
 enum GuardMode { GUARDMODE_NORMAL = 0 };
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

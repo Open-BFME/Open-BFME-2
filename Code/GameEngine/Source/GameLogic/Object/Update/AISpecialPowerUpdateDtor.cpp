@@ -16,10 +16,10 @@ class ModuleData;
 class Object;
 #include "../../../../Include/Common/BehaviorModuleBase.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 // Retail table 0x00856D50 (+0x10) slot 0 is the rowed override 0x004B327F.
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class AISpecialPowerUpdatePointee

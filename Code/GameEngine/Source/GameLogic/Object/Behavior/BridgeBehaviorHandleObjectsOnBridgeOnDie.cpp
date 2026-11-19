@@ -64,10 +64,10 @@ public:
 	Rva0027C36ASix m_9c[2];
 };
 
-enum PathfindLayerEnum
-{
-	LAYER_GROUND = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 enum DamageType
 {
