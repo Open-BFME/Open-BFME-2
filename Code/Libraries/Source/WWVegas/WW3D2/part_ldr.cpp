@@ -18,8 +18,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
-#define MAX_PATH 260
-#define LPCTSTR const char *
 // Particle system loader adapted from Generals Zero Hour for BFME2.
 // Keyframe writers explicitly canonicalize their final bool result to match
 // the retail compiler's test/setne sequence; the donor write order is preserved.
@@ -44,9 +42,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "part_emt.h"
 #include "w3derr.h"
 #include "chunkio.h"
-#include "win.h"		// for lstrcpy, can this be improved?
+#include "win.h"
 #include "assetmgr.h"
 #include "texture.h"
+#include <string.h>
 
 #ifndef SAFE_DELETE
 // Retail frees these polymorphic objects through the virtual destructor with
@@ -287,7 +286,7 @@ ParticleEmitterDefClass::Normalize_Filename (void)
 	::lstrcpy (path, m_Info.TextureFilename);
 
 	// Find the last occurance of the directory deliminator
-	LPCTSTR filename = ::strrchr (path, '\\');
+	LPCSTR filename = ::strrchr (path, '\\');
 	if (filename != NULL) {
 		
 		// Increment past the directory deliminator
@@ -339,18 +338,6 @@ ParticleEmitterDefClass::Initialize_To_Ver2 (void)
 
 // Convert_To_Ver2 is owned by particle_emitter_convert_version.cpp;
 // declared in part_ldr.h.
-
-
-///////////////////////////////////////////////////////////////////////////////////
-//
-//	Read_Header
-//
-extern "C" char * __cdecl strdup(const char *);
-
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////
