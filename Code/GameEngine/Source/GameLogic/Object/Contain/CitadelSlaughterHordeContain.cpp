@@ -74,10 +74,10 @@ class AsciiString;
 class Thing;
 class ModuleData;
 #include "../../../../Include/Common/XferVersion.h"
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 void XferObjectID(Xfer *xfer, ObjectID *id);
 enum NameKeyType
 {
@@ -145,10 +145,10 @@ class MultiIniFieldParse;
 
 extern const FieldParse s_citadelSlaughterFieldTable[];
 
- 
- 
- 
- 
+
+
+
+
 // The native Slaughter ctor calls HordeGarrison's ctor (0x0047A251), then
 // initializes its own +0xD4..+0xEB storage. Its factory allocates 0xEC bytes.
 class SlaughterHordeContainModuleData : public HordeGarrisonContainModuleData
