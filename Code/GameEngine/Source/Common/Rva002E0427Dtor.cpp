@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ??1Rva002E0427@@UAE@XZ @0x002E0427 81B dtor over two hash members and SubsystemInterface
+// ??1Rva0022C0CDSubsystem@@UAE@XZ @0x002E0427 81B dtor over two hash members and SubsystemInterface
 // Vtable 0x00BE7628 slot 0 (deleting dtor 0x0022DA4A calls here); members at +0x10
 // (Rva0022CC67 dtor 0x0022CF13) and +0x24 (Rva0022366C dtor 0x0022366C) with base
 // 0x001B4E74; global TheLivingWorldBuildingTemplateStore cleared. Evidence: chain packet callees all rowed.
@@ -40,24 +40,23 @@ public:
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class Rva002E0427 : public SubsystemInterface
+class Rva0022C0CDSubsystem : public SubsystemInterface
 {
 public:
-	virtual ~Rva002E0427();
+	virtual ~Rva0022C0CDSubsystem();
 private:
 	int m_0C;
 	Rva0022D101Member m_10;
 	Rva0022366C m_24;
 };
 
-Rva002E0427::~Rva002E0427()
+Rva0022C0CDSubsystem::~Rva0022C0CDSubsystem()
 {
 	TheLivingWorldBuildingTemplateStore = 0;
 }
 
 // GameEngine::init's Rva0022C0CDSubsystem (ctor 0x0022DA03) stores the same
 // vtable 0x00BE7628, whose slot 0 0x0022DA4A calls this destructor.
-#pragma comment(linker, "/alternatename:??1Rva0022C0CDSubsystem@@UAE@XZ=??1Rva002E0427@@UAE@XZ")
 
 // Native778668: complete11B member+10 destructor unwind. Whole81B parent
 // and native EH graph prove ownership. Actual5B callee22D101 forwards to

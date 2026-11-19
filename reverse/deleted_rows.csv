@@ -6340,3 +6340,6 @@ __ehhandler$?AddRenderObj@W3DAptComponentView3D@@QAEXIABVAsciiString@@ABV?$Strin
 __ehhandler$??1Rva008BD5E@@UAE@XZ,0x0075FCEB,"Renamed to __ehhandler$??1W3DView@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BC7568)"
 ??_GRva008BD5E@@UAEPAXI@Z,0x0008DE5E,"Renamed to ??_GW3DView@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BC7568)"
 ??_ERva008BD5E@@WLE@AEPAXI@Z,0x0008BD43,"Renamed to ??_EW3DView@@WLE@AEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BC7568)"
+??1Rva002E0427@@UAE@XZ,0x002E0427,"Renamed to ??1Rva0022C0CDSubsystem@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE7628)"
+__ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022C0CDSubsystem@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE7628)"
+??_GRva002E0427@@UAEPAXI@Z,0x0022DA4A,"Renamed to ??_GRva0022C0CDSubsystem@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE7628)"

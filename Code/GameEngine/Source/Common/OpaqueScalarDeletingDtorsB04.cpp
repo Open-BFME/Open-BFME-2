@@ -165,16 +165,16 @@ Rva00225A50::Rva00225A50(EmitVtableTag *)
 {
 }
 
-class Rva002E0427
+class Rva0022C0CDSubsystem
 {
 public:
-	Rva002E0427(EmitVtableTag *);
+	Rva0022C0CDSubsystem(EmitVtableTag *);
 public:
-	virtual ~Rva002E0427();
+	virtual ~Rva0022C0CDSubsystem();
 };
 
-// ?<Rva002E0427::Rva002E0427> absent-from-retail
-Rva002E0427::Rva002E0427(EmitVtableTag *)
+// ?<Rva0022C0CDSubsystem::Rva0022C0CDSubsystem> absent-from-retail
+Rva0022C0CDSubsystem::Rva0022C0CDSubsystem(EmitVtableTag *)
 {
 }
 
