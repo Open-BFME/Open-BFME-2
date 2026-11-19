@@ -108,11 +108,25 @@ and Open-BFME-2 and downloads nested copies.
 On macOS (Apple Silicon), Homebrew no longer installs Wine: its `wine-stable`, `wine@devel`
 and `wine@staging` casks have been disabled since 2026-09-01 (they fail Gatekeeper). What
 passes there is **Wine 11** built from source as an x86_64 program, which Rosetta 2 runs,
-with the 32-bit side MSVC 7.1 needs. From an empty directory beside the Wine source, with
-[llvm-mingw](https://github.com/mstorsjo/llvm-mingw), `bison` and `flex` on `PATH` (about
-six minutes on 18 cores):
+with the 32-bit side MSVC 7.1 needs.
+
+Wine requires Bison 3 or later. The Git hooks use modern Bash and GNU `realpath`.
+Install those tools and keep them on `PATH` when running the work picker or
+committing.
 
 ```bash
+brew install bash bison coreutils
+export PATH="$(brew --prefix bash)/bin:$(brew --prefix bison)/bin:$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+```
+
+With [llvm-mingw](https://github.com/mstorsjo/llvm-mingw) and `flex` also on
+`PATH`, build from an empty directory beside the Wine source (about six
+minutes on 18 cores). The Wine build puts `/usr/bin` ahead of llvm-mingw's
+`bin` directory to use Apple's Clang and linker for macOS binaries.
+
+```bash
+(
+export PATH="$(brew --prefix bison)/bin:/usr/bin:$PATH"
 ../wine/configure --prefix="$HOME/wine-x86" --build=x86_64-apple-darwin --host=x86_64-apple-darwin \
     --enable-archs=i386,x86_64 --disable-tests --disable-win16 \
     CC="clang -arch x86_64" CXX="clang++ -arch x86_64" LDFLAGS="-arch x86_64" \
@@ -121,8 +135,9 @@ six minutes on 18 cores):
     --without-sdl --without-cups --without-gphoto --without-sane --without-krb5 --without-gssapi \
     --without-netapi --without-opencl --without-pcap --without-usb --without-v4l2 --without-pulse \
     --without-alsa --without-oss --without-capi --without-opengl --without-dbus --without-udev \
-    --without-ffmpeg --without-wayland --without-gnutls --without-inotify
+    --without-ffmpeg --without-wayland --without-gnutls --without-inotify &&
 make -j18 && make install
+)
 
 export PATH="$HOME/wine-x86/bin:$PATH"
 export WINEPREFIX="$HOME/.wine-bfme2"        # a 64-bit prefix: leave WINEARCH unset
