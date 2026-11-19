@@ -48,7 +48,7 @@ private:
 #define _CRTIMP
 #include <mbstring.h>
 #undef _CRTIMP
-void *__cdecl operator new(unsigned int);
+#include <new>
 
 // Same chunk reader view as the verified sibling factory at 0x001808B0.
 #include <string.h>
