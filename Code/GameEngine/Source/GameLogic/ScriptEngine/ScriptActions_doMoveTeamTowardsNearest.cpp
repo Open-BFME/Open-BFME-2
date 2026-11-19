@@ -62,10 +62,10 @@ public:
 	char m_pad0D[0x3];
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_SCRIPT = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 enum DistanceCalculationType
 {

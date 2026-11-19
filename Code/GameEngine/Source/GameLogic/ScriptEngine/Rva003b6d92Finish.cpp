@@ -26,7 +26,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 typedef unsigned short DataChunkVersionType;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

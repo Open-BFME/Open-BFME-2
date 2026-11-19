@@ -87,11 +87,11 @@ static const void *const s_secondary10[3] = {
 // Opaque UpdateModule base; ctor resolves to its row. The declared-only
 // virtual dtor drives the single EH state with zero emitted code. Protected
 // slots mirror the retail stores.
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 class UpdateModule
 {

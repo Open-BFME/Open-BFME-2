@@ -92,7 +92,7 @@ int __cdecl rva005009AA(int from, int to)
 // declared under their existing record spelling, preserving providers.
 // The existing global declaration above is reused, not newly pinned.
 #include <vector>
-enum LocomotorSetType { LOCOMOTORSET_INVALID=-1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
 class LocomotorTemplate;
 typedef _STL::vector<const LocomotorTemplate*> NativeVector;
 typedef _STL::_Rb_tree<LocomotorSetType,_STL::pair<const LocomotorSetType,NativeVector>,_STL::_Select1st<_STL::pair<const LocomotorSetType,NativeVector> >,_STL::less<LocomotorSetType>,_STL::allocator<_STL::pair<const LocomotorSetType,NativeVector> > > NativeTree;

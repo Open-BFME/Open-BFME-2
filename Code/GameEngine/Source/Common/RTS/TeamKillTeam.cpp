@@ -141,7 +141,7 @@ private:
 };
 
 enum DamageType { DAMAGE_RVA003A1D1A = 8 };
-enum DeathType { DEATH_NORMAL = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
 enum ObjectStatusTypes { OBJECT_STATUS_RVA0029A12B = 62 };
 
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"

@@ -9,15 +9,15 @@
 
 #include "../../../../Include/Common/ScalarTypes.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_INVALID = 0,
-	UPDATE_SLEEP_NONE = 1,
-	// (we use 0x3fffffff so that we can add offsets and not overflow...
-	//	and also 'cuz we shift the value up by two bits for the phase.
-	// note that at 30fps, this is ~414 days...
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
+
+
+
+
 #define UPDATE_SLEEP(numFrames) ((UpdateSleepTime)(numFrames))
 
 class Object;

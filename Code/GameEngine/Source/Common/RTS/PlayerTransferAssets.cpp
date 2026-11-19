@@ -47,7 +47,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 
 
-enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 
 class Object;
 class Team;

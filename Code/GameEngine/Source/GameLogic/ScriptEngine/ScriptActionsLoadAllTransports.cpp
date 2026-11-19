@@ -31,7 +31,7 @@
 
 extern GameLogic *TheGameLogic;
 
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../Include/Common/ScalarTypes.h"
 
 // Existing retail-compatible storage providers carry two 32-bit words.

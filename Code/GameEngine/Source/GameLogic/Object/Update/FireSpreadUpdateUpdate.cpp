@@ -29,10 +29,10 @@ class ModuleData;
 class Module;
 class Object;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 #define UPDATE_SLEEP(x) ((UpdateSleepTime)(x))
 
@@ -46,10 +46,10 @@ enum DistanceCalculationType
 	FROM_CENTER_3D = 2
 };
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

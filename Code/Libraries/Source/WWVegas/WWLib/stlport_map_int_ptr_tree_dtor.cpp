@@ -17,7 +17,7 @@
 // 0x004ABCFE -> 0x004ABC5C -> 0x004ABAD6.
 #include <map>
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 typedef _STL::pair<const ObjectID, int> ObjectIDIntPair;
 typedef _STL::_Rb_tree<ObjectID, ObjectIDIntPair, _STL::_Select1st<ObjectIDIntPair>, _STL::less<ObjectID>, _STL::allocator<ObjectIDIntPair> > ObjectIDIntTree;

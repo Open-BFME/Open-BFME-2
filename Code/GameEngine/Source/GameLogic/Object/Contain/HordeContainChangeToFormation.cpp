@@ -19,8 +19,8 @@ extern "C" void _ReadWriteBarrier(void);
 
 
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../../Include/Common/Rva001EB769.h"
 extern GameLogic *TheGameLogic;

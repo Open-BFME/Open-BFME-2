@@ -33,7 +33,7 @@ void *&vector<void*>::operator[](size_t __n)
 }
 class GameWindow;class WindowVideo;
 class WindowVideoManager {public:struct hashConstGameWindowPtr;};
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class ArmorTemplate;
 namespace rts {template<class T>struct hash;}
 namespace _STL {

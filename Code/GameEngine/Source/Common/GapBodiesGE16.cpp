@@ -83,7 +83,7 @@ void StrategicHUD::BattlePromptMovieClip::Impl::OnRetreatButtonClicked(const cha
 // --- 0x004A9774 (43B) / 0x004A979F (52B): AIUpdateInterface dock and
 // harvest overrides that remember, for a player-free command (source 0), the
 // dock's +0x74 id (+0x4A4) or the harvest point (+0x4A8, flagged at +0x4B4).
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 struct Rva004A9774Point
 {

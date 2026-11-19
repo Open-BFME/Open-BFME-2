@@ -177,7 +177,7 @@ class ArmorTemplate;
 #include "../../../Include/GameLogic/ArmorStore.h"
 class Rva0022BD25Subsystem;
 extern Rva0022BD25Subsystem *TheArmyDefinitionManager;
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Libraries/Source/WWVegas/WWLib/Rva002A9140.h"

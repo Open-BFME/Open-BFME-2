@@ -22,10 +22,10 @@ class ModuleData;
 class Object;
 struct AICommandParms;
 struct Coord3D;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum AICommandType
 {

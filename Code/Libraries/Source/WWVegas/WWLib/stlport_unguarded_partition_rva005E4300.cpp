@@ -18,7 +18,7 @@
 struct Rva005E4300Context;
 #include "Rva005E4300Cmp.h"
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 namespace _STL
 {

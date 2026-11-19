@@ -29,7 +29,7 @@ class ModuleData;
 class Object;
 class Xfer;
 
-enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 // BitFlags<11> by value (the mask AIUpdate.h builds): the update-interface getter below.

@@ -143,10 +143,10 @@ typedef int Color;
 
 #include "../GameLogic/Object/object.h"
 
-enum TimeOfDay
-{
-	TIME_OF_DAY_NIGHT = 4
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/TimeOfDay.h"
+
+
+
 
 #include "../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;

@@ -22,7 +22,7 @@ struct Gen_p12pod;
 struct Rva004758F4Element;
 struct Rva004F6352;
 struct Rva00501E3FElement;
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 
 namespace _STL {
 template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C>::erase(TreeHintRef00217D4C *, TreeHintRef00217D4C *);

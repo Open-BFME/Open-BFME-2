@@ -21,7 +21,7 @@ extern "C" void _ReadWriteBarrier();
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 enum SolutionType { PREFER_FAST_SOLUTION = 0 };
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 struct BfmeE8
 {

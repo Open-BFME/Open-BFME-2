@@ -50,20 +50,20 @@ template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_Lis
 
 extern GameLogic *TheGameLogic;
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 enum DamageType
 {
 	DAMAGE_UNRESISTABLE = 8
 };
 
-enum DeathType
-{
-	DEATH_NORMAL = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+
+
+
 
 enum AIFreeToExitType
 {

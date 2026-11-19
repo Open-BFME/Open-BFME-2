@@ -39,10 +39,10 @@
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 enum ObjectStatusTypes
 {
@@ -63,10 +63,10 @@ enum WeaponStatus
 	OUT_OF_AMMO = 3
 };
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Object;
 class Team;

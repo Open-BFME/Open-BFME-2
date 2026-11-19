@@ -17,10 +17,10 @@
 
 #include "../../Include/Common/ScalarTypes.h"
 
-enum ParticleSystemID
-{
-	INVALID_PARTICLE_SYSTEM_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
+
+
+
 
 class ParticleSystem;
 class ParticleSystem *Make001FCBD7();

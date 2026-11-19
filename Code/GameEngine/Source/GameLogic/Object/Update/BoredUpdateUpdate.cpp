@@ -45,10 +45,10 @@ enum KindOfType
 	KINDOF_0x3D = 0x3D
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
@@ -106,10 +106,10 @@ unsigned char Gen_00291BB0::bfmeTick(void)
 	return 0;
 }
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"

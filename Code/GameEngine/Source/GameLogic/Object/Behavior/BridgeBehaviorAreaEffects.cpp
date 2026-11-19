@@ -109,10 +109,10 @@ public:
 	BridgeOCLNode *m_ocl;
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 

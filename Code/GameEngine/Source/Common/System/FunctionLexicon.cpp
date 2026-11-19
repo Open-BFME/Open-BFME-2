@@ -15,7 +15,7 @@
 // 7. keyToFunc must stay in this unit ahead of findFunction: retail keeps
 // `this` in edx across its calls, which cl does only for a callee it has
 // already compiled here.
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 class WindowLayout;
 
