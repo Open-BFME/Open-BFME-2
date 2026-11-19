@@ -5,10 +5,11 @@
 
 #include "../../../Include/Common/Rva00221635.h"
 
+class INI;
 class Rva005D00A6 : public Rva00221635
 {
 public:
-	virtual void g0();
+	virtual void rva005CFC12(INI *ini);
 	Rva005D00A6();
 private:
 	int m_8;
@@ -23,4 +24,3 @@ Rva005D00A6::Rva005D00A6() : Rva00221635(AsciiString("BattleResolver")), m_8(100
 // what the unit's matched code references or installs: the rowed function of
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?g0@Rva005D00A6@@UAEXXZ=?rva005CFC12@Rva005D00A6@@UAEXPAVINI@@@Z")

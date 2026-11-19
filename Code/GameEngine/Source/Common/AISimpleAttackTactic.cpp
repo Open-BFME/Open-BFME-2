@@ -22,12 +22,13 @@ struct Rva005AA647Record
 	bool m_18;		// +0x18
 };
 
+class Xfer;
 class AITactic
 {
 public:
 	virtual ~AITactic();
 	virtual bool canRun(void *request);
-	virtual void cleanUp(); virtual void initializeTeamTemplate(); virtual void v4(); virtual void v5();
+	virtual void cleanUp(); virtual bool initializeTeamTemplate(void *, int); virtual void v4(); virtual void xfer(Xfer *xfer);
 	virtual void run();
 	virtual void update();
 	virtual void v8();
@@ -106,7 +107,5 @@ void bfmeAnchorAISimpleAttackTacticDtor(AISimpleAttackTactic *tactic)
 // 0x004ECE61, slot 4 the shared trivial virtual 0x000910FB, slot 5 AITactic's xfer 0x004EDA8C
 // and slot 8 0x004EDDAA; bind each placeholder to the row at that address.
 #pragma comment(linker, "/alternatename:?cleanUp@AITactic@@UAEXXZ=??1Region2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?initializeTeamTemplate@AITactic@@UAEXXZ=?initializeTeamTemplate@AITactic@@UAE_NPAXH@Z")
 #pragma comment(linker, "/alternatename:?v4@AITactic@@UAEXXZ=?Create@GameFileClass@@UAEHXZ")
-#pragma comment(linker, "/alternatename:?v5@AITactic@@UAEXXZ=?xfer@AITactic@@UAEXPAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?v8@AITactic@@UAEXXZ=?rva004EDDAA@AITactic@@QAEXXZ")

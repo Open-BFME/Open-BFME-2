@@ -66,10 +66,10 @@ class MainMenuMediumScaleUpTransition : public Rva001DBAA4
 {
 public:
 	virtual ~MainMenuMediumScaleUpTransition();
-	virtual void slot1();
+	virtual void init(GameWindow *window);
 	virtual void update(int index);
 	virtual void Rva0035DD9C();
-	virtual void slot4();
+	virtual void draw();
 	virtual void slot5();
 	virtual void slot6();
 	virtual void slot7();
@@ -283,7 +283,6 @@ void famgenDelete(Rva0035FF76 *transition) { delete transition; }
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?slot1@MainMenuMediumScaleUpTransition@@UAEXXZ=?init@MainMenuMediumScaleUpTransition@@UAEXPAVGameWindow@@@Z")
 #pragma comment(linker, "/alternatename:?slot5@MainMenuMediumScaleUpTransition@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?slot7@MainMenuMediumScaleUpTransition@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?slot1@Rva0035E00F@@UAEXXZ=?init@MainMenuScaleUpTransition@@UAEXPAVGameWindow@@@Z")
@@ -295,7 +294,6 @@ void famgenDelete(Rva0035FF76 *transition) { delete transition; }
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?slot3@Rva0035E00F@@UAEXXZ=?rva0035D1BD@Rva0035D1BD@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?slot4@MainMenuMediumScaleUpTransition@@UAEXXZ=?draw@MainMenuMediumScaleUpTransition@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot4@Rva0035E00F@@UAEXXZ=?draw@MainMenuScaleUpTransition@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot6@MainMenuMediumScaleUpTransition@@UAEXXZ=?rva0035D1E7@Rva0035D1E7@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?slot6@Rva0035E00F@@UAEXXZ=?rva0035D1E7@Rva0035D1E7@@QAEXXZ")

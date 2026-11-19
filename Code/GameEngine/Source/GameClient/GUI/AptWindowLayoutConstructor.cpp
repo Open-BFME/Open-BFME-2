@@ -15,7 +15,7 @@ class BfmeQuickMatchScreenBase {
 public:
  BfmeQuickMatchScreenBase(void *);
  ~BfmeQuickMatchScreenBase();
- virtual void bfmeSlot0(); virtual void bfmeSlot1();
+ virtual void rva0040FB9C(void *); virtual void bfmeSlot1();
  virtual void bfmeSlot2(); virtual void bfmeSlot3();
  virtual void rva00538AB0(bool); virtual void bringForward();
  virtual void addWindow(GameWindow *);
@@ -35,7 +35,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class AptWindowLayout : public BfmeQuickMatchScreenBase {
 public:
  AptWindowLayout(void *info);
- virtual void bfmeSlot0(); virtual void bfmeSlot1();
+ virtual void rva0040FB9C(void *); virtual void bfmeSlot1();
  virtual void bfmeSlot2(); virtual void bfmeSlot3();
 private:
  GameWindow *m_gameWindow;
@@ -60,7 +60,6 @@ AptWindowLayout::AptWindowLayout(void *info) : BfmeQuickMatchScreenBase(info)
 // reaches, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:??1BfmeQuickMatchScreenBase@@QAE@XZ=??3@YAXPAX@Z")
 #pragma comment(linker, "/alternatename:?addWindow@BfmeQuickMatchScreenBase@@UAEXPAVGameWindow@@@Z=?addWindow@WindowLayout@@UAEXPAVGameWindow@@@Z")
-#pragma comment(linker, "/alternatename:?bfmeSlot0@AptWindowLayout@@UAEXXZ=?rva0040FB9C@AptWindowLayout@@UAEXPAX@Z")
 #pragma comment(linker, "/alternatename:?bfmeSlot1@AptWindowLayout@@UAEXXZ=??_GRva0040FB4A@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?bfmeSlot2@AptWindowLayout@@UAEXXZ=?guard@Rva0040FC79Host@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?bfmeSlot3@AptWindowLayout@@UAEXXZ=?rva0040FCC0@Rva0040FCC0@@QAEXH@Z")

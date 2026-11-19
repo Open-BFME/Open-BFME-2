@@ -33,16 +33,19 @@ BoneFXDamage::~BoneFXDamage()
 {
 }
 
+class DamageInfo;
+// The +0x10 damage interface: slot 0 of ReflectDamage's table is its rowed onDamage.
 class Rva004BAB36_B2
 {
 public:
-	virtual void f2();
+	virtual void onDamage(DamageInfo *damageInfo) = 0;
 };
 
 class ReflectDamage : public Rva004B96CC, public MiBase1, public Rva004BAB36_B2
 {
 public:
 	virtual ~ReflectDamage();
+	virtual void onDamage(DamageInfo *damageInfo);
 };
 
 ReflectDamage::~ReflectDamage()
@@ -73,5 +76,4 @@ Rva004BB0CC::~Rva004BB0CC()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@Rva004BAB36_B2@@UAEXXZ=?onDamage@ReflectDamage@@UAEXPAVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva004BB0CC_B2@@UAEXXZ=?rva004BB176@HordeTransportContainDamage@@UAEXPAVDamageInfo@@@Z")

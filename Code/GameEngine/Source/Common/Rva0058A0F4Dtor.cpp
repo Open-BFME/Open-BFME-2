@@ -55,10 +55,12 @@ public:
 	virtual void rva0044DF8D(UpdateSleepTime);
 };
 
+class Object;
+// The +0x20 dock interface: slot 0 of DockUpdate's table is its rowed isClearToApproach.
 class Rva0058A0F4_B20
 {
 public:
-	virtual void f20();
+	virtual bool isClearToApproach(const Object *docker) const = 0;
 };
 
 class DockUpdate : public UpdateModule, public Rva0058A0F4_B20
@@ -66,6 +68,7 @@ class DockUpdate : public UpdateModule, public Rva0058A0F4_B20
 public:
 	virtual ~DockUpdate();
 	virtual UpdateSleepTime update();
+	virtual bool isClearToApproach(const Object *docker) const;
 
 private:
 	unsigned char m_pad24[0x54 - 0x24];
@@ -81,4 +84,3 @@ DockUpdate::~DockUpdate()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f20@Rva0058A0F4_B20@@UAEXXZ=?isClearToApproach@DockUpdate@@UBE_NPBVObject@@@Z")

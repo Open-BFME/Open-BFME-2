@@ -36,10 +36,12 @@ public:
 	virtual void f1();
 };
 
+enum UpdateSleepTime;
+// The +0x10 update interface: slot 0 of CastleBehavior's table is its rowed update.
 class Rva0024A797_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 private:
 	char m_pad08[12];
 };
@@ -89,6 +91,7 @@ class CastleBehavior : public Rva00455050, public CastleBehavior_30
 {
 public:
 	virtual ~CastleBehavior();
+	virtual UpdateSleepTime update();
 private:
 	char m_pad34[0x1c];
 	Rva004E013BBuffer m_vec50;
@@ -116,6 +119,5 @@ CastleBehavior::~CastleBehavior()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@Rva0024A797_B2@@UAEXXZ=?update@CastleBehavior@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f30@CastleBehavior_30@@UAEXXZ=?rva0039A245@Rva0039A245@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?fe@Rva00455050_E1@@UAEXXZ=?Rva00452D78Adjust@@YIPAXPAX@Z")
