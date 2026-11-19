@@ -56,11 +56,11 @@ enum WeaponLockType
 	LOCKED_TEMPORARILY = 1,
 	LOCKED_PERMANENTLY = 2
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
 enum CanAttackResult
 {
 	ATTACKRESULT_NOT_POSSIBLE = 0,

@@ -51,10 +51,10 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 #include "../../Include/Common/ScalarTypes.h"
 
 
-enum WorldAnimationOptions
-{
-	WORLD_ANIM_NO_OPTIONS = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WorldAnimationOptions.h"
+
+
+
 
 class Anim2DTemplate;
 class Anim2DCollection;

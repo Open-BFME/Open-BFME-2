@@ -18,10 +18,10 @@
 // references, alpha flag and per-mesh robj index; BFME 2 keeps the BFME 1
 // statements and the ZH 0xffffffff memset fill.
 #include <string.h>
-typedef float Real;
-typedef int Int;
-typedef unsigned short UnsignedShort;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
+
+
+
 #include <windows.h>
 #include <new>
 #define NEW new

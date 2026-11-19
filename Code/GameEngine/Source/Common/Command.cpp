@@ -58,10 +58,10 @@ public:
 	BfmeE12 *m_finish;
 };
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Command
 {

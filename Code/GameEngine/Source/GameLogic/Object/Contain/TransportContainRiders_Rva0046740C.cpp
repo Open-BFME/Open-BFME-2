@@ -20,10 +20,10 @@
 // iterates a copy of the contain list taken through the OpenContain pair
 // helper 0x0046247D and list reader 0x0036AE51 (as OpenContain slot 18
 // 0x00464286 does).
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes.h"
+
+
+
 #include <windows.h>
 
 #include <list>

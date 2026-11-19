@@ -34,10 +34,10 @@ const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 namespace _STL {
 	// Preserve STLport's inline cleanup; suppress its unused external copy.

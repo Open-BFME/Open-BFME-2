@@ -9,10 +9,10 @@
 // CommandPointsUpgrade::upgradeImplementation 0x004B86AE passes
 // data+0x118/id/&data+0x11C; holder layout +0x20 vector from twin
 // Rva002A7611Remove.cpp; element 12B from retail frame.
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Rva00360D26Member
 {

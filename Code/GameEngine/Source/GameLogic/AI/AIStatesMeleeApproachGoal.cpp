@@ -26,21 +26,21 @@ struct ApproachCoordCopy : Coord3D
     { x *= factor; y *= factor; z *= factor; }
 };
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 

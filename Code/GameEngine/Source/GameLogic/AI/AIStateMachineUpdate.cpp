@@ -33,17 +33,17 @@
 
 
 #include "../../Common/GameLogicObjectLookupView.h"
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-enum StateExitType
-{
-	EXIT_NORMAL = 0,
-	EXIT_RESET = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateExitType.h"
+
+
+
+
 #define IS_STATE_CONTINUE_OR_SLEEP(r) ((r) >= STATE_CONTINUE)
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

@@ -43,10 +43,10 @@ extern const char *const TheStanceNames[];
 
 // This is only the rowed four-byte enum-vector call ABI; application enum
 // identity is not inferred from the folded push_back body at RVA 0x002E01C6.
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 namespace _STL
 {

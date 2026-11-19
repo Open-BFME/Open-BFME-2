@@ -34,7 +34,7 @@ struct BfmePod12
 
 {
  unsigned m_data[3];
- 
+
 }
 ;
 // The single-point erase is called out of line; its body is rowed in
@@ -47,22 +47,22 @@ class Rva0034C0D0: public _STL::vector<BfmePod12>
 
 {
  public: Rva0034C0D0(const Rva0034C0D0 &);
- 
+
 }
 ;
 class Rva0035149F;
-enum CommandSourceType 
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
-{
- CMD_FROM_AI=2
- 
-}
-;
+
+
+
+
+
 enum DisabledType 
 
 {
  DISABLED_HELD=3
- 
+
 }
 ;
 class Rva00352F9D 
@@ -71,14 +71,14 @@ class Rva00352F9D
  public: virtual void slot0();
  void rva00353168(const void *,const Rva0035149F &,CommandSourceType);
  void rva00353080(const void *,const Rva0035149F &,CommandSourceType);
- 
+
 }
 ;
 class AICommandInterface 
 
 {
  public:void aiIdle(CommandSourceType);
- 
+
 }
 ;
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
@@ -95,14 +95,14 @@ class ObjectRingNode
 {
  public:ObjectRingNode *next,*prev;
  Object *value;
- 
+
 }
 ;
 struct ObjectRing 
 
 {
  ObjectRingNode *head;
- 
+
 }
 ;
 struct ContainedObjects 
@@ -110,7 +110,7 @@ struct ContainedObjects
 {
  void *context;
  _STL::list<Object *> *list;
- 
+
 }
 ;
 class ContainModuleInterface 
@@ -188,7 +188,7 @@ class ContainModuleInterface
  virtual void slot68();
  virtual void slot69();
  virtual ContainedObjects getContainedObjects();
- 
+
 }
 ;
 class AIUpdateInterface
@@ -196,10 +196,10 @@ class AIUpdateInterface
 {
  public:
  Path *getPath()const
- 
+
  {
   return m_path;
-  
+
  }
  void ignoreObstacle(const Object *);
  virtual void slot000();
@@ -347,10 +347,10 @@ class AIUpdateInterface
  virtual void slot142();
  virtual CommandSourceType getSource();
  Rva0034C0D0 &getCommandPath()const
- 
+
  {
   return *(Rva0034C0D0 *)((char *)m_moveMachine+0x3C);
-  
+
  }
  char m_pad04[0x20-4];
  Rva00352F9D m_command;
@@ -358,7 +358,7 @@ class AIUpdateInterface
  void *m_moveMachine;
  char m_pad34[0x140-0x34];
  Path *m_path;
- 
+
 }
 ;
 struct ObjectTemplateView 
@@ -366,7 +366,7 @@ struct ObjectTemplateView
 {
  char pad00[0x115];
  unsigned char kind115;
- 
+
 }
 ;
 class Object
@@ -374,16 +374,16 @@ class Object
 {
  public:
  AIUpdateInterface *getAI()
- 
+
  {
   return m_ai;
-  
+
  }
  float getBfmeRealB8()const
- 
+
  {
   return m_bfmeRealB8;
-  
+
  }
  bool clearDisabled(DisabledType);
  char pad00[4];
@@ -396,7 +396,7 @@ class Object
  ContainModuleInterface *m_contain;
  char pad254[4];
  AIUpdateInterface *m_ai;
- 
+
 }
 ;
 class StateMachine;
@@ -414,7 +414,7 @@ class AIMoveToState : public AIInternalMoveToState
  virtual StateReturnType onEnter();
  virtual void onExit(StateExitType status);
  virtual StateReturnType update();
- 
+
 }
 ;
 class AIMoveToAndEvacuateState : public AIMoveToState
@@ -423,7 +423,7 @@ class AIMoveToAndEvacuateState : public AIMoveToState
  public:
  virtual void onExit(StateExitType status);
  virtual StateReturnType update();
- 
+
 }
 ;
 // AIMoveToAndEvacuateState::onExit is rowed in its home unit; this copy was a duplicate definition.
@@ -434,7 +434,7 @@ class AIMoveForBoarding : public AIMoveToAndEvacuateState
  public:
  virtual StateReturnType onEnter();
  virtual StateReturnType update();
- 
+
 }
 ;
 // AIMoveForBoarding::onEnter is rowed in its home unit; this copy was a duplicate definition.
@@ -448,7 +448,7 @@ class AIFollowPathState : public AIInternalMoveToState
  virtual StateReturnType update();
  virtual StateReturnType onEnter();
  virtual void onExit(StateExitType status);
- 
+
 }
 ;
 class AIFollowPathAndEvacuateState : public AIFollowPathState
@@ -458,7 +458,7 @@ class AIFollowPathAndEvacuateState : public AIFollowPathState
  virtual StateReturnType update();
  virtual StateReturnType onEnter();
  virtual void onExit(StateExitType status);
- 
+
 }
 ;
 // AIFollowPathAndEvacuateState::onEnter is rowed in its home unit; this copy was a duplicate definition.
@@ -470,13 +470,13 @@ StateReturnType AIFollowPathAndEvacuateState::update()
  Coord3D shore;
  const Coord3D *position=&owner->m_position;
  if(TheAI->pathfinder()->getClosestPointOnLand(position,owner,&shore)) 
- 
+
  {
   Rva0034C0D0 path(owner->getAI()->getCommandPath());
   for(int i=0;i<m_pathIndex;++i)path.erase(path.begin());
   ContainedObjects objects=owner->m_contain->getContainedObjects();
   for(_STL::list<Object *>::const_iterator it=objects.list->begin();it!=objects.list->end();++it) 
-  
+
   {
    Object *unit=*it;
    unit->getAI()->ignoreObstacle(owner);
@@ -485,12 +485,12 @@ StateReturnType AIFollowPathAndEvacuateState::update()
    unit->getAI()->m_command.rva00353168(owner,reinterpret_cast<const Rva0035149F &>(path),owner->getAI()->getSource());
    else
    unit->getAI()->m_command.rva00353080(owner,reinterpret_cast<const Rva0035149F &>(path),owner->getAI()->getSource());
-   
+
   }
   reinterpret_cast<AICommandInterface *>(&owner->getAI()->m_command)->aiIdle(CMD_FROM_AI);
   return STATE_SUCCESS;
-  
+
  }
  return AIFollowPathState::update();
- 
+
 }

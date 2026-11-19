@@ -62,19 +62,19 @@ public:
 	Coord3D m_arr[4];
 };
 Real normalizeAngle(Real angle);
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 #include "../GameLogicObjectLookupView.h"
 enum DamageType
 {
 	DAMAGE_TYPE_8 = 8
 };
-enum DeathType
-{
-	DEATH_NORMAL = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+
+
+
 #include "../Thing/thing.h"
 
 class Object : public Thing

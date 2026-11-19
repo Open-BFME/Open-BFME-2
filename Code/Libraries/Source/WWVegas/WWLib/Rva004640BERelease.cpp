@@ -43,10 +43,10 @@ public:
 // Slot 0 of OpenContain's +0x10 UpdateModuleInterface table: its update
 // (sibling update-interface tables name slot 0 update), spelled as the
 // virtual override.
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 class OpenContain
 {

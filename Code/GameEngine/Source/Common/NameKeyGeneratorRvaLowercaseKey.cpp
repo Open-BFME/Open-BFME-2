@@ -17,10 +17,10 @@
 // lowercase path is already rowed as nameToLowercaseKey at 0x620500, and that
 // identity dispute is deliberately left alone here.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../Include/Common/BfmeStringData.h"
 

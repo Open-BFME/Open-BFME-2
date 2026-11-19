@@ -50,10 +50,10 @@ class Rva00468E98Point
 
 enum KindOfType { KINDOF_INVALID = -1, KINDOF_RVA_0 = 0 };
 
-enum PathfindLayerEnum
-{
- LAYER_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 #include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 

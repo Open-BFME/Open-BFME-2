@@ -14,7 +14,7 @@ extern GameLogic *TheGameLogic;
 extern float GetGameLogicRandomValueReal(float, float, char *, int);
 extern float Cos(float);
 extern float Sin(float);
-enum CommandSourceType { CMD_FROM_AI = 2 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 struct AICommandParms;
 class Rva0035149F;
 class Object;

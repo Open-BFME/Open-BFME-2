@@ -18,10 +18,10 @@
 
 
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class AsciiString; class UnicodeString; class PooledString; class Coord3DBase; class ICoord3D;
 class Region3D; class IRegion3D; class Coord2D; class ICoord2D; class Region2D; class IRegion2D;
