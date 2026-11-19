@@ -2898,17 +2898,10 @@ struct Rva002B2B66Inner
 	char m_pad[0x14];
 	int m_val;
 };
-class Rva002B2B66
-{
-public:
-	int rva002B2B66();
-private:
-	char m_pad[0x98];
-	Rva002B2B66Inner *m_ptr;
-};
+#include "../../../../Include/Common/Rva002B2B66.h"
 int Rva002B2B66::rva002B2B66()
 {
-	Rva002B2B66Inner *playerView = m_ptr;
+	Rva002B2B66Inner *playerView = (Rva002B2B66Inner *)m_ptr;
 	if (playerView)
 		return playerView->m_val;
 	return -1;

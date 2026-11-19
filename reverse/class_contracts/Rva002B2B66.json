@@ -10,6 +10,11 @@
    "inherited_slots": 0,
    "inherited_spans": []
   },
+  "accessor_layout": {
+   "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+   "rva": "0x002B2B66",
+   "evidence": "Native 18-byte accessor loads the pointer at this+0x98, returns its int at +0x14 when non-null, otherwise -1. The 156-byte extent preserves the existing owner view, not a complete allocation size or recovered original class identity."
+  },
   "retail_access": {
    "0x98": {
     "4": 1
@@ -27,7 +32,15 @@
   "witness_offsets": [],
   "zh": {}
  },
- "fields": [],
+ "fields": [
+  {
+   "name": "m_ptr",
+   "kind": "P",
+   "type": "void*",
+   "offset": 152,
+   "size": 4
+  }
+ ],
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
@@ -41,7 +54,7 @@
   }
  ],
  "queue": [],
- "size": 1,
- "size_by": "majority",
+ "size": 156,
+ "size_by": "native accessor extent and existing owner view",
  "vslots": {}
 }
