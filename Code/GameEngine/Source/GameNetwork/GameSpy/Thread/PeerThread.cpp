@@ -215,7 +215,6 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 
 // The retail58B append body is owned by StlportNarrowAppendCStr.cpp.
 namespace _STL { template <> string &string::append(const char *); }
-extern "C" __declspec(dllimport) int __cdecl isdigit(int);
 
 // Retain STLport pointer copying without an external copy.
 namespace _STL {
