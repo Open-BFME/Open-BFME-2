@@ -47,7 +47,7 @@
 class SpecialPowerTemplate;
 
 enum RadiusCursorType { RADIUSCURSOR_NONE = 0 };
-enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 
 #include "../../Include/GameClient/CommandButton.h"
 

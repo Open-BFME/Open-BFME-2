@@ -93,7 +93,7 @@ public:Rva005CED37(const int*);
  TargetRef00217D4C *pointer;
 };
 enum ScienceType { SCIENCE_INVALID=0 };
-enum NameKeyType { NAMEKEY_INVALID=0,FORCE_NAMEKEYTYPE_LONG=0x7fffffff };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class ArmorTemplate;
 class Rva002E02F0 {public:void rva002E02F0(int,_STL::vector<ScienceType>*);};
 class Rva002B6498 {public:ArmorTemplate *rva002B6498(NameKeyType);};

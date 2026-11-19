@@ -59,12 +59,12 @@ enum AbleToAttackType
 {
 	ATTACK_NEW_TARGET = 0
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT,
-	CMD_FROM_AI
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 enum CanAttackResult
 {
 	ATTACKRESULT_NOT_POSSIBLE = 0,
@@ -77,17 +77,17 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_1C = 0x1C,
 	OBJECT_STATUS_BFME_26 = 0x26
 };
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-enum StateExitType
-{
-	EXIT_NORMAL,
-	EXIT_RESET
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateExitType.h"
+
+
+
+
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_INLINE
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
@@ -511,7 +511,7 @@ Bool GuardRetaliateExitConditions::shouldExit(const StateMachine* machine) const
 			return true;
 		} 
 	}
-	
+
 	if (m_conditionsToConsider & ATTACK_ExitIfOutsideRadius) 
 	{
 		Coord3D deltaAggressor, myRange;
@@ -522,7 +522,7 @@ Bool GuardRetaliateExitConditions::shouldExit(const StateMachine* machine) const
 		deltaAggressor.x = objPos.x - m_center.x;
 		deltaAggressor.y = objPos.y - m_center.y;
 		deltaAggressor.z = 0;
-	
+
 		Real guardRange = Rva00545239Get( machine->getOwner() );
 		Real guardRangeSqr = guardRange * guardRange;
 		myRange.x = myPos.x - m_center.x;

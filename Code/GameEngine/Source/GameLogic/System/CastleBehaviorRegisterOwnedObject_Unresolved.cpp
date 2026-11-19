@@ -45,7 +45,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 class Xfer;
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 // erase and push_back are called out of line: bind them to retail's copies (erase is
 // rowed in DockUpdateCtor.cpp) instead of emitting this unit's __false_type copies.

@@ -36,8 +36,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // /D_CRTIMP= keeps free a direct call; itoa stays an import-slot call.
 extern "C" char *(__cdecl *_imp___itoa)(int,char*,int);
 enum PathfindLayerEnum {LAYER_GROUND=0};
-enum ExitDoorType {DOOR_1=0};
-enum CommandSourceType {CMD_FROM_AI=2};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ExitDoorType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 double Rva000422A0Atan2(float,float);
 extern bool BfmeAIExitDoorFlag;
 // Retail 0x00DC97E4: a writable .data float (50.0) read only by exitObjectViaDoor, for the

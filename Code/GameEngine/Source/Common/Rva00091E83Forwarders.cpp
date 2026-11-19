@@ -190,7 +190,7 @@ private:
 	ModuleInfo m_drawModuleInfo;	///< 0x2F0
 };
 
-enum TimeOfDay { TIME_OF_DAY_NIGHT = 4 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/TimeOfDay.h"
 enum Weather { WEATHER_SNOWY = 1 };
 
 #include "../../Include/Common/GlobalData.h"

@@ -20,11 +20,11 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 class Rva00148F5ECache
 {

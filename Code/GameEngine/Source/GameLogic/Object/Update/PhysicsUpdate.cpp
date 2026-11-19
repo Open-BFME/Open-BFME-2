@@ -6,12 +6,12 @@
 #pragma function(memset)
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-enum UpdateSleepTime
-{
-    UPDATE_SLEEP_NONE = 1,
-    UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 class Thing;
 class ModuleData;
 // Retail 0x0053EC42 reads the object ID at +0x74 and writes this +0x58.

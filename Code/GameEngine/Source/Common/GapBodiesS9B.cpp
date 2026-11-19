@@ -7,8 +7,8 @@
 // is address-named and reaches its owner by the proven offset.
 
 #include "../../Include/Common/ScalarTypes.h"
-enum WeaponSlotType { PRIMARY_WEAPON = 0 };
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 struct LivingWorldArmy;
 
 class TurretAI

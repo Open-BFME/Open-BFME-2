@@ -49,7 +49,7 @@ typedef UnsignedInt WindowMsgData;
 
 typedef unsigned short WideChar;
 
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 
 enum
 {

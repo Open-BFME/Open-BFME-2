@@ -58,12 +58,12 @@ class Object;
 // Player field +0x5c gates a counter at +0x20. Otherwise compare two
 // view floats and, when the actor slot 110 accepts, issue command 2.
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 #include "../../../../Include/Common/Player.h"
 class View
 {
@@ -335,10 +335,10 @@ private:
 
 // UpdateModuleInterface::update's return type (UpdateModule.h): an int-sized
 // enum, returned in eax like an int.
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 // ---- from Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
 

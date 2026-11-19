@@ -65,10 +65,10 @@ enum WeaponLockType
 	NOT_LOCKED = 0,
 	LOCKED_TEMPORARILY = 1
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 enum
 {
 	AI_IDLE = 0

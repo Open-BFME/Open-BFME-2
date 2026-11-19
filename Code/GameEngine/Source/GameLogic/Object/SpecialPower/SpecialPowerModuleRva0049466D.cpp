@@ -99,10 +99,10 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 
 extern GameLogic *TheGameLogic;
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 class Waypoint;
 class Drawable;
@@ -179,7 +179,7 @@ static inline ResourceGatheringManager *playerResourceGatheringManager(const Pla
 
 class BehaviorModule;
 
-enum SpecialPowerType {};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SpecialPowerType.h"
 class SpecialAbilityUpdate;
 #include "../object.h"
 

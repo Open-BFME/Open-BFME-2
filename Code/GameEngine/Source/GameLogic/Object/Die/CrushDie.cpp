@@ -50,10 +50,10 @@ class CountermeasuresBehaviorInterface;
 #define CRUSHDIE_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Die\\CrushDie.cpp"
 Int GetGameLogicRandomValue( Int lo, Int hi, char *file, Int line );
 #include "../../../Common/GameLogicObjectLookupView.h"
-enum DamageType
-{
-	DAMAGE_CRUSH = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DamageType.h"
+
+
+
 enum CrushEnum
 {
 	TOTAL_CRUSH,

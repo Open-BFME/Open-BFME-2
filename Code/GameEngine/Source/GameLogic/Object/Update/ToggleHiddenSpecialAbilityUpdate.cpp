@@ -63,22 +63,22 @@ class Snapshot;
 
 extern GameLogic *TheGameLogic;
 
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 
 enum WeaponSetType
 {
 	WEAPONSET_NONE = 0
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 template <int N> class Rva004AE2D0Slots : public Rva004AE2D0Slots<N - 1>
 {
@@ -158,10 +158,10 @@ struct __declspec(novtable) ToggleHiddenSpecialAbilityUpdateModuleData
 
 class Xfer;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 // Table 0x00C552D8 slots 0-22 precede turnOff/turnOn (23/24); xfer is slot 3
 // and getModuleNameKey slot 4. No ctor here, so no vftable is emitted and the

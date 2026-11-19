@@ -29,7 +29,7 @@ namespace _STL {template<> ReverseIndex::hash_map();}
 // provider, retaining its established ArmorTable clear-worker call. The
 // existing opaque reverse value remains an inference; complete parent and
 // provider bytes plus EH are independently verified before fold admission.
-enum NameKeyType {NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 namespace rts { template<class T>struct hash {unsigned operator()(const T&v)const{return (unsigned)v;} }; }
 #include "../../Include/GameLogic/Armor.h"
 typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmorPair;

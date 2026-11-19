@@ -47,7 +47,7 @@ namespace _STL { template <> void allocator<_Rb_tree_node<AsciiString> >::deallo
 namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString *, unsigned int) const; }
 // bfme link decl-only end
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

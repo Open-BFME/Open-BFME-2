@@ -18,16 +18,16 @@ struct _iobuf;
 
 class Object;
 class Weapon;
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 #include "../../Include/Common/StateMachine.h"
 #include "GameLogicObjectLookupView.h"
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 extern GameLogic *TheGameLogic;
 

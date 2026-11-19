@@ -62,10 +62,10 @@ enum Relationship
 	ALLIES
 };
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 enum PlayerType
 {
@@ -73,11 +73,11 @@ enum PlayerType
 	PLAYER_COMPUTER
 };
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 
 enum TerrainDecalType
 {

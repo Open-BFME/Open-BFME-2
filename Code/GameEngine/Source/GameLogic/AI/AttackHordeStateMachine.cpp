@@ -34,10 +34,10 @@ static __forceinline void zeroCoord3D(Coord3D &coord)
 }
 #include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/Weapon.h"
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 struct ObjectTemplateBytes
 {
 	unsigned char m_pad000[0x116];

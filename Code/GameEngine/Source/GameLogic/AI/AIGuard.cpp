@@ -67,12 +67,12 @@ enum AbleToAttackType
 	ATTACK_NEW_TARGET = 0
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 enum CanAttackResult
 {
@@ -88,10 +88,10 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_44 = 0x44
 };
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
@@ -172,10 +172,10 @@ class Module;
 
 class BodyModuleInterface;
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 enum WeaponStatus
 {

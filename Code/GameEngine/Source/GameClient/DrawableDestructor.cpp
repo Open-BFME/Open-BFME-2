@@ -38,7 +38,7 @@ class Object;
 class Module;
 class ModuleData;
 class Matrix3D;
-enum DrawableStatus { DRAWABLE_STATUS_NONE = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DrawableStatus.h"
 enum ModuleType { MODULETYPE_DRAW = 1, MODULETYPE_CLIENT_UPDATE = 2, MODULETYPE_3 = 3 };
 
 class BFMERetailAsciiString : public AsciiString
@@ -53,7 +53,7 @@ struct ModuleInfoEntry { unsigned char m_data[0x14]; };
 #include "../../Include/Common/ModuleData.h"
 
 class Xfer;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 // Retail slot order (docs/linking_obstacles.md, "Module base chain"):
 // Snapshot's three slots, then getModuleNameKey and the four empty hooks.

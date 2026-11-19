@@ -66,8 +66,8 @@ template<> _Vector_base<Object*,allocator<Object*> >::~_Vector_base();
 template<> void vector<Object*>::push_back(Object * const &);
 }
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
-enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 NameKeyType NAMEKEY(const AsciiString &name);
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"

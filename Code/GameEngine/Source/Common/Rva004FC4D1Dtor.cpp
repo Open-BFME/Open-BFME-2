@@ -16,7 +16,7 @@
 #include <vector>
 #include "Common/Snapshot.h"
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 #include "../../Include/Common/RegionTurnObserverView.h"
 
