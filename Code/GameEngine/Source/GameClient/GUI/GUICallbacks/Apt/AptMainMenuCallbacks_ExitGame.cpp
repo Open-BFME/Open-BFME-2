@@ -402,7 +402,7 @@ public:
 	void invoke();
 	FunctorBinding m_binding;
 };
-void *__cdecl operator new(unsigned int size);
+#include <new>
 // The holder constructor (row 0x0057BC63) is defined here inline (never
 // inlined), as AptOptionsConstructor.cpp does: retail's compiler saw that it
 // only reads its binding, so both callback bindings below share one slot
