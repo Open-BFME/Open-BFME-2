@@ -2471,12 +2471,8 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackUpgra
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpecialPowerAtLocation.cpp	?rva0028447F@Rva004C82E5Terrain@@QAEXPAVBfmeX1035@@PBUCoord3D@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp	?g_cloudBreakRadiusDefault@@3MA	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp	?f1@SiegeDeployHordeSpecialPower_S1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp	?f2@SiegeDeployHordeSpecialPower_S2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp	?f3@SiegeDeployHordeSpecialPower_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp	?f4@SiegeDeployHordeSpecialPower_S4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f1@SiegeDeploySpecialPower_S1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f2@SiegeDeploySpecialPower_S2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f3@SiegeDeploySpecialPower_S3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f4@SiegeDeploySpecialPower_S4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor.cpp	??1Rva00493DEF@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	??1BehaviorModuleData@@QAE@XZ	1

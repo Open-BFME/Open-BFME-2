@@ -15,6 +15,12 @@
 // PoisonedBehaviorDtor.cpp. The base is declared only so the call resolves
 // via its ledger row, and the vtable values are DIR32 auto-patches.
 
+class SpecialPowerTemplate;
+class Object;
+struct Coord3D;
+class Waypoint;
+enum UpdateSleepTime;
+
 class Rva00589079
 {
 public:
@@ -30,19 +36,23 @@ public:
 	virtual void f1();
 };
 
+// The +0x10 update interface: slot 0 of retail's table 0x00C5DD88 is the rowed
+// SiegeDeployHordeSpecialPower::update (0x004C64EE).
 class SiegeDeployHordeSpecialPower_S2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 
 private:
 	char m_pad04[12];
 };
 
+// The +0x20 special-power interface: slot 0 of retail's table 0x00C5DD64 is the rowed
+// SiegeDeployHordeSpecialPower::initiateIntentToDoSpecialPower (0x004C6588).
 class SiegeDeployHordeSpecialPower_S3
 {
 public:
-	virtual void f3();
+	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *, const Object *, const Coord3D *, unsigned int, const Waypoint *) = 0;
 };
 
 class SiegeDeployHordeSpecialPower_S4
@@ -59,6 +69,8 @@ class SiegeDeployHordeSpecialPower : public Rva00589079,
 {
 public:
 	virtual ~SiegeDeployHordeSpecialPower();
+	virtual UpdateSleepTime update();	// 0x004C64EE
+	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate, const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);	// 0x004C6588
 };
 
 SiegeDeployHordeSpecialPower::~SiegeDeployHordeSpecialPower()
@@ -73,6 +85,4 @@ SiegeDeployHordeSpecialPower::~SiegeDeployHordeSpecialPower()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@SiegeDeployHordeSpecialPower_S2@@UAEXXZ=?update@SiegeDeployHordeSpecialPower@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f3@SiegeDeployHordeSpecialPower_S3@@UAEXXZ=?initiateIntentToDoSpecialPower@SiegeDeployHordeSpecialPower@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z")
 #pragma comment(linker, "/alternatename:?f4@SiegeDeployHordeSpecialPower_S4@@UAEXXZ=?eq@Rva0026A910@@QBE_NH@Z")
