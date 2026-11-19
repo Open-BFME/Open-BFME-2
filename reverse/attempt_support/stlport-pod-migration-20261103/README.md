@@ -1,5 +1,22 @@
 # POD-vector STLport 4.6 migration: complete byte proof, ABI closure pending
 
+## 2026-11-19 prerequisite check
+
+At `2d3b37d310`, the unchanged owner still passes all 160 rows after
+`worktree_setup.py prepare` restores this tree's pinned dependency. Its 17
+explicit const allocator instantiations remain, while pristine 4.6 declares
+`allocate` non-const. The historical two-row library lead does not establish
+whole-file migration.
+
+The actual SidesList.cpp scope and the broad stlport_pod_noexc_bodies.cpp and
+StlportVectorGrowthFootprints.cpp scopes are now claimable. Historical claim
+contention below is therefore not a current blocker. Coherent old-name
+provider/caller migration and fresh placement approval remain unestablished;
+the old bounded consumer audit is not presented as current closure. No source,
+binding or migration marker changed in this check.
+
+## Original investigation
+
 Inspected base: `7fe05e7dac`, 2026-11-03. The default picker reserved
 `Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp`.
 The trial queue's two library matches cover only72 bytes; the actual source
