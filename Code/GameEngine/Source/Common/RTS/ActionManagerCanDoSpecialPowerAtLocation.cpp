@@ -35,9 +35,9 @@
 struct ActionLocationCoord:Coord3D {
  ActionLocationCoord(const Coord3D &p) { x=p.x;y=p.y;z=p.z; }
 };
-enum CommandSourceType { CMD_FROM_PLAYER };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 enum SpecialPowerType { SPECIAL_INVALID };
-enum NameKeyType { NAMEKEY_INVALID };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../Include/Common/Geometry.h"

@@ -42,9 +42,9 @@ class GameLogic;
 
 enum DamageType { DAMAGE_UNRESISTABLE = 8 };
 
-enum DeathType { DEATH_NORMAL = 0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
 
-enum CommandSourceType { CMD_FROM_AI = 2 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 // The native action donor shares this Object prefix: radius B8 and AI 258.
 // The three called methods already have native ledger owners.

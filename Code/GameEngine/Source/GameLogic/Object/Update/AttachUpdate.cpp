@@ -34,10 +34,10 @@ enum DamageType
 {
 	DAMAGE_RVA00491D2F_8 = 8
 };
-enum DeathType
-{
-	DEATH_NORMAL = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+
+
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_RVA00491AD0_98 = 0x62
@@ -215,11 +215,11 @@ extern "C" const void *const vtbl_00C4DB20[13] = {
 	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
 };
 class Thing;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 class Xfer::Version
 {

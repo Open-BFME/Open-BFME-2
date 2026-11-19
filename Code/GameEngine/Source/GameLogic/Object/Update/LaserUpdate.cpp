@@ -37,10 +37,10 @@ extern "C" const void *const __identifier("??_7Rva00362EC7@@6B@")[];
 
   // folded vftable 0x00C170A4 (2 classes), by its data-ledger name
 
-enum ParticleSystemID
-{
-	INVALID_PARTICLE_SYSTEM_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
+
+
+
 
 struct Rva001F3899Arg { float x,y,z; };
 
@@ -225,10 +225,10 @@ enum WhichTurretType { TURRET_INVALID=-1,TURRET_MAIN=0 };
 
 #include "../object.h"
 
-enum DrawableID
-{
-	INVALID_DRAWABLE_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
+
+
+
 
 // Drawable::getID is ICF-folded onto the matched dword getter row at 0x0055A88B
 // (DispDwordFieldGetters.cpp); called here by that row name.

@@ -25,7 +25,7 @@
 #define MAX_PLAYER_COUNT 20
 #define BitTest(x, i) (((x) & (i)) != 0)
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
 enum PlayerType { PLAYER_HUMAN = 0, PLAYER_COMPUTER = 1 };
 

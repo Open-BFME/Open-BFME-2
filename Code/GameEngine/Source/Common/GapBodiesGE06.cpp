@@ -147,7 +147,7 @@ bool Rva002E7F1E::isNotEmpty() const
 // --- 0x0039B4B8 (52B): the experience level named by the string (rowed
 // lookup 0x0028951F on TheExperienceLevelSystem) goes to the rowed 0x0039B24F
 // with 1 and the flag.
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

@@ -182,7 +182,7 @@ void Rva004FC320List::apply(const Rva004FC2B3Call &call)
 }
 
 // ---- dual broadcast 0x004FA992: two-argument twin of 0x004FA978
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 enum ScienceType { SCIENCE_INVALID = 0 };
 
 namespace _STL

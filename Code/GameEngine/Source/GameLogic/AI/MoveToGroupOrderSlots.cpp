@@ -205,8 +205,8 @@ void MoveToFormationGroupOrder::rva00547F37(ObjectID id)
 // remains unknown. Existing command providers establish the command ABI.
 // The kind-26 branch places the object with angle +28; both paths then issue
 // a facing move (or attack-move when +2C is set). No donor identity is asserted.
-enum CommandSourceType {CMD_FROM_PLAYER=0};
-enum PathfindLayerEnum {LAYER_GROUND=1};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class FormationTemplateView {public:char prefix[0x11C];unsigned kindHigh;};
 class Object {public:
