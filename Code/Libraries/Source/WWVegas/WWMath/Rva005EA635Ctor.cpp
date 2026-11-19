@@ -21,5 +21,4 @@ Rva005EA635::Rva005EA635() : Rva00221635(AsciiString("DynamicAutoResolveDialog")
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:??0Rva00221635@@QAE@ABVAsciiString@@@Z=??0Rva00221635@@QAE@H@Z")
-#pragma comment(linker, "/alternatename:?f0@Rva00221635@@UAEXXZ=??_GRva005E9F7B@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?g0@Rva005EA635@@UAEXXZ=?rva005E9F80@Rva005E9F80@@UAEXPAVINI@@@Z")

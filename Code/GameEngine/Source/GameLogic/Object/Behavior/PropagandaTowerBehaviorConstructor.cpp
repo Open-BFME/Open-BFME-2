@@ -78,7 +78,6 @@ PropagandaTowerBehavior::PropagandaTowerBehavior(Thing *thing, const ModuleData 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?slot@PropagandaTowerBehaviorIface@@UAEXXZ=?rva00481837@Rva00481837@@UAEXH@Z")
 
 // Slot 7 of PropagandaTowerBehavior's BehaviorModuleInterface table 0x00C49188: retail 0x004543A9, the +0x20 die interface.
 DieModuleInterface *PropagandaTowerBehavior::getDie()

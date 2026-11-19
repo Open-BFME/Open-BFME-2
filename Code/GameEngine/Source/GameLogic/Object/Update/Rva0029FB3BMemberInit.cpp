@@ -55,4 +55,3 @@ void Rva0029FB3BMember::reset()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?init@Rva0029FB3BMember@@QAEXPAX@Z=?init@Rva0029FB3BMember@@QAEPAXPAX@Z")

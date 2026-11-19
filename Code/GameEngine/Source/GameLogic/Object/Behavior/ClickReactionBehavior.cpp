@@ -98,7 +98,6 @@ public:
     virtual void slot();
 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-#pragma comment(linker, "/alternatename:?slot@ClickReactionBehaviorIface@@UAEXXZ=?get@Rva004543A9LeaNegSbbField@@WBE@BEHXZ")
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

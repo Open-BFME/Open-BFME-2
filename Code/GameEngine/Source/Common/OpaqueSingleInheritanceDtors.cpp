@@ -289,8 +289,6 @@ void Rva000A8856::rva000A8856(Rva000A8903AudioDevice *device)
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f3@MiBase3_62AF7@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
-#pragma comment(linker, "/alternatename:?f2@MiBase2_62AF7@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 
 // These six destructors are header inlines in copier units; the anchor retains
 // this unit's matched row bodies, but the anchor is not retail code.

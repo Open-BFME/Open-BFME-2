@@ -1596,8 +1596,6 @@ alternatename	Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp	??1
 alternatename	Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp	??1Rva002D0588@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp	?f1@MiBase1_4C743@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp	?f1@MiBase1_62AF7@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp	?f2@MiBase2_62AF7@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp	?f3@MiBase3_62AF7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/P8ZeroingCtorsInit.cpp	?Release_Ref@TaggedRefObject@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Q1ZeroingConstructors.cpp	?bfmeInit1029@BfmeSub1029@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva0065E7A0Object@@UAEXXZ	1
@@ -1812,7 +1810,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0039597COpAssign.cpp	?Rva00395D45
 alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF_v0	1
 alternatename	Code/GameEngine/Source/Common/Rva003C4B2DInsert.cpp	?rva003BD4C3@@YAXPAX00@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva003FD14D.cpp	?vbfunc@Rva003FD14DBase@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva003FD14D.cpp	?vfunc@Rva003FD14D@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva003FDCEB.cpp	?rva003FDC46@Rva003FDCEB@@QAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00403055CopyCtor.cpp	?clearItems@Rva00402D7E@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004079D5.cpp	?rva00388E63@Rva004079D5Sub74@@QAEHPAH@Z	1
@@ -1840,7 +1837,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C29
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C67A0_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C8A16_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp	??1CollideModule@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp	?f2@Rva004B96E5_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp	?f2@Rva004BB0CC_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp	?f2@Rva004BD5ED_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp	?f1@Rva004BC4FC_Mid@@UAEXXZ	1
@@ -1926,7 +1922,6 @@ alternatename	Code/GameEngine/Source/Common/Rva005E8E80Method.cpp	?GetResult@Rva
 alternatename	Code/GameEngine/Source/Common/Rva005EB35DDeletingDtor.cpp	??1Rva005EB2E7@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005EF46BCopyBackward.cpp	??$__copy_backward@PAVRva005EEFD2@@H@_STL@@YAPAVRva005EEFD2@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva005F0647Deleting.cpp	?Rva005F0C39Destroy@@YAXPAURva005F0647@@0PA_N@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva005F2F80ElemDtor.cpp	?Rva005F2F80ElemSlot0@Rva005F2F80ElemBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005F38D8Forward.cpp	?rva005F3652@Impl@ArmyDetailsMovieClip@StrategicHUD@@QAE?AURva005F38D8Ref@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva005F888CRva005F888C.cpp	??0Rva005F8447@@QAE@ABURva005F888CRef@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp	?f0@Rva005FAD8D@@UAEXXZ	1
@@ -2191,7 +2186,6 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cp
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeFindLC@BfmeKeyLC@@QAEPAUBfmeNodeLC@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeGetEBN@BfmeObjEBN@@QAEPAUBfmeSubEBN@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeGetENK@BfmeObjENK@@QAEPAUBfmeSubENK@@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp	?winSetText@GameWindow@@QAEHVUnicodeString@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenu_PositionButton.cpp	?Move@ButtonShell@Impl@AptRadialMenu@@QAEXVCoord2D@@0@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/InGameSimpleHelp.cpp	??1Rva005398CDRefCounted@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?GetStateString@Rva00215EA4BannerState@@SAPBDH@Z	1
@@ -2265,7 +2259,6 @@ alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot0C@R
 alternatename	Code/GameEngine/Source/GameClient/System/Rva00204316.cpp	?slot10@Rva00203EFD@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/VideoPlayer.cpp	?g_Va00CE4918@@3DA	1
 alternatename	Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp	??1Video@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateOnExit_AIInternalMoveToState.cpp	?update@State@@UAE?AW4StateReturnType@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	?_M_create_node@?$_Rb_tree@IU?$pair@$$CBII@_STL@@U?$_Select1st@U?$pair@$$CBII@_STL@@@2@URva002F0DD6Less@@V?$allocator@U?$pair@$$CBII@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@ABU?$pair@$$CBII@2@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	?dup_0060C9D9@_STL@@YAXPAU?$pair@$$CBII@1@ABU21@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva002F3093Record@@@2@@Z	1
@@ -2308,7 +2301,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDto
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDtor.cpp	?f30@CastleBehavior_30@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDtor.cpp	?fe@Rva00455050_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp	?f2@CastleB2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp	?slot@ClickReactionBehaviorIface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp	??1DynamicPortalLinkVec@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
@@ -2316,7 +2308,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehav
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp	??0FakePathfindPortalBehaviourModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp	?unused@BehaviorModuleBase@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp	?update@UpdateModule@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp	?slot@PropagandaTowerBehaviorIface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp	?g_bfmePropagandaHeal@@3MA	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskBJA@BfmeThingBJA@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ	1
@@ -2440,7 +2431,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHo
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f1@SiegeDeploySpecialPower_S1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerDtor.cpp	?f4@SiegeDeploySpecialPower_S4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor.cpp	??1Rva00493DEF@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	??1BehaviorModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva00295A0F@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva0048F472@AssaultTransportAIUpdate@@QBE_NPBVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp	??0Rva0026E9BDBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
@@ -2451,7 +2441,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomo
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp	?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBUCoord3D@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp	?upgradeSlot@UpgradeMux@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp	?TheEmptyString@AsciiString@@2V1@A	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp	?slot@PB_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp	??0SupplyCenterDockUpdateBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Rva005839A7IdResize.cpp	?resize@?$vector@URva005839A7Id@@V?$allocator@URva005839A7Id@@@_STL@@@_STL@@QAEXIURva005839A7Id@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	?supplyCenterDockUpdateIface1Anchor@SupplyCenterDockUpdateIface1@@UAEXXZ	1
@@ -2475,7 +2464,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdat
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp	?allow@Rva00265150RJFilter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva002553F6Ctor.cpp	_kF7C	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva00262176Activity.cpp	?rva00262176@Rva003638BA@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva0029FB3BMemberInit.cpp	?init@Rva0029FB3BMember@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva004382FCWrapper.cpp	??0BfmePod196@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdateFriendNew.cpp	??0ScaleWallSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdateModuleDataFriendNew.cpp	_vtbl_00BF3740	1
@@ -2577,7 +2565,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	?bfmeDtorTWB@BfmeSt
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	?bfmeDtorTWC@BfmeHeadTWC@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	?bfmeFmtVJJ@BfmeThingVJJ@@QAEXPADH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	?bfmeReset1015@BfmeL1015@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	?clear@BfmeC994@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	?m@Gen_007e86c0@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	?parse@Rva00800780Addr@@QAEXPBDH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsgVJH_ctor.cpp	??0BfmeMsg803A00@@QAE@PADH@Z	1
@@ -3395,7 +3382,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot14
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot18@Rva005EA0F6StateBase@@UAEXPAX0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot1C@Rva005EA0F6StateBase@@UAE_NXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA635Ctor.cpp	??0Rva00221635@@QAE@ABVAsciiString@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA635Ctor.cpp	?f0@Rva00221635@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA635Ctor.cpp	?g0@Rva005EA635@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp	??0Rva0047A040Base9E0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp	??1BfmeElemVVD@@QAE@XZ	1
