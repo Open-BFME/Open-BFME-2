@@ -28,25 +28,31 @@ public:
 	virtual void f1();
 };
 
+class Object;
+enum UpdateSleepTime;
+// The +0x10 update interface: slot 0 is the rowed DockUpdate::update.
 class Rva0058A0F4_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 
 private:
 	char m_pad08[12];
 };
 
+// The +0x20 dock interface: slot 0 is the rowed DockUpdate::isClearToApproach.
 class Rva0058A0F4_E1
 {
 public:
-	virtual void fe();
+	virtual bool isClearToApproach(const Object *docker) const = 0;
 };
 
 class DockUpdate : public Rva0058A0F4_Root, public Rva0058A0F4_M1, public Rva0058A0F4_B2, public Rva0058A0F4_E1
 {
 public:
 	virtual ~DockUpdate();
+	virtual UpdateSleepTime update();
+	virtual bool isClearToApproach(const Object *docker) const;
 };
 
 class MonsterDockUpdate : public DockUpdate
@@ -67,9 +73,7 @@ MonsterDockUpdate::~MonsterDockUpdate()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?fe@Rva0058A0F4_E1@@UAEXXZ=?isClearToApproach@DockUpdate@@UBE_NPBVObject@@@Z")
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@Rva0058A0F4_B2@@UAEXXZ=?update@DockUpdate@@UAE?AW4UpdateSleepTime@@XZ")

@@ -9,7 +9,7 @@
 // the ledger address. Owner identities are unproven (opaque Rva names). One
 // ledger row per destructor, landed one commit at a time.
 // vslot 0x0035D1C6 (?Rva0035D1C6@Rva0035D0D1@@UAEXXZ, 33B, slot 5 offset 0x14
-// of vtable 0x008163D8): if (!m_1c) { m_20 = 1.0f; slot4(); } m_24 = 1.
+// of vtable 0x008163D8): if (!m_1c) { m_20 = 1.0f; draw(); } m_24 = 1.
 // Evidence: vtable 0x008163D8 slots 0x35D1F0/0x35D133/0x35D14A/0x35D1BD/
 // 0x35D2B2/0x35D1C6/0x35D1E7; INI StartFrame +0x10 EndFrame +0x14
 // ViewsToFade +0x18 LeaveSilent +0x1C; float 1.0f at 0x00BBB8D8.
@@ -28,9 +28,9 @@ class Rva0035D0D1 : public Rva001DBAA4
 public:
 	virtual ~Rva0035D0D1();
 	virtual void slot1(int); // 0x0035D133 slot 1
-	virtual void slot2(int); // 0x0035D14A slot 2
+	virtual void update(int); // 0x0035D14A slot 2
 	virtual void slot3(); // 0x0035D1BD slot 3 shared
-	virtual void slot4(); // 0x0035D2B2 slot 4
+	virtual void draw(); // 0x0035D2B2 slot 4
 	virtual void Rva0035D1C6(); // 0x0035D1C6 slot 5
 	virtual void slot6(); // 0x0035D1E7 slot 6 shared
 private:
@@ -49,7 +49,7 @@ void Rva0035D0D1::Rva0035D1C6()
 {
 	if (!m_1c) {
 		m_20 = 1.0f;
-		slot4();
+		draw();
 	}
 	m_24 = true;
 }

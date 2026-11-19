@@ -29,9 +29,9 @@ public:
     Rva0035D0D1();
     virtual ~Rva0035D0D1();
     virtual void slot1(int);
-    virtual void slot2(int);
+    virtual void update(int);
     virtual void slot3();
-    virtual void slot4();
+    virtual void draw();
     virtual void Rva0035D1C6();
     virtual void slot6();
     int m_10;
@@ -52,7 +52,5 @@ Rva0035D0D1::Rva0035D0D1() : m_10(0), m_14(30), m_18(7), m_1C(false), m_20(1.0f)
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?slot1@Rva0035D0D1@@UAEXH@Z=?reset@Rva0035D133@@QAEXH@Z")
-#pragma comment(linker, "/alternatename:?slot2@Rva0035D0D1@@UAEXH@Z=?update@Rva0035D0D1@@UAEXH@Z")
 #pragma comment(linker, "/alternatename:?slot3@Rva0035D0D1@@UAEXXZ=?rva0035D1BD@Rva0035D1BD@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?slot4@Rva0035D0D1@@UAEXXZ=?draw@Rva0035D0D1@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot6@Rva0035D0D1@@UAEXXZ=?rva0035D1E7@Rva0035D1E7@@QAEXXZ")

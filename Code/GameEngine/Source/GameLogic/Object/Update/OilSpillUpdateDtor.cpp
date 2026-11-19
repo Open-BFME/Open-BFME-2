@@ -26,9 +26,12 @@ class FireWeaponBaseB
 	virtual void unusedB();
 };
 
+enum UpdateSleepTime;
+// The +0x10 update interface: slot 0 of OilSpillUpdate's table is its rowed update.
 class FireWeaponBaseC
 {
-	virtual void unusedC();
+public:
+	virtual UpdateSleepTime update() = 0;
 };
 
 class FireWeaponUpdate : public FireWeaponBaseA, public FireWeaponBaseB, public FireWeaponBaseC
@@ -49,6 +52,7 @@ class OilSpillUpdate : public FireWeaponUpdate
 public:
 	OilSpillUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~OilSpillUpdate();
+	virtual UpdateSleepTime update();
 
 private:
 	void *m_buf2C;
@@ -81,4 +85,3 @@ void _bfmeOilSpillUpdateInlineAnchor(OilSpillUpdate *oilSpillUpdate)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?unusedC@FireWeaponBaseC@@EAEXXZ=?update@OilSpillUpdate@@UAE?AW4UpdateSleepTime@@XZ")

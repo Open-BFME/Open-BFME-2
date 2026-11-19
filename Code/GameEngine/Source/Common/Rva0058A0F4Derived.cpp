@@ -29,25 +29,31 @@ public:
 	virtual void f1();
 };
 
+class Object;
+enum UpdateSleepTime;
+// The +0x10 update interface: slot 0 is the rowed DockUpdate::update.
 class Rva0058A0F4_B2
 {
 public:
-	virtual void f2();
+	virtual UpdateSleepTime update() = 0;
 
 private:
 	char m_pad08[12];
 };
 
+// The +0x20 dock interface: slot 0 is the rowed DockUpdate::isClearToApproach.
 class Rva0058A0F4_E1
 {
 public:
-	virtual void fe();
+	virtual bool isClearToApproach(const Object *docker) const = 0;
 };
 
 class DockUpdate : public Rva0058A0F4_Root, public Rva0058A0F4_M1, public Rva0058A0F4_B2, public Rva0058A0F4_E1
 {
 public:
 	virtual ~DockUpdate();
+	virtual UpdateSleepTime update();
+	virtual bool isClearToApproach(const Object *docker) const;
 };
 
 class Rva004A0E0C : public DockUpdate

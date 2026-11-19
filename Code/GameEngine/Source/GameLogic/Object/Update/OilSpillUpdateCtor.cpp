@@ -49,9 +49,12 @@ class FireWeaponBaseB
 	virtual void unusedB();
 };
 
+enum UpdateSleepTime;
+// The +0x10 update interface: slot 0 of OilSpillUpdate's table is its rowed update.
 class FireWeaponBaseC
 {
-	virtual void unusedC();
+public:
+	virtual UpdateSleepTime update() = 0;
 };
 
 class FireWeaponUpdate : public FireWeaponBaseA, public FireWeaponBaseB, public FireWeaponBaseC
@@ -72,6 +75,7 @@ class OilSpillUpdate : public FireWeaponUpdate
 public:
 	~OilSpillUpdate();	// rowed out of line; this view must not emit its own
 	OilSpillUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual UpdateSleepTime update();
 
 private:
 	_STL::vector<int> m_items2C;

@@ -268,7 +268,7 @@ class Rva0035FF76 : public Rva001DBAA4
 {
 public:
 	virtual ~Rva0035FF76();
-	virtual void init(void *win);
+	virtual void init(GameWindow *win);
 	virtual void update(int frame);
 	virtual void reverse() = 0;
 	virtual void draw();

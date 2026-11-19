@@ -15,11 +15,12 @@ public:
 	void *m_win;
 };
 
+class GameWindow;
 class Rva0035FF76 : public Rva001DBAA4
 {
 public:
 	virtual ~Rva0035FF76();
-	virtual void init(void *win);
+	virtual void init(GameWindow *win);
 	virtual void update(int frame);
 	virtual void reverse() = 0;
 	virtual void draw();
@@ -63,6 +64,5 @@ Rva0035FF76::Rva0035FF76()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?init@Rva0035FF76@@UAEXPAX@Z=?init@Rva0035FF76@@UAEXPAVGameWindow@@@Z")
 #pragma comment(linker, "/alternatename:?skip@Rva0035FF76@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?getFrameLength@Rva0035FF76@@UAEHXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")

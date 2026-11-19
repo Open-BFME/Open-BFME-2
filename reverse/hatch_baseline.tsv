@@ -1794,12 +1794,9 @@ alternatename	Code/GameEngine/Source/Common/Rva00342EACCtor.cpp	?update@AIIntern
 alternatename	Code/GameEngine/Source/Common/Rva00342EACCtor.cpp	?xfer@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0034C5E0Dtor.cpp	??1BfmeOwnedStringState@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot1@Rva0035D0D1@@UAEXH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot2@Rva0035D0D1@@UAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot3@Rva0035D0D1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot4@Rva0035D0D1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot6@Rva0035D0D1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?getFrameLength@Rva0035FF76@@UAEHXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?init@Rva0035FF76@@UAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?skip@Rva0035FF76@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00367518Ctor.cpp	?xfer@AIFollowPathState@@UAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?onEnter@AIInternalMoveToState@@UAEHXZ	1
@@ -2454,11 +2451,8 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdate
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp	?rva0043979D@Rva00439CF7@@QAE_NPAVObject@@PAURva004393D6@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateFriendNew.cpp	??0ModelConditionSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp	?f1@Rva0058A0F4_M1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp	?f2@Rva0058A0F4_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp	?fe@Rva0058A0F4_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp	?unusedA@FireWeaponBaseA@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp	?unusedB@FireWeaponBaseB@@EAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp	?unusedC@FireWeaponBaseC@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateModuleDataDtor.cpp	??1Rva002BB6BE20Rec@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp	??0Rva00045411BitSet@@QAE@HHH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp	?allow@Rva00265150RJFilter@@UAE_NPAVObject@@@Z	1
