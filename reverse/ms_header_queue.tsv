@@ -266,7 +266,6 @@ Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.c
 Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			fabs:abi
 Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00970f60.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	1	<excpt.h>,<new>	no	yes	hand			operator new:abi
 Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences_Unresolved.cpp	conflicting	abi	3	1	0	0	0	0	2	0	0	0	1	<stdlib.h>,<excpt.h>,<time.h>	no	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	free:abi,atoi:abi,time_t:same
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<new>	no	yes	hand	1: Code/GameEngine/Include/GameClient/Shell.h:19 Shell(mangle)		operator new:abi
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<new>	no	yes	hand	1: Code/GameEngine/Include/GameClient/Shell.h:19 Shell(mangle)		operator new:abi
 Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComCreateInstance.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	IID_IUnknown:same
 Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComWrappers.cpp	adapt	source	2	1	1	0	0	0	0	0	0	0	0	<comutil.h>,<comdef.h>	no	yes	hand			_bstr_t:source,_com_issue_error:same
