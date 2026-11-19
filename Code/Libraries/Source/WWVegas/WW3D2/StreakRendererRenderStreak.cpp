@@ -10,12 +10,10 @@
 // SetTransform). FVFInfoClass keeps WorldBuilder's indexed Get_Location_Offset(n). The
 // remaining StreakRendererClass members are rowed in streakRender.cpp; subdivision_util and
 // getVertexBuffer stay visible here (inline) because retail's /O2 RenderStreak inlines them.
-// Keep the unused math.h wrapper local to this translation unit.
+// Keep math.h's inline floorf local to this translation unit.
 extern "C" { static float __cdecl floorf(float); }
 #define Matrix4x4 Matrix4
-void operator delete[](void*) throw();
-// Keep math.h's inline floorf local: retail's object exposes no _floorf.
-extern "C" { static float __cdecl floorf(float); }
+#include <crtdbg.h>
 // Keep the math overload inline without emitting an external copy.
 __declspec(dllimport) __forceinline float __cdecl fabs(float);
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/texture.h"
