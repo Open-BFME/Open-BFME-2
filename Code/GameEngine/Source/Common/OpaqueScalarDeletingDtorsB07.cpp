@@ -474,10 +474,10 @@ class Rva0053947D
 public:
     virtual ~Rva0053947D();
     virtual void v01(); virtual void rva005391D3(); virtual void v03();
-    virtual void v04(); virtual void v05(); virtual void v06();
-    virtual void v07(); virtual void v08(); virtual void v09();
-    virtual void v10(); virtual void v11(); virtual void v12();
-    virtual int v13(); virtual void v14(); virtual void *v15(int);
+    virtual void v04(); virtual void v05(); virtual void rva00539251(int);
+    virtual void rva005392EC(); virtual void v08(); virtual void v09();
+    virtual void v10(); virtual void v11(); virtual void v12() = 0;
+    virtual int v13() = 0; virtual void v14() = 0; virtual void *v15(int) = 0;
     char unmodelled04[0x10];
 };
 #include "../../Include/Common/Rva0052B23D.h"

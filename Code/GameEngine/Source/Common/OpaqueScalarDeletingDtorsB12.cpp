@@ -113,16 +113,16 @@ public:
 	virtual void v03();
 	virtual void v04();
 	virtual void v05();
-	virtual void v06();
-	virtual void v07();
+	virtual void rva00539251(int);
+	virtual void rva005392EC();
 	virtual void v08();
 	virtual void v09();
 	virtual void v10();
 	virtual void v11();
-	virtual void v12();
-	virtual int v13();
-	virtual void v14();
-	virtual void *v15(int i);
+	virtual void v12() = 0;
+	virtual int v13() = 0;
+	virtual void v14() = 0;
+	virtual void *v15(int i) = 0;
 	unsigned char m_list_storage[0x14];
 };
 
