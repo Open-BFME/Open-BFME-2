@@ -41,7 +41,15 @@ bool __cdecl BFME_DX8_Thread_Assert(void);
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 #if defined(BFME2_MODERN)
 #include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+#include "../../../../GameEngine/Include/Common/ModernCameraInterpolation.h"
 __declspec(thread) ModernRenderPhase g_modernRenderPhase = MODERN_RENDER_LEGACY;
+bool g_modernAptFreshUpdate = true;
+bool modernAptFreshFrame()
+{
+    bool fresh = g_modernRenderPhase != MODERN_RENDER_PRESENT || g_modernAptFreshUpdate;
+    g_modernAptFreshUpdate = false;
+    return fresh;
+}
 struct ModernModelScope
 {
     bool active;
@@ -1394,6 +1402,14 @@ bool W3DDisplay::rva0004A462(unsigned int now)
         if (!modernPresentsScene()) return false;
         // Blend unit models toward their latest update for this presentation.
         ModernModelScope modernModels;
+        // Keep the interpolated camera for the whole presentation, HUD included:
+        // HUD code re-projects world anchors (the radial menu, health bars)
+        // with the tactical camera after the 3D views are drawn.
+        unsigned char *modernView = getView();
+        ModernCameraPresentation modernFrameCamera(modernView, modernView ? *(CameraClass **)(modernView + 0x104) : 0);
+#endif
+#if defined(BFME2_MODERN)
+        modernTrace('B',0,0,0,0);
 #endif
         if (TheGameLogic == 0 || !TheGameLogic->m_6d)
         {
@@ -1452,6 +1468,9 @@ bool W3DDisplay::rva0004A462(unsigned int now)
                     if (Rva00DE1FF8Manager != 0 && TWGD[0x62] != 0)
                         Rva00DE1FF8Manager->rva0007B6F3();
                 }
+#if defined(BFME2_MODERN)
+                modernTrace('V',0,0,0,0);
+#endif
                 DrawStaticImage(0, 2);
                 DrawStaticImage(1, 2);
                 DrawStaticImage(2, 2);
@@ -1461,9 +1480,15 @@ bool W3DDisplay::rva0004A462(unsigned int now)
                     BFME2ScopedRenderEvent event("RenderUI", "Frame", 0);
                     WINDOWMODE = 1;
                     SYS(TheInGameUI)->s30();
+#if defined(BFME2_MODERN)
+                    modernTrace('W',0,0,0,0);
+#endif
                     if (!cameraValid)
                         SYS(TheInGameUI)->s158();
                     SYS(g_bfmeAptWindowManager)->s30();
+#if defined(BFME2_MODERN)
+                    modernTrace('A',0,0,0,0);
+#endif
                     WINDOWMODE = 0;
                     SYS(TheInGameUI)->s30();
                     WINDOWMODE = -1;
@@ -1500,6 +1525,9 @@ bool W3DDisplay::rva0004A462(unsigned int now)
                 SYS(TheTransitionHandler)->s30();
             if (m_30 != 0)
                 drawCurrentDebugDisplay();
+#if defined(BFME2_MODERN)
+            modernTrace('S',0,0,0,0);
+#endif
             WW3D::End_Render(true);
         }
         else

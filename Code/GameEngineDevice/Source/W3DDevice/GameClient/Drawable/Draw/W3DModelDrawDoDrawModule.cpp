@@ -299,54 +299,375 @@ private:
 
 #if defined(BFME2_MODERN)
 #include "../../../../../../GameEngine/Include/Common/ModernRenderPhase.h"
-// Unit interpolation between client updates. doDrawModule runs once per client
-// update (30 Hz) and sets each model's transform; presentations in between only
-// render. Record the last two transforms per render object and, during a
-// presentation, show the blend for g_modernVisualAlpha, then restore. Entries
-// hold a reference, so a model released between updates stays valid until it
-// is pruned at the next update. Large jumps (teleports, spawns) are not blended.
+// Unit interpolation between client updates. doDrawModule runs once per update
+// (30 Hz) and sets each model's transform and animation; presentations in
+// between only render. Each model keeps its last three poses stamped with the
+// client frame of their update. A presentation shows every model at one shared
+// client time that advances evenly with real time about one update behind
+// (modernShownClientTime), then restores the update's pose. An update can run
+// more than one client frame (RotWK 2.01's game.dat does every fifth), so poses
+// are placed by client frame, not by update. Entries hold a reference, so a
+// model released between updates stays valid until it is pruned at the next
+// update. Large jumps (teleports, spawns) are not blended.
+struct ModernPose
+{
+	double frame;			// game time (client frames) of the update that drew it
+	Matrix3D transform;
+	// Skeletal animation: BFME 2's scripted draw advances its slot frames once per
+	// client update and pushes them to the model (Set_Animation, manual mode).
+	bool anim;
+	void *motion0, *motion1;	// slot 0; slot 1 while the two are blended, else 0
+	float frame0, frame1, blend;
+	int mode0, mode1;		// slot modes (1 loop, 5 loop backwards, ...)
+};
+enum { MODERN_POSES = 3 };
+// The last three samples of something that changes only now and then (at logic
+// steps), with the game time each arrived. Shown one sample interval behind:
+// at game time `when` it is between the two samples around `when - interval`,
+// so a new sample continues the motion instead of jumping to it.
+struct ModernSampleTrack
+{
+	Matrix3D value[3];
+	double time[3];
+	bool onTick[3];			// arrived in the first update of a logic step
+	int count;
+	double delay;			// smoothed logic-step gap: how far behind to show
+	void push(const Matrix3D &m, double t, bool tick)
+	{
+		if (!count)
+			delay = 0.0;
+		if (count && time[count - 1] == t)
+		{
+			value[count - 1] = m;	// changed again within this update
+			return;
+		}
+		if (count == 3)
+		{
+			for (int k = 1; k < 3; ++k)
+			{
+				value[k - 1] = value[k];
+				time[k - 1] = time[k];
+				onTick[k - 1] = onTick[k];
+			}
+			count = 2;
+		}
+		value[count] = m;
+		time[count] = t;
+		onTick[count] = tick;
+		++count;
+		// Logic-step gaps vary by a client frame (RotWK adds a frame every
+		// fifth update); following each gap exactly would step the shown time
+		// back and forth, so follow their running average.
+		double gap = interval();
+		if (gap >= 2.5 && gap <= 13.0)
+			delay = delay > 0.0 ? delay + 0.2 * (gap - delay) : gap;
+	}
+	double interval() const { return count >= 2 ? time[count - 1] - time[count - 2] : 0.0; }
+	bool sample(double when, Matrix3D &out) const
+	{
+		if (count < 2)
+			return false;
+		double at = when - (delay > 0.0 ? delay : interval());
+		for (int k = count - 1; k > 0; --k)
+		{
+			if (at >= time[k - 1] || k == 1)
+			{
+				double gap = time[k] - time[k - 1];
+				if (gap <= 0.0)
+					return false;
+				double t = (at - time[k - 1]) / gap;
+				if (t < 0.0) t = 0.0;
+				if (t > 1.0) t = 1.0;
+				Vector3 p = value[k - 1].Get_Translation(), q = value[k].Get_Translation();
+				float dx = q.X - p.X, dy = q.Y - p.Y, dz = q.Z - p.Z;
+				if (dx * dx + dy * dy + dz * dz > 1000.0f * 1000.0f)
+					return false;	// teleport
+				Matrix3D::Lerp(value[k - 1], value[k], (float)t, out);
+				return true;
+			}
+		}
+		return false;
+	}
+};
+struct ModernFrameTrack
+{
+	float value[3];
+	double time[3];
+	bool onTick[3];
+	int count;
+	void push(float v, double t, bool tick)
+	{
+		if (count && time[count - 1] == t)
+		{
+			value[count - 1] = v;
+			return;
+		}
+		if (count == 3)
+		{
+			for (int k = 1; k < 3; ++k)
+			{
+				value[k - 1] = value[k];
+				time[k - 1] = time[k];
+				onTick[k - 1] = onTick[k];
+			}
+			count = 2;
+		}
+		value[count] = v;
+		time[count] = t;
+		onTick[count] = tick;
+		++count;
+	}
+	double interval() const { return count >= 2 ? time[count - 1] - time[count - 2] : 0.0; }
+};
 struct ModernModelHistory
 {
 	RenderObjClass *object;
-	Matrix3D previous;
-	Matrix3D current;
+	ModernPose poses[MODERN_POSES];	// oldest first; poses[count-1] is the latest
+	int count;
+	unsigned serial;		// update that last drew it
 	Matrix3D saved;
-	unsigned previousSerial;
-	unsigned currentSerial;
 	bool applied;
+	int animMode;			// the model's own mode, read back when applied
+	bool animApplied;
+	// Logic-stepped motion: what retail does not interpolate (projectiles,
+	// construction progress) changes only at logic ticks. The last two distinct
+	// transforms and slot 0 frames, with the game time each first appeared.
+	ModernSampleTrack steps;	// distinct transforms
+	void *animStepMotion;
+	ModernFrameTrack animSteps;	// distinct slot 0 frames of animStepMotion
+	// Eased motion: horde members move fast after each logic tick and slow down
+	// before the next (retail eases them toward the tick's target). Sample them
+	// once per logic step and show them evenly between samples, one step behind.
+	ModernSampleTrack ticks;
+	double tickBase;
+	float firstStep, lastStep;	// per-client-frame step: first and latest of this logic step
+	float ease;			// smoothed first/last step ratio (1 = even motion)
+	float easeWeight;		// 0 = shown as updated, 1 = eased between logic steps
+	double easeTime;	// presentation time easeWeight was last moved
+	bool easedMode;			// with hysteresis, so a model does not flip between paths
+	// The drawable that owns the model; one without an object (the building
+	// placement preview following the cursor) is always shown as updated.
+	const void *drawable;
+	bool hasObject;
 };
+// HLodClass slots as the scripted draw and setPauseAnimation reach them:
+// Set_Animation +0xB4 (slot 45), Peek_Animation_And_Info +0x208 (slot 130).
+#define MODERN_ANIM_SLOT(n) virtual void modernSlot##n();
+class ModernAnimatedModel
+{
+public:
+	MODERN_ANIM_SLOT(0) MODERN_ANIM_SLOT(1) MODERN_ANIM_SLOT(2) MODERN_ANIM_SLOT(3) MODERN_ANIM_SLOT(4) MODERN_ANIM_SLOT(5) MODERN_ANIM_SLOT(6) MODERN_ANIM_SLOT(7) MODERN_ANIM_SLOT(8) MODERN_ANIM_SLOT(9)
+	MODERN_ANIM_SLOT(10) MODERN_ANIM_SLOT(11) MODERN_ANIM_SLOT(12) MODERN_ANIM_SLOT(13) MODERN_ANIM_SLOT(14) MODERN_ANIM_SLOT(15) MODERN_ANIM_SLOT(16) MODERN_ANIM_SLOT(17) MODERN_ANIM_SLOT(18) MODERN_ANIM_SLOT(19)
+	MODERN_ANIM_SLOT(20) MODERN_ANIM_SLOT(21) MODERN_ANIM_SLOT(22) MODERN_ANIM_SLOT(23) MODERN_ANIM_SLOT(24) MODERN_ANIM_SLOT(25) MODERN_ANIM_SLOT(26) MODERN_ANIM_SLOT(27) MODERN_ANIM_SLOT(28) MODERN_ANIM_SLOT(29)
+	MODERN_ANIM_SLOT(30) MODERN_ANIM_SLOT(31) MODERN_ANIM_SLOT(32) MODERN_ANIM_SLOT(33) MODERN_ANIM_SLOT(34) MODERN_ANIM_SLOT(35) MODERN_ANIM_SLOT(36) MODERN_ANIM_SLOT(37) MODERN_ANIM_SLOT(38) MODERN_ANIM_SLOT(39)
+	MODERN_ANIM_SLOT(40) MODERN_ANIM_SLOT(41) MODERN_ANIM_SLOT(42) MODERN_ANIM_SLOT(43)
+	virtual void setBlendAnimation(void *motion0, float frame0, void *motion1, float frame1, float percentage);	// +0xB0
+	virtual void setAnimation(void *motion, float frame, int mode);	// +0xB4
+	MODERN_ANIM_SLOT(46) MODERN_ANIM_SLOT(47) MODERN_ANIM_SLOT(48) MODERN_ANIM_SLOT(49)
+	MODERN_ANIM_SLOT(50) MODERN_ANIM_SLOT(51) MODERN_ANIM_SLOT(52) MODERN_ANIM_SLOT(53) MODERN_ANIM_SLOT(54) MODERN_ANIM_SLOT(55) MODERN_ANIM_SLOT(56) MODERN_ANIM_SLOT(57) MODERN_ANIM_SLOT(58) MODERN_ANIM_SLOT(59)
+	MODERN_ANIM_SLOT(60) MODERN_ANIM_SLOT(61) MODERN_ANIM_SLOT(62) MODERN_ANIM_SLOT(63) MODERN_ANIM_SLOT(64) MODERN_ANIM_SLOT(65) MODERN_ANIM_SLOT(66) MODERN_ANIM_SLOT(67) MODERN_ANIM_SLOT(68) MODERN_ANIM_SLOT(69)
+	MODERN_ANIM_SLOT(70) MODERN_ANIM_SLOT(71) MODERN_ANIM_SLOT(72) MODERN_ANIM_SLOT(73) MODERN_ANIM_SLOT(74) MODERN_ANIM_SLOT(75) MODERN_ANIM_SLOT(76) MODERN_ANIM_SLOT(77) MODERN_ANIM_SLOT(78) MODERN_ANIM_SLOT(79)
+	MODERN_ANIM_SLOT(80) MODERN_ANIM_SLOT(81) MODERN_ANIM_SLOT(82) MODERN_ANIM_SLOT(83) MODERN_ANIM_SLOT(84) MODERN_ANIM_SLOT(85) MODERN_ANIM_SLOT(86) MODERN_ANIM_SLOT(87) MODERN_ANIM_SLOT(88) MODERN_ANIM_SLOT(89)
+	MODERN_ANIM_SLOT(90) MODERN_ANIM_SLOT(91) MODERN_ANIM_SLOT(92) MODERN_ANIM_SLOT(93) MODERN_ANIM_SLOT(94) MODERN_ANIM_SLOT(95) MODERN_ANIM_SLOT(96) MODERN_ANIM_SLOT(97) MODERN_ANIM_SLOT(98) MODERN_ANIM_SLOT(99)
+	MODERN_ANIM_SLOT(100) MODERN_ANIM_SLOT(101) MODERN_ANIM_SLOT(102) MODERN_ANIM_SLOT(103) MODERN_ANIM_SLOT(104) MODERN_ANIM_SLOT(105) MODERN_ANIM_SLOT(106) MODERN_ANIM_SLOT(107) MODERN_ANIM_SLOT(108) MODERN_ANIM_SLOT(109)
+	MODERN_ANIM_SLOT(110) MODERN_ANIM_SLOT(111) MODERN_ANIM_SLOT(112) MODERN_ANIM_SLOT(113) MODERN_ANIM_SLOT(114) MODERN_ANIM_SLOT(115) MODERN_ANIM_SLOT(116) MODERN_ANIM_SLOT(117) MODERN_ANIM_SLOT(118) MODERN_ANIM_SLOT(119)
+	MODERN_ANIM_SLOT(120) MODERN_ANIM_SLOT(121) MODERN_ANIM_SLOT(122) MODERN_ANIM_SLOT(123) MODERN_ANIM_SLOT(124) MODERN_ANIM_SLOT(125) MODERN_ANIM_SLOT(126) MODERN_ANIM_SLOT(127) MODERN_ANIM_SLOT(128) MODERN_ANIM_SLOT(129)
+	virtual void *peekAnimation(float &frame, int &numFrames, int &mode, float &multiplier);	// +0x208
+};
+#undef MODERN_ANIM_SLOT
+// The scripted draw's slot 0 (W3DModelDraw +0x110, 0x1C bytes per slot) and the
+// second slot's motion (+0x12C), whose presence means a blend is being pushed.
+struct ModernAnimSlotView
+{
+	void *motion;
+	float frame, previous, unused;
+	int mode, direction;
+	char flags[4];
+};
+// HAnimClass slot 5 is the frame count (as the scripted draw calls it).
+class ModernMotionView
+{
+public:
+	virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4();
+	virtual int frameCount();
+};
+// Frame between the last two updates. Loops (slot mode 1 forwards, 5 backwards)
+// may have wrapped; a larger change (ping-pong turn, restart) is not blended.
+static float modernAnimFrame(float previous, float current, int mode, float last, float alpha)
+{
+	if (last <= 0.0f)
+		return current;
+	float delta = current - previous;
+	if (mode == 1 && delta < 0.0f)
+		delta += last;
+	else if (mode == 5 && delta > 0.0f)
+		delta -= last;
+	if (delta > last * 0.5f || delta < -last * 0.5f)
+		return current;
+	float frame = previous + alpha * delta;
+	if (frame > last)
+		frame -= last;
+	else if (frame < 0.0f)
+		frame += last;
+	return frame;
+}
 enum { MODERN_MODEL_CAPACITY = 4096 };
 static ModernModelHistory s_modernModels[MODERN_MODEL_CAPACITY];
 static int s_modernModelCount = 0;
 static unsigned s_modernVisualSerial = 1;
-static void modernCaptureModel(RenderObjClass *object, const Matrix3D &transform)
+// The client frame of the latest update and when it ran (W3DDisplayDraw.cpp).
+extern double g_modernClientStamp;
+extern double g_modernTickBase;
+extern bool g_modernTickStarted;
+extern __int64 g_modernClientFrameTime;
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *);
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64 *);
+static ModernPose *modernLatestPose(ModernModelHistory &entry)
+{
+	return entry.count ? &entry.poses[entry.count - 1] : 0;
+}
+// The entry's pose for this update's client frame, created (at `transform`, or
+// at the model's own transform) when this update has not recorded one yet.
+static ModernPose *modernPoseForUpdate(RenderObjClass *object, const Matrix3D *transform, ModernModelHistory **owner = 0)
+{
+	ModernModelHistory *found = 0;
+	for (int i = 0; i < s_modernModelCount; ++i)
+	{
+		if (s_modernModels[i].object == object)
+		{
+			found = &s_modernModels[i];
+			break;
+		}
+	}
+	if (!found)
+	{
+		if (s_modernModelCount >= MODERN_MODEL_CAPACITY)
+			return 0;
+		found = &s_modernModels[s_modernModelCount++];
+		object->Add_Ref();
+		found->object = object;
+		found->count = 0;
+		found->applied = false;
+		found->animApplied = false;
+		found->steps.count = 0;
+		found->animSteps.count = 0;
+		found->animStepMotion = 0;
+		found->ticks.count = 0;
+		found->tickBase = -1.0;
+		found->firstStep = found->lastStep = 0.0f;
+		found->ease = 1.0f;
+		found->easedMode = false;
+		found->easeWeight = 0.0f;
+		found->easeTime = 0.0;
+		found->drawable = 0;
+		found->hasObject = true;
+	}
+	if (owner)
+		*owner = found;
+	ModernModelHistory &entry = *found;
+	entry.serial = s_modernVisualSerial;
+	ModernPose *latest = modernLatestPose(entry);
+	// An update that adds no game time (a paused game) replaces the latest pose.
+	if (!latest || latest->frame != g_modernClientStamp)
+	{
+		if (entry.count == MODERN_POSES)
+		{
+			for (int k = 1; k < MODERN_POSES; ++k)
+				entry.poses[k - 1] = entry.poses[k];
+			--entry.count;
+		}
+		latest = &entry.poses[entry.count++];
+		latest->frame = g_modernClientStamp;
+		latest->anim = false;
+		latest->transform = transform ? *transform : object->Get_Transform();
+	}
+	if (transform)
+		latest->transform = *transform;
+	return latest;
+}
+static void modernCaptureModel(RenderObjClass *object, const Matrix3D &transform, const void *drawable, bool hasObject)
 {
 	if (g_modernRenderPhase != MODERN_RENDER_UPDATE)
 		return;
-	for (int i = 0; i < s_modernModelCount; ++i)
+	ModernModelHistory *entry = 0;
+	if (!modernPoseForUpdate(object, &transform, &entry) || !entry)
+		return;
+	entry->drawable = drawable;
+	entry->hasObject = hasObject;
+	// Eased-motion bookkeeping: the step per client frame since the previous
+	// pose; at the first update of a logic step, judge the last step's shape
+	// (first vs last step) and sample the pose.
+	if (entry->count >= 2)
 	{
-		ModernModelHistory &entry = s_modernModels[i];
-		if (entry.object != object)
-			continue;
-		if (entry.currentSerial != s_modernVisualSerial)
+		const ModernPose &before = entry->poses[entry->count - 2];
+		double frames = g_modernClientStamp - before.frame;
+		if (frames > 0.01 && frames < 3.5)
 		{
-			entry.previous = entry.current;
-			entry.previousSerial = entry.currentSerial;
-			entry.currentSerial = s_modernVisualSerial;
+			Vector3 p = before.transform.Get_Translation(), q = transform.Get_Translation();
+			float step = (float)(sqrt((double)((q.X - p.X) * (q.X - p.X) + (q.Y - p.Y) * (q.Y - p.Y))) / frames);
+			if (entry->tickBase != g_modernTickBase)
+			{
+				if (entry->lastStep > 0.05f && entry->firstStep > 0.05f)
+					entry->ease = entry->ease * 0.7f + 0.3f * (entry->firstStep / entry->lastStep);
+				else
+					entry->ease = entry->ease * 0.7f + 0.3f;	// not moving: drift back to even
+				entry->firstStep = step;
+			}
+			entry->lastStep = step;
 		}
-		entry.current = transform;
+	}
+	if (entry->tickBase != g_modernTickBase)
+	{
+		entry->tickBase = g_modernTickBase;
+		entry->ticks.push(transform, g_modernClientStamp, true);
+	}
+	// Eased mode with hysteresis: in above 1.3, out below 1.1.
+	if (!entry->easedMode && entry->ease > 1.3f)
+		entry->easedMode = true;
+	else if (entry->easedMode && entry->ease < 1.1f)
+		entry->easedMode = false;
+	// Track distinct transforms and when each first appeared.
+	const ModernSampleTrack &s = entry->steps;
+	if (!s.count || memcmp(&s.value[s.count - 1], &transform, sizeof(Matrix3D)) != 0)
+		entry->steps.push(transform, g_modernClientStamp, g_modernTickStarted);
+}
+// After doDrawModule pushed the slots to the model (rva000B3B2B).
+static void modernCaptureAnimation(RenderObjClass *object, const void *draw)
+{
+	if (g_modernRenderPhase != MODERN_RENDER_UPDATE || !object)
+		return;
+	const ModernAnimSlotView *slot0 = (const ModernAnimSlotView *)((const char *)draw + 0x110);
+	const ModernAnimSlotView *slot1 = slot0 + 1;
+	float blendRemaining = *(const float *)((const char *)draw + 0x90);
+	float blendDuration = *(const float *)((const char *)draw + 0x94);
+	if (!slot0->motion)
+		return;
+	{
+		// A model that only animates (its transform unchanged) gets its pose here.
+		ModernModelHistory *entry = 0;
+		ModernPose *pose = modernPoseForUpdate(object, 0, &entry);
+		if (!pose || !entry)
+			return;
+		// Track distinct slot 0 frames of one motion and when each first appeared.
+		if (entry->animStepMotion != slot0->motion || slot1->motion)
+		{
+			entry->animStepMotion = slot1->motion ? 0 : slot0->motion;
+			entry->animSteps.count = 0;
+			entry->animSteps.push(slot0->frame, g_modernClientStamp, g_modernTickStarted);
+		}
+		else if (entry->animSteps.value[entry->animSteps.count - 1] != slot0->frame)
+			entry->animSteps.push(slot0->frame, g_modernClientStamp, g_modernTickStarted);
+		pose->anim = true;
+		pose->motion0 = slot0->motion;
+		pose->frame0 = slot0->frame;
+		pose->mode0 = slot0->mode;
+		pose->motion1 = slot1->motion;
+		pose->frame1 = slot1->frame;
+		pose->mode1 = slot1->mode;
+		// what rva000B3B2B pushed with the two motions
+		pose->blend = blendDuration != 0.0f ? 1.0f - blendRemaining / blendDuration : 1.0f;
 		return;
 	}
-	if (s_modernModelCount >= MODERN_MODEL_CAPACITY)
-		return;
-	ModernModelHistory &entry = s_modernModels[s_modernModelCount++];
-	object->Add_Ref();
-	entry.object = object;
-	entry.previous = transform;
-	entry.current = transform;
-	entry.previousSerial = s_modernVisualSerial;
-	entry.currentSerial = s_modernVisualSerial;
-	entry.applied = false;
 }
 void modernBeginModelUpdate()
 {
@@ -355,7 +676,7 @@ void modernBeginModelUpdate()
 	for (int i = 0; i < s_modernModelCount; ++i)
 	{
 		ModernModelHistory &entry = s_modernModels[i];
-		if (entry.currentSerial != s_modernVisualSerial)
+		if (entry.serial != s_modernVisualSerial)
 		{
 			entry.object->Release_Ref();
 			continue;
@@ -367,45 +688,293 @@ void modernBeginModelUpdate()
 	s_modernModelCount = kept;
 	++s_modernVisualSerial;
 }
+// The client time every model is shown at: it runs at the measured client frame
+// rate (30/s, or 36/s with RotWK's extra frame), about one update behind the
+// latest update, is pulled gently toward that target and never goes back.
+static double s_modernClientRate = 0.0;
+static double s_modernRateStamp = 0.0;
+static __int64 s_modernRateTime = 0;
+static double s_modernShownTime = 0.0;
+static __int64 s_modernShownQpc = 0;
+static bool s_modernShownValid = false;
+static double modernShownClientTime()
+{
+	__int64 now, frequency;
+	QueryPerformanceCounter(&now);
+	QueryPerformanceFrequency(&frequency);
+	double freq = (double)frequency;
+	double latest = g_modernClientStamp;
+	if (g_modernClientFrameTime != s_modernRateTime)
+	{
+		// A new update: measure the game-time rate across it (a paused game
+		// adds nothing and keeps the last rate).
+		double step = latest - s_modernRateStamp;
+		if (s_modernRateTime && step > 0.0 && step < 30.0 && g_modernClientFrameTime > s_modernRateTime)
+		{
+			double measured = step * freq / (double)(g_modernClientFrameTime - s_modernRateTime);
+			if (measured > 5.0 && measured < 200.0)
+				s_modernClientRate = s_modernClientRate > 0.0 ? s_modernClientRate * 0.9 + measured * 0.1 : measured;
+		}
+		else if (step != 0.0)
+			s_modernShownValid = false;	// first update, reset or a long stall
+		s_modernRateStamp = latest;
+		s_modernRateTime = g_modernClientFrameTime;
+	}
+	double rate = s_modernClientRate > 0.0 ? s_modernClientRate : 30.0;
+	double lag = rate / 30.0;	// one update's worth of client frames
+	double since = (double)(now - g_modernClientFrameTime) / freq;
+	double target = latest + since * rate - lag;
+	double shown;
+	if (!s_modernShownValid)
+		shown = target;
+	else
+	{
+		shown = s_modernShownTime + (double)(now - s_modernShownQpc) / freq * rate;
+		shown += (target - shown) * 0.1;
+		if (shown < s_modernShownTime)
+			shown = s_modernShownTime;
+	}
+	if (shown > latest)
+		shown = latest;
+	if (shown < latest - 3.0)
+		shown = latest - 3.0;
+	s_modernShownTime = shown;
+	s_modernShownQpc = now;
+	s_modernShownValid = true;
+	return shown;
+}
+// The two poses around client time `when` and the fraction between them.
+static bool modernBracket(const ModernModelHistory &entry, double when, int &from, float &fraction)
+{
+	for (int k = entry.count - 1; k > 0; --k)
+	{
+		const ModernPose &a = entry.poses[k - 1];
+		const ModernPose &b = entry.poses[k];
+		if (a.frame <= when || k == 1)
+		{
+			double gap = b.frame - a.frame;
+			if (gap < 0.01 || gap > 3.5)
+				return false;	// no game time between them, or not consecutive updates
+			double t = (when - a.frame) / gap;
+			if (t < 0.0) t = 0.0;
+			if (t > 1.0) t = 1.0;
+			from = k - 1;
+			fraction = (float)t;
+			return true;
+		}
+	}
+	return false;
+}
+// The game time this presentation shows, for other position sources (decals).
+double g_modernShownTime;
+bool g_modernShownActive;
 void modernApplyModelInterpolation(float alpha)
 {
+	(void)alpha;
+	double when = modernShownClientTime();
+	g_modernShownTime = when;
+	g_modernShownActive = true;
+	int blended = 0, moving = 0, steppedCount = 0, steppedAnims = 0, easedCount = 0;
 	for (int i = 0; i < s_modernModelCount; ++i)
 	{
 		ModernModelHistory &entry = s_modernModels[i];
 		entry.applied = false;
 		// Only models drawn by the latest update.
-		if (entry.currentSerial != s_modernVisualSerial)
+		if (entry.serial != s_modernVisualSerial || !entry.count)
 			continue;
+		const ModernPose &latest = entry.poses[entry.count - 1];
 		const Matrix3D &actual = entry.object->Get_Transform();
-		bool continuous = entry.previousSerial + 1 == entry.currentSerial;
-		bool still = memcmp(&entry.previous, &entry.current, sizeof(Matrix3D)) == 0;
-		bool overwritten = memcmp(&actual, &entry.current, sizeof(Matrix3D)) != 0;
-		Vector3 from = entry.previous.Get_Translation();
-		Vector3 to = entry.current.Get_Translation();
-		float dx = to.X - from.X, dy = to.Y - from.Y, dz = to.Z - from.Z;
-		bool jump = dx * dx + dy * dy + dz * dz > 100.0f * 100.0f;
-		if (!continuous || jump)
-			still = true;
+		bool overwritten = memcmp(&actual, &latest.transform, sizeof(Matrix3D)) != 0;
+		int from;
+		float fraction;
+		Matrix3D visual = latest.transform;
+		bool blend = false, stepped = false;
+		// The placement preview follows the cursor every update: never one logic
+		// step behind, only between its last updates.
+		bool ghost = !entry.hasObject;
+		// Moved only at logic steps (its last two changes arrived at the start of
+		// a logic step, 2.5..13 client frames apart) and not since: projectiles.
+		const ModernSampleTrack &s = entry.steps;
+		double interval = s.interval();
+		if (!ghost && s.count >= 2 && s.onTick[s.count - 1] && s.onTick[s.count - 2] &&
+			interval >= 2.5 && interval <= 13.0 &&
+			memcmp(&latest.transform, &s.value[s.count - 1], sizeof(Matrix3D)) == 0 &&
+			s.sample(when, visual))
+		{
+			blend = stepped = true;
+			++steppedCount;
+		}
+		// Eased between logic steps (horde members): evenly between the samples
+		// taken at the start of each logic step.
+		// The eased path shows a model a logic step further behind than the
+		// bracket does, so switching paths outright moves it back (or ahead) by
+		// a step; cross over during about three logic steps instead, slower
+		// than the model moves, so it only slows down or speeds up.
+		const ModernSampleTrack &ticks = entry.ticks;
+		double tickInterval = ticks.interval();
+		Matrix3D tickVisual;
+		bool tickOk = !stepped && !ghost && ticks.count >= 2 && tickInterval >= 2.5 && tickInterval <= 13.0 &&
+			ticks.time[ticks.count - 1] > when - 13.0 && ticks.sample(when, tickVisual);
+		double sinceWeight = when - entry.easeTime;
+		entry.easeTime = when;
+		if (sinceWeight < 0.0) sinceWeight = 0.0;
+		if (sinceWeight > 3.0) sinceWeight = 3.0;
+		float weightStep = (float)(sinceWeight / 18.0);
+		if (!tickOk)
+			entry.easeWeight = 0.0f;
+		else if (entry.easedMode)
+			entry.easeWeight = entry.easeWeight + weightStep < 1.0f ? entry.easeWeight + weightStep : 1.0f;
+		else
+			entry.easeWeight = entry.easeWeight - weightStep > 0.0f ? entry.easeWeight - weightStep : 0.0f;
+		if (!stepped && tickOk && entry.easeWeight >= 1.0f)
+		{
+			visual = tickVisual;
+			blend = stepped = true;
+			++easedCount;
+		}
+		if (!stepped)
+			blend = modernBracket(entry, when, from, fraction);
+		if (blend && !stepped)
+		{
+			const ModernPose &a = entry.poses[from];
+			const ModernPose &b = entry.poses[from + 1];
+			Vector3 p = a.transform.Get_Translation(), q = b.transform.Get_Translation();
+			float dx = q.X - p.X, dy = q.Y - p.Y, dz = q.Z - p.Z;
+			if (dx * dx + dy * dy + dz * dz > 100.0f * 100.0f && !ghost)
+				blend = false;	// teleport or spawn
+			else if (memcmp(&a.transform, &b.transform, sizeof(Matrix3D)) == 0 && from + 1 == entry.count - 1)
+				blend = false;	// still
+			else
+			{
+				Matrix3D::Lerp(a.transform, b.transform, fraction, visual);
+				++moving;
+			}
+			// Trace one moving model's presented position (J: x, y, client time, fraction)
+			// and the two poses around it (j: from x/y, to x/y).
+			static RenderObjClass *s_traced = 0;
+			static unsigned s_tracedSerial = 0;
+			if (blend && dx * dx + dy * dy > 0.0001f && (s_traced == entry.object || s_tracedSerial + 2 < s_modernVisualSerial))
+			{
+				s_traced = entry.object;
+				s_tracedSerial = s_modernVisualSerial;
+				Vector3 shown = visual.Get_Translation();
+				modernTrace('J', shown.X, shown.Y, when, fraction);
+				modernTrace('j', p.X, p.Y, q.X, q.Y);
+			}
+		}
+		if (!stepped && tickOk && entry.easeWeight > 0.0f)
+		{
+			Matrix3D shownAsUpdated = visual;
+			Matrix3D::Lerp(shownAsUpdated, tickVisual, entry.easeWeight, visual);
+			blend = true;
+			++easedCount;
+		}
 		// Logic that runs after the draw pass (a 5 Hz tick) writes the raw logic
 		// pose into the model; retail overwrote it before its next render, so
 		// show the draw-pass pose here as well and restore the logic one after.
-		if (still && !overwritten)
+		if (!blend && !overwritten)
 			continue;
-		Matrix3D visual;
-		if (still)
-			visual = entry.current;
-		else
-			Matrix3D::Lerp(entry.previous, entry.current, alpha, visual);
 		entry.saved = actual;
 		entry.object->Set_Transform(visual);
 		entry.applied = true;
+		++blended;
 	}
-}
-void modernRestoreModelInterpolation()
-{
+	int animated = 0, noAnim = 0, blending = 0, unchanged = 0, replaced = 0, jumped = 0;
 	for (int i = 0; i < s_modernModelCount; ++i)
 	{
 		ModernModelHistory &entry = s_modernModels[i];
+		entry.animApplied = false;
+		if (entry.serial != s_modernVisualSerial || !entry.count)
+			continue;
+		const ModernPose &latest = entry.poses[entry.count - 1];
+		int from;
+		float fraction;
+		// Slot 0 frame that changes only at logic steps (construction progress):
+		// between its samples around one step ago, like a projectile.
+		const ModernFrameTrack &f = entry.animSteps;
+		double animInterval = f.interval();
+		if (latest.anim && !latest.motion1 && f.count >= 2 && entry.animStepMotion == latest.motion0 &&
+			f.onTick[f.count - 1] && f.onTick[f.count - 2] &&
+			f.value[f.count - 1] == latest.frame0 && animInterval >= 2.5 && animInterval <= 13.0)
+		{
+			double at = when - animInterval;
+			int k = f.count - 1;
+			while (k > 1 && at < f.time[k - 1])
+				--k;
+			double gap = f.time[k] - f.time[k - 1];
+			double t = gap > 0.0 ? (at - f.time[k - 1]) / gap : 1.0;
+			if (t < 0.0) t = 0.0;
+			if (t >= 1.0 && k == f.count - 1) { ++unchanged; continue; }
+			if (t > 1.0) t = 1.0;
+			ModernAnimatedModel *model = (ModernAnimatedModel *)entry.object;
+			float frame, multiplier;
+			int frames, mode;
+			if (model->peekAnimation(frame, frames, mode, multiplier) != latest.motion0 || frame != latest.frame0) { ++replaced; continue; }
+			float last = (float)((ModernMotionView *)latest.motion0)->frameCount() - 1.0f;
+			float visual = modernAnimFrame(f.value[k - 1], f.value[k], latest.mode0, last, (float)t);
+			entry.animMode = mode;
+			model->setAnimation(latest.motion0, visual, mode);
+			entry.animApplied = true;
+			++animated;
+			++steppedAnims;
+			continue;
+		}
+		if (!latest.anim || !modernBracket(entry, when, from, fraction)) { ++noAnim; continue; }
+		const ModernPose &a = entry.poses[from];
+		const ModernPose &b = entry.poses[from + 1];
+		if (!a.anim || a.motion0 != b.motion0 || a.motion1 != b.motion1) { ++noAnim; continue; }
+		if (a.frame0 == b.frame0 && (!b.motion1 || a.frame1 == b.frame1) && from + 1 == entry.count - 1) { ++unchanged; continue; }
+		ModernAnimatedModel *model = (ModernAnimatedModel *)entry.object;
+		float frame, multiplier;
+		int frames, mode;
+		void *playing = model->peekAnimation(frame, frames, mode, multiplier);
+		float last0 = (float)((ModernMotionView *)b.motion0)->frameCount() - 1.0f;
+		float visual0 = modernAnimFrame(a.frame0, b.frame0, b.mode0, last0, fraction);
+		if (latest.motion1)
+		{
+			// The two blended motions: the model is still in its two-motion mode
+			// (peek reports none) unless something set a single animation since.
+			if (playing || b.motion1 != latest.motion1 || b.motion0 != latest.motion0) { ++replaced; continue; }
+			float last1 = (float)((ModernMotionView *)b.motion1)->frameCount() - 1.0f;
+			float visual1 = modernAnimFrame(a.frame1, b.frame1, b.mode1, last1, fraction);
+			float weight = a.blend + (b.blend - a.blend) * fraction;
+			model->setBlendAnimation(b.motion0, visual0, b.motion1, visual1, weight);
+			++blending;
+		}
+		else
+		{
+			// Only while the model still plays what the update pushed.
+			if (b.motion1 || playing != latest.motion0 || frame != latest.frame0 || b.motion0 != latest.motion0) { ++replaced; continue; }
+			if (visual0 == latest.frame0 && from + 1 == entry.count - 1) { ++jumped; continue; }
+			entry.animMode = mode;
+			model->setAnimation(b.motion0, visual0, mode);
+		}
+		entry.animApplied = true;
+		++animated;
+	}
+	modernTrace('I', (double)blended, (double)moving, (double)s_modernModelCount, (double)animated);
+	// Why models were not animated: k = no usable poses, blend applied, frame
+	// unchanged, model replaced/changed since the update (+ jump in the high digits).
+	modernTrace('k', (double)noAnim, (double)blending, (double)unchanged, (double)(replaced + 1000 * jumped));
+	// h: models and animations shown between logic-tick steps.
+	modernTrace('h', (double)steppedCount, (double)steppedAnims, when, (double)easedCount);
+}
+void modernRestoreModelInterpolation()
+{
+	g_modernShownActive = false;
+	for (int i = 0; i < s_modernModelCount; ++i)
+	{
+		ModernModelHistory &entry = s_modernModels[i];
+		if (entry.animApplied)
+		{
+			const ModernPose &latest = entry.poses[entry.count - 1];
+			ModernAnimatedModel *model = (ModernAnimatedModel *)entry.object;
+			if (latest.motion1)
+				model->setBlendAnimation(latest.motion0, latest.frame0, latest.motion1, latest.frame1, latest.blend);
+			else
+				model->setAnimation(latest.motion0, latest.frame0, entry.animMode);
+			entry.animApplied = false;
+		}
 		if (!entry.applied)
 			continue;
 		entry.object->Set_Transform(entry.saved);
@@ -491,7 +1060,7 @@ void W3DModelDraw::doDrawModule(const Matrix3D *transformMtx)
 		adjustTransformMtx(mtx);
 		m_renderObject->Set_Transform(mtx);
 #if defined(BFME2_MODERN)
-		modernCaptureModel(m_renderObject, mtx);
+		modernCaptureModel(m_renderObject, mtx, getDrawable(), getDrawable()->getObject() != 0);
 #endif
 
 		if (m_fading)
@@ -558,6 +1127,9 @@ void W3DModelDraw::doDrawModule(const Matrix3D *transformMtx)
 		BfmeParticleSystemHandle debugHandle;
 	}
 	((Rva000B3B2B *)this)->rva000B3B2B((Rva000B3B2BArg *)m_renderObject);
+#if defined(BFME2_MODERN)
+	modernCaptureAnimation(m_renderObject, this);
+#endif
 	m_radiusDecal.update();
 	handleClientRecoil();
 }

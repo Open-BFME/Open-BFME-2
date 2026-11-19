@@ -373,6 +373,9 @@ void RTS3DScene::rva0006E605(Vector3 *delta, bool remove)
 // 0/3/4 the fixed light environments (same unit, as in retail's W3DScene.obj)
 // before Customized_Render (slot 23) and Flush (0x00071606); modes 5/6/7 skip
 // only the light update (one shared tail after cross-jumping).
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+#endif
 void RTS3DScene::Render(RenderInfoClass &rinfo)
 {
 	if (*TheWeatherSetting)
@@ -393,9 +396,18 @@ void RTS3DScene::Render(RenderInfoClass &rinfo)
 	{
 		if (m_customPassMode == 0 || m_customPassMode == 3 || m_customPassMode == 4)
 		{
+#if defined(BFME2_MODERN)
+			if (m_customPassMode == 0) modernTrace('0',0,0,0,0);
+#endif
 			updateFixedLightEnvironments(rinfo);
+#if defined(BFME2_MODERN)
+			if (m_customPassMode == 0) modernTrace('L'+1,0,0,0,0);
+#endif
 			Customized_Render(rinfo);
 			Flush(rinfo);
+#if defined(BFME2_MODERN)
+			if (m_customPassMode == 0) modernTrace('6',0,0,0,0);
+#endif
 		}
 		else if (m_customPassMode == 5 || m_customPassMode == 6 || m_customPassMode == 7)
 		{

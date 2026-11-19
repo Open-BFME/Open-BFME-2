@@ -191,6 +191,7 @@ void W3DView::draw( void )
 {
 #if defined(BFME2_MODERN)
  ModernCameraPresentation modernCamera(this,m_3DCamera);
+ if(g_modernRenderPhase==MODERN_RENDER_PRESENT && (View *)this==TheTacticalView)modernRefreshRadial();
 #endif
 	Bool skipRender = false;
 	Bool doExtraRender = false;

@@ -362,8 +362,54 @@ class GameEngine
  CrashMessage *message=manager->getCrashMessage(0,0,0); \
  message->setText(reason)->show(true); } while(0)
 #if defined(BFME2_MODERN)
+void modernTrace(char kind, double a, double b, double c, double d)
+{
+ static int state=-1;
+ static FILE *file=0;
+ static LARGE_INTEGER frequency,origin;
+ static unsigned lines=0;
+ if(state<0){
+  const char *option=getenv("BFME2_MODERN_TRACE");
+  state=(option && strcmp(option,"1")==0) ? 1 : 0;
+  if(state){
+   file=fopen("modern_trace.csv","w");
+   if(!file)state=0;
+   else{
+    setvbuf(file,0,_IOFBF,1<<20);
+    fprintf(file,"kind,t_us,a,b,c,d\n");
+    QueryPerformanceFrequency(&frequency);
+    QueryPerformanceCounter(&origin);
+   }
+  }
+ }
+ if(!state)return;
+ LARGE_INTEGER now;
+ QueryPerformanceCounter(&now);
+ double us=(double)(now.QuadPart-origin.QuadPart)*1000000.0/(double)frequency.QuadPart;
+ fprintf(file,"%c,%.1f,%.6g,%.6g,%.6g,%.6g\n",kind,us,a,b,c,d);
+ // Flush once per update: the game may exit without closing the file.
+ if(kind=='E' || ++lines%512==0)fflush(file);
+}
+// Display-synced mode (BFME2_MODERN_FPS=0): wait for the desktop compositor's
+// next frame before sampling time, so every interpolated frame is taken at the
+// same point of the display cycle. Windowed D3D9 presents are queued to DWM;
+// without this the sample time and the shown time drift apart frame to frame.
+typedef HRESULT (WINAPI *ModernDwmFlush)(void);
+static void modernWaitForCompositor()
+{
+ static int state=-1;
+ static ModernDwmFlush flush=0;
+ if(state<0){
+  HMODULE dwm=LoadLibraryA("dwmapi.dll");
+  flush=dwm ? (ModernDwmFlush)GetProcAddress(dwm,"DwmFlush") : 0;
+  state=flush ? 1 : 0;
+ }
+ if(state && FAILED(flush()))state=0;
+}
+static bool g_modernDisplaySynced=false;
 static void modernDrawIfDue(ModernFrameSchedule &clock)
 {
+ if(g_modernDisplaySynced)modernWaitForCompositor();
  LARGE_INTEGER now;
  QueryPerformanceCounter(&now);
  clock.advance(now.QuadPart);
@@ -371,7 +417,9 @@ static void modernDrawIfDue(ModernFrameSchedule &clock)
  try {
   ModernRenderScope phase(MODERN_RENDER_PRESENT);
   g_modernVisualAlpha=clock.visualInterpolation(now.QuadPart);
+  modernTrace('P',g_modernVisualAlpha,0,0,0);
   modernPresentFrame();
+  modernTrace('Q',0,0,0,0);
   clock.presented();
  } catch(...) {
   REPORT_CRASH("Uncaught Exception in modern presentation");
@@ -432,6 +480,7 @@ void GameEngine::rva0022D290()
   long value=strtol(fpsOption,&end,10);
   if(end!=fpsOption && *end=='\0' && value>=0 && value<=1000)renderRate=(int)value;
  }
+ g_modernDisplaySynced=modernFPS && renderRate==0;
  LARGE_INTEGER frequency, counter;
  QueryPerformanceFrequency(&frequency);
  QueryPerformanceCounter(&counter);
@@ -450,6 +499,7 @@ void GameEngine::rva0022D290()
     ModernRenderScope phase(modernFPS?MODERN_RENDER_UPDATE:MODERN_RENDER_LEGACY);
     modernClearPushButtonClocks();
     if(modernFPS)modernBeginModelUpdate();
+    modernTrace('U',0,0,0,0);
     if(modernFPS){
      QueryPerformanceCounter(&counter);
      double rate=(double)m_maxFPS*LOGIC_SCALE;
@@ -460,6 +510,8 @@ void GameEngine::rva0022D290()
 #endif
    update();
 #if defined(BFME2_MODERN)
+   g_modernAptFreshUpdate=true;
+   modernTrace('E',0,0,0,0);
    }
    if(modernFPS)modernDrawIfDue(presentationClock);
 #endif

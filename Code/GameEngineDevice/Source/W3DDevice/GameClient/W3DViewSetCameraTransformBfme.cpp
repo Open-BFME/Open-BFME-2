@@ -119,6 +119,11 @@ static void modernCaptureCamera(const void *view,CameraClass *camera,const Matri
 {
  bool continuous = view == modernCameraOwner && camera == modernCameraIdentity;
  modernCameraHistory.capture(pose,modernCameraSerial,continuous);
+ {
+  float raw[12];
+  memcpy(raw,&pose,sizeof(raw));
+  modernTrace('L',(double)modernCameraSerial,raw[3],raw[7],raw[11]);
+ }
  modernCameraLatest = pose;
  modernCameraOwner = view;
  modernCameraIdentity = camera;

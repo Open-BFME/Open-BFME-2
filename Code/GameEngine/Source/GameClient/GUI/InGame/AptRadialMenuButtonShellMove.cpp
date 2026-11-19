@@ -107,6 +107,9 @@ private:
 	int m_24;
 };
 
+#if defined(BFME2_MODERN)
+#include "../../../../Include/Common/ModernRenderPhase.h"
+#endif
 void AptRadialMenu::Impl::ButtonShell::Move(int positionX, int positionY, int width, int height)
 {
 	if (positionX != m_18 || positionY != m_1c || width != m_20 || height != m_24) {
@@ -122,6 +125,9 @@ void AptRadialMenu::Impl::ButtonShell::Move(int positionX, int positionY, int wi
 			moviePath = raw + 8;
 		else
 			moviePath = "";
+#if defined(BFME2_MODERN)
+		modernTrace('N', (double)m_10, (double)positionX, (double)positionY, (double)g_modernRenderPhase);
+#endif
 		Rva00577AE9AptCall(TheRva00222A8BTarget, box->m_4, moviePath, "MoveButton", &m_10, &scaledX, &scaledY, &scaledWidth, &scaledHeight);
 		m_18 = positionX;
 		m_1c = positionY;

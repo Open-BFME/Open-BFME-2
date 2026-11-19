@@ -771,6 +771,9 @@ void W3DGadgetPushButtonImageDrawOne( GameWindow *window, WinInstanceData *instD
 			// get window position
 			window->winGetScreenPosition( &start.x, &start.y );
 			window->winGetSize( &size.x, &size.y );
+#if defined(BFME2_MODERN)
+			modernTrace( 'D', (double)start.x, (double)start.y, (double)size.x, (double)g_modernRenderPhase );
+#endif
 
 			// offset position by image offset
 			start.x += instData->m_imageOffset.x;

@@ -31,6 +31,12 @@ private:
 	Rva0027EA49Tree m_30; // +0x30
 };
 
+#if defined(BFME2_MODERN)
+#include "../../Include/Common/ModernRenderPhase.h"
+#endif
 Rva005C6C7B::~Rva005C6C7B()
 {
+#if defined(BFME2_MODERN)
+	modernRadialGone(this);
+#endif
 }

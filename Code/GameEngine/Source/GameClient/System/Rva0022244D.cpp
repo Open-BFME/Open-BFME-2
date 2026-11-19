@@ -16,6 +16,10 @@ public:
 // Retail calls the rowed 5-byte Apt tail jump 0x006CC940, which jumps to 0x006CC880.
 void rva006cc940();
 void Rva0041154FHide();
+#if defined(BFME2_MODERN)
+// W3DDisplay.cpp: whether this Apt draw follows a fixed update (consumes it).
+bool modernAptFreshFrame();
+#endif
 
 class Rva0022244D
 {
@@ -45,6 +49,15 @@ void Rva0022244D::rva0022244D()
 		rva0022244DVslot10();
 		m_flag328 = 0;
 	}
+#if defined(BFME2_MODERN)
+	// Extra presentations between fixed updates must not hide component
+	// windows (progress overlays, 3D portraits) that only an update re-marks.
+	if (!modernAptFreshFrame())
+	{
+		rva006cc940();
+		return;
+	}
+#endif
 	Rva00411523::rva00411523();
 	rva006cc940();
 	Rva0041154FHide();

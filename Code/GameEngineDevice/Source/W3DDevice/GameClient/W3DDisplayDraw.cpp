@@ -247,6 +247,58 @@ char pad04[0x30-4]; DebugDisplayCallback *debugDisplayCallback;char pad34[0x115-
 inline int panoramaSliceIndex(int i,const int&count){return (i+count/2)%count;}
 #if defined(BFME2_MODERN)
 static unsigned g_modernLastPresent;
+// Animation time between client updates. W3D advances every animated model,
+// particle and texture animation from WW3D's sync clock when it renders
+// (Single_Anim_Progress), and that clock moves only at client updates (30 Hz),
+// so presentations in between showed the same pose. Each presentation advances
+// the clock by its share of the step the last update took. W3D subtracts sync
+// times as unsigned values, so the clock never goes back: an update that would
+// land behind a presentation (by at most the step a presentation can lead)
+// keeps the presented time. A larger drop is the game's own reset (W3DDisplay
+// zeroes the clock for a new map) and is taken as is.
+static unsigned g_modernSyncBase,g_modernSyncStep,g_modernSyncShown;
+// The game time each update drew and when (QPC), for the model timeline in
+// W3DModelDrawDoDrawModule.cpp. Drawables are placed by Lerp(previous logic
+// pose, current logic pose, TheGameEngine +0x3C), the fraction of the logic step
+// in client frames (frames since the logic tick / frames per tick). The stamp
+// sums that fraction across ticks, in client frames, so an update that ran two
+// client frames (RotWK 2.01's game.dat does every fifth) advances it by two.
+class GameEngine;
+extern GameEngine *TheGameEngine;
+double g_modernClientStamp;
+double g_modernTickBase;		// the stamp where the current logic step began
+bool g_modernTickStarted;		// this update began a logic step
+__int64 g_modernClientFrameTime;
+static float s_modernLastFraction;
+static bool s_modernStampStarted;
+static void modernStampUpdate(){
+ float fraction=*(const float *)((const char *)TheGameEngine+0x3C);
+ float step=fraction-s_modernLastFraction;
+ g_modernTickStarted=step<-0.5f;
+ if(step<-0.5f)step+=1.0f;			// a logic tick started
+ if(!s_modernStampStarted || step<0.0f || step>1.0f)step=0.0f;
+ s_modernLastFraction=fraction;
+ s_modernStampStarted=true;
+ g_modernClientStamp+=step*6.0;
+ g_modernTickBase=g_modernClientStamp-fraction*6.0;
+ LARGE_INTEGER t;QueryPerformanceCounter(&t);g_modernClientFrameTime=t.QuadPart;
+}
+static void modernSyncUpdate(int step){
+ unsigned t=(unsigned)g_bfmeDisplayAnimationSyncClock;
+ int behind=(int)(g_modernSyncShown-t);
+ if(behind>0 && behind<=(int)g_modernSyncStep)t=g_modernSyncShown;
+ WW3D::Sync(t);
+ g_modernSyncShown=g_modernSyncBase=t;
+ g_modernSyncStep=step>0?(unsigned)step:0u;
+}
+static void modernSyncPresent(){
+ if(g_modernRenderPhase!=MODERN_RENDER_PRESENT || !g_modernSyncStep)return;
+ float a=g_modernVisualAlpha;
+ if(a<0.0f)a=0.0f;
+ if(a>0.999f)a=0.999f;
+ unsigned t=g_modernSyncBase+(unsigned)(a*(float)g_modernSyncStep);
+ if((int)(t-g_modernSyncShown)>0){g_modernSyncShown=t;WW3D::Sync(t);}
+}
 #endif
 void W3DDisplay::draw(){
  if(ApplicationHWnd && IsIconic((HWND)ApplicationHWnd))return;
@@ -281,18 +333,26 @@ void W3DDisplay::draw(){
  if(((Rva00203B47Host*)TheScriptEngine)->rva00203B47())fastMode=true;
  if(!freezeTime && fastMode && !TheGameLogic->getFlag125() && ((FrameClient*)TheGameClient)->getFrame()%30!=0){
   primaryW3DView->updateCameraMovements();  // Update camera motion effects.
+#if defined(BFME2_MODERN)
+  g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec;modernSyncUpdate(TheW3DFrameLengthInMsec);return;}
+#else
   g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec;WW3D::Sync(g_bfmeDisplayAnimationSyncClock);return;}
+#endif
  //update state of all the terrain tracks (fade, remove, etc.)
  if(TheGlobalData->field0AF5!=true && TheTerrainTracksRenderObjClassSystem)((Rva00084C05System*)TheTerrainTracksRenderObjClassSystem)->update();
  /// @todo Decouple framerate from timestep
  // for now, use constant time steps to avoid animations running independent of framerate
- g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec*delta;WW3D::Sync(g_bfmeDisplayAnimationSyncClock);
 #if defined(BFME2_MODERN)
+ g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec*delta;modernSyncUpdate(TheW3DFrameLengthInMsec*(int)delta);
  }
  if(!modernPresentsScene()){
+  modernStampUpdate();
   if(!disabled)rva0004A462(timeGetTime());
   return;
  }
+ modernSyncPresent();
+#else
+ g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec*delta;WW3D::Sync(g_bfmeDisplayAnimationSyncClock);
 #endif
  // Fast & Frozen time limits the time to 33 fps.
  int minTime=30;

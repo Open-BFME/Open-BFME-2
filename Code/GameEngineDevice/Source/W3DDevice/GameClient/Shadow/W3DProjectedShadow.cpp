@@ -1287,6 +1287,102 @@ class BoundedShortGrid { public: short load(int, int); };
 #include "../../../../Include/W3DDevice/GameClient/Gen_0074B410.h"
 #include "../../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 #include "../../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+#if defined(BFME2_MODERN)
+// Decals without a render object (selection circles) take their position from
+// the shadow, which the game sets once per update or logic tick, while the
+// presentation shows units at an earlier, evenly advancing game time
+// (W3DModelDrawDoDrawModule.cpp). Keep each decal's last three distinct
+// positions with the game time they appeared and show it at that same time;
+// a decal that moves only at logic ticks is shown between its last two
+// positions one tick behind, as the units are.
+extern double g_modernShownTime;
+extern bool g_modernShownActive;
+extern double g_modernClientStamp;
+struct ModernDecalTrack
+{
+	const void *key;
+	double time[3];
+	float x[3], y[3];
+	int count;
+	double seen;
+};
+enum { MODERN_DECAL_CAPACITY = 1024 };
+static ModernDecalTrack s_modernDecals[MODERN_DECAL_CAPACITY];
+static int s_modernDecalCount;
+static void modernDecalPosition(const void *key, float &x, float &y)
+{
+	if (!g_modernShownActive)
+		return;
+	double now = g_modernClientStamp, when = g_modernShownTime;
+	ModernDecalTrack *track = 0;
+	for (int i = 0; i < s_modernDecalCount; ++i)
+		if (s_modernDecals[i].key == key) { track = &s_modernDecals[i]; break; }
+	if (!track)
+	{
+		if (s_modernDecalCount == MODERN_DECAL_CAPACITY)
+		{
+			int kept = 0;	// drop decals not drawn for a while
+			for (int i = 0; i < s_modernDecalCount; ++i)
+				if (now - s_modernDecals[i].seen < 30.0)
+					s_modernDecals[kept++] = s_modernDecals[i];
+			s_modernDecalCount = kept;
+			if (kept == MODERN_DECAL_CAPACITY)
+				return;
+		}
+		track = &s_modernDecals[s_modernDecalCount++];
+		track->key = key;
+		track->count = 0;
+	}
+	if (track->count && now - track->seen > 12.0)
+		track->count = 0;	// not drawn for a while: start over
+	track->seen = now;
+	int n = track->count;
+	if (!n || track->x[n - 1] != x || track->y[n - 1] != y)
+	{
+		if (n && track->time[n - 1] == now)
+			--n;			// moved again within this update
+		else if (n == 3)
+		{
+			for (int k = 1; k < 3; ++k)
+			{
+				track->time[k - 1] = track->time[k];
+				track->x[k - 1] = track->x[k];
+				track->y[k - 1] = track->y[k];
+			}
+			n = 2;
+		}
+		track->time[n] = now;
+		track->x[n] = x;
+		track->y[n] = y;
+		track->count = n + 1;
+	}
+	n = track->count;
+	if (n < 2)
+		return;
+	// Between two recorded positions. A decal that moves only at logic steps
+	// (last two positions 2.5+ frames apart) is shown one step behind, so a new
+	// position continues the motion instead of jumping to it.
+	double lastGap = track->time[n - 1] - track->time[n - 2];
+	double at = lastGap >= 2.5 && lastGap <= 13.0 ? when - lastGap : when;
+	for (int k = n - 1; k > 0; --k)
+	{
+		double a = track->time[k - 1], b = track->time[k], gap = b - a;
+		if (at >= a || k == 1)
+		{
+			if (gap <= 0.0 || gap > 13.0)
+				return;
+			if (at > b)
+				return;		// past the latest position: show it as is
+			double t = (at - a) / gap;
+			if (t < 0.0) t = 0.0;
+			if (t > 1.0) t = 1.0;
+			x = track->x[k - 1] + (float)t * (track->x[k] - track->x[k - 1]);
+			y = track->y[k - 1] + (float)t * (track->y[k] - track->y[k - 1]);
+			return;
+		}
+	}
+}
+#endif
 void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 {
 	W3DShadowTexture *w3DShadowTexture = shadow->getTexture(0);
@@ -1317,6 +1413,9 @@ void W3DProjectedShadowManager::queueDualDecal(W3DDualProjectedShadow *shadow)
 	{
 		Coord3D pos;
 		pos = shadow->m_position;
+#if defined(BFME2_MODERN)
+		modernDecalPosition(shadow, pos.x, pos.y);
+#endif
 		objPos.X = pos.x;
 		objPos.Y = pos.y;
 		objPos.Z = 0.0f;
@@ -2806,6 +2905,9 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 	{
 		//no render object so use shadow's local position and default orientation
 		objPos.Set(shadow->m_position.x, shadow->m_position.y, shadow->m_position.z);
+#if defined(BFME2_MODERN)
+		modernDecalPosition(shadow, objPos.X, objPos.Y);
+#endif
 		if (shadow->m_isRotating)
 			objXform.Rotate_Z(shadow->m_angle);
 		normal.Set(shadow->m_normal.x, shadow->m_normal.y, shadow->m_normal.z);

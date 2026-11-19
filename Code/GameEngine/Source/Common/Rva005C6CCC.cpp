@@ -158,6 +158,11 @@ class SubTree005C6B83 { public: void clear(); };
 struct Rva0027EA49 { ~Rva0027EA49(); int key; TargetRef00217D4C *pointer; };
 inline bool operator<(const Rva0027EA49 &a, const Rva0027EA49 &b) { return a.key < b.key; }
 typedef _STL::_Rb_tree<Rva0027EA49, Rva0027EA49, _STL::_Identity<Rva0027EA49>, _STL::less<Rva0027EA49>, _STL::allocator<Rva0027EA49> > EraseTree;
+#if defined(BFME2_MODERN)
+#include "../../Include/Common/ModernRenderPhase.h"
+class Rva005C6D4D;
+static Rva005C6D4D *s_modernRadial;
+#endif
 class Rva005C663C {
 public:
     Rva005C663C();
@@ -175,6 +180,12 @@ public:
     virtual void v5();
     void rva005C674A();
     void rva005C6D9C();
+#if defined(BFME2_MODERN)
+    void modernTraceAnchor(char kind) { modernTrace(kind, (double)count, (double)unknown0c, (double)unknown10, (double)flag); }
+    // The layout loop runs only while flag is set (a move or the opening flash).
+    // Force it for a presentation so the buttons follow the re-projected anchor.
+    void modernLayoutNow() { flag = true; rva005C674A(); }
+#endif
 private:
     bool flag;
     char pad[3];
@@ -291,6 +302,11 @@ void Rva005C6D4D::rva005C674A()
 {
     if (count <= 0)
         return;
+#if defined(BFME2_MODERN)
+    // With interpolated presentation the active menu is placed only by the
+    // presentation pass; a logic-camera placement here would alternate with it.
+    if (!(g_modernRenderPhase == MODERN_RENDER_UPDATE && s_modernRadial == this))
+#endif
     v5();
     if (!flag)
         return;
@@ -330,3 +346,18 @@ void Rva005C6D4D::rva005C674A()
     if ((float)elapsed > TheRadialFlashEnd)
         flag = false;
 }
+
+#if defined(BFME2_MODERN)
+// The radial menu projects its anchor once per logic update, with the logic
+// camera. Extra presentations draw the world through the interpolated camera,
+// so the modern variant re-projects the active menu inside that camera scope.
+void modernRadialSeen(void *radial) { s_modernRadial = (Rva005C6D4D *)radial; }
+void modernRadialGone(void *radial) { if (s_modernRadial == radial) s_modernRadial = 0; }
+void modernRefreshRadial()
+{
+    if (!s_modernRadial) { modernTrace('r', 0, 0, 0, 0); return; }
+    s_modernRadial->modernTraceAnchor('R');
+    s_modernRadial->modernLayoutNow();
+    s_modernRadial->modernTraceAnchor('K');
+}
+#endif

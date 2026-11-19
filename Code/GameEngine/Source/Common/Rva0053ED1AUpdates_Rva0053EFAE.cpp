@@ -104,8 +104,14 @@ private:
 
 
 
+#if defined(BFME2_MODERN)
+#include "../../Include/Common/ModernRenderPhase.h"
+#endif
 void Rva0053ED1A::update()
 {
+#if defined(BFME2_MODERN)
+	modernRadialSeen(static_cast<Rva005C6D4D *>(this));
+#endif
 	if (m_at58 != m_at54)
 		rva0053EF7B();
 	static_cast<Rva005C6D4D *>(this)->rva005C6D9C();
