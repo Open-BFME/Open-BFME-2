@@ -9,13 +9,13 @@
 // Player template34 with name144/count148; window-manager slots80/F0.
 // Target uses StringBase::isEmpty and pointer-format overload. Qualified global
 // delete reproduces virtual destructor flag0 then global free rather than flag1.
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes/Bool.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "ascii_string.h"
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes/Int.h"
 typedef unsigned int UnsignedInt;
-typedef bool Bool;
+#include "../../../../Include/Common/ScalarTypes/Bool.h"
 
 enum { MAX_SPECIAL_POWER_SHORTCUTS = 5 };
 enum

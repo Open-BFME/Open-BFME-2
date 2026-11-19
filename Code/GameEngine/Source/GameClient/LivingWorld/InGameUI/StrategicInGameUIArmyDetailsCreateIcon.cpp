@@ -113,7 +113,7 @@ private:
 	Rva005F38D8Ref m_0c;
 };
 
-class ArmyHeroIconMovieClip;
+
 
 namespace StrategicInGameUI
 {

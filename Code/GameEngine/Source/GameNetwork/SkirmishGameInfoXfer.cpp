@@ -68,22 +68,22 @@ extern GameState *TheGameState;
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 class Snapshot;
-class AsciiString;
-class UnicodeString;
-class PooledString;
+
+
+
 struct Coord3DBase;
 struct ICoord3D;
 struct Region3D;
-struct IRegion3D;
+
 class Coord2D;
 struct ICoord2D;
 struct Region2D;
 struct IRegion2D;
 struct RealRange;
 struct RGBColor;
-struct RGBAColorReal;
+
 struct RGBAColorInt;
-struct XferUnknown11;
+
 
 #include "../../Include/Common/BfmeXfer.h"
 

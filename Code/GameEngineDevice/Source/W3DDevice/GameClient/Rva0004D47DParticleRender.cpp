@@ -41,7 +41,7 @@ class RvaSmartPtr12;
 namespace _STL { template <> void vector<RvaSmartPtr12,allocator<RvaSmartPtr12> >::push_back(RvaSmartPtr12 const &); }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@VRvaSmartPtr12@@V?$allocator@VRvaSmartPtr12@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class RvaSmartPtr12;
+
 namespace _STL { template <> void vector<RvaSmartPtr12,allocator<RvaSmartPtr12> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ??$_Construct@VRvaSmartPtr12@@V1@@_STL@@YAXPAVRvaSmartPtr12@@ABV1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -51,15 +51,15 @@ namespace _STL { template <> void _Construct<RvaSmartPtr12,RvaSmartPtr12>(RvaSma
 namespace _STL { template <> void vector<RvaSmartPtr12,allocator<RvaSmartPtr12> >::_M_insert_overflow(RvaSmartPtr12 *,RvaSmartPtr12 const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ??$_Destroy@PAVRvaSmartPtr12@@@_STL@@YAXPAVRvaSmartPtr12@@0@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class RvaSmartPtr12;
+
 namespace _STL { template <> void _Destroy<RvaSmartPtr12 *>(RvaSmartPtr12 *,RvaSmartPtr12 *); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAVRvaSmartPtr12@@V1@V?$allocator@VRvaSmartPtr12@@@_STL@@@_S:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class RvaSmartPtr12;
+
 namespace _STL { template <> RvaSmartPtr12 * _STLP_alloc_proxy<RvaSmartPtr12 *,RvaSmartPtr12,allocator<RvaSmartPtr12> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@VRvaSmartPtr12@@@_STL@@QBEXPAVRvaSmartPtr12@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class RvaSmartPtr12;
+
 namespace _STL { template <> void allocator<RvaSmartPtr12>::deallocate(RvaSmartPtr12 *,unsigned int) const; }
 
 #include "../../../../GameEngine/Include/Common/FrustumClass.h"

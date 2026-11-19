@@ -28,7 +28,7 @@ class Player;
 
 #include "../../../Include/GameLogic/ScriptClass.h"
 
-class Team;
+
 #include "../../../Include/Common/Rva0020D451Engine.h"
 
 class Xfer;

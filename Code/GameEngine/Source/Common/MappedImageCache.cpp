@@ -23,7 +23,7 @@ private:
 	void *m_at4;
 };
 
-class INI;
+
 
 void Rva005EFF68(INI *ini, void *instance, void *store, const void *userData);
 

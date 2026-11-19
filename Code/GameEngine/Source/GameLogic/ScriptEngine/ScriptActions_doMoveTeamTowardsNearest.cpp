@@ -74,7 +74,7 @@ enum DistanceCalculationType
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Object;
+
 
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 

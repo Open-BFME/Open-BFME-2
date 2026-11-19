@@ -20,7 +20,7 @@ class AptValue;
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 
-class AptValue; extern AptValue *gpUndefinedValue;
+ extern AptValue *gpUndefinedValue;
 int Rva006CD220Get();
 
 #include "AptBasePtrStack.h"

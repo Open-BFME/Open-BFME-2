@@ -36,7 +36,7 @@ namespace _STL { template <> void vector<FXList const *,allocator<FXList const *
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class FXList;
+
 class ObjectCreationList;
 
 #include "../../../../Include/Common/AngleFXInfo.h"

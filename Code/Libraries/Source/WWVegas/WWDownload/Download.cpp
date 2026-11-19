@@ -129,7 +129,7 @@ public:
 // same vtable). Callers: DownloadManager dtor 0x005E09BC and unclaimed
 // 0x005E0472. Neighbours: ctor 0x006C9640, DownloadFile 0x006C9760.
 
-class Cftp;
+
 
 class CDownload
 {

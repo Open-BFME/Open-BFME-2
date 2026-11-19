@@ -35,11 +35,11 @@ struct Rva00467FCC
 #include "ascii_string.h"
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_List_node@UBfmePod8@@@_STL@@@_STL@@QBEXPAU?$_List_node@UBfmePo:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod8;
+
 namespace _STL { template <> void allocator<_List_node<BfmePod8> >::deallocate(_List_node<BfmePod8> *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ?clear@?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod8;
+
 namespace _STL { template <> void _List_base<BfmePod8,allocator<BfmePod8> >::clear(); }
 // Bind the list teardown to the existing retail provider at 0x002FECBC.
 namespace _STL { template <> _List_base<BfmePod8,allocator<BfmePod8> >::~_List_base(); }

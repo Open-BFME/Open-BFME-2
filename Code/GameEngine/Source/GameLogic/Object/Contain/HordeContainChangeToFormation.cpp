@@ -210,7 +210,7 @@ public:
 	Team *m_team;									// +0x304
 };
 
-class Object;
+
 #include "../../../../Include/Common/FreelistProxyHead.h"
 #include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DB8FEC;

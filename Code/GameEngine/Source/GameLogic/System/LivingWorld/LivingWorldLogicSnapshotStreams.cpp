@@ -70,7 +70,7 @@ class ModuleData;
 namespace _STL{template<class T>class allocator;template<class T,class A>class vector{public:void push_back(const T&);};}
 typedef _STL::vector<const ModuleData*,_STL::allocator<const ModuleData*> > ModuleVec;
 class LivingWorldManager;
-class Coord2D;
+
 
 // Owned CreateBeaconObject identifies id8 and coordinate prefix0.
 // Keeping the separate stored pointer before transfer gives native EBX

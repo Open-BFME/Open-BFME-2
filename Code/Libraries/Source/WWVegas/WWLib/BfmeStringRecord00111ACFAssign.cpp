@@ -39,7 +39,7 @@ namespace _STL { template <> void vector<BfmeStringRecord00111ACF, allocator<Bfm
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??$__copy@PAUBfmeStringRecord00111ACF@@PAU1@H@_STL@@YAPAUBfmeStringRecord00111ACF@@PAU1@00:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord00111ACF;
+
 namespace _STL { template <> BfmeStringRecord00111ACF * __copy<BfmeStringRecord00111ACF *,BfmeStringRecord00111ACF *,int>(BfmeStringRecord00111ACF *,BfmeStringRecord00111ACF *,BfmeStringRecord00111ACF *,random_access_iterator_tag const &,int *); }
 // The growth helper is emitted by stlport_vector_stringrecord_111acf_allocate_copy.cpp.
 namespace _STL { template <> void vector<BfmeStringRecord00111ACF>::_M_insert_overflow(BfmeStringRecord00111ACF *, const BfmeStringRecord00111ACF &, const __false_type &, unsigned int, bool); }

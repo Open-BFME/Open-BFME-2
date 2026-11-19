@@ -413,7 +413,7 @@ struct DrawInfo2;
 
 class Rva00560A1B { public: Rva00560A1B(void *a, void *b); };
 class Rva003AE61F { public: Rva003AE61F(void *a, void *b); };
-struct Rva005641EDInput;
+
 // Borrowed footprint of the existing constructor/copy owner. Its native
 // fields extend through byte+0x3C; four-byte alignment gives a0x40 footprint.
 // this declaration only calls that provider and emits no base lifetime code.

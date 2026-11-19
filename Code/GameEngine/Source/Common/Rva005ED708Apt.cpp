@@ -10,7 +10,7 @@
 UnicodeString Rva005ED310Get(int val);
 
 class Rva00222A8BTarget;
-class Rva00222A8BTarget;
+
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0057A9B7Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6);

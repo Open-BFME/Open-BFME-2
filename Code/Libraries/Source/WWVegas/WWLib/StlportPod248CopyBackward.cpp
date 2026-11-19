@@ -53,7 +53,7 @@ namespace _STL { template <> void vector<BfmePod248, allocator<BfmePod248> >::_M
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAUBfmePod248@@PAU1@@_STL@@YAPAUBfmePod248@@PAU1@00ABU__false_type:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod248;
+
 namespace _STL { template <> BfmePod248 * __uninitialized_copy<BfmePod248 *,BfmePod248 *>(BfmePod248 *,BfmePod248 *,BfmePod248 *,__false_type const &); }
 
 template BfmePod248 *_STL::__copy_backward(BfmePod248 *, BfmePod248 *, BfmePod248 *, const _STL::random_access_iterator_tag &, int *);

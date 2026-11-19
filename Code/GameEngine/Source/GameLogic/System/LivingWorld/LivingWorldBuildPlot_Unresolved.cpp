@@ -57,7 +57,7 @@ struct Rva003F1BD3TemplateView
     char m_unknown[0x28];
     int m_buildFrames;
 };
-class LivingWorldRegion;
+
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct TreeHintRef00217D4C;

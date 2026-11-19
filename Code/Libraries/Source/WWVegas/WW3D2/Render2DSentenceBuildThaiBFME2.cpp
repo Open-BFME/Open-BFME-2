@@ -145,7 +145,7 @@ typedef _D3DPOOL D3DPOOL;
 // native W3DRadarResetSurface base destructor for the temporary lifetime.
 #include "W3DSurfaceClass.h"
 
-class Render2DClass;
+
 
 class Render2DSentenceClass
 {

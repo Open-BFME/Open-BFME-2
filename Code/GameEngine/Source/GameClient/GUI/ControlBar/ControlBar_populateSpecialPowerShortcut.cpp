@@ -14,7 +14,7 @@ typedef bool Bool;
 #define BFME_SUBSYSTEM_SLOTS
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes/Int.h"
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 

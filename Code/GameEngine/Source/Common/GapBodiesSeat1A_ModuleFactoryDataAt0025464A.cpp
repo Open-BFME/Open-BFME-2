@@ -207,7 +207,7 @@ public:
 
 // --- 0x00262B7D (44B): TheAI's pathfinder (+0x10) validates a position for
 // the +8 object with its rowed 0x0028B511 answer and this +0x1DC word.
-struct Coord3D;
+
 #include "../../Include/GameLogic/AIPathfind.h"
 
 class AI;
@@ -395,7 +395,7 @@ private:
 // --- 0x00282794 (11B): reserves the +0x578 module-data vector;
 // 0x0028A665 (11B): the +0x330 material pass's texture for a stage;
 // 0x0028C8BD (11B): ORs a bitset into +0x284.
-class ModuleData;
+
 class TextureClass;
 namespace _STL
 {
@@ -592,7 +592,7 @@ extern int BfmeLogicFramesPerSecond;
 
 
 // --- 0x002B685D (24B): the rowed 0x002B5B55 on the rowed 0x002B488E result.
-struct Rva002B488EResult;
+
 class Rva002B5B55Arg;
 
 #include "../../Include/Common/Rva002B5B55.h"

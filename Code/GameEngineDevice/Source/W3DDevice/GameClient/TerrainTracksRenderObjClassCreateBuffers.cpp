@@ -10,8 +10,8 @@
 // TerrainTracksRenderObjClass owner. /O1 for xor-first push-pop EBP shape with /G7 for the
 // word-load imul ax form of the ushort vertex counts.
 typedef int Int;
-typedef unsigned int Uint;
-typedef unsigned short UShort;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Source/Uint.h"
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Source/UShort.h"
 typedef unsigned char Bool;
 #include <new>
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"

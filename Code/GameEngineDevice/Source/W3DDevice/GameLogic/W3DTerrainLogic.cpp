@@ -55,7 +55,7 @@ struct ICoord2D;
 namespace _STL { template <> vector<ICoord2D,allocator<ICoord2D> > & vector<ICoord2D,allocator<ICoord2D> >::operator=(vector<ICoord2D,allocator<ICoord2D> > const &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PBUICoord2D@@PAU1@@_STL@@YAPAUICoord2D@@PBU1@0PAU1@ABU__false_type:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct ICoord2D;
+
 namespace _STL { template <> ICoord2D * __uninitialized_copy<ICoord2D const *,ICoord2D *>(ICoord2D const *,ICoord2D const *,ICoord2D *,__false_type const &); }
 
 #ifdef _INTERNAL

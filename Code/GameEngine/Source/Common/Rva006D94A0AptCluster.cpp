@@ -76,7 +76,7 @@ public:
 
 class AptValue; extern AptValue *gpUndefinedValue;
 
-class EAStringC;
+
 
 // EAStringC global used as the scratch key buffer at VA 0x00E18060.
 #include "../../../Libraries/Source/Apt/EAStringC.h"

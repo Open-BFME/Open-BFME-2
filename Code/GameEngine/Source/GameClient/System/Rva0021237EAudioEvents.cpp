@@ -147,7 +147,7 @@ struct OpaqueRefElement4;
 #include "../../../Include/GameClient/Rva0023DCCE.h"
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
-class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
+ extern LivingWorldLogic *TheLivingWorldLogic;
 struct LogicMissionView {char pad[0xEC];int mission;};
 struct Rva0021246DInput {char pad[0x18];AsciiString name;};
 void Rva0021237E::rva0021246D(Rva0021246DInput *input)

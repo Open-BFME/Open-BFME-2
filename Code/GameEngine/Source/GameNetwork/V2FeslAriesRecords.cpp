@@ -30,7 +30,7 @@
 // two-field body under two different keys; the bytes do not say they are
 // related types.
 
-typedef __int64 FeslInt64;
+#include "../../Include/Common/ScalarTypes/Source/FeslInt64.h"
 
 // g_Rva0130A708: the matched result-cursor references place this const
 // pointer at VA 0x00E0A124, in .data's zero-filled tail; retail starts null.

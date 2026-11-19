@@ -135,7 +135,7 @@ AptCIH *rva006F99D0(int direction,AptCIH *current,AptCIH *reference)
 // commuted SIB encodings off).
 struct BfmeM1208 {float m[6];};
 void __cdecl bfmeMul1208(const BfmeM1208 *,const BfmeM1208 *,BfmeM1208 *);
-struct BfmeMesh1290;
+
 struct BfmeTransform2_1290;
 struct AptButtonShape {int eType;int unknown04;float x0,y0,x1,y1;};
 struct AptButtonHitRecord {unsigned int flags;AptButtonShape *shape;int unknown08;BfmeM1208 matrix;char unknown24[0x44-0x24];};

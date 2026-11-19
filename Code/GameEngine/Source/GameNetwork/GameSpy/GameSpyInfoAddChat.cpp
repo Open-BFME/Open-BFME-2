@@ -48,7 +48,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 
 #include "../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned short WideChar;
+#include "../../../Include/Common/ScalarTypes/WideChar.h"
 typedef int Color;
 
 enum GameSpyColors

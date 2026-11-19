@@ -78,7 +78,7 @@ class Xfer::Version
 
 class Object;
 
-struct SpellRechargeModifierUpgradeModuleData;
+
 
 class Rva004B5E06 : public UpgradeModule
 {

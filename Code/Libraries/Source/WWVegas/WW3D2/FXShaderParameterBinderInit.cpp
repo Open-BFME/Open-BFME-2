@@ -196,7 +196,7 @@ public:
 	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder) = 0;
 };
 
-class FXShaderParameterSourceNamespace;
+
 
 // The registered namespaces (rowed register 0x00153565): a 64-byte name and
 // the namespace object, in the vector the pointer at 0x00DF6F20 owns.

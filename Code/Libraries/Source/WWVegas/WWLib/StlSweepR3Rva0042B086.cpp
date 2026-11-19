@@ -30,7 +30,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 
 
-class Drawable;
+
 // The pooled Drawable sentinel teardown is supplied by InGameUICtor.cpp.
 namespace _STL { template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base(); }
 // Nodes come from the freelist pool at VA 0x00DBA5E0 (pop 0x002393E2, head

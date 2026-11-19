@@ -42,7 +42,7 @@ class SequentialScript;
 
 // LINK: appendSequentialScript takes the rowed SequentialScript record view (0x00207557); 0x00203693 / 0x003B2832 are rowed as
 // Rva00203693Host::rva00203693 and Rva003B2832::rva003B2832 (same this-call int-returning ABI), called through views of the same objects.
-class SequentialScript;
+
 #include "../../../Include/GameLogic/Rva00203693Host.h"
 #include "../../../Include/GameLogic/Rva003B2832.h"
 
@@ -89,7 +89,7 @@ protected:
 
 #include "../../../Include/Common/Player.h"
 
-class Parameter;
+
 
 #include "../../../Include/GameLogic/ScriptAction.h"
 

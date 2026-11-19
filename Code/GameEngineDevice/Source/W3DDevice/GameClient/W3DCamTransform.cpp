@@ -446,7 +446,7 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 // original entry-point/descriptor names are not independently established.
 // The scalar-value helper preserves separate pitch arms and native stores.
 static __forceinline void pitchCamera(Vector3 &s,const Vector3 &targetPosition,float p) {s.X=CameraScalar((s.X-targetPosition.X)/p).value+targetPosition.X;s.Y=CameraScalar((s.Y-targetPosition.Y)/p).value+targetPosition.Y;}
-class Rva0010274F;static __forceinline Vector3 translated(Vector3 p,const Rva0010274F *v);
+static __forceinline Vector3 translated(Vector3 p,const Rva0010274F *v);
 static __forceinline Vector3 translated(Vector3 p,const Rva0010274F *cameraState) {p.X+=cameraState->pos.x;p.Y+=cameraState->pos.y;return p;}
 __forceinline float cameraMin(float a,float b) {return a<b?a:b;}
 __forceinline float cameraMax(float a,float b) {return a>b?a:b;}

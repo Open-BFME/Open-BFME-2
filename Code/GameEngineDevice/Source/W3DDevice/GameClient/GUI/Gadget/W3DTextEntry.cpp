@@ -34,9 +34,9 @@
 
 #include "unicode_string.h"
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes/UnsignedInt.h"
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes/UnsignedShort.h"
 typedef unsigned short WideChar;
 typedef unsigned char Bool;
 typedef float Real;

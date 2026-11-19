@@ -32,7 +32,7 @@ class StaticNameKey;
 extern const StaticNameKey TheKey_teamName;
 extern const StaticNameKey TheKey_teamOwner;
 extern Rva00148F5ECache TheKey_teamIsSingleton;
-class StaticNameKey;
+
 extern const StaticNameKey TheKey_playerName;
 extern Rva00148F5ECache TheKey_playerFaction;
 
