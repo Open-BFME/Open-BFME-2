@@ -26,7 +26,7 @@ struct Mid005490D2 {
  char pad8[0x30];float positionX,positionY,positionZ;char pad44[0x214];FormationUnitGate*gate;char pad25C[0x1b4];int formationId;Coord2D formationOffset;
 };
 struct Rva005490D2 {
-	
+
 	int count;
 	Mid005490D2 *array[6];
 	int rva005490AE() const;
@@ -323,7 +323,7 @@ void FormationSquad::SetSquadWidth(int squadWidth) {
  else if(squadWidth>6)squadWidth=6;
  width=squadWidth;
 }
-enum DrawableID { INVALID_DRAWABLE_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
 class GameClient {
  friend class AIGroup;
 protected: DrawableID allocDrawableID();

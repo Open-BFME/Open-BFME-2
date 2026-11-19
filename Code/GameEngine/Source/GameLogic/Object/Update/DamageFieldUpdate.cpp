@@ -49,10 +49,10 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Xfer;
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 struct BridgeBehaviorObjectIDNode
 {
 	BridgeBehaviorObjectIDNode *m_next;
@@ -89,23 +89,23 @@ extern const FieldParse g_00C4D8A8[] = {
 	{ "RequiredUpgrade", &INI::parseAsciiString, 0, 0x18 },
 	{ 0, 0, 0, 0 }
 };
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "../../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 class DamageFieldUpdateModuleData : public FireWeaponUpdateModuleData

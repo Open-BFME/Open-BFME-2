@@ -49,7 +49,7 @@ template<> void vector<const ModuleData *>::push_back(const ModuleData *const &)
 class Anim2DCollection;
 class Rva001DA2D5;
 struct Rva002D752DNode;
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 struct XferVersion
 {

@@ -102,10 +102,10 @@ Real normalizeAngle(Real angle);
 
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
@@ -113,11 +113,11 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #define NAMEKEY(s) TheNameKeyGenerator->nameToKey(s)
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 enum StructureTopplePhaseType
 {

@@ -29,7 +29,7 @@ extern int BfmeLogicFramesPerSecond;
 float GetGameLogicRandomValueReal(float,float,char *,int);
 float Cos(float);
 float Sin(float);
-enum WeaponSlotType {PRIMARY_WEAPON=0};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum PathfindLayerEnum {GROUND=0};
 class Object;
 #include "../../../../Include/GameLogic/Weapon.h"

@@ -83,7 +83,7 @@ extern GameTextInterface *TheGameText;
 // The options file (0x14 bytes; its destructor is the pinned ~OptionPreferences).
 #include "../../../../../Include/Common/OptionPreferences.h"
 
-enum SlotState { SLOT_OPEN = 0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SlotState.h"
 
 // Retail passes a zero DWORD and zero port WORD to GameSlot::setState.
 #include "../../../../../Include/GameNetwork/GameSlotConnectInfo.h"

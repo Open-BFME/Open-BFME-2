@@ -34,7 +34,7 @@ enum ModelConditionFlagType
 {
 	MODELCONDITION_PANICKING = 2 * 32 + 13
 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1, CMD_FROM_AI = 2 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
 class Player;
 class Team;
@@ -121,7 +121,7 @@ __forceinline void CivilianSpawnScale(Coord3D &c, Real s)
 #define BFME_SNAPSHOT_NAME_SLOT
 #define CIVILIAN_SPAWN_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\CivilianSpawnUpdate.cpp"
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 enum SleepyUpdatePhase;
 

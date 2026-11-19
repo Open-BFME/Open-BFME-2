@@ -58,10 +58,10 @@ void __cdecl Rva004161F1Notify(AsciiString playerName, UnicodeString message)
 
 #include "../../Include/Common/Player.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../Include/Common/PlayerList.h"
 

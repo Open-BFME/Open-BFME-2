@@ -51,10 +51,10 @@ class Object;
 class Thing;
 class ModuleData;
 class WeaponTemplate;
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 // Status mask copy and overlap test over Object's status bits (rowed

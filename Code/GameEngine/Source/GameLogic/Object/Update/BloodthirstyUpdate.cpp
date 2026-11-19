@@ -133,15 +133,15 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_4A = 0x4a
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 extern int BfmeLogicFramesPerSecond;
 

@@ -8,10 +8,10 @@
 #include "../../../../../Include/Common/ScalarTypes.h"
 
 
-enum ExitDoorType { DOOR_1 = 0, DOOR_NONE_AVAILABLE = -1 };
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ExitDoorType.h"
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 enum PathfindLayerEnum { PATHFIND_LAYER_GROUND = 0 };
-enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 //
 // ??1QueueProductionExitUpdate@@MAE@XZ, retail 0x0049FFF7, 32 bytes.

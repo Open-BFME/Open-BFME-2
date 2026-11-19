@@ -46,8 +46,8 @@ template<> int StringBase<unsigned short>::compare(const StringBase<unsigned sho
 
 typedef unsigned short wchar_t;
 #include "../../Include/Common/ScalarTypes.h"
-enum DrawableID { INVALID_DRAWABLE_ID = 0 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum KindOfType { KINDOF_DISGUISER = 300 };
 enum Relationship { NEUTRAL = 0, ALLIES = 2 };
 enum CellShroudStatus { CELLSHROUD_CLEAR = 0 };

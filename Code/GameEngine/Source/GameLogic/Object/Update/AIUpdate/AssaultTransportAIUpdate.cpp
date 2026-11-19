@@ -38,14 +38,14 @@ int GetAssociatedMessageType(int);
 
 class Object;
 class Xfer;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 #include "../../../../../Include/Common/Rva006C1F60.h"
 #include "../../../../../Include/Common/Rva001EDDBBForwarder.h"
 class Win32GameEngine

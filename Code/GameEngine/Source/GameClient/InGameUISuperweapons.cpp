@@ -101,7 +101,7 @@ namespace _STL { template <> _List_base<SuperweaponInfo *,allocator<SuperweaponI
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class SuperweaponInfo;
 namespace _STL { template <> void _List_base<SuperweaponInfo *,allocator<SuperweaponInfo *> >::clear(); }
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 typedef _STL::vector<ScienceType> ScienceVec;
 // Nothing here calls the science vector's deallocation helpers out of line;
 // their unreferenced copies (calling _STL::free, not _free) came first in link
@@ -116,7 +116,7 @@ void _STLP_alloc_proxy<ScienceType *, ScienceType, allocator<ScienceType> >::dea
 { __stl_alloc_rebind(__STATIC_CAST(_Base&, *this),(ScienceType*)0).deallocate(__p, __n); }
 }
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 namespace rts {
 template <class T> struct hash {
 	size_t operator()(const T &value) const { return (size_t)value; }

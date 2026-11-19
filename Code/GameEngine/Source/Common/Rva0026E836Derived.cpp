@@ -35,10 +35,10 @@
 // The existing data-row owner supplies its twenty verified function entries.
 extern const void *const g_00C50868[];
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 struct AICommandParms;
 struct Coord3D;

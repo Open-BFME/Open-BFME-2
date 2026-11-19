@@ -230,7 +230,7 @@ private:
 #include <windows.h>
 class Image;
 class NameKeyGenerator;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 #if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
 #define BFME_SUBSYSTEM_SLOTS

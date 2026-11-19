@@ -101,7 +101,7 @@ bool BFME_DX8_Thread_Assert(void);
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
-enum StaticGameLODLevel { STATIC_GAME_LOD_UNKNOWN = -1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StaticGameLODLevel.h"
 
 #include "../../../../GameEngine/Include/Common/GameLODManager.h"
 

@@ -17,10 +17,10 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class INI;
 #include "../../../Include/Common/NameKeyGenerator.h"

@@ -36,10 +36,10 @@ float Sin(float value);
 #include "../../../../Include/GameClient/Drawable.h"
 class AudioManager;
 extern AudioManager *TheAudio;
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 class Rva00373EC6
 {
 public:
@@ -87,9 +87,9 @@ public:
 // body calls rather than pulling in GameLogic/Object.h, whose sweep shim is
 // not this TU's shape. Only the two enumerators the body pushes are named;
 // GameLogic/Damage.h is not on this donor's include path.
-enum DamageType { DAMAGE_SNIPER = 8 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DamageType.h"
 
-enum DeathType { DEATH_NORMAL = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
 
 enum ObjectStatusTypes;
 
@@ -162,11 +162,11 @@ class Thing;
 
 class ModuleData;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 class UpdateModule
 {

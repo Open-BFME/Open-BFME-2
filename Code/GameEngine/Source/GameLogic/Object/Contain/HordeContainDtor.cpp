@@ -109,7 +109,7 @@ class Rva002EE9B7 { public: ~Rva002EE9B7(); private: void *m_ptr; int m_flag; };
 // map<ObjectID, int>: the tree family dtor 0x00286852 -> clear 0x00286656 ->
 // erase 0x00286183 (one instantiation: the self-recursive erase is not ICF-folded;
 // AITargetHeuristicEnemyStructure::findBestTarget 0x005735C6 keys it by object ID).
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 typedef _STL::map<ObjectID, int> ObjectIDIntMap;
 typedef _STL::_Rb_tree<ObjectID, _STL::pair<const ObjectID, int>, _STL::_Select1st<_STL::pair<const ObjectID, int> >, _STL::less<ObjectID>, _STL::allocator<_STL::pair<const ObjectID, int> > > ObjectIDIntTree;
 class HordeContain : public TransportContain, public Iface11C

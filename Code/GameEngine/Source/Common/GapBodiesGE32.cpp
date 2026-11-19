@@ -146,7 +146,7 @@ void AptMpGameRules::rva0057E779(int rule, int value)
 // --- 0x0057EF0A (14B) / 0x0058A193 (14B): resize a pointer / id vector
 // (rowed resize 0x000E6D39, 0x005839A7) with null / invalid fill.
 class Drawable;
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 class Rva0057EF0A : public _STL::vector<Drawable *>
 {

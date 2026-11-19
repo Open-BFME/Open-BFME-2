@@ -28,7 +28,7 @@ void GadgetStaticTextSetText(GameWindow *window, UnicodeString text);
 enum { MAX_SLOTS = 8 };
 
 // Views for init (0x00356B78).
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 

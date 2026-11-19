@@ -128,7 +128,7 @@ private:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 
-enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffffff };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 struct Rva002E36D5Node
 {

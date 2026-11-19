@@ -20,12 +20,12 @@ enum AICommandType
 {
 	AICMD_DUMMY_46 = 46
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../Include/Common/StateMachine.h"
 #include "../../../../../../../reference/shims/bfme2_statemachine/StateMachineView.h"
@@ -55,10 +55,10 @@ enum CommandSourceType
 // Donor semantic guide: BFME1 revision 9cbfb551 attempt 0x002B32A0.
 
 class Object;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 #include "../../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Common/Thing/thing.h"
 class Object : public Thing

@@ -21,7 +21,7 @@ enum Relationship
 class Team;
 #include "../../../Include/Common/Player.h"
 #include "../PartitionRangeQueryCallView.h"
-enum WeaponSlotType { PRIMARY_WEAPON=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 // BFME2 adds a 0x10 attack-type flag: the contained-attack helper ORs it
 // into the type it hands each passenger, and getCanAttackObject refuses it
 // alongside ATTACK_NEW_TARGET while the source's +0x1C8 bit 0x10 is set.

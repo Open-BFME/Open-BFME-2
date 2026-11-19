@@ -20,11 +20,11 @@ enum DisabledType
 	DISABLED_SCRIPT_UNDERPOWERED = 10
 };
 
-enum ObjectScriptStatusBit
-{
-	OBJECT_STATUS_SCRIPT_DISABLED = 0x01,
-	OBJECT_STATUS_SCRIPT_UNPOWERED = 0x02
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectScriptStatusBit.h"
+
+
+
+
 
 // Saved status bits (Zero Hour donor ObjectStatusTypes.h; values are inert
 // in this TU -- setStatus forwards its arguments without comparing them).
@@ -111,7 +111,7 @@ public: virtual void slot00(); virtual void slot04(); virtual void slot08(); vir
  virtual void slot10(); virtual void slot14(); virtual void slot18();
 };
 
-enum PathfindLayerEnum { LAYER_GROUND = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 struct Rva002ED236Pos {
  float x,y,z;
  Rva002ED236Pos(const Coord3D &p) { x=p.x;y=p.y;z=p.z; }

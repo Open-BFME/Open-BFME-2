@@ -79,10 +79,10 @@ struct XferVersion
 
 #include "../../Include/Common/XferException.h"
 
-enum DrawableID
-{
-	INVALID_DRAWABLE_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
+
+
+
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 void XferDrawableID( Xfer *xfer, int *id );
@@ -227,7 +227,7 @@ typedef _STL::_Rb_tree<AsciiString, TreeHintPair002A1D9D, _STL::_Select1st<TreeH
 template <> _STL::pair<TimerInsertTree::iterator, bool> TimerInsertTree::insert_unique(const TreeHintPair002A1D9D &);
 
 // The folded four-byte vector reserve 0x002A1410 is rowed for ScienceType.
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 // Nothing here calls the science vector's deallocation helpers out of line;
 // their unreferenced copies differed from the first ones in link order.
 // Declared imported and force-inlined, they are not emitted.

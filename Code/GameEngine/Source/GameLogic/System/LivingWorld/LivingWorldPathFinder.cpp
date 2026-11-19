@@ -65,7 +65,7 @@ unsigned char Rva003EF5FBNode::rva003EF5FB(int owner){
 // Capture node cost before callback (which can mutate it) and hold an adjacency
 // vector reference across iteration; both native scheduling facts are byte-proven.
 struct Rva003EF6D6Entry;struct Rva003EF6D6Span;struct Rva003C4CF0Span;class Rva002C589B;
-enum ObjectID { INVALID_ID=0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 // Range erase is called out of line; bind to retail's kept body (0x00532803)
 // rather than emitting this unit's differing copy.
 namespace _STL { template <> ObjectID *vector<ObjectID,allocator<ObjectID> >::erase(ObjectID *,ObjectID *); }

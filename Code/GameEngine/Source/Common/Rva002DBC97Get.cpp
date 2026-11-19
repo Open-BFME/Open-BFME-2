@@ -46,7 +46,7 @@ static __forceinline const unsigned short *wideText(const UnicodeString &text)
 
 typedef unsigned short WideChar;
 
-enum SnapshotType { SNAPSHOT_SAVELOAD = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SnapshotType.h"
 
 class Snapshot;
 class AsciiString;

@@ -70,10 +70,10 @@ int __cdecl Rva00507552Get();
 
 
 #include "../../Include/Common/Rva002CA9CA.h"
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 #include "Code/Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class Team;
 #include "../../Include/Common/ThingTemplate.h"
@@ -124,7 +124,7 @@ public:
 	virtual Object *getProjectileToLaunch(const ObjectFilter *filter) = 0; // slot 79
 };
 class Module;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva0033EEC9
@@ -398,7 +398,7 @@ void ProjectileNugget::doEffectObject(const ProjectileNuggetFireInfo *info, Obje
 		TheGameLogic->destroyObject(projectile);
 	}
 
-	
+
 
 	Object *streamOwner = TheGameLogic->findObjectByID(info->getStreamOwnerID());
 	if (streamOwner == 0)

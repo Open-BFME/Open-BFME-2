@@ -351,7 +351,7 @@ extern ScriptEngine *TheScriptEngine;
 
 // Team::removeOverrideTeamRelationship and ScriptEngine's script lookup are
 // rowed under these views (0x003A2897, 0x003573C4): call them by their row names.
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 struct ArmorMapHolder;
 class Rva003A2897
 {

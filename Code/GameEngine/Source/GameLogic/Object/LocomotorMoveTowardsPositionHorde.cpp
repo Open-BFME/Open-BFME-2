@@ -116,25 +116,25 @@
 #include "matrix3d.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../Include/Common/ScalarTypes.h"
-enum PathfindLayerEnum
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
-{
- LAYER_INVALID = 0
- 
-}
-;
-enum ScienceType
 
-{
- SCIENCE_INVALID = -1
- 
-}
-;
 
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 enum Relationship
 {
 	ENEMIES = 0
@@ -172,16 +172,16 @@ struct Rva001E34B2Point
   x = ax;
   y = ay;
   z = az;
-  
+
  }
  Rva001E34B2Point(const Rva001E34B2Point &other) 
  {
   x = other.x;
   y = other.y;
   z = other.z;
-  
+
  }
- 
+
 }
 ;
 // What 0x00364521 returns by value (16 bytes): a node and a position.
@@ -194,7 +194,7 @@ struct Rva003642DFResult
 // +0x00
  Coord3D m_pos;
 // +0x04
- 
+
 }
 ;
 class Rva001E34FA
@@ -203,7 +203,7 @@ class Rva001E34FA
  public:
  int rva001E34FA();
 // 0x001E34FA, the node's layer
- 
+
 }
 ;
 #include "../../../Include/GameLogic/Module/Rva001E3511.h"
@@ -213,7 +213,7 @@ class Rva001E34B2
  public:
  Rva001E34B2Point rva001E34B2();
 // 0x001E34B2, the node's position
- 
+
 }
 ;
 class Rva0008BB38FloatField;
@@ -228,7 +228,7 @@ class Path
  bool DoAdvanceAlongPath(const Coord3D *pos, bool flag);
  int GetNextPortalID();
  unsigned m_count;
- 
+
 }
 ;
 class Rva00363D20
@@ -237,7 +237,7 @@ class Rva00363D20
  public:
  double rva00363D20();
 // 0x00363D20, on the 16-byte path point
- 
+
 }
 ;
 struct Rva001E3FFDInner
@@ -246,7 +246,7 @@ struct Rva001E3FFDInner
  char m_pad00[0x140];
  void *m_p140;
 // +0x140
- 
+
 }
 ;
 struct Rva001E3FFDOuter
@@ -255,7 +255,7 @@ struct Rva001E3FFDOuter
  char m_pad00[0x258];
  Rva001E3FFDInner *m_p258;
 // +0x258
- 
+
 }
 ;
 void *__cdecl Rva001E3FFDGet(Rva001E3FFDOuter *p)
@@ -263,7 +263,7 @@ void *__cdecl Rva001E3FFDGet(Rva001E3FFDOuter *p)
 {
  Rva001E3FFDInner *q = p->m_p258;
  return q ? q->m_p140 : 0;
- 
+
 }
 // The horde interface getHordeContainInterface hands out (retail vtable
 // 0x00C44C58: +0x1BC is 0x0046ECDE, +0x1CC is 0x0046A677).
@@ -434,7 +434,7 @@ class HordeContainInterface
  virtual void s153();
  virtual void slot154();
 // +0x268
- 
+
 }
 ;
 #include "../../../Include/GameLogic/Module/ContainModule.h"
@@ -491,17 +491,17 @@ class Thing
  const Coord3D *getPosition() const 
  {
   return &m_pos;
-  
+
  }
  Real getOrientation() const 
  {
   return m_orientation;
-  
+
  }
  const ThingTemplate *getTemplate() const 
  {
   return m_template;
-  
+
  }
  float getHeightAboveTerrainOrWater()const; void setOrientation(float); const Coord3D *getUnitDirectionVector2D()const; void setPositionZ(float);
  const Matrix3D *getTransformMatrix() const { return &m_matrix08; }
@@ -516,7 +516,7 @@ class Thing
 // +0x38
  Real m_orientation;
 // +0x44
- 
+
 }
 ;
 #include "../../../Include/GameLogic/Module/Rva0030A3E4.h"
@@ -728,7 +728,7 @@ class Rva001E6007
 {
  public:
  void rva001e6007(Object *obj, const Coord3D *goal, Real onPathDistToGoal, Real desiredSpeed);
- 
+
 }
 ;
 class Rva001E685F
@@ -738,7 +738,7 @@ class Rva001E685F
  void rva001E685F(Object *obj, const Coord3D *pos, float *angle);
  char prefix[0x68];
  struct MatrixRow{unsigned int a,b,c,d;__forceinline void set(const MatrixRow&r){a=r.a;b=r.b;c=r.c;d=r.d;}} matrix[3];
- 
+
 }
 ;
 #include "../../../Include/GameLogic/Module/Rva001E702E.h"
@@ -750,16 +750,16 @@ struct Rva001E756DCoord
   c->x *= s;
   c->y *= s;
   c->z *= s;
-  
+
  }
  static void sub(Coord3D *c, const Coord3D *p) 
  {
   c->x -= p->x;
   c->y -= p->y;
   c->z -= p->z;
-  
+
  }
- 
+
 }
 ;
 extern GameLogic *TheGameLogic;
@@ -1316,49 +1316,49 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
  bool onPortal = false;
  Path *aPath = (Path *)Rva001E3FFDGet((Rva001E3FFDOuter *)obj);
  if (aPath)
- 
+
  {
   Rva003642DFResult result = aPath->rva00364521((const Rva0008BB38FloatField *)this);
   dist = (Real)((Rva00363D20 *)&result)->rva00363D20();
   if (m_9A)
-  
+
   {
    if (hordeContain && !hordeContain->haveMembersReachedEndOfPath())
-   
+
    {
     ((Rva001E702E *)this)->rva001E702E(obj, (int)&goalPos, 0);
     return;
-    
+
    }
    m_9A = 0;
-   
+
   }
   if (((Rva001E3511 *)&result)->rva001E3511() != 0x7fffffff)
-  
+
   {
    Waypoint *way = TheTerrainLogic->getWaypointByID(((Rva001E3511 *)&result)->rva001E3511());
    if (way)
-   
+
    {
     onPortal = true;
     int type = waypointType(way);
     if (type == 3)
-    
+
     {
      if (moveTowardsPositionHordeOnClimbPortal(obj, way))
      return;
-     
+
     }
     else if (type == 4)
-    
+
     {
-     
+
     }
     else if (type == 2)
-    
+
     {
      if (hordeContain)
-     
+
      {
       if (!hordeContain->haveMembersReachedEndOfPath())
       return;
@@ -1369,17 +1369,17 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
       path->AdvancePastPortal((ScienceType)way->getID(), &portals);
       int lastID = 0x7fffffff;
       for (ScienceType *it = portals.begin(); it != portals.end(); ++it)
-      
+
       {
        Waypoint *portal = TheTerrainLogic->getWaypointByID(*it);
        if (portal)
-       
+
        {
         hordeContain->slot117(portal->getLocation(), portal->getID());
         lastID = portal->getID();
-        
+
        }
-       
+
       }
       path = (Path *)Rva001E3FFDGet((Rva001E3FFDOuter *)obj);
       if (!path)
@@ -1399,31 +1399,31 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
       m_9A = 1;
       hordeContain->slot117(&goal, lastID);
       return;
-      
+
      }
-     
+
     }
     else if (type == 7)
-    
+
     {
      if (hordeContain)
-     
+
      {
       hordeContain->slot154();
       return;
-      
+
      }
-     
+
     }
     else if (type == 8)
-    
+
     {
      if (hordeContain)
-     
+
      {
       Path *path = (Path *)Rva001E3FFDGet((Rva001E3FFDOuter *)obj);
       if (path)
-      
+
       {
        _STL::vector<ScienceType> portals;
        path->AdvancePastPortal((ScienceType)way->getID(), &portals);
@@ -1431,11 +1431,11 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
        if (!path)
        return;
        if (!portals.empty())
-       
+
        {
         Waypoint *destWay = TheTerrainLogic->getWaypointByID(path->GetNextPortalID());
         if (destWay)
-        
+
         {
          Object *destination = TheGameLogic->findObjectByID(waypointClimbObjectID(destWay));
          MineshaftPortalBehaviour *mpb = (MineshaftPortalBehaviour *)Rva00372D3AFind(destination);
@@ -1450,26 +1450,26 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
          group->add(obj);
          group->rva00372BB9(garrison, 2);
          TheAI->destroyGroup(group);
-         
+
         }
         else
         hordeContain->slot154();
         return;
-        
+
        }
-       
+
       }
-      
+
      }
-     
+
     }
-    
+
    }
-   
+
   }
-  
+
  }
- 
+
   Real maxSpeed = getMaxSpeed(obj);
   Real maxTurnRate = getMaxTurnRate(obj);
   if (desiredSpeed > maxSpeed)
@@ -1487,38 +1487,38 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
   if (m_template->m_canMoveBackwards && obj->isKindOf((KindOfType)0x41))
   reverse = true;
   if (m_40 == 0.0f)
-  
+
   {
    setFlag(LOCO_FLAG_7, reverse);
    m_98 = 0;
-   
+
   }
   if (getFlag7())
-  
+
   {
    if (!reverse)
    m_flags &= ~0x80;
    else
-   
+
    {
     desiredAngle = normalizeAngle(desiredAngle - 3.14159265359f);
     relAngle = normalizeAngle(desiredAngle - angle);
     goal = *obj->getPosition();
     Rva001E756DCoord::scale(&goal, 2.0f);
     Rva001E756DCoord::sub(&goal, &goalPos);
-    
+
    }
-   
+
   }
   Real limit = m_template->m_maxTurnWithoutReform;
   if (Cos(relAngle) < Cos(limit) && !onPortal && dist > 20.0f && hordeContain)
-  
+
   {
    hordeContain->slot15();
    rva001E41FA(desiredAngle);
    ((Rva0030A3E4 *)obj)->_setTransformMatrix(&m_transform);
    hordeContain->slot16();
-   
+
   }
   if (onPortal)
   goal.z = obj->getPosition()->z;
