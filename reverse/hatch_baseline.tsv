@@ -1779,7 +1779,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0033FF2BXfer.cpp	?xfer@AIInternal
 alternatename	Code/GameEngine/Source/Common/Rva00342826Ctor.cpp	?onEnter@AIInternalMoveToState@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342826Ctor.cpp	?onExit@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342826Ctor.cpp	?update@AIInternalMoveToState@@UAEHXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00342826Ctor.cpp	?xfer@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342843Ctor.cpp	?onEnter@AIInternalMoveToState@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342843Ctor.cpp	?onExit@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342843Ctor.cpp	?update@AIInternalMoveToState@@UAEHXZ	1
@@ -1787,7 +1786,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00342843Ctor.cpp	?xfer@AIInternal
 alternatename	Code/GameEngine/Source/Common/Rva00342B87Ctor.cpp	?onEnter@AIInternalMoveToState@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342B87Ctor.cpp	?onExit@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342B87Ctor.cpp	?update@AIInternalMoveToState@@UAEHXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00342B87Ctor.cpp	?xfer@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342EACCtor.cpp	?onEnter@AIInternalMoveToState@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342EACCtor.cpp	?onExit@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00342EACCtor.cpp	?update@AIInternalMoveToState@@UAEHXZ	1
@@ -1799,10 +1797,8 @@ alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot6@Rva0035D0
 alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?getFrameLength@Rva0035FF76@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?skip@Rva0035FF76@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00367518Ctor.cpp	?xfer@AIFollowPathState@@UAEXPAVXfer@@@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?onEnter@AIInternalMoveToState@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?onExit@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?update@AIInternalMoveToState@@UAEHXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0036804FCtor.cpp	?xfer@AIInternalMoveToState@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0039597COpAssign.cpp	?Rva00395D45CopyAux@@YAPAVRva0039597C@@PAV1@00PADH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF_v0	1
 alternatename	Code/GameEngine/Source/Common/Rva003C4B2DInsert.cpp	?rva003BD4C3@@YAXPAX00@Z	1

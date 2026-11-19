@@ -4,13 +4,14 @@
 // Callers 0x0034B9C5 0x0034C75E 0x00352887 0x00368056 unclaimed.
 class StateMachine;
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+class Xfer;
 class State
 {
 public:
 	virtual ~State();
 	virtual void slot01();
 	virtual void slot02();
-	virtual void xfer();
+	virtual void xfer(Xfer *xfer);
 	virtual int onEnter();
 	virtual void onExit();
 	virtual int update();
@@ -23,7 +24,7 @@ class AIInternalMoveToState : public State
 public:
 	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
 	virtual ~AIInternalMoveToState();
-	virtual void xfer();
+	virtual void xfer(Xfer *xfer);
 	virtual int onEnter();
 	virtual void onExit();
 	virtual int update();
@@ -37,6 +38,8 @@ class Rva00342B87 : public AIInternalMoveToState
 {
 public:
 	Rva00342B87(StateMachine *machine);
+protected:
+	virtual void xfer(Xfer *xfer);	// 0x00340C2D
 private:
 	int m_4C;
 };
@@ -52,4 +55,3 @@ Rva00342B87::Rva00342B87(StateMachine *machine)
 #pragma comment(linker, "/alternatename:?onEnter@AIInternalMoveToState@@UAEHXZ=?onEnter@Rva00340C5F@@QAEHXZ")
 #pragma comment(linker, "/alternatename:?onExit@AIInternalMoveToState@@UAEXXZ=?onExit@AIMoveToState@@UAEXW4StateExitType@@@Z")
 #pragma comment(linker, "/alternatename:?update@AIInternalMoveToState@@UAEHXZ=?update@AIPickUpCrateState@@UAE?AW4StateReturnType@@XZ")
-#pragma comment(linker, "/alternatename:?xfer@AIInternalMoveToState@@UAEXXZ=?xfer@Rva00342B87@@MAEXPAVXfer@@@Z")

@@ -37,13 +37,14 @@ public:
 	int onEnter();
 };
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+class Xfer;
 class State
 {
 public:
 	virtual ~State();
 	virtual void slot01();
 	virtual void slot02();
-	virtual void xfer();
+	virtual void xfer(Xfer *xfer);
 	virtual int onEnter();
 	virtual void onExit();
 	virtual int update();
@@ -56,7 +57,7 @@ class AIInternalMoveToState : public State
 public:
 	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
 	virtual ~AIInternalMoveToState();
-	virtual void xfer();
+	virtual void xfer(Xfer *xfer);
 	virtual int onEnter();
 	virtual void onExit();
 	virtual int update();
@@ -70,6 +71,8 @@ class Rva00342B87 : public AIInternalMoveToState
 {
 public:
 	Rva00342B87(StateMachine *machine);
+protected:
+	virtual void xfer(Xfer *xfer);	// 0x00340C2D
 private:
 	int m_4C;
 };
@@ -96,7 +99,5 @@ int Rva0036804F::onEnter()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?onEnter@AIInternalMoveToState@@UAEHXZ=?onEnter@Rva0036804F@@UAEHXZ")
 #pragma comment(linker, "/alternatename:?onExit@AIInternalMoveToState@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?update@AIInternalMoveToState@@UAEHXZ=?rva00368095@Rva00368095@@QAE?AW4StateReturnType@@XZ")
-#pragma comment(linker, "/alternatename:?xfer@AIInternalMoveToState@@UAEXXZ=?xfer@Rva00342B87@@MAEXPAVXfer@@@Z")
