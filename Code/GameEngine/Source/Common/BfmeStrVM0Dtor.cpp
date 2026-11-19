@@ -200,6 +200,8 @@ struct Rva0025C18BCoord
 	float y;
 };
 
+class View;
+enum StaticGameLODLevel;
 class Display : public SubsystemInterface
 {
 public:
@@ -217,19 +219,19 @@ public:
 	virtual void v11();
 	virtual void v12();
 	virtual void v13();
-	virtual void v14();
-	virtual void v15();
+	virtual void setHeight(unsigned int height);
+	virtual void setWidth(unsigned int width);
 	virtual void v16();
 	virtual void v17();
 	virtual void v18();
 	virtual void v19();
 	virtual void v20();
 	virtual void v21();
-	virtual void v22();
+	virtual bool setDisplayMode(unsigned int xres, unsigned int yres, unsigned int bitdepth, bool windowed);
 	virtual void v23();
 	virtual void v24();
 	virtual void v25();
-	virtual void v26();
+	virtual bool testMinSpecRequirements(bool *, bool *, bool *, StaticGameLODLevel *, float *);
 	virtual void v27() = 0;
 	virtual void v28() = 0;
 	virtual void v29() = 0;
@@ -238,7 +240,7 @@ public:
 	virtual void v32() = 0;
 	virtual void v33() = 0;
 	virtual void v34() = 0;
-	virtual void v35();
+	virtual void rva0025C134(View *view);
 	virtual void v36();
 	virtual void v37();
 	virtual void rva0025C14D();
@@ -269,7 +271,7 @@ public:
 	virtual void v63() = 0;
 	virtual void v64() = 0;
 	virtual void v65() = 0;
-	virtual void v66();
+	virtual bool rva0025C97E(AsciiString, int, int, int);
 	virtual void v67();
 	virtual void v68();
 	void rva0025D19E();
@@ -428,10 +430,7 @@ void Display::rva0025C238()
 #pragma comment(linker, "/alternatename:?v12@Display@@UAEXXZ=?rva0025C25A@Rva0025C25AForwarder@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?v18@Display@@UAEXXZ=?set@Rva002B22A5DwordSlot@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?v20@Display@@UAEXXZ=?set@Rva00049F2BByteSlot@@QAEXE@Z")
-#pragma comment(linker, "/alternatename:?v22@Display@@UAEXXZ=?setDisplayMode@Display@@UAE_NIII_N@Z")
 #pragma comment(linker, "/alternatename:?v24@Display@@UAEXXZ=?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z")
 #pragma comment(linker, "/alternatename:?v25@Display@@UAEXXZ=?rva001F01E8@Rva001F01E8@@QAEXHHHH@Z")
-#pragma comment(linker, "/alternatename:?v26@Display@@UAEXXZ=?testMinSpecRequirements@Display@@UAE_NPA_N00PAW4StaticGameLODLevel@@PAM@Z")
 #pragma comment(linker, "/alternatename:?v37@Display@@UAEXXZ=?rva00049F4F@W3DDisplay@@QAEHPAVRva00049F4FObject@@@Z")
-#pragma comment(linker, "/alternatename:?v66@Display@@UAEXXZ=?rva0025C97E@Display@@UAE_NVAsciiString@@HHH@Z")
 #pragma comment(linker, "/alternatename:?v67@Display@@UAEXXZ=?rva0025D6F5@W3DDisplay@@QAE_NVAsciiString@@_NH@Z")

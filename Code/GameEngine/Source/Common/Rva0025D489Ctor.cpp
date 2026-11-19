@@ -222,6 +222,8 @@ struct DisplayTextF0 {
  float f11c,m_f120;
  __forceinline DisplayTextF0():wordF4((_ReadWriteBarrier(),0)),wordF8(0),fFC(0),f100(0),f104(0),f108(0),flag10c(false),word110(0),m_b114(false),flag115(false),word118(0),f11c(1.0f),m_f120(0){}
 };
+class View;
+enum StaticGameLODLevel;
 class Display : public SubsystemInterface
 {
 public:
@@ -241,19 +243,19 @@ public:
 	virtual void v11();
 	virtual void v12();
 	virtual void v13();
-	virtual void v14();
-	virtual void v15();
+	virtual void setHeight(unsigned int height);
+	virtual void setWidth(unsigned int width);
 	virtual void v16();
 	virtual void v17();
 	virtual void v18();
 	virtual void v19();
 	virtual void v20();
 	virtual void v21();
-	virtual void v22();
+	virtual bool setDisplayMode(unsigned int xres, unsigned int yres, unsigned int bitdepth, bool windowed);
 	virtual void v23();
 	virtual void v24();
 	virtual void v25();
-	virtual void v26();
+	virtual bool testMinSpecRequirements(bool *, bool *, bool *, StaticGameLODLevel *, float *);
 	virtual void v27() = 0;
 	virtual void v28() = 0;
 	virtual void v29() = 0;
@@ -262,7 +264,7 @@ public:
 	virtual void v32() = 0;
 	virtual void v33() = 0;
 	virtual void v34() = 0;
-	virtual void v35();
+	virtual void rva0025C134(View *view);
 	virtual void v36();
 	virtual void v37();
 	virtual void rva0025C14D();
@@ -293,7 +295,7 @@ public:
 	virtual void v63() = 0;
 	virtual void v64() = 0;
 	virtual void v65() = 0;
-	virtual void v66();
+	virtual bool rva0025C97E(AsciiString, int, int, int);
 	virtual void v67();
 	virtual void v68();
 	void rva0025D19E();
@@ -324,15 +326,12 @@ int widthC,height10,bitDepth14; bool window18; char gap19[3];
 #pragma comment(linker, "/alternatename:?v08@Display@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?v09@Display@@UAEXXZ=?reset@Display@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?v11@Display@@UAEXXZ=?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")
-#pragma comment(linker, "/alternatename:?v14@Display@@UAEXXZ=?setHeight@Display@@UAEXI@Z")
-#pragma comment(linker, "/alternatename:?v15@Display@@UAEXXZ=?setWidth@Display@@UAEXI@Z")
 #pragma comment(linker, "/alternatename:?v16@Display@@UAEXXZ=?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ")
 #pragma comment(linker, "/alternatename:?v17@Display@@UAEXXZ=?get@Rva001DB09DDwordField@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?v19@Display@@UAEXXZ=?get@Rva0057E556DwordField@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?v21@Display@@UAEXXZ=?get@Rva004C9990ByteField@@QBEEXZ")
 #pragma comment(linker, "/alternatename:?v23@Display@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?v30@Display@@UAEXXZ=?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z")
-#pragma comment(linker, "/alternatename:?v35@Display@@UAEXXZ=?rva0025C134@Display@@UAEXPAVView@@@Z")
 #pragma comment(linker, "/alternatename:?v36@Display@@UAEXXZ=?getData@NetWrapperCommandMsg@@QAEPAEXZ")
 #pragma comment(linker, "/alternatename:?v68@Display@@UAEXXZ=?rva0025D19E@Display@@QAEXXZ")
 
