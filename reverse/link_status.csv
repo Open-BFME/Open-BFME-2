@@ -732,7 +732,7 @@ Code/GameEngine/Source/Common/ConnectionManagerLocalSlot.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConnectionManagerNextRouter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConnectionManagerPlayerPredicates.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConnectionManagerRouterPredicate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/ConstGlobalGetters.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstIntGetters.cpp,yes,0,0,0,0,0
@@ -4064,7 +4064,7 @@ Code/GameEngine/Source/Common/Rva004DC082.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004DC920Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004DC9EDEntryDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004DCAD2Parse.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004DD489Xfer.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva004DD489Xfer.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/Rva004DF2E2StatusSetter.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004DF2FC.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004DF324Dtor.cpp,yes,0,0,0,0,0
@@ -12458,7 +12458,7 @@ Code/GameEngine/Source/GameNetwork/ConnectionManager_commandHistory.cpp,yes,0,0,
 Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameNetwork/ConnectionManager_fileTransfer.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameNetwork/ConnectionManager_fileTransfer.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/ConnectionManager_loadProgressComplete.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp,yes,0,0,0,0,0
