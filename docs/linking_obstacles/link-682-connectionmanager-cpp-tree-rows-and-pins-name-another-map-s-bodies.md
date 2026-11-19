@@ -46,3 +46,31 @@ Next check: after an approval or respell of 0x0016E310, delete the anchor and th
 separate naming-lane respell and block nothing in the link.
 Clearance: pending.
 Census confirmation: not claimed.
+
+#### 2026-11-18/19: the FileMaskMap and progress-map bindings (separate from the string map)
+
+Read-only check: scratch `build/name_collision.py --depth 4` over `ConnectionManager.cpp` and
+`ConnectionManager_fileTransfer.cpp` (it compares the body each object defines under a name with retail
+at the address the ledger gives that name). Before: 7 `bytes` in ConnectionManager.cpp and 2
+`flagged-transitive` in fileTransfer. After: 20 fit, 2 bytes (the string map's two names above).
+
+Fixed (commit "ConnectionManager: bind retail's FileMaskMap and progress-map tree bodies"):
+- **`map<unsigned short, unsigned char>` (FileMaskMap), 5 names.** Retail `processFileAnnounce` 0x004D2C8E
+  calls the /O1 subscript 0x004D26E6, then 0x004D21EC insert(hint), 0x004D1F1A insert_unique(hint),
+  0x004D1B6D _M_insert, 0x004D0FD4 _M_create_node: all already rowed byte-exact in
+  `StlO1Instantiations.cpp` / `stlport_rb_tree_create_nodes.cpp`. ConnectionManager.cpp emitted its own
+  frameless copies of the same five names (99 vs 72 B for the subscript). The unit now declares the
+  subscript only (its existing decl-only block), so the only provider is the retail-exact one.
+- **`map<unsigned short, int, Gen_lt_00940b40>` (file-progress maps).** fileTransfer's insert_unique
+  (pinned 0x0046E31F) fit; its _M_create_node did not: `push 1 / call allocate` through a declared-only node
+  `allocate` over `__malloc_alloc`, where retail 0x004DCC62 inlines the raw byte allocator
+  (`push 0 / push 0x18 / call 0x004307F0`). The unit now builds with `/Ireference/shims/bfmealloc_alloconly`
+  and no longer declares that `allocate`; its _M_create_node then reaches `_Construct<pair<const G,int>>`
+  0x00469D1A as retail does. Byte gate 41/41, EH 7/7 exact.
+
+The string map's remaining name is not a runtime defect: the anchor's chain has no retail caller, and our
+operator[] reaches retail's /O1 chain (0x004D272E ...) through `map<int, Rva004D272ERecord>::insert`, so a
+real link runs retail's code there. A fresh in-memory `tu_map` (tu_skeleton.map_rows, 2026-11-18) still gives
+0x0016E310, 0x0016DF60 and 0x0016E330 no TU. After that approval, drop the anchor (keep lower_bound
+0x001574F0 by explicit instantiation) and retire the 0x0016DF60 pin and its `code_identity_baseline.tsv`
+key through `repair_queue.py retire identity`.
