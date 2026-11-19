@@ -3,7 +3,7 @@
 // Private StringBase copy like neighbour Rva002DBFADFormat.cpp which byte-matches the same call sequence; shared ascii header holds no UnicodeString translate with these row names so private copy is kept for gate parity.
 
 #include "../../../Include/Common/ScalarTypes.h"
-typedef unsigned short WideChar;
+#include "../../../Include/Common/ScalarTypes/WideChar.h"
 typedef unsigned int DWORD;
 typedef unsigned short WORD;
 #define NULL 0

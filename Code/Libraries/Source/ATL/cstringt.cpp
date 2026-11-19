@@ -20,12 +20,12 @@ typedef char *LPSTR;
 typedef const unsigned short *LPCWSTR;
 typedef unsigned short *LPWORD;
 typedef unsigned short *LPWSTR;
-typedef unsigned long ULONG;
-typedef unsigned int UINT;
-typedef unsigned long DWORD;
+#include "../../../GameEngine/Include/Common/ScalarTypes/Win32/ULONG.h"
+#include "../../../GameEngine/Include/Common/ScalarTypes/Win32/UINT.h"
+#include "../../../GameEngine/Include/Common/ScalarTypes/Win32/DWORD.h"
 typedef unsigned long LCID;
-typedef long HRESULT;
-typedef int BOOL;
+#include "../../../GameEngine/Include/Common/ScalarTypes/Win32/HRESULT.h"
+#include "../../../GameEngine/Include/Common/ScalarTypes/Win32/BOOL.h"
 typedef unsigned int size_t;
 
 #define NULL 0

@@ -12,8 +12,8 @@
 // then sets texture at +0xD4 via BNH helper. Same class as BaseHeightMapRenderObjClass.
 // Evidence: same +CC/D0/D4 offsets, rowed callees, EH new states.
 
-typedef unsigned int Uint;
-typedef unsigned short UShort;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Source/Uint.h"
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Source/UShort.h"
 // WWLib always.h defines the array placement forms itself.
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <new>

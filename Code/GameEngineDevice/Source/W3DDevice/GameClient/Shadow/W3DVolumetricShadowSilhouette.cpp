@@ -21,11 +21,11 @@
 // out-of-line GetPolygonIndex, and a light-facing polygon's status is
 // assigned POLY_VISIBLE (mov, not or) right after being cleared.
 typedef float Real;
-typedef int Int;
-typedef short Short;
-typedef unsigned short UnsignedShort;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Short.h"
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/UnsignedShort.h"
 typedef unsigned char Byte;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Bool.h"
 #include <windows.h>
 
 #define MAX_POLYGON_NEIGHBORS 3

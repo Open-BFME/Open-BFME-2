@@ -32,9 +32,9 @@ extern "C" int __stdcall AVIStreamWrite( void *stream, long start,
 
 typedef unsigned char BYTE;
 
-typedef unsigned short WORD;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Win32/WORD.h"
 
-typedef unsigned long DWORD;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Win32/DWORD.h"
 
 typedef int LONG;
 
@@ -387,7 +387,7 @@ void FrameGrabClass::Rva00958570_Flush_Buffered_Frames()
 	if( AVIStream != 0 && Buffer != 0 )
 	{
 		register int frame = 0;
-		
+
 		{
 			int (__cdecl *format)( char *, const char *, ... ) =
 				sprintf;

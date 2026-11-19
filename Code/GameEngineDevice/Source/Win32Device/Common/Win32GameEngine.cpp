@@ -7,11 +7,11 @@
 // Dispatch user32 IAT; WM_TIMER 0x113 double-check calling rowed
 // ?rva00041D22 then ?rva00041D03; donor BFME1
 // Win32GameEngine_update.cpp serviceWindowsOS plus ZH Win32GameEngine.cpp.
-typedef unsigned long DWORD;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Win32/DWORD.h"
 
-typedef int BOOL;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Win32/BOOL.h"
 
-typedef unsigned int UINT;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Win32/UINT.h"
 
 typedef long LPARAM;
 

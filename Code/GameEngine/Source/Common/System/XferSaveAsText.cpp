@@ -5,15 +5,15 @@
 // with file-static companions taggedPrint (0x0060D594, 68B) and taggedIndent
 // (0x0060D5D8, 26B). Corroborated by WorldBuilder 0x0165F550.
 
-typedef bool Bool;
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef __int64 Int64;
+#include "../../../Include/Common/ScalarTypes/Bool.h"
+#include "../../../Include/Common/ScalarTypes/Int.h"
+#include "../../../Include/Common/ScalarTypes/UnsignedInt.h"
+#include "../../../Include/Common/ScalarTypes/Real.h"
+#include "../../../Include/Common/ScalarTypes/Int64.h"
 typedef signed char Byte;
-typedef unsigned char UnsignedByte;
-typedef short Short;
-typedef unsigned short UnsignedShort;
+#include "../../../Include/Common/ScalarTypes/UnsignedByte.h"
+#include "../../../Include/Common/ScalarTypes/Short.h"
+#include "../../../Include/Common/ScalarTypes/UnsignedShort.h"
 #define TRUE true
 #define FALSE false
 #include "ascii_string.h"

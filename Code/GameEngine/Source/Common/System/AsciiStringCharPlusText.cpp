@@ -145,9 +145,9 @@ struct HKEY__;
 
 typedef HKEY__ *HKEY;
 
-typedef unsigned long DWORD;
+#include "../../../Include/Common/ScalarTypes/Win32/DWORD.h"
 
-typedef long LONG;
+#include "../../../Include/Common/ScalarTypes/Win32/LONG.h"
 
 
 

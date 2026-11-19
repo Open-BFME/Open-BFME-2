@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-typedef __int64 FeslInt64;
+#include "../../Include/Common/ScalarTypes/Source/FeslInt64.h"
 
 int Rva007ECE60(char *record, int size, const char *name, const char *value);
 

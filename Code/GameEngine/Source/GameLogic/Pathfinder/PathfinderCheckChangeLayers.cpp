@@ -24,7 +24,7 @@ enum PathfindLayerEnum
 	PATHFIND_LAYER_UNKNOWN = 0,
 	PATHFIND_LAYER_GROUND = 1
 };
-typedef int LocomotorSurfaceTypeMask;
+#include "../../../Include/Common/ScalarTypes/Source/LocomotorSurfaceTypeMask.h"
 
 #include "../../../Include/GameLogic/LocomotorSet.h"
 

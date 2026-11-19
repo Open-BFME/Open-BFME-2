@@ -4,7 +4,7 @@
 // value outside [FirstFrame, LastFrame], else the frame's bit of the packed Bits array (the
 // mask is formed as a byte).
 typedef unsigned int uint32;
-typedef unsigned char uint8;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Source/uint8.h"
 
 class BitChannelClass
 {

@@ -444,13 +444,13 @@ extern struct NAT *TheNAT;
 // bfme link decl-only begin
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 
-typedef unsigned char BYTE;
+#include "../../../Include/Common/ScalarTypes/Win32/BYTE.h"
 
-typedef unsigned int UINT;
+#include "../../../Include/Common/ScalarTypes/Win32/UINT.h"
 
-typedef unsigned long DWORD;
+#include "../../../Include/Common/ScalarTypes/Win32/DWORD.h"
 
-typedef int BOOL;
+#include "../../../Include/Common/ScalarTypes/Win32/BOOL.h"
 
 typedef long AsnInteger32;
 

@@ -51,15 +51,15 @@ class Snapshot;
 
 typedef bool Bool;
 typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes/UnsignedInt.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 
-typedef unsigned char UnsignedByte;
-typedef unsigned short UnsignedShort;
-typedef unsigned int UnsignedInt;
-typedef float Real;
+#include "../../../Include/Common/ScalarTypes/UnsignedByte.h"
+#include "../../../Include/Common/ScalarTypes/UnsignedShort.h"
+#include "../../../Include/Common/ScalarTypes/UnsignedInt.h"
+#include "../../../Include/Common/ScalarTypes/Real.h"
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
