@@ -43,8 +43,6 @@ private:
 };
 
 
-void *operator new(unsigned int s) throw();
-
 #include "../../Include/GameClient/Drawable.h"
 
 void Drawable::colorFlash(const RGBColor *peak, unsigned int decayFrames, unsigned int attackFrames, unsigned int sustainAtPeak)
