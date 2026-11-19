@@ -6,7 +6,7 @@
 // Retail 0x007F3C50 builds the FESL club update request. The field keys and
 // indexed attribute and removal arrays come from the retail literals.
 
-typedef __int64 FeslInt64;
+#include "../../Include/Common/ScalarTypes/Source/FeslInt64.h"
 
 class Rva007E8810Message
 {

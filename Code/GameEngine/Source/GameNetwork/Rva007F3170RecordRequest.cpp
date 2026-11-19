@@ -5,7 +5,7 @@
 // Retail 0x007F3170 builds the FESL `recp` record request. The owner layout,
 // field keys, and two indexed arrays come from the retail loads and literals.
 
-typedef __int64 FeslInt64;
+#include "../../Include/Common/ScalarTypes/Source/FeslInt64.h"
 
 #include "../../Include/GameNetwork/Rva007E8810Message.h"
 

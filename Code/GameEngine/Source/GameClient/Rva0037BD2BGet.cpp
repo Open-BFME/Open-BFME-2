@@ -7,7 +7,7 @@
 // Evidence: retail mov [esp+4]/[eax] test je load VA 0x00BBB5C4 else +8 push to rowed 0x006006A9; caller 0x0037C5B7; neighbour RecorderClass::initControls (0x0037BD81).
 #include "unicode_string.h"
 
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 
 
 #include "../../Include/Common/FileSystem.h"

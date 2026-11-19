@@ -16,7 +16,7 @@
 // getActionTemplate, nameToKey, writeNameKey, WriteParameter, closeDataChunk)
 // plus DIR32 globals filled by the gate, so no pins are needed.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes/Int.h"
 typedef unsigned char Byte;
 
 enum NameKeyType

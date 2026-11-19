@@ -45,7 +45,7 @@ class Snapshot;
 
 #include "../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes/Bool.h"
 typedef int Int;
 typedef unsigned int UnsignedInt;
 

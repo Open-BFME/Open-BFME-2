@@ -15,8 +15,8 @@
 // - winMakeColor slot 0x118 (70); TheWindowManager global 0x009FEF1C.
 // - Identity: caller at 0x00315B3C (mid-function) plus leaf lane.
 
-typedef int Int;
-typedef bool Bool;
+#include "../../../Include/Common/ScalarTypes/Int.h"
+#include "../../../Include/Common/ScalarTypes/Bool.h"
 
 typedef Int Color;
 typedef unsigned char Byte;

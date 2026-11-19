@@ -28,7 +28,7 @@
 
 
 
-typedef unsigned short WideChar;
+#include "../../../../Include/Common/ScalarTypes/WideChar.h"
 typedef UnsignedInt WindowMsgData;
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"

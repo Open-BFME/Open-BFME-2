@@ -6,10 +6,10 @@
 // Evidence: leaf lane; find pinned ScienceType alias plus push_back rowed
 // 0x002E01C6 both at 0x0020E873 0x002E01C6; caller at 0x002BE717;
 // same find-plus-push shape as Player addScience.
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 namespace _STL {
 	template <class _Tp> class allocator

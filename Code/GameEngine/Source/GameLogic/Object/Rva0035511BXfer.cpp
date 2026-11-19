@@ -3,10 +3,10 @@
 // Chain lane: calls rowed 0x00355096 which you just landed plus rowed XferObjectID 0x003060B2.
 // Evidence: callers at 0x003556FC 0x0035574D pass Xfer plus 8-byte pair proving ObjectID plus pointer; same eax-reuse as Rva00469124Xfer.
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class Xfer;
 void XferObjectID(Xfer *xfer, ObjectID *objectID);

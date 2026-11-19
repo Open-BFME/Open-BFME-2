@@ -11,7 +11,7 @@
 // Identity beyond the address is unproven, hence the Rva name
 // (ReadEmailList_Rva005CAEA3 precedent).
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes/Int.h"
 typedef unsigned char Byte;
 
 // Minimal 4-byte AsciiString view (member use needs a complete type; this TU

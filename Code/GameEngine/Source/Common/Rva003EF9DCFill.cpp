@@ -5,10 +5,10 @@
 // inserting each node's +0 word at the vector's start. Callee is the rowed
 // vector<ObjectID>::insert at 0x003EF85F. Callers 0x003EFB16 0x003EFBFD
 // unblock 0x003EFA0A. Honest address name; node head and value role unproven.
-enum ObjectID
-{
-    INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 namespace _STL {
 template <class T> class allocator;
 template <class T, class A> class vector

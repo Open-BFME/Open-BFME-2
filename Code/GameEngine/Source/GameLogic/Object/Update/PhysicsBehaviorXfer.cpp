@@ -54,16 +54,16 @@ class Snapshot;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../Include/Common/ScalarTypes/Bool.h"
+#include "../../../../Include/Common/ScalarTypes/Int.h"
 typedef unsigned int UnsignedInt;
 
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 
-typedef bool Bool;
-typedef int Int;
-typedef float Real;
+#include "../../../../Include/Common/ScalarTypes/Bool.h"
+#include "../../../../Include/Common/ScalarTypes/Int.h"
+#include "../../../../Include/Common/ScalarTypes/Real.h"
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -15,7 +15,7 @@
 // open/close via matched rows. The skip call reads AL, so truncate the rowed
 // Int result to Byte, as the recursive clear caller at 0x003B4982 does.
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes/Int.h"
 typedef unsigned char Byte;
 
 class AsciiString;

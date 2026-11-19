@@ -59,12 +59,12 @@ class Snapshot;
 
 typedef bool Bool;
 typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes/UnsignedInt.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 typedef bool Bool;
-typedef unsigned short UnsignedShort;
+#include "../../../Include/Common/ScalarTypes/UnsignedShort.h"
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 

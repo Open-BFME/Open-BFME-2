@@ -18,7 +18,7 @@
 #include "../../../../Include/Common/ScalarTypes.h"
 
 
-typedef unsigned int WindowMsgData;
+#include "../../../../Include/Common/ScalarTypes/Source/WindowMsgData.h"
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 

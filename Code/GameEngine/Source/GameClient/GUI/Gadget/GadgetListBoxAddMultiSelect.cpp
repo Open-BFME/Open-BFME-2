@@ -10,7 +10,7 @@
 // delete[] 0x0002FD80, memset thunk 0x006291AE, winSetInputFunc 0x00314147.
 
 #include "../../../../Include/Common/ScalarTypes.h"
-typedef unsigned int WindowMsgData;
+#include "../../../../Include/Common/ScalarTypes/Source/WindowMsgData.h"
 
 class GameWindow;
 

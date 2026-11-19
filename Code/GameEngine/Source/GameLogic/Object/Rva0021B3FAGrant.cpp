@@ -13,12 +13,12 @@ class Player;
 class UpgradeTemplate;
 class Upgrade;
 
-enum UpgradeStatusType
-{
-	UPGRADE_STATUS_INVALID = 0,
-	UPGRADE_STATUS_IN_PRODUCTION,
-	UPGRADE_STATUS_COMPLETE
-};
+#include "../../Common/RTS/PlayerUpgradeStatus.h"
+
+
+
+
+
 
 #include "../../../Include/Common/Upgrade.h"
 

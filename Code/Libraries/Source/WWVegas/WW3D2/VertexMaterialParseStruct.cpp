@@ -20,7 +20,7 @@
 #include <windows.h>
 
 typedef unsigned int uint32;
-typedef unsigned char uint8;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Source/uint8.h"
 
 struct W3dRGBAStruct
 {
