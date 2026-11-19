@@ -883,8 +883,6 @@ class Rva8D0D80String;
 
 class Rva8D0D80Table { public: void add(Rva8D0D80String *,Rva8D0D80Value *); };
 
-extern "C" int __cdecl strncmp(const char *,const char *,unsigned int);
-
 extern void (__cdecl *g_bfmeAptCommandAtE17758)(const char *,const char *);
 
 BfmeAptValue006DCD20 *rva007064f0(int,int,EAStringC *);
