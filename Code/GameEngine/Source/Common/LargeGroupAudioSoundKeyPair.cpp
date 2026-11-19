@@ -369,7 +369,6 @@ struct Rva00568FE4Less {
 // BFME1 donor revision reviewed: cee35b7d8 (semantic/reference search only).
 void __cdecl Rva00030830FreeAllocation(void *);
 #include <cstdlib>
-#define free Rva00030830FreeAllocation
 // Keep the typed tree comparison local, as in W3DShroudInterpolate.cpp.
 // Its unused external base wrapper differs from the selected provider.
 namespace _STL {
@@ -378,7 +377,6 @@ static inline bool operator!=(const _Rb_tree_iterator<Value, Left> &a,
                               const _Rb_tree_iterator<Value, Right> &b)
 { return a._M_node != b._M_node; }
 }
-#undef free
 class Rva00568A20;
 // Keep native inline frees without publishing competing allocator helpers.
 namespace _STL {
@@ -474,8 +472,6 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
-#define free Rva00030830FreeAllocation
-#undef free
 #include <new.h>
 // Adapted from BF1 f98983a7 inputs/vendor/stlport/stl/_vector.h:274.
 // Native 00569F0C..00569FB3 RET12 proves three-word vector ABI and 20B stride.
