@@ -39,7 +39,7 @@ class Object;
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 // BFME2 has no crc: the canonical DieModule's Snapshot slot 2 is GetSnapshotName,
 // so this unit's tables no longer name the Zero Hour ?crc@BehaviorModule.

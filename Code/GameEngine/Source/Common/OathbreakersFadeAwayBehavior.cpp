@@ -86,10 +86,10 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_FAERIE_FIRE = 0x26
 };
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 #include "../GameLogic/Object/object.h"
 
@@ -171,7 +171,7 @@ extern "C" const void *const __identifier("??_7OathbreakersFadeAwayBehavior@@6BR
 // this destructor stores; slot 0 of 0x0085693C is the rowed
 // EntEnragedUpdate::update. The +0x10 interface is the one-slot view
 // EntEnragedUpdateCtorThunk.cpp uses, so the shared vftable copies agree.
-enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 class Rva004B89C4_B2
 {

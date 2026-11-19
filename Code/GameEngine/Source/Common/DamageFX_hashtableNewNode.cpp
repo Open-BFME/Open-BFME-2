@@ -57,11 +57,11 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(un
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
 // bfme link decl-only end
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 #include "../../Include/Common/DamageFXClass.h"
 

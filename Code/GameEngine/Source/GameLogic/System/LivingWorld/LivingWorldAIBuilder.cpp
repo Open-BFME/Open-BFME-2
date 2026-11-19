@@ -50,10 +50,10 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 struct Rva004FFB00Hero;
 class Rva0059CFAACallee
 {
@@ -61,10 +61,10 @@ public:
 	_STL::vector<ObjectID> rva00500659(int playerId, int *territory, int *count);
 	Rva004FFB00Hero *rva004FFB00(int playerId, int *territory, int *distance);
 };
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 // The armies map's per-region record (WorldBuilder's regionInfo; its
 // asserts name the Castles/Armories/Farms/Barracks object-id vectors).
 struct Rva0059D2DARegionInfo

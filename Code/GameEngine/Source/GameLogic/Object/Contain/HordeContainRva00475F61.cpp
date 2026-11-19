@@ -77,7 +77,7 @@ struct Rva0046E6EACoord;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../../Common/Thing/thing.h"
 
-enum ObjectStatusTypes { OBJECT_STATUS_NONE=0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 enum WeaponSetType { WEAPONSET_NONE=0 };
 enum CommandSourceType { CMD_NONE=0 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"

@@ -15,7 +15,7 @@ typedef unsigned short WChar;
 #define W(s) ((const WChar *)L##s)
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-enum PathfindLayerEnum { LAYER_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 class GameFont;
 #include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 struct MouseIO { int x, y; char m_pad8[0x18 - 8]; int leftState; char m_pad1c[0x24 - 0x1C]; int rightState; char m_pad28[0x30 - 0x28]; int middleState; };

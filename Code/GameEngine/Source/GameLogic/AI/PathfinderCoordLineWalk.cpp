@@ -8,10 +8,10 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 
 struct Rva002ED15AInfo
 {

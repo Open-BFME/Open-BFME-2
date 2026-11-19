@@ -109,10 +109,10 @@ enum PathfindLayerEnum
 	LAYER_INVALID = 0,
 	LAYER_WALL = 0x10
 };
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 #include "../../../../GameEngine/Include/GameLogic/Weapon.h"
 // ?erase@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEPAUBfmePod28@@PAU3@0@Z
 // partial score=0.97 date=2026-09-24

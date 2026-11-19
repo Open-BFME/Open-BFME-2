@@ -23,10 +23,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"

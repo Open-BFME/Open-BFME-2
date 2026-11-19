@@ -62,10 +62,10 @@ public:
 
 // Retail constructs the thrown object through bfmeFormatText, the varargs
 // constructor, and throws it with __TI1?AVXferException@@.
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 void XferDrawableID(Xfer *xfer, int *value);

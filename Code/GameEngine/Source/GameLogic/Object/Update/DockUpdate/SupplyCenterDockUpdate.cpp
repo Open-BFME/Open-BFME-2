@@ -6,7 +6,7 @@ enum NameKeyType { NK_UNKNOWN = 0 };
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "../../../../../Include/Common/ScalarTypes.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 class Rva0039B7AD;
 #include "../../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 class Player
@@ -268,11 +268,11 @@ class SupplyCenterDockUpdateModuleData;
 
 // ObjectModule holds m_moduleData at +0x04 and m_object at +0x08.
 
-enum UpdateSleepTime
-{
- UPDATE_SLEEP_NONE = 1,
- UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 

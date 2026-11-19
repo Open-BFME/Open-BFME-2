@@ -27,8 +27,8 @@ namespace _STL { void __cdecl free(void *block); }
 
 
 
-enum BuildableStatus { BSTATUS_YES = 0 };
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/BuildableStatus.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 // Nothing here calls the science vector's deallocation helpers out of line;
 // their unreferenced copies differed from the first ones in link order.
 // Declared imported and force-inlined, they are not emitted.
@@ -40,9 +40,9 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<ScienceType *, ScienceType, allocator<ScienceType> >::deallocate(ScienceType *__p, size_t __n)
 { __stl_alloc_rebind(__STATIC_CAST(_Base&, *this),(ScienceType*)0).deallocate(__p, __n); }
 }
-enum NameKeyType { NAMEKEY_INVALID = 0 };
-enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
-enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum WeaponStatus { READY_TO_FIRE = 0 };
 enum BattlePlanStatus { PLANSTATUS_NONE = 0 };
 enum CommandAvailability
@@ -265,7 +265,7 @@ class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) con
 
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 
-enum SpecialPowerType {};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SpecialPowerType.h"
 class SpecialAbilityUpdate;
 class Object {
 	friend class ControlBar;

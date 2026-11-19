@@ -30,12 +30,12 @@ extern "C" float INV;
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0,
-	GEOMETRY_CYLINDER,
-	GEOMETRY_BOX
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GeometryType.h"
+
+
+
+
+
 
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 

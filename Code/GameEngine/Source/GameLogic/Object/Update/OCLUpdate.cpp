@@ -35,11 +35,11 @@ class Object;
 #include "../../../../Include/Common/XferVersion.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class Rva0049B2A2 : public UpdateModule
 {

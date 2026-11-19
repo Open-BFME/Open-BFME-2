@@ -42,7 +42,7 @@ template<> inline void allocator<Coord2D>::deallocate(Coord2D *__p, size_type) c
 }
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../../../Include/Common/DataChunkInfo.h"
 

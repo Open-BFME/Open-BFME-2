@@ -16,10 +16,10 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../Include/Common/NoCaseTreeValue4.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> ConstructProbePair;
 typedef _STL::vector<unsigned int> ConstructProbeVec;
 typedef _STL::pair<const int, _STL::vector<unsigned int> > ConstructProbePairIV;

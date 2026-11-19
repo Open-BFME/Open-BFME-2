@@ -35,10 +35,10 @@ enum WeaponLockType { LOCKED_PERMANENTLY = 2 };
 #include "../object.h"
 
 // Zero Hour's order: the module data defaults to the primary slot.
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp
 

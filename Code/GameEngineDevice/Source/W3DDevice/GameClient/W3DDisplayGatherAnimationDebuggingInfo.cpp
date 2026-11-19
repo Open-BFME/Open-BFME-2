@@ -37,7 +37,7 @@ class Object;
 class Drawable;
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
-enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum WeaponStatus { READY_TO_FIRE = 0 };
 
 #define V4(a) virtual void a##0(); virtual void a##1(); virtual void a##2(); virtual void a##3();

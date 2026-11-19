@@ -19,10 +19,10 @@
 #include "../../../../Include/Common/ScalarTypes.h"
 
 
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 class Rva0010CBits
 {
 public:
@@ -82,11 +82,11 @@ enum
 // INI table at 0x00C51964 joined to the Zero Hour ProneUpdate donor
 // (DamageToFramesRatio, parseReal).
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameClient/Drawable.h"

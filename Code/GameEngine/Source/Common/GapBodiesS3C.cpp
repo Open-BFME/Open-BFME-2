@@ -56,7 +56,7 @@ void Rva00575CDF::rva00575D12(void *a, void *b)
 // base command; a player-sourced command also sets the +0x3E4 interface's
 // slot 13, remembers the dock's id (+0x3EC) or the harvest point (+0x3F0,
 // flagged at +0x3FC).
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -109,7 +109,7 @@ void Rva004A6AB5::privateHarvest(const Coord3D *pos, CommandSourceType cmdSource
 // --- 0x00481A6E (48B): an UpdateModule slot: for the local player's
 // (ThePlayerList +0x18) notice run own slot 13 and sleep forever, else wake
 // next frame.
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 class PlayerList;
 extern PlayerList *ThePlayerList;

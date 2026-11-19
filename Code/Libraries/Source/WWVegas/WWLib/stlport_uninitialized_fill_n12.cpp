@@ -24,10 +24,10 @@ namespace _STL { template <> vector<unsigned int, allocator<unsigned int> > * un
 #include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
 
-enum ScienceType
-{
-	SCIENCE_INVALID = -1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
+
 
 struct BfmeStringRecord00395E75
 {

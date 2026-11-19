@@ -308,10 +308,10 @@ void Rva002CA9CA::rva002CAC6E(int a, int context)
 
 #include "../../Common/PartitionRangeQueryCallView.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Module;
 

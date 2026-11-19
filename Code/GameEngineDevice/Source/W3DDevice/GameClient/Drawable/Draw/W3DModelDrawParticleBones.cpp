@@ -43,7 +43,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 }
 
 #include "../../../../../../GameEngine/Include/Common/ScalarTypes.h"
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 
 struct BfmePod32 { int a[8]; };
 inline bool operator==(const BfmePod32 &x, const BfmePod32 &y) { return x.a[0] == y.a[0]; }

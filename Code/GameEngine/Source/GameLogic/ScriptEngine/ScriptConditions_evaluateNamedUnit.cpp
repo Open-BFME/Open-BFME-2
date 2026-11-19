@@ -10,9 +10,9 @@
 // isEffectivelyDead reads bit 0 of the Object byte at +0x438.
 #include "ascii_string.h"
 #include "../../../Include/GameLogic/ScriptParameter.h"
-enum NameKeyType
-{
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
 #include "../../../Include/Common/Module.h"
 #include "../Object/object.h"
 class ObjectWithPub : public Object

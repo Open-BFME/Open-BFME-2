@@ -16,7 +16,7 @@ public:
 }
 
 class LadderPref;
-enum NameKeyType {};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../Include/Common/ModuleFactoryClass.h"
 
 namespace _STL

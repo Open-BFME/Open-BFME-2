@@ -38,7 +38,7 @@ class Object { public:
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
-enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 class SlowDeathBehaviorInterface { public: virtual void beginSlowDeath(const DamageInfo *)=0; };
 class SlowDeathBehavior : public UpdateModule,public DieModuleInterface,public SlowDeathBehaviorInterface { public:

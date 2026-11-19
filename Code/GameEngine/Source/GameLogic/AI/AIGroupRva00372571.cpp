@@ -33,10 +33,10 @@
 #undef near
 #undef far
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 enum ObjectStatusTypes
 {

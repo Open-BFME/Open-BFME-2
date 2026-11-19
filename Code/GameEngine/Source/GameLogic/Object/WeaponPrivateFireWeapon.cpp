@@ -86,10 +86,10 @@ struct WeaponScatterPoint : Coord3D
 
 #include "Common/GameLogicObjectLookupView.h"
 
-enum WeaponSlotType
-{
-    PRIMARY_WEAPON
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 enum Relationship
 {

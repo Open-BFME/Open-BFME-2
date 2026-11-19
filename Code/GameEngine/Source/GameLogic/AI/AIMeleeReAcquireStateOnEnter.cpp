@@ -104,10 +104,10 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_26 = 0x26
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;

@@ -20,15 +20,15 @@ struct CreateMask
 
 {
  unsigned int words[4];
- 
+
 };
 
-enum NameKeyType 
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
-{
- NAMEKEY_INVALID = 0 
- 
-};
+
+
+
+
 
 #include "../../Common/Thing/thing.h"
 
@@ -41,7 +41,7 @@ class Object : public Thing
  public:
  Player *getControllingPlayer() const;
  void setProducer(Object *);
- 
+
 };
 
 enum ObjectID;
@@ -66,7 +66,7 @@ struct GlobalDataView
 {
  char m_pad000[0x14];
  AsciiString m_name014;
- 
+
 };
 
 struct PlayerView 
@@ -74,14 +74,14 @@ struct PlayerView
 {
  char m_pad000[0x2EC];
  Team *m_team;
- 
+
 };
 
 class FireWeaponUpdate 
 
 {
  public: void rva0048B9D0(const WeaponTemplate *);
- 
+
 };
 
 #include "../../../Include/GameLogic/Module/DeletionUpdateClass.h"
@@ -91,7 +91,7 @@ struct Input005093C6
 {
  char m_pad000[8];
  ObjectID m_objectID;
- 
+
 };
 
 class Rva00507823
@@ -132,11 +132,11 @@ void Made002CC774::rva005093C6(Input005093C6 *input, const Coord3D *position)
 {
  const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(((GlobalDataView *)TheWritableGlobalData)->m_name014);
  if (thingTemplate && m_weapon)
- 
+
  {
   Object *producer = ((TheGameLogic) ? (TheGameLogic) : (TheGameLogic))->findObjectByID(input->m_objectID);
   if (producer)
-  
+
   {
    CreateMask mask;
    memset(&mask, 0, sizeof(mask));
@@ -148,30 +148,30 @@ void Made002CC774::rva005093C6(Input005093C6 *input, const Coord3D *position)
    FireWeaponUpdate *fire = (FireWeaponUpdate *)obj->findModule(fireKey);
    DeletionUpdate *del = 0;
    if (fire)
-   
+
    {
     static NameKeyType deleteKey = TheNameKeyGenerator->nameToKey("DeletionUpdate");
     del = (DeletionUpdate *)obj->findModule(deleteKey);
-    
+
    }
    if (del == 0)
-   
+
    {
     TheGameLogic->destroyObject(obj);
-    
+
    }
    else
-   
+
    {
     fire->rva0048B9D0(m_weapon);
     del->setLifetimeRange(m_lifetime, m_lifetime);
-    
+
    }
-   
+
   }
-  
+
  }
- 
+
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva00509522Finish.cpp

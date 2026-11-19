@@ -48,14 +48,14 @@ int GetAssociatedMessageType(int);
 
 class Object;
 class Xfer;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 #include "../../../../../../GameEngine/Include/Common/Rva006C1F60.h"
 #include "../../../../../../GameEngine/Include/Common/Rva001EDDBBForwarder.h"
 class Win32GameEngine
@@ -234,7 +234,7 @@ protected:
 			  size_type __fill_len, bool __atend = false) {
     const size_type __old_size = size();
     const size_type __len = __old_size + (max)(__old_size, __fill_len);
-    
+
     pointer __new_start = this->_M_end_of_storage.allocate(__len);
     pointer __new_finish = __new_start;
     _STLP_TRY {

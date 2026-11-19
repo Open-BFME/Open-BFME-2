@@ -11,9 +11,9 @@
 // AiOrdersManager::rva00355664 0x00355664 reloads ECX = this before the call, so the
 // callee is an AiOrdersManager member; the body never reads ECX and uses the global).
 // Evidence: chain from 0x005481F9; range at +4/+8 step 4; armor lookup 0x0035516C row; flags from kind 1/2; ObjectID at +0x10
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 class ArmorTemplate;
 
