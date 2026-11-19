@@ -428,7 +428,7 @@ Rva004CC63A::~Rva004CC63A()
 class Rva004DF7C2_B2
 {
 public:
-	virtual void f2();
+	virtual void f2() = 0;
 };
 
 class ObjectHelper : public UpdateModule, public MiBase1, public Rva004DF7C2_B2
@@ -465,4 +465,3 @@ ObjectHelper::~ObjectHelper()
 #pragma comment(linker, "/alternatename:?f2@Rva004A3F8B_B2@@UAEXXZ=?update@HijackerUpdate@@UAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva004AE78E_B2@@UAEXXZ=?update@DetachableRiderUpdateUpdateReceiver@@QAE?AW4UpdateSleepTime@@XZ")
 #pragma comment(linker, "/alternatename:?f2@Rva004CC63A_B2@@UAEXXZ=?update@TemporarilyDefectUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva004DF7C2_B2@@UAEXXZ=__purecall")

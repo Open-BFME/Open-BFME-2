@@ -712,7 +712,6 @@ GameMessage::Type CommandTranslator::evaluateContextCommand(Drawable*draw,const 
  return (GameMessage::Type)msgType;
 }
 #include "../../../Include/Common/BfmeAudioEventPrefix136.h"
-#pragma comment(linker, "/alternatename:?translateGameMessage@Rva0042CBB6@@UAEHPBX@Z=__purecall")
 #include <stl/_algobase.h>
 #include <new>
 namespace _STL {
@@ -846,7 +845,6 @@ class Rva0042CBB6 : public Rva001DB080
 {
 public:
 	Rva0042CBB6(EmitVtableTag *);
-	virtual int translateGameMessage(const void *msg);
 };
 
 // _List_iterator comparisons otherwise instantiate the base-class

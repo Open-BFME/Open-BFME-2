@@ -38,7 +38,6 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
-#pragma comment(linker, "/alternatename:?v1@Rva00506B1B@@UAEXXZ=__purecall")
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 
 #include "../../../../Include/Common/XferVersion.h"
@@ -195,7 +194,7 @@ public:
 	Rva00506B1B();
 	// Declared only: retail's unwind call lands on the rowed body at 0x00506B28.
 	virtual ~Rva00506B1B();
-	virtual void v1();
+	virtual void v1() = 0;
 	bool m_04;
 };
 

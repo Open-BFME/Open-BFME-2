@@ -2252,11 +2252,6 @@ void Rva001F42BA::call(int a)
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?v1@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@LineEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
 
 // These functions are header inlines; their ordinary owner definitions
 // collided with select-any copies. The anchor keeps this unit's row copies;

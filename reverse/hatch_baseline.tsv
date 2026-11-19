@@ -1713,7 +1713,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0024A797Derived.cpp	?f2@Rva004A0C
 alternatename	Code/GameEngine/Source/Common/Rva0024A797Derived.cpp	?f2@Rva004A3F8B_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0024A797Derived.cpp	?f2@Rva004AE78E_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0024A797Derived.cpp	?f2@Rva004CC63A_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0024A797Derived.cpp	?f2@Rva004DF7C2_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp	?fe@Rva0045232D_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp	?fe@Rva00452D52_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp	?fe@Rva00458402_E1@@UAEXXZ	1
@@ -2156,11 +2155,6 @@ alternatename	Code/GameEngine/Source/GameClient/Eva.cpp	?__destroy_aux@_STL@@YAX
 alternatename	Code/GameEngine/Source/GameClient/Eva.cpp	?rva001DDCC5@Rva001DDCC5@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??0RenderObjectDrawCategoryBase@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??1Rva0002B8C8TailBase@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@LineEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	?v1@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystemModuleParsers.cpp	?parse@HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp	?rva0022274A@AptPlayer@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/AptWindowLayoutConstructor.cpp	??1BfmeQuickMatchScreenBase@@QAE@XZ	1
@@ -2242,12 +2236,10 @@ alternatename	Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp	?hel
 alternatename	Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconSubObjectCtor.cpp	?rva003FCCC9@Rva003FB65C@@QAEXE@Z	1
 alternatename	Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp	??1Rva00078460Elem@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp	??0TreeHintOpaque00304573@@QAE@ABU0@@Z	1
-alternatename	Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp	?translateGameMessage@Rva0042CBB6@@UAEHPBX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?clear@?$_Rb_tree@HU?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@@_STL@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?clear@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@2@@Z	1
-alternatename	Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp	?rvaSlot0@Rva0042FCE6Base@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/ResourceEntryOwnerRva004E7E3A.cpp	?cb@Rva004E7E3AClaimantCallback@@UAEXHMD@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Rva00222A8BAptCallLevel.cpp	?invoke@Rva00222A8BTarget@@QAEXPAXPBDH10000@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Rva00224818.cpp	?g_00BBFDE0@@3QBDB	1
@@ -2471,7 +2463,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbil
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdateModuleDataFriendNew.cpp	_vtbl_00BF36C0	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateDtor.cpp	?f1@DBaseM1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp	?rva0043979D@Rva00439CF7@@QAE_NPAVObject@@PAURva004393D6@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp	?f24@LargeGroupAudioUpdate_B24@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateFriendNew.cpp	??0ModelConditionSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp	?f1@Rva0058A0F4_M1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp	?f2@Rva0058A0F4_B2@@UAEXXZ	1
@@ -2533,7 +2524,6 @@ alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetC
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva005055DE@AITargetChooser@@AAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva005A910E@Rva005A9562@@QAEPAURva0050542BTarget@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva005A9693@Rva005A9562@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp	?v1@Rva00506B1B@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp	?Slot6@Rva0055B0CC@@UAEXPAX_N@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp	?slot10@Rva0055B0CC@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp	?slot11@Rva0055B0CC@@UAEXXZ	1
