@@ -450,7 +450,9 @@ public:
 	virtual Object *slot28() = 0;
 	virtual Object *rva00489DD1() = 0; // vslot 29
 	virtual void slot30() = 0;
-	virtual void notifyConstructionComplete() = 0; // vslot 31
+	// vslot 31: retail's own interface table 0x00C4B788 holds the shared empty body
+	// 0x000B3FD0 here, not __purecall, so the interface gives it an empty body.
+	virtual void notifyConstructionComplete() {}
 };
 
 class Waypoint;

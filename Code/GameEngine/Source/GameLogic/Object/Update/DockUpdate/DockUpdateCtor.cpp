@@ -174,7 +174,7 @@ public:
 	virtual Bool vslot16(Int) = 0;
 	virtual void setDockCrippled(Bool setting) = 0;
 	virtual Bool isAllowPassthroughType() = 0;
-	virtual void slot19() = 0;
+	virtual Bool isRallyPointAfterDockType() = 0;
 };
 
 #include "../../../../../Include/GameLogic/Module/DockUpdateModuleData.h"
@@ -212,6 +212,9 @@ public:
 	virtual Bool vslot16(Int) { return FALSE; }
 	virtual void setDockCrippled(Bool setting);
 	virtual Bool isAllowPassthroughType();
+	// slot 19: the rowed ?isRallyPointAfterDockType@DockUpdate@@UAE_NXZ (0x0047A699),
+	// defined in SupplyWarehouseDockUpdate.cpp.
+	virtual Bool isRallyPointAfterDockType();
 
 protected:
 	// Primary table 0x00C70378, slots 1 and 3: the rowed loadPostProcess

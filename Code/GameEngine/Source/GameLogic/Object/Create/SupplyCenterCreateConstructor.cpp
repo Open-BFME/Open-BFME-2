@@ -22,6 +22,11 @@ protected:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@SupplyCenterCreate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	// Create-interface table 0x00C593A8: slot 0 is the shared empty body 0x000B3FD0
+	// (Zero Hour's empty onCreate) and slot 1 the rowed
+	// ?onBuildComplete@SupplyCenterCreate@@UAEXXZ, defined in SupplyCenterCreate.cpp.
+	virtual void onCreate() {}
+	virtual void onBuildComplete();
 };
 
 SupplyCenterCreate::SupplyCenterCreate( Thing *thing, const ModuleData *moduleData )
