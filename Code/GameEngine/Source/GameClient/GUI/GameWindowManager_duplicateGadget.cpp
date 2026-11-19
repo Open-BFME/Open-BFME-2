@@ -21,8 +21,8 @@
 #include <windows.h>
 #include <string.h>
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../Include/Common/ScalarTypes/Int.h"
+#include "../../../Include/Common/ScalarTypes/UnsignedInt.h"
 
 void *getDataTemplate(char *type, Int *sizeOut);
 

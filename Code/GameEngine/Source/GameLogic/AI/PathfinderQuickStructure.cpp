@@ -15,7 +15,7 @@ class BfmeObjE15 {public:BfmeShapeE15 *getGeometryShape(int);};
 struct Rva002E8BCFSrc;
 class Rva002E8BCF {public:Rva002E8BCF(const Rva002E8BCFSrc*,bool,int,bool);unsigned surfaces;bool field4,field5;int priority;bool fieldC;};
 ICoord2D *Rva002E7875WorldToCell(ICoord2D*,bool,const Coord3D*);
-class LocomotorSet;class Rva002E8BCF;class Pathfinder;
+class Rva002E8BCF;class Pathfinder;
 struct Rva002E7261Info {Pathfinder *pathfinder;int structure;int zone;int x,y;};
 enum PathfindLayerEnum {OBSERVED_LAYER=1};
 #include "../../../Include/GameLogic/TerrainLogic.h"
