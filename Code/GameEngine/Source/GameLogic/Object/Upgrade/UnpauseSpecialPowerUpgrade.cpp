@@ -68,7 +68,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class ModuleData;
+
 
 class UnpauseSpecialPowerUpgradeModuleData : public Rva00253487Base
 {

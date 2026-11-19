@@ -26,7 +26,7 @@ class INI;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class INI;
+
 #include "../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../Include/Common/INI/INI.h"

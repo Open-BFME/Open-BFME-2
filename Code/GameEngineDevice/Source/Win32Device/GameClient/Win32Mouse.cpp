@@ -108,7 +108,7 @@ protected:
 
 extern Win32Mouse *TheWin32Mouse;
 
-struct MouseIO;
+
 
 // ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
 class Rva00524F35

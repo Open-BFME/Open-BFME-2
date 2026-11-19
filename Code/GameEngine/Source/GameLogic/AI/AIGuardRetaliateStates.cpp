@@ -103,7 +103,7 @@ template <> class VSlots<0>
 };
 // isDoingGroundMovement is AIUpdateInterface vslot 137 (+0x224).
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class Object;
+
 struct Coord3D;
 // The +0x250 module controller (module vslot 31): reset vslot 5, pick vslot 18,
 // target tests vslots 88 and 138 (identities not established).

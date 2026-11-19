@@ -125,7 +125,7 @@ template <> __declspec(noinline) vector<Rva004E32F2, allocator<Rva004E32F2> >::~
 }
 }
 
-class Rva004E1A04;
+
 void __cdecl Rva0052CEDDClear(Rva004E1A04 *, Rva004E1A04 *);
 
 namespace _STL {

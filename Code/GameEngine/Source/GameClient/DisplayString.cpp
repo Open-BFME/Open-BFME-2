@@ -35,7 +35,7 @@ struct IRegion2D;
 typedef int Int;
 typedef int Color;
 typedef bool Bool;
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 
 #include "../../Include/GameClient/DisplayString.h"
 

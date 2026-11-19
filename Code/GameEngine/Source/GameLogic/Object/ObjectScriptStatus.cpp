@@ -136,7 +136,7 @@ enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };
 #include "Common/BfmeAudioEventPrefix136.h"
 #include <string.h>
 #include "../../../Include/GameLogic/Module/Rva002D9508.h"
-class Object; class Player; class RadarWindowOverrideSource;
+ class Player; class RadarWindowOverrideSource;
 #include "../../../Include/GameClient/Drawable.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

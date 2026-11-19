@@ -99,7 +99,7 @@ class SuperweaponInfo;
 namespace _STL { template <> _List_base<SuperweaponInfo *,allocator<SuperweaponInfo *> >::~_List_base(); }
 // Suppress this TU's non-retail copy of ?clear@?$_List_base@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@QAE:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class SuperweaponInfo;
+
 namespace _STL { template <> void _List_base<SuperweaponInfo *,allocator<SuperweaponInfo *> >::clear(); }
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 typedef _STL::vector<ScienceType> ScienceVec;

@@ -158,7 +158,7 @@ void RegionDetailsStructuresPage::Impl::Icon::Update() {
 // addObserver body suggested by the WorldBuilder call-site pairing. Both
 // this page's constructor and building-change callback use it when the plot
 // is empty; it forwards the plot's selection view to the rowed portrait query.
-class Image;
+
 struct Rva005D23BBSelection;
 namespace StrategicInGameUI {
 const Image *__cdecl GetSelectionPortrait(const Rva005D23BBSelection *selection);

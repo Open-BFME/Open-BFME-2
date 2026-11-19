@@ -181,7 +181,7 @@ struct Rva005D57EBInner {
 struct Rva005AFD89Param;
 class AsciiString;
 class UnicodeString;
-class GameWindow;
+
 
 // Retail table 0x00C6FFFC: two __purecall slots.
 class Rva005AFE3FBase

@@ -54,15 +54,15 @@ struct Rva001408C0Target;
 namespace _STL { template <> _Rb_tree_base<Rva001408C0Target *,allocator<Rva001408C0Target *> >::~_Rb_tree_base(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@@_STL@@QBEXPAU?$_Rb_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> void allocator<_Rb_tree_node<Rva001408C0Target *> >::deallocate(_Rb_tree_node<Rva001408C0Target *> *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ?_M_create_node@?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_M_create_node(Rva001408C0Target *const &); }
 // Suppress this TU's non-retail copy of ?_M_insert@?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::iterator _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *, Rva001408C0Target *const &, _Rb_tree_node_base *); }
 
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
@@ -83,7 +83,7 @@ void *&vector<void*>::operator[](size_t __n)
 { return *(begin() + __n); }
 }
 
-struct Rva001408C0Target;
+
 typedef Rva001408C0Target *Rva001408C0Key;
 typedef _STL::set<Rva001408C0Key> Rva001408C0Set;
 typedef _STL::_Rb_tree<Rva001408C0Key,Rva001408C0Key,_STL::_Identity<Rva001408C0Key>,_STL::less<Rva001408C0Key>,_STL::allocator<Rva001408C0Key> > PointerTree;
@@ -306,7 +306,7 @@ namespace _STL { template <> void _STLP_alloc_proxy<_Rb_tree_node<int> *,_Rb_tre
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void allocator<_Rb_tree_node<int> >::deallocate(_Rb_tree_node<int> *,unsigned int) const; }
 
-struct Rva001408C0Target;
+
 typedef Rva001408C0Target *Rva001408C0Key;
 typedef _STL::set<Rva001408C0Key> Rva001408C0Set;
 typedef _STL::_Rb_tree<Rva001408C0Key,Rva001408C0Key,_STL::_Identity<Rva001408C0Key>,_STL::less<Rva001408C0Key>,_STL::allocator<Rva001408C0Key> > AssetKeyTree;

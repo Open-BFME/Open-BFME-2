@@ -143,7 +143,7 @@ enum SnapshotType {SNAPSHOT_SAVELOAD=0,SNAPSHOT_NATIVE3=3,SNAPSHOT_NATIVE4=4};
 struct StreamCloseView { virtual void v0();virtual void v1();virtual void close(); };
 __forceinline void streamClose(Rva0060C3C3Stream*s) {((StreamCloseView*)s)->close();}
 void InitRandom(unsigned);
-class Snapshot; class GameState;
+ class GameState;
 void Rva002DD908(Snapshot*,GameState*,unsigned);
 void Rva002DC66F(void*,GameState*,unsigned);
 

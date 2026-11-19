@@ -215,7 +215,7 @@ float rva002C9B80(void *a, float b);
 void *m_00;
 Rva002C9400ByteField *m_04;				// +0x04
 };
-struct Rva002E8BCFSrc;
+
 struct Rva002F4D8BInfo;
 class Rva002E9ACC
 {

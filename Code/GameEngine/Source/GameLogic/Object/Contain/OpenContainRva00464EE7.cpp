@@ -70,7 +70,7 @@ struct OpenContainModuleDataView
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class Object;
+
 #include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 class Rva00373EC6
 {

@@ -178,7 +178,7 @@ template <> void _Construct<BfmeRecordOwner900, BfmeRecordOwner900>(BfmeRecordOw
 
 struct UpgradeMaskType: Rva001EAE6FHelper {};
 
-class Object;
+
 
 class UpgradeCenter;
 
@@ -218,7 +218,7 @@ class Thing;
 
 class ModuleData;
 
-class INI;
+
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable/Update/UpgradeSoundSelectorClientBehavior.cpp
 

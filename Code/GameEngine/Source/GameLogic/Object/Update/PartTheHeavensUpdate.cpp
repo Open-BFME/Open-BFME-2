@@ -100,7 +100,7 @@ private:
 	Rva002BF807 m_angle;
 };
 
-class PartTheHeavensUpdatePointee;
+
 
 class PartTheHeavensUpdate : public UpdateModule
 {

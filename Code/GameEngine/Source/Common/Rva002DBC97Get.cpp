@@ -44,7 +44,7 @@ static __forceinline const unsigned short *wideText(const UnicodeString &text)
 	return data ? (const unsigned short *)(data + 8) : (const unsigned short *)L"";
 }
 
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SnapshotType.h"
 

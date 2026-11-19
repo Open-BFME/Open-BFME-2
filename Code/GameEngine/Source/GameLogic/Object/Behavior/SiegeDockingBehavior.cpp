@@ -62,7 +62,7 @@ class Thing;
 
 class ModuleData;
 
-class Object;
+
 
 class Gen_dtor_00113d40
 {

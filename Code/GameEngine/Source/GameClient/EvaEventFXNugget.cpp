@@ -184,7 +184,7 @@ extern float BfmeClientFramesPerMillisecond;
 
 	// seconds to frames
 
-class Object;
+
 
 class DynamicDecalFXNugget : public FXNugget
 {

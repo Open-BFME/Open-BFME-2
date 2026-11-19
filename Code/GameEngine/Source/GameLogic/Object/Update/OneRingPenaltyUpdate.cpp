@@ -95,7 +95,7 @@ enum ObjectStatusTypes;
 
 class AIUpdateInterface;
 
-class Rva00373EC6;
+
 
 class Object : public Thing
 {

@@ -34,7 +34,7 @@ extern unsigned char g_Va00E0302C;
 #include "../../../Include/Common/Rva00222479ByteOneSetter.h"
 
 class Rva00222A8BTarget;
-class Rva00222A8BTarget;
+
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

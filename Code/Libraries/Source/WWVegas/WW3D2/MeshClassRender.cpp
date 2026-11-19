@@ -289,7 +289,7 @@ public:
 	DX8PolygonRendererList PolygonRendererList;	// +0x9C
 };
 
-class MeshClass;
+
 
 class DX8FVFCategoryContainer
 {

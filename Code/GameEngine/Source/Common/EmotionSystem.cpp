@@ -38,11 +38,11 @@ public:
 	~Rva004DC9EDEntry();
 };
 
-class BfmeEmotionName;
 
-class EmotionNugget;
 
-class ModuleData;
+
+
+
 
 class MultiplayerColorDefinition;
 

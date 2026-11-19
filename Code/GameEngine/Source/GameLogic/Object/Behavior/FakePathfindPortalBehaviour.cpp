@@ -158,7 +158,7 @@ extern TerrainLogic *TheTerrainLogic;
 // vtables, 0x00C1C780 and 0x00C4EF80, the inlined base ctors store first).
 // The 0x00C42B50 interface's slot 0 is rva0046190A, entered with this at
 // +0x20. novtable: the ctor writes those stores explicitly.
-struct FakePortalOwnerView;
+
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 

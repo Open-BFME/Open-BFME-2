@@ -64,7 +64,7 @@ class AsciiString;
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<int const ,AsciiString> > >::deallocate(_Rb_tree_node<pair<int const ,AsciiString> > *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ??0?$_Rb_tree_base@U?$pair@$$CBHVAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBHVAsciiStrin:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString;
+
 namespace _STL { template <> _Rb_tree_base<pair<const int, AsciiString>, allocator<pair<const int, AsciiString> > >::_Rb_tree_base(const allocator<pair<const int, AsciiString> > &); }
 // Nothing here calls the int-keyed tree base's destructor out of line, so this TU emits no copy of it.
 namespace _STL {

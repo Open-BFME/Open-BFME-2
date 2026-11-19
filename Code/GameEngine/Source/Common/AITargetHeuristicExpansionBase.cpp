@@ -89,7 +89,7 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 // and [esi+8],0 mov [esi] vtable mov eax esi.
 class AITarget;
 
-class Player;
+
 
 #include "../../Include/Common/Rva005CB22A.h"
 

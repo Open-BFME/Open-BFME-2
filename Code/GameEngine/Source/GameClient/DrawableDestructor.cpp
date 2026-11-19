@@ -36,7 +36,7 @@ template<> __declspec(dllimport) __declspec(nothrow) __forceinline _Vector_base<
 class Thing;
 class Object;
 class Module;
-class ModuleData;
+
 class Matrix3D;
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DrawableStatus.h"
 enum ModuleType { MODULETYPE_DRAW = 1, MODULETYPE_CLIENT_UPDATE = 2, MODULETYPE_3 = 3 };

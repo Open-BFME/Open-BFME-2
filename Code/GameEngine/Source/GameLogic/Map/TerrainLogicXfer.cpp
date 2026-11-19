@@ -217,7 +217,7 @@ private:
 	short m_2E; // +0x2E
 };
 
-class ModuleData;
+
 // The records vector's out-of-line members fold with other 4-byte vectors'.
 typedef _STL::vector<void *> FoldedEraseVector;
 typedef _STL::vector<const ModuleData *> FoldedAppendVector;

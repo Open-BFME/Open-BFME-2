@@ -58,7 +58,7 @@ public:
 	void *m_10; // +0x10
 };
 
-struct BfmeRecord00800C80;
+
 
 // Ported from Open-BFME-1 Code/GameNetwork/Rva00800A40Owner.cpp (BFME1
 // byte-identical donor b1 0x00800A40, 225B @0x0066CE20). Small repair only:

@@ -51,7 +51,7 @@ public:
 	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
 };
 
-struct AEXPBUCoord3D;
+
 
 class DevastateSpecialPower : public SpecialPowerModule
 {

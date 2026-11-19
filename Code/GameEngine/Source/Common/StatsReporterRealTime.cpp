@@ -12,7 +12,9 @@
 // BFME1 donor9cbfb551fe20. BFME2-specific preference updates follow retail.
 // Player template+34, side+18, scorekeeper+3BC and accessed counter offsets
 // are measured target facts; unused portions of these views remain opaque.
-typedef int Int; typedef bool Bool;
+typedef int Int;
+#include "../../Include/Common/ScalarTypes/Bool.h"
+
 
 class ProfilePreferences:public UserPreferences {};
 class RealTimeStatsPreferences:public ProfilePreferences {

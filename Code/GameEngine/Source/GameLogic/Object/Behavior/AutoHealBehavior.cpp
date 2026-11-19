@@ -61,13 +61,13 @@ class AutoHealBehaviorModuleData;
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
-class DamageInfo;
 
-class Xfer;
 
-class Object;
 
-class AutoHealBehaviorModuleData;
+
+
+
+
 
 enum BodyDamageType;
 

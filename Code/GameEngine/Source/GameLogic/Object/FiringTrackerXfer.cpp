@@ -179,7 +179,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_0x26 = 0x26
 };
 
-class Drawable;
+
 
 class Object
 {

@@ -407,7 +407,7 @@ private:
 	Coord3D m_guardeePos;																											///< 0x24
 };
 
-class AIUpdateInterface;
+
 
 extern int BfmeLogicFramesPerSecond;
 

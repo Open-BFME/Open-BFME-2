@@ -318,9 +318,9 @@ public:
 	virtual void sendPairD(char *a, char *b, int tag, void *self);
 };
 
-class Rva007EA320Owner;
 
-class Rva007EA380Owner;
+
+
 
 void __cdecl rva007EAD10BindCallback(Rva007EA320Owner *owner, void *first, void *second);
 

@@ -82,7 +82,7 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-class Thing;
+
 class ModuleData;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"

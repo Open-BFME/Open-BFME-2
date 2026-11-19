@@ -53,8 +53,8 @@ struct BfmePod12
 // dispatched to __copy where retail calls __copy_ptrs, and the link kept it, so it declares the owner's.
 namespace _STL { template <> BfmePod12 *vector<BfmePod12, allocator<BfmePod12> >::erase(BfmePod12 *); }
 
- 
- 
+
+
 class Rva005C847BRecord : public Base0C
 {
 public:
@@ -130,7 +130,7 @@ private:
 
 #include "../../Include/Common/LargeGroupAudioGridCell.h"
 
-struct Element005C8E0A;
+
 
 extern AudioManager *TheAudio;
 

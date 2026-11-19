@@ -54,7 +54,7 @@ struct Coord3D;
 namespace _STL { template <> _List_iterator<Coord3D,_Nonconst_traits<Coord3D> > list<Coord3D,allocator<Coord3D> >::erase(_List_iterator<Coord3D,_Nonconst_traits<Coord3D> >); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_List_node@UCoord3D@@@_STL@@@_STL@@QBEXPAU?$_List_node@UCoord3D:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Coord3D;
+
 namespace _STL { template <> void allocator<_List_node<Coord3D> >::deallocate(_List_node<Coord3D> *,unsigned int) const; }
 class WaypointMap : public _STL::map<AsciiString,Coord3D> {public: void update(); int numStartSpots;};
 #include "../../Include/Common/PlayerPosition.h"
