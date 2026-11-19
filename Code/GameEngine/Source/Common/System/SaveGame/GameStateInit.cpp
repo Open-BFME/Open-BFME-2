@@ -41,7 +41,7 @@ class View; extern View *TheTacticalView;
 class ClientFrameSubsystem; class GameClient; extern GameClient *TheGameClient;
 class InGameUI; extern InGameUI *TheInGameUI;
 class PartitionManager; extern PartitionManager *ThePartitionManager;
-class PartitionManager; extern PartitionManager *TheShroudManager;
+ extern PartitionManager *TheShroudManager;
 class CollisionManager;
 extern CollisionManager *TheCollisionManager;
 class ParticleSystemManager; extern ParticleSystemManager *TheParticleSystemManager;

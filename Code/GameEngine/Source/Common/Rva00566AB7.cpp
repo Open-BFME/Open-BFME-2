@@ -20,7 +20,7 @@ struct BfmePod88;
 namespace _STL { template <> void vector<BfmePod88,allocator<BfmePod88> >::push_back(BfmePod88 const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@UBfmePod88@@V?$allocator@UBfmePod88@@@_STL@@@_STL@@IAEXPAUBfm:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod88;
+
 namespace _STL { template <> void vector<BfmePod88,allocator<BfmePod88> >::_M_insert_overflow(BfmePod88 *,BfmePod88 const &,__false_type const &,unsigned int,bool); }
 struct BfmePod88 { int a[22]; };
 class Rva00566AB7

@@ -35,7 +35,7 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 
-struct Rva00051B89Keyed;
+
 
 #include "../../Include/Common/Rva00051B89Hash.h"
 

@@ -36,7 +36,7 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
 }
 
-class Drawable;
+
 namespace _STL {
 template<> __declspec(noinline) _List_node<Drawable*>* list<Drawable*>::_M_create_node(Drawable*const &value) {
  _List_node<Drawable*>* node=(_List_node<Drawable*>*)g_freelistPool00DBA5E0.pop();

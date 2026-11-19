@@ -25,7 +25,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-class TeamPrototype;
+
 typedef _STL::list<TeamPrototype *> PlayerTeamList;
 // Declared only: the out-of-line erase is retail's rowed body at 0x002ABAC0.
 namespace _STL { template <> PlayerTeamList::iterator PlayerTeamList::erase(PlayerTeamList::iterator); }

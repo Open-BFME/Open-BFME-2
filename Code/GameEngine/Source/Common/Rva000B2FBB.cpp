@@ -23,7 +23,7 @@ public:
 	virtual int s31();
 };
 
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 class Rva000B2FBB
 {

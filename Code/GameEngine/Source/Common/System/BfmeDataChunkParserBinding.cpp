@@ -21,7 +21,7 @@ class SidesList;
 
 #include "../../../Include/Common/BfmeParserRegistryVE.h"
 
-class DataChunkInput;
+
 #include "../../../Include/Common/DataChunkParser.h"
 
 class __declspec(novtable) BfmeParserBindingBaseVE

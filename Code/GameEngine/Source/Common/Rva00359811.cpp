@@ -8,19 +8,19 @@ struct Rva003597C3Element;
 namespace _STL { template <> _Rb_tree_node<Rva003597C3Element> * _Rb_tree<Rva003597C3Element,Rva003597C3Element,_Identity<Rva003597C3Element>,less<Rva003597C3Element>,allocator<Rva003597C3Element> >::_M_upper_bound(Rva003597C3Element const &) const; }
 // Suppress this TU's non-retail copy of ?_M_lower_bound@?$_Rb_tree@URva003597C3Element@@U1@U?$_Identity@URva003597C3Element@@@_STL:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003597C3Element;
+
 namespace _STL { template <> _Rb_tree_node<Rva003597C3Element> * _Rb_tree<Rva003597C3Element,Rva003597C3Element,_Identity<Rva003597C3Element>,less<Rva003597C3Element>,allocator<Rva003597C3Element> >::_M_lower_bound(Rva003597C3Element const &) const; }
 // Suppress this TU's non-retail copy of ?erase@?$_Rb_tree@URva003597C3Element@@U1@U?$_Identity@URva003597C3Element@@@_STL@@U?$less:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003597C3Element;
+
 namespace _STL { template <> void _Rb_tree<Rva003597C3Element,Rva003597C3Element,_Identity<Rva003597C3Element>,less<Rva003597C3Element>,allocator<Rva003597C3Element> >::erase(_Rb_tree_iterator<Rva003597C3Element,_Nonconst_traits<Rva003597C3Element> >); }
 // Suppress this TU's non-retail copy of ?_M_erase@?$_Rb_tree@URva003597C3Element@@U1@U?$_Identity@URva003597C3Element@@@_STL@@U?$l:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003597C3Element;
+
 namespace _STL { template <> void _Rb_tree<Rva003597C3Element,Rva003597C3Element,_Identity<Rva003597C3Element>,less<Rva003597C3Element>,allocator<Rva003597C3Element> >::_M_erase(_Rb_tree_node<Rva003597C3Element> *); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@URva003597C3Element@@@_STL@@@_STL@@QBEXPAU?$_Rb_t:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003597C3Element;
+
 namespace _STL { template <> void allocator<_Rb_tree_node<Rva003597C3Element> >::deallocate(_Rb_tree_node<Rva003597C3Element> *,unsigned int) const; }
 
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class

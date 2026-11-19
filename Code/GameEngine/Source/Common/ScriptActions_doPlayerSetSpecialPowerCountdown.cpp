@@ -21,7 +21,7 @@ extern PlayerList *ThePlayerList;
 
 #include "../../Include/Common/Player.h"
 
-class SpecialPowerTemplate;
+
 #include "../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;

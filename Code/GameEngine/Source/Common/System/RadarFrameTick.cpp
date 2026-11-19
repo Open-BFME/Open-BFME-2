@@ -74,7 +74,7 @@ public:
 	virtual unsigned int getFrame();
 };
 
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 #include "../GameLogicObjectLookupView.h"
 

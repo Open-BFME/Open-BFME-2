@@ -31,11 +31,11 @@ class GameWindow;
 int GadgetSliderGetEnabledSelectedThumbBorderColor(GameWindow *);
 class BfmeThingDEA;
 unsigned int bfmeGoDEA(BfmeThingDEA *);
-class GameWindow;
+
 int GadgetSliderGetDisabledSelectedThumbBorderColor(GameWindow *);
 class BfmeThingDEB;
 unsigned int getColor(BfmeThingDEB *);
-class GameWindow;
+
 int GadgetSliderGetHiliteSelectedThumbBorderColor(GameWindow *);
 class BfmeThingDEC;
 unsigned int bfmeGoDEC(BfmeThingDEC *);

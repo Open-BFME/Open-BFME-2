@@ -138,7 +138,7 @@ class AsciiString;
 namespace _STL { template <> _Rb_tree_node<AsciiString> * allocator<_Rb_tree_node<AsciiString> >::allocate(unsigned int,void const *) const; }
 // Suppress this TU's non-retail copy of ??R?$less@VAsciiString@@@_STL@@QBE_NABVAsciiString@@0@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString;
+
 namespace _STL { template <> bool less<AsciiString>::operator()(AsciiString const &,AsciiString const &) const; }
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree<AsciiString, pair<AsciiString const, DetailedArchivedDirectoryInfo>, _Select1st<pair<AsciiString const, DetailedArchivedDirectoryInfo> >, less<AsciiString>, allocator<pair<AsciiString const, DetailedArchivedDirectoryInfo> > >::~_Rb_tree(); }
@@ -260,7 +260,7 @@ void ArchiveFile::getFileListInDirectory(const AsciiString& currentDirectory, co
 	searchDir = originalDirectory;
 	((StringBase<char> *)&searchDir)->toLower();
 	AsciiString token;
-	
+
 	searchDir.nextToken(&token, "\\/");
 
 	while (token.getLength() > 0) {

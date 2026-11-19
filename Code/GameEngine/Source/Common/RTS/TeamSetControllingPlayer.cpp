@@ -20,7 +20,7 @@ public:
 };
 class Object;
 #include "../../../Include/Common/ThingTemplate.h"
-class Player;
+
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail

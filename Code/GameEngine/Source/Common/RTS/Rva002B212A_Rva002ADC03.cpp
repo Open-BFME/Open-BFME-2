@@ -25,11 +25,11 @@ class LocomotorTemplate;
 namespace _STL { template <> vector<LocomotorTemplate const *,allocator<LocomotorTemplate const *> >::~vector(); }
 // Suppress this TU's non-retail copy of ??1?$_Vector_base@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@Q:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class LocomotorTemplate;
+
 namespace _STL { template <> _Vector_base<LocomotorTemplate const *,allocator<LocomotorTemplate const *> >::~_Vector_base(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@PBVLocomotorTemplate@@@_STL@@QBEXPAPBVLocomotorTemplate@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class LocomotorTemplate;
+
 namespace _STL { template <> void allocator<LocomotorTemplate const *>::deallocate(LocomotorTemplate const * *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
@@ -77,7 +77,7 @@ template<> list<Snapshot *>::iterator list<Snapshot *>::erase(iterator);
 }
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
-class LocomotorTemplate;
+
 // Use the rowed 0x000796BC pair teardown rather than emitting a private copy.
 // MSVC still synthesizes the implicit destructor with a member specialization;
 // this declaration keeps the same const-key/vector layout and external ABI.

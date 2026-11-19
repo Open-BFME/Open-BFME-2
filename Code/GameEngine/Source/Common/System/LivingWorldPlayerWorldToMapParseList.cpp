@@ -42,30 +42,30 @@ class ModuleData;
 namespace _STL { template <> void _Construct<const ModuleData *, const ModuleData *>(const ModuleData **, const ModuleData *const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@IAEX:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ModuleData;
+
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_insert_overflow(const ModuleData **, const ModuleData *const &, const __true_type &, size_t, bool); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAPBVModuleData@@PBV1@V?$allocator@PBVModuleData@@@_STL@@@_S:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ModuleData;
+
 namespace _STL { template <> const ModuleData **_STLP_alloc_proxy<const ModuleData **, const ModuleData *, allocator<const ModuleData *> >::allocate(size_t); }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVModuleData@@@_STL@@QBEPAPBVModuleData@@IPBX@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ModuleData;
+
 namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::allocate(size_t, const void *) const; }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@PBVModuleData@@@_STL@@QBEXPAPBVModuleData@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ModuleData;
+
 namespace _STL { template <> void allocator<const ModuleData *>::deallocate(const ModuleData **, size_t) const; }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ModuleData;
+
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
 // push_back is rowed at 0x004DFCB0 (kept copy). This unit's own copy, and the
 // _Construct / placement-new copies it pulls in, differ from the kept ones.
 // Declare it only, so the call binds to the kept copy.
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
 
-class ModuleData;
+
 class INI;
 
 #include "../../../Include/Common/INI/FieldParse.h"

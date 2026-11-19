@@ -21,7 +21,7 @@ class ModuleData;
 namespace _STL {
 template<> void vector<const ModuleData *>::reserve(unsigned int);
 }
-class ModuleData;
+
 class Rva00318C32Ret;
 #include "../../Include/GameLogic/Rva00318C79Owner.h"
 

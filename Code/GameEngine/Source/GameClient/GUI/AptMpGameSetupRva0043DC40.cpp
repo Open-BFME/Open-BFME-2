@@ -21,12 +21,12 @@ namespace _STL
 
 {
  static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
- 
+
  {
   return a < b ? b : a;
-  
+
  }
- 
+
 }
 #include <mbstring.h>
 #include <windows.h>
@@ -47,7 +47,7 @@ namespace _STL
  template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
  template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString&);
  template <> void vector<AsciiString, allocator<AsciiString> >::_M_insert_overflow(AsciiString*, const AsciiString&, const __false_type&, size_t, bool);
- 
+
 }
 class WinInstanceData;
 class BfmeKeyLC;
@@ -67,7 +67,7 @@ enum SlotState
 {
  SLOT_OPEN = 0,
  SLOT_PLAYER = 6
- 
+
 }
 ;
 #include "../../../Include/GameNetwork/GameSlotConnectInfo.h"
@@ -103,7 +103,7 @@ class Rva0043DA65
  unsigned char m_pad00[0x08];
  GameInfo *m_current;
 // +0x08
- 
+
 }
 ;
 void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selected);
@@ -156,7 +156,7 @@ class MpGameSetupOwner
  virtual void v19(GameSlot *slot);
  virtual void v20();
  virtual void *v21();
- 
+
 }
 ;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
@@ -169,7 +169,7 @@ struct CreateAHeroName
  unsigned char m_pad00[0x08];
  UnicodeString m_name;
 // +0x08
- 
+
 }
 ;
 // The hero list at the hero manager's +0x174 (Rva0040A3F9Find.cpp's
@@ -224,7 +224,7 @@ class Rva0057E3DB
  bool m_61;
 // +0x61
  unsigned char m_pad62[0x70 - 0x62];
- 
+
 }
 ;
 // The member at +0xD0 (destroyed through ??1Rva0057EE5C); its 0x0057EA0F
@@ -246,7 +246,7 @@ class Rva0057EE5C
  void rva0057EF87();
 // Unrowed 0x0057E707 (114 bytes; ret 0xC, its window messages), pinned.
  bool rva0057E707(unsigned int msg, unsigned int data1, unsigned int data2);
- 
+
 }
 ;
 // The member at +0x190's base (Rva004421E1Dtor.cpp's Rva0057F2DE).
@@ -265,7 +265,7 @@ class Rva0057F2DE
 // Unrowed 0x0057FC75 (234 bytes; ret 0xC, its window messages), pinned
 // by address.
  bool rva0057FC75(unsigned int msg, unsigned int data1, unsigned int data2);
- 
+
 }
 ;
 // The member at +0x244 (rowed under its address name).
@@ -293,14 +293,14 @@ class MpGameSetupTagView
  bool isEmpty() const throw();
  private:
  void *m_data;
- 
+
 }
 ;
 static inline bool tagIsEmpty(const AsciiString &tag)
 
 {
  return ((const MpGameSetupTagView *)&tag)->isEmpty();
- 
+
 }
 // Retail expands UnicodeString::isEmpty inline as the header test
 // (m_data == 0 || m_data->length == 0); the shared shim keeps it out of
@@ -310,7 +310,7 @@ static inline bool unicodeIsEmpty(const UnicodeString &text)
 {
  const unsigned char *data = *(const unsigned char *const *)&text;
  return data == 0 || *(const unsigned short *)(data + 4) == 0;
- 
+
 }
 void MessageBoxOk(UnicodeString title, UnicodeString body, void (*okCallback)());
 // Unrowed 0x0055A04C (59 bytes; a rule's display name, fetched from a
@@ -341,7 +341,7 @@ class Rva0043E0C5
  public:
  bool rva0043E0C5(int slot);
  bool rva0043E132(int slot, int position);
- 
+
 }
 ;
 int Rva00322910(GameWindow *comboBox);
@@ -359,30 +359,30 @@ class Gen_00528EC0
 {
  public:
  Gen_00528EC0() 
- 
+
  {
-  
+
  }
  Gen_00528EC0(const Gen_00528EC0 &other) 
- 
+
  {
   m_value = other.m_value;
-  
+
  }
 // 0x003F2968 (rowed; encodes the short at +0x04) through the short
 // constructor, the LivingWorldRegion idiom.
  void SetValue(short value);
  Gen_00528EC0(short value) 
- 
+
  {
   SetValue(value);
-  
+
  }
  Gen_00528EC0(unsigned int encoded, int) 
- 
+
  {
   m_value = encoded;
-  
+
  }
 // 0x003F2330 (rowed, S5HandleHashCompares.cpp).
  bool bfmeDiffers(const Gen_00528EC0 &other) const;
@@ -393,7 +393,7 @@ class Gen_00528EC0
  unsigned char m_head[4];
  unsigned int m_value;
 // +0x04
- 
+
 }
 ;
 // The game's digest test (Rva003FF1C2.cpp, rowed under its address name):
@@ -423,38 +423,38 @@ class Rva0057BC63FunctorHolder
  public:
  Rva0057BC63FunctorHolder(const FunctorBinding &binding);
  Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
- 
+
  {
   if (m_ptr)
   ++m_ptr->m_refCount;
-  
+
  }
  FunctorWrapperHead *m_ptr;
- 
+
 }
 ;
 // AptCallbackAdders.cpp's by-value callback reference, built in place from a
 // binding passed by value (its out-of-line copy is 0x00518756, ret 0x10);
 // the callee releases it through 0x0007DEEF.
-struct TargetRef00217D4C;
+
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 template <class T> class AptRef : public Rva0057BC63FunctorHolder
 
 {
  public:
  AptRef(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) 
- 
+
  {
-  
+
  }
  ~AptRef()
- 
+
  {
   if (m_ptr)
   ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
-  
+
  }
- 
+
 }
 ;
 class AptCommandMap;
@@ -469,7 +469,7 @@ class AptExternHandlerAdder
  void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
  private:
  _STL::vector<AsciiString> m_names;
- 
+
 }
 ;
 // 0x00411458 stores the reference under the name in the screen table at
@@ -660,7 +660,7 @@ class AptMpGameSetup
 // +0x3D8
  bool m_3dc;
 // +0x3DC
- 
+
 }
 ;
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
@@ -674,13 +674,13 @@ void AptMpGameSetup::rva0043DC40(int column)
  if (old == c)
  m_sortColumn = next;
  else
- 
+
  {
   m_sortColumn = c;
   if (old != next)
   m_previousSortColumn = old;
-  
+
  }
  m_2bc = true;
- 
+
 }

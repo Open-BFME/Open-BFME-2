@@ -42,7 +42,7 @@ struct FrameSource
 };
 
 class ClientFrameSubsystem;
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 class Rva00330A37
 {

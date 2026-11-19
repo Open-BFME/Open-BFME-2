@@ -39,7 +39,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-class Drawable;
+
 typedef _STL::list<Drawable *> BfmeDrawableList;
 
 #include "../../Include/Common/Rva00239380Holder.h"

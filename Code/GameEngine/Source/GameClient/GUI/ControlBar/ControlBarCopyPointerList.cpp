@@ -23,17 +23,17 @@ namespace _STL { template <> void vector<const ModuleData *, allocator<const Mod
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@PBVModuleData@@@_STL@@QBEXPAPBVModuleData@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ModuleData;
+
 namespace _STL { template <> void allocator<const ModuleData *>::deallocate(const ModuleData **, size_t) const; }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ModuleData;
+
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::end() { return this->_M_finish; } }
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
-class ModuleData;
+
 class ControlBar;
 extern ControlBar *TheControlBar;
 struct ControlBarReloadView { char unknown00[0x28]; bool reloaded; };

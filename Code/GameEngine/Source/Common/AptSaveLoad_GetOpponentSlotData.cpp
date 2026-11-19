@@ -40,7 +40,7 @@ public:
 	virtual int v13();
 };
 
-class GameInfo;
+
 extern GameInfo *TheGameInfo;
 
 // WB12B0A60/483 names AptSaveLoad::GetOpponentSlotData with assertions

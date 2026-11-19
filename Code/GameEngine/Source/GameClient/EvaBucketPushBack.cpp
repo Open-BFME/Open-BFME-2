@@ -18,15 +18,15 @@ struct Rva003F7B22Element;
 namespace _STL { template <> Rva003F7B22Element * __uninitialized_fill_n<Rva003F7B22Element *,unsigned int,Rva003F7B22Element>(Rva003F7B22Element *,unsigned int,Rva003F7B22Element const &,__false_type const &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAURva003F7B22Element@@PAU1@@_STL@@YAPAURva003F7B22Element@@PAU1@0:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003F7B22Element;
+
 namespace _STL { template <> Rva003F7B22Element * __uninitialized_copy<Rva003F7B22Element *,Rva003F7B22Element *>(Rva003F7B22Element *,Rva003F7B22Element *,Rva003F7B22Element *,__false_type const &); }
 // Suppress this TU's non-retail copy of ?push_back@?$vector@URva003F7B22Element@@V?$allocator@URva003F7B22Element@@@_STL@@@_STL@@Q:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003F7B22Element;
+
 namespace _STL { template <> void vector<Rva003F7B22Element,allocator<Rva003F7B22Element> >::push_back(Rva003F7B22Element const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@URva003F7B22Element@@V?$allocator@URva003F7B22Element@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003F7B22Element;
+
 namespace _STL { template <> void vector<Rva003F7B22Element,allocator<Rva003F7B22Element> >::_M_insert_overflow(Rva003F7B22Element *,Rva003F7B22Element const &,__false_type const &,unsigned int,bool); }
 
 struct Rva003F7B22Element { int a[1]; };

@@ -25,7 +25,7 @@ public:
 	virtual int s31();
 };
 
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 extern int g_bfmeDisplayAnimationSyncClock;
 extern int g_Va00DB3BDC;

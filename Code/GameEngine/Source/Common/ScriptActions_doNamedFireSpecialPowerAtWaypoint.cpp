@@ -63,7 +63,7 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class SpecialPowerTemplate;
+
 #include "../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;

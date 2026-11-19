@@ -12,19 +12,19 @@
 
 class LocomotorTemplate;
 
-enum LocomotorSetType
-{
-	LOCOMOTORSET_INVALID = -1,
-	LOCOMOTORSET_NORMAL = 0,
-	LOCOMOTORSET_NORMAL_UPGRADED,
-	LOCOMOTORSET_FREEFALL,
-	LOCOMOTORSET_WANDER,
-	LOCOMOTORSET_PANIC,
-	LOCOMOTORSET_TAXIING,
-	LOCOMOTORSET_SUPERSONIC,
-	LOCOMOTORSET_SLUGGISH,
-	LOCOMOTORSET_COUNT
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
+
+
+
+
+
+
+
+
+
 
 struct Rva004FFD09Node
 {

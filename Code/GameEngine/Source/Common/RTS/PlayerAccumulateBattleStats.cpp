@@ -82,7 +82,7 @@ void Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper()
 	m_33F = true;
 }
 
-class ThingTemplate;
+
 // Same ABI wrapper as ThingTemplateCountMap.cpp: unsigned stored addresses
 // are keys and mapped counts occupy four bytes. Application type stays opaque.
 namespace _STL {template<class T,class L,class R> static inline bool operator!=(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b){return a._M_node!=b._M_node;}}

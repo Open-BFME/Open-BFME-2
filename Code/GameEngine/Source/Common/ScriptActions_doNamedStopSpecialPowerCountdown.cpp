@@ -15,7 +15,7 @@ class Object;
 
 extern class ScriptEngine *TheScriptEngine;
 
-class SpecialPowerTemplate;
+
 #include "../../Include/Common/SpecialPowerStore.h"
 
 extern SpecialPowerStore *TheSpecialPowerStore;

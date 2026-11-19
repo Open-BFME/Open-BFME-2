@@ -24,11 +24,11 @@ struct BfmeStringRecord0021A940;
 namespace _STL { template <> void _Destroy<BfmeStringRecord0021A940>(BfmeStringRecord0021A940 *); }
 // Suppress this TU's non-retail copy of ?_M_copy@?$_Rb_tree@UBfmeStringRecord0021A940@@U1@U?$_Identity@UBfmeStringRecord0021A940@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord0021A940;
+
 namespace _STL { template <> _Rb_tree_node<BfmeStringRecord0021A940> * _Rb_tree<BfmeStringRecord0021A940,BfmeStringRecord0021A940,_Identity<BfmeStringRecord0021A940>,less<BfmeStringRecord0021A940>,allocator<BfmeStringRecord0021A940> >::_M_copy(_Rb_tree_node<BfmeStringRecord0021A940> *,_Rb_tree_node<BfmeStringRecord0021A940> *); }
 // Suppress this TU's non-retail copy of ?_M_erase@?$_Rb_tree@UBfmeStringRecord0021A940@@U1@U?$_Identity@UBfmeStringRecord0021A940@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeStringRecord0021A940;
+
 namespace _STL { template <> void _Rb_tree<BfmeStringRecord0021A940,BfmeStringRecord0021A940,_Identity<BfmeStringRecord0021A940>,less<BfmeStringRecord0021A940>,allocator<BfmeStringRecord0021A940> >::_M_erase(_Rb_tree_node<BfmeStringRecord0021A940> *); }
 // Suppress this TU's non-retail copy of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).

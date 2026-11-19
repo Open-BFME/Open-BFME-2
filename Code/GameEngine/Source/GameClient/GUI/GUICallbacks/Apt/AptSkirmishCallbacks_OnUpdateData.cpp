@@ -169,7 +169,7 @@ private:
 // record shape; its owning type remains address-derived in the ledger.
 class GameSlot;
 #include "../../../../../Include/GameNetwork/GameInfo.h"
-class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
+ extern SkirmishGameInfo *TheSkirmishGameInfo;
 #include <new>
 void Rva00521643Enable();
 

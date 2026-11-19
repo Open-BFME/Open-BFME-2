@@ -58,7 +58,7 @@ enum WeaponLockType
 	LOCKED_TEMPORARILY
 };
 
-class Drawable;
+
 class AIUpdateInterface;
 
 #include "../Object/object.h"

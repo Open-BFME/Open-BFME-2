@@ -54,7 +54,7 @@ public:
 };
 
 class TurretStateMachine;
-class Object;
+
 
 class TurretStateMachine
 {

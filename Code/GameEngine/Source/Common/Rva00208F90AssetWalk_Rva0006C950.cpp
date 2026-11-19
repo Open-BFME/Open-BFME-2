@@ -19,19 +19,19 @@ struct Rva001408C0Target;
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_M_create_node(Rva001408C0Target *const &); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@@_STL@@QBEXPAU?$_Rb_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> void allocator<_Rb_tree_node<Rva001408C0Target *> >::deallocate(_Rb_tree_node<Rva001408C0Target *> *, size_t) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@U?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@@_STL@@QBEPAU?$_Rb_tre:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *allocator<_Rb_tree_node<Rva001408C0Target *> >::allocate(size_t, const void *) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@U12@V?$alloc:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_proxy<_Rb_tree_node<Rva001408C0Target *> *, _Rb_tree_node<Rva001408C0Target *>, allocator<_Rb_tree_node<Rva001408C0Target *> > >::allocate(size_t); }
 
 
-struct Rva001408C0Target;
+
 void *bfmeGoEMEb(void *name);
 
 struct AssetList00208F90

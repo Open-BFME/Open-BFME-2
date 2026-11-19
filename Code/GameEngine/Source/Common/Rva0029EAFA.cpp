@@ -78,7 +78,7 @@ public:
 	virtual void c30();
 	virtual int getValue();
 };
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 struct Elem0029
 {
