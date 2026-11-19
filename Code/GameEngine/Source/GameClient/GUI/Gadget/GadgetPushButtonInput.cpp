@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /DNDEBUG /MD /EHsc
+// platformsdk
 // ?GadgetPushButtonInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
 // @0x00327E5D 1243B (Ghidra boundary, EH frame): the push button input
 // callback. Reference semantics: Open-BFME-1 GadgetPushButtonInput.cpp, the

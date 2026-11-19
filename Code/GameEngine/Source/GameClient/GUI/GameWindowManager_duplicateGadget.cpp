@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+// platformsdk
 //
 // ?duplicateGadget@GameWindowManager@@QAEPAVGameWindow@@PAV2@H@Z
 // retail 0x003174CB, 262 bytes. Dedicated TU.

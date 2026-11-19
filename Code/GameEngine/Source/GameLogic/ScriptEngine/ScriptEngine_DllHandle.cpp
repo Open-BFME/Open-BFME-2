@@ -1,4 +1,5 @@
 // cl: /EHsc
+// platformsdk
 //
 // DllHandle::DllHandle(const char *), retail 0x00204230 (60 bytes).
 // The class name is target evidence: the object it throws on a failed
