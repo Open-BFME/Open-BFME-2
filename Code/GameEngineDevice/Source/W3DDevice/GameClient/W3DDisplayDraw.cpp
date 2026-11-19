@@ -149,6 +149,9 @@ void NetworkDebugDisplay(DebugDisplayInterface *, void *, _iobuf *);
 void SkirmishAIDebugDisplay(DebugDisplayInterface *, void *, _iobuf *);
 void Rva00079985Clear();
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+#endif
 class W3DDisplay {public:
 virtual void slot0();
 virtual void slot1();
@@ -242,8 +245,21 @@ char pad04[0x30-4]; DebugDisplayCallback *debugDisplayCallback;char pad34[0x115-
 };
 // The slice index takes the count by const reference: retail's add eax,0xEA0 / mov ecx,[eax] in that arm is the materialized reference.
 inline int panoramaSliceIndex(int i,const int&count){return (i+count/2)%count;}
+#if defined(BFME2_MODERN)
+static unsigned g_modernLastPresent;
+#endif
 void W3DDisplay::draw(){
  if(ApplicationHWnd && IsIconic((HWND)ApplicationHWnd))return;
+#if defined(BFME2_MODERN)
+ // A long update (map load) draws its loading screen from inside the fixed
+ // update; no scheduled presentation can run then, so draw it the legacy way.
+ if(g_modernRenderPhase==MODERN_RENDER_UPDATE && timeGetTime()-g_modernLastPresent>100){
+  ModernRenderScope legacy(MODERN_RENDER_LEGACY);
+  W3DDisplay::draw();
+  return;
+ }
+ if(modernPresentsScene())g_modernLastPresent=timeGetTime();
+#endif
  updateAverageFPS();rva00043FB9();
  // compute debug statistics for display later
  if(debugDisplayCallback==StatDebugDisplay)W3DDisplay::gatherDebugStats();
@@ -253,6 +269,9 @@ void W3DDisplay::draw(){
  bool freezeTime=!((FrameClient*)TheGameClient)->active;
  /// @todo: I'm assuming the first view is our main 3D view.
  W3DView*primaryW3DView=getFirstView();
+#if defined(BFME2_MODERN)
+ if(modernUpdatesScene()){
+#endif
  // hack to let client spin fast in network games but still do effects at the same pace. -MDC
  if((unsigned)g_Va00DB3BDC>((FrameClient*)TheGameClient)->getFrame())g_Va00DB3BDC=((FrameClient*)TheGameClient)->getFrame();
  unsigned delta=((FrameClient*)TheGameClient)->getFrame()-g_Va00DB3BDC;
@@ -268,10 +287,22 @@ void W3DDisplay::draw(){
  /// @todo Decouple framerate from timestep
  // for now, use constant time steps to avoid animations running independent of framerate
  g_bfmeDisplayAnimationSyncClock+=TheW3DFrameLengthInMsec*delta;WW3D::Sync(g_bfmeDisplayAnimationSyncClock);
+#if defined(BFME2_MODERN)
+ }
+ if(!modernPresentsScene()){
+  if(!disabled)rva0004A462(timeGetTime());
+  return;
+ }
+#endif
  // Fast & Frozen time limits the time to 33 fps.
  int minTime=30;
  static int prevTime=timeGetTime();
  int now=timeGetTime();
+#if defined(BFME2_MODERN)
+ // Presentation deadlines belong to the main loop, including paused scenes.
+ if(g_modernRenderPhase==MODERN_RENDER_PRESENT){prevTime=now;}
+ else
+#endif
  if(((TimeView*)TheTacticalView)->getTimeMultiplier()>1){
   static int timeMultiplierCounter=1;--timeMultiplierCounter;if(timeMultiplierCounter>1)return;timeMultiplierCounter=((TimeView*)TheTacticalView)->getTimeMultiplier();
   // limit the framerate, because while fast time is on, the game logic is running as fast as it can.
@@ -282,6 +313,9 @@ void W3DDisplay::draw(){
  do{
   if(TheGlobalData->field0AF5!=true){
    // limit the framerate
+#if defined(BFME2_MODERN)
+   if(g_modernRenderPhase!=MODERN_RENDER_PRESENT)
+#endif
    while(TheGlobalData->m_useFpsLimit && now-prevTime<minTime-1)now=timeGetTime();prevTime=now;}
   if(capturePending>0 && TheGlobalData->field0EA0!=0){
    TheWritableGlobalData->field0EA6=true;TheWritableGlobalData->field0EA8=TWO_PI/TheGlobalData->field0EA0;
@@ -300,8 +334,20 @@ void W3DDisplay::draw(){
    ++captureIndex;--capturePending;TheWritableGlobalData->field0EA6=false;
   }else if(!rva0004A462(now))break;
   keepDrawing=freezeTime&&!((TimeView*)TheTacticalView)->isCameraMovementFinished();
+#if defined(BFME2_MODERN)
+  if(g_modernRenderPhase==MODERN_RENDER_PRESENT)keepDrawing=false;
+#endif
   if(keepDrawing&&!TheGameLogic->isGamePaused())keepDrawing=false;
  }while(keepDrawing);
  if(capturePending>0&&TheGlobalData->field0EA0==0&&TheGlobalData->field0C54.empty()){--capturePending;takeScreenShot(0);}
  Rva00079985Clear();
 }
+
+#if defined(BFME2_MODERN)
+class Display;
+extern Display *TheDisplay;
+void modernPresentFrame()
+{
+ if(TheDisplay)reinterpret_cast<W3DDisplay*>(TheDisplay)->draw();
+}
+#endif

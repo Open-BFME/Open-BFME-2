@@ -13,4 +13,12 @@ export WINEDEBUG="${WINEDEBUG:--all}"
 export DISPLAY="${DISPLAY:-}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ "${1:-}" == "--variant" ]]; then
+    if [[ "${2:-}" != "modern" ]]; then
+        echo "build.sh: --variant requires modern; omit it for retail verification" >&2
+        exit 2
+    fi
+    shift 2
+    exec python3 "$SCRIPT_DIR/tools/build_variant.py" "$@"
+fi
 exec python3 "$SCRIPT_DIR/tools/build.py" "$@"

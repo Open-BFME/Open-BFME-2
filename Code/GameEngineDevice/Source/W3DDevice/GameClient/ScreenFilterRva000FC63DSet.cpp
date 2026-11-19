@@ -727,8 +727,14 @@ protected:
 	virtual int set(FilterModes);
 	virtual void reset();
 };
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernRenderPhase.h"
+#endif
 Int Rva000FC34FFilter::set(FilterModes mode) {
  if (mode > FM_NULL_MODE) {
+#if defined(BFME2_MODERN)
+  if(g_modernRenderPhase != MODERN_RENDER_PRESENT)modernAdvanceBW();
+#else
   if (ScreenBWFilter::m_fadeDirection > 0) {
    Int fade = ++ScreenBWFilter::m_curFadeFrame;
    if (fade < ScreenBWFilter::m_fadeFrames)
@@ -745,6 +751,7 @@ Int Rva000FC34FFilter::set(FilterModes mode) {
     ScreenBWFilter::m_curFadeFrame=0; ScreenBWFilter::m_fadeDirection=0;
    }
   }
+#endif
   VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
   if (vmat) ++vmat->NumRefs;
   if (DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();

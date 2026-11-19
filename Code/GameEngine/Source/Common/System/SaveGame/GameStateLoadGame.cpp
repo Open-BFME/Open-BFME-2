@@ -19,6 +19,9 @@
 // video reset and campaign continuation. Field roles beyond those donor
 // relationships remain neutral target access views, not full class layouts.
 #include "unicode_string.h"
+#if defined(BFME2_MODERN)
+#include "../../../../Include/Common/ModernCameraInterpolation.h"
+#endif
 #include "../../GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameClient/TreeHintOpaque0043671B.h"
@@ -173,6 +176,9 @@ int GameState::rva002DE3C1(TreeHintOpaque0043671B info)
 }
 int GameState::doLoadGame(TreeHintOpaque0043671B info)
 {
+#if defined(BFME2_MODERN)
+ ModernCameraDiscontinuity modernLoadingCamera(0);
+#endif
  // Keep the refusal return before the state test: cl 7.1 then shares its
  // pop/epilogue with the earlier return in the same order as retail.
  goto checkLoadState;
