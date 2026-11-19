@@ -40,12 +40,12 @@
 #include <math.h>
 #include <stdlib.h>
 
-typedef float Real;
-typedef int Int;
-typedef short Short;
-typedef unsigned short UnsignedShort;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Real.h"
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Short.h"
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/UnsignedShort.h"
 typedef unsigned char Byte;
-typedef bool Bool;
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Bool.h"
 #include <windows.h>
 #include <new>
 #define NEW new

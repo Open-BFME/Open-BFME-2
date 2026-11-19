@@ -61,31 +61,31 @@ struct Rva001408C0Target;
 namespace _STL { template <> set<Rva001408C0Target *,less<Rva001408C0Target *>,allocator<Rva001408C0Target *> >::set(); }
 // Suppress this TU's non-retail copy of ??0?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_Rb_tree(const less<Rva001408C0Target *> &, const allocator<Rva001408C0Target *> &); }
 // Suppress this TU's non-retail copy of ??0?$_Rb_tree_base@PAURva001408C0Target@@V?$allocator@PAURva001408C0Target@@@_STL@@@_STL@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_base<Rva001408C0Target *, allocator<Rva001408C0Target *> >::_Rb_tree_base(const allocator<Rva001408C0Target *> &); }
 // Suppress this TU's non-retail copy of ?_M_erase@?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> void _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_M_erase(_Rb_tree_node<Rva001408C0Target *> *); }
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::~_Rb_tree(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@@_STL@@QBEXPAU?$_Rb_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> void allocator<_Rb_tree_node<Rva001408C0Target *> >::deallocate(_Rb_tree_node<Rva001408C0Target *> *, size_t) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@U?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@@_STL@@QBEPAU?$_Rb_tre:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *allocator<_Rb_tree_node<Rva001408C0Target *> >::allocate(size_t, const void *) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@U12@V?$alloc:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_proxy<_Rb_tree_node<Rva001408C0Target *> *, _Rb_tree_node<Rva001408C0Target *>, allocator<_Rb_tree_node<Rva001408C0Target *> > >::allocate(size_t); }
 class TreeBoundsView {public:char pad[0x1948];Region2D bounds;};
 class TextureBaseClass
@@ -108,7 +108,7 @@ template<class T>class TexSlot:public RefCountPtr<T>{public:
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-struct Rva001408C0Target;
+
 struct AssetList00208F90
 {
 public:

@@ -95,7 +95,7 @@ struct Rva00508987Weapon {char pad[8];ObjectID id;};
 
 struct Coord3D;
 
-class Object;
+
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/WeaponEffects/AttributeModifierNuggetEffect.cpp
 

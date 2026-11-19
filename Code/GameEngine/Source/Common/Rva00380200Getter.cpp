@@ -191,7 +191,7 @@ bool Rva00380200::rva0038037C(int level)
 // The native BFDC30 table owns setRankLevel at slot1. Keep the established
 // neutral class name; WB supplies the method identity independently.
 
-class ExperienceScalarTable;
+
 #include "../../Include/GameLogic/ExperienceLevelStore.h"
 // TheExperienceLevelStore is only an alias of the owned global TheExperienceLevelSystem (ledger names column); this unit reads the owner through its own view type.
 extern class ExperienceLevelSystem *TheExperienceLevelSystem;

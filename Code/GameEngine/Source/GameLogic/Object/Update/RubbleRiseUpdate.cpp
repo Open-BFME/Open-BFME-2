@@ -109,7 +109,7 @@ extern GlobalData *TheWritableGlobalData;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class ModuleData;
-class DamageInfo;
+
 enum NameKeyType
 {
 	NK_UNKNOWN = 0

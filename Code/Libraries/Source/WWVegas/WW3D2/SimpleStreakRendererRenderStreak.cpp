@@ -1334,7 +1334,7 @@ struct Rva00082EB8Rec;
 #include "FXShaderSetup.h"
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char *, const char *,
 const _STL::vector<Rva0007BB16Record> *, int);
-class Rva007B7024Object;
+
 extern Rva007B7024Object *g_Va00DEE870;
 extern Rva007B7024Object *g_Va00DEE86C;
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/SimpleStreakRendererClass.h"

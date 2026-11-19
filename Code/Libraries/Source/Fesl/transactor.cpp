@@ -369,7 +369,7 @@ public:
 	virtual Rva007F96C0Obj *v4(void *a, Rva007E8810Message *msg);
 };
 
-struct Rva007FA170Slot;
+
 
 // ---- from Code/Libraries/Source/Fesl/transactor.cpp
 

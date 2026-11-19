@@ -47,7 +47,7 @@ struct BfmePod264;
 namespace _STL { template <> void _List_base<BfmePod264,allocator<BfmePod264> >::clear(); }
 // Suppress this TU's non-retail copy of ?insert@?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@QAE?AU?$_List_iterator:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod264;
+
 namespace _STL { template <> _List_iterator<BfmePod264,_Nonconst_traits<BfmePod264> > list<BfmePod264,allocator<BfmePod264> >::insert(_List_iterator<BfmePod264,_Nonconst_traits<BfmePod264> >,BfmePod264 const &); }
 // Keep bucket access inline so the key-only search reproduces retail's
 // complete 47-byte body without emitting a competing public accessor.

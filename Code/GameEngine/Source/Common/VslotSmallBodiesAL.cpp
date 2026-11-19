@@ -119,9 +119,9 @@ class Rva005E1B41Iface
 public:
 	virtual void rva005E1B41(Int unused) = 0;
 };
-class Image;
-struct Rva005D2355In;
-struct Rva005F002CIn;
+
+
+
 namespace StrategicInGameUI { const Image *GetButtonImage(Rva005D2355In *in); const Image *GetTypeImage(Rva005F002CIn *in); }
 class Rva005E197E
 {

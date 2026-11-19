@@ -16,11 +16,11 @@ struct BridgeBehaviorListValue12;
 namespace _STL { template <> void _List_base<BridgeBehaviorListValue12,allocator<BridgeBehaviorListValue12> >::clear(); }
 // Suppress this TU's non-retail copy of ??1?$_List_base@UBridgeBehaviorListValue12@@V?$allocator@UBridgeBehaviorListValue12@@@_STL:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BridgeBehaviorListValue12;
+
 namespace _STL { template <> _List_base<BridgeBehaviorListValue12,allocator<BridgeBehaviorListValue12> >::~_List_base(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_List_node@UBridgeBehaviorListValue12@@@_STL@@@_STL@@QBEXPAU?$_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BridgeBehaviorListValue12;
+
 namespace _STL { template <> void allocator<_List_node<BridgeBehaviorListValue12> >::deallocate(_List_node<BridgeBehaviorListValue12> *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.

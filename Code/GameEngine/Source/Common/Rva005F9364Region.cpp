@@ -12,7 +12,7 @@
 #include "unicode_string.h"
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 class Rva00222A8BTarget;
-class Rva00222A8BTarget;
+
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct TeamNameHolder

@@ -40,7 +40,7 @@ struct Rva0007BB16Record;
 namespace _STL { template <> Rva0007BB16Record *__uninitialized_fill_n<Rva0007BB16Record *, unsigned int, Rva0007BB16Record>(Rva0007BB16Record *, unsigned int, const Rva0007BB16Record &, const __false_type &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAURva0007BB16Record@@PAU1@@_STL@@YAPAURva0007BB16Record@@PAU1@00A:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva0007BB16Record;
+
 namespace _STL { template <> Rva0007BB16Record *__uninitialized_copy<Rva0007BB16Record *, Rva0007BB16Record *>(Rva0007BB16Record *, Rva0007BB16Record *, Rva0007BB16Record *, const __false_type &); }
 
 #include <mbstring.h>

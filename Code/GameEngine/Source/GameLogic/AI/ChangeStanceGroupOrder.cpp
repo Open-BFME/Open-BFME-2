@@ -50,7 +50,7 @@ extern GameLogic *TheGameLogic;
 
 class Rva0036E346;
 
-class Xfer;
+
 
 enum ObjectID;
 

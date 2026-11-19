@@ -70,9 +70,9 @@ class ModuleData;
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Thing;
 
-class ModuleData;
+
+
 
 class Xfer;
 

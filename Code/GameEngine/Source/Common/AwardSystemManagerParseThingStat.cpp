@@ -137,7 +137,7 @@ enum ScienceType
 
 struct Rva0040C0C7Element {char bytes[40];};
 
-struct Rva0040C0C7Element;
+
 
 struct Rva0040BEBA : public _STL::vector<Rva0040C0C7Element> {
  __forceinline Rva0040BEBA() : _STL::vector<Rva0040C0C7Element>() {}

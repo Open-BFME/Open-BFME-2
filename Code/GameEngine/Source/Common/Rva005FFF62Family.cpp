@@ -44,7 +44,7 @@ inline __declspec(noinline) int __cdecl Rva00577C23AptCall(Rva00222A8BTarget *ta
 }
 
 class Rva00222A8BTarget;
-class Rva00222A8BTarget; extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget* target, void* level, const char* prefix, const char* name, const int& a, const char* const& b);
 struct Rva005FFF62 {
   void* m_00;

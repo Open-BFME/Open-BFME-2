@@ -20,7 +20,7 @@ private:
 #include "../../Include/Common/GameAudio.h"
 
 class ClientFrameSubsystem;
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 #include "../../Include/GameClient/Rva00238E1B.h"
 

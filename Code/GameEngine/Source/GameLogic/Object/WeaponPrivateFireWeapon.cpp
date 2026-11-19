@@ -355,7 +355,7 @@ struct WeaponNuggetNode
     WeaponNugget *nugget;
 };
 
-class Weapon;
+
 struct Coord3D;
 
 #include "../../../Include/Common/ThingTemplate.h"

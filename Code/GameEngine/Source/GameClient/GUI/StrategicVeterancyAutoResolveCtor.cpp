@@ -22,7 +22,7 @@ struct Rva004F77E0Element;
 namespace _STL { template <> void __destroy<Rva004F77E0Element *,Rva004F77E0Element>(Rva004F77E0Element *,Rva004F77E0Element *,Rva004F77E0Element *); }
 // Suppress this TU's non-retail copy of ??$__destroy_aux@PAURva004F77E0Element@@@_STL@@YAXPAURva004F77E0Element@@0ABU__false_type@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva004F77E0Element;
+
 namespace _STL { template <> void __destroy_aux<Rva004F77E0Element *>(Rva004F77E0Element *,Rva004F77E0Element *,__false_type const &); }
 class AsciiString;
 class ThingTemplate;

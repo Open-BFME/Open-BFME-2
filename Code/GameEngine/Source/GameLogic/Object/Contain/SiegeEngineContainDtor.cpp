@@ -47,7 +47,7 @@ struct Iface24 { virtual void f24(); };
 #include "../../../../Include/Common/Iface2C.h"
 struct Iface30 { virtual void f30(); };
 struct Iface34 { virtual void f34(); unsigned char m_pad[0xFC - 0x38]; };
-class Object;
+
 class ThingTemplate;
 class PayloadContainView;
 // The +0xFC interface: retail's one-slot table 0x00C47834 holds the rowed

@@ -18,7 +18,7 @@
 #include "../../../../Include/GameLogic/LivingWorldBuildPlot.h"
 
 class Snapshot;
-class Snapshot;
+
 class AsciiString;
 class UnicodeString;
 class PooledString;

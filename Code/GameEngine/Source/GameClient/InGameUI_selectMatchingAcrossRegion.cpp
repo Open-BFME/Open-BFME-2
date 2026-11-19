@@ -53,7 +53,7 @@ template<> inline __declspec(noinline) _List_base<const Object*,allocator<const 
     _M_node.deallocate(_M_node._M_data, 1);
 }
 }
-class Object;
+
 class Drawable;
 #include "../Common/GameLogicObjectLookupView.h"
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less:
@@ -155,7 +155,7 @@ extern InGameUI *TheInGameUI;
 
 
 struct IRegion2D;
-struct Rva001408C0Target;
+
 typedef _STL::set<Rva001408C0Target*> TemplatePointerSet;
 namespace _STL {
 template<> TemplatePointerSet::set();

@@ -23,7 +23,7 @@ class PickAndPlayInfo;
 
 bool __cdecl pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type type, PickAndPlayInfo *info);
 
-class PickAndPlayInfo;
+
 
 class InGameUI
 {

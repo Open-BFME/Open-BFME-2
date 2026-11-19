@@ -18,7 +18,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline _Vector_base<Ob
 // tail jump to the EH-framed base dtor (0x001F22A3), not this unit's inline form.
 namespace _STL { template <> __declspec(dllimport) __forceinline vector<Object *, allocator<Object *> >::~vector() { _Destroy(this->_M_start, this->_M_finish); } }
 
-class Object;
+
 typedef void *(__cdecl *Rva00282B26Callback)(void *key);
 // The 40-byte group built by the rowed constructor 0x00281A76; the member
 // call 0x002829BD is the rowed sphere merge (Rva002829BDSphereMerge.cpp).

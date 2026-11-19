@@ -79,7 +79,7 @@ struct BfmeKindOfBits
 // isKindOf through the kindof bits as this unit numbers them from +0x100.
 static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t) { return ((const BfmeKindOfBits *)((const char *)tmpl + 0x100))->test(t); }
 
-class Object;
+
 
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 

@@ -43,7 +43,7 @@ public:
 
 
 
-class Object;
+
 class DamageInfo;
 struct Coord3D;
 enum ObjectID;

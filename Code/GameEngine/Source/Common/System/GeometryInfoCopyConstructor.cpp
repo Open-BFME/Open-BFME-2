@@ -19,7 +19,7 @@ struct GeometryShape;
 namespace _STL { template <> vector<GeometryShape, allocator<GeometryShape> >::~vector(); }
 // Suppress this TU's non-retail copy of ??0?$_Vector_base@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAE@IABV?$all:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> _Vector_base<GeometryShape,allocator<GeometryShape> >::_Vector_base(unsigned int,allocator<GeometryShape> const &); }
 // Suppress this TU's non-retail copy of ??$_Construct@UGeometryRecord@@U1@@_STL@@YAXPAUGeometryRecord@@ABU1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -36,15 +36,15 @@ namespace _STL { template <> vector<GeometryShape>::vector(const vector<Geometry
 namespace _STL { template <> _Vector_base<GeometryRecord,allocator<GeometryRecord> >::~_Vector_base(); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAUGeometryShape@@U1@V?$allocator@UGeometryShape@@@_STL@@@_S:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> GeometryShape * _STLP_alloc_proxy<GeometryShape *,GeometryShape,allocator<GeometryShape> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ??1?$_Vector_base@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> _Vector_base<GeometryShape,allocator<GeometryShape> >::~_Vector_base(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UGeometryShape@@@_STL@@QBEXPAUGeometryShape@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> void allocator<GeometryShape>::deallocate(GeometryShape *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.

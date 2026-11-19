@@ -131,7 +131,7 @@ void StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576AF3()
     }
 }
 
-class Rva00576BDDDispute;
+
 class Rva002B8817 { public: void rva002B8817(void *, void *); };
 #include "../../../../Include/Common/Rva005768CBCall.h"
 

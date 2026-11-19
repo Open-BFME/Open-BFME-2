@@ -62,7 +62,7 @@ public:
  ParticleSystem *system;void *prev,*next;
 };
 struct ManagerNode191 {ManagerNode191 *next,*previous;BfmeParticleSystemHandle handle;};
-class ParticleSystemTemplate;
+
 #include "../../../Include/Common/XferException.h"
 class Rva001F9105Snapshot {
 public:void rva001F9105(Xfer*);

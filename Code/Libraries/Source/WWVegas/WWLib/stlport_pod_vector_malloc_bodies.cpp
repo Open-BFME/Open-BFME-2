@@ -50,11 +50,11 @@ struct BfmePod68;
 namespace _STL { template <> BfmePod68 * allocator<BfmePod68>::allocate(unsigned int,void const *) const; }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@IAEXPAUBfm:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod68;
+
 namespace _STL { template <> void vector<BfmePod68,allocator<BfmePod68> >::_M_insert_overflow(BfmePod68 *,BfmePod68 const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@UBfmePod16@@@_STL@@QBEPAUBfmePod16@@IPBX@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod16;
+
 namespace _STL { template <> BfmePod16 * allocator<BfmePod16>::allocate(unsigned int,void const *) const; }
 // Suppress this TU's non-retail copy of ?resize@?$vector@UBfmePod44@@V?$allocator@UBfmePod44@@@_STL@@@_STL@@QAEXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -62,7 +62,7 @@ struct BfmePod44;
 namespace _STL { template <> void vector<BfmePod44, allocator<BfmePod44> >::resize(size_t); }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@UBfmePod8@@@_STL@@QBEPAUBfmePod8@@IPBX@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod8;
+
 namespace _STL { template <> BfmePod8 *allocator<BfmePod8>::allocate(size_t, const void *) const; }
 
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU

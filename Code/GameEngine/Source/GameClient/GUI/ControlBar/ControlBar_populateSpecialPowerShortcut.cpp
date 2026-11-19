@@ -88,7 +88,7 @@ class Rva0029FCB4 { public: _STL::vector<ScienceType> rva0029FCB4(); };
 typedef _STL::vector<ScienceType> ScienceVec;
 
 class AsciiString;
-class Image;
+
 class SpecialPowerTemplate;
 #include "../../../../Include/GameClient/CommandButton.h"
 

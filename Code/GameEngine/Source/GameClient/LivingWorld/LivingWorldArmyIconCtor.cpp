@@ -57,7 +57,7 @@ public:
 	LivingWorldArmyIconSubObject(void *element, void *owner, Int color);
 	char m_data[0xC8];
 };
-class ModuleData;
+
 class Rva002E2903Player;
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;

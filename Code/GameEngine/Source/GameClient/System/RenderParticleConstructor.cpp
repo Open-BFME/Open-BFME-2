@@ -60,7 +60,7 @@ public:
 	virtual int s31();
 };
 extern ClientFrameSubsystem *TheGameClient;
-class ParticleSystem;
+
 class Rva001F4C67;
 class HelperA4
 {
@@ -135,7 +135,7 @@ class RenderObjClass;
 class HTreeClass;
 RenderObjClass*Create_Render_Obj(const char*);
 #include "../../../../Libraries/Source/WWVegas/WW3D2/AnimationAssetBFME2.h"
-struct Rva001408C0Target;
+
 void rva0010E4F6(void*,bool);
 class ParticleModelModule621 {public:virtual void v00();virtual void v04();virtual void v08();virtual void v0C();virtual void v10();virtual AsciiString modelName();virtual void v18();virtual int modelValue();};
 struct ParticleSystemModel621 {char unknown00[0xC];int kind;char unknown10[0x1B4];ParticleModelModule621*module;};

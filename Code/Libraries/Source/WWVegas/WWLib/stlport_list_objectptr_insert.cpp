@@ -27,5 +27,5 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class Object;
+
 template class _STL::list<Object *, _STL::allocator<Object *> >;

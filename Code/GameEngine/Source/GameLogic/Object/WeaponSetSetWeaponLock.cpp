@@ -171,7 +171,7 @@ private:
 	unsigned int m_words[19];
 };
 #include "../../../Include/GameLogic/Module/Rva001E42F2.h"
-class Weapon;
+
 #include "../../../Include/Common/Rva002CA9CA.h"
 enum WeaponChoiceCriteria
 {
@@ -278,7 +278,7 @@ bool WeaponSet::setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType
 // Only the existing reference ABI is used; the flag layout is opaque here.
 template<int N> class BitFlags;
 template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
-class WeaponTemplateSet;
+
 #include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/Rva0028B7AELeaGetter.h"
 class Rva002C9424 { public: Rva002C9424 *rva002C9424(); };
