@@ -30,7 +30,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, L>& a,
                               const _Rb_tree_iterator<T, R>& b)
 { return a._M_node != b._M_node; }
 }
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/Player.h"

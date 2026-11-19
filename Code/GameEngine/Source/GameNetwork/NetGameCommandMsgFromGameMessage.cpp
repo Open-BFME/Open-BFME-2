@@ -13,10 +13,10 @@ enum NetCommandType
 	NETCOMMANDTYPE_GAMECOMMAND = 4
 };
 
-enum GameMessageArgumentDataType
-{
-	ARGUMENTDATATYPE_UNKNOWN = 12
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GameMessageArgumentDataType.h"
+
+
+
 
 union GameMessageArgumentType
 {

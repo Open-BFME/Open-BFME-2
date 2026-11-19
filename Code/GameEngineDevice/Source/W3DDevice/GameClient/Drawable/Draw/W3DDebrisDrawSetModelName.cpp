@@ -27,10 +27,10 @@
 
 typedef Int Color;
 
-enum ShadowType
-{
-	SHADOW_NONE = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ShadowType.h"
+
+
+
 
 
 

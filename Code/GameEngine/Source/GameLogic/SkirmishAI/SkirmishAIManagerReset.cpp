@@ -68,7 +68,7 @@ public:Rva002A8F24();virtual ~Rva002A8F24();virtual void init(){}virtual void re
 
 class Rva004E9657 {public:~Rva004E9657();};
 class Rva004E013B {public:~Rva004E013B() throw();};
-enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 // Consume the already owned40B pointer erase without emitting a different
 // algorithm-header COMDAT copy; native caller206 remains exact.
 namespace _STL {template<> vector<void*>::iterator vector<void*>::erase(iterator);

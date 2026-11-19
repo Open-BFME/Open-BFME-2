@@ -71,7 +71,7 @@ private:
 // map<ObjectID, int>: the tree family dtor 0x00286852 -> clear 0x00286656 ->
 // erase 0x00286183 (one instantiation: the self-recursive erase is not ICF-folded;
 // AITargetHeuristicEnemyStructure::findBestTarget 0x005735C6 keys it by object ID).
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 typedef _STL::map<ObjectID, int> ObjectIDIntMap;
 namespace _STL { template <> _Rb_tree<ObjectID, pair<ObjectID const, int>, _Select1st<pair<ObjectID const, int> >, less<ObjectID>, allocator<pair<ObjectID const, int> > >::~_Rb_tree(); }
 class SiegeEngineContain : public TransportContain

@@ -41,7 +41,7 @@ class Object;
 
 #include "../../../../../../GameEngine/Include/GameLogic/Weapon.h"
 
-enum WeaponSlotType {};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 
 class ContainView
 {

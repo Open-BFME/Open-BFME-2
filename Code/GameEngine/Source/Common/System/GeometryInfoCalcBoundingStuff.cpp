@@ -36,12 +36,12 @@ static inline void zeroGeometryCoord(Coord3D &value)
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "Common/Snapshot.h"
 
-enum GeometryType
-{
-	GEOMETRY_SPHERE = 0,
-	GEOMETRY_CYLINDER,
-	GEOMETRY_BOX
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/GeometryType.h"
+
+
+
+
+
 
 inline Real sqr(Real x)
 {

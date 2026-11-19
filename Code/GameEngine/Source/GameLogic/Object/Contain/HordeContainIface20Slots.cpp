@@ -72,7 +72,7 @@ public:
 private:
  unsigned int m_words[20];
 };
-enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 class Object : public Thing
 {
 public:

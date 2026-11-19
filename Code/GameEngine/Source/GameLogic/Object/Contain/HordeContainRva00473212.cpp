@@ -42,11 +42,11 @@ enum ObjectStatusTypes
  STATUS_NONE = 0 
 }
 ;
-enum CommandSourceType 
-{
- CMD_FROM_PLAYER=0, CMD_FROM_AI=2 
-}
-;
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
 #include "../../../../Include/Common/BfmeFixedStorage128.h"
 namespace _STL 
 {
@@ -55,47 +55,47 @@ namespace _STL
  {
   void _M_do_or(const _Base_bitset<32>&);
   unsigned long words[32];
-  
+
  }
  ;
- 
+
 }
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 #include "../../../Common/Thing/thing.h"
 template<int N> class Slots : public Slots<N-1> 
 {
  public: virtual void gap(char (*)[N]) = 0;
- 
+
 }
 ;
 template<> class Slots<1> 
 {
  public: virtual void gap(char (*)[1]) = 0;
- 
+
 }
 ;
 class ModuleSlot15 : public Slots<15> 
 {
  public: virtual void clear();
- 
+
 }
 ;
 class ContainsView : public Slots<31> 
 {
  public: virtual class ContainResult *result();
- 
+
 }
 ;
 class ContainResult : public Slots<134> 
 {
  public: virtual HordeContain *horde();
- 
+
 }
 ;
 class AICommandInterface 
 {
  public: void rva0045003E(int,CommandSourceType);
- 
+
 }
 ;
 class AIView 
@@ -103,7 +103,7 @@ class AIView
  public:
  char pad[0x20];
  AICommandInterface commands;
- 
+
 }
 ;
 class ThingTemplate 
@@ -113,7 +113,7 @@ class ThingTemplate
  AsciiString name;
  char pad68[0x115-0x68];
  unsigned char kind115;
- 
+
 }
 ;
 class Object 
@@ -143,29 +143,29 @@ class Object
  const Matrix3D *transform() const 
  {
   return (const Matrix3D *)((const char *)this+8);
-  
+
  }
  ContainsView *getContain() const 
  {
   return contain;
-  
+
  }
  Team *getTeam() const 
  {
   return team;
-  
+
  }
  Object *getParent() const 
  {
   return parent;
-  
+
  }
  bool isHorde() const 
  {
   return (type->kind115 & 0x20)!=0;
-  
+
  }
- 
+
 }
 ;
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -175,28 +175,28 @@ struct HordeScoringView
 {
  char pad[0x98];
  bool scoringEnabled;
- 
+
 }
 ;
 extern GameLogic *TheGameLogic;
 struct CreateMask 
 {
  unsigned long words[4];
- 
+
 }
 ;
 enum ObjectID; class ThingFactory
 {
  public: const ThingTemplate *findTemplate(const AsciiString &);
  Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);
- 
+
 }
 ;
 extern ThingFactory *TheThingFactory;
 class Rva002D06CA 
 {
  public: void *rva002D06CA(const AsciiString *);
- 
+
 }
 ;
 #include "../../../../Include/GameLogic/AIPathfind.h"
@@ -204,14 +204,14 @@ class AI
 {
  public: char pad[0x10];
  Pathfinder *pathfinder;
- 
+
 }
 ;
 extern AI *TheAI;
 struct Rva0046D158Record 
 {
  AsciiString from, replacement;
- 
+
 }
 ;
 struct ModuleData 
@@ -222,7 +222,7 @@ struct ModuleData
  bool matchNamed;
  char pad239[3];
  AsciiString name;
- 
+
 }
 ;
 #include "../../../../Include/Common/FreelistProxyHead.h"
@@ -262,7 +262,7 @@ typedef _STL::list<Object*>::iterator ObjectIterator;
 namespace _STL 
 {
  template<> __declspec(dllimport) __forceinline ObjectIterator list<Object*>::erase(ObjectIterator position)
- 
+
  {
   _List_node_base *next=position._M_node->_M_next;
   _List_node_base *prev=position._M_node->_M_prev;
@@ -273,9 +273,9 @@ namespace _STL
   *(void**)node=(*(void **)((char *)&::g_freelistPool00DB8FEC + 8));
   (*(void **)((char *)&::g_freelistPool00DB8FEC + 8))=node;
   return ObjectIterator((_Node*)next);
-  
+
  }
- 
+
 }
 class ObjectList 
 {
@@ -284,46 +284,46 @@ class ObjectList
  {
   char alloc;
   reinterpret_cast<Rva001EB984Member*>(this)->init(&alloc);
-  
+
  }
  ~ObjectList() throw()
  {
   reinterpret_cast<Rva001EB769*>(this)->rva001EB769();
-  
+
  }
  _STL::_List_node_base *head;
  ObjectIterator begin() 
  {
   return ObjectIterator((_STL::_List_node<Object*>*)head->_M_next);
-  
+
  }
  ObjectIterator end() 
  {
   return ObjectIterator((_STL::_List_node<Object*>*)head);
-  
+
  }
  Object *front() 
  {
   return (Object*)(( _STL::_List_node<Object*>*)head->_M_next)->_M_data;
-  
+
  }
  Object *back() 
  {
   return (Object*)(( _STL::_List_node<Object*>*)head->_M_prev)->_M_data;
-  
+
  }
  bool empty() 
  {
   return head->_M_next==head;
-  
+
  }
  void append(Object *&object) 
  {
   _STL::list<Object*> *view = reinterpret_cast<_STL::list<Object*>*>(this);
   view->insert(view->end(),object);
-  
+
  }
- 
+
 }
 ;
 class HordePrimary : public Slots<33> 
@@ -336,9 +336,9 @@ class HordePrimary : public Slots<33>
  ModuleData *data() const 
  {
   return *(ModuleData **)((char*)this+4);
-  
+
  }
- 
+
 }
 ;
 struct HordeMemberSlot 
@@ -347,14 +347,14 @@ struct HordeMemberSlot
  const int &value() const 
  {
   return id;
-  
+
  }
  int *storage() 
  {
   return &id;
-  
+
  }
- 
+
 }
 ;
 class HordeInterface : public Slots<17> 
@@ -475,13 +475,13 @@ class HordeInterface : public Slots<17>
  int ordinaryIndex,carrierID;
  char pad154[0x198-0x154];
  bool suppress;
- 
+
 }
 ;
 class UpgradeView : public Slots<93> 
 {
  public: virtual void upgradesChanged(BfmeFixedStorage128 *,bool);
- 
+
 }
 ;
 class HordeContain : public HordePrimary, public HordeInterface 
@@ -491,14 +491,14 @@ class HordeContain : public HordePrimary, public HordeInterface
  HordeMemberSlot *getOrdinarySlot() 
  {
   return &ordinary;
-  
+
  }
  int getBannerCarrierIndexToUse(const Object *,const ThingTemplate **);
  void rva00473125(Object *,int *,int);
  void rva00473197(Object *,const Object *,bool,bool);
  Rva0046D158Record *rva0046D158(AsciiString);
  virtual Object *rva00473212(Object *,const Object *,bool);
- 
+
 }
 ;
 Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
@@ -517,7 +517,7 @@ Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
   {
    rva00473125(object,memberSlot->storage(),ordinaryIndex);
    return 0;
-   
+
   }
   if (accepts(object,carrierID,&fields->bannerNames,flag)) 
   {
@@ -525,17 +525,17 @@ Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
    {
     rva00473197(object,source,flag,!suppress);
     return 0;
-    
+
    }
-   
+
   }
   if (!fields->matchNamed) return 0;
-  
+
  }
  if (!object->rva0028C197()) 
  {
   if (!fields->matchNamed || fields->name.compare(object->type->name)!=0) return 0;
-  
+
  }
  ThingTemplate *objectType = object->type;
  Rva0046D158Record *record = rva0046D158(objectType->name);
@@ -560,11 +560,11 @@ Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
   if (found._M_node != members.head) 
   {
    reinterpret_cast<_STL::list<Object*>*>(&members)->erase(found);
-   
+
   }
 
   if (!members.empty()) firstMember=members.front();
-  
+
  }
  Object *secondCarrier=0;
  Object *secondMember=0;
@@ -580,25 +580,25 @@ Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
    if (found._M_node != members.head) 
    {
     reinterpret_cast<_STL::list<Object*>*>(&members)->erase(found);
-    
+
    }
    if (!members.empty()) secondMember=members.back();
-   
+
   }
-  
+
  }
  else 
  {
   if (object->ai) object->ai->commands.rva0045003E(0,CMD_FROM_AI);
   members.append(object);
-  
+
  }
- 
+
  {
   CreateMask mask;
   memset(&mask,0,sizeof(mask));
   created=TheThingFactory->newObject(type,owner->getTeam(),&mask,(ObjectID)0);
-  
+
  }
  reinterpret_cast<Thing*>(created)->setTransformMatrix(object->transform());
  TheAI->pathfinder->AddObjectToPathfindMap(created);
@@ -611,7 +611,7 @@ Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
  {
   TheGameLogic->destroyObject(created);
   return 0;
-  
+
  }
  else 
  {
@@ -625,28 +625,28 @@ Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
     member=firstMember;
     carrier=firstCarrier;
     TheGameLogic->destroyObject(secondCarrier);
-    
+
    }
    else 
    {
     carrier=secondCarrier;
     member=secondMember;
     TheGameLogic->destroyObject(firstCarrier);
-    
+
    }
-   
+
   }
   else if (firstCarrier) 
   {
    carrier=firstCarrier;
    member=firstMember;
-   
+
   }
   else if (secondCarrier) 
   {
    carrier=secondCarrier;
    member=secondMember;
-   
+
   }
   bool savedLatch=TheGameLogic->isScoringEnabled();
   ((HordeScoringView *)TheGameLogic)->scoringEnabled=false;
@@ -657,19 +657,19 @@ Object *HordeContain::rva00473212(Object *object,const Object *source,bool flag)
    {
     LatchRestore<bool> suppress(combined->suppress,true);
     combined->rva00473212(carrier,member,true);
-    
+
    }
    else TheGameLogic->destroyObject(carrier);
-   
+
   }
   combined->replaceMembers(members);
   ((HordeScoringView *)TheGameLogic)->scoringEnabled=savedLatch;
   if (object->isHorde()) TheGameLogic->destroyObject(object);
   TheGameLogic->destroyObject(owner);
   reinterpret_cast<UpgradeView*>((char*)combined+0x20)->upgradesChanged(&created->upgrades,false);
-  
+
  }
- 
+
  return created;
- 
+
 }

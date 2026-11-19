@@ -101,11 +101,11 @@ void Rva004FBC02::rva004FBD3A()
 // and 0x004FC0E2 (in 0x004FC0AD) pass 0/1; the latter pushes a sete result
 // without widening it, so the argument is a bool; callees rowed.
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 class Rva002120A4
 {

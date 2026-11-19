@@ -7,7 +7,7 @@
 // Additional slot7 clear is target-only; original slot7 identity is unknown.
 #include "ascii_string.h"
 #include "Common/INIException.h"
-enum ModuleType { MODULETYPE_BEHAVIOR=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ModuleType.h"
 #include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/ModuleData.h"
 class ThingTemplate;

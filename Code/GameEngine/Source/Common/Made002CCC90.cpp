@@ -24,7 +24,7 @@ private:
 	unsigned char m_438;		// +0x438, bit 0 skips the event
 };
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 

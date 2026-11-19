@@ -35,7 +35,7 @@ template<> _List_base<const Object*,allocator<const Object*> >::~_List_base();
 }
 class Object;
 class Drawable;
-enum ObjectID { INVALID_ID=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 enum ObjectStatusTypes { STATUS_ZERO=0 };
 #include "../../Include/Common/ThingTemplate.h"
 class SelectionContain

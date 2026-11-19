@@ -48,10 +48,10 @@ void Rva004C6FD0Insert(void *pos, Rva004C6FD0Val value, Rva004C6F77Pred pred)
 	((Rva004C6FD0Val *)edi)->m4 = value.m4;
 }
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 namespace _STL
 {

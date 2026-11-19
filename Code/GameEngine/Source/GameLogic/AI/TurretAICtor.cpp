@@ -68,22 +68,22 @@ enum WeaponChoiceCriteria
 	WEAPON_CHOICE_CRITERIA_5 = 5
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER,
-	CMD_FROM_SCRIPT,
-	CMD_FROM_AI
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 // Object as the TU's bodies read it: id +0x74, AI +0x258, team +0x304 and
 // the effectively-dead bit at +0x438.
 #include "../Object/object.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 // TurretAIData, 0x70 bytes as TurretAIData::TurretAIData (0x004D7E6C) fills it.
 class INI;

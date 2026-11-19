@@ -89,15 +89,15 @@ struct Coord3DCopy : Coord3D
 namespace _STL { template <> unsigned int const & max<unsigned int>(unsigned int const &, unsigned int const &); }
 // bfme link decl-only end
 
-enum CommandSourceType
-{
-    CMD_FROM_PLAYER = 0
-};
-enum PathfindLayerEnum
-{
-    LAYER_INVALID = 0,
-    LAYER_GROUND = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 float ACos(float);
 class Object;
 class LocomotorSet;

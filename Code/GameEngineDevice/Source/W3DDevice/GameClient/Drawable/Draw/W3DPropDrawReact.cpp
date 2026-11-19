@@ -38,10 +38,10 @@
 
 #include "ascii_string.h"
 
-enum DrawableID
-{
-	INVALID_DRAWABLE_ID = 0
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
+
+
+
 
 
 // Drawable::getScale (+0x200) and Drawable::getID are the folded field getters rowed at

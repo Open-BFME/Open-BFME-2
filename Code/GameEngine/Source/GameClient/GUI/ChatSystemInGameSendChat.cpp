@@ -47,11 +47,11 @@ namespace _STL { template <> __declspec(dllimport) __forceinline const unsigned 
 template <class T> class Rva002444BEAllocator : public _STL::allocator<T> {};
 typedef _STL::vector<int, Rva002444BEAllocator<int> > SelectionIDs;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 #include "../../../Include/Common/BfmeMemberRV.h"
 

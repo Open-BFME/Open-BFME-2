@@ -55,10 +55,10 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

@@ -47,7 +47,7 @@
 typedef int Color;
 
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum CellShroudStatus { CELLSHROUD_CLEAR = 0 };
 
 inline Color GameMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte blue, UnsignedByte alpha)

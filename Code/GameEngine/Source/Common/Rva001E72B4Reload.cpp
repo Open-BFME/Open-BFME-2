@@ -133,7 +133,7 @@ class INI;
 #include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 void parseCanMoveBackwards(INI *,void *,void *,const void *);
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../Include/Common/Overridable.h"

@@ -21,17 +21,17 @@
 #include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 
-enum ObjectID
-{
-	INVALID_ID = 0,
-	FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
-enum DrawableID
-{
-	INVALID_DRAWABLE_ID = 0,
-	FORCE_DRAWABLEID_TO_LONG_SIZE = 0x7ffffff
-};
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
+
+
+
+
 
 // Zero Hour's Coord3D::set, absent from the canonical header.
 struct Coord3DSet : public Coord3D

@@ -8,7 +8,7 @@
 // address-owned Radar owner and one-word partition-result call views preserve
 // their proven pointer ABIs; original descriptor types remain unresolved.
 #include "../PartitionRangeQueryCallView.h"
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum KindOfType { KIND_ZERO=0 };
 enum Relationship { ALLIES=2 };
 #include "../../../../Libraries/Include/Lib/RGBColor.h"

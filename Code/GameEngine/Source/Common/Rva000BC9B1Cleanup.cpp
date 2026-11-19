@@ -16,9 +16,9 @@ struct BfmeStringRecord000B757D {
     BfmeStringRecord000B757D(const BfmeStringRecord000B757D &o);
 };
 
-enum ParticleSystemID {
-    INVALID_PARTICLE_SYSTEM_ID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
+
+
 
 #include "../../Include/GameClient/ParticleSystemClass.h"
 

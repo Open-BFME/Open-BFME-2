@@ -27,10 +27,10 @@ template<> const char *StringBase<char>::reverseFind(char c) const throw();
 #include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class StaticNameKey
 {

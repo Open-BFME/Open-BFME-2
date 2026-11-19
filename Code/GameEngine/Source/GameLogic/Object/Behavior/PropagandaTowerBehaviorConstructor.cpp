@@ -8,10 +8,10 @@ class Thing;
 class ModuleData;
 class Object;
 
-enum UpdateSleepTime
-{
-    UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 #include "../../../../Include/Common/PB_Iface1.h"
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h

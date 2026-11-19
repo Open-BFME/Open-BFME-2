@@ -22,7 +22,7 @@ extern GameLogic *TheGameLogic;
 // ??_7BridgeBehavior@@6BUpdateModule@@@ as in the kept BridgeBehavior.cpp:
 // retail's 0x00C40914 holds exactly update, getDisabledTypesToProcess and
 // rva0044DF8D (rows 0x00456E8D, 0x00253376, 0x0044DF8D).
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 template <int NUMBITS> class BitFlags;
 typedef BitFlags<11> DisabledMaskType;
 

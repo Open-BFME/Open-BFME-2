@@ -30,10 +30,10 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_57 = 0x57
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 template <int N> class Rva00453652Slots : public Rva00453652Slots<N - 1>
 {
