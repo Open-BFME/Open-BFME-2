@@ -6,10 +6,10 @@
 // Evidence: packet disasm; same Dict offset and key as Rva0030D773Method.
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Rva00148F5ECache
 {

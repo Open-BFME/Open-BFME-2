@@ -23,7 +23,7 @@ class TurretAIData;
 class AttackPriorityInfo;
 struct Rva00336283Element;
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 enum WhichTurretType { TURRET_MAIN = 0 };
 
 class UpdateModuleRoot

@@ -24,17 +24,17 @@
 // and TheTerrainLogic waypoint ID lookup on load.
 #include "../../../Include/Common/ScalarTypes.h"
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0,
-	EXIT_RESET = 1
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateExitType.h"
+
+
+
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/StateReturnType.h"
+
+
+
+
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../Include/GameLogic/PathNode.h"

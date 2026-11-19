@@ -72,7 +72,7 @@ private:
 
 #include "../../../Include/Common/Rva003079ED.h"
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Dict;
 #include "../../../Include/Common/DataChunk.h"
 

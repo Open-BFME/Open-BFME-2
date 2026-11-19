@@ -55,10 +55,10 @@ extern const int g_emptyFieldParseTable[4];
 #include "../../../../Include/Common/INI/FieldParse.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"

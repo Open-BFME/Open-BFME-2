@@ -153,10 +153,10 @@ void Rva0033DC9CParse(INI *, void *, void *, const void *);
 // members now use their existing verified definitions at these call sites.
 typedef bool Bool;
 class ModuleData;
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 // The Player+0x60 holder is Command (WorldBuilder Command.cpp).
 class Command
 {

@@ -19,7 +19,7 @@
 
 #include "../../Include/Common/ScalarTypes.h"
 
-enum PathfindLayerEnum { LAYER_GROUND = 1 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
 #include "../../Include/Common/Geometry.h"
 

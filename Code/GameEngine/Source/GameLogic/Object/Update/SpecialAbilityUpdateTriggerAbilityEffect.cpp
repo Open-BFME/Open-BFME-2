@@ -20,16 +20,16 @@ class Player;
 class Team;
 class ThingTemplate;
 class Module;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 // These status labels describe use in this body, not recovered enum names.
 // Role labels below are not asserted original enumeration spellings.
 enum ObjectStatusTypes { STATUS_CAPTURE_REFUND = 2, STATUS_NO_REFUND = 21, STATUS_NO_SCORE = 86 };
 enum KindOfType { KINDOF_DISGUISER = 300 };
-enum WeaponSlotType { SECONDARY_WEAPON = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum WeaponLockType { LOCKED_TEMPORARILY = 1 };
-enum CommandSourceType { CMD_FROM_AI = 2 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 enum DamageType { DAMAGE_CAPTURE = 8 };
-enum DeathType { DEATH_NORMAL = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
 enum DisabledType { DISABLED_SPECIAL_ABILITY = 3 };
 enum EvaEventID { EVA_CAPTURED = 17 };
 struct GrabPosition : Coord3D {

@@ -54,7 +54,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 void GadgetButtonSetText(GameWindow *g, UnicodeString text);
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 
@@ -68,7 +68,7 @@ extern GameWindowManager *TheWindowManager;
 
 #include "../../Include/Common/PlayerList.h"
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 class Drawable;
 
@@ -237,7 +237,7 @@ void InGameUI::updateIdleWorker(void)
 // is declined and falls through to the button check, whose static key is
 // "IdleWorker.wnd:ButtonSelectNextIdleWorker"; selectNextIdleWorker is the
 // rowed slot 107 above.
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 #include "../../Include/Common/ScalarTypes.h"
 typedef UnsignedInt WindowMsgData;
 

@@ -13,7 +13,7 @@
 #include <stdlib.h>
 
 class DamageFX;
-enum NameKeyType {};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 struct BfmePod8;
 struct Rva0030A101Element;
 

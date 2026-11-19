@@ -205,10 +205,10 @@ template void _STL::_Construct<BfmeStringRecord0021A940,BfmeStringRecord0021A940
 // Target strings/xrefs at 0x007E5E28 and 0x007E5E60 name AwardSystemManager
 // validation; data xrefs identify its manager at 0x00A02F74. The exact method
 // names are not established, so retain address-derived callback names.
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class INI;
 

@@ -54,7 +54,7 @@ struct NotifyRegion3D{NotifyCoord lo,hi;};
 #include "../../../../Include/Common/BfmeWideForwardB.h"
 extern PartitionManager *ThePartitionManager;
 int GetGameLogicRandomValue(int,int,char*,int);
-enum UpdateSleepTime{UPDATE_SLEEP_NONE=1};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class Rva004CE700Notifier{public:bool rva004CE700(Object*,const int*,UpdateSleepTime*);};
 template<class T>inline const T& nmin(const T&lhs,const T&rhs){return lhs<rhs?lhs:rhs;}
 template<class T>inline const T& nmax(const T&lhs,const T&rhs){return lhs>rhs?lhs:rhs;}

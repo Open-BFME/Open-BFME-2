@@ -5,7 +5,7 @@
 #include <vector>
 #define _STLP_NO_EXCEPTIONS 1
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 namespace _STL
 {

@@ -29,7 +29,7 @@ class Rva00263895Member
  float unknown48;
  float unknown4C;
  char unknown50[0x2C];
- 
+
 }
 ;
 
@@ -165,7 +165,7 @@ class AIUpdateInterface
  virtual Object* targetObject();
  char pad04[0x2C];
  StateMachine *machine;
- 
+
 }
 ;
 
@@ -211,7 +211,7 @@ class BodyModuleInterface
  virtual void unknown24();
  virtual void unknown25();
  virtual bool permitsCrushing(Object*);
- 
+
 }
 ;
 
@@ -220,7 +220,7 @@ class ActiveAbilityView
  public:virtual void unknown0();
  virtual void unknown4();
  virtual bool isActive();
- 
+
 }
 ;
 
@@ -228,7 +228,7 @@ class SpecialAbilityUpdate
 {
  public:char unknown00[0x20];
  ActiveAbilityView active;
- 
+
 }
 ;
 
@@ -236,7 +236,7 @@ class ExperienceView
 {
  public:char unknown00[0x5C];
  bool dead;
- 
+
 }
 ;
 
@@ -245,7 +245,7 @@ class ExperienceView
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
-enum SpecialPowerType {};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SpecialPowerType.h"
 
 class SpecialAbilityUpdate;
 
@@ -271,17 +271,17 @@ class Object: public Thing
  GeometryInfo const&getGeometryInfo()const
  {
   return geometry;
-  
+
  }
  int getID()const
  {
   return id;
-  
+
  }
  bool destroyed()const
  {
   return (flags438&1)!=0;
-  
+
  }
  char unknown60[0x14];
  int id;
@@ -298,7 +298,7 @@ class Object: public Thing
  unsigned char flags438;
  char unknown439[0x87];
  int targetID4C0;
- 
+
 }
 ;
 

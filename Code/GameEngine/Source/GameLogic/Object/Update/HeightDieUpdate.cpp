@@ -57,23 +57,23 @@ class Snapshot;
 
 class ModuleData;
 class Object;
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
-enum DistanceCalculationType
-{
-	FROM_BOUNDINGSPHERE_3D = 3
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DistanceCalculationType.h"
+
+
+
 enum DamageType
 {
 	DAMAGE_UNRESISTABLE = 8
 };
-enum DeathType
-{
-	DEATH_NORMAL = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+
+
+
 #include "../../../../Include/Common/Geometry.h"
 #include "../../../Common/Thing/thing.h"
 class Object : public Thing

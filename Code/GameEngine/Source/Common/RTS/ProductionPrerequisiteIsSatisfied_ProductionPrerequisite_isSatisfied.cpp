@@ -38,9 +38,9 @@ private:
 
 extern GameTextInterface *TheGameText;
 
-enum ScienceType
-{
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
+
+
 
 enum UpgradeType
 {

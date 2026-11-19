@@ -34,10 +34,10 @@
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-enum LocomotorSetType
-{
-	LOCOMOTORSET_PANIC = 4
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
+
+
+
 
 enum
 {

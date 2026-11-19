@@ -33,11 +33,11 @@ struct Rva0027D6DFRes
 };
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
+
 class Object;
 #include "../../Include/GameLogic/TerrainLogic.h"
 void alignToTerrain(float angle, const Coord3D &pos, const Coord3D &normal, Matrix3D &mtx);

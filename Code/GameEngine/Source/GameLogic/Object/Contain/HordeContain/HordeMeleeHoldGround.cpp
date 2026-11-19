@@ -74,10 +74,10 @@ enum ObjectStatusTypes
 	RVA_OBJECT_STATUS_1C = 0x1C
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 

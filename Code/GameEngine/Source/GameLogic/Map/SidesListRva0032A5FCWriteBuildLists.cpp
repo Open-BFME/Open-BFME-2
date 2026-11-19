@@ -26,11 +26,11 @@
 // 0x0032A4A0 (this+0x30) has no other name and is rowed from this unit.
 #include "ascii_string.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 class Rva00148F5ECache
 {

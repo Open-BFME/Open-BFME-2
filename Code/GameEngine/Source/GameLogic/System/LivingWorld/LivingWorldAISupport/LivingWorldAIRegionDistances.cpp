@@ -10,7 +10,7 @@
 // the pair with its hint inside insertBuilt lets MSVC schedule the pair writes
 // after the outgoing hint and reuse the dead second result for global insertion.
 #include "ascii_string.h"
-enum ObjectID {};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 struct LocalPlacement
 {

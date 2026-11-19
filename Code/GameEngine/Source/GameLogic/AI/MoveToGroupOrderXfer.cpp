@@ -125,10 +125,10 @@ extern Xfer &XferObjectID(Xfer *xfer, ObjectID *id);
 
 typedef _STL::pair<ObjectID, Coord3D> ObjectCoord3DPair;
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 class ThingTemplate;
 class AIUpdateInterface;
@@ -305,7 +305,7 @@ class MoveAIUpdateView {public:
 
  virtual bool slot137();
 };
-enum PathfindLayerEnum {LAYER_GROUND=1};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 class LocomotorSet;
 #include "../../../Include/GameLogic/AIPathfind.h"

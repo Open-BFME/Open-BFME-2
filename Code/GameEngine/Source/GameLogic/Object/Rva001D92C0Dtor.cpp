@@ -34,12 +34,12 @@ template<> inline _Vector_base<void *, allocator<void *> >::~_Vector_base() { if
 template<> vector<void *>::iterator vector<void *>::erase(iterator first, iterator last);
 }
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
+
 
 namespace rts
 {

@@ -76,7 +76,7 @@ class Rva0040CF55Owner {public:int sumUnflagged()const;};
 #include "../../../Include/Common/Rva0040E534Input.h"
 // The delayed-key append is the rowed four-byte vector push_back 0x002E01C6
 // (ICF-shared; bound through the vector<NameKeyType> row).
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 namespace _STL { template <> void vector<NameKeyType, allocator<NameKeyType> >::push_back(const NameKeyType &); }
 typedef _STL::vector<NameKeyType> Rva0040E6D6Sub;
 class Rva00318C32Ret {public:char bytes00[0x28];_STL::vector<AsciiString>delayed;};

@@ -32,10 +32,10 @@ public:
 };
 extern void __cdecl XferStancesEnum(Xfer *xfer, int *value);
 #include "../../Common/GameLogicObjectLookupView.h"
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 NameKeyType Rva0045EE2CGet();
 class Module;
 #include "../../../Include/GameLogic/StancesBehavior.h"
