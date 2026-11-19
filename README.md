@@ -90,16 +90,20 @@ one verified change, and I will be able to land it.
 
 ## Build
 
-The baseline executables are committed directly; the MSVC 7.1 toolchain and the
-Zero Hour reference source live in the Open-BFME-1 submodule, so clone with
-submodules:
+The baseline executables are committed directly. The MSVC 7.1 toolchain and the
+Zero Hour reference source live in the pinned Open-BFME-1 submodule.
 
 ```bash
-git clone --recurse-submodules https://github.com/Open-BFME/Open-BFME-2.git
+git clone --filter=blob:none https://github.com/Open-BFME/Open-BFME-2.git
 cd Open-BFME-2
-./tools/setup_hooks.sh   # enable the pre-commit byte-check (git won't do this from a clone)
+./tools/setup_hooks.sh   # initialize the pinned submodule and enable the Git hooks
 ./build.sh               # verify every tracked function against retail   (.\build.ps1 on Windows)
 ```
+
+`--filter=blob:none` keeps the full commit history required by the hooks and
+downloads historical file contents on demand. The setup script initializes the
+direct submodule. A recursive clone follows the references between Open-BFME-1
+and Open-BFME-2 and downloads nested copies.
 
 On macOS (Apple Silicon), Homebrew no longer installs Wine: its `wine-stable`, `wine@devel`
 and `wine@staging` casks have been disabled since 2026-09-01 (they fail Gatekeeper). What
