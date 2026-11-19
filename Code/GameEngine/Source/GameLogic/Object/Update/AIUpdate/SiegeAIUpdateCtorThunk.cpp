@@ -13,10 +13,14 @@ class ModuleData;
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
+struct AICommandParms;
+
+// The +0x20 command interface: retail's one-slot table 0x00C47B88 holds the rowed
+// ?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z (0x002673F6).
 class SiegeAIUpdateIface3
 {
 public:
-	virtual void siegeAIUpdateIface3Anchor();
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 };
 
 class SiegeAIUpdateIface4
@@ -38,6 +42,7 @@ public:
 	// update (0x0026E267) and getDisabledTypesToProcess (0x004A2D67), both rowed.
 	virtual UpdateSleepTime update();
 	virtual DisabledMaskType getDisabledTypesToProcess() const;
+	virtual void aiDoCommand(const AICommandParms *parms);
 protected:
 	virtual ~AIUpdateInterface();
 };

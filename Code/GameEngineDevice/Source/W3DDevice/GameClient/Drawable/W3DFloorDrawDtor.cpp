@@ -40,16 +40,22 @@ private:
 	char m_pad0C[0x10 - 0x0C];
 };
 
+class Rva000CF0D6;
+
+// The +0x10 interface: retail's table 0x00BCD4D8 has one slot, the rowed
+// ?updateRecordMatch@W3DFloorDraw@@UAEXPBVRva000CF0D6@@HH@Z (0x000CF370), as
+// W3DFloorDraw.h declares it.
 class W3DFloorDrawSecondBase
 {
 public:
-	virtual void secondBaseAnchor() {}
+	virtual void updateRecordMatch(const Rva000CF0D6 *what, int, int) = 0;
 };
 
 class W3DFloorDraw : public Rva000CEB6F, public W3DFloorDrawSecondBase
 {
 public:
 	virtual ~W3DFloorDraw();
+	virtual void updateRecordMatch(const Rva000CF0D6 *what, int, int);
 };
 
 W3DFloorDraw::~W3DFloorDraw()
