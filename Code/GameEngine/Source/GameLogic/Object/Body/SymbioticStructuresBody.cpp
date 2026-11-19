@@ -15,15 +15,6 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-#pragma comment(linker, "/alternatename:?bfmeAskCFC@BfmeOuterCFC@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskCCD@BfmeOuterCCD@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskBVF@BfmeOuterBVF@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskBVG@BfmeOuterBVG@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskCAE@BfmeOuterCAE@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskBUE@BfmeOuterBUE@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskDHA@BfmeOuterDHA@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskDHB@BfmeOuterDHB@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
-#pragma comment(linker, "/alternatename:?bfmeAskDHC@BfmeOuterDHC@@QAE_NXZ=?rva004C0D4F@Rva004C0D4F@@QAE_NXZ")
 #include <string.h>
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -148,11 +139,6 @@ struct BfmeSubBUE
 	BfmeInnerBUE m_bfmeInner;
 };
 
-class BfmeOuterBUE
-{
-public:
-	bool bfmeAskBUE();
-};
 
 class BfmeThingBUE
 {
@@ -203,11 +189,6 @@ struct BfmeSubDHA
 	BfmeInnerDHA m_bfmeInner;
 };
 
-class BfmeOuterDHA
-{
-public:
-	bool bfmeAskDHA();
-};
 
 class BfmeThingDHA
 {
@@ -244,11 +225,6 @@ struct BfmeSubDHB
 	BfmeInnerDHB m_bfmeInner;
 };
 
-class BfmeOuterDHB
-{
-public:
-	bool bfmeAskDHB();
-};
 
 class BfmeThingDHB
 {
@@ -283,11 +259,6 @@ struct BfmeSubCAE
 	BfmeInnerCAE m_bfmeInner;
 };
 
-class BfmeOuterCAE
-{
-public:
-	bool bfmeAskCAE();
-};
 
 class BfmeThingCAE
 {
@@ -373,11 +344,6 @@ struct BfmeSubBVF
 	BfmeInnerBVF m_bfmeInner;
 };
 
-class BfmeOuterBVF
-{
-public:
-	bool bfmeAskBVF();
-};
 
 class BfmeThingBVF
 {
@@ -416,11 +382,6 @@ struct BfmeSubBVG
 	BfmeInnerBVG m_bfmeInner;
 };
 
-class BfmeOuterBVG
-{
-public:
-	bool bfmeAskBVG();
-};
 
 class BfmeThingBVG
 {
@@ -517,11 +478,6 @@ struct BfmeSubDHC
 	BfmeInnerDHC m_bfmeInner;
 };
 
-class BfmeOuterDHC
-{
-public:
-	bool bfmeAskDHC();
-};
 
 class BfmeThingDHC
 {
@@ -690,11 +646,6 @@ struct BfmeSubCCD
 	BfmeInnerCCD m_bfmeInner;
 };
 
-class BfmeOuterCCD
-{
-public:
-	bool bfmeAskCCD();
-};
 
 class BfmeThingCCD
 {
@@ -751,11 +702,6 @@ struct BfmeSubCFC
 	BfmeInnerCFC m_bfmeInner;
 };
 
-class BfmeOuterCFC
-{
-public:
-	bool bfmeAskCFC();
-};
 
 class BfmeThingCFC
 {
@@ -822,7 +768,7 @@ bool Rva004C0D4F::rva004C0D4F()
 
 void BfmeThingBUE::bfmeGoBUE(void *what)
 {
-	if (((BfmeOuterBUE *)((char *)this - 0x10))->bfmeAskBUE())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		m_bfmeSub->m_bfmeInner.bfmeRunBUE(what);
 }
 
@@ -832,7 +778,7 @@ void BfmeThingBUE::bfmeGoBUE(void *what)
 
 int BfmeThingDHA::bfmeGoDHA()
 {
-	if (((BfmeOuterDHA *)((char *)this - 0x10))->bfmeAskDHA())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunDHA();
 	return 0;
 }
@@ -841,7 +787,7 @@ int BfmeThingDHA::bfmeGoDHA()
 
 int BfmeThingDHB::bfmeGoDHB()
 {
-	if (((BfmeOuterDHB *)((char *)this - 0x10))->bfmeAskDHB())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunDHB();
 	return 0;
 }
@@ -850,7 +796,7 @@ int BfmeThingDHB::bfmeGoDHB()
 
 int BfmeThingCAE::bfmeGoCAE()
 {
-	if (((BfmeOuterCAE *)((char *)this - 0x10))->bfmeAskCAE())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunCAE();
 	return 3;
 }
@@ -878,7 +824,7 @@ void *Rva004C0E8B::rva004C0E8B(void *dst)
 
 int BfmeThingBVF::bfmeGoBVF()
 {
-	if (((BfmeOuterBVF *)((char *)this - 0x10))->bfmeAskBVF())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunBVF();
 	return -1;
 }
@@ -887,7 +833,7 @@ int BfmeThingBVF::bfmeGoBVF()
 
 int BfmeThingBVG::bfmeGoBVG()
 {
-	if (((BfmeOuterBVG *)((char *)this - 0x10))->bfmeAskBVG())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunBVG();
 	return -1;
 }
@@ -917,7 +863,7 @@ void *Rva004C0FB5::rva004C0FB5(void *dst)
 
 int BfmeThingDHC::bfmeGoDHC()
 {
-	if (((BfmeOuterDHC *)((char *)this - 0x10))->bfmeAskDHC())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunDHC();
 	return 0;
 }
@@ -952,7 +898,7 @@ float Rva004C10F0::rva004C10F0()
 
 int BfmeThingCCD::bfmeGoCCD()
 {
-	if (((BfmeOuterCCD *)((char *)this - 0x10))->bfmeAskCCD())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunCCD();
 	return 0;
 }
@@ -961,7 +907,7 @@ int BfmeThingCCD::bfmeGoCCD()
 
 int BfmeThingCFC::bfmeGoCFC()
 {
-	if (((BfmeOuterCFC *)((char *)this - 0x10))->bfmeAskCFC())
+	if (((Rva004C0D4F *)((char *)this - 0x10))->rva004C0D4F())
 		return m_bfmeSub->m_bfmeInner.bfmeRunCFC();
 	return 0;
 }

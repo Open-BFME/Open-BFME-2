@@ -2313,15 +2313,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstruct
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp	?slot3@ActiveBody@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp	?slot4@ActiveBody@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBodyModuleSlots.cpp	?Rva004C20D5IsWithin@PorcupineFormationBodyModule@@QAE_NMPBUCoord3D@@0@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskBUE@BfmeOuterBUE@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskBVF@BfmeOuterBVF@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskBVG@BfmeOuterBVG@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskCAE@BfmeOuterCAE@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskCCD@BfmeOuterCCD@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskCFC@BfmeOuterCFC@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskDHA@BfmeOuterDHA@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskDHB@BfmeOuterDHB@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBody.cpp	?bfmeAskDHC@BfmeOuterDHC@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollideModuleDataDtor.cpp	??1CrateCollideModuleData@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainDtor.cpp	??1Rva00039D6AFlatBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/CaveContainDtor.cpp	?caveExtra@CaveExtra@@UAEXXZ	1
@@ -7132,7 +7123,6 @@ pin	reverse/symbols.csv	0x004BF4CE	1
 pin	reverse/symbols.csv	0x004BF951	3
 pin	reverse/symbols.csv	0x004C0781	1
 pin	reverse/symbols.csv	0x004C086E	1
-pin	reverse/symbols.csv	0x004C0D4F	9
 pin	reverse/symbols.csv	0x004C12D0	1
 pin	reverse/symbols.csv	0x004C12EB	1
 pin	reverse/symbols.csv	0x004C1EC7	1
