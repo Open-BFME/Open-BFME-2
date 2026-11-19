@@ -67,17 +67,17 @@ inline UnsignedInt &maskWord(unsigned char (&mask)[4])
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 
 struct AICommandParms;
 
@@ -244,7 +244,7 @@ GiantBirdAIUpdate::~GiantBirdAIUpdate()
 #include "../../object.h"
 class GameLogic;
 extern GameLogic *TheGameLogic;
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class AiOrdersManager;
 extern AiOrdersManager *TheAiOrdersManager;
 

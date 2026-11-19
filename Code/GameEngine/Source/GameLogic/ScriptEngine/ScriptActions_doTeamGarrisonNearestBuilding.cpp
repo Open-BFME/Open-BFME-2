@@ -48,10 +48,10 @@ public:
 	int m_source;
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_SCRIPT = 1
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 // The +0x250 contain module interface; only the slots this action calls.
 #include "../../../Include/GameLogic/Module/ContainModule.h"

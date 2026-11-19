@@ -94,7 +94,7 @@ virtual void s69()=0;
 virtual void getItems(ParalyzeListPair &)=0;
 };
 enum DisabledType{PARALYZE=1};
-enum CommandSourceType{CMD_FROM_PLAYER=0};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct ParalyzeTemplate {char pad[0x115];unsigned char flags115;};
 class Object {public:

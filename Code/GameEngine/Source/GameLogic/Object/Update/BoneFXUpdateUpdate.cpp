@@ -63,10 +63,10 @@ inline Bool getDamageTypeFlag(DamageTypeFlags flags, DamageType dt)
 	return (flags & (1 << (dt - 1))) != 0;
 }
 
-enum ParticleSystemID
-{
-	INVALID_PARTICLE_SYSTEM_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
+
+
+
 
 class FXList
 {
@@ -171,10 +171,10 @@ public:
 #include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 enum BodyDamageType
 {

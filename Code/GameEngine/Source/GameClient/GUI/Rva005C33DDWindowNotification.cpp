@@ -123,7 +123,7 @@ void Rva005C349D::rva005C349D()
 // places the 13-byte reset at7A08F0, replacing the old manual global clearer.
 #include "../../../Include/Common/Rva000B3FD0Empty.h"
 #include "../../Common/GameLogicObjectLookupView.h"
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Module;
 class ParasiticInGameCommandButton {public:class Impl;};
 class Object {friend class ParasiticInGameCommandButton::Impl;public:bool isLocallyControlled()const;protected:Module *findModule(NameKeyType)const;};

@@ -37,7 +37,7 @@ class AptMovieClipFrame;
 namespace StrategicHUD { class ArmyUnitIconMovieClip { public: ArmyUnitIconMovieClip(AptMovieClipFrame *); void SetUpgradeIconImage(int,const Image *); private: char opaque[0x50]; }; class ArmyMemberIconMovieClip { public: void rva005FC9E0(const Image *); }; }
 // Only the existing four-byte storage ABI is used; upgrade IDs do not
 // acquire ScienceType semantics by calling this rowed vector provider.
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 namespace _STL {
 template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
 }

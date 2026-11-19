@@ -12,10 +12,10 @@ class AsciiString;
 
 // --- 0x00148DB3 (16B): a name key's string through TheNameKeyGenerator's
 // rowed keyToName 0x00148C95.
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../Include/Common/NameKeyGenerator.h"
 

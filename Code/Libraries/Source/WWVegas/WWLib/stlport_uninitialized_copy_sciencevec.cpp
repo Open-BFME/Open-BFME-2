@@ -11,7 +11,7 @@
 // element is the existing opaque12B owner at339FA7, not a new type claim.
 // cl: /EHs /MD /DNDEBUG
 // Reference algorithm: STLport 4.5.3 _vector.c _M_fill_insert.
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 #include "../../../../GameEngine/Include/Common/Rva0033A23AElement.h"
 
 // Retail calls free directly (the game allocator), not through the CRT

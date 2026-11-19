@@ -38,10 +38,10 @@ extern AudioManager *TheAudio;
 #include "../../../Include/Common/ScalarTypes.h"
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
+
+
+
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
 public:

@@ -50,10 +50,10 @@ private:
 	unsigned int m_words[19];
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_NONE = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
+
+
+
 enum AbleToAttackType
 {
 	ATTACK_NEW_TARGET = 0,
@@ -66,11 +66,11 @@ enum CanAttackResult
 	ATTACKRESULT_POSSIBLE_AFTER_MOVING = 2,
 	ATTACKRESULT_POSSIBLE = 3
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
 enum Relationship
 {
 	ENEMIES = 0,
@@ -302,7 +302,7 @@ class Weapon { public:
  WeaponTemplate *m_template; unsigned m_ownerID;
  char padC[0x4c-0xc]; bool m_pitch;
 };
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 class Rva000CF0D6 { public: bool test(const Rva000CF0D6 *) const; };

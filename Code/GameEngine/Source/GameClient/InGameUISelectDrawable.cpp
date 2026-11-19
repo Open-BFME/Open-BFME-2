@@ -28,7 +28,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-enum DrawableID { INVALID_DRAWABLE_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
 class Drawable;
 #include "../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool00DBA5E0;
@@ -47,7 +47,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 
 typedef _STL::list<Drawable *> BfmeDrawableList;
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

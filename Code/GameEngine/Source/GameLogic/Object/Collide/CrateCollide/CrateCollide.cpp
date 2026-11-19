@@ -242,7 +242,7 @@ extern Anim2DCollection *TheAnim2DCollection;
 
 class Anim2DTemplate;
 
-enum WorldAnimationOptions { WORLD_ANIM_FADE_ON_EXPIRE = 1 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WorldAnimationOptions.h"
 
 struct ObjectPositionView { unsigned char m_pad00[0x38]; Coord3D m_pos; };
 
@@ -256,7 +256,7 @@ typedef BitFlags<116> KindOfMaskType;
 
 enum KindOfType { KINDOF_STRUCTURE = 7 };
 
-enum ScienceType { SCIENCE_INVALID = -1 };
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ScienceType.h"
 
 #include "../../../../Common/Thing/thing.h"
 

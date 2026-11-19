@@ -62,7 +62,7 @@ public:
 
 // ProductionUpdate's UpdateModuleInterface table (0x00C514F4): update and the
 // getDisabledTypesToProcess override, then UpdateModule's 0x0044DF8D.
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class Rva0024A797_B2
 {
 public:

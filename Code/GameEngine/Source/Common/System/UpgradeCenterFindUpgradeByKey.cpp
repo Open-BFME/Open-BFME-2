@@ -25,10 +25,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 typedef int Int;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../Include/Common/Upgrade.h"
 

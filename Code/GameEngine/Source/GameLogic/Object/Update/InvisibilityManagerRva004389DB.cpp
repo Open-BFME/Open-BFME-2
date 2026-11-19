@@ -60,11 +60,11 @@ template <> class Rva004389DBSlots<0>
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-enum RadarEventType
-{
-	RADAR_EVENT_STEALTH_DISCOVERED = 8,
-	RADAR_EVENT_STEALTH_NEUTRALIZED = 9
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/RadarEventType.h"
+
+
+
+
 
 #include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;

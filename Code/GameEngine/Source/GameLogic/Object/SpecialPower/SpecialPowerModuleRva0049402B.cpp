@@ -34,7 +34,7 @@
 #include "ascii_string.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 enum KindOfType { KINDOF_47 = 47, KINDOF_109 = 109, KINDOF_300 = 300 };
 
 #include "../../../../Include/Common/BitFlagsTemplate.h"

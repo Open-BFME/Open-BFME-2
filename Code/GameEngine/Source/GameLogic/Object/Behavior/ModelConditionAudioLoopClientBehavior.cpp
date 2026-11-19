@@ -80,9 +80,9 @@ public:
 
 typedef bool Bool;
 
-enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 
 struct LivingWorldArmy;
 

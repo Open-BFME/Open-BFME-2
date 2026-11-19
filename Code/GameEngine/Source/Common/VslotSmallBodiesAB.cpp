@@ -7,10 +7,10 @@
 
 #include "../../Include/Common/ScalarTypes.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 // 0x003F409F (five callers): virtual slot 12, with the argument, of the
 // entry the map at VA 0x00DFE1C8 holds under the +0x30 key (rowed

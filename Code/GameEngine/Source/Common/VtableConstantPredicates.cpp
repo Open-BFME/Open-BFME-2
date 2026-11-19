@@ -33,7 +33,7 @@ bool Rva0050B5C6::rva0050B5C6()
 // fold shared with unrelated classes. Keep the opaque owner for those
 // consumers; the original name and const qualification remain unknown.
 class WinInstanceData;
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 
 bool GameWindow::vslot10()

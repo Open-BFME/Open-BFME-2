@@ -99,7 +99,7 @@ private:
 	unsigned int m_words[4]; // +0x00
 };
 bool __cdecl Rva002634E0Equal(const void *, const void *);
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class Rva004DF7DB {
 public:
  void rva004DF7DB(UpdateSleepTime frame);

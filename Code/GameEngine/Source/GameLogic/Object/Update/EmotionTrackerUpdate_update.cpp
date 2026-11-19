@@ -31,8 +31,8 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 	return (*objectIterator).second;
 }
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
-enum ObjectStatusTypes {};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 enum Relationship { REL_ENEMY = 0, REL_NEUTRAL = 1, REL_ALLY = 2 };
 
 #include "../../../../Include/Common/Player.h"

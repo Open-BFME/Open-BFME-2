@@ -19,12 +19,12 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class ModuleData;
 class Object;
 class Rva0058AD94;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_INVALID = 0,
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
+
 // UpdateModule layout from the rowed ctor 0x004B2F2A and dtor 0x004B2E79:
 // vptrs at +0x00, +0x0C and +0x10 (the dtor's three stores of 0x00856E1C,
 // 0x00856D60 and 0x00856D50), module data at +4, object at +8.

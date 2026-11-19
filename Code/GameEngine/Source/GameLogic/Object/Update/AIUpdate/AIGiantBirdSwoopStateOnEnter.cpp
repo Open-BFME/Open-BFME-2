@@ -48,15 +48,15 @@ enum WeaponChoiceCriteria
 	PREFER_MOST_DAMAGE = 2
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+
+
+
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 enum KindOfType
 {

@@ -32,10 +32,10 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 typedef unsigned int ObjectIDValue;
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Object;
 class ActionManager;

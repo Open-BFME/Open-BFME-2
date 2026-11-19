@@ -19,7 +19,7 @@
 // positions, and getCaptionText is the rowed address-named getter
 // 0x0027653A on the beacon's drawable.
 
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 #include "../../../../Include/Common/ScalarTypes.h"
 typedef UnsignedInt WindowMsgData;
 class GameWindow;
@@ -49,7 +49,7 @@ WindowMsgHandledType BeaconWindowInput( GameWindow *window, UnsignedInt msg,
 	return MSG_IGNORED;
 }
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
