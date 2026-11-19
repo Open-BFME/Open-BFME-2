@@ -8,15 +8,17 @@ typedef bool Bool;
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "unicode_string.h"
 #include <stddef.h>
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <io.h>
+#pragma pop_macro("_CRTIMP")
 #define SEEK_SET 0
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 extern "C" __declspec(dllimport) struct _iobuf *__cdecl _wfopen(const wchar_t *, const wchar_t *);
 extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *);
 extern "C" __declspec(dllimport) int __cdecl fseek(struct _iobuf *, long, int);
 extern "C" __declspec(dllimport) size_t __cdecl fread(void *, size_t, size_t, struct _iobuf *);
-extern "C" __declspec(dllimport) int __cdecl _wunlink(const wchar_t *);
-extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
-	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file);
 typedef unsigned short WideChar;
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file) throw();
@@ -90,7 +92,6 @@ private:
 	AsciiString m_name;			// +0x08
 	unsigned int m_id;			// +0x0C
 };
-void operator delete(void *ptr);
 // Ordinary member-address datum emits the real method; no retail data
 // address or original global identity is claimed for this datum.
 bool (DataChunkInput::*DataChunkInputEofMethod)() = &DataChunkInput::atEndOfFile;
@@ -115,9 +116,6 @@ bool (DataChunkInput::*DataChunkInputEofMethod)() = &DataChunkInput::atEndOfFile
 // both four bytes on the stack, so those two bodies fold to identical code;
 // byte writes a single byte with the same shape and a smaller size immediate.
 
-struct _iobuf;
-extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
-	const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 typedef unsigned char WriteByteValue;
 class OutputChunk;
 #include "../../../Include/Common/DataChunkOutput.h"
