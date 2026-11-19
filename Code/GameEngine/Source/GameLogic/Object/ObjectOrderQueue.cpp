@@ -40,7 +40,7 @@ class Rva00355B61
 public:
 	const ArmorTemplate *rva00355155(NameKeyType key) const;
 };
-class Rva00355B61;
+
 extern class AiOrdersManager *TheAiOrdersManager;
 
 class CreateAHeroData;

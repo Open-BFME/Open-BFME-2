@@ -41,11 +41,11 @@ public:
 };
 
 class Rva00222A8BTarget;
-class Rva00222A8BTarget;
+
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00525235Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, int *a6);
-struct Rva005FDF1COuter;
+
 
 __forceinline const char *GetStr005FE27A(const AsciiString &asciiString)
 {

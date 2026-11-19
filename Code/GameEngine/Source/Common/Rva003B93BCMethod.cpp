@@ -21,11 +21,11 @@ struct BfmePod104;
 namespace _STL { template <> void _Construct<BfmePod104,BfmePod104>(BfmePod104 *,BfmePod104 const &); }
 // Suppress this TU's non-retail copy of ?push_back@?$vector@UBfmePod104@@V?$allocator@UBfmePod104@@@_STL@@@_STL@@QAEXABUBfmePod104:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod104;
+
 namespace _STL { template <> void vector<BfmePod104,allocator<BfmePod104> >::push_back(BfmePod104 const &); }
 
 // The overflow body is supplied by StlportVectorInsertOverflowFamily.cpp.
-struct BfmePod104;
+
 namespace _STL {
 template <> void vector<BfmePod104, allocator<BfmePod104> >::_M_insert_overflow(BfmePod104 *, const BfmePod104 &, const __false_type &, unsigned int, bool);
 }

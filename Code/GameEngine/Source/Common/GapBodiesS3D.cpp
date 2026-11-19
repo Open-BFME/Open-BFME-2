@@ -34,7 +34,7 @@ void Rva00359853::slot00(int cellX, int cellY)
 // 0x004E7FCA is rowed as TerrainResourceClaimFeedback::Impl::
 // updateClaimedDecalForClaimant(list<ClaimedDecal> *, ObjectID, Real).
 struct ClaimedDecal;
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 namespace _STL
 {
 template <class T> class allocator;

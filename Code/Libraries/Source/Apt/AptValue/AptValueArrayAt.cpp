@@ -29,7 +29,7 @@ public:
 };
 class AptValue; extern AptValue *gpUndefinedValue;
 // g_aptUndefinedAtE18078: VA 0xe18078 (zero-filled .bss).
-class AptValue; extern AptValue *gpUndefinedValue;
+ extern AptValue *gpUndefinedValue;
 BfmeAptValue006DCD20 *BfmeAptValue006DCD20::rva006D8A50(int nIndex)
 {
     if (!(nIndex < mnLength)) {

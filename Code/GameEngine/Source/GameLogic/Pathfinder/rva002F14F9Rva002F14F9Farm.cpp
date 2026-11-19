@@ -308,7 +308,7 @@ class Rva002C9B80Owner
 };
 // The 0x24-byte cell-query functor (rowed constructor 0x002E9ACC); the line
 // walk 0x002F6C22 calls its 0x002F4D8B callback, which sets +0x1C on a hit.
-struct Rva002E8BCFSrc;
+
 struct Rva002F4D8BInfo;
 class Rva002E9ACC
 {
@@ -439,7 +439,7 @@ struct PathfinderOpenQueue
   return *first;
  }
 };
-struct ICoord2D;
+
 struct Rva002E7261Info;
 #include "../../../Include/GameLogic/AIPathfind.h"
 // The 0x002E8045 walk calls this ABI view. The callback at 0x002E7261

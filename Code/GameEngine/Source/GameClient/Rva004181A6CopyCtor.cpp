@@ -21,11 +21,11 @@ namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod24;
+
 namespace _STL { template <> _Rb_tree_base<pair<int const ,BfmePod24>,allocator<pair<int const ,BfmePod24> > >::~_Rb_tree_base(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QBE:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod24;
+
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<int const ,BfmePod24> > >::deallocate(_Rb_tree_node<pair<int const ,BfmePod24> > *,unsigned int) const; }
 #include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 class Rva004181A6 {

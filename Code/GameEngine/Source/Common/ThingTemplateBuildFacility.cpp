@@ -73,7 +73,7 @@ static inline const float &buildMin(const float &a,const float &b){return a<b?a:
 // Global owner names and callee contracts are the existing ledger providers;
 // RegistryBuildView::factor has no independently recovered semantic name.
 static inline float buildFloor(float f){return (float)floor(f);}
-class ThingTemplate; class Player; class GlobalData; class GameLogic;
+ class Player; class GlobalData; class GameLogic;
 class Overridable;
 #include "../../Include/Common/Rva0033A68A.h"
 class Handicap {public: enum HandicapType {BUILDCOST,BUILDTIME}; float getHandicap(HandicapType,const ThingTemplate*)const; char opaque[16];};

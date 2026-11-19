@@ -49,7 +49,7 @@ struct BfmeE16;
 namespace _STL { template <> void _STLP_alloc_proxy<BfmeE16 *, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16 *, size_t); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UBfmeE16@@@_STL@@QBEXPAUBfmeE16@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeE16;
+
 namespace _STL { template <> void allocator<BfmeE16>::deallocate(BfmeE16 *, size_t) const; }
 class INI;
 typedef void (*FieldParseProc)(INI *, void *, void *, const void *);

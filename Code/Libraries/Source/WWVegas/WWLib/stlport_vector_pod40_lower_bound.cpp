@@ -33,7 +33,7 @@ template <> __declspec(dllimport) __forceinline BfmePod40 *__uninitialized_copy<
 }
 // Suppress this TU's non-retail copy of ??0?$vector@UBfmePod40@@V?$allocator@UBfmePod40@@@_STL@@@_STL@@QAE@ABV01@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod40;
+
 namespace _STL { template <> vector<BfmePod40,allocator<BfmePod40> >::vector(vector<BfmePod40,allocator<BfmePod40> > const &); }
 struct BfmePod40 { int a[10]; __forceinline bool operator<(const BfmePod40 &o) const { return a[0] < o.a[0]; } };
 // bfme link decl-only BfmePod40

@@ -18,7 +18,11 @@ extern "C" void _ReadWriteBarrier();
 // Coord3D and Region2D use their canonical declarations.
 #include "Coord3D.h"
 struct EmptyFootPoint:Coord3D{EmptyFootPoint(){}EmptyFootPoint(const EmptyFootPoint&r){x=r.x;y=r.y;z=r.z;}};
-typedef float Real; typedef int Int;typedef bool Bool;
+
+#include "../../Include/Common/ScalarTypes/Real.h"
+
+#include "../../Include/Common/ScalarTypes/Int.h"
+typedef bool Bool;
 #include "Region2D.h"
 #include "../../Include/Common/Rva0087E370.h"
 void Rva00030830FreeAllocation(void*);

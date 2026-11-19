@@ -9,7 +9,7 @@ struct EvaMessageInfo;
 namespace _STL { template <> _Vector_base<EvaMessageInfo,allocator<EvaMessageInfo> >::~_Vector_base(); }
 // Suppress this TU's non-retail copy of ??$_Destroy@PAUEvaMessageInfo@@@_STL@@YAXPAUEvaMessageInfo@@0@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct EvaMessageInfo;
+
 namespace _STL { template <> void _Destroy<EvaMessageInfo *>(EvaMessageInfo *, EvaMessageInfo *); }
 
 class BfmeStringRecord00111ACF { public: ~BfmeStringRecord00111ACF(); };

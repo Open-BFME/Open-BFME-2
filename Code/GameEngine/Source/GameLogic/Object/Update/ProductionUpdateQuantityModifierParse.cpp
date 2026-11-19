@@ -19,26 +19,26 @@ struct QuantityModifier;
 namespace _STL { template <> void vector<QuantityModifier,allocator<QuantityModifier> >::push_back(QuantityModifier const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_S:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct QuantityModifier;
+
 namespace _STL { template <> void vector<QuantityModifier,allocator<QuantityModifier> >::_M_insert_overflow(QuantityModifier *,QuantityModifier const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAUQuantityModifier@@PAU1@@_STL@@YAPAUQuantityModifier@@PAU1@00ABU:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> QuantityModifier * __uninitialized_copy<QuantityModifier *,QuantityModifier *>(QuantityModifier *,QuantityModifier *,QuantityModifier *,__false_type const &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAUQuantityModifier@@IU1@@_STL@@YAPAUQuantityModifier@@PAU1@IABU:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct QuantityModifier;
+
 namespace _STL { template <> QuantityModifier * __uninitialized_fill_n<QuantityModifier *,unsigned int,QuantityModifier>(QuantityModifier *,unsigned int,QuantityModifier const &,__false_type const &); }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct QuantityModifier;
+
 namespace _STL { template <> void vector<QuantityModifier,allocator<QuantityModifier> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAUQuantityModifier@@U1@V?$allocator@UQuantityModifier@@@_ST:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct QuantityModifier;
+
 namespace _STL { template <> QuantityModifier * _STLP_alloc_proxy<QuantityModifier *,QuantityModifier,allocator<QuantityModifier> >::allocate(unsigned int); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UQuantityModifier@@@_STL@@QBEXPAUQuantityModifier@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct QuantityModifier;
+
 namespace _STL { template <> void allocator<QuantityModifier>::deallocate(QuantityModifier *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.

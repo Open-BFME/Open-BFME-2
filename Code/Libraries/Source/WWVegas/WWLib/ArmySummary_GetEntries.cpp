@@ -19,15 +19,15 @@ struct Rva0040DC56Element;
 namespace _STL { template <> void vector<Rva0040DC56Element,allocator<Rva0040DC56Element> >::reserve(unsigned int); }
 // Suppress this TU's non-retail copy of ?erase@?$vector@URva0040DC56Element@@V?$allocator@URva0040DC56Element@@@_STL@@@_STL@@QAEPA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva0040DC56Element;
+
 namespace _STL { template <> Rva0040DC56Element * vector<Rva0040DC56Element,allocator<Rva0040DC56Element> >::erase(Rva0040DC56Element *,Rva0040DC56Element *); }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@URva0040DC56Element@@V?$allocator@URva0040DC56Element@@@_STL@@@_STL@@IA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva0040DC56Element;
+
 namespace _STL { template <> void vector<Rva0040DC56Element,allocator<Rva0040DC56Element> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ??$_Destroy@PAURva0040DC56Element@@@_STL@@YAXPAURva0040DC56Element@@0@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva0040DC56Element;
+
 namespace _STL { template <> void _Destroy<Rva0040DC56Element *>(Rva0040DC56Element *,Rva0040DC56Element *); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAURva003F7B22Element@@IU1@@_STL@@YAPAURva003F7B22Element@@PAU1@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -35,15 +35,15 @@ struct Rva003F7B22Element;
 namespace _STL { template <> Rva003F7B22Element * __uninitialized_fill_n<Rva003F7B22Element *,unsigned int,Rva003F7B22Element>(Rva003F7B22Element *,unsigned int,Rva003F7B22Element const &,__false_type const &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAURva003F7B22Element@@PAU1@@_STL@@YAPAURva003F7B22Element@@PAU1@0:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003F7B22Element;
+
 namespace _STL { template <> Rva003F7B22Element * __uninitialized_copy<Rva003F7B22Element *,Rva003F7B22Element *>(Rva003F7B22Element *,Rva003F7B22Element *,Rva003F7B22Element *,__false_type const &); }
 // Suppress this TU's non-retail copy of ?push_back@?$vector@URva003F7B22Element@@V?$allocator@URva003F7B22Element@@@_STL@@@_STL@@Q:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003F7B22Element;
+
 namespace _STL { template <> void vector<Rva003F7B22Element,allocator<Rva003F7B22Element> >::push_back(Rva003F7B22Element const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@URva003F7B22Element@@V?$allocator@URva003F7B22Element@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva003F7B22Element;
+
 namespace _STL { template <> void vector<Rva003F7B22Element,allocator<Rva003F7B22Element> >::_M_insert_overflow(Rva003F7B22Element *,Rva003F7B22Element const &,__false_type const &,unsigned int,bool); }
 
 // Erase and reserve bind their existing STLport family providers.

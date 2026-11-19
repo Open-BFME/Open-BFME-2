@@ -124,7 +124,7 @@ class DefaultModuleHeadBase {public:virtual ~DefaultModuleHeadBase();protected: 
 namespace FXParticleSystem {class Rva003AA228Slice {public:virtual void unusedVirtual();};class Rva003AA228:public DefaultModuleHeadBase,public Rva003AA228Slice {public:Rva003AA228(void*,void*);};}
 class ParticleModule005F2CA0:public FXParticleSystem::Rva003AA228 {public:ParticleModule005F2CA0(void*,void*);virtual void moduleSlot();virtual void slot2();virtual void slot3();};
 struct Rva00561C34RandomVariable {unsigned distribution;float minimum,maximum;};
-class RenderInfoClass;
+
 namespace FXParticleSystem {
 class LightningDrawModuleInfoBase {public:virtual ~LightningDrawModuleInfoBase();};
 class LightningDrawModuleInfo:public LightningDrawModuleInfoBase {public:LightningDrawModuleInfo();virtual ~LightningDrawModuleInfo();virtual const char* GetSnapshotName();virtual void LoadPostProcess();virtual void DoXfer(class Xfer&);Rva00561C34RandomVariable a,b,c;float value;unsigned char flag;};

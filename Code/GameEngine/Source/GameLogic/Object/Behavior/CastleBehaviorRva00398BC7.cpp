@@ -53,7 +53,7 @@ enum Relationship
 };
 
 class Team;
-class Drawable;
+
 
 struct CastleDamageRecord
 {

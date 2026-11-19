@@ -23,9 +23,9 @@
 
 #include <string.h>
 
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
 typedef int Bool;
-typedef float Real;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Real.h"
 #include <d3d9.h>
 
 #define UNIQUE_COLOR (0x12345678)

@@ -59,7 +59,7 @@ public:
 	virtual unsigned int GetTime();
 };
 
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 
 class Rva002768AC
 {

@@ -26,11 +26,11 @@ struct crateCreationEntry;
 namespace _STL { template <> _List_iterator<crateCreationEntry,_Nonconst_traits<crateCreationEntry> > list<crateCreationEntry,allocator<crateCreationEntry> >::erase(_List_iterator<crateCreationEntry,_Nonconst_traits<crateCreationEntry> >); }
 // Suppress this TU's non-retail copy of ?_M_create_node@?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct crateCreationEntry;
+
 namespace _STL { template <> _List_node<crateCreationEntry> * list<crateCreationEntry,allocator<crateCreationEntry> >::_M_create_node(crateCreationEntry const &); }
 // Suppress this TU's non-retail copy of ?clear@?$_List_base@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@Q:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct crateCreationEntry;
+
 namespace _STL { template <> void _List_base<crateCreationEntry,allocator<crateCreationEntry> >::clear(); }
 
 struct crateCreationEntry

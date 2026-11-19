@@ -6,7 +6,7 @@
 // Donor LanguageFilter normalization with the target StringBase ABI.
 // init and filterLine call this on a UnicodeString reference. Target header:
 // refcount at 0, length at 4, capacity at 6, wide characters at 8.
-typedef unsigned short WideChar;
+#include "../../Include/Common/ScalarTypes/WideChar.h"
 #include "../../Include/Common/ScalarTypes.h"
 
 #include <string.h>

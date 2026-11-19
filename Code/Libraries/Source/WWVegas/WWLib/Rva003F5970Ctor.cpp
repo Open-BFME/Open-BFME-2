@@ -24,7 +24,7 @@ struct BfmePod104;
 namespace _STL { template <> void _Construct<BfmePod104,BfmePod104>(BfmePod104 *,BfmePod104 const &); }
 // Suppress this TU's non-retail copy of ?push_back@?$vector@UBfmePod104@@V?$allocator@UBfmePod104@@@_STL@@@_STL@@QAEXABUBfmePod104:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod104;
+
 namespace _STL { template <> void vector<BfmePod104,allocator<BfmePod104> >::push_back(BfmePod104 const &); }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@UBfmeAssignRecord104@@V?$allocator@UBfmeAssignRecord104@@@_STL@@@_STL@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -32,21 +32,21 @@ struct BfmeAssignRecord104;
 namespace _STL { template <> void vector<BfmeAssignRecord104,allocator<BfmeAssignRecord104> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?reserve@?$vector@UBfmeAssignRecord104@@V?$allocator@UBfmeAssignRecord104@@@_STL@@@_STL@@Q:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeAssignRecord104;
+
 namespace _STL { template <> void vector<BfmeAssignRecord104,allocator<BfmeAssignRecord104> >::reserve(unsigned int); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAUBfmeAssignRecord104@@PAU1@@_STL@@YAPAUBfmeAssignRecord104@@PAU1:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeAssignRecord104;
+
 namespace _STL { template <> BfmeAssignRecord104 * __uninitialized_copy<BfmeAssignRecord104 *,BfmeAssignRecord104 *>(BfmeAssignRecord104 *,BfmeAssignRecord104 *,BfmeAssignRecord104 *,__false_type const &); }
 // Suppress this TU's non-retail copy of ??$_Construct@UBfmeAssignRecord104@@U1@@_STL@@YAXPAUBfmeAssignRecord104@@ABU1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeAssignRecord104;
+
 namespace _STL { template <> void _Construct<BfmeAssignRecord104,BfmeAssignRecord104>(BfmeAssignRecord104 *,BfmeAssignRecord104 const &); }
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 // The overflow body is supplied by StlportVectorInsertOverflowFamily.cpp.
-struct BfmePod104;
+
 namespace _STL {
 template <> void vector<BfmePod104, allocator<BfmePod104> >::_M_insert_overflow(BfmePod104 *, const BfmePod104 &, const __false_type &, unsigned int, bool);
 }

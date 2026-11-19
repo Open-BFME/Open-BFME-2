@@ -18,11 +18,11 @@ class Object;
 namespace _STL { template <> vector<Object *,allocator<Object *> >::~vector(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@PAVObject@@@_STL@@QBEXPAPAVObject@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Object;
+
 namespace _STL { template <> void allocator<Object *>::deallocate(Object **, size_t) const; }
 // Suppress this TU's non-retail copy of ??1?$_Vector_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class Object;
+
 namespace _STL { template <> _Vector_base<Object *, allocator<Object *> >::~_Vector_base(); }
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
@@ -37,7 +37,7 @@ namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, si
 namespace _STL { template <> vector<ObjectID, allocator<ObjectID> >::~vector(); }
 namespace _STL { template <> _Vector_base<ObjectID, allocator<ObjectID> >::~_Vector_base(); }
 
-class Object;
+
 class Xfer;
 
 class Squad

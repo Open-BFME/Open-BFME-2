@@ -18,11 +18,11 @@ extern "C" const void *const __identifier("??_7Rva004CC63A@@6BRva004CC63A_B2@@@"
 
 // Opaque UpdateModule (0x30 bytes); ctor resolves to the matched row at
 // 0x00253390, setWakeFrame to the pin at 0x0044DF71.
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 class UpdateModule
 {

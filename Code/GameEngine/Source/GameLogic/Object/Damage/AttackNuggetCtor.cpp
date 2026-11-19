@@ -29,10 +29,10 @@ private:
 	unsigned char m_opaque[0x34];
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
+
+
+
 
 class AttackNugget : public ObjectCreationNugget
 {

@@ -54,7 +54,7 @@ public:
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
-class VertexMaterialClass;
+
 class DX8Wrapper
 {
 	friend class W3DVolumetricShadowManagerV2;

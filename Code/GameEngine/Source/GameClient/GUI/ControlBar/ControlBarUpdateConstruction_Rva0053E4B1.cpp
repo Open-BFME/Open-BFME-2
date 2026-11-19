@@ -87,7 +87,7 @@ public:
 #undef RVA0053EB81_VIRTUAL
 
 class CommandButton;
-class ModuleData;
+
 
 class ExitInterface;
 class PlayerList;

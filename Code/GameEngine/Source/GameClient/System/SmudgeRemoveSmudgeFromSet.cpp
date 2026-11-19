@@ -12,7 +12,7 @@
 // DLList<SmudgeSet> Add_Head row: ICF-shared list code, same-address
 // spelling per drainChain/KAX precedent).
 
-typedef int Int;
+#include "../../../Include/Common/ScalarTypes/Int.h"
 typedef int Bool;
 
 #include "../../../Include/Common/W3DMPO.h"

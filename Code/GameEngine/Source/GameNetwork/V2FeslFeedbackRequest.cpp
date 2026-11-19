@@ -21,7 +21,7 @@
 
 #include <stdio.h>
 
-typedef __int64 FeslInt64;
+#include "../../Include/Common/ScalarTypes/Source/FeslInt64.h"
 
 // Transaction tag for this request; retail keeps it in a global pointer
 // (mov ebx,[0x00E0A058] at 0x0065EA85) and passes it as the TXN value.

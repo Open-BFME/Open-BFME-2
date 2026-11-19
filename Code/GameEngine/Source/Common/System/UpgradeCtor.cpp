@@ -25,12 +25,12 @@
 
 class UpgradeTemplate;
 
-enum UpgradeStatusType
-{
-	UPGRADE_STATUS_INVALID = 0,
-	UPGRADE_STATUS_IN_PRODUCTION,
-	UPGRADE_STATUS_COMPLETE
-};
+#include "../RTS/PlayerUpgradeStatus.h"
+
+
+
+
+
 
 class Upgrade : public Snapshot
 {

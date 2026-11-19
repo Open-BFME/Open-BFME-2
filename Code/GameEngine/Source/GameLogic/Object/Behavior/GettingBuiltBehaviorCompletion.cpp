@@ -35,7 +35,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 }
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class Drawable;
+
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 enum ObjectStatusTypes { STATUS_NONE=0 };

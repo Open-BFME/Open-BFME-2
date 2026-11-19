@@ -16,27 +16,27 @@ struct Rva001408C0Target;
 namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_Rb_tree(const less<Rva001408C0Target *> &, const allocator<Rva001408C0Target *> &); }
 // Suppress this TU's non-retail copy of ??0?$_Rb_tree_base@PAURva001408C0Target@@V?$allocator@PAURva001408C0Target@@@_STL@@@_STL@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_base<Rva001408C0Target *, allocator<Rva001408C0Target *> >::_Rb_tree_base(const allocator<Rva001408C0Target *> &); }
 // Suppress this TU's non-retail copy of ?_M_erase@?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> void _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::_M_erase(_Rb_tree_node<Rva001408C0Target *> *); }
 // Suppress this TU's non-retail copy of ??1?$_Rb_tree@PAURva001408C0Target@@PAU1@U?$_Identity@PAURva001408C0Target@@@_STL@@U?$less:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::~_Rb_tree(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@@_STL@@QBEXPAU?$_Rb_:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> void allocator<_Rb_tree_node<Rva001408C0Target *> >::deallocate(_Rb_tree_node<Rva001408C0Target *> *, size_t) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@U?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@@_STL@@QBEPAU?$_Rb_tre:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *allocator<_Rb_tree_node<Rva001408C0Target *> >::allocate(size_t, const void *) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@PAURva001408C0Target@@@_STL@@U12@V?$alloc:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva001408C0Target;
+
 namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_proxy<_Rb_tree_node<Rva001408C0Target *> *, _Rb_tree_node<Rva001408C0Target *>, allocator<_Rb_tree_node<Rva001408C0Target *> > >::allocate(size_t); }
 // The row calls the set constructor out of line; bind it to retail's copy at 0x000D3A71.
 namespace _STL { template <> set<Rva001408C0Target *, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::set(); }
@@ -61,7 +61,7 @@ void Rva001800B2Create(const char *,int,int);
 void Rva0017FD2F_RegisterPrototype(const char *,int,int);
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 void RegisterDependencies(void *,void *);
-struct Rva001408C0Target;
+
 class Rva0006C995 {public:Rva0006C995 *rva0006C995(Rva001408C0Target *);};
 struct Q1ReceiverLocalSet {
  _STL::set<Rva001408C0Target *,_STL::less<Rva001408C0Target *>,_STL::allocator<Rva001408C0Target *> > assets;

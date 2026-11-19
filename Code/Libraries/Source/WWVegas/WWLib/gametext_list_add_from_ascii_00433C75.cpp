@@ -5,7 +5,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-typedef unsigned short WideChar;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/WideChar.h"
 
 #include "../../../../GameEngine/Include/GameClient/GameText.h"
 
