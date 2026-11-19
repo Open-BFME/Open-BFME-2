@@ -7,7 +7,6 @@ name,address,notes
 ??$?MUBfmeCopyRecord8@@@_STL@@YA_NABU?$_Deque_iterator_base@UBfmeCopyRecord8@@@0@0@Z,0x004219B0,deque iterator member rowed here under BfmeE8/BfmeE12 (it depends only on the 8-byte element size): the BfmeCopyRecord8 deque sort bodies call it
 ??$?MVAsciiString@@V0@@_STL@@YA_NABU?$pair@VAsciiString@@V1@@0@0@Z,0x00206BCF,callee REL32 read by locate.py from a unique masked-byte placement emitted by Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp
 ??$_Construct@U?$pair@$$CBGH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBGH@0@ABU10@@Z,0x00469D1A,ICF twin of 0x00155A00 via call at 0x004DCC76
-??$_Construct@U?$pair@$$CBGVAsciiString@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBGVAsciiString@@@0@ABU10@@Z,0x006204B0
 ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z,0x0060C9D9,ICF twin of 0x6204B0; map int-int _M_create_node REL32
 ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z,0x006204B0,address read from the retail REL32 in hashtable::_M_insert at 0x00620F60
 ??$_Construct@U?$pair@$$CBHUBfmePod44@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod44@@@0@ABU10@@Z,0x0041072F,address read from the REL32 displacement at a placed body

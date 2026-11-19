@@ -184,7 +184,11 @@ template <> AsciiString &FileCommandMap::operator[](const unsigned short &key)
 }
 #pragma optimize("", on)
 
-// Keep the map helpers that the original operator[] instantiation emitted.
+// Keeps the rowed map::insert(hint) wrapper emitted (0x0016E310). That row is not this map's body:
+// retail 0x0016E310 forwards to 0x0016DF60, the hinted insert of the three-int-key tree beside it,
+// and the FileCommandMap wrapper is retail 0x004D272E (reached by the subscript above). The row keeps
+// its name until its address has an approved unit or an identity respell (LINK-682); the pin that
+// binds this map's hinted insert_unique to 0x0016DF60 exists only for it.
 // ?Rva004D2941MapInstantiationAnchor present-unmatched
 void Rva004D2941MapInstantiationAnchor()
 {

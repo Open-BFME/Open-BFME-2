@@ -1928,7 +1928,9 @@ void famgenDelete(Rva009A45A0CollisionData *p) { delete p; }
 
 // tu-skeleton: 0x007593E0 11B ?rend@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE?AV?$reverse_iterator@PAD@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp (not merged yet)
 
-// tu-skeleton: 0x00759460 35B ?_M_create_node@?$_Rb_tree@GU?$pair@$$CBGVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBGVAsciiString@@@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBGVAsciiString@@@_STL@@@2@ABU?$pair@$$CBGVAsciiString@@@2@@Z -- matched in Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp (not merged yet)
+// 0x00759460 (35 B) is the node creator of this unit's map<Rva009A2FE0Sub*, unsigned> tree, rowed here:
+// a 0x18-byte node whose value is built by the folded two-dword _Construct 0x006204B0. Nothing in retail
+// refers to it (_M_insert 0x00759BC0 expands it); the instantiation above emits it.
 
 // tu-skeleton: 0x00759B20 22B ?find@?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@2@ABW4LocomotorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp (not merged yet)
 
