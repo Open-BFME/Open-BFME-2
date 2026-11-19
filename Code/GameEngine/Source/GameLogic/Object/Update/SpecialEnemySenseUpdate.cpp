@@ -119,10 +119,10 @@ public:
 	Rva0049A037Contain *m_contain;	// +0x250
 	Rva0049A037Contain *getContain() const { return m_contain; }
 };
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 class ModuleData;
 class Thing;
 class Xfer;

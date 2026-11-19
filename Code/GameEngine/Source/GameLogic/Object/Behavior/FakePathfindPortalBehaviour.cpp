@@ -160,11 +160,11 @@ extern TerrainLogic *TheTerrainLogic;
 // +0x20. novtable: the ctor writes those stores explicitly.
 struct FakePortalOwnerView;
 
-enum UpdateSleepTime
-{
-    UPDATE_SLEEP_NONE = 1,
-    UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 // The update entry receives the interface subobject at +0x10. The
 // constructor remains external and the derived constructor stores its

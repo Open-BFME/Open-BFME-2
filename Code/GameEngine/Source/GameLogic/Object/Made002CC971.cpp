@@ -8,10 +8,10 @@
 // Address-derived method/class identity retained from existing constructor.
 // Made002CC971 vtable slot 6: slave attack order via TheGameLogic findObjectByID, SlaveWatcherBehavior findModule, NetWrapperCommandMsg getDataLength, second findObjectByID, setWeaponLock, AICommandInterface aiAttackPosition.
 // Layout: base Rva00507823 0x128 per Made002CC971Ctor; Object+0x258 AI holder with AICommandInterface at +0x20; Player index at +0x54; globals TheGameLogic TheNameKeyGenerator g_Va00E04594 g_00E04590. Evidence: vslot packet slot 6 plus string SlaveWatcherBehavior plus unblocks none listed.
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 enum WeaponSlotType
 {
 	WEAPONSLOT_PRIMARY = 0,

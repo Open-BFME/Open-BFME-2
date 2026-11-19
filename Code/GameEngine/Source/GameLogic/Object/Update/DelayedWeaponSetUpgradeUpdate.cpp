@@ -27,7 +27,7 @@ class Object;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // The "no sleep" result of UpdateModuleInterface::update (retail 0x000910FB returns it).
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 

@@ -38,11 +38,11 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 

@@ -55,10 +55,10 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 namespace _STL { template <> __declspec(dllimport) __forceinline
 void *const &vector<void *>::operator[](size_t n) const { return _M_start[n]; } }
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 namespace rts
 {

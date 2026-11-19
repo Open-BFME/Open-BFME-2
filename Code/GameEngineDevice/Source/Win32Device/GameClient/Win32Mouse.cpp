@@ -20,12 +20,12 @@
 
 #include "../../../../GameEngine/Include/Common/CursorInfo.h"
 
-enum MouseButtonState
-{
-	MBS_Up = 0,
-	MBS_Down,
-	MBS_DoubleClick
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/MouseButtonState.h"
+
+
+
+
+
 
 struct MouseIO
 {

@@ -17,7 +17,7 @@ class Xfer;
 enum NameKeyType { NK_UNKNOWN = 0 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class DestroyEnvironmentUpdate : public UpdateModule
 {
 public:

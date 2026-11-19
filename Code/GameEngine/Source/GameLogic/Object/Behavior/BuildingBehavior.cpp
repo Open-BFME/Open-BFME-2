@@ -119,7 +119,7 @@ class AsciiString;
 // loads the module into ecx before each call.
 #include "../../../../Include/Common/ScalarTypes.h"
 
-enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 struct BuildingBehaviorObjectStatusBits
 {
 	unsigned int m_bit0 : 1;
@@ -142,7 +142,7 @@ public:
 	unsigned char m_flags438;							// +0x438
 };
 #include "../../../../Include/Common/GlobalData.h"
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class BB_Iface1 { public: virtual void slot(); };
 class BB_Iface2 { public: virtual void slot(); };
 

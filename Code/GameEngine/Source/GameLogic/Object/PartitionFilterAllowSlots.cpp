@@ -205,7 +205,7 @@ Bool Rva00260F1BFilter::allow(Object *objOther)
 // garrison-permission filter: the candidate passes when the ActionManager's
 // canPlayerGarrison answer for (+0x08 player, candidate, +0x10 source)
 // equals the +0x0C expectation byte.
-enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;

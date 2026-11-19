@@ -120,11 +120,11 @@ extern AudioManager *TheAudio;
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 #define UPDATE_SLEEP(x) ((UpdateSleepTime)(x))
 

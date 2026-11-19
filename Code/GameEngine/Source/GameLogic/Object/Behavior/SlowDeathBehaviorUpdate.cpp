@@ -99,10 +99,10 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
 }
 }
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+
+
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);
@@ -170,10 +170,10 @@ template <> struct _Base_bitset<4>
 };
 }
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -404,11 +404,11 @@ public:
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 };
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 class UpdateModuleInterface
 {
 public:

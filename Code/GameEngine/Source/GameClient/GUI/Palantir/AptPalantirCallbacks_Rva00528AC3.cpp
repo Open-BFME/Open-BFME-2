@@ -160,10 +160,10 @@ public:
 // vslot 60, winSendSystemMsg vslot 58) and the window's instance data,
 // reached through the rowed getters 0x00314046 (+0x30) and 0x005C4AE9 (the
 // id at +0x34).
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 

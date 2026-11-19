@@ -16,7 +16,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #include <vector>
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
 // Bind the allocator, base teardown and clear to the kept retail copies (InGameUIXfer.cpp emits them).
 namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t); }
 namespace _STL { template <> _Vector_base<ObjectID, allocator<ObjectID> >::~_Vector_base(); }

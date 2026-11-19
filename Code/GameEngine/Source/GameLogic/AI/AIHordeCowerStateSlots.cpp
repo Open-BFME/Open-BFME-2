@@ -161,10 +161,10 @@ enum DamageType
 {
 	DAMAGE_BFME_8 = 8
 };
-enum DeathType
-{
-	DEATH_NORMAL = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+
+
+
 
 template <int N> class CowerSlots : public CowerSlots<N - 1>
 {

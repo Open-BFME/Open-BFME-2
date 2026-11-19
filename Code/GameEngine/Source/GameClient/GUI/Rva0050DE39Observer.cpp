@@ -12,11 +12,11 @@
 class Image;
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
@@ -302,7 +302,7 @@ void ControlBar::populateObserverInfoWindow(void)
 // player list, a player button opens that player's info window. Handles
 // create (1) and the 0x4006..0x4009 button messages. Native
 // [50E6A6,50E776),208B.
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 extern ControlBar *TheControlBar;
 void *GadgetButtonGetData(GameWindow *window);
 WindowMsgHandledType ControlBarObserverSystem(GameWindow *window, unsigned int msg, unsigned int mData1, unsigned int mData2)

@@ -56,11 +56,11 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 // BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -130,7 +130,7 @@ private:
 
 class Xfer;
 
-enum WeaponSlotType {PRIMARY_WEAPON=0};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 
 #include "../../../../Include/GameClient/Drawable.h"
 

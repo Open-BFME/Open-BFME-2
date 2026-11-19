@@ -6,14 +6,14 @@
 // Existing BFME2 factory, name-key and laser providers retain their landed names.
 
 #include "../../Include/Common/ScalarTypes.h"
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
-enum DrawableStatus
-{
-	DRAWABLE_STATUS_NONE = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DrawableStatus.h"
+
+
+
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 static inline void coordCopy(Coord3D *to, const Coord3D *from) {
  to->x = from->x; to->y = from->y; to->z = from->z;

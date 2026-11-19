@@ -87,10 +87,10 @@ extern "C" const void *const __identifier("??_7BeaconClientUpdateModuleData@@6B@
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 #include "../../../../Include/Common/NameKeyGenerator.h"
 class Object;
-enum UpdateSleepTime
-{
-    UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 #include "../../../../Include/Common/PB_Iface1.h"
 class PB_Iface2
 {

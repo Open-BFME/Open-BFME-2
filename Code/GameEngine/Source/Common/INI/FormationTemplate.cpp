@@ -28,7 +28,7 @@
 class INI;
 typedef void (*Parser)(INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/INI.h"
-enum NameKeyType { NAMEKEY_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 void Rva00425421Parse(INI *ini, void *what);

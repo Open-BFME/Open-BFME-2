@@ -239,7 +239,7 @@ enum ObjectShroudStatus
 	OBJECTSHROUD_PARTIAL_CLEAR
 };
 
-enum SpecialPowerType {};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/SpecialPowerType.h"
 class SpecialAbilityUpdate;
 class Object
 {

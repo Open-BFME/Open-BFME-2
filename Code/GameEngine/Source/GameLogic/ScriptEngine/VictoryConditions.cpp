@@ -89,7 +89,7 @@ private:
 	unsigned char m_second;
 };
 #include "../../../Include/Common/PlayerList.h"
-enum NameKeyType { NAMEKEY_INVALID=0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 #include "../../../Include/GameClient/ParticleSystemClass.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

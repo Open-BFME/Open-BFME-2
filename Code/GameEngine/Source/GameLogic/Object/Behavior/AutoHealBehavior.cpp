@@ -59,7 +59,7 @@ class AutoHealBehaviorModuleData;
 // its own views, so it takes only the header's constant (LINK-236).
 #include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 class DamageInfo;
 

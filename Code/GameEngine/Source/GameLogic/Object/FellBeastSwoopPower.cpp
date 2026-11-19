@@ -27,12 +27,12 @@ enum AICommandType
 	AICMD_BFME_3F = 0x3F,
 	AICMD_BFME_40 = 0x40
 };
-enum CommandSourceType
-{
-	CMD_FROM_PLAYER = 0,
-	CMD_FROM_SCRIPT = 1,
-	CMD_FROM_AI = 2
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
+
+
 struct AICommandParms
 {
 	AICommandParms(AICommandType cmd, CommandSourceType cmdSource);	// 0x00351BD0
@@ -70,11 +70,11 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 class Thing;
 

@@ -18,10 +18,10 @@ float Cos(float);
 float Sin(float);
 static const float PI=3.14159265359f;
 static const float ANGULAR_LIMIT=PI/2-PI/64;
-enum UpdateSleepTime {UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 enum DamageType {DAMAGE_UNRESISTABLE=8};
-enum DeathType {DEATH_NORMAL=0};
-enum NameKeyType {NAMEKEY_INVALID=0};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object;

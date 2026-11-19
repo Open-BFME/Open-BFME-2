@@ -113,10 +113,10 @@ extern int g_Va00DBB708; // next automatically assigned waypoint id
 class Matrix3D;
 class W3DTreeDrawModuleData;
 
-enum DrawableID
-{
-	INVALID_DRAWABLE_ID = 0
-};
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/DrawableID.h"
+
+
+
 
 class ModuleData
 {

@@ -62,15 +62,15 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_RVA004A9424_3 = 3
 };
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+
+
+
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 // BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
 #define BFME_SNAPSHOT_NAME_SLOT

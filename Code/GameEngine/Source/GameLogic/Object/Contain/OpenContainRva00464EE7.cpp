@@ -80,7 +80,7 @@ public:
 class Rva00439E0C;
 class OpenContainActionIface;
 enum DamageType { DAMAGE_UNRESISTABLE = 8 };
-enum DeathType { DEATH_NORMAL = 0 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DeathType.h"
 class Object
 {
 public:
@@ -101,10 +101,10 @@ public:
 	void kill(DamageType, DeathType);
 };
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+
+
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

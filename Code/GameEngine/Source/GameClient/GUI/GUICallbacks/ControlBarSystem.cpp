@@ -23,7 +23,7 @@
 typedef unsigned short WideChar;
 typedef unsigned int WindowMsgData;
 
-enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WindowMsgHandledType.h"
 
 enum { GWM_CREATE = 1 };
 
@@ -37,8 +37,8 @@ enum GadgetGameMessage
 	GEM_EDIT_DONE = 0x4031
 };
 
-enum NameKeyType { NAMEKEY_INVALID = 0 };
-enum CBCommandStatus { CBC_COMMAND_NOT_USED = 0, CBC_COMMAND_USED };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/CBCommandStatus.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

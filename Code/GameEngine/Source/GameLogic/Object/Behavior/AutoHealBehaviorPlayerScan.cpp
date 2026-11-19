@@ -44,11 +44,11 @@ class Matrix3D;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond; // logic frames per second
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
+
 
 enum ObjectStatusTypes
 {
@@ -262,11 +262,11 @@ public:
 };
 extern Anim2DCollection *TheAnim2DCollection;
 
-enum WorldAnimationOptions
-{
-	WORLD_ANIM_NO_OPTIONS = 0x00,
-	WORLD_ANIM_FADE_ON_EXPIRE = 0x01
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WorldAnimationOptions.h"
+
+
+
+
 
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;

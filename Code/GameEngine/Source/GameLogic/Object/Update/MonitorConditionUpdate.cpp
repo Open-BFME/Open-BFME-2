@@ -58,10 +58,10 @@ template<int N> class BitFlags;
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 // ModelConditionFlags view: constructed through the rowed 0x0042526,
 // compared through the rowed mask overlap 0x00263546.

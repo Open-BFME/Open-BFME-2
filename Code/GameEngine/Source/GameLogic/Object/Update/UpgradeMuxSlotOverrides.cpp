@@ -180,10 +180,10 @@ void AudioLoopUpgrade::performUpgradeFX()
 // slots 10, 11, 12 and 15 of the primary UpgradeMux vtable 0x00857660, compiled with
 // a this whose UpdateModule subobject sits at +0x08 (ModuleData at +0x0C, Object at
 // +0x10). The UpgradeMuxData block sits at module data +0x10.
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
+
+
+
 
 class GameLogic;
 extern GameLogic *TheGameLogic;

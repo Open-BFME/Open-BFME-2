@@ -78,7 +78,7 @@ struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 class Xfer::Version { public: unsigned char value, current; Version() : value(1), current(1) {} };
 Xfer *XferPathfindLayerEnum(Xfer *, int *);
-enum PathfindLayerEnum { LAYER_INVALID = 0 };
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 
 #include "../../../Include/GameLogic/PathNode.h"
 class Rva0026E4A0 { public: Rva0026E4A0 &set(Rva0026E4A0 *) throw(); };

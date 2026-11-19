@@ -77,10 +77,10 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 #include "../GameLogic/Object/object.h"
 
-enum DrawableStatus
-{
-	DRAWABLE_STATUS_NO_SAVE = 0x10
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/DrawableStatus.h"
+
+
+
 
 // The drawable's snapshot sits at +0x60, after the thing.
 #include "../../Include/GameClient/Drawable.h"
@@ -133,10 +133,10 @@ void Rva00433C18(const UnicodeString &text, bool clear);
 
 // The map dictionary at VA 0x00E00944 and the cached key at VA 0x00DBDEEC
 // (Rva00BCF670CameraSettings.cpp).
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
+#include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
+
+
+
 
 class Rva00148F5ECache
 {

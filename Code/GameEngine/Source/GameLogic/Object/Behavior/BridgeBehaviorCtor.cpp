@@ -17,7 +17,7 @@ enum BridgeTowerType { BRIDGE_TOWER_FROM_LEFT = 0, BRIDGE_MAX_TOWERS = 4 };
 // The primary table at RVA 0x008409DC (13 slots) is the compiler-emitted
 // ??_7BridgeBehavior@@6BObjectModule@@@: every slot names a rowed owner.
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 template <int NUMBITS> class BitFlags;
 typedef BitFlags<11> DisabledMaskType;
 
