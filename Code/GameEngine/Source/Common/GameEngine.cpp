@@ -6,7 +6,7 @@
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
 #include "../../Include/GameClient/Drawable.h"
-extern "C" __declspec(dllimport) char *__stdcall GetEnvironmentStrings(void);
+// Keep the direct CRT free call in startHeadlessClients.
 extern "C" void __cdecl free(void *);
 #pragma function(memset)
 namespace _STL { template<class T> class allocator { public: static T *allocate(unsigned int,const void *); }; }
@@ -24,15 +24,11 @@ extern class NetworkInterface *TheNetwork;
 // (GameEngine::stopHeadlessClients, TerminateProcess loop then count=0).
 // BFME2 retail shifts count 0x10->0x14 and array 0x14->0x18 (+4 vs BFME1); modeled as gap at 0x10.
 // Evidence: TerminateProcess IAT call at 0x62610A; callers at 0x2297B9 0x37A67C and tail-jmp at 0x444407.
-typedef void *HANDLE;
-typedef int BOOL;
 typedef unsigned char EngineBool;
 struct AsciiStringLayout
 {
 	void *m_data;
 };
-extern "C" __declspec(dllimport) BOOL __stdcall TerminateProcess(
-	HANDLE hProcess, unsigned int uExitCode);
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 #include <new>
 
