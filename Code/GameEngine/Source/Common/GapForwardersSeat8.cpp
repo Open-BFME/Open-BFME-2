@@ -376,8 +376,11 @@ DEFINE_THUNK_UAE_TAG(Rva005FEA50Base, DoXfer, 0x1C, (Xfer &), WindTransferEmitTa
 // ?<Rva00085947::Rva00085947> absent-from-retail
 DEFINE_THUNK_UAE(Rva00085947, rva00085947, 0xB4, ())
 // W3DView's secondary base at +0xB4 (vtable 0x007C7530) also declares init.
+// Keep this emission-only constructor distinct from the deleting-dtor view's
+// (OpaqueScalarDeletingDtorsB09.cpp), which spells the class W3DView too.
+struct W3DViewInitThunkEmitTag;
 // ?<W3DView::W3DView> absent-from-retail
-DEFINE_THUNK_UAE(W3DView, init, 0xB4, ())
+DEFINE_THUNK_UAE_TAG(W3DView, init, 0xB4, (), W3DViewInitThunkEmitTag)
 // ?<Rva0030817A::Rva0030817A> absent-from-retail
 DEFINE_THUNK_UAE(Rva0030817A, rva0030817A, 0x30, (int))
 struct Rva004543A9LeaNegSbbField_BaseA { virtual int get() const = 0; char m_pad[0x14 - 4]; };

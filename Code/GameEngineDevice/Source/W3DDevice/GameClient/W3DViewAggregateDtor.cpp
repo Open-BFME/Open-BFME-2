@@ -21,8 +21,8 @@ class Rva0025EF18 {public:virtual ~Rva0025EF18();char pad[0xb0];};
 class Rva008B77D {public:virtual ~Rva008B77D();char pad[0x70];};
 class CameraRef {public:virtual void Delete_This();int refs;void Release_Ref(){refs--;if(refs==0)Delete_This();}};
 class ViewOwned235C {public:virtual ~ViewOwned235C();};
-class Rva008BD5E : public Rva0025EF18, public SubsystemInterface {
-public:virtual ~Rva008BD5E();
+class W3DView : public Rva0025EF18, public SubsystemInterface {
+public:virtual ~W3DView();
 private:
  char gapc0[0x104-0xc0];CameraRef *camera3d,*camera2d;
  char gap10c[0x280-0x10c];Rva0089971 path;
@@ -32,7 +32,7 @@ private:
  char gap23e8[0x243c-0x23e8];AsciiString name,bone;
  char gap2444[0x2458-0x2444];std::string text;
 };
-Rva008BD5E::~Rva008BD5E(){
+W3DView::~W3DView(){
  CameraRef *cameraRef=camera2d; if(cameraRef){cameraRef->Release_Ref();camera2d=0;}
  if(camera3d){camera3d->Release_Ref();camera3d=0;}
  ::delete *reinterpret_cast<ViewOwned235C**>(reinterpret_cast<char*>(this)+0x235c);

@@ -381,16 +381,16 @@ class __declspec(novtable) Rva008BD5EBaseB4
 public:
 	virtual ~Rva008BD5EBaseB4();
 };
-class Rva008BD5E : public Rva008BD5EBase0, public Rva008BD5EBaseB4
+class W3DView : public Rva008BD5EBase0, public Rva008BD5EBaseB4
 {
 public:
-	Rva008BD5E(EmitVtableTag *);
+	W3DView(EmitVtableTag *);
 public:
-	virtual ~Rva008BD5E();
+	virtual ~W3DView();
 };
 
-// ?<Rva008BD5E::Rva008BD5E> absent-from-retail
-Rva008BD5E::Rva008BD5E(EmitVtableTag *)
+// ?<W3DView::W3DView> absent-from-retail
+W3DView::W3DView(EmitVtableTag *)
 {
 }
 

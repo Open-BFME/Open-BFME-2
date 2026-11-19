@@ -214,9 +214,9 @@ W3DView::W3DView()
 	rva00087973(0);
 }
 
-// Names this unit's unwind graph references that no unit defines under this spelling. ~W3DView is
-// the rowed destructor at 0x0008BD5E (W3DViewAggregateDtor.cpp). Retail's constructor unwind
-// funclets 0x0075FC37 and 0x0075FC45 both jump to 0x0048BA39, the StringBase<char> destructor row,
-// which is the cleanup of the string-holding camera-height member (Rva0030E7D0, 0x20 bytes).
-#pragma comment(linker, "/alternatename:??1W3DView@@UAE@XZ=??1Rva008BD5E@@UAE@XZ")
+// A name this unit's unwind graph references that no unit defines under this spelling. (~W3DView
+// is the rowed destructor at 0x0008BD5E, W3DViewAggregateDtor.cpp, under its own name.) Retail's
+// constructor unwind funclets 0x0075FC37 and 0x0075FC45 both jump to 0x0048BA39, the
+// StringBase<char> destructor row, which is the cleanup of the string-holding camera-height
+// member (Rva0030E7D0, 0x20 bytes).
 #pragma comment(linker, "/alternatename:??1Rva0030E7D0@@QAE@XZ=??1?$StringBase@D@@AAE@XZ")

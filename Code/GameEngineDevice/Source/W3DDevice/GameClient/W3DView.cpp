@@ -1998,7 +1998,7 @@ void Rva0008B4CD::rva0008B4CD()
 
 // tu-skeleton: 0x0008BD59 5B ?rva0008BD59@W3DView@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DAE4.cpp (not merged yet)
 
-// tu-skeleton: 0x0008BD5E 269B ??1Rva008BD5E@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+// tu-skeleton: 0x0008BD5E 269B ??1W3DView@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0008BE6B 953B ?setCameraTransform@W3DView@@AAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
 
@@ -2036,7 +2036,7 @@ void Rva0008B4CD::rva0008B4CD()
 
 // tu-skeleton: 0x0008DE53 11B ?init@W3DView@@WLE@AEXXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x0008DE5E 28B ??_GRva008BD5E@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+// tu-skeleton: 0x0008DE5E 28B ??_GW3DView@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0008DE7A 660B ?screenToTerrain@W3DView@@UAE_NPBUICoord2D@@PAUCoord3D@@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp (not merged yet)
 
@@ -2116,7 +2116,7 @@ void Rva0008B4CD::rva0008B4CD()
 
 // tu-skeleton: 0x0075FCDD 14B Unwind@00b5fcdd -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0075FCEB 10B __ehhandler$??1Rva008BD5E@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
+// tu-skeleton: 0x0075FCEB 10B __ehhandler$??1W3DView@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewAggregateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0075FCF5 8B uw_0075fcf5 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp (not merged yet)
 

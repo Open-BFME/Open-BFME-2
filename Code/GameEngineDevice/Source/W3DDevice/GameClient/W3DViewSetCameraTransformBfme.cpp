@@ -254,7 +254,7 @@ void W3DView::setCameraTransform(){
 }
 
 // ?forceRedraw@W3DView@@UAEXXZ @0x0008D134 5B: slot 20 of the view table
-// 0x007C7568 (??_7Rva008BD5E@@6BRva0025EF18@@@). Zero Hour's
+// 0x007C7568 (??_7W3DView@@6BRva0025EF18@@@). Zero Hour's
 // W3DView::forceRedraw is its only virtual whose whole body is
 // setCameraTransform(): a tail jump to the rowed 0x0008BE6B above.
 void W3DView::forceRedraw(){setCameraTransform();}
