@@ -12,11 +12,11 @@ struct BfmeContainerRecord00048139;
 namespace _STL { template <> void _Destroy<BfmeContainerRecord00048139 *>(BfmeContainerRecord00048139 *,BfmeContainerRecord00048139 *); }
 // Suppress this TU's non-retail copy of ??$__destroy@PAUBfmeContainerRecord00048139@@U1@@_STL@@YAXPAUBfmeContainerRecord00048139@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeContainerRecord00048139;
+
 namespace _STL { template <> void __destroy<BfmeContainerRecord00048139 *,BfmeContainerRecord00048139>(BfmeContainerRecord00048139 *,BfmeContainerRecord00048139 *,BfmeContainerRecord00048139 *); }
 // Suppress this TU's non-retail copy of ??$__destroy_aux@PAUBfmeContainerRecord00048139@@@_STL@@YAXPAUBfmeContainerRecord00048139@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeContainerRecord00048139;
+
 namespace _STL { template <> void __destroy_aux<BfmeContainerRecord00048139 *>(BfmeContainerRecord00048139 *,BfmeContainerRecord00048139 *,__false_type const &); }
 
 struct BfmeContainerRecord00048139 {

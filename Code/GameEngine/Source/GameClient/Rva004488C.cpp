@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 class ClientFrameSubsystem;
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 class Rva00DFE77CHolder
 {
 public:

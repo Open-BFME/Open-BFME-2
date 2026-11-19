@@ -13,7 +13,11 @@ template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
 // Every REL32 uses an actual provider or existing admitted pin; native
 // region-end20FB8B is still an unprovided link prerequisite. Fields below
 // reflect target accesses only and do not assert complete original types.
-typedef int Int;typedef bool Bool;
+
+#include "../../Include/Common/ScalarTypes/Int.h"
+
+#include "../../Include/Common/ScalarTypes/Bool.h"
+
 class Rva004FA2E2;struct ResolverUnit2B74DE;
 struct Rva002B89BBInfo;struct Rva003F4E07Results;
 class LivingWorldAutoResolveBattle;

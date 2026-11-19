@@ -8,8 +8,8 @@
 #include <string.h>
 
 typedef void *HINSTANCE;
-typedef int BOOL;
-typedef unsigned long DWORD;
+#include "../../Include/Common/ScalarTypes/Win32/BOOL.h"
+#include "../../Include/Common/ScalarTypes/Win32/DWORD.h"
 
 #define FALSE 0
 #define TRUE 1

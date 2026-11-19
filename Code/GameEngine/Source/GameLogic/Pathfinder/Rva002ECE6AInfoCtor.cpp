@@ -1,6 +1,10 @@
 // cl: /ICode/Libraries/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc
 //
-typedef bool Bool;typedef int Int;
+
+#include "../../../Include/Common/ScalarTypes/Bool.h"
+
+#include "../../../Include/Common/ScalarTypes/Int.h"
+
 struct LineContextTemplate {
  char pad00[0x108];unsigned char kinds[24];char pad120[0x56C-0x120];
  Int priority;char pad570[0x634-0x570];Bool flag;

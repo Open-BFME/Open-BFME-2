@@ -29,7 +29,7 @@ struct Rva005F066COuter
 class Rva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-class Rva00222A8BTarget;
+
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 namespace StrategicHUD

@@ -92,7 +92,7 @@ class ThingTemplate;
 namespace _STL { template <> void _Rb_tree<ThingTemplate const *,pair<ThingTemplate const * const,int>,_Select1st<pair<ThingTemplate const * const,int> >,less<ThingTemplate const *>,allocator<pair<ThingTemplate const * const,int> > >::clear(); }
 // Suppress this TU's non-retail copy of ?_M_erase@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class ThingTemplate;
+
 namespace _STL { template <> void _Rb_tree<ThingTemplate const *,pair<ThingTemplate const * const,int>,_Select1st<pair<ThingTemplate const * const,int> >,less<ThingTemplate const *>,allocator<pair<ThingTemplate const * const,int> > >::_M_erase(_Rb_tree_node<pair<ThingTemplate const * const,int> > *); }
 // Suppress this TU's non-retail copy of ?test@?$bitset@$0HE@@_STL@@QBE_NI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).

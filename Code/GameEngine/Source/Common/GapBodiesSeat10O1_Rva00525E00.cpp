@@ -472,7 +472,7 @@ unsigned int Rva005CABBB::rva005CABBB(const AsciiString &key)
 // ?rva00549420@Rva00549420@@QBEHABV1@@Z @0x00549420 5B and
 // ?rva00584D50@Rva00584D50@@QBEHABV1@@Z @0x00584D50 5B: deque iterator
 // difference through the rowed _Deque_iterator_base::_M_subtract.
-struct BfmeE8;
+
 namespace _STL
 {
 	template <class T>

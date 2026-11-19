@@ -29,19 +29,19 @@ struct GeometryShape;
 namespace _STL { template <> void vector<GeometryShape,allocator<GeometryShape> >::push_back(GeometryShape const &); }
 // Suppress this TU's non-retail copy of ?_M_clear@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@IAEXXZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> void vector<GeometryShape,allocator<GeometryShape> >::_M_clear(); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@IA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> void vector<GeometryShape,allocator<GeometryShape> >::_M_insert_overflow(GeometryShape *,GeometryShape const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ??$_Construct@UGeometryShape@@U1@@_STL@@YAXPAUGeometryShape@@ABU1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> void _Construct<GeometryShape,GeometryShape>(GeometryShape *,GeometryShape const &); }
 // Suppress this TU's non-retail copy of ??0?$vector@UGeometryShape@@V?$allocator@UGeometryShape@@@_STL@@@_STL@@QAE@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct GeometryShape;
+
 namespace _STL { template <> vector<GeometryShape,allocator<GeometryShape> >::vector(unsigned int); }
 
 #include "../../../../GameEngine/Include/Common/ScalarTypes.h"

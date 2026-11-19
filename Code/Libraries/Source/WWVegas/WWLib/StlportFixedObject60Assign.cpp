@@ -20,19 +20,19 @@ struct BfmeFixedObject60;
 namespace _STL { template <> void vector<BfmeFixedObject60,allocator<BfmeFixedObject60> >::push_back(BfmeFixedObject60 const &); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PAUBfmeFixedObject60@@PAU1@@_STL@@YAPAUBfmeFixedObject60@@PAU1@00A:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeFixedObject60;
+
 namespace _STL { template <> BfmeFixedObject60 * __uninitialized_copy<BfmeFixedObject60 *,BfmeFixedObject60 *>(BfmeFixedObject60 *,BfmeFixedObject60 *,BfmeFixedObject60 *,__false_type const &); }
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@UBfmeFixedObject60@@V?$allocator@UBfmeFixedObject60@@@_STL@@@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeFixedObject60;
+
 namespace _STL { template <> void vector<BfmeFixedObject60,allocator<BfmeFixedObject60> >::_M_insert_overflow(BfmeFixedObject60 *,BfmeFixedObject60 const &,__false_type const &,unsigned int,bool); }
 // Suppress this TU's non-retail copy of ??$__uninitialized_fill_n@PAUBfmeFixedObject60@@IU1@@_STL@@YAPAUBfmeFixedObject60@@PAU1@IA:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeFixedObject60;
+
 namespace _STL { template <> BfmeFixedObject60 * __uninitialized_fill_n<BfmeFixedObject60 *,unsigned int,BfmeFixedObject60>(BfmeFixedObject60 *,unsigned int,BfmeFixedObject60 const &,__false_type const &); }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@UBfmeFixedObject60@@@_STL@@QBEPAUBfmeFixedObject60@@IPBX@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeFixedObject60;
+
 namespace _STL { template <> BfmeFixedObject60 * allocator<BfmeFixedObject60>::allocate(unsigned int,void const *) const; }
 
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU

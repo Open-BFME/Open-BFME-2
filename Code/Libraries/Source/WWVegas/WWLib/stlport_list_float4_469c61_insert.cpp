@@ -9,7 +9,7 @@ struct BfmeFloat4Record00469C61;
 namespace _STL { template <> _List_node<BfmeFloat4Record00469C61> * list<BfmeFloat4Record00469C61,allocator<BfmeFloat4Record00469C61> >::_M_create_node(BfmeFloat4Record00469C61 const &); }
 // Suppress this TU's non-retail copy of ??$_Construct@UBfmeFloat4Record00469C61@@U1@@_STL@@YAXPAUBfmeFloat4Record00469C61@@ABU1@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeFloat4Record00469C61;
+
 namespace _STL { template <> void _Construct<BfmeFloat4Record00469C61,BfmeFloat4Record00469C61>(BfmeFloat4Record00469C61 *,BfmeFloat4Record00469C61 const &); }
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.

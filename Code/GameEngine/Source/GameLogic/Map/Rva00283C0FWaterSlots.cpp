@@ -42,7 +42,7 @@ public:
 };
 
 // Root tables BC6F34: empty RET4 followed by three pure callbacks.
-class WaterHandle;
+
 class TerrainLogicListenerRootA {
 public:
  virtual void vslot0(int);

@@ -26,7 +26,7 @@ enum PathfindLayerEnum
  PATHFIND_LAYER_UNKNOWN = 0,
  PATHFIND_LAYER_GROUND = 1
 };
-typedef int LocomotorSurfaceTypeMask;
+#include "../../../Include/Common/ScalarTypes/Source/LocomotorSurfaceTypeMask.h"
 class LocomotorSet;
 #include "../../../Include/Common/Player.h"
 // Relationship order is established by the rowed Object::getRelationship.

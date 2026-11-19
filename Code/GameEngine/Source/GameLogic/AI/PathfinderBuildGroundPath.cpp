@@ -18,7 +18,11 @@
 // component with the y and z halves held in the direction as retail's
 // register use shows.
 #include "Lib/Coord3D.h"
-typedef int Int;typedef bool Bool;
+
+#include "../../../Include/Common/ScalarTypes/Int.h"
+
+#include "../../../Include/Common/ScalarTypes/Bool.h"
+
 enum PathfindLayerEnum { PATHFIND_LAYER_UNKNOWN=0, PATHFIND_LAYER_GROUND=1 };
 struct PathCollisionNode;
 struct PathCollisionInfo {

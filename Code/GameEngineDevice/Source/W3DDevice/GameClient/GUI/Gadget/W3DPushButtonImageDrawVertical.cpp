@@ -9,8 +9,8 @@
 // BFME2 vtable slots: winDrawImage at 0x108, setClipRegion at 0xa8,
 // enableClipping at 0xb0).
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
+#include "../../../../../../GameEngine/Include/Common/ScalarTypes/UnsignedInt.h"
 typedef unsigned char Bool;
 typedef int Color;
 

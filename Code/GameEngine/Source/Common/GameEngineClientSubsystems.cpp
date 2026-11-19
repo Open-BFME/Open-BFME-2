@@ -95,7 +95,7 @@ private:
 #include "../../Include/Common/GameEngine.h"
 
 extern GameLogic *TheGameLogic;
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+ extern class GameClient *TheGameClient;
 // TheGameClient (0x009FE77C) is GameClient.cpp's global; this unit reads it through its own view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

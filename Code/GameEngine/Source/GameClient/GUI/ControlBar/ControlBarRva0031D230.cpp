@@ -216,7 +216,7 @@ enum CommandAvailability
 };
 class CommandButton;
 class GameWindow;
-class Image;
+
 class CommandSet;
 class INI;
 class WindowVideoManager;

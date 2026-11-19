@@ -68,7 +68,7 @@ struct DamageFilteredCreateObjectDieModuleData
 	int m_damageTypeTriggersForDuration;
 	unsigned int m_timeWindow;			// +0x44
 };
-class ModuleData;
+
 #include "../../../../Include/GameLogic/Module/ModuleBase.h"
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 class Rva00C4AA84Iface

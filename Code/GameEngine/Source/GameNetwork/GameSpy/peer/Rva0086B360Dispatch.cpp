@@ -4,7 +4,7 @@
 #include <string.h>
 
 typedef void *PEER;
-typedef int PEERBool;
+#include "../../../../Include/Common/ScalarTypes/Source/PEERBool.h"
 enum
 {
 	PEERFalse,

@@ -21,10 +21,10 @@ class BfmeVirtualSlots<0>
 
 class Object;
 
-enum CommandSourceType
-{
-	CMD_FROM_AI = 2
-};
+#include "../../command_source_type.h"
+
+
+
 
 class AIUpdateInterface
 {

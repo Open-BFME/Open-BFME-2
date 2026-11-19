@@ -142,7 +142,7 @@ public:
 	}
 };
 
-class TerrainTracksRenderObjClassSystem;
+
 class W3DShadowManager;
 class SnowManager;
 class DisplayStringManager;

@@ -38,7 +38,7 @@ class ModuleData;
 namespace _STL {
 template<> void vector<const ModuleData *>::reserve(unsigned int);
 }
-class ModuleData;
+
 class UpgradeTemplate;
 
 class UpgradeCenter

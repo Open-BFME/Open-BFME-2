@@ -11,7 +11,7 @@ enum PathfindLayerEnum
 PATHFIND_LAYER_UNKNOWN = 0,
 PATHFIND_LAYER_GROUND = 1
 };
-typedef int LocomotorSurfaceTypeMask;
+#include "../../../Include/Common/ScalarTypes/Source/LocomotorSurfaceTypeMask.h"
 
 #include "../../../Include/GameLogic/LocomotorSet.h"
 
@@ -784,7 +784,7 @@ __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2
 { 
 	Int delta_x = abs( destinationCell->x - startCell->x ); 
 	Int delta_y = abs( destinationCell->y - startCell->y ); 
- 
+
 	Int xinc2, yinc1, xinc1, numpixels, numadd, den; 
 	Int yinc2, num; 
 	if (delta_x >= delta_y) 
@@ -809,7 +809,7 @@ __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2
 		yinc1 = 1; 
 		xinc1 = 1; 
 	} 
- 
+
 	if (startCell->x > destinationCell->x) 
 	{ 
 		xinc2 = -xinc2; 
@@ -820,7 +820,7 @@ __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2
 		yinc2 = -yinc2; 
 		yinc1 = -1; 
 	} 
- 
+
 	Int x = startCell->x; 
 	Int y = startCell->y; 
 	PathfindCell *previousCell = 0; 
@@ -829,12 +829,12 @@ __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2
 		PathfindCell *currentCell = getCell( layer, x, y ); 
 		if (currentCell == 0) 
 			return 0; 
- 
+
 		Int ret = callbackInfo->cellCallback( previousCell, currentCell, x, y ); 
 		if (ret != 0) 
 			return ret; 
 		previousCell = currentCell; 
- 
+
 		if (num < 0) 
 		{ 
 			num += numadd; 

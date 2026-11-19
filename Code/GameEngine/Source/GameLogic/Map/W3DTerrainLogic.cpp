@@ -114,7 +114,7 @@ public:
 
 // Native getWaypointByID28333F stores Waypoint pointers keyed by unsigned ID
 // at +56C; xfer clears that same cache through280AB6.
-class Waypoint;
+
 
 // Native buildBeacons283E9C accesses +64 as a list of coordinate lists.
 // Node copy282843 and clear283002 confirm nested value ownership.
@@ -247,7 +247,7 @@ W3DTerrainLogic::W3DTerrainLogic() : m_mapMinZ(0), m_mapMaxZ(1)
 // Native getWaypointByID28333F and xfer identify the +56C waypoint-ID cache.
 // Its ctor chain is 33C432 -> 1F068F -> 1F0534; retain the typed providers
 // here with the constructor member and its native teardown chain.
-class Waypoint;
+
 typedef _STL::pair<const unsigned int, Waypoint *> TerrainWaypointPair;
 typedef _STL::_Rb_tree_base<TerrainWaypointPair, _STL::allocator<TerrainWaypointPair> > TerrainWaypointTreeBase;
 template TerrainWaypointTreeBase::_Rb_tree_base(const _STL::allocator<TerrainWaypointPair> &);

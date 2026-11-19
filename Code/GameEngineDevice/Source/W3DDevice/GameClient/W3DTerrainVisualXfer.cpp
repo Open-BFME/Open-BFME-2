@@ -59,13 +59,13 @@ class Snapshot;
 
 #include "../../../../GameEngine/Include/Common/XferVersion.h"
 
-typedef bool Bool;
-typedef int Int;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Bool.h"
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
 typedef unsigned int UnsignedInt;
 
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
-typedef bool Bool;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Bool.h"
 typedef unsigned char UnsignedByte;
 
 #include "../../../../GameEngine/Include/Common/XferException.h"

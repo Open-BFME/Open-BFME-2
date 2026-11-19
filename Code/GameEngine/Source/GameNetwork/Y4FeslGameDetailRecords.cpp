@@ -21,7 +21,7 @@
 //
 // This lane may not add a .h file, so the message class is re-declared here.
 
-typedef __int64 FeslInt64;
+#include "../../Include/Common/ScalarTypes/Source/FeslInt64.h"
 
 #include "../../Include/GameNetwork/BfmeThingRF.h"
 

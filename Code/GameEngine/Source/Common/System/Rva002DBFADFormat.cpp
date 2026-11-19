@@ -2,7 +2,7 @@
 // ?Rva002DBFAD@@YA?AVUnicodeString@@PBX@Z @0x002DBFAD 212B evidence: GetVersionExA GetDateFormatA-W IAT; UnicodeString translate 0x006CB5F0; StringBase wide copy 0x00037050 set 0x0000565D release 0x00036E70 rowed; callers 5
 
 #include "../../../Include/Common/ScalarTypes.h"
-typedef unsigned short WideChar;
+#include "../../../Include/Common/ScalarTypes/WideChar.h"
 typedef unsigned int DWORD;
 typedef unsigned short WORD;
 #define NULL 0
