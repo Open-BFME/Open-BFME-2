@@ -1,5 +1,23 @@
 # W3DStreakDraw body consolidation, 2026-11-05
 
+## 2026-11-19 prerequisite check
+
+At `4b23ddd07e`, the default picker again served this TU. A fresh naming
+survey and supported merge dry run accept none of the four remaining donors.
+The destructor requires `Release_Ref` on the seed's `Rva001684D6` view;
+Rva000CFF4C and PoolKey select the canonical raw texture-pointer view, which
+cannot accept the constructor's `RefCountPtr` assignment. ModuleDataCtor2
+requires an allocator constructor absent from `W3DStreakWeatherVec`.
+`tu_views.py --dry-run` independently refuses the module-data base mismatch
+(`Snapshot` versus `W3DStreakDrawModuleDataBase`) and conflicting streak-object
+slot zero (`Delete_This` versus `slot0`). TextureClass is already shared.
+
+The existing canonical-header and module-data lifetime prerequisites remain;
+no source, row, or register was changed. The seed's declared-body check passes.
+The dry run reports the stale `b2ee5962a6` index from 2026-11-17, but these
+rejections are compiler/layout failures, not new link-loss evidence. No
+link or runtime conclusion is drawn from this check.
+
 Scope: the reconciliation in `fc9cc163a6` and the following merge of
 `Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp`
 into its approved `Draw/W3DStreakDraw.cpp` TU. One source file is removed;
