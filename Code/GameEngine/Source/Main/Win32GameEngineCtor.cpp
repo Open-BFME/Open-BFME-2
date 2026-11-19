@@ -25,21 +25,21 @@ public:
 	virtual void m_unknown06();
 	virtual void m_unknown07();
 	virtual void m_unknown08();
-	virtual void m_unknown09();
-	virtual void m_unknown10();
+	virtual void reset();
+	virtual void update();
 	virtual void m_unknown11();
 	virtual void m_unknown12();
 	virtual void m_unknown13();
-	virtual void m_unknown14();
+	virtual void init(int argc, char *argv[]);	// 0x0022E2E4
 	virtual void m_unknown15();
-	virtual void m_unknown16();
-	virtual void m_unknown17();
+	virtual bool rva00225AD5();
+	virtual bool rva00225AFF();
 	virtual void m_unknown18();
 	virtual void m_unknown19();
 	virtual void m_unknown20();
 	virtual void m_unknown21();
-	virtual void m_unknown22();
-	virtual void m_unknown23();
+	virtual bool isMultiplayerSession();	// 0x00225F76
+	virtual void rva00042121();
 	virtual void m_unknown24();
 	virtual void setIsActive(bool active);
 
@@ -52,6 +52,9 @@ class Win32GameEngine : public GameEngine
 public:
 	Win32GameEngine();
 	virtual ~Win32GameEngine();
+	virtual void reset();	// 0x00041EBE
+	virtual void update();	// 0x00041EC3
+	virtual void rva00042121();	// 0x00042121
 
 private:
 	unsigned int m_previousErrorMode;
@@ -77,7 +80,6 @@ Win32GameEngine::Win32GameEngine()
 #pragma comment(linker, "/alternatename:?m_unknown19@GameEngine@@UAEXXZ=?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ")
 #pragma comment(linker, "/alternatename:?m_unknown20@GameEngine@@UAEXXZ=?setForceWantingState@SupplyTruckAIUpdate@@UAEX_N@Z")
 #pragma comment(linker, "/alternatename:?m_unknown21@GameEngine@@UAEXXZ=?get@Rva001DBA6DByteField@@QBEEXZ")
-#pragma comment(linker, "/alternatename:?m_unknown23@GameEngine@@UAEXXZ=?rva00042121@Win32GameEngine@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?m_unknown24@GameEngine@@UAEXXZ=?get@Rva00041D5EByteField@@QBEEXZ")
 #pragma comment(linker, "/alternatename:?setIsActive@GameEngine@@UAEX_N@Z=?setForceBusyState@SupplyTruckAIUpdate@@UAEX_N@Z")
 
@@ -99,10 +101,4 @@ Win32GameEngine::~Win32GameEngine()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?m_unknown02@GameEngine@@UAEXXZ=?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ")
-#pragma comment(linker, "/alternatename:?m_unknown09@GameEngine@@UAEXXZ=?reset@Win32GameEngine@@UAEXXZ")
-#pragma comment(linker, "/alternatename:?m_unknown10@GameEngine@@UAEXXZ=?update@Win32GameEngine@@UAEXXZ")
-#pragma comment(linker, "/alternatename:?m_unknown14@GameEngine@@UAEXXZ=?init@GameEngine@@UAEXHQAPAD@Z")
 #pragma comment(linker, "/alternatename:?m_unknown15@GameEngine@@UAEXXZ=?rva0022D290@GameEngine@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?m_unknown16@GameEngine@@UAEXXZ=?rva00225AD5@GameEngine@@UAE_NXZ")
-#pragma comment(linker, "/alternatename:?m_unknown17@GameEngine@@UAEXXZ=?rva00225AFF@GameEngine@@UAE_NXZ")
-#pragma comment(linker, "/alternatename:?m_unknown22@GameEngine@@UAEXXZ=?isMultiplayerSession@GameEngine@@UAE_NXZ")
