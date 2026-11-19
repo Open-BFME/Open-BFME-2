@@ -22,7 +22,7 @@ extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB5@@@")[];  
 extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB6@@@")[];  // vftable 0x00C58790
 extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB7@@@")[];  // vftable 0x00C43FFC
 extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB8@@@")[];  // vftable 0x00C46B9C
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BHFC@@@")[];  // vftable 0x00C47834
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BTransportContain@@@")[];  // vftable 0x00C47834
 extern "C" const void *const __identifier("??_7HorseHordeContain@@6BHLC@@@")[];  // vftable 0x00C45838
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
@@ -71,6 +71,6 @@ HorseHordeContain::HorseHordeContain(Thing *thing, const ModuleData *moduleData)
 	m_p2C = __identifier("??_7HorseHordeContain@@6BB6@@@");
 	m_p30 = __identifier("??_7HorseHordeContain@@6BB7@@@");
 	m_p34 = __identifier("??_7HorseHordeContain@@6BB8@@@");
-	m_pFC = __identifier("??_7HorseHordeContain@@6BHFC@@@");
+	m_pFC = __identifier("??_7HorseHordeContain@@6BTransportContain@@@");
 	m_p11C = __identifier("??_7HorseHordeContain@@6BHLC@@@");
 }

@@ -31,13 +31,28 @@ public:
 	virtual ~OpenContain();
 };
 
-class HFC { public: virtual void hfc(); private: unsigned char m_pad[0x20 - 4]; };
-class HLC { public: virtual void hlc(); };
+class ThingTemplate;
+class PayloadContainView;
+struct Coord3D;
+// The +0xFC interface: retail's one-slot table 0x00C47834 holds the rowed
+// TransportContain::createPayloadMember (0x00466FE0, TransportContain.cpp).
+class HFC { public: virtual Object *createPayloadMember(const ThingTemplate *, PayloadContainView *, Object *, const char *, int) = 0; private: unsigned char m_pad[0x20 - 4]; };
+// The +0x11C interface: slot 0 of retail's table 0x00C45838 is the rowed
+// HordeContain::rva00472329 (0x00472329, HordeContainIface11CSlots.cpp).
+class HLC { public: virtual void rva00472329(const Coord3D *, int) = 0; };
 
-class HordeContain : public OpenContain, public HFC, public HLC
+class TransportContain : public OpenContain, public HFC
+{
+public:
+	virtual ~TransportContain();
+	virtual Object *createPayloadMember(const ThingTemplate *what, PayloadContainView *contain, Object *parent, const char *name, int initial);	// 0x00466FE0
+};
+
+class HordeContain : public TransportContain, public HLC
 {
 public:
 	virtual ~HordeContain();
+	virtual void rva00472329(const Coord3D *, int);	// 0x00472329
 };
 
 class HorseHordeContain : public HordeContain
@@ -49,17 +64,3 @@ public:
 HorseHordeContain::~HorseHordeContain()
 {
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?hfc@HFC@@UAEXXZ=?createPayloadMember@TransportContain@@UAEPAVObject@@PBVThingTemplate@@PAVPayloadContainView@@PAV2@PBDH@Z")
-#pragma comment(linker, "/alternatename:?hlc@HLC@@UAEXXZ=?rva00472329@HordeContain@@UAEXPBUCoord3D@@H@Z")
