@@ -40,7 +40,7 @@ public:
 #include "../../../../../Include/W3DDevice/GameClient/W3DDisplayClass.h"
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
 // g_shadowManager: VA 0xde5dfc (zero-filled .bss).
-class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;
+ extern W3DShadowManager *TheW3DShadowManager;
 
 class W3DDebrisDraw : public DrawableModuleLayoutBase,
 	public DebrisDrawInterface

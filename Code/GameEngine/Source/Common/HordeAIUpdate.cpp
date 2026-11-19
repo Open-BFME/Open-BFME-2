@@ -229,7 +229,7 @@ extern const void *const g_00C50868[20] = {
 // LogicFramesPerSecond.
 extern int BfmeLogicFramesPerSecond;
 
-class Object;
+
 
 #include "../../Include/GameLogic/Module/HordeContainInterface.h"
 

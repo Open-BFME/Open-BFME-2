@@ -17,7 +17,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
-class CreateAHeroData;
+
 class Rva0040A3D2 { public: CreateAHeroData *rva0040A3D2(int, int); };
 #include "../../../../../Include/GameClient/AptMyHero.h"
 struct ClassScreenPrefix { char prefix[0x27C]; AptMyHero hero; };

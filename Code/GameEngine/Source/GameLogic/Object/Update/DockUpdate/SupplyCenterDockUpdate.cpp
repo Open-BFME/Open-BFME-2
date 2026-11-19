@@ -258,11 +258,11 @@ class Thing;
 
 class ModuleData;
 
-class Object;
+
 
 struct Coord3D;
 
-class SupplyCenterDockUpdateModuleData;
+
 
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 

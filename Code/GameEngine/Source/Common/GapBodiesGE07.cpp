@@ -238,7 +238,7 @@ void Rva00367422::addDelta(const Rva00367422Point *delta)
 
 // --- 0x0050B4E2 (55B): the rowed 0x0050B479, then for a positive +0x12C
 // value virtual slot 6 with the object's +0x38 point.
-class Object;
+
 
 class Made002CCB04
 {

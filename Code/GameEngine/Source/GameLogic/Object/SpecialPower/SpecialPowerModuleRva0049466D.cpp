@@ -105,7 +105,7 @@ extern GameLogic *TheGameLogic;
 
 
 class Waypoint;
-class Drawable;
+
 
 // pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
 // is a plain list<Drawable *>: retail destroys it with the base destructor

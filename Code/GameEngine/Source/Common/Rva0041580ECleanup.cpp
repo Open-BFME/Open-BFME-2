@@ -103,7 +103,7 @@ void Rva0041580E::rva00415886()
 // 0x307F0, then calls rowed _Construct<Rva0041579E> at 0x4157E1 on +0x10.
 // ECX is never read; ret 4. A stdcall ABI view avoids asserting member identity.
 // The allocated block's complete original node/value layout is not claimed.
-class Rva0041579E;
+
 namespace _STL {
 template<class T> class allocator;
 template<> class allocator<char> {

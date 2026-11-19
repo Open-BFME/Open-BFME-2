@@ -161,7 +161,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct CrushDieModuleData;
+
 
 class CrushDie : public DieModule
 {

@@ -113,7 +113,7 @@ private:
 	AsciiString m_130; // +0x130
 };
 
-struct Input005093C6;
+
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Made002CC774Rva005093C6.cpp
 

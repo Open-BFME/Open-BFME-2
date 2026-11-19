@@ -216,7 +216,7 @@ public:
 // WB VA 0x008E0C00 (callsite lead, score 1) and UpdateAndRenderZfail WB VA
 // 0x008E0ED0 (callgraph lead, score 5). The caller renderShadows 0x00107F8B's
 // unit walks W3DVolumetricShadowV2 lists into both.
-class Rva00107E76Elem;
+
 
 class MeshClass;
 

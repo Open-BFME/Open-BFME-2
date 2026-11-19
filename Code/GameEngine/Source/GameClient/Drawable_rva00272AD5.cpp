@@ -59,7 +59,7 @@ class Arg00261790;
 
 // vftable 0x00BF9000, allow 0x002617E8 (ctor 0x00261790): the thing's
 // position and its radius scaled by a GlobalData factor, and a flag.
-class Arg00261790;
+
 class Rva00261790 : public Rva000421C8
 {
 public:

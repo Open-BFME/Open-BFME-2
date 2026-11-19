@@ -30,7 +30,7 @@ public:
 class StaticNameKey;
 extern const StaticNameKey TheKey_playerName;
 // VA 0x00DBD9F4 is the ledger global StaticNameKey TheKey_teamName.
-class StaticNameKey;
+
 extern const StaticNameKey TheKey_teamName;
 
 #include "../../../Include/Common/Dict.h"

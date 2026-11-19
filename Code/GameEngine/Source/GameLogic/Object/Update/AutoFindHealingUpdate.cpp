@@ -269,9 +269,9 @@ public:
 	Object *rva00495183();
 };
 
-class Thing;
 
-class ModuleData;
+
+
 
 class Xfer;
 

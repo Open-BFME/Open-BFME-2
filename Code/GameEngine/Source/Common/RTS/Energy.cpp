@@ -54,7 +54,7 @@ public:
 	int m_08;
 };
 
-struct Rva004DF207Outer;
+
 
 #include "../../../Include/Common/XferVersion.h"
 

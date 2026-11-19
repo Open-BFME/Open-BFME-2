@@ -9,7 +9,7 @@ class Rva003ED658;
 struct Rva004ABDDCEntry;
 #include "../../Include/Common/ModuleKeyRegistry.h"
 
-struct Rva004ABDDCEntry;
+
 typedef _STL::set<Rva004ABDDCEntry *> ModuleKeyRegistrySet;
 typedef _STL::_Rb_tree<Rva004ABDDCEntry *, Rva004ABDDCEntry *,
     _STL::_Identity<Rva004ABDDCEntry *>, _STL::less<Rva004ABDDCEntry *>,

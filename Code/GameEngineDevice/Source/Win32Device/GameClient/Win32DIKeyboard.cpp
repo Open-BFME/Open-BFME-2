@@ -183,9 +183,9 @@ struct DIPROPDWORD
 };
 
 // Match the sibling keyboard storage types; keep the existing raw call views below.
-struct IDirectInput8;
 
-struct IDirectInputDevice8;
+
+
 
 class DirectInputKeyboard : public Keyboard
 {

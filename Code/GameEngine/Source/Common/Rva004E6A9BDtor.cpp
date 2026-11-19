@@ -4,7 +4,7 @@
 // its destructor restores the five-purecall base at 0x8078DC.
 // The holder offsets and cleanup sequence agree with the named 84-byte class.
 class Rva00222A8BTarget;
-class Rva00222A8BTarget;
+
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../Libraries/Source/Apt/AptPlayerClass.h"

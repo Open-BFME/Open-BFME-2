@@ -486,7 +486,7 @@ struct InnerLink
 	Rva0081D520Owner *m_owner;
 };
 
-class Rva00524A4CInterface;
+
 
 // MovieWindowPlayback::OpenMovie's complete native subtitle settings at
 // VA BF63DC..BF63F8. These descriptive names retain the proven word types;

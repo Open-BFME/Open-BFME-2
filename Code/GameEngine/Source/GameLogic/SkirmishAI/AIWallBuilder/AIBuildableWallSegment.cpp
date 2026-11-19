@@ -79,7 +79,7 @@ public:
                            const Coord3D &endPosition, bool option);
 };
 class Rva00A027B8;
-class BuildAssistant;
+
 extern BuildAssistant *TheBuildAssistant;
 #include "../../../../Include/GameLogic/Rva0055ADD8.h"
 class AIBuildableStructure
@@ -110,11 +110,11 @@ private:
     char m_unrecovered50[4];
     int m_totalCost;
 };
- 
- 
- 
- 
- 
+
+
+
+
+
 // Rva00573B23 (vftable 0x00C6E270) and its derived Rva00596CDF (vftable
 // 0x00C70AF0, installed by 0x00596C85 and 0x00596CDF), one view for every
 // body of this TU. Target facts: 0x00C70AF0 holds registerWithBuilder

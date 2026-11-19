@@ -151,7 +151,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class RGBColor;
+
 #include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 

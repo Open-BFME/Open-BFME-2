@@ -29,7 +29,7 @@ public:
   BfmeAptValue006DCD20(int);
   virtual ~BfmeAptValue006DCD20();
 };
-class AptValue;
+
 #include "../../../Libraries/Source/Apt/AptNativeHash.h"
 class Rva006D6360 : public BfmeAptValue006DCD20 {
   AptNativeHash hash;

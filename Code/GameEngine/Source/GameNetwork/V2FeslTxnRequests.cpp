@@ -42,7 +42,7 @@
 // are the same retail object seen through two windows, and this file does not
 // land over that one.
 
-typedef __int64 FeslInt64;
+#include "../../Include/Common/ScalarTypes/Source/FeslInt64.h"
 
 class Rva007E8810Message
 {

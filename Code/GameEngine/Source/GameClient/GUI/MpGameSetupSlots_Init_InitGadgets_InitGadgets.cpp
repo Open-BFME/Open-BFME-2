@@ -573,7 +573,7 @@ public:
 // AptCallbackAdders.cpp's by-value callback reference, built in place from a
 // binding passed by value (its out-of-line copy is 0x00518756, ret 0x10);
 // the callee releases it through 0x0007DEEF.
-struct TargetRef00217D4C;
+
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
 template <class T> class AptRef : public Rva0057BC63FunctorHolder

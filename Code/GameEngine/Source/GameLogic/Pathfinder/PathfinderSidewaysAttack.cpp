@@ -13,13 +13,17 @@
 // stlport
 #include <vector>
 #include "../../../Include/Common/ScalarTypes.h"
-typedef int Int; typedef float Real; struct Coord3D;
+
+#include "../../../Include/Common/ScalarTypes/Int.h"
+
+#include "../../../Include/Common/ScalarTypes/Real.h"
+ struct Coord3D;
 enum PathfindLayerEnum
 {
 PATHFIND_LAYER_UNKNOWN = 0,
 PATHFIND_LAYER_GROUND = 1
 };
-typedef int LocomotorSurfaceTypeMask;
+#include "../../../Include/Common/ScalarTypes/Source/LocomotorSurfaceTypeMask.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/LocomotorSet.h"

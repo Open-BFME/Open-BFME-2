@@ -6,7 +6,7 @@
 #include "ascii_string.h"
 
 class Rva00222A8BTarget;
-class Rva00222A8BTarget;
+
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
 #include "../../Include/Common/Rva005C31FB.h"

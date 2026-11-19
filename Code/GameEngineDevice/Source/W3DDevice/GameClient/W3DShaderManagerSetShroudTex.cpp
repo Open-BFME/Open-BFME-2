@@ -55,7 +55,7 @@ public:
 	Rva00072B3A *shroud; // +0x3878
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-class TextureBaseClass;
+
 void __cdecl BoxSetTexture(unsigned,TextureBaseClass *&);
 static __forceinline void BindTexture(unsigned stage,const RvaTextureHandleView &handle){BoxSetTexture(stage,reinterpret_cast<TextureBaseClass *&>(const_cast<RvaTextureHandleView&>(handle)));}
 // The device keeps its D3D8 type name but is a Direct3D 9 device.

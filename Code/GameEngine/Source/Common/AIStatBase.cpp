@@ -137,7 +137,7 @@ struct BfmeIdVectorView
 	ObjectID *m_end;
 };
 #include "../../Include/Common/Rva0025C061.h"
-struct Rva003ECB52Arg;
+
 class AIStatBase {public:bool removeObject(void*);};
 class AIUnitStats : public Rva0025C061
 {

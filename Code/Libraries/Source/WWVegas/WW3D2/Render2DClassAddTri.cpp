@@ -13,7 +13,7 @@ extern "C" void _ReadWriteBarrier();
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 #include <math.h>
 
-typedef unsigned long BfmeUInt32;
+#include "../../../../GameEngine/Include/Common/ScalarTypes/Source/BfmeUInt32.h"
 
 struct BfmeRenderVertex
 {
@@ -114,11 +114,11 @@ void Render2DClass::Add_Tri(const Vector2 &v0, const Vector2 &v1, const Vector2 
 		3, 3, &indices, &baseVertexPair);
 
 	convertFirstPosition(vertices[0], v0);
-	
+
 	convertPosition006e(vertices[1], v1);
-	
+
 	convertPosition006e(vertices[2], v2);
-	
+
 
 	vertices[0].u = uv0.X;
 	vertices[0].v = uv0.Y;

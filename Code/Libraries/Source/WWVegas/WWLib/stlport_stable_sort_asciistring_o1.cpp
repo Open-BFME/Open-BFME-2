@@ -36,7 +36,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline AsciiString * c
 // already rows under another spelling; each forwarder reaches that row with
 // the call shape of the helper it replaces (generated from the retail REL32s).
 #include "Rva004F9185Cmp.h"
-struct TreeHintRef00217D4C;
+
 namespace _STL { template <> TreeHintRef00217D4C * __lower_bound<struct TreeHintRef00217D4C *,struct TreeHintRef00217D4C,struct Rva004F9185Cmp,int>(TreeHintRef00217D4C *,TreeHintRef00217D4C *,TreeHintRef00217D4C const &,Rva004F9185Cmp,int *); }
 namespace _STL { template <> TreeHintRef00217D4C * __merge_backward<struct TreeHintRef00217D4C *,struct TreeHintRef00217D4C *,struct TreeHintRef00217D4C *,struct Rva004F9185Cmp>(TreeHintRef00217D4C *,TreeHintRef00217D4C *,TreeHintRef00217D4C *,TreeHintRef00217D4C *,TreeHintRef00217D4C *,Rva004F9185Cmp); }
 namespace _STL { template <> TreeHintRef00217D4C * __rotate<struct TreeHintRef00217D4C *,int,struct TreeHintRef00217D4C>(TreeHintRef00217D4C *,TreeHintRef00217D4C *,TreeHintRef00217D4C *,int *,TreeHintRef00217D4C *); }

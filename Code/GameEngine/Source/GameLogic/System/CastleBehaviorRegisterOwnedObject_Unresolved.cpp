@@ -334,9 +334,9 @@ static __forceinline void addCastlePathObject(Object* object) {
 // Unpack callee has its own checked native pin; other calls use existing rows.
 // The record scalar is forwarded unchanged to the existing opaque 3980BF ABI.
 #include <ascii_string.h>
-class Team;
+
 #include "../../../Include/Common/PlayerList.h"
-class ThingTemplate;
+
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 // Existing verified 8B ASCII-plus-word record view. The source pair's scalar

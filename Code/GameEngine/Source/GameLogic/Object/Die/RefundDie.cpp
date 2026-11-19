@@ -77,7 +77,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct RefundDieModuleData;
+
 
 class RefundDie : public DieModule
 {

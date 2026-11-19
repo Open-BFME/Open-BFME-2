@@ -56,7 +56,7 @@ int Rva006C1F60::rva006C1F60(unsigned int v)
 #pragma intrinsic(memset)
 #pragma intrinsic(memcpy)
 
-struct Rva00030DD0Lock;
+
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
 int Rva00030DF0Release(Rva00030DD0Lock *lock);
 

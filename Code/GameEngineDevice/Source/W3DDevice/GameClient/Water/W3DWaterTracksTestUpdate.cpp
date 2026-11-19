@@ -35,7 +35,13 @@
 #include "unicode_string.h"
 #include "vector2.h"
 #include <windows.h>
-typedef int Int; typedef float Real; typedef bool Bool;
+
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Int.h"
+
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Real.h"
+
+#include "../../../../../GameEngine/Include/Common/ScalarTypes/Bool.h"
+
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 // Target FF921/FF93C registers two empty static-point destructors. Use the
 // canonical field layout with a separate lifetime view instead of a private

@@ -28,7 +28,7 @@ private:
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 // Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
 static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
-class Object;
+
 // ?rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ @0x39085C
 // (69B): cached pool-name key for PhysicsBehavior. The class
 // identity comes from the pool-name string the body pushes

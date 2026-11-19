@@ -140,7 +140,7 @@ Rva005F4C8ERef<Rva005E6ED6Second> Rva005FAAA1::rva005FAB34(int level, int name)
 //     a new 0x30-byte Rva005CDCEE (rowed164B ctor0x005CDE89), interface at +0x0C;
 //     inherited Rva005CC5E5 interface, with the shared counted base at28.
 //     Legacy return view only; constructor uses the real level/name/input ABI.
-class AsciiString;
+
 class Rva005E54AE:public StrategicHUD::ArmyDetailsMovieClip {public:Rva005E54AE(int,const AsciiString &,bool);virtual ~Rva005E54AE();};
 class Rva005E54F7:public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void*);virtual ~Rva005E54F7();};
 class Rva005E5590Iface : public virtual Rva005E6ED6Counted

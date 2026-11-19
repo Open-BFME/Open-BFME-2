@@ -36,7 +36,7 @@ private:
 	Coord3D m_listenerPosition;	// +0x20
 };
 
-class AnimationSoundModuleManager;
+
 
 extern class AnimationSoundModuleManager *TheAnimationSoundModuleManager;
 
