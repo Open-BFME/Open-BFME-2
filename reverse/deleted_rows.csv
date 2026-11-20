@@ -6399,3 +6399,5 @@ __ehhandler$??1Rva005B5CF4@@UAE@XZ,0x0079F51E,"Renamed to __ehhandler$??1Rva005B
 ??_GRva005B5CF4@@UAEPAXI@Z,0x005B6166,"Renamed to ??_GRva005B6B93@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C735C0)"
 ??1Rva004A0E0C@@UAE@XZ,0x004A0E0C,"Renamed to ??1SupplyCenterDockUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C51BDC)"
 ??_GRva004A0E0C@@UAEPAXI@Z,0x004A0E91,"Renamed to ??_GSupplyCenterDockUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C51BDC)"
+??1Rva004C089E@@UAE@XZ,0x004C089E,"Merged into ??1ImmortalBody@@UAE@XZ (one body, one class) by tools/rename.py (fold: retail vftable 0x00C5B550)"
+??_GRva004C089E@@UAEPAXI@Z,0x004C08FC,"Merged into ??_GImmortalBody@@UAEPAXI@Z (one body, one class) by tools/rename.py (fold: retail vftable 0x00C5B550)"

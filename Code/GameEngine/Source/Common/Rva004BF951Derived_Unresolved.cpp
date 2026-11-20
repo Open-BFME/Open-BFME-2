@@ -20,24 +20,6 @@
 
 #include "../../Include/Common/MiBase1.h"
 
-class Rva004C089E_B2
-{
-public:
-	virtual void f2() = 0;
-};
-
-class Rva004C089E : public Rva004BF951, public MiBase1, public Rva004C089E_B2
-{
-public:
-	virtual ~Rva004C089E();
-};
-
-Rva004C089E::~Rva004C089E()
-{
-}
-
-
-
 class Rva004C131B_B2
 {
 public:
