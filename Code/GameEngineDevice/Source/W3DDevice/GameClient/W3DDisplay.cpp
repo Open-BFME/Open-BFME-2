@@ -220,6 +220,48 @@ struct PlayerLeaveStatus
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 #include <windows.h>
+#if defined(BFME2_MODERN)
+#include "../../../../GameEngine/Include/Common/ModernAptLayout.h"
+// The Apt stage keeps its aspect in a centred box (W3DAptAux.cpp). Flash shows
+// nothing outside its stage, and retail's stretch put art parked off the stage
+// (panels slid out of view, such as the builder's command bar) past the screen
+// edge. Clip the Apt pass to the box so that art stays hidden in the margins.
+// The device is Direct3D 9: SetRenderState is vtable slot 57, SetScissorRect 75.
+struct ModernAptClip
+{
+    IDirect3DDevice8 *device;
+    typedef long (__stdcall *SetScissorRect)(IDirect3DDevice8 *, const RECT *);
+    typedef long (__stdcall *SetRenderState)(IDirect3DDevice8 *, unsigned, unsigned long);
+    enum { SCISSOR_TEST_ENABLE = 174 };
+    ModernAptClip() : device(0)
+    {
+        if (!modernAptKeepAspect() || (g_modernAptOffsetX < 0.5f && g_modernAptOffsetY < 0.5f))
+            return;
+        IDirect3DDevice8 *d = DX8Wrapper::_Get_D3D_Device8();
+        if (!d)
+            return;
+        int width, height, bits;
+        bool windowed;
+        WW3D::Get_Device_Resolution(width, height, bits, windowed);
+        RECT box;
+        box.left = (long)(g_modernAptOffsetX + 0.5f);
+        box.top = (long)(g_modernAptOffsetY + 0.5f);
+        box.right = width - box.left;
+        box.bottom = height - box.top;
+        if (box.right <= box.left || box.bottom <= box.top)
+            return;
+        void **slots = *(void ***)d;
+        ((SetScissorRect)slots[75])(d, &box);
+        ((SetRenderState)slots[57])(d, SCISSOR_TEST_ENABLE, 1);
+        device = d;
+    }
+    ~ModernAptClip()
+    {
+        if (device)
+            ((SetRenderState)(*(void ***)device)[57])(device, SCISSOR_TEST_ENABLE, 0);
+    }
+};
+#endif
 #include <string.h>
 #include <new>
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -1485,9 +1527,14 @@ bool W3DDisplay::rva0004A462(unsigned int now)
 #endif
                     if (!cameraValid)
                         SYS(TheInGameUI)->s158();
-                    SYS(g_bfmeAptWindowManager)->s30();
 #if defined(BFME2_MODERN)
+                    {
+                        ModernAptClip modernClip;
+                        SYS(g_bfmeAptWindowManager)->s30();
+                    }
                     modernTrace('A',0,0,0,0);
+#else
+                    SYS(g_bfmeAptWindowManager)->s30();
 #endif
                     WINDOWMODE = 0;
                     SYS(TheInGameUI)->s30();
