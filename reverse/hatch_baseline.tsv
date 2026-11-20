@@ -10345,7 +10345,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Worker
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	resetSupplyTruckBrain@WorkerAIUpdate@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	update@ActAsDozerState@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	update@ActAsSupplyTruckState@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp	xfer@WorkerStateMachine@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp	1CurseSpecialPowerModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.cpp	DeletionUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdate.cpp	DeletionUpdate::~DeletionUpdate	1

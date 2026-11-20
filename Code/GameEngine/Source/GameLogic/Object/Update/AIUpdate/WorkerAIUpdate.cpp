@@ -1041,15 +1041,8 @@ void WorkerAIUpdate::resetDozerBrain()
 // ------------------------------------------------------------------------------------------------
 /** Xfer Method */
 // ------------------------------------------------------------------------------------------------
-// ?xfer@WorkerStateMachine@@MAEXPAVXfer@@@Z present-unmatched
-void WorkerStateMachine::xfer( Xfer *xfer )
-{
-	XferVersion cv = 1;	
-	XferVersion v = cv; 
-	xfer->xferVersion( &v, cv );
-
-	StateMachine::xfer(xfer);
-}
+// WorkerStateMachine::xfer (retail 0x0033FB0B, folded with the other StateMachine xfers) is defined in
+// WorkerAIUpdateCtor.cpp; the Zero Hour copy that stood here did not match.
 
   // end xfer
 

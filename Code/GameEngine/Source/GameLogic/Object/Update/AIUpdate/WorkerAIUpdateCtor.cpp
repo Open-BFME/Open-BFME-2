@@ -1474,3 +1474,31 @@ Bool WorkerAIUpdate::findGoodBuildOrRepairPosition(const Object *me, const Objec
 
 	return spotFound;
 }
+
+// Xfer's operand types the unit has not named yet (declarations only).
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord2D;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../../Include/Common/BfmeXfer.h"
+
+// Retail slot 3 of WorkerStateMachine's table 0x00C54058 is 0x0033FB0B, the
+// identical-code fold of this override with the other StateMachine xfers
+// (rowed as Rva0033FB0B; DozerPrimaryStateMachine's twin is in DozerAIUpdateCtor.cpp).
+void WorkerStateMachine::xfer(Xfer *xfer)
+{
+	StateMachine::xfer(xfer);
+	xfer->Version1();
+}
