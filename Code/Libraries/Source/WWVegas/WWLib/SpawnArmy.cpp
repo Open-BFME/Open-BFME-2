@@ -48,16 +48,7 @@ template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 #include "../../../Include/Lib/BfmeE16.h"
 class INI;
 typedef void (*FieldParseProc)(INI *, void *, void *, const void *);
-class INI
-{
-public:
-	void initFromINI( void *what, const FieldParse *parseTable );
-	static void dup_002F0F7(INI *, void *, void *, const void *);
-	static void parseBool(INI *, void *, void *, const void *);
-	static void parseAsciiString( INI *, void *, void *, const void * );
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004E3816Parse(INI *, void *, void *, const void *);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
 #pragma inline_depth(0)
