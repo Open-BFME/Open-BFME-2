@@ -186,6 +186,22 @@ typedef _STL::deque<BfmeNarrowRecord0054FEF1, _STL::allocator<BfmeNarrowRecord00
 
 typedef char NarrowRecord0054FEF1DequeSize[sizeof(NarrowRecord0054FEF1Deque) == 40 ? 1 : -1];
 
+// Both entry points use the deque whose copy and auxiliary operations match retail.
+// PingRequest has the same string and two words as its matched record view.
+typedef char PingRequestRecordSize[sizeof(PingRequest) == sizeof(BfmeNarrowRecord0054FEF1) ? 1 : -1];
+typedef char PingRequestFieldOffsets[
+    offsetof(PingRequest, hostname) == 0 &&
+    offsetof(PingRequest, repetitions) == 12 &&
+    offsetof(PingRequest, timeout) == 16 ? 1 : -1];
+typedef char PingRequestDequeSize[sizeof(RequestQueue) == sizeof(NarrowRecord0054FEF1Deque) ? 1 : -1];
+
+template <> inline void RequestQueue::push(const PingRequest &request)
+{
+	NarrowRecord0054FEF1Deque &requests = reinterpret_cast<NarrowRecord0054FEF1Deque &>(c);
+	requests.push_back(reinterpret_cast<const BfmeNarrowRecord0054FEF1 &>(request));
+}
+
+
 class Rva0054F93F : public ThreadClass
 {
 public:

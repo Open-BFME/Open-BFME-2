@@ -68,7 +68,7 @@ inline UnsignedInt &maskWord(unsigned char (&mask)[4])
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "../../../command_source_type.h"
 
 
 

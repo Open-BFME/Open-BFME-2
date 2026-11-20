@@ -48,7 +48,7 @@ private:
 void Rva0004E3A6::rva0004E3A6(Int value)
 {
 	m_1464 = true;
-	((Radar *)this)->rva002D7E68((void *)value);
+	((Radar *)this)->Radar::rva002D7E68((void *)value);
 }
 
 // vtable 0x00BCBC40#7: 0x000B5FE6 on this when the field at +0x50 is set.

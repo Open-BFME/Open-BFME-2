@@ -29,11 +29,11 @@ extern "C" void _ReadWriteBarrier(void);
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BObjectModule@@@")[];  // vftable 0x00C428C4
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C42808
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BUpgradeMux@@@")[];  // vftable 0x00C427C0
-extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BModuleInterface@@@")[];  // vftable 0x00C58790
+extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BUpgradeModuleInterface18@@@")[];  // vftable 0x00C58790
 extern "C" const void *const __identifier("??_7Rva003F498ACallback@@6B@")[];
 extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
 extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BDynamicPortalExtraA@@@")[];  // vftable 0x00C427B8
-extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BDynamicPortalExtraB@@@")[];  // vftable 0x00C427A8
+extern "C" const void *const __identifier("??_7DynamicPortalBehaviour@@6BCreateModuleInterface@@@")[];  // vftable 0x00C427A8
 
 class UpgradeModule
 {
@@ -68,9 +68,9 @@ DynamicPortalBehaviour::DynamicPortalBehaviour(Thing *thing, const ModuleData *m
 	*(unsigned int *)this = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BObjectModule@@@");
 	*(unsigned int *)((char *)this + 0xC) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BBehaviorModuleInterface@@@");
 	*(unsigned int *)((char *)this + 0x10) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BUpgradeMux@@@");
-	*(unsigned int *)((char *)this + 0x18) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BModuleInterface@@@");
+	*(unsigned int *)((char *)this + 0x18) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BUpgradeModuleInterface18@@@");
 	*(unsigned int *)((char *)this + 0x1C) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BDynamicPortalExtraA@@@");
-	*(unsigned int *)((char *)this + 0x20) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BDynamicPortalExtraB@@@");
+	*(unsigned int *)((char *)this + 0x20) = (unsigned int)__identifier("??_7DynamicPortalBehaviour@@6BCreateModuleInterface@@@");
 	m_3C = 0;
 	m_3D = 0;
 	for (int i = 0; i < 6; ++i)

@@ -2,9 +2,9 @@
 // stlport
 // ??4WeatherSetting@@QAEAAV0@ABV0@@Z @0x00201412 345B.
 // BFME 2's WeatherSetting copy assignment (the compiler-generated one the
-// override machinery calls): the same two-base shape as the streak module
-// template assignment at 0x00200CB1 (the 0x10-byte base's assignment is the
-// folded tiny body at 0x001FD28E, the DynamicAudio assignment 0x00200BC0 sits
+// override machinery calls): its first base is Overridable, as the constructor
+// 0x00201618 and destructor 0x0020182B establish. The base assignment shares
+// the folded body at 0x001FD28E; the DynamicAudio assignment 0x00200BC0 sits
 // at +0x10), then the AsciiString texture at +0x18 (0x000366F0) and plain
 // members to +0xB4. The members' types are only fixed as far as the copy
 // shows: dwords, bytes and the 3-dword runs copied with movsd. Field offsets
@@ -13,22 +13,13 @@
 // same object.
 #include "ascii_string.h"
 
-namespace FXParticleSystem
-{
-class StreakDrawModuleTemplate
-{
-public:
-	StreakDrawModuleTemplate &operator=(const StreakDrawModuleTemplate &other);
-private:
-	char m_pad[0x10];
-};
-}
+#include "../../Include/Common/Overridable.h"
 
 #include "../../Include/Common/DynamicAudioEventRTS.h"
 
 #include "../../Include/Common/ThreeInts.h"
 
-class WeatherSetting : public FXParticleSystem::StreakDrawModuleTemplate, public DynamicAudioEventRTS
+class WeatherSetting : public Overridable, public DynamicAudioEventRTS
 {
 public:
 	WeatherSetting &operator=(const WeatherSetting &other);
@@ -78,7 +69,7 @@ private:
 
 WeatherSetting &WeatherSetting::operator=(const WeatherSetting &other)
 {
-	FXParticleSystem::StreakDrawModuleTemplate::operator=(other);
+	Overridable::operator=(other);
 	DynamicAudioEventRTS::operator=(other);
 	m_snowTexture = other.m_snowTexture;
 	m_1C = other.m_1C;

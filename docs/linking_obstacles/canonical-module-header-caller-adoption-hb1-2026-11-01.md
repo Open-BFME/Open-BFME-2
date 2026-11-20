@@ -19,3 +19,11 @@ BehaviorModule transfer and post-load definitions require declarations for their
 2026-11-05: eight callers now use canonical `BodyModuleInterface` instead of private complete-module spellings; 109/109 functions byte-match, cohort acceptance retires eight queue rows, and a whole-object provider audit finds no stranded import. Complete-module/base-layout adoptions remain queued. [Verification and scope](../../reverse/attempt_support/body-interface-adoption-codex2-20261105.md).
 
 2026-11-06 recovery: OldSchoolHelpBoxContentSource retains its canonical caller source but its BodyModule queue row is restored after current acceptance refused the unchanged UnicodeString empty-static prerequisite; seven other caller queue retirements remain. [Recovery checks and retry prerequisite](../../reverse/attempt_support/preparation-recovery-codex2-20261106.md).
+
+DynamicPortalBehaviour update, 2026-11-20. Its native BehaviorModuleInterface
+copy now binds the existing target bodies at slots 3, 4, 7 and 10. Slot 45
+still needs the typed `mapLoadPostProcess(const Dict *)` declaration and
+the matching default provider. The Create and UpgradeMux tables have
+the correct extents and their full native slot bindings. DynamicPortal's
+copy of the shared short UpgradeModule interface also matches.
+[Scoped evidence](../../reverse/attempt_support/dynamic-portal-behaviour-tables-20261120-root20.md)

@@ -44,43 +44,8 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 extern DisplayStringManager *TheDisplayStringManager;
 
-class Rva00524265
-{
-public:
-	Rva00524265();
-	~Rva00524265();
-private:
-	char m_pad[0x0c];
-};
+#include "../../Include/Common/Rva005D40A6.h"
 
-#include "../../Include/Common/Rva0052413E.h"
-
-class Rva005D40A6
-{
-public:
- Rva005D40A6(int,const AsciiString &,const ChecklistFontDesc &);
- void OnClicked(const char *); void OnRollOver(const char *); void OnRollOut(const char *);
- void RenderText(const FloatPair &,const FloatPair &,unsigned int,unsigned int);
- // ?UpdateHeight@Rva005D40A6@@QAEXXZ @0x005D4395 158B: renamed from
- // placeholder rva005D4395 — the WorldBuilder twin names
- // ChecklistUIItemMovieClip::UpdateHeight at EA's own file (strings); the
- // receiver class stays the guessed view until its family reconciles with the
- // landed Flash spelling.
- void UpdateHeight(); void Update(); void rva005D46E3(const UnicodeString &); void rva005D472C();
- virtual ~Rva005D40A6();
- virtual void rva0047A69C(float);
- virtual void rva000B3FD0Slot08(); virtual void rva000B3FD0Slot0C();
- virtual void rva000B3FD0Slot10();
-private:
-	int m_04;
-	AsciiString m_08;
-	Rva0052413E m_0c;
-	Rva00524265 m_18;
-	DisplayString *m_24;
- UnicodeString m_28;
- unsigned int m_color2C; float m_float30; int m_word34; float m_float38;
- unsigned char flag0:1, flag1:1, flag2:1, flag3:1, flag4:1, flag5:1, flag6:1, flag7:1;
-};
 
 Rva005D40A6::~Rva005D40A6()
 {
