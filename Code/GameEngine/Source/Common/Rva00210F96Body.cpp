@@ -59,11 +59,7 @@ void Rva003EF008::rva003EF008()
 	((Rva004E3629 *)((char *)this + 8))->rva004E3629(g_Rva00E02E84, 0);
 }
 
-class LivingWorldRegionEffectsManager : public Rva003EF008
-{
-public:
-	void rva003EF2FF();
-};
+#include "../../Include/Common/LivingWorldRegionEffectsManager.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 
@@ -73,6 +69,6 @@ void LivingWorldManager::rva00210F96()
 	SetUpRegionEffectsManager();
 	if (!field268)
 		return;
-	field268->rva003EF008();
+	reinterpret_cast<Rva003EF008 *>(field268)->rva003EF008();
 	return field268->rva003EF2FF();
 }
