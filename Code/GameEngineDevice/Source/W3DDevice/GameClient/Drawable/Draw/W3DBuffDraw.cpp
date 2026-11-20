@@ -30,15 +30,22 @@ private:
 };
 #include "Common/Snapshot.h"
 class MultiIniFieldParse;
-class W3DBuffDrawModuleData : public Snapshot
+// Retail's table for W3DBuffDrawModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int.
+#include "../../../../../../GameEngine/Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class W3DBuffDrawModuleData : public ModuleData
 {
+public:
+	// Retail slot 17 (0x0047A6A9) is the shared `mov eax,ecx; ret` stub.
+	virtual const void *slot17() const { return this; }
+
 public:
 	W3DBuffDrawModuleData();
 	virtual ~W3DBuffDrawModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
-	unsigned int m_word; // +04
 	AsciiString m_modelName; // +08
 	bool m_flag; // +0C
 	char m_pad0D[3];
