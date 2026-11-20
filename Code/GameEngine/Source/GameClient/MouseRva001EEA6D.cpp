@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva001EEA6D@Mouse@@QAEXVUnicodeString@@HPBURGBColor@@M@Z @0x001EEA6D 360B
 // Mouse tooltip setter with house-color adjust. Same color math as ZH/BFME1
 // Mouse::setCursorTooltip over m_tooltipColorText at +0x128C and

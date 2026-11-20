@@ -262,7 +262,6 @@ Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp,-Os -G7,2,1,region defa
 Code/GameEngine/Source/GameClient/InGameUI.cpp,-O1 -Ot -G7 -arch:SSE,8,1,region default loses rows
 Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp,-O1 -G7,2,1,region default loses rows
 Code/GameEngine/Source/GameClient/MapUtil.cpp,-G7 -arch:SSE,19,8,region default loses rows
-Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/Open2Twins006.cpp,,16,1,region default loses rows
 Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp,,1,1,region default loses rows
