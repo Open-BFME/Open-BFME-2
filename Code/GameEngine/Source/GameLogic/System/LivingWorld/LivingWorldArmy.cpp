@@ -268,7 +268,7 @@ struct CtorArmyMinusOneWord { int word; __forceinline CtorArmyMinusOneWord(int v
 struct CtorArmyPair {float x,y; __forceinline CtorArmyPair():x(0),y(0){} };
 struct CtorArmyLastPair {float x,y; __forceinline CtorArmyLastPair():x(0),y(0){_ReadWriteBarrier();} };
 
-class SpawnArmy {public: bool rva00319CED(); void *rva004E23C1(); char pad00[4]; AsciiString a04,a08; char pad0C[12]; AsciiString a18; char pad1C[12]; AsciiString a28; char pad2C[24]; float f44; char pad48[4]; int source4C; AsciiString a50; bool b54;};
+#include "../../../../Include/Common/SpawnArmy.h"
 struct Rva002B6A04Player {char pad00[20];int id14;};
 #include "../../../../Include/Common/LivingWorldArmyLine.h"
 #include "../../../../Include/Common/Rva00318E8COut.h"
@@ -330,7 +330,7 @@ LivingWorldArmy::LivingWorldArmy(): v2C(-1),v30(0),owner54(-1),b58(true),b59(fal
  ((Rva005A0B4CList*)((char*)TheLivingWorldLogic+0x1C))->append((Rva002BA8F1Listener*)(Rva00319D01ObserverBase*)this);
 }
 
-LivingWorldArmy::LivingWorldArmy(int owner,SpawnArmy *desc,Rva002B6A04Player *player):name18(desc->a50),name1C(desc->a18),name24(desc->a04),name28(desc->a08),v2C(-1),v30(0),owner54(-1),b58(true),b59(false),f5C(desc->f44),v60(1),b64(false),b65(false),v70(-1),b74(desc->b54),b75(false),status88(0),v8C(0) {
+LivingWorldArmy::LivingWorldArmy(int owner,SpawnArmy *desc,Rva002B6A04Player *player):name18(desc->m_50),name1C(desc->m_18),name24(desc->m_04),name28(desc->m_08),v2C(-1),v30(0),owner54(-1),b58(true),b59(false),f5C(desc->m_44),v60(1),b64(false),b65(false),v70(-1),b74(desc->m_54),b75(false),status88(0),v8C(0) {
  _ReadWriteBarrier();
  owner20=owner;
  if(player)owner54=player->id14;
@@ -339,15 +339,15 @@ LivingWorldArmy::LivingWorldArmy(int owner,SpawnArmy *desc,Rva002B6A04Player *pl
  if(desc->rva00319CED())((LivingWorldArmy*)this)->UseArmySummary(desc);
  ((ArmySummaryView*)heldSummary(summary78))->owner1C=owner;
  ((AsciiString*)((char*)heldSummary(summary78)+0x20))->setCopyInline(name28);
- createVisualObjects(&desc->a04);
+ createVisualObjects(&desc->m_04);
  ((Rva003193EC*)this)->rva003190E7(false);
- if(desc->a28.isEmpty()) {
+ if(desc->m_28.isEmpty()) {
   Rva00318E8COut pos;
   ((Rva00319AA0*)this)->rva00319AA0((Coord2D*)((Rva00318E8C*)desc)->rva00318E8C(&pos));
  } else {
   Rva002104B6 *store=(Rva002104B6*)*(void**)((char*)TheLivingWorldLogic+0xB0);
   _ReadWriteBarrier();
-  LivingWorldRegion *region=(LivingWorldRegion*)store->rva002104B6(&desc->a28);
+  LivingWorldRegion *region=(LivingWorldRegion*)store->rva002104B6(&desc->m_28);
   Rva00318E8COut pos;
   ((Rva00318E8C*)desc)->rva00318E8C(&pos);
   if(region)region->GetGarrisonArmyPlacementSpot((Rva003F0F13Elem*)&pos);
@@ -375,7 +375,7 @@ void LivingWorldArmy::UseArmySummary(SpawnArmy *source)
         ExperienceLevelHandle handle = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->rva00288E21(thing, level);
         if (reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->IsValid(handle))
             entry->requiredExperience08 = static_cast<float>(reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetRequiredExperience(handle));
-        entry->sourceC0 = source->source4C;
+        entry->sourceC0 = source->m_4c;
     }
 }
 
