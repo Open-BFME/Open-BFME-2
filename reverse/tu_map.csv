@@ -27808,7 +27808,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0036B8E0,6,code,Code/GameEngine/Source/Common/GiantBirdAIUpdate.cpp,proposed,N,N=Code/GameEngine/Source/Common/GiantBirdAIUpdate.cpp noncontiguous,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
 0x0036B8E6,123,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp
 0x0036B961,278,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
-0x0036BA77,184,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateFollowWaypoints.cpp
+0x0036BA77,184,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 0x0036BB2F,330,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00368344Rva0036BB2F.cpp
 0x0036BC79,377,code,,,-,,Code/GameEngine/Source/GameLogic/AI/Rva0036BC79AiDoCommand.cpp
 0x0036BDF2,1039,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp
@@ -74466,8 +74466,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077E5C4,8,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,P,P=0x0036B961@FuncInfo0x009286DC,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 0x0077E5CC,8,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,P,P=0x0036B961@FuncInfo0x009286DC,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 0x0077E5D4,10,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,P,P=0x0036B961@FuncInfo0x009286DC,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
-0x0077E5DE,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateFollowWaypoints.cpp
-0x0077E5E6,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateFollowWaypoints.cpp
+0x0077E5DE,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
+0x0077E5E6,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 0x0077E5F0,8,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,approved,P,P=0x0036BDF2@FuncInfo0x00928724 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp
 0x0077E5F8,10,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,approved,P,P=0x0036BDF2@FuncInfo0x00928724 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp
 0x0077E602,8,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopState.cpp,approved,P,P=0x0036C201@FuncInfo0x00928748 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp
