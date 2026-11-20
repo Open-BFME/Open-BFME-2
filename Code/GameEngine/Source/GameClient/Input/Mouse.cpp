@@ -400,14 +400,7 @@ const char *g_00DB9058[] = {
 
 #include "../../../Include/Common/SizedForwarderSlots.h"
 
-class Rva001EDDBBForwarder
-{
-public:
-	void rva001EDDBB();
-private:
-	char m_lead[0x4FA8];
-	SizedForwarderSlots *m_inner;
-};
+#include "../../../Include/Common/Rva001EDDBBForwarder.h"
 
 typedef RGBAColorInt RGBAColorInt;
 
@@ -1045,7 +1038,10 @@ bool Mouse::rva001EDD80(const Rva001EDD80Pair *lhs, const Rva001EDD80Pair *rhs)
 // vtable 0x00BE0358#9 (??_7Rva001EE3DE@@6B@): (+0x4FA8)->slot5()
 void Rva001EDDBBForwarder::rva001EDDBB()
 {
-	m_inner->slot5();
+	// The native Mouse forwarding pointer follows the shared receiver prefix.
+	SizedForwarderSlots *inner =
+		*reinterpret_cast<SizedForwarderSlots **>(reinterpret_cast<unsigned char *>(this) + 0x4FA8);
+	inner->slot5();
 }
 
 // ---- from Code/GameEngine/Source/GameClient/Input/Mouse.cpp
