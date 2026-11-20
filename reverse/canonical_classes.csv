@@ -2783,3 +2783,4 @@ ProneUpdate,Code/GameEngine/Include/GameLogic/Module/ProneUpdate.h,existing head
 OpenContain,Code/GameEngine/Include/GameLogic/Module/OpenContain.h,existing header; contract class_contracts/OpenContain.json; 2/8 sampled units adopt
 SpecialPowerModule,Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h,existing header; contract class_contracts/SpecialPowerModule.json; 4/8 sampled units adopt
 GarrisonContain,Code/GameEngine/Include/GameLogic/Module/GarrisonContain.h,existing header; contract class_contracts/GarrisonContain.json; 0/8 sampled units adopt
+TransportContain,Code/GameEngine/Include/GameLogic/Module/TransportContain.h,existing header; contract class_contracts/TransportContain.json; 3/8 sampled units adopt

@@ -1,0 +1,754 @@
+{
+ "bases": [
+  "OpenContain",
+  "HFC"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "TransportContain",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "OpenContain"
+   ]
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x110": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x468559"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "OpenContain",
+       "offset": 0,
+       "own_vftable": "0x844278",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 252,
+       "own_vftable": "0x847834",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x468559"
+     ],
+     "value": 269
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x468559"
+     ],
+     "value": {
+      "0x100": [
+       4
+      ],
+      "0x104": [
+       4
+      ],
+      "0x108": [
+       4
+      ],
+      "0x10c": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x468559"
+     ],
+     "value": {
+      "0x110": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24b88b"
+     ],
+     "value": 284
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x468559"
+     ],
+     "value": {
+      "0x10": [
+       "0x8441a8"
+      ],
+      "0x20": [
+       "0x844030"
+      ],
+      "0x24": [
+       "0x846064"
+      ],
+      "0x28": [
+       "0x846f78"
+      ],
+      "0x2c": [
+       "0x858790"
+      ],
+      "0x30": [
+       "0x843ffc"
+      ],
+      "0x34": [
+       "0x845cec"
+      ],
+      "0xc": [
+       "0x8441b8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x468559"
+     ],
+     "value": {
+      "0x0": "0x844278",
+      "0xfc": "0x847834"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x844278"
+     ],
+     "value": {
+      "count": 31,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTransportContain@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x468029"
+       },
+       {
+        "name": "?rva004783D7@Rva004697E1Contain@@QAEXXZ",
+        "slot": 1,
+        "target": "0x4783d7"
+       },
+       {
+        "name": "?name@TransportContain@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x467f26"
+       },
+       {
+        "name": "?xfer@TransportContain@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x466dbc"
+       },
+       {
+        "name": "?getModuleNameKey@TransportContain@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x467ee1"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?onDelete@OpenContain@@UAEXXZ",
+        "slot": 8,
+        "target": "0x464120"
+       },
+       {
+        "name": "?onCapture@TransportContain@@UAEXHH@Z",
+        "slot": 9,
+        "target": "0x4672b7"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       },
+       {
+        "name": "?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z",
+        "slot": 13,
+        "target": "0x462f75"
+       },
+       {
+        "name": "?rva00466E58@Rva00466E58@@QBEEH@Z",
+        "slot": 14,
+        "target": "0x466e58"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 15,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 16,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?monitorConditionChanges@OpenContain@@MAEXXZ",
+        "slot": 17,
+        "target": "0x462c72"
+       },
+       {
+        "name": "?redeployOccupants@OpenContain@@MAEXXZ",
+        "slot": 18,
+        "target": "0x464286"
+       },
+       {
+        "name": "?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z",
+        "slot": 19,
+        "target": "0x464ee7"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 20,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?doLoadSound@OpenContain@@MAEXXZ",
+        "slot": 21,
+        "target": "0x46279c"
+       },
+       {
+        "name": "?doUnloadSound@OpenContain@@MAEXXZ",
+        "slot": 22,
+        "target": "0x46282b"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 23,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z",
+        "slot": 24,
+        "target": "0x462e3a"
+       },
+       {
+        "name": "?killRidersWhoAreNotFreeToExit@TransportContain@@MAEXXZ",
+        "slot": 25,
+        "target": "0x467f3b"
+       },
+       {
+        "name": "?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z",
+        "slot": 26,
+        "target": "0x465972"
+       },
+       {
+        "name": "?isSpecificRiderFreeToExit@TransportContain@@MAE_NPAVObject@@@Z",
+        "slot": 27,
+        "target": "0x4671ac"
+       },
+       {
+        "name": "?createPayload@TransportContain@@QAEXXZ",
+        "slot": 28,
+        "target": "0x4670d6"
+       },
+       {
+        "name": "?rva0046740C@TransportContain@@MAEXXZ",
+        "slot": 29,
+        "target": "0x46740c"
+       },
+       {
+        "name": "?letRidersUpgradeWeaponSet@TransportContain@@MAEXXZ",
+        "slot": 30,
+        "target": "0x46760d"
+       }
+      ],
+      "table": "0x844278"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x844278": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTransportContain@@UAEPAXI@Z",
+     "1": "?rva004783D7@Rva004697E1Contain@@QAEXXZ",
+     "2": "?name@TransportContain@@QBEPBDXZ",
+     "3": "?xfer@TransportContain@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@TransportContain@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "?onDelete@OpenContain@@UAEXXZ",
+     "9": "?onCapture@TransportContain@@UAEXHH@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+     "13": "?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z",
+     "14": "?rva00466E58@Rva00466E58@@QBEEH@Z",
+     "15": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "16": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "17": "?monitorConditionChanges@OpenContain@@MAEXXZ",
+     "18": "?redeployOccupants@OpenContain@@MAEXXZ",
+     "19": "?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z",
+     "20": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "21": "?doLoadSound@OpenContain@@MAEXXZ",
+     "22": "?doUnloadSound@OpenContain@@MAEXXZ",
+     "23": "??1Region2D@@QAE@XZ",
+     "24": "?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z",
+     "25": "?killRidersWhoAreNotFreeToExit@TransportContain@@MAEXXZ",
+     "26": "?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z",
+     "27": "?isSpecificRiderFreeToExit@TransportContain@@MAE_NPAVObject@@@Z",
+     "28": "?createPayload@TransportContain@@QAEXXZ",
+     "29": "?rva0046740C@TransportContain@@MAEXXZ",
+     "30": "?letRidersUpgradeWeaponSet@TransportContain@@MAEXXZ"
+    },
+    "stores": 1
+   },
+   "0x847834": {
+    "offset": 252,
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "4": 1,
+   "272": 2,
+   "284": 4
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/TransportContain.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "m_object",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "m_containList._M_node._M_data",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 252,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_extraSlotsInUse",
+   "name_by": "majority",
+   "offset": 256,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_frameExitNotBusy",
+   "name_by": "majority",
+   "offset": 260,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_hiddenState",
+   "name_by": "tie",
+   "offset": 268,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['OpenContain', 'HFC']": 1,
+    "['TransportContainOpenBase', 'TransportPayloadCreator']": 1
+   },
+   "class": "TransportContain",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "252:A": 1,
+    "4:P": 1
+   },
+   "class": "TransportContain"
+  },
+  {
+   "attribute": "inherited@0x8",
+   "candidates": {
+    "4:P": 1
+   },
+   "class": "TransportContain"
+  },
+  {
+   "attribute": "field@0x108",
+   "candidates": {
+    "4:A": 1,
+    "4:i4": 1
+   },
+   "class": "TransportContain"
+  },
+  {
+   "attribute": "name@0x10c",
+   "candidates": {
+    "m_hiddenState": 1,
+    "m_payloadCreated": 1
+   },
+   "class": "TransportContain"
+  },
+  {
+   "attribute": "nested@0x34",
+   "candidates": {
+    "m_containList._M_node._M_data": 2
+   },
+   "class": "TransportContain"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "__vecDelDtor(uint)": 1,
+    "killRidersWhoAreNotFreeToExit()": 1
+   },
+   "class": "TransportContain"
+  }
+ ],
+ "size": 284,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "slot19()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "onContaining(Object*,bool)"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "slot22()"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "slot24()"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "slot25()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "slot26()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "slot27()"
+  },
+  "28": {
+   "decided_by": "bytes",
+   "member": "slot28()"
+  },
+  "29": {
+   "decided_by": "bytes",
+   "member": "createPayload()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot38(Object*,int,int)"
+  },
+  "30": {
+   "decided_by": "bytes",
+   "member": "slot30()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "getModuleNameKey()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "onCapture(int,int)"
+  }
+ }
+}
