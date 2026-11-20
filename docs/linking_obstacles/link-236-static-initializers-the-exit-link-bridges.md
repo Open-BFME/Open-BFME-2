@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 442).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 441).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1757,3 +1757,11 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   1,696 unassigned bytes. Zero Hour's AIGroup.cpp includes GameClient/Drawable.h and GameLogic/Module/SpawnBehavior.h
   (donor facts); ours already compiled the copy as `_$E1` and uses the spawn interface. It now takes
   GameLogic/Module/SpawnUpdateRate.h right after its Drawable.h include and registers the rate as `_$E3`.
+- *Taken (442 -> 441): W3DFloorBuffer.cpp's copy, by link order.* Retail's `.text$yc` runs Rva000E19A3Dtor.cpp's
+  rowed `_$E1` 0x007AC6DD (the unit of g_00DEBC60 and the 40-byte shader namespace 0x00DEBC64), then 0x007AC70D
+  alone between markers, then W3DVegetationBufferBase.cpp's rowed run; the `.bss` holds that unit's two items, the copy
+  0x00DEBC8C, then W3DVegetationBufferBase's g_009EBC90 and copy. The code between the two units holds FlatHeightMap.cpp
+  (0x000E24C5..0x000E43CE; Zero Hour's file does not reach Drawable.h and ours builds no copy) and W3DFloorBuffer.cpp
+  (0x000E473F..0x000E6186, with the small methods before it that its own classes declare). W3DFloorBuffer is BFME 2
+  code with no Zero Hour file; it keeps a Drawable pointer and resolves drawables by id, and our TU file already
+  compiled the copy as `_$E2`, so only the rows change.
