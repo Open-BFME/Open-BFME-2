@@ -234,44 +234,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class UpgradeMux
-{
-public:
-	virtual Bool isAlreadyUpgraded() const = 0;
-	virtual void m01() = 0;
-	virtual void m02() = 0;
-	virtual void m03() = 0;
-	virtual void m04() = 0;
-	virtual void m05() = 0;
-	virtual void m06() = 0;
-	virtual void m07() = 0;
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(Bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-
-private:
-	bool m_upgradeExecuted;
-};
-
-// UpgradeModule.h's UpgradeModuleInterface18: retail's table at this base is
-// 0x00C58790 (ret 4, ret 4, ret 0Ch), UpgradeModule's three empty overrides.
-#include "../../../../Include/Common/ModuleInterface.h"
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule(Thing *thing, const ModuleData *moduleData);
-	void rva004CE4A0();
-	void rva004CE4A8();
-	virtual void vslot18_00(void *) { }
-	virtual void vslot18_01(void *) { }
-	virtual void vslot18_02(void *, void *, void *) { }
-
-protected:
-	virtual ~UpgradeModule();
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class DynamicPortalExtraA
 {
