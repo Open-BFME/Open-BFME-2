@@ -1,4 +1,4 @@
-// cl: /MD /GX
+// cl: /MD
 //
 // Opaque three-vptr destructors tail-calling Rva0049B47C::~Rva0049B47C at
 // 0x0049B47C (pinned opaque fold-point dtor; identity unproven). These bodies
@@ -71,18 +71,17 @@ void Rva00484EF4_Anchor(Rva00484EF4 *p)
 // +0x10). Target evidence: the BodyModule constructor 0x004BD7FD stores the
 // vftable whose slot 0 is the deleting dtor 0x004BD841 (calls this dtor), and
 // the InactiveBody constructor 0x004BD8BD's unwind map destroys its BodyModule
-// base through 0x004BD763. PrimaryP stands for BehaviorModule (its +0/+0xC
-// vftables 0x007EEA7C/0x007EE9C0 are BehaviorModule's). The +0x10 interface
-// is the one-slot pure view BodyModuleCtor.cpp uses, so the shared
-// ??_7BodyModule@@6B@ copies agree. The deleting dtor is emitted and rowed in
+// base through 0x004BD763. Defining ~BehaviorModule inline reproduces retail's
+// (+0x10, +0, +0x0C) store order and tail-jump to ~ObjectModule (0x0049B47C),
+// and gives Rva004BD78F (InactiveBody) its full 47-slot BehaviorModuleInterface
+// vtable (0x0085AD78). The deleting dtor is emitted and rowed in
 // BodyModuleCtor.cpp (slot 0 of its vftable).
-#include "../../Include/GameLogic/Module/BodyModule.h"
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
+#include "../../Include/GameLogic/Module/BodyModuleClass.h"
 
-class BodyModule : public PrimaryP, public BodyModuleInterface
+inline BehaviorModule::~BehaviorModule()
 {
-public:
-	virtual ~BodyModule();
-};
+}
 
 BodyModule::~BodyModule()
 {
