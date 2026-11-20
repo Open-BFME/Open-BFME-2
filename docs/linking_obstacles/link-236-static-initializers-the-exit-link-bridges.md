@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 445).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 444).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1739,3 +1739,12 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   existing `_$E1` is rowed as 0x007B3351. The same argument does not settle 0x007B2E18/0x007B2E42 after UnleashSpecialPower:
   UpgradeModule.cpp and DieModule.cpp lie between, but so does a row proposed to ObjectCreationUpgrade.cpp, whose Zero
   Hour file also reaches Drawable.h.
+- *Taken (445 -> 444): ExperienceTracker.cpp's copy, by link order (`build/init2/linkorder.py`).* Retail's `.text$yc`
+  runs CastleBehavior's rowed copy (`_$E2` 0x007AF244), then 0x007AF288 alone between markers, then ScoreKeeper's run;
+  the `.bss` holds Castle's copy 0x00E02830, this copy 0x00E02834, then ScoreKeeper's map and flag. One copy-bearing
+  unit is linked between the two, and the code between CastleBehavior's (..0x0039ABC5) and ScoreKeeper's (0x0039B6EE..)
+  is ExperienceTracker.cpp's (0x0039ABFF..0x0039B57F) plus 188 unassigned bytes of small methods. BFME 2's
+  ExperienceTracker uses Drawable (0x0039B57F reads `m_object->getDrawable()`; Zero Hour's file does not include
+  Drawable.h, so this fact is the target's). The TU file ExperienceTracker.cpp takes GameClient/DrawableFramesPerFlash.h
+  and registers the copy as `_$E1`; the fragment ExperienceTrackerRva0039B57F.cpp also compiles an unrowed copy, and
+  `initializer_report` still credits the rowed one with no conflict or double.

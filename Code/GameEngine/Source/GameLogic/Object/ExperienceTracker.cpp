@@ -3,6 +3,10 @@
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
 #include "Lib/Coord3D.h"
+// Retail 0x007AF288: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run; the
+// one copy retail links between CastleBehavior's and ScoreKeeper's (static VA 0x00E02834). The unit's code uses
+// Drawable (0x0039B57F); it is built on private views, so it takes the constant's own header.
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
 #pragma comment(linker, "/alternatename:??1ExperienceTracker@@UAE@XZ=??1Rva0039AD56@@UAE@XZ")
