@@ -54,7 +54,10 @@ jobs:
       - name: Package
         shell: bash
         run: |
-          name="bfme2-modernizer-${GITHUB_REF_NAME//\//-}"
+          # modernizer-v0.6.0-bfme2-1.06 for a tag, modernizer-152-merge-bfme2-1.06 for a PR
+          name="${GITHUB_REF_NAME//\//-}"
+          [[ "$name" == modernizer-* ]] || name="modernizer-$name"
+          name="$name-bfme2-1.06"
           mkdir -p "dist/$name"
           cp build/modern/blob/dinput8.dll build/modern/blob/bfme2-modern-106.blob mods/modernizer/README.md "dist/$name/"
           (cd "dist/$name" && sha256sum dinput8.dll bfme2-modern-106.blob README.md > SHA256SUMS)
@@ -63,7 +66,7 @@ jobs:
           echo "PACKAGE=$name" >> "$GITHUB_ENV"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: bfme2-modernizer
+          name: modernizer-bfme2-1.06
           path: |
             dist/${{ env.PACKAGE }}.zip
             dist/${{ env.PACKAGE }}/SHA256SUMS
@@ -80,7 +83,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
-          name: bfme2-modernizer
+          name: modernizer-bfme2-1.06
           path: dist
       - name: Publish the release
         env:
@@ -93,9 +96,9 @@ jobs:
             echo "Copy dinput8.dll and bfme2-modern-106.blob from the zip into the BFME II 1.06 game folder; README.md inside lists settings and limits."
             echo
             echo '```'
-            cat "dist/bfme2-modernizer-${TAG}/SHA256SUMS"
+            cat "dist/${TAG}-bfme2-1.06/SHA256SUMS"
             echo '```'
           } > notes.md
           gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --verify-tag --prerelease \
-            --title "BFME II modernizer ${TAG#modernizer-}" --notes-file notes.md \
-            "dist/bfme2-modernizer-${TAG}.zip" dist/blob_report.json
+            --title "BFME II modernizer ${TAG#modernizer-} (1.06)" --notes-file notes.md \
+            "dist/${TAG}-bfme2-1.06.zip" dist/blob_report.json
