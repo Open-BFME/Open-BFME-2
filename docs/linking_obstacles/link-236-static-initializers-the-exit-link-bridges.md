@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 463).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 462).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1601,3 +1601,8 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   unit is built on Zero Hour's PreRTS.h; the shim of round lk58 serves exactly that case: RTS/ScoreKeeper.cpp takes
   `reference/shims/bfme2_drawable_flash` first on its include path and registers the copy as `_$E23`. The masks stay
   bridged (Rva007ADC9CMaskInits.cpp) until their header is known.
+- *Taken (463 -> 462): AnimationSoundModuleManager.cpp's copy.* Retail's run is the unit's rowed BlockParse node
+  `_$E1` 0x007B058F, then the copy 0x007B05A4, closed by the marker 0x007B05B4: one run, one unit. The `.bss` holds
+  TheAnimationSoundModuleManager 0x00E032D0 (the unit's plain global, defined today in AnimationSoundClientBehavior.cpp),
+  then the copy 0x00E032D4; the node itself is `.data`. The unit is built on private views and the node closes the
+  file, so it takes GameClient/DrawableFramesPerFlash.h after the node, in retail's order; the copy compiles as `_$E3`.

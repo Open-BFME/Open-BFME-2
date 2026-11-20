@@ -308,3 +308,8 @@ struct BlockParse
 };
 
 BlockParse theAnimationSoundClientBehaviorGlobalSettingBlockParse( "AnimationSoundClientBehaviorGlobalSetting", parseAnimationSoundClientBehaviorGlobalSetting );
+
+// Retail 0x007B05A4: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, the second entry of its
+// initializer run after the node above (0x007B058F); its static (VA 0x00E032D4) follows the unit's
+// TheAnimationSoundModuleManager. The unit is built on private views, so it takes the constant's own header.
+#include "../../Include/GameClient/DrawableFramesPerFlash.h"
