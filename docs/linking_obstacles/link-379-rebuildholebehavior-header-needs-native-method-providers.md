@@ -16,3 +16,11 @@ fresh-index preview LINKS 1328 -> 1676 bytes. Index SHA256
 `dda3d19aaa1de0d1c6399c1fdf3f83cd054596d9391256e56322cf951d3808ae`. Remaining: pool-key/dtor donors: Object view undefined; module-data dtor: class declaration missing; one mixed donor remains.
 This is a partial source consolidation, with no new census, canonical-layout
 or real-image/runtime claim. Receipts: srv1 sweeps/merge-climb/ready-landings/rebuildholebehavior/.
+
+2026-11-20 root20: the guarded pool-key and behavior destructor merges
+removed two source paths and moved ten function rows. The final build
+verified 34/34 with five exact EH graphs. The folded post-load slot and
+2,147 scoped linked bytes were preserved. The remaining module-data
+lifetime matches 34/34 in a composed scratch trial, including all 31
+table slots. The explicit donor's body still needs a guarded atomic
+substitution to transfer its three rows. [Evidence](../../reverse/attempt_support/rebuild-hole-behavior-merge-20261120-root20.md).

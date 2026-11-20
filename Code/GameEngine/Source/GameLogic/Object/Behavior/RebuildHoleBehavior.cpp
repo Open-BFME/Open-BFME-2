@@ -73,11 +73,6 @@ private:
 
 class Thing;
 class ModuleData;
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
-};
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 #include "GameLogicObjectLookupView.h"
@@ -255,12 +250,21 @@ enum ObjectStatusTypes;
 enum DamageType;
 enum DeathType;
 #include "../../../../Include/GameLogic/AI.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+struct RebuildHoleSpawnerView
+{
+    unsigned char m_pad[0x324];
+    float m_324;
+};
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 extern ScriptEngine *TheScriptEngine;
 
 extern int BfmeLogicFramesPerSecond;
 
 struct RebuildData {char pad[8];float wait,heal;AsciiString workerName;};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp
 
@@ -448,8 +452,6 @@ void RebuildHoleBehavior::xfer(Xfer *xfer)
 		*xfer == m_40;
 }
 
-// tu-skeleton: 0x00483260 17B ?buildFieldParse@RebuildHoleBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp
 
 // ?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ
@@ -485,18 +487,47 @@ void RebuildHoleBehavior::newWorkerRespawnProcess(Object *existingWorker)
 	TheAI->m_pathfinder->AddObjectToPathfindMap(hole);
 }
 
+// tu-skeleton: 0x00483260 17B ?buildFieldParse@RebuildHoleBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
 // tu-skeleton: 0x0048334A 48B ??1RebuildHoleBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0048353E 118B ??1RebuildHoleBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp
 
-// tu-skeleton: 0x004835B4 71B ?startRebuildProcess@RebuildHoleBehavior@@UAEXPBVThingTemplate@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
+RebuildHoleBehavior::~RebuildHoleBehavior()
+{
+	if (m_workerID != INVALID_OBJECT_ID)
+	{
+		GameLogic *gameLogic = TheGameLogic;
+		Object *worker = gameLogic->findObjectByID(m_workerID);
+		if (worker)
+		{
+			gameLogic->destroyObject(worker);
+			m_workerID = INVALID_OBJECT_ID;
+		}
+	}
+}
 
-// tu-skeleton: 0x00483629 28B ??_GRebuildHoleBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
+// ?startRebuildProcess@RebuildHoleBehavior@@UAEXPBVThingTemplate@@W4ObjectID@@@Z @0x004835B4
+void RebuildHoleBehavior::startRebuildProcess(const ThingTemplate *rebuild, ObjectID spawnerID)
+{
+	Object *spawner = TheGameLogic->findObjectByID(spawnerID);
+	if (spawner)
+		m_40 = reinterpret_cast<const RebuildHoleSpawnerView *>(spawner)->m_324;
+	m_rebuildTemplate = rebuild;
+	m_spawnerObjectID = spawnerID;
+	Object *worker = TheGameLogic->findObjectByID(m_workerID);
+	newWorkerRespawnProcess(worker);
+}
+
+// ?loadPostProcess@RebuildHoleBehavior@@MAEXXZ: primary table 0x00C49A74
+// slot 1 holds 0x00497805, the identical-code-folded `jmp` to
+// UpdateModule::loadPostProcess (0x0058B03E) that every UpdateModule-family
+// override without work of its own shares.
+void RebuildHoleBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
 
 // tu-skeleton: 0x0078BC57 8B Unwind@00b8bc57 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BC5F 10B __ehhandler$??1RebuildHoleBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BC83 8B Unwind@00b8bc83 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BC8B 10B __ehhandler$??1RebuildHoleBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
