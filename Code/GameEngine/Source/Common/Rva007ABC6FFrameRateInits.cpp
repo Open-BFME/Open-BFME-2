@@ -26,7 +26,6 @@ extern int g_00E063E8;
 int g_00E063E8 = 0;	// owned here; retail .data starts it at 0
 extern int g_Va00DFE18C;
 
-static int s_rva007AEE6B;
 static int s_rva007B042B;
 
 struct Rva007ABC6FFrameRateInits
@@ -34,7 +33,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007ABC6F();
 	static void rva007AD7F3();
 	static void rva007AE27C();
-	static void rva007AEE6B();
 	static void rva007B042B();
 	static void rva007B07F5();
 	static void rva007B3B50();
@@ -57,12 +55,6 @@ void Rva007ABC6FFrameRateInits::rva007AD7F3()
 void Rva007ABC6FFrameRateInits::rva007AE27C()
 {
 	g_00DFEFCC = BfmeLogicFramesPerSecond * 4;
-}
-
-// ?rva007AEE6B@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AEE6B (16B): TU-local static at VA 0x00E01ED8, never read in .text
-void Rva007ABC6FFrameRateInits::rva007AEE6B()
-{
-	s_rva007AEE6B = BfmeLogicFramesPerSecond / 2;
 }
 
 // ?rva007B042B@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B042B (16B): TU-local static at VA 0x00E0320C, never read in .text

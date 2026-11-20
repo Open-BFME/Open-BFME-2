@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 444).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 442).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1748,3 +1748,12 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   Drawable.h, so this fact is the target's). The TU file ExperienceTracker.cpp takes GameClient/DrawableFramesPerFlash.h
   and registers the copy as `_$E1`; the fragment ExperienceTrackerRva0039B57F.cpp also compiles an unrowed copy, and
   `initializer_report` still credits the rowed one with no conflict or double.
+- *Taken (444 -> 442): AIGroup.cpp's copy and SPAWN_UPDATE_RATE, by link order (`build/init2/runorder.py`; round
+  lk63's open pair).* Retail's `.text$yc` runs GiantBirdAIUpdate's masks, then the run [0x007AEE5B, 0x007AEE6B] closed
+  by the marker 0x007AEE95, then MineshaftPortalBehaviour's rowed copy; the `.bss` holds GiantBirdAIUpdate's five masks,
+  the copy 0x00E01ED4 and the rate 0x00E01ED8, then Mineshaft's TheMineshaftPortalNetworkManager and copy. So one
+  initializer-bearing unit is linked between the two, and the approved code between GiantBirdAIUpdate.cpp's
+  (..0x0036C438) and MineshaftPortalBehaviour.cpp's (0x00372DB8..) is AIGroup.cpp's (0x0036CBF9..0x00372C05), with
+  1,696 unassigned bytes. Zero Hour's AIGroup.cpp includes GameClient/Drawable.h and GameLogic/Module/SpawnBehavior.h
+  (donor facts); ours already compiled the copy as `_$E1` and uses the spawn interface. It now takes
+  GameLogic/Module/SpawnUpdateRate.h right after its Drawable.h include and registers the rate as `_$E3`.

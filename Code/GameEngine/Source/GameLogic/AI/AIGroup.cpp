@@ -941,6 +941,9 @@ private:
 	ListNode *m_head; // +0x04
 };
 #include "../../../Include/GameClient/Drawable.h"
+// Retail 0x007AEE6B: SPAWN_UPDATE_RATE (BfmeLogicFramesPerSecond / 2), the second entry of this unit's run right
+// after its Drawable.h copy 0x007AEE5B; Zero Hour's AIGroup.cpp includes SpawnBehavior.h (LINK-236, round lk62).
+#include "../../../Include/GameLogic/Module/SpawnUpdateRate.h"
 #include "../../../Include/GameLogic/StancesBehavior.h"
 
 class Rva0036FAF8
