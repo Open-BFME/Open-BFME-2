@@ -3133,7 +3133,6 @@ name,address,notes
 ??1Rva00524415@@QAE@XZ,0x00601AE9,"address read from the retail REL32 at 0x00601C41 in the INI helper destructor 0x00601BF3; destroys the +4 member built by the rowed Rva00524415 constructor (vector storage plus vector<AsciiString> at +0xC)"
 ??1Rva00527CCE@@QAE@XZ,0x00527CCE,pointee destructor called by the owning-pointer reset 0x002D38D1 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005282BA@@QAE@XZ,0x005282BA,pointee destructor called by the owning-pointer reset 0x005287D0 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
-??1Rva0052B7B3Dtor@@QAE@XZ,0x0052B7B3,dtor thunk stub at 0x0052B7B3 to 0x0052B6FE (target of thunk 0x007B9298)
 ??1Rva005333F@@UAE@XZ,0x005333F,opaque null-check tail-jmp (19B: test [ecx+4], lea +0x88, jmp 0x50ED3); called by scalar-deleting-dtor at 0x53FB6; identity unproven, address-derived name
 ??1Rva00539926Base@@UAE@XZ,0x004E84A4,ICF twin of rowed apply identical 7B mov plus ret via dtor 0x00539926 call
 ??1Rva005635CD@@QAE@XZ,0x000B3FD0,Native cleanup7B7E99 loads receiverE02934 then tail-jumps directly to rowed empty RET B3FD0; same noarg nonvirtual void-thiscall destructor ABI; original publisher type unknown
@@ -8235,7 +8234,6 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ??1Rva004FCD63@@QAE@XZ,0x004FCD63,jmp-thunk multimap member dtor referenced by the LivingWorldScenario::Scenario dtor 0x004FD1BC unwind funclets (the ledger's rva004FCD63 is a method-shaped placeholder of the same 5-byte thunk)
 ??1Rva004FCD68@@QAE@XZ,0x004FCD68,jmp-thunk multimap member dtor referenced by the LivingWorldScenario::Scenario dtor 0x004FD1BC unwind funclets (the ledger's rva004FCD68 is a method-shaped placeholder of the same 5-byte thunk)
 ??0?$list@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@XZ,0x004F87AA,list<Rva005F8F96> default ctor closure passed to the EH vector ctor by LivingWorldAutoResolveBattle::chooseTargets 0x004F971E
-??1Rva00524306@@QAE@XZ,0x004F87B7,priority-queue dtor (jumps to 0x4F81FC) used by LivingWorldAutoResolveBattle::chooseTargets 0x004F971E; ctor pin ??0Rva00524306 at 0x1F81BF
 ??1Rva004F6943@@QAE@XZ,0x005F8F96,unwind-funclet dtor of chooseTargets 0x004F971E (same family as the existing pin ??1Rva004F6966)
 ??1Rva004F692B@@QAE@XZ,0x005F8F96,unwind-funclet dtor of chooseTargets 0x004F971E (same family as the existing pin ??1Rva004F6966)
 ?Flush@WW3D@@SAXAAVRenderInfoClass@@@Z,0x001173F0,WW3D::Flush(RenderInfoClass&) as in ZH ww3d.cpp; retail callers push the render info and pop it (the ledger's rva001173f0 is a no-argument placeholder spelling); caller the living-world scene Customized_Render 0x0009C9DE

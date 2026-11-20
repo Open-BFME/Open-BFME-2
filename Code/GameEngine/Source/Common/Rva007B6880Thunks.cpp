@@ -6958,7 +6958,7 @@ public:
 extern unsigned g_Va00E049B4;
 unsigned int g_Va00E049B4;
 
-// ?rva007B9298@@YAXXZ @ 0x007B9298 (10B). Global dtor thunk: ecx=&g_Va00E049B4 then tail-jmp to pinned ??1Rva0052B7B3Dtor@@QAE@XZ (0x0052B7B3). No callers. Honest address name.
+// ?rva007B9298@@YAXXZ @ 0x007B9298 (10B). Global dtor thunk: ecx=&g_Va00E049B4 then tail-jmp to ??1Rva0052B7B3Dtor@@QAE@XZ (0x0052B7B3, rowed in RvaCountNoteRunFamily.cpp). No callers. Honest address name.
 void __cdecl rva007B9298()
 {
 	Rva0052B7B3Dtor *receiver = (Rva0052B7B3Dtor *)&g_Va00E049B4;
