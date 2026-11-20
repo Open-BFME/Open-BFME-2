@@ -19,10 +19,16 @@ namespace _STL {
 typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmorPair;
 typedef _STL::hashtable<ArmorPair,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<ArmorPair>,_STL::equal_to<NameKeyType>,_STL::allocator<ArmorPair> > NativeClearTable;
 namespace _STL {void free(void *);}
-struct FxOwnedVector {
- void **first,**last,**limit;
- ~FxOwnedVector(){if(first)_STL::free(first);}
-
+struct FxOwnedVector
+{
+public:
+	~FxOwnedVector(){if(first)_STL::free(first);}
+	unsigned size()const{return last-first;}
+	void *operator[](unsigned i)const{return first[i];}
+	void clear(){reinterpret_cast<_STL::vector<void *> *>(this)->erase(first,last);}
+	void **first; // +0x00
+	void **last; // +0x04
+	void **limit; // +0x08
 };
 struct Rva001E287F {
  unsigned unknown00;FxOwnedVector buckets04;unsigned count10;

@@ -21,8 +21,10 @@ class Rva001E2747
 {
 public:
 	Rva001E2747(const AsciiString &name);
-private:
-	char m_pad[0x28];
+	virtual ~Rva001E2747();
+protected:
+	_STL::list<int> m_list; // +0x04
+	char m_pad08[0x20];
 };
 
 struct Member28

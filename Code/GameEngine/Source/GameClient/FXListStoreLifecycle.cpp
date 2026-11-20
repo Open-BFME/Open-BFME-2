@@ -66,12 +66,16 @@ template<> __forceinline void _STLP_alloc_proxy<void **,void *,allocator<void *>
 template<> __forceinline void allocator<FxHeapObject *>::deallocate(pointer p,size_type n)const {if(p)_STL::free(p);}
 template<> __forceinline void _STLP_alloc_proxy<FxHeapObject **,FxHeapObject *,allocator<FxHeapObject *> >::deallocate(FxHeapObject **p,size_t n){__stl_alloc_rebind(static_cast<_Base&>(*this),(FxHeapObject **)0).deallocate(p,n);}
 }
-struct FxOwnedVector {
- void **first,**last,**limit;
- ~FxOwnedVector(){if(first)_STL::free(first);}
- unsigned size()const{return last-first;}
- void *operator[](unsigned i)const{return first[i];}
- void clear(){reinterpret_cast<_STL::vector<void *> *>(this)->erase(first,last);}
+struct FxOwnedVector
+{
+public:
+	~FxOwnedVector(){if(first)_STL::free(first);}
+	unsigned size()const{return last-first;}
+	void *operator[](unsigned i)const{return first[i];}
+	void clear(){reinterpret_cast<_STL::vector<void *> *>(this)->erase(first,last);}
+	void **first; // +0x00
+	void **last; // +0x04
+	void **limit; // +0x08
 };
 struct Rva001E287F {
  unsigned unknown00;FxOwnedVector buckets04;unsigned count10;

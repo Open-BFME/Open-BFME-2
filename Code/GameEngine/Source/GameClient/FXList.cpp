@@ -456,11 +456,11 @@ template <> void _STL::_List_base<int, _STL::allocator<int> >::clear();
 class Rva001E2747
 {
 public:
+	Rva001E2747(const AsciiString &name);
 	virtual ~Rva001E2747();
-
 protected:
 	_STL::list<int> m_list; // +0x04
-	unsigned char m_pad08[0x28 - 8];
+	char m_pad08[0x20];
 };
 #include "../../Include/Common/Rva0007DF07.h"
 
