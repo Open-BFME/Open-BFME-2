@@ -32,6 +32,7 @@
 
 class GameMessage;
 
+#include "../../Include/Common/Upgrade.h"
 #include "../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;	// VA 0x00E00950
 
@@ -42,7 +43,7 @@ class RifStore
 {
 public:
 	virtual void v00(); virtual void v01();
-	virtual bool rva001B5384Slot2();
+	virtual bool loadIniFilesFromLegend();
 };
 
 class Rva001E2AD9 : public RifStore
@@ -53,7 +54,7 @@ public:
 
 bool Rva001E2AD9::rva001E0DB9(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: FXList reloaded"));
 		return true;
@@ -69,7 +70,7 @@ public:
 
 bool ObjectCreationListStore::rva001F04D9(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: ObjectCreationList reloaded"));
 		return true;
@@ -92,7 +93,7 @@ public:
 
 bool PlayerTemplateStore::attemptReload(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: PlayerTemplate reloaded"));
 		g_Va00DFE0D4 = true;
@@ -112,7 +113,7 @@ public:
 
 bool Rva001FF909::rva001FF625(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Sciences reloaded (requires map restart if any were removed)"));
 		g_Va00DFE0E4 = true;
@@ -132,7 +133,7 @@ public:
 
 bool Rva0022CA95::rva0021494B(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: AttributeModifier reloaded (requires map restart if any entries reordered)"));
 		g_Va00DFE1D8 = true;
@@ -143,16 +144,10 @@ bool Rva0022CA95::rva0021494B(int reason)
 // g_Va00DFEB64: VA 0x00DFEB64 (.bss); retail initial byte 00.
 bool g_Va00DFEB64;
 
-class UpgradeCenter : public RifStore
-{
-public:
-	virtual bool attemptRefresh();
-	virtual bool attemptReload(int reason);
-};
 
 bool UpgradeCenter::attemptReload(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Upgrades reloaded (ALL but the simplest of changes require a map restart)"));
 		g_Va00DFEB64 = true;
@@ -172,7 +167,7 @@ public:
 
 bool Rva002CCD56::rva002CAE34(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Weapon reloaded"));
 		g_Va00DFEFE0 = true;
@@ -254,7 +249,7 @@ public:
 // canonical types/flags/source provenance of this TU.
 bool Rva004263CA::rva004263CA(int reason)
 {
-	if (rva001B5384Slot2())
+	if (loadIniFilesFromLegend())
 	{
 		g_rva00426378Pending = true;
 		TheInGameUI->rva0029E846(UnicodeString(L"RIF: Emotions reloaded"));

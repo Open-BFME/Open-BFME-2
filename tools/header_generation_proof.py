@@ -50,6 +50,75 @@ def _tokens(text):
     return out
 
 
+def _generator_padding(contract):
+    """Only the owning layout planner's literal gap arrays, never array fields."""
+    import header_adopt_lane as lane
+    try:
+        plan, problems = lane.layout_plan(contract)
+        if problems:
+            raise InputRefused("canonical padding layout is unproved: " + "; ".join(problems))
+        fields = [f for f in contract["fields"] if f.get("kind") != "VPTR"]
+        polymorphic = bool(contract.get("vslots")) or any(f.get("kind") == "VPTR" for f in contract["fields"])
+        cursor = max(4, max((lane.field_alignment(f) or 1 for f in fields), default=1)) if polymorphic else 0
+        pads = {}
+        for entry in plan:
+            if entry[0] == "field":
+                cursor = entry[1]["offset"] + entry[1]["size"]
+            else:
+                _, name, size = entry
+                if type(size) is not int or size <= 0 or name in pads:
+                    raise InputRefused("canonical generator padding is ambiguous")
+                pads[name] = (cursor, size)
+                cursor += size
+        return pads
+    except (KeyError, TypeError, ValueError) as exc:
+        raise InputRefused("canonical padding layout cannot be proved: " + str(exc)) from exc
+
+
+def _role_checked_syntax(text, name, contract):
+    """Mask only verified allocation declarations and exact generated gap storage.
+
+    The original complete tokens still bind native preprocessor provenance;
+    method selection and ownership are still judged by RegisteredGeneration.
+    """
+    import header_adopt_lane as lane
+    pads, seen = _generator_padding(contract), set()
+    members = lane.class_members(text, name)
+    if members is None:
+        raise InputRefused("canonical member roles cannot be read")
+    result, position = text, 0
+    for _access, member in members:
+        at = text.find(member, position)
+        if at < 0:
+            raise InputRefused("canonical member role has no unique lexical span")
+        position = at + len(member)
+        special = None
+        if re.search(r"\boperator\b", member):
+            records = lane.declaration_records("class " + name + " { public: " + member + " };", name)
+            allocation = re.fullmatch(
+                r"static\s+void\s*\*\s*operator\s+new\s*(?:\[\s*\])?\s*"
+                r"\(\s*unsigned(?:\s+int)?(?:\s+[A-Za-z_][A-Za-z_0-9]*)?\s*\)\s*;", member)
+            deallocation = re.fullmatch(
+                r"static\s+void\s+operator\s+delete\s*(?:\[\s*\])?\s*"
+                r"\(\s*void\s*\*(?:\s*[A-Za-z_][A-Za-z_0-9]*)?\s*\)\s*;", member)
+            if (not allocation and not deallocation or not records or len(records) != 1
+                    or records[0]["role"] != "method" or records[0]["inline"]):
+                raise InputRefused("canonical operator is not a supported allocation method declaration")
+            special = member
+        elif "[" in member or "]" in member:
+            found = re.fullmatch(r"char\s+([A-Za-z_][A-Za-z_0-9]*)\[([1-9][0-9]*)\]\s*;", member)
+            if (found is None or lane.member_role(member, name) is not None
+                    or found[1] not in pads or str(pads[found[1]][1]) != found[2] or found[1] in seen):
+                raise InputRefused("canonical array is not exact owning-generator gap padding")
+            seen.add(found[1])
+            special = member
+        if special is not None:
+            result = result[:at] + re.sub(r"[^\n]", " ", special) + result[at + len(special):]
+    if seen != set(pads):
+        raise InputRefused("canonical generator gap padding is missing or ambiguous")
+    return result, bool(seen)
+
+
 def _elide_header(raw, name, contract):
     """Only a literal global class with a real whole-file guard/once wrapper."""
     if not re.fullmatch(r"[A-Za-z_][A-Za-z_0-9]*", name):
@@ -111,9 +180,12 @@ def _elide_header(raw, name, contract):
         raise InputRefused("canonical declaration has extra text or an unbalanced class body")
     class_tokens = tokens[:end + 2]
     class_text = parsed[:class_tokens[-1][2]]
-    if _FORBIDDEN.search(class_text) or re.search(r"\b__(?!int(?:8|16|32|64)\b)\w+", class_text):
+    checked, padding = _role_checked_syntax(class_text, name, contract)
+    if _FORBIDDEN.search(checked) or re.search(r"\b__(?!int(?:8|16|32|64)\b)\w+", checked):
         raise InputRefused("canonical declaration has an unsupported scope, alias, intrinsic or type role")
     suffix = tokens[end + 2:]
+    if padding and not suffix:
+        raise InputRefused("canonical generated padding lacks its owning assertion suffix")
     if suffix:
         import header_adopt_lane as lane
         asserted = "\n".join(lane.size_assertions(contract, class_text))
@@ -121,7 +193,7 @@ def _elide_header(raw, name, contract):
             raise InputRefused("canonical trailing declarations are not the exact owning generator assertions")
     # Native layout admission below supports primitive/pointer storage only.
     # Ban declarator/type machinery whose interpretation this input model lacks.
-    if any(t[0] in ("[", "]", "...", "::") for t in class_tokens):
+    if any(t[0] in ("[", "]", "...", "::") for t in _tokens(checked)):
         raise InputRefused("canonical declaration has unsupported array, variadic or qualified syntax")
     words = {t[0] for t in tokens if re.fullmatch(r"[A-Za-z_][A-Za-z_0-9]*", t[0])}
     return class_text, tuple(t[0] for t in class_tokens), words, guard
@@ -319,6 +391,7 @@ def _layout(name, contract, record):
             if not isinstance(entry.get("type"), str) or not entry["type"].strip():
                 raise InputRefused("canonical storage lacks an explicit recorded field type")
             declared_types[entry["name"]] = re.sub(r"\s+", "", entry["type"])
+    padding, seen_padding = _generator_padding(contract), set()
     if record["vfptr"]:
         got.add((0, "__vfptr", "VPTR", 4))
     regions = [(0, 4)] if record["vfptr"] else []
@@ -327,6 +400,16 @@ def _layout(name, contract, record):
         if not isinstance(field, (list, tuple)) or len(field) != 4:
             raise InputRefused("native field record is incomplete")
         offset, member, type_name, size = field
+        if isinstance(member, str) and member in padding:
+            expected_offset, expected_size = padding[member]
+            if (type(offset) is not int or type(size) is not int or member in names
+                    or (offset, size) != (expected_offset, expected_size)
+                    or type_name != f"char[{expected_size}]"):
+                raise InputRefused("native generator padding offset/type/extent differs from contract")
+            names.add(member)
+            seen_padding.add(member)
+            regions.append((offset, offset + size))
+            continue
         kind = class_contract.kind(type_name) if isinstance(type_name, str) else None
         if (type(offset) is not int or type(size) is not int or size <= 0 or offset < 0
                 or offset + size > record["size"] or not isinstance(member, str) or member in names
@@ -337,6 +420,8 @@ def _layout(name, contract, record):
             raise InputRefused("native canonical field type differs from its explicit recorded declaration")
         got.add((offset, member, kind, size))
         regions.append((offset, offset + size))
+    if seen_padding != set(padding):
+        raise InputRefused("native generator padding is missing")
     regions.sort()
     if any(a[1] > b[0] for a, b in zip(regions, regions[1:])) or wanted != got:
         raise InputRefused("native canonical storage differs from contract")
