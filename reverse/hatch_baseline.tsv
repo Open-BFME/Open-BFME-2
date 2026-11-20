@@ -10144,10 +10144,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromBottom@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	reverseAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	reverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	updateAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	updateAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D193ScienceVectorDestructor.cpp	allocator<ScienceType>::deallocate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	Rva0043D193Base::~Rva0043D193Base	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	1ShellMenuSchemeImage@@QAE@XZ	1

@@ -312,7 +312,6 @@ ProcessAnimateWindowSlideFromLeft::ProcessAnimateWindowSlideFromLeft( void )
 	
 }
 
-// ??1ProcessAnimateWindowSlideFromLeft@@ absent-from-retail
 ProcessAnimateWindowSlideFromLeft::~ProcessAnimateWindowSlideFromLeft( void ) { }
 
 // ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@ present-unmatched
@@ -356,7 +355,6 @@ ProcessAnimateWindowSlideFromTop::ProcessAnimateWindowSlideFromTop( void )
 	
 }
 
-// ??1ProcessAnimateWindowSlideFromTop@@ absent-from-retail
 ProcessAnimateWindowSlideFromTop::~ProcessAnimateWindowSlideFromTop( void ) { }
 
 // ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@ present-unmatched
@@ -382,60 +380,50 @@ void ProcessAnimateWindowSlideFromTop::initReverseAnimateWindow( AnimateWindow *
 
 // ProcessAnimateWindowSlideFromTop::updateAnimateWindow (0x005C6106) is defined below, in the section merged from SlideTopUpdate.cpp.
 
-// ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@ present-unmatched
+// Retail folds this member onto ProcessAnimateWindowSlideFromTopFast::reverseAnimateWindow (0x005C61EE): the two
+// classes' tables hold the same word in this slot, so the body is that one's.
 Bool ProcessAnimateWindowSlideFromTop::reverseAnimateWindow( AnimateWindow *animWin )
 {
-	
 	if(!animWin)
 	{
 		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
 		return TRUE;
 	}
-
-	// if the window has finished animating into position, return
 	if(animWin->isFinished())
 		return TRUE;
-
-	// if the window hasn't started animating...return that we're not finished
 	if(timeGetTime() < animWin->getStartTime())
 		return FALSE;
-
-	// it's set that the window is passed in as it's current position being it's rest position
-	// so save off the rest position
 	GameWindow *win = animWin->getGameWindow();
 	if(!win)
 	{
 		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
 		return TRUE;
 	}
-
 	ICoord2D curPos = animWin->getCurPos();
 	ICoord2D startPos = animWin->getStartPos();
 	Coord2D vel = animWin->getVel();
 	curPos.y += (Int)vel.y;
-
 	if(curPos.y < startPos.y)
 	{
-		curPos.y = startPos.y;
 		animWin->setFinished( TRUE );
-		win->winSetPosition(curPos.x, curPos.y);
+		if(curPos.y) { win->winSetPosition(curPos.x, startPos.y); } else { win->winSetPosition(curPos.x, startPos.y); }
 		return TRUE;
 	}
 	win->winSetPosition(curPos.x, curPos.y);
 	animWin->setCurPos(curPos);
 
 	ICoord2D endPos = animWin->getEndPos();
+	Real slowedY;
 	if( endPos.y - curPos.y <= m_slowDownThreshold )
-	{
-		vel.y *= m_speedUpRatio;
-	}
+		slowedY = (curPos.y ? (vel.y * m_speedUpRatio) : (vel.y * m_speedUpRatio));
 	else
-	{
-		vel.y = -m_maxVel.y;
-	}
-	if( vel.y < -m_maxVel.y)
-		vel.y = -m_maxVel.y;
-	animWin->setVel(vel);
+		slowedY = -m_maxVel.y;
+	if( slowedY < -m_maxVel.y)
+		slowedY = -m_maxVel.y;
+	Coord2D slowedVel;
+	slowedVel.x = vel.x;
+	slowedVel.y = slowedY;
+	animWin->setVel(slowedVel);
 	return FALSE;
 }
 
@@ -454,7 +442,6 @@ ProcessAnimateWindowSlideFromBottom::ProcessAnimateWindowSlideFromBottom( void )
 	
 }
 
-// ??1ProcessAnimateWindowSlideFromBottom@@ absent-from-retail
 ProcessAnimateWindowSlideFromBottom::~ProcessAnimateWindowSlideFromBottom( void ) { }
 
 // ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromBottom@@ present-unmatched
@@ -606,7 +593,6 @@ ProcessAnimateWindowSlideFromTopFast::ProcessAnimateWindowSlideFromTopFast( void
 	
 }
 
-// ??1ProcessAnimateWindowSlideFromTopFast@@ absent-from-retail
 ProcessAnimateWindowSlideFromTopFast::~ProcessAnimateWindowSlideFromTopFast( void ) { }
 
 // TopFast reverse initialization is defined with RightFast in ProcessAnimateWindowRightFastInitReverse.cpp.
@@ -615,26 +601,19 @@ ProcessAnimateWindowSlideFromTopFast::~ProcessAnimateWindowSlideFromTopFast( voi
 // ProcessAnimateWindowRightFastInitReverse.cpp.
 
 
-// ?updateAnimateWindow@ProcessAnimateWindowSlideFromTopFast@@ present-unmatched
+// Retail folds this member onto ProcessAnimateWindowSlideFromTop::updateAnimateWindow (0x005C6106): the two
+// classes' tables hold the same word in this slot, so the body is that one's.
 Bool ProcessAnimateWindowSlideFromTopFast::updateAnimateWindow( AnimateWindow *animWin )
 {
-	
 	if(!animWin)
 	{
 		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
 		return TRUE;
 	}
-
-	// if the window has finished animating into position, return
 	if(animWin->isFinished())
 		return TRUE;
-	
-	// if the window hasn't started animating...return that we're not finished
 	if(timeGetTime() < animWin->getStartTime())
 		return FALSE;
-
-	// it's set that the window is passed in as it's current position being it's rest position
-	// so save off the rest position
 	GameWindow *win = animWin->getGameWindow();
 	if(!win)
 	{
@@ -643,26 +622,37 @@ Bool ProcessAnimateWindowSlideFromTopFast::updateAnimateWindow( AnimateWindow *a
 	}
 
 	ICoord2D curPos = animWin->getCurPos();
-	ICoord2D endPos = animWin->getEndPos();
-	Coord2D vel = animWin->getVel();
-	curPos.y += (Int)vel.y;
+	Int endY;
+	{
+		// The end position's lifetime closes before getVel fills the same stack home.
+		ICoord2D endPos = animWin->getEndPos();
+		endY = endPos.y;
+	}
+	{
+		Coord2D vel = animWin->getVel();
+		curPos.y += (Int)vel.y;
 
-	if(curPos.y > endPos.y)
-	{
-		curPos.y = endPos.y;
+		if(curPos.y > endY)
+		{
+			curPos.y = endY;
+			win->winSetPosition(curPos.x, curPos.y);
+			animWin->setFinished( TRUE );
+			return TRUE;
+		}
 		win->winSetPosition(curPos.x, curPos.y);
-		animWin->setFinished( TRUE );
-		return TRUE;
+		animWin->setCurPos(curPos);
+
+		// Retail keeps the velocity in its stack home across both adjustments.
+		Real &velY = vel.y;
+		if( endY - curPos.y <= m_slowDownThreshold )
+			*(volatile Real *)&velY = m_slowDownRatio * velY;
+		if( 1.0f > velY )
+			*(volatile Real *)&velY = 1.0f;
+		Coord2D slowedVel;
+		slowedVel.x = vel.x;
+		slowedVel.y = velY;
+		animWin->setVel(slowedVel);
 	}
-	win->winSetPosition(curPos.x, curPos.y);
-	animWin->setCurPos(curPos);
-	if( endPos.y - curPos.y  <= m_slowDownThreshold )
-	{
-		vel.y *= m_slowDownRatio;
-	}
-	if( vel.y < 1.0f)
-		vel.y = 1.0f;
-	animWin->setVel(vel);
 	return FALSE;
 }
 
@@ -682,7 +672,6 @@ ProcessAnimateWindowSlideFromRightFast::ProcessAnimateWindowSlideFromRightFast( 
 }
 
 //-----------------------------------------------------------------------------
-// ??1ProcessAnimateWindowSlideFromRightFast@@ absent-from-retail
 ProcessAnimateWindowSlideFromRightFast::~ProcessAnimateWindowSlideFromRightFast( void ) { }
 
 //-----------------------------------------------------------------------------
@@ -695,10 +684,11 @@ ProcessAnimateWindowSlideFromRightFast::~ProcessAnimateWindowSlideFromRightFast(
 
 
 //-----------------------------------------------------------------------------
-// ?updateAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@ present-unmatched
+// Retail folds this member onto ProcessAnimateWindowSlideFromRight::updateAnimateWindow (0x005C64BE): the two
+// classes' tables hold the same word in this slot, so the body is that one's.
 Bool ProcessAnimateWindowSlideFromRightFast::updateAnimateWindow( AnimateWindow *animWin )
 {
-	
+
 	if(!animWin)
 	{
 		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
@@ -734,43 +724,43 @@ Bool ProcessAnimateWindowSlideFromRightFast::updateAnimateWindow( AnimateWindow 
 	}
 	win->winSetPosition(curPos.x, curPos.y);
 	animWin->setCurPos(curPos);
+
+	Real slowedX;
 	if( curPos.x - endPos.x <= m_slowDownThreshold )
+		slowedX = m_slowDownRatio * vel.x;
+	else
+		slowedX = vel.x;
+	if( slowedX >= -1.0f )
 	{
-		vel.x *= m_slowDownRatio;
+		*(volatile Real *)&vel.x = -1.0f;
+		slowedX = -1.0f;
 	}
-	if( vel.x >= -1.0f)
-		vel.x = -1.0f;
-	animWin->setVel(vel);
+	Coord2D slowedVel;
+	slowedVel.x = slowedX;
+	slowedVel.y = vel.y;
+	animWin->setVel(slowedVel);
 	return FALSE;
 }
 
-// ?reverseAnimateWindow@ProcessAnimateWindowSlideFromRightFast@@ present-unmatched
+// Retail folds this member onto ProcessAnimateWindowSlideFromRight::reverseAnimateWindow (0x005C51E5): the two
+// classes' tables hold the same word in this slot, so the body is that one's.
 Bool ProcessAnimateWindowSlideFromRightFast::reverseAnimateWindow( AnimateWindow *animWin )
 {
-	
 	if(!animWin)
 	{
 		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
 		return TRUE;
 	}
-
-	// if the window has finished animating into position, return
 	if(animWin->isFinished())
 		return TRUE;
-
-	// if the window hasn't started animating...return that we're not finished
 	if(timeGetTime() < animWin->getStartTime())
 		return FALSE;
-
-	// it's set that the window is passed in as it's current position being it's rest position
-	// so save off the rest position
 	GameWindow *win = animWin->getGameWindow();
 	if(!win)
 	{
 		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
 		return TRUE;
 	}
-
 	ICoord2D curPos = animWin->getCurPos();
 	ICoord2D startPos = animWin->getStartPos();
 	Coord2D vel = animWin->getVel();
@@ -778,26 +768,25 @@ Bool ProcessAnimateWindowSlideFromRightFast::reverseAnimateWindow( AnimateWindow
 
 	if(curPos.x > startPos.x)
 	{
-		curPos.x = startPos.x;
 		animWin->setFinished( TRUE );
-		win->winSetPosition(curPos.x, curPos.y);
+		win->winSetPosition(startPos.x, curPos.y);
 		return TRUE;
 	}
 	win->winSetPosition(curPos.x, curPos.y);
 	animWin->setCurPos(curPos);
 
 	ICoord2D endPos = animWin->getEndPos();
+	Real slowedX;
 	if( curPos.x - endPos.x <= m_slowDownThreshold )
-	{
-		vel.x *= m_speedUpRatio;
-	}
+		slowedX = vel.x * m_speedUpRatio;
 	else
-	{
-		vel.x = -m_maxVel.x;
-	}
-	if( vel.x > -m_maxVel.x)
-		vel.x = -m_maxVel.x;
-	animWin->setVel(vel);
+		slowedX = -m_maxVel.x;
+	if( slowedX > -m_maxVel.x)
+		slowedX = -m_maxVel.x;
+	Coord2D slowedVel;
+	slowedVel.x = slowedX;
+	slowedVel.y = vel.y;
+	animWin->setVel(slowedVel);
 	return FALSE;
 }
 
