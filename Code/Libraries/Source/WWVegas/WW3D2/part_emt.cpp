@@ -676,6 +676,9 @@ void ParticleEmitterClass::Create_New_Particles(const Quaternion & curr_quat, co
 // ParticleEmitterClass::Update_On_Visibilty: defined in particle_emitter_update_visibility.cpp (its row's unit).
 
 
+// Retail slot 126 of ParticleEmitterClass's table 0x00BD69F8 is 0x0050B238, the three-byte `ret 8`
+// that retail folds with RenderObjClass::Add_Dependencies_To_List: the BFME 2 member is empty
+// (Zero Hour's adds the emitter's texture path and calls the base).
 void
 ParticleEmitterClass::Add_Dependencies_To_List
 (
@@ -683,18 +686,6 @@ ParticleEmitterClass::Add_Dependencies_To_List
 	bool textures_only
 )
 {
-	//
-	// Get the texture the emitter is using and add it to our list
-	//
-	TextureClass *texture = Get_Texture ();
-	if (texture != NULL) {
-		file_list.Add (texture->Get_Full_Path ());
-		REF_PTR_RELEASE(texture);
-	}
-
-	// Allow the base class to process this call (extremely important)
-	RenderObjClass::Add_Dependencies_To_List (file_list, textures_only);
-	return ;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_scale.cpp
