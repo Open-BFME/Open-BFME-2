@@ -16,11 +16,8 @@
 
 // Open-BFME5 conversions.
 
-class BfmeGetterTCA
-{
-public:
-	void *bfmeGetTCA(void *a, void *b);
-};
+class BfmeGetterTCA;
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class BfmeSinkTCA
 {
@@ -38,5 +35,5 @@ public:
 
 void BfmeHostTCA::bfmeGoTCA(BfmeGetterTCA *r)
 {
-	m_bfmeSink->bfmeUseTCA(r->bfmeGetTCA((void *)"TID", 0));
+	m_bfmeSink->bfmeUseTCA(((BfmeThingRF *)r)->bfmeGoRF((void *)"TID", 0));
 }

@@ -4647,7 +4647,6 @@ name,address,notes
 ?bfmeCall939E@BfmeSub939E@@QAEXPAHPAD@Z,0x0002DE78,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeCall939G@BfmeSub939G@@QAEXXZ,0x0044BD79,callee read from the retail REL32 in placed BFME1-donor body ?handle@Rva004C5EF0@@QAEXH@Z (0x0044BD5B)
 ?bfmeCallCME@BfmeThingCME@@QAEXPAXMPAUBfmeTempCME@@HH@Z,0x0027DCF2,callee read from the retail REL32 in placed BFME1-donor body ?bfmeGoCME@BfmeThingCME@@QAEHPAX@Z (0x0027F0D3)
-?bfmeCallDXB@BfmeSubDXB@@QAEXXZ,0x00628C25
 ?bfmeCallDXH@@YAXPAVBfmeSubDXH@@PAX0@Z,0x0070E5D0
 ?bfmeCallEMC@BfmeObjEMC@@QAEXPAX00@Z,0x00655B10
 ?bfmeCallEMGa@@YGXPAXH@Z,0x00051ED6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -4681,7 +4680,6 @@ name,address,notes
 ?bfmeDoBDB@BfmeSubBDB@@QAEXPAXH@Z,0x00662D70
 ?bfmeDoBGB@BfmeSubBGB@@QAEXHH@Z,0x002984D4
 ?bfmeDoBJE@BfmeSubBJE@@QAE_NPAX@Z,0x0016F8F0
-?bfmeDoBKG@BfmeSubBKG@@QAEXPAX0@Z,0x00655960
 ?bfmeDoBLA@@YGXH@Z,0x002C94F5,callee read from the retail REL32 in placed BFME1-donor body ?bfmeGoBLA@BfmeThingBLA@@QAEXPAX_N@Z (0x0028AA55)
 ?bfmeDoBPB@BfmeSubBPB0064C6C0@@QAEXPAX00@Z,0x0038BBF0,callee read from the retail REL32 in placed BFME1-donor body ?bfmeGoBPB0064C6C0@@YAXPAX00HHPAVBfmeSubBPB0064C6C0@@@Z (0x0038D4AA)
 ?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z,0x001F08D3,callee read from the retail REL32 in placed BFME1-donor body ?update@Rva002D6EB0@@QAEXXZ (0x004B4204)
@@ -4727,7 +4725,6 @@ name,address,notes
 ?bfmeFatal2_1043@@YGXPAVBfmeErr2_1043@@PAD@Z,0x00629094,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeFillCD@@YAPAUBfmeElemCD@@PAU1@IABU1@ABUBfmeFalseCD@@@Z,0x006BEF10,retail 6BF6F0 verified call graph; alias to existing native copy/fill/string body; dispatch tag unused
 ?bfmeFillInsV38@BfmeStrV38@@QAEPAV1@PAD0ID@Z,0x000297D0
-?bfmeFillURC@BfmeSrcURC@@QAEDPAXPAD0@Z,0x00655B10
 ?bfmeFillV14@@YAPADPADID@Z,0x0001C680
 ?bfmeFind1024@BfmeTab1024@@QAEHH@Z,0x0070B380,BFME1 donor callee name; target address is the unique call target in addIfAbsent at 0x0070B4C0 and matches existing find-by-key aliases
 ?bfmeFind1034@@YGPAUBfmeX1034@@HH@Z,0x0040DAA0,callee of ?bfmeGo1034A@@YGXHH@Z at retail 0x0040DAF0 read from its REL32 displacement; member walk over this+0x40 entries of 8 bytes testing element+4 via 0x004069D6; body unrowed
@@ -4788,11 +4785,9 @@ name,address,notes
 ?bfmeGetMgr1015@@YAPAVBfmeMgr1015@@XZ,0x0065CEA0
 ?bfmeGetPoolVMP@@YAPAVBfmePoolVMP@@XZ,0x0065CEA0
 ?bfmeGetSA@BfmeThingSA@@QAEHPBDH@Z,0x00655990
-?bfmeGetSB@BfmeThingSB@@QAEPAXPAX0@Z,0x00655990
 ?bfmeGetStrVHC@BfmeMsgVHC@@QAEDPAXPADH@Z,0x00655B10
 ?bfmeGetStrVJI@BfmeMsgVJI@@QAEDPBDPADH@Z,0x00655B10
 ?bfmeGetStrVJT@BfmeMsgVJT@@QAEDPBDPADH@Z,0x00655B10
-?bfmeGetTCA@BfmeGetterTCA@@QAEPAXPAX0@Z,0x00655990
 ?bfmeGetTDA@@YAPAVBfmeSinkTDA@@XZ,0x0065CEA0
 ?bfmeGetTQD@@YAPAVBfmeSinkTQD@@XZ,0x0065CEA0
 ?bfmeGetTVC@@YAPAVBfmeSinkTVC@@XZ,0x0065CEA0
@@ -4958,7 +4953,6 @@ name,address,notes
 ?bfmeTailDXC@BfmeThingDXC@@QAEXXZ,0x0050C4E8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeTailFHG@@YGXPAX0HH@Z,0x001E19E8,callee of ?bfmeGoFHG@@YGXPAX000@Z at retail 0x001E19CE read from its REL32 displacement; donor-carried name; body unrowed
 ?bfmeTailSF@BfmeThingSF@@QAEXXZ,0x001DBAC3
-?bfmeTailSH@BfmeSubSH@@QAEXXZ,0x0061ED10
 ?bfmeTest932E@BfmeThing932E@@QAEHXZ,0x0034612C
 ?bfmeTestQP@@YADPAX0@Z,0x004D9367,callee read from the retail REL32 in placed BFME1-donor body ?bfmeEitherQP@@YAHPAX0@Z (0x004D93B5)
 ?bfmeThrow1152@BfmeS1152@@QAEXXZ,0x00023A40
@@ -5502,7 +5496,6 @@ name,address,notes
 ?getOriginalPlayerID@NetAckStage2CommandMsg@@QAEEXZ,0x004543C6,NetAckStage2CommandMsg::getOriginalPlayerID (byte at +0x1E): isEqualCommandMsg 0x0058B174 calls it at 0x0058B224/0x0058B22D in its NETCOMMANDTYPE_ACKSTAGE2 branch; ICF-folded with the other ack getters
 ?getPlayerMask@Rva00260F1BFilter@@UAEHXZ,0x00260EE0,"slot 2 of partition filter vftable 0x00C6E1B0: -1 without a player, else a mask from the +0x0C flags through 0x002A7C70"
 ?getPosition@BFMERopeDrawable@@QBEPBUCoord3D@@XZ,0x002763E6,address read from the REL32 displacement at a placed body
-?getPtr@Rva00803620Getter@@QAEPAXPAX0@Z,0x00655990
 ?getPtr@Rva00803730Getter@@QAEPAXPAX0@Z,0x00655990
 ?getRelativeAngle2D@PartitionManager@@QAEMPBVObject@@PBUCoord3D@@@Z,0x002C9BC3,address read from the REL32 displacement at a placed body
 ?getSaveDirectory@GameState@@QBE?AVAsciiString@@XZ,0x002DC267,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -5620,7 +5613,6 @@ name,address,notes
 ?grow@Rva0082C300Buf@@AAEXXZ,0x00023A40
 ?handle@Gen00024B7C@@QAEEH@Z,0x00449969,callee read from the retail REL32 in placed BFME1-donor body ?wrap@Rva005169E0@@QAEEH@Z (0x00444208)
 ?handle@Gen0003AC38@@QAEXPAX@Z,0x000518E0,callee of 1W3DDebrisDraw (0x000B1CE2) at the site its BFME1 donor calls it; may be an ICF alias
-?handle@Gen0089C880@@QAEXXZ,0x0070A8B0
 ?handleNode@Rva006BDB00@@QAEXPAVRva006BDB00Node@@@Z,0x00063A77,callee of ?detach@Rva006BD6C0@@QAEXXZ at retail 0x00063C33 read from its REL32 displacement; address already carries the matched ?removeGhostObject@W3DGhostObjectManager row
 ?handleRadiusCursor@InGameUI@@IAEXXZ,0x0029A661,address read from the REL32 displacement at a placed body
 ?hasBeenDisplayed@SubtitleManager@@QBE_NH@Z,0x000468AD,callee of ?update@Rva006EE520@@QAEXH@Z at retail 0x0004802C read from its REL32 displacement; donor name for the body rowed at this address as ?HasBeenDisplayed@SubTitleManager@@QAE_NH@Z
@@ -5763,7 +5755,6 @@ name,address,notes
 ?m009F0FA0@Q1Receiver0134FAAC@@QAEXPAVRva009EF0D0Element@@@Z,0x00623600
 ?m@Gen_00064730@@QAEHXZ,0x005801F2,callee read from the retail REL32 in placed BFME1-donor body ?refresh@Rva003BBA00@@QAE_NXZ (0x003FD2F6)
 ?m@Gen_007e86c0@@QAEXXZ,0x00655780
-?m@Gen_007e88b0@@QAEHXZ,0x0066DD00
 ?m@Gen_007f0300@@QAEXXZ,0x0065D180,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?m@Gen_007f9590@@QAEXH@Z,0x00665600
 ?m@Gen_00800280@@QAEPAXXZ,0x00672310

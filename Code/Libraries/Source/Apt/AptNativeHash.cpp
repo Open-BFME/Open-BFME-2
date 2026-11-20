@@ -18,7 +18,6 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #include <string.h>
 #pragma intrinsic(memset)
 #pragma intrinsic(__debugbreak)
-#pragma comment(linker, "/alternatename:?handle@Gen0089C880@@QAEXXZ=?DestroyGCPointers@AptNativeHash@@QAEXXZ")
 #pragma comment(linker, "/alternatename:??1AptNativeHash@@QAE@XZ=??1Rva0070A840@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?add@Rva8D0D80Table@@QAEXPAVRva8D0D80String@@PAVRva8D0D80Value@@@Z=?Set@AptNativeHash@@QAEXQBVEAStringC@@QAVAptValue@@@Z")
 #pragma intrinsic(__debugbreak)

@@ -8,25 +8,21 @@
 
 #include <windows.h>
 
-class BfmeSubDXB
-{
-public:
-	void bfmeCallDXB();
-};
+#include "../../Include/Common/Rva009F68C6PointerArray.h"
 
 struct BfmeThingDXB
 {
 	void bfmeGoDXB();
 	unsigned char m_bfmeHead[0x18];
 	CRITICAL_SECTION m_bfmeCs;
-	BfmeSubDXB m_bfmeSub;
+	Rva009F68C6PointerArray m_bfmeSub;
 };
 
 // ?bfmeGoDXB@BfmeThingDXB@@QAEXXZ, retail 0x00628D20 (22B).
 void BfmeThingDXB::bfmeGoDXB()
 {
 	DeleteCriticalSection(&m_bfmeCs);
-	m_bfmeSub.bfmeCallDXB();
+	m_bfmeSub.RemoveAll();
 }
 
 // The 16-byte x86 VARIANTARG passed to VariantClear: VT_ERROR (0x000A) with

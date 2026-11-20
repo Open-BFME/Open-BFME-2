@@ -4,13 +4,10 @@
 // consumes the key as a C string.
 void *g_bfmeWhatBKG = (void *)"ID";
 
-class BfmeSubBKG
-{
-public:
-	void bfmeDoBKG(void *one, void *two);
-};
+class BfmeSubBKG;
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 
 void __stdcall bfmeGoBKG(BfmeSubBKG *sub, void *what)
 {
-	sub->bfmeDoBKG(g_bfmeWhatBKG, what);
+	((BfmeThingCIB *)sub)->bfmeGoCIB(g_bfmeWhatBKG, what);
 }

@@ -5,7 +5,6 @@
 #include <string.h>
 #pragma comment(linker, "/alternatename:?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z=?Rva008014F0ResetHpState@@YGXPAVRva008022A0Owner@@@Z")
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
-#pragma comment(linker, "/alternatename:?m@Gen_007e88b0@@QAEHXZ=?getError@Rva007E8810Message@@QAEHXZ")
 #pragma comment(linker, "/alternatename:?bfmeCbVJM@@YGXXZ=?bfmeGoBDB@@YAXPAXPAVBfmeSubBDB@@@Z")
 #pragma comment(linker, "/alternatename:?BfmeGameBrowserVJRCallback@@YGXXZ=?Rva007F5B40@@YAXPAVRva007E8810Message@@PAVRva007F7980Browser@@@Z")
 #pragma comment(linker, "/alternatename:?BfmeGameBrowserVJQCallback@@YGXXZ=?Rva007F5AC0@@YAXPAVRva007E8810Message@@PAVRva007F7980Browser@@@Z")
@@ -45,11 +44,7 @@ public:
  virtual void slot04();
  virtual void slot08(BfmeC994 *, void (__cdecl *)(Rva007E8810Message *, Rva007F5D10GameBrowser *), Rva007F5D10GameBrowser *, int);
 };
-class Rva00803620Getter
-{
-public:
-	void *getPtr( void *key, void *fallback );
-};
+#include "../../../../GameEngine/Include/GameNetwork/BfmeThingRF.h"
 class Rva007E8810Message
 {
 public:
@@ -558,7 +553,6 @@ BFME_DISP8_DWORD_GETTER(Rva00661FD0DwordField, 0x40)
 // accessed prefix is represented, without asserting the full object layout.
 class W3DVideoBuffer { public: virtual bool valid(); };
 
-class Gen_007e88b0 { public: int m(); };
 
 struct Rva007F5A70Target {
 	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5();
@@ -1502,7 +1496,7 @@ void Rva007F5D10GameBrowser::handlePendingActiveReply( Rva007E8810Message *messa
 	if ( m_hosts == 0 )
 		return;
 
-	int id = (int)((Rva00803620Getter *)message)->getPtr(
+	int id = (int)((BfmeThingRF *)message)->bfmeGoRF(
 		(void *)(char *)"PID", 0 );
 	Rva008022A0Owner *player = m_hosts->find( id );
 	if ( player == 0 )
@@ -1654,7 +1648,7 @@ void BfmeThingZI::Rva007F72D0( Rva007E8810Message *msg )
 int Rva007F5A70Owner::videoBufferValue(W3DVideoBuffer* buffer)
 {
 	if (buffer->W3DVideoBuffer::valid()) {
-		int value = ((Gen_007e88b0*)buffer)->m();
+		int value = ((Rva007E8810Message*)buffer)->getError();
 		return m_target->apply(value);
 	}
 	return m_target->apply(0);

@@ -31,11 +31,8 @@ void BfmeHostSA::bfmeGoSA(BfmeThingSA *r)
 	m_bfmeSink->bfmeUseSA(tid, pid);
 }
 
-class BfmeThingSB
-{
-public:
-	void *bfmeGetSB(void *a, void *b);
-};
+class BfmeThingSB;
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 
 class BfmeSinkSB
 {
@@ -53,7 +50,7 @@ public:
 
 void BfmeHostSB::bfmeGoSB(BfmeThingSB *r)
 {
-	void *tid = r->bfmeGetSB((void *)"TID", 0);
-	void *pid = r->bfmeGetSB((void *)"PID", 0);
+	void *tid = ((BfmeThingRF *)r)->bfmeGoRF((void *)"TID", 0);
+	void *pid = ((BfmeThingRF *)r)->bfmeGoRF((void *)"PID", 0);
 	m_bfmeSink->bfmeUseSB(tid, pid);
 }

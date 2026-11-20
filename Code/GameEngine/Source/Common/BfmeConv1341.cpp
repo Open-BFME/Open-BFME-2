@@ -24,11 +24,8 @@ int BfmeThingURB::bfmeGoURB(void)
 }
 
 
-class BfmeSrcURC
-{
-public:
-	char bfmeFillURC(void *a, char *out, void *n);
-};
+class BfmeSrcURC;
+#include "../../Include/GameNetwork/BfmeThingUPB.h"
 
 class BfmeThingURC
 {
@@ -42,5 +39,5 @@ public:
 BfmeThingURC::BfmeThingURC(BfmeSrcURC *p)
 {
 	m_bfmeOwner = p;
-	p->bfmeFillURC((char *)"sessionId", m_sessionId, (void *)0x40);
+	((BfmeThingUPB *)p)->bfmeGoUPB((char *)"sessionId", m_sessionId, (void *)0x40);
 }

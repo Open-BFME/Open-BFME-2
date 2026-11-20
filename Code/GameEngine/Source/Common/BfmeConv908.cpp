@@ -60,7 +60,6 @@ char BfmeThingRE::bfmeGoRE(BfmeOtherRE *o)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?getPtr@Rva00803620Getter@@QAEPAXPAX0@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
@@ -72,10 +71,8 @@ char BfmeThingRE::bfmeGoRE(BfmeOtherRE *o)
 #pragma comment(linker, "/alternatename:?getInt@BfmeSrc803C90@@QAEHPBDH@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 #pragma comment(linker, "/alternatename:?bfmeGetVHC@BfmeMsgVHC@@QAEPAXPAX0@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 #pragma comment(linker, "/alternatename:?bfmeGetSA@BfmeThingSA@@QAEHPBDH@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
-#pragma comment(linker, "/alternatename:?bfmeGetSB@BfmeThingSB@@QAEPAXPAX0@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 #pragma comment(linker, "/alternatename:?bfmeGetESI@BfmeDictESI@@QAEPAXPBDPAX@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 #pragma comment(linker, "/alternatename:?bfmeOneEBK@BfmeObjEBK@@QAEXPAXH@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 #pragma comment(linker, "/alternatename:?bfmeGetVHE@BfmeMsgVHE@@QAEHPAXH@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 #pragma comment(linker, "/alternatename:?bfmeFind1052@BfmeI1052@@QAEHPADH@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
-#pragma comment(linker, "/alternatename:?bfmeGetTCA@BfmeGetterTCA@@QAEPAXPAX0@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")
 #pragma comment(linker, "/alternatename:?bfmeMakeDFC@BfmeOtherDFC@@QAEPAXPAXH@Z=?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z")

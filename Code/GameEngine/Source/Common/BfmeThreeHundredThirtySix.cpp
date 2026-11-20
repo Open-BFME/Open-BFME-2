@@ -13,10 +13,10 @@ extern "C" BfmeWaterTrackSlot const bfmeVftSH[3] = {
 	__identifier("?Get_Obj_Space_Bounding_Box@WaterTracksObj@@UBEXAAURegion3D@@@Z")
 };
 
-class BfmeSubSH
+class TextureBaseClass
 {
 public:
-	void bfmeTailSH();
+	void Release_Ref();	// 0x0061ED10
 };
 
 class BfmeThingSH
@@ -24,13 +24,13 @@ class BfmeThingSH
 public:
 	void bfmeResetSH();
 	const void *m_bfmeVft;
-	BfmeSubSH *m_bfmeSub;
+	TextureBaseClass *m_bfmeSub;
 };
 
 void BfmeThingSH::bfmeResetSH()
 {
 	m_bfmeVft = bfmeVftSH;
-	BfmeSubSH *sub = m_bfmeSub;
+	TextureBaseClass *sub = m_bfmeSub;
 	if (sub != 0)
-		sub->bfmeTailSH();
+		sub->Release_Ref();
 }
