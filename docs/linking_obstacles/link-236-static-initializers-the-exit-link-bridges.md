@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 460).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 459).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1622,3 +1622,13 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   GameClient/Drawable.h (donor fact). The map approves every code row of that unit to one file,
   ControlBarUpdateConstruction.cpp, which takes GameClient/DrawableFramesPerFlash.h and registers the copy as
   `_$E1`; the function's guard symbol renumbers from `$S1` to `$S3` (a name only; every section keeps its digest).
+- *Taken (460 -> 459): Radar.cpp's copy.* 0x007AE40B is alone in its run (markers 0x007AE3F1 and 0x007AE41B). The
+  `.bss` pairs singletons with copies: TheAnim2DCollection 0x00DFF068, the copy 0x00DFF06C (0x007AE3E1), TheRadar
+  0x00DFF070, this copy 0x00DFF074, TheMappedImageCollection 0x00DFF078, the copy 0x00DFF07C (0x007AE435), then
+  TheTerrainVisual and TheTerrainRoads. Link order agrees: the approved code of Radar.cpp (0x002D75E5..0x002D8DC7),
+  System/Image.cpp (0x002D8E63..), Terrain/TerrainRoads.cpp (0x002DAC34..) and GameState.cpp (0x002DBB9A..) runs in
+  the same order as their singletons and s_inLoadGame. Zero Hour's Radar.cpp defines TheRadar and includes
+  GameClient/Drawable.h (donor facts). A unit with a plain global puts its copy right after its plain globals
+  (round lk54), so Radar's copy is 0x007AE40B. Radar.cpp (private views) takes
+  GameClient/DrawableFramesPerFlash.h and registers it as `_$E1`. *Lead:* 0x007AE435 after TheMappedImageCollection
+  is System/Image.cpp's by the same pairing, once a second fact shows that unit includes Drawable.h.

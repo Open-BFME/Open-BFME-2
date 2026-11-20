@@ -19,6 +19,10 @@
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
+// Retail 0x007AE40B: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run; its
+// static (VA 0x00DFF074) directly follows the unit's TheRadar (0x00DFF070). The unit is built on private views, so
+// it takes the constant's own header.
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
 struct RadarExtent
 {
 	Real minX;
