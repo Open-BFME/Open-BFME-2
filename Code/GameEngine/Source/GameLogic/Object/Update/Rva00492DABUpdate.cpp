@@ -12,8 +12,8 @@
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing;
-class ModuleData;
+
+
 class WeaponTemplate;
 
 class Object

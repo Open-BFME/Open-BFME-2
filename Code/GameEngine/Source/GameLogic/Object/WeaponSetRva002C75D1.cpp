@@ -13,7 +13,7 @@
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 class WeaponTemplate;
-class ThingTemplate;
+
 class INI;
 enum WeaponSlotType { PRIMARY_WEAPON = 0, WEAPONSLOT_COUNT = 6 };
 // Native masks shared with the parser and weapon selection views.
@@ -73,11 +73,11 @@ enum AbleToAttackType
 	ATTACK_NEW_TARGET = 0,
 	ATTACK_TUNNEL_NETWORK_GUARD = 4
 };
-class Xfer;
-class Object;
-class Weapon;
-struct EmitVtableTag;
-struct Coord3D;
+
+
+
+
+
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 
 bool WeaponSet::rva002C75D1(int slot, int cmdSource) const

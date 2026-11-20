@@ -135,9 +135,9 @@ public:
 #include "../../../../Include/GameLogic/Module/Rva004CE41ECondition.h"
 class SpecialPowerTemplate;
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-class ModuleData;
+
 class Waypoint;
-class CommandButton;
+
 class SpecialPowerModuleInterface
 {
 public:
@@ -148,7 +148,7 @@ public:
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-struct Rva002A8AB1Record;
+
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 

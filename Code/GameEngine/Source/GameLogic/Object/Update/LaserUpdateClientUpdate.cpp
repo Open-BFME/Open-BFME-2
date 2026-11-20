@@ -57,7 +57,7 @@ public:
 	void *m_previous; // +0x04
 	void *m_next; // +0x08
 };
-class ParticleSystemTemplate;
+
 class AsciiString;
 #include "../../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;

@@ -56,7 +56,7 @@ extern "C" const void *const vtbl_00C4E208[] = {
 };
 
 class MultiIniFieldParse;
-struct FieldParse;
+
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 

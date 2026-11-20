@@ -10,8 +10,8 @@ public:
     unsigned char m_current;
     unsigned char m_minimum;
 };
-class Thing;
-class ModuleData;
+
+
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/Common/Rva004CE6E4.h"
 class NotifyTargetsOfImminentProbableCrushingUpdate : public UpdateModule {

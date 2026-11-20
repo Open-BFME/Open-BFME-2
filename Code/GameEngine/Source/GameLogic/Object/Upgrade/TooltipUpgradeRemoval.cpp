@@ -8,8 +8,8 @@
 // TheControlBar is flagged (+0x28) to rebuild; then the executed flag is
 // cleared (mux slot 9).
 #include "ascii_string.h"
-typedef bool Bool;
-class ModuleData;
+
+
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/DrawableBFME2.h"
 #include "../object.h"

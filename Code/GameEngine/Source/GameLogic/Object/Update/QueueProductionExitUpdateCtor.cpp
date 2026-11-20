@@ -19,7 +19,7 @@ extern "C" const void *const __identifier("??_7QueueProductionExitUpdate@@6BObje
 
 class Thing;
 class ModuleData;
-class Object;
+
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

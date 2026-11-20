@@ -14,7 +14,7 @@
 // view), and issues the rowed AICommandInterface::rva0026C2D9 at the target
 // (1, command source 2). Method identity not established.
 
-class ModuleData;
+
 class Weapon;
 
 #include "../../../Common/GameLogicObjectLookupView.h"

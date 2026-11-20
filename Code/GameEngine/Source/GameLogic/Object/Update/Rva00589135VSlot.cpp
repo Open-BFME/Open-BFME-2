@@ -4,8 +4,8 @@
 
 #include "../../../../Include/Common/Overridable.h"
 
-class SpecialPowerTemplate;
-class Player;
+
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

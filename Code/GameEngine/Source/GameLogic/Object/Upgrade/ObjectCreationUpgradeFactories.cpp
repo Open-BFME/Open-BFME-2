@@ -25,7 +25,7 @@ class MultiIniFieldParse;
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
 #include "../../../../Include/Common/INI/INI.h"
 
-extern "C" void __cdecl ObjectCreationUpgradeFieldParse(MultiIniFieldParse &parse);
+
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
 // Native Module table slot 2 returns the snapshot name.

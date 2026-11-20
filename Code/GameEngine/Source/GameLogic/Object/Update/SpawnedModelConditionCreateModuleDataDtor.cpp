@@ -14,7 +14,7 @@
 // Layout via the class ctor TU plus member via 0x00257583.
 #include <vector>
 struct BfmeStringHeadRecord160 { public: ~BfmeStringHeadRecord160(); };
-class Xfer;
+
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Include/Common/BfmeModuleData.h"
 // The constructor installs ModuleData's 31-slot interface. Native teardown

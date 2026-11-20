@@ -13,7 +13,7 @@
 // Caller is the slot-0 ??_G at 0x25593D (vtable 0xBF2658).
 
 
-class Xfer;
+
 
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 

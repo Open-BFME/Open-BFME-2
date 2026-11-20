@@ -11,7 +11,7 @@
 // sole caller) proves the class size. Row supersedes the ctor pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 

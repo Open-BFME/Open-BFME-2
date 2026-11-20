@@ -15,7 +15,7 @@
 
 extern "C" const void *const vtbl_00BBB554[];  // folded, 23 classes; via ??_7BfmeBaseVUQ@@6B@
 
-class Xfer;
+
 
 #include "Common/Snapshot.h"
 

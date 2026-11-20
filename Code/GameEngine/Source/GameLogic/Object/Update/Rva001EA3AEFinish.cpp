@@ -57,7 +57,7 @@ extern const FieldParse g_00BDEA60[4] = {
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;
-extern const char *TheLocomotorSetNames[];
+
 #include "../../../../Include/GameLogic/LocomotorSet.h"
 class Rva001EA2CFLocomotorDefinition {
 public:

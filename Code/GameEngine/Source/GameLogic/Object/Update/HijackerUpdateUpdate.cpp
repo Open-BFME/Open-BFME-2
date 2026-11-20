@@ -42,7 +42,7 @@ enum
 class AsciiString;
 class ThingTemplate;
 class Team;
-class Drawable;
+
 class Object;
 
 #include "../../../Common/Thing/thing.h"

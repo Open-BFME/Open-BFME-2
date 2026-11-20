@@ -18,7 +18,7 @@ enum Relationship
 	ENEMIES = 0
 };
 
-class Player;
+
 class Object;
 class Pathfinder;
 

@@ -10,7 +10,7 @@
 // Split from the Zero Hour port in Weapon.cpp, whose header layout puts the
 // vector at +0x50 and inlines the push_back.
 
-typedef float Real;
+
 
 #include <windows.h>
 #include "../../../../Libraries/Include/Lib/Coord2D.h"

@@ -16,8 +16,8 @@
 // The destructor and scalar deleter use the same Snapshot base. Retail's
 // first store installs WeaponSet's table; it is the compiler-owned vfptr,
 // not a second data member occupying the base at +0.
-class Weapon;
-class WeaponTemplateSet;
+
+
 
 enum WeaponSlotType
 {
@@ -51,9 +51,9 @@ enum AbleToAttackType
 	ATTACK_NEW_TARGET = 0,
 	ATTACK_TUNNEL_NETWORK_GUARD = 4
 };
-class Object;
-struct EmitVtableTag;
-struct Coord3D;
+
+
+
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 
 WeaponSet::WeaponSet()

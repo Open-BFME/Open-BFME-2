@@ -67,7 +67,7 @@ public:
 	unsigned int m_9C; // +0x9C
 	unsigned int m_A0; // +0xA0
 };
-class ModuleData;
+
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class Rva00373EC6 : public BehaviorModule
 {
