@@ -284,7 +284,8 @@ public:
 	virtual ~Rva004E32F2();
 
 private:
-	char m_head0C[8];
+	int m_04;
+	bool m_08;
 	RvaVec002B80CE m_vector0C;
 };
 // Native FlashRegionsEvent record: parser4E14E8 creates the 16-byte local,
