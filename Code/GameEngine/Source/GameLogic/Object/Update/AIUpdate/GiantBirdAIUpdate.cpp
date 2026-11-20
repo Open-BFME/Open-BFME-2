@@ -47,26 +47,7 @@ public:
 };
 extern Real ACos(Real);
 #include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
-class Thing
-{
-public:
-	Bool isAboveTerrain() const;
-	Real getHeightAboveTerrain() const;
-	void setOrientation(Real angle);
-	void getUnitDirectionVector3D(Coord3D &dir) const;
-	const Coord3D *getUnitDirectionVector2D() const;
-	void setPositionZ(Real z);
-	const ThingTemplateView *getTemplate() const { return m_template; }
-	const Matrix3D *getTransformMatrix() const { return &m_transform; }
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-	Real getOrientation() const { return m_cachedAngle; }
-private:
-	void *m_vptr;
-	const ThingTemplateView *m_template; // +0x04
-	Matrix3D m_transform; // +0x08
-	Coord3D m_cachedPos; // +0x38
-	Real m_cachedAngle; // +0x44
-};
+#include "../../../../Common/Thing/thing.h"
 #include "../../../../../Include/GameLogic/Module/BodyModule.h"
 #include "../../../../../Include/GameLogic/Module/ContainModule.h"
 class PhysicsBehavior
@@ -99,7 +80,7 @@ class Object : public Thing
 public:
 	Bool isKindOf(KindOfType t) const;
 	Real rva00263763(const void *other) const;
-	const ThingTemplateView *getTemplateView() const { return getTemplate(); }
+	const ThingTemplateView *getTemplateView() const { return reinterpret_cast<const ThingTemplateView *>(getTemplate()); }
 	Real getRadiusB8() const { return m_B8; }
 	UnsignedInt getID() const { return m_id; }
 	void rva0028AE6D();
@@ -141,7 +122,7 @@ public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	PhysicsBehavior *getPhysics() const { return m_physics; }
 private:
-	unsigned char m_pad048[0x74 - 0x48];
+	unsigned char m_pad060[0x74 - 0x60];
 	UnsignedInt m_id; // +0x74
 	unsigned char m_pad078[0xB8 - 0x78];
 	Real m_B8; // +0xB8
@@ -579,7 +560,7 @@ void GiantBirdAIUpdate::rva0036AE79()
 					}
 					rider->setModelConditionState(BFME_MODELCONDITION_72);
 					rider->setStatus(OBJECT_STATUS_BFME_3C, false);
-					if (!rider->getTemplate()->isKindOf5A())
+					if (!rider->getTemplateView()->isKindOf5A())
 					{
 						BodyModuleInterface *body = rider->getBodyModule();
 						if (body)
