@@ -59,9 +59,9 @@ void AptCreateAHero::Class::ExternFunc(int sel, char *buf, bool flag)
 }
 // Views for Rva005B566B::rva005B54ED below (shapes from the banked standalone
 // trial; all callees rowed, no pins).
-class CreateAHeroData;
+
 #include "../../Include/GameClient/AptMyHero.h"
-class ModuleData;
+
 #include "../../Include/Common/Rva00423A68.h"
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

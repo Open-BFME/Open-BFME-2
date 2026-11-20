@@ -6,7 +6,7 @@
 // establish the enclosing helper name. A compiler barrier preserves retail
 // read/shift/byte-test shape; it emits no instruction or extra memory access.
 #include "../GameLogic/Object/object.h"
-class AttackPriorityInfo; class PartitionFilter;
+ class PartitionFilter;
 #include "../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern "C" void _ReadWriteBarrier(void);

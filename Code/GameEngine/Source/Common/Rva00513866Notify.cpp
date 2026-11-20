@@ -5,7 +5,7 @@
 // enable owner222479 is tail-called through the canonical Apt manager global.
 // The original method name and containing-class ownership are unresolved.
 #include "../../Include/Common/AptCreateAHero.h"
-class GameMessage;
+
 #include "../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 class BfmeAptWindowManager;

@@ -6,7 +6,7 @@
 // absent or present on the object at this-0x18.
 
 class ThingTemplate;
-class Player;
+
 class AsciiString;
 class UpgradeTemplate;
 

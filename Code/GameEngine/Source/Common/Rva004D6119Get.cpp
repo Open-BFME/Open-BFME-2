@@ -9,8 +9,8 @@
 // 0x004D10F1, 0x00590F47, 0x00590F76 plus 6 more unblocked). Honest-address name:
 // owner unproven so class Rva004D6119.
 
-typedef int Int;
-typedef unsigned short WideChar;
+
+
 
 #include <windows.h>
 #include "ascii_string.h"

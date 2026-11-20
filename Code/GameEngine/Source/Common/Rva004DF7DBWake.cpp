@@ -4,7 +4,7 @@
 // setWakeFrame with FOREVER for INVALID/FOREVER else arg minus GameLogic frame.
 // Evidence: rowed testStatus 0x0004E536 plus rowed setWakeFrame 0x0044DF71
 // plus TheGameLogic 0x009FE78C plus UPDATE_SLEEP_FOREVER 0x3fffffff.
-typedef unsigned int UnsignedInt;
+
 
 enum ObjectStatusTypes
 {

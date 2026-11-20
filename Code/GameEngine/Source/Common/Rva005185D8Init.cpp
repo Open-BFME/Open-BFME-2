@@ -5,7 +5,7 @@
 // Options.apt push plus 4 flag bytes into struct at g_Va00A04908 +0x280-0x284 plus show background mode 1.
 // Evidence: callers 0x00444337 0x00516EC8 0x0051AFE3 add esp 0x10 plus ret 4 (4 args __cdecl); callees StringBase 0x00037BA0 Shell push 0x0035C74A rva002233A6 0x002233A6 all rowed; string Options.apt 0x00802988; globals g_Va00A04908 g_Va00A01E48 TheRva00222A8BTarget; precedent Rva00434160Init same Shell push pattern.
 extern int g_Va00A04908;
-extern int g_00E04914;
+
 struct GlobalA01E48;
 extern class Shell *TheShell;
 #include "../../Include/GameClient/Shell.h"

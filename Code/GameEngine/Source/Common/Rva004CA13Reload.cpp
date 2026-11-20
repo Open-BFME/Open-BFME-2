@@ -21,7 +21,7 @@
 // vtable load above the flag store to match retail load-mov-call; /O1 keeps
 // the EBP frame.
 
-typedef unsigned short wchar_t;
+
 
 #include "unicode_string.h"
 

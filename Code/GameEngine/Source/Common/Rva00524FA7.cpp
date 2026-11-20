@@ -55,7 +55,7 @@ private:
 
 extern InGameUI *TheInGameUI;
  extern class GameClient *TheGameClient;
-extern float g_00BC26EC;
+
 extern float BfmeClientFramesPerMillisecond;
 // BfmeClientFramesPerMillisecond: matched references place it at VA 0xdba500 (retail .data initial value 0.03f).
 float BfmeClientFramesPerMillisecond = 0.03f;

@@ -4,7 +4,7 @@
 // When the byte at +0x8D is set, register the member at +0x24 with the
 // host at g_00DFE1A8, wake on the object at +8, and clear the byte.
 
-class Rva0028572AHost;
+
 
 class Rva0020D959Host
 {
@@ -16,7 +16,7 @@ class LargeGroupAudio; extern LargeGroupAudio *TheLargeGroupAudio;
 #include "../../Include/Common/Rva0020DXXX.h"
 
 
-class Object;
+
 
 enum UpdateSleepTime
 {

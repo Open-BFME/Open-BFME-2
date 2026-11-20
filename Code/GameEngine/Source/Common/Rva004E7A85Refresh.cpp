@@ -8,7 +8,7 @@
 // TheGameLogic +0x170 target via rowed 0x00359D42, then run rowed 0x004E54B8
 // on the collector. Always finishes with ++m_4.
 #include "../../Include/Common/PlayerList.h"
-typedef int Int;
+
 
 class Rva004E7A85World10
 {

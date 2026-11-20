@@ -10,7 +10,7 @@
 
 #include "../../Include/GameClient/CommandButton.h"
 
-class SpecialAbilityUpdate;
+
 #include "../GameLogic/Object/object.h"
 
 class Arg

@@ -1,5 +1,5 @@
 // cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
-typedef bool Bool;
+
 #include "subsystem_interface.h"
 #include "Common/Snapshot.h"
 struct EmitVtableTag;

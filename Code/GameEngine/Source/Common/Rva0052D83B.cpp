@@ -5,7 +5,7 @@
 // 0x00566D83, which appends its parsed act here with the campaign as this; +0x0C is the act
 // vector the campaign dtor 0x0052CFB1 destroys. The act counterpart of AddPlayer 0x0052D394.
 // reverse/attempt_support/livingworld-act-tu-evidence-20261107/readme.md
-typedef int Int;
+
 
 struct Rva0052D801Record;
 

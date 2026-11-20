@@ -4,8 +4,8 @@
 
 // The native calls reach the rowed ControlBar methods at 31BE3C and 405DBC.
 // Use their real definitions rather than the retired command-manager aliases.
-class CommandButton;
-class GameWindow;
+
+
 #include "../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 

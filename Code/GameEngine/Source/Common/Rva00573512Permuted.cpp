@@ -63,7 +63,7 @@ int AITargetHeuristicEnemyStructure::isValidTarget(Thing *thing, void *owner)
 // WB 015025E0 names this body and independently corroborates both loops.
 // Target helper 572C95 is already rowed; its legacy int result is tested
 // through the low byte witnessed by the target and debug caller.
-class Player;
-class Object;
+
+
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

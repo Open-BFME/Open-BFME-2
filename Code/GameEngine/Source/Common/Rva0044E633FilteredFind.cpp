@@ -15,7 +15,7 @@ struct Rva0044E633Holder
 };
 
 class SpecialPowerTemplate;
-class SpecialPowerModuleInterface;
+
 
 #include "../GameLogic/Object/object.h"
 

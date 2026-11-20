@@ -4,7 +4,7 @@
 // Same product as 0x0049D1CA. The counted float sits at value+0xC.
 
 class ThingTemplate;
-class Player;
+
 class AsciiString;
 class UpgradeTemplate;
 

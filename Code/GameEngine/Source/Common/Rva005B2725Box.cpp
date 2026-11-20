@@ -10,7 +10,7 @@
 #include "../../Include/Common/Rva005B5C02List.h"
 
 // The list getter 0x0021F797 is the rowed CreateAHeroManager::rva0021F797.
-class Rva0040A3F9;
+
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 #define TheHeroManager TheCreateAHeroManager
