@@ -14,59 +14,49 @@
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 #include "../../Include/Common/RGBAColorInt.h"
-class Mouse {
-	char _pad0[0x128C];
-	RGBAColorInt m_128C;
-	char _pad1[0x12BC - (0x128C + 16)];
-	RGBAColorInt m_12BC;
-	char _pad2[0x12E0 - (0x12BC + 16)];
-	unsigned char m_12E0;
-	unsigned char m_12E1;
-	unsigned char m_12E2;
-	char _pad3[0x12FC - (0x12E0 + 3)];
-	UnicodeString m_12FC;
-	char _pad4[0x4FCC - (0x12FC + 4)];
-	int m_4FCC;
-	char _pad5[0x4FDC - (0x4FCC + 4)];
-	RGBAColorInt m_4FDC;
-	RGBAColorInt m_4FEC;
-public:
-	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
-};
+#include "../../Include/GameClient/Mouse.h"
+
+// The registered Mouse layout keeps the tooltip storage in byte spans.
+template <class Field>
+static __forceinline Field &tooltipField(unsigned char *address)
+{
+	return *reinterpret_cast<Field *>(address);
+}
+
 void Mouse::rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width)
 {
 	(void)width;
-	m_4FCC = delay;
-	UnicodeString *dst = &m_12FC;
+	tooltipField<int>(field4FA8 + 0x24) = delay;
+	UnicodeString *dst = &tooltipField<UnicodeString>(field12E8 + 0x14);
 	const UnicodeString *src = &tooltip;
 	dst->set(*src);
 	if (color) {
-		if (m_12E0) {
-			if (m_12E2) {
-				m_4FDC.red = (int)((color->red + 1.0f) * 255.0f / 2.0f);
-				m_4FDC.green = (int)((color->green + 1.0f) * 255.0f / 2.0f);
-				m_4FDC.blue = (int)((color->blue + 1.0f) * 255.0f / 2.0f);
+		if (field12E0[0]) {
+			if (field12E0[2]) {
+				tooltipField<RGBAColorInt>(field4FA8 + 0x34).red = (int)((color->red + 1.0f) * 255.0f / 2.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x34).green = (int)((color->green + 1.0f) * 255.0f / 2.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x34).blue = (int)((color->blue + 1.0f) * 255.0f / 2.0f);
 			} else {
-				m_4FDC.red = (int)(color->red * 255.0f);
-				m_4FDC.green = (int)(color->green * 255.0f);
-				m_4FDC.blue = (int)(color->blue * 255.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x34).red = (int)(color->red * 255.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x34).green = (int)(color->green * 255.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x34).blue = (int)(color->blue * 255.0f);
 			}
-			m_4FDC.alpha = m_128C.alpha;
+			tooltipField<RGBAColorInt>(field4FA8 + 0x34).alpha = tooltipField<const RGBAColorInt>(field0C + 0x1280).alpha;
 		}
-		if (m_12E1) {
-			if (m_12E2) {
-				m_4FEC.red = (int)(color->red * 255.0f * 0.5f);
-				m_4FEC.green = (int)(color->green * 255.0f * 0.5f);
-				m_4FEC.blue = (int)(color->blue * 255.0f * 0.5f);
+		if (field12E0[1]) {
+			if (field12E0[2]) {
+				tooltipField<RGBAColorInt>(field4FA8 + 0x44).red = (int)(color->red * 255.0f * 0.5f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x44).green = (int)(color->green * 255.0f * 0.5f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x44).blue = (int)(color->blue * 255.0f * 0.5f);
 			} else {
-				m_4FEC.red = (int)(color->red * 255.0f);
-				m_4FEC.green = (int)(color->green * 255.0f);
-				m_4FEC.blue = (int)(color->blue * 255.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x44).red = (int)(color->red * 255.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x44).green = (int)(color->green * 255.0f);
+				tooltipField<RGBAColorInt>(field4FA8 + 0x44).blue = (int)(color->blue * 255.0f);
 			}
-			m_4FEC.alpha = m_12BC.alpha;
+			tooltipField<RGBAColorInt>(field4FA8 + 0x44).alpha = tooltipField<const RGBAColorInt>(field0C + 0x12B0).alpha;
 		}
 	} else {
-		memcpy(&m_4FDC, &m_128C, sizeof(m_4FDC));
-		memcpy(&m_4FEC, &m_12BC, sizeof(m_4FEC));
+		memcpy(&tooltipField<RGBAColorInt>(field4FA8 + 0x34), &tooltipField<const RGBAColorInt>(field0C + 0x1280), sizeof(RGBAColorInt));
+		memcpy(&tooltipField<RGBAColorInt>(field4FA8 + 0x44), &tooltipField<const RGBAColorInt>(field0C + 0x12B0), sizeof(RGBAColorInt));
 	}
 }
