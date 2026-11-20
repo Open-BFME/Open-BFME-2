@@ -40,6 +40,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../../Include/Common/BitFlags11.h"
 
 class AerialPathfinder : public SubsystemInterface
 {
@@ -47,7 +48,7 @@ public:
 	virtual ~AerialPathfinder();
 
 private:
-	int m_unk0C;
+	BitFlags<11> m_flags0C;
 	_STL::_List_base<int, _STL::allocator<int> > m_list10;
 };
 

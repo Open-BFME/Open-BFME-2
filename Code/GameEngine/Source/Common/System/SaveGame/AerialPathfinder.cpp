@@ -24,14 +24,7 @@ namespace _STL { template <> void _List_base<BfmePod8,allocator<BfmePod8> >::cle
 
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-template <int NUM_BITS>
-class BitFlags
-{
-public:
-	BitFlags();
-public:
-	unsigned int m_word;
-};
+#include "../../../../Include/Common/BitFlags11.h"
 
 struct BfmePod8 { int a[2]; };
 
@@ -52,7 +45,7 @@ AerialPathfinder::AerialPathfinder()
 	: m_flags0C()
 	, m_list10(_STL::allocator<BfmePod8>())
 {
-	unsigned int *w = &m_flags0C.m_word;
+	unsigned int *w = reinterpret_cast<unsigned int *>(&m_flags0C);
 	*(int *)&m_flags0C |= 0x28;
 	*w |= 0x28;
 }
