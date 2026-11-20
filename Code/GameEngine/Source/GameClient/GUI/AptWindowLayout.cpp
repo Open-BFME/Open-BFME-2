@@ -132,7 +132,7 @@ class AptFocusTarget;
 
 #include "../../../Include/Common/Rva00222A8BTarget.h"
 
-class WindowLayout;
+
 
 #include "../../../Include/GameClient/Shell.h"
 

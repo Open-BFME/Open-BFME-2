@@ -17,7 +17,7 @@ inline void setWeatherPair(Coord2D &pair,float x,float y){pair.x=x;pair.y=y;}
 
 #include "../../Include/Common/Overridable.h"
 
-class WeatherSetting;
+
 
 #include "../../Include/Common/Rva00200D38.h"
 

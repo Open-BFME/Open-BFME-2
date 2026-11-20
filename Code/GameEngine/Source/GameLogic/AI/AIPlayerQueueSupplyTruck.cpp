@@ -28,7 +28,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 #include "Lib/Coord3D.h"
 #include "Lib/Coord2D.h"
 #include <math.h>
-class ThingTemplate;
+
 class Player;
 class Team;
 template <class OBJCLASS> class DLINK_ITERATOR;

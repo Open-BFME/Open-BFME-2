@@ -9,7 +9,7 @@
 // the base-family/secondary-interface semantic lead, not the BFME2 layout.
 // Offsets and control flow below are read from native 4C1395..4C14DF.
 
-class Object;
+
 class Player;
 class Module;
 enum NameKeyType;

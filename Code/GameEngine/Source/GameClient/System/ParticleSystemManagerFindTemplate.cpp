@@ -17,7 +17,7 @@ class Rva00056F61;
 #include "../../../Include/GameClient/Rva00056F61.h"
 
 class ParticleSystemTemplate;
-class BfmeParticleSystemHandle;
+
 
 #include "../../../Include/GameClient/ParticleSys.h"
 

@@ -29,7 +29,7 @@
 // call (0x00209E40), which only a non-throwing declaration reproduces.
 template <> bool StringBase<char>::isEmpty() const throw();
 
-class ScriptEngine;
+
 class Script;
 class ScriptAction;
 class Player;

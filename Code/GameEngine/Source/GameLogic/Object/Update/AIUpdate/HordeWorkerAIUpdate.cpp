@@ -28,7 +28,7 @@ template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_Lis
 
 
 
-class Object;
+
 
 #include "../../../../../Include/GameLogic/ActionManager.h"
 

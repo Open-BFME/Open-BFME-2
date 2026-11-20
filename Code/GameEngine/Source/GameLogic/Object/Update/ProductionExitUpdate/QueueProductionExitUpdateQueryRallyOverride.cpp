@@ -27,7 +27,7 @@ private:
 
 #include "../../../../../Include/GameLogic/PartitionFilter.h"
 
-class Object;
+
 #include "../../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class ContainView

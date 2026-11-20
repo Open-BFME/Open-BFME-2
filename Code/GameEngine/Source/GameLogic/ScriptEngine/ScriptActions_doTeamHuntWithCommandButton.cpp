@@ -63,7 +63,7 @@ class Module;
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Object;
+
 
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 

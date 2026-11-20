@@ -35,9 +35,9 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-class Rva003A1C3AInner;
 
-class Object;
+
+
 
 class Rva003A1C3AInner
 {

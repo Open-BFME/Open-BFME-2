@@ -106,7 +106,7 @@ private:
     Rva000A8C9B m_holder18;
 };
 
-class Rva003F59FE;
+
 
 class Rva0039851D;
 

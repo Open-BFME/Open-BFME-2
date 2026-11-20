@@ -105,7 +105,7 @@ bool Rva00526342::rva00567D96(Int)
 class Image;
 struct Rva005D2355In;
 struct Rva005F002CIn;
-class Rva005E1AB6Obj;
+
 class Rva005E1B41Primary
 {
 public:

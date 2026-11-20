@@ -27,7 +27,7 @@ class Snapshot;
 
 class Player;
 
-class Xfer;
+
 
 class Rva002AA0BFDwordCounter { public: void inc(); };
 

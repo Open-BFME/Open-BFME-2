@@ -18,7 +18,7 @@ private:
 	AsciiString m_str;
 };
 
-class EnumeratedIP;
+
 
 // IPEnumeration destructor: shut down Winsock and release the address list.
 // Only WSACleanup is used here; startup and hostname lookup belong to the

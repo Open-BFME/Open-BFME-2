@@ -22,7 +22,7 @@ namespace _STL { template <> void **vector<void *, allocator<void *> >::erase(vo
 // bfme link decl-only end
 
 class Team;
-class Object;
+
 template<class OBJCLASS> class DLINK_ITERATOR
 {
 private:

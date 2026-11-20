@@ -134,7 +134,7 @@ class Object;
 #include "../../Include/Common/XferVersion.h"
 
 
-class FireWeaponWhenDeadBehavior;
+
 
 enum NameKeyType
 {

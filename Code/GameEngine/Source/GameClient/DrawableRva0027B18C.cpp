@@ -29,7 +29,7 @@ struct DamageInfo
  bool report;
  char pad26[0x70-0x26];
  float amount;
- 
+
 }
 ;
 struct BfmeDamageTemplate
@@ -45,10 +45,10 @@ struct BfmeDamageTemplate
  float range;
  unsigned delay;
  int event598;
- 
+
 }
 ;
-class Drawable;
+
 class Object
 {
  public:void*vp;
@@ -61,7 +61,7 @@ class Object
  bool isKindOf(KindOfType)const;
  bool rva00293926(KindOfType);
  bool rva00294471(void*,int);
- 
+
 }
 ;
 #include "../Common/Thing/thing.h"
@@ -78,7 +78,7 @@ extern GameLogic *TheGameLogic;
 class Rva002D3756
 {
  public:void rva002D3756(void*);
- 
+
 }
 ;
 class RadarWindowOverrideSource;
@@ -99,23 +99,23 @@ class Rva00271B3CFilter:public Rva000421C8
 {
  public:Rva00271B3CFilter(int e):event(e)
  {
-  
+
  }
  virtual bool allow(Object*);
  int event;
- 
+
 }
 ;
 class Rva00260E2AFilter:public Rva000421C8
 {
  public:Rva00260E2AFilter(Player*p):player(p)
  {
-  
+
  }
  virtual bool allow(Object*);
  virtual int getPlayerMask();
  Player*player;
- 
+
 }
 ;
 extern PartitionManager*ThePartitionManager;
@@ -131,7 +131,7 @@ class Drawable
  unsigned nextFrame;
  char pad38c[0x440-0x38c];
  bool active440;
- 
+
 }
 ;
 struct DamageLookupNodeView { DamageLookupNodeView *next; ObjectID key; Object *object; };
@@ -174,25 +174,25 @@ void Drawable::rva0027B18C(DamageInfo*damage)
    {
     event=event598;
     other=templ->m_evaEventSecondDamageFarFromFirstOwner;
-    
+
    }
    else if(damage->damageType==23&&templ->m_evaEventDamagedByFireOwner!=-1)
    {
     event=templ->m_evaEventDamagedByFireOwner;
     other=-1;
-    
+
    }
    else if(damage->damageType!=23&&attacker&&((Thing*)attacker)->getDrawable()&&((Thing*)attacker)->getDrawable()->active440&&templ->m_evaEventDamagedFromShroudedSourceOwner!=-1)
    {
     event=templ->m_evaEventDamagedFromShroudedSourceOwner;
     other=templ->m_evaEventSecondDamageFarFromFirstOwner;
-    
+
    }
    else
    {
     event=templ->m_evaEventDamagedOwner;
     other=templ->m_evaEventSecondDamageFarFromFirstOwner;
-    
+
    }
    if(event!=-1)
    {
@@ -209,14 +209,14 @@ void Drawable::rva0027B18C(DamageInfo*damage)
      eventFilter.link(&playerFilter);
      BfmeWideResult objects=ThePartitionManager->iterateObjectsInRange(getPosition(),range,2,&eventFilter,0);
      for(Object*nearbyObject=objects.next();nearbyObject;nearbyObject=objects.next())if(((Thing*)nearbyObject)->getDrawable())((Rva00271B03*)((Thing*)nearbyObject)->getDrawable())->rva00271B03();
-     
+
     }
-    
+
    }
-   
+
   }
-  
+
  }
  if(data->flag113&4)((Rva002D3756 *)theRadarWindowOverrideSource)->rva002D3756(obj);
- 
+
 }

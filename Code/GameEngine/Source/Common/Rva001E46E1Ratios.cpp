@@ -31,7 +31,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
-class Rva001E468F;
+
 struct Rva001E46E1FrameView
 {
 	char m_pad00[0x40];
@@ -67,7 +67,7 @@ public:
     bool rva001E5F1D(Object*,const Coord3D*,float*);
 	void rva001E546B(Object *obj);
     void rva001E56DC(Object*,const Coord3D*,float,float*);
-    
+
 	float rva001E3F4D(Object *obj,int condition);
 	float rva001E4845(Object *obj);
 	float rva001E488A(Object *obj);

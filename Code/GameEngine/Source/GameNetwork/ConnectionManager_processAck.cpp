@@ -34,7 +34,7 @@ enum { NUM_CONNECTIONS = 8 };
 
 #include <new>
 
-class NetCommandRef;
+
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h
 #include "../../Include/GameNetwork/NetCommandMsg.h"

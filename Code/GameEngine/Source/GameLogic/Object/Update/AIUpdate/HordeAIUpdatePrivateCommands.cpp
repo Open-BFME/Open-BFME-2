@@ -36,7 +36,7 @@ enum AICommandType
 	AICMD_NUM_TESTED = 0x54
 };
 
-class Object;
+
 class AIUpdateInterface;
 
 #include "../../../../../Include/GameLogic/AICommandParms.h"

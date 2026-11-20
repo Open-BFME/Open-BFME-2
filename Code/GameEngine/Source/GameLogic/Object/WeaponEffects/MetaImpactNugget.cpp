@@ -21,7 +21,7 @@ inline float Coord3D::length() const
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Object;
+
 class Player;
 enum DamageType
 {

@@ -40,7 +40,7 @@ struct CommandHistory
 };
 
 class Connection;
-class DisconnectManager;
+
 class FrameDataManager;
 
 #include "../../Include/GameNetwork/NetCommandListClass.h"

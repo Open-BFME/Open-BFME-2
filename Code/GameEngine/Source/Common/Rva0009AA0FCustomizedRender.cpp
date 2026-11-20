@@ -89,7 +89,7 @@ protected:
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
-class LightEnvironmentClass;
+
 
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include "../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"

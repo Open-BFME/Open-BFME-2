@@ -41,7 +41,7 @@ struct Rva0041534BNode
 	AsciiString m_name;
 	FXParticleSystem::ParticleSystemTemplate *m_value;
 };
-class Rva00056F61;
+
 #include "../../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {

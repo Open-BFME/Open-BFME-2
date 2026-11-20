@@ -10,7 +10,7 @@
 #include "vector2.h"
 #include "../../../../reference/shims/bfme_matrix4_sse_link/matrix4.h"
 
-class Rva00785FD0Renderer;
+
 // DX8Wrapper::render_state (dx8wrapper.cpp, protected static, 656 bytes at 0x00DEE5D8): this view names only the transforms; world is +0x1EC, view +0x22C.
 #include "../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 typedef char RendererMatrixStorageSize[sizeof(Matrix4)==64 ? 1 : -1];

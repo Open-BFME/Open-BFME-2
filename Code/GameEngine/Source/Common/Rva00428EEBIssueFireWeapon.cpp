@@ -12,7 +12,7 @@ enum ObjectID
 
 struct RGBColor;
 class Drawable;
-class Object;
+
 
 #include "../../Include/Common/MessageStream.h"
 

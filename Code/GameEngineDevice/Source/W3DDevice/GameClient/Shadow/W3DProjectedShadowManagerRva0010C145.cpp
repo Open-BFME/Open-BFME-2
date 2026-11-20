@@ -21,7 +21,7 @@
 
 class RenderObjClass;
 class W3DProjectedShadow;
-class W3DShadowTexture;
+
 
 class Shadow
 {

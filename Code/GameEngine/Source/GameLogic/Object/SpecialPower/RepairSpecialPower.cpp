@@ -60,7 +60,7 @@ extern const int g_emptyFieldParseTable[4];
 
 
 #include "../../../../Include/Common/ThingTemplate.h"
-class Object;
+
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object

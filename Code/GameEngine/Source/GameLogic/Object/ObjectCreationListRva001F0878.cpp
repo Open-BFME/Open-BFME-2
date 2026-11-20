@@ -25,7 +25,7 @@ public:
 	virtual void v4(void *a1, void *a2) = 0;
 };
 
-class ObjectCreationList;
+
 
 #include "../../../Include/GameLogic/ObjectCreationListStore.h"
 

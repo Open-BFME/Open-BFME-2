@@ -15,7 +15,7 @@
 // destructor in Rva0057605DDtor.cpp. It is distinct from the two-slot
 // Rva002BA8F1Listener interface whose native table is C3702C.
 struct Rva002BA8F1Listener; // Existing list-provider argument spelling.
-struct Parent0057605D;
+
 #include "../../Include/Common/Rva0057605DSecond.h"
 // Preserve the existing inlined native constructor path.
 __forceinline Rva0057605DSecond::Rva0057605DSecond() {}

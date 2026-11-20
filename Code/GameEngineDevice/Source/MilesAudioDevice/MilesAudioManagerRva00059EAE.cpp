@@ -66,7 +66,7 @@ struct Rva0041534BNode
 	AsciiString m_name;
 	OpaqueRefCounted *m_info;
 };
-class Rva00056F61;
+
 #include "../../../GameEngine/Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {

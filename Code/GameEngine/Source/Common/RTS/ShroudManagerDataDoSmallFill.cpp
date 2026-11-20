@@ -66,7 +66,7 @@ public:
 	virtual AsciiString name();
 };
 
-class UpdateOwner;
+
 #include "../../../Include/Common/ShroudManagerClass.h"
 
 class ShroudManager::Data

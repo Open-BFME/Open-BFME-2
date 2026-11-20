@@ -20,7 +20,7 @@
 class Object;
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
-class LivingWorldBuildPlot;
+
 class LivingWorldBuildPlotIconTemplate;
 class LivingWorldRegion;
 struct Rva003F1BD3TemplateView;

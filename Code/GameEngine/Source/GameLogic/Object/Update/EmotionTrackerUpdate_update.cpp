@@ -82,7 +82,7 @@ class Emotion : public EmotionNugget { public: bool rva004DCEC4(); };
 
 class Rva004DCC84 { public: void rva004DCC84(Object *,int); };
 
-class EmotionTrackerUpdate;
+
 // And's canonical owner is a call view. The native polymorphic prefix below
 // uses the existing partition-filter providers (table BC26E0, +4 next link).
 class PartitionFilter { public: PartitionFilter &And(PartitionFilter &); };

@@ -14,7 +14,7 @@
 // filter (PartitionFilter::link 0x00625790), then each filter's members;
 // address-derived names after the out-of-line ctor, else after allow
 // (slot 1).
-class Object;
+
 class Player;
 
 #include "../../../Include/GameLogic/PartitionFilter.h"

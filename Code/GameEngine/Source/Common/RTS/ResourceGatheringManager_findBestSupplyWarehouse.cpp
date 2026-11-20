@@ -37,16 +37,16 @@ typedef unsigned int ObjectIDValue;
 
 
 
-class Object;
+
 class ActionManager;
-class AIUpdateInterface;
+
 class DockUpdateInterface;
 class Module;
 class SupplyWarehouseDockUpdate;
 class ResourceGatheringManager;
-class SupplyTruckAIInterface;
-class BfmeVec3EJ;
-class Gen_000E5A50;
+
+
+
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 

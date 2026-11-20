@@ -23,7 +23,7 @@ private:
 	int m_04; // Refcount belongs to the base, as in the matched help sibling.
 };
 
-class Rva0056D3FD;
+
 #include "../../Include/GameClient/InGameCommandButtonHelp.h"
 
 class Rva0056D3E3

@@ -30,7 +30,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-class Object;
+
 class ThingTemplate;
 
 #include "../../../Include/Common/BfmeXfer.h"
