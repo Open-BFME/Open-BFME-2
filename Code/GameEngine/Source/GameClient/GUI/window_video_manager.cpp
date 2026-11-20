@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /O1 /DNDEBUG /MD /EHsc /DBFME_ASCII_DTOR_DECL /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_windowvideo /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_windowvideo /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 // Use the native 17-byte specialization at RVA 0x00013740 rather than
 // emitting a separately optimized copy from this unit.
@@ -154,13 +154,16 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
+// The native bucket initializer calls the shared fill-insert body directly.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void vector<void *, allocator<void *> >::insert(void **pos, unsigned int count, void *const &value)
+{
+    _M_fill_insert(pos, count, value);
+}
+}
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
 // bfme link decl-only end
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@QBVGameWindow@@PAVWindowVideo@@@_STL@@@:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class GameWindow; class WindowVideo;
-namespace _STL { template <> void allocator<_Hashtable_node<pair<GameWindow const * const,WindowVideo *> > >::deallocate(_Hashtable_node<pair<GameWindow const * const,WindowVideo *> > *,unsigned int) const; }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {
