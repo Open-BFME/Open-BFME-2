@@ -49,17 +49,7 @@ enum
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 
-// Keep the guard kind checks inline without exporting competing private
-// Thing/ThingTemplate helper bodies. No import remains when fully inlined.
-
-class Thing
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (((unsigned char)(m_template->m_kindof[t >> 5] >> (t & 24)) & (1 << (t & 7))) != 0); }
-
-	virtual void slot00();
-	ThingTemplate *m_template;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -95,7 +85,7 @@ void AIUpdateInterface::privateGuardPosition(const Coord3D *pos, GuardMode guard
 		return;
 	if (!obj->isMobile())
 		return;
-	if (m_object->isKindOf(KINDOF_PROJECTILE))
+	if (((unsigned char)(m_object->m_template->m_kindof[KINDOF_PROJECTILE >> 5] >> (KINDOF_PROJECTILE & 24)) & (1 << (KINDOF_PROJECTILE & 7))) != 0)
 		return;
 	if (m_guardTargetType[1] == GUARDTARGET_NONE)
 		m_guardTargetType[1] = GUARDTARGET_LOCATION;
