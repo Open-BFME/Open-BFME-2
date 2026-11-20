@@ -10,7 +10,7 @@
 // CommandSet::getCommandButton 0x00409EE8).
 #include "../../../Include/Common/ScalarTypes.h"
 
-class AsciiString;
+
 
 enum GUICommandType
 {

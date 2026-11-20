@@ -13,7 +13,7 @@
 #include "../../../Include/Common/Rva002CB35CObj.h"
 struct Coord3D;
 class Object;
-class Rva002C9400ByteField;
+
 #include "../../../Include/GameLogic/Weapon.h"
 
 #include "../Object/object.h"

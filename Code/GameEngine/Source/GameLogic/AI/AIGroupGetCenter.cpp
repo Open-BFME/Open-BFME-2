@@ -84,8 +84,8 @@ private:
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class AttackPriorityInfo;
-class PartitionFilter;
+
+
 
 #include "../../../Include/GameLogic/TAiData.h"
 

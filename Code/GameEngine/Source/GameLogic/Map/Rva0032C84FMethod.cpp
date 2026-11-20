@@ -6,7 +6,7 @@
 
 
 
-class AsciiString;
+
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 

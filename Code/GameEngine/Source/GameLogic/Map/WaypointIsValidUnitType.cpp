@@ -60,10 +60,10 @@ public:
 	Rva003A2BD4Owner *m_owner258;		// +0x258
 };
 
-class Team;
+
 #include "../../../Include/Common/Player.h"
 
-struct Rva002A8AB1Record;
+
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 

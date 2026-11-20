@@ -23,7 +23,7 @@ class Rva00395CEB {public:void rva0039611E();char storage[8];};
 struct CastleData {char prefix[0x1C];float wait,packedWait,transitionWait;};
 extern GameLogic*TheGameLogic;
 // Existing data-ledger owner of the mutable FPS integer, RVA009BA4E8.
-extern int BfmeClientFramesPerSecond;
+
 extern "C" void*theLogicRandomLogFile;
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 class CastleObjectModule {public:virtual ~CastleObjectModule();CastleData*data;Object*object;};

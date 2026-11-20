@@ -8,7 +8,7 @@
 // (+0x238, chooseLocomotorSet as in the ZH onEnter's LOCOMOTORSET_WANDER call
 // at the same slot) when the owner (+0x14 of the machine +0x18) has an AI
 // (+0x258). The base onExit is the pinned AIInternalMoveToState body.
-typedef bool Bool;
+
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/LocomotorSetType.h"
 
 

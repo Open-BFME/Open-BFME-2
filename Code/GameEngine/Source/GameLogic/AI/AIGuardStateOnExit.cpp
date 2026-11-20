@@ -16,7 +16,7 @@
 // releases.
 // Layout: m_guardMachine +0x20; AI at owner +0x258.
 
-typedef bool Bool;
+
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"

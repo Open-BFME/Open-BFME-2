@@ -72,21 +72,21 @@ struct S001F87D5 {
 	float y;
 };
 
-void Rva001F8B5FWrite(
-	_STL::basic_ostream<char, _STL::char_traits<char> > &os,
-	unsigned int pad,
-	char const *key,
-	const S001F87D5 &value);
-void Rva001F82EEWrite(
-	_STL::basic_ostream<char, _STL::char_traits<char> > &os,
-	unsigned int pad,
-	char const *key,
-	const AsciiString &value);
-void Rva001F8384Write(
-	_STL::basic_ostream<char, _STL::char_traits<char> > &os,
-	unsigned int pad,
-	char const *key,
-	bool const *value);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Rva003A5DA0WriteWindHeader(const void *self, File *file, unsigned int *flags);
 void Rva001F82ABWrite(

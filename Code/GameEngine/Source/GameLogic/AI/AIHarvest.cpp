@@ -8,7 +8,7 @@ class Object;
 
 class StateMachine;
 
-class Xfer;
+
 
 class LocomotorSet;
 

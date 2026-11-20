@@ -126,7 +126,7 @@ AIInternalMoveToState::AIInternalMoveToState(StateMachine *machine, unsigned int
 	m_ambientPlayingHandle = 1;
 	m_adjustDestinations = true;
 }
-extern unsigned char g_00E03745;
+
 extern "C" void *theLogicRandomLogFile;
 
 

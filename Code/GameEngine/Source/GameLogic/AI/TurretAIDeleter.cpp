@@ -30,8 +30,8 @@ extern GameLogic *TheGameLogic;
 class Team;
 class Object;
 class Xfer;
-class Weapon;
-class AIUpdateInterface;
+
+
 class TurretAI;
 struct Coord3D;
 struct EmitVtableTag;

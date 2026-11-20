@@ -7,7 +7,7 @@
 // Callback owner/method identities and the original method name are unknown.
 #include "../../../Include/Common/Rva00330757Member.h"
 
-class Rva00281A15Listener;
+
 #include "../../../Include/Common/SidesListNotifier.h"
 #include "../../../Include/Common/SidesList.h"
 class Rva0032B833Listener {

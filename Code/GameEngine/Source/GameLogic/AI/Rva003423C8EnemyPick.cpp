@@ -11,8 +11,8 @@
 // address-derived.
 #include "../Object/object.h"
 
-class AttackPriorityInfo;
-class PartitionFilter;
+
+
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

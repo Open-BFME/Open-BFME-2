@@ -103,7 +103,7 @@
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 #include "../../../Include/Common/ScalarTypes.h"
-typedef unsigned int StateID;
+
 enum
 {
 	AI_IDLE = 0
@@ -169,7 +169,7 @@ enum
 // The rowed group member count runs on the AIGroup (address-derived name).
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/Common/Player.h"
-class LocomotorSet;
+
 typedef UnsignedInt AudioHandle;
 enum AudioHandleSpecialValues
 {
@@ -180,7 +180,7 @@ enum AudioHandleSpecialValues
 extern AudioManager *TheAudio;
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
 // position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.
-struct Rva003642DFNode;
+
 #include "../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
@@ -300,12 +300,12 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 	}
 }
 class Object0033FA64;
-void Rva0033FA64Do(const Object0033FA64 *obj);
+
 class Object0033FA79;
-void Rva0033FA79Do(const Object0033FA79 *obj);
+
 class StateMachine;
 void rva003532BF(Object *owner, StateMachine *machine, bool flag);
-class State;
+
 
 // The inlined machine test these states make: slot 8 of the current state, true with none.
 static __forceinline Bool machineInAttackState(const StateMachine *machine)

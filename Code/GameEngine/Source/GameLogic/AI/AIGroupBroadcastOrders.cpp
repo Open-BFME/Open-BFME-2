@@ -62,7 +62,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-class AsciiString;
+
 class CommandButton;
 class Player;
 struct Coord3D;

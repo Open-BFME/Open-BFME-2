@@ -17,7 +17,7 @@
 // Owner evidence (audited 2026-09-26): ctor RVA 0x002D932B stores primary vptr at RVA 0x002D9348; caller RVA 0x0023A1BB stores result at VA 0x00DFF078; donor findImageByName/addImage bodies corroborate image-map ownership.
 // The SubsystemInterface base and the init/reset/update overrides only give the
 // emitted vtable the retail 14-slot shape (0x00C03878) shared with the ctor/dtor units.
-typedef bool Bool;
+
 #include "subsystem_interface.h"
 class ImageCollection : public SubsystemInterface { public: ImageCollection(struct EmitVtableTag *); virtual ~ImageCollection(); virtual void init() {} virtual void reset() {} virtual void update() {} };
 // ?<ImageCollection::ImageCollection> absent-from-retail

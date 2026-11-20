@@ -10,9 +10,9 @@
 // 0x00364A89. /O1 gives or [0x24],-1 for the -1 store, /arch:SSE gives
 // xorps+movss for the float zeroes.
 
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
+
+
+
 
 #include "../../../Include/GameLogic/PathNode.h"
 

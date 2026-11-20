@@ -6,7 +6,7 @@
 // kind93, Horde slots77/85/89/90 and3*frame-rate delay are target facts.
 // Reuse actual target providers; names of formation/memberID carried from
 // donor, while exact interpretation of Object74 remains unresolved.
-typedef bool Bool;typedef unsigned UnsignedInt;
+typedef unsigned UnsignedInt;
 #include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes {OBJECT_STATUS_26=0x26};
 class Object;class Thing;

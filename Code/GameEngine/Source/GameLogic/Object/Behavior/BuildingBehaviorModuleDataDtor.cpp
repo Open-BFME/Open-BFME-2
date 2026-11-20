@@ -36,7 +36,7 @@ private:
 }
 typedef _STL::vector<AsciiString, _STL::allocator<AsciiString> > BuildingWindowName;
 
-class Xfer;
+
 
 #include "Common/Snapshot.h"
 

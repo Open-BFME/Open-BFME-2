@@ -20,7 +20,7 @@ template <> class VSlots<0>
 {
 };
 
-class StateMachine;
+
 class Object;
 class ContainInterface : public VSlots<31>
 {

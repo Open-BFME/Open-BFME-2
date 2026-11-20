@@ -13,7 +13,7 @@
 #include "Coord3D.h"
 #include "GameLogic/BfmeStoredAICommandView.h"
 #include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
-class Object;
+
 class Waypoint;
 #include "../../../Include/GameLogic/AICommandParms.h"
 

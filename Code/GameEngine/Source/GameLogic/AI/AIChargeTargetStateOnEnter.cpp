@@ -44,7 +44,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
+
 
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"

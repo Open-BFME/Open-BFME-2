@@ -92,10 +92,10 @@ int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 #include "../../../Include/GameLogic/LocomotorClass.h"
 class Waypoint;
-class LocomotorSet;
-class RadarObject;
+
+
 class Team;
-class Pathfinder;
+
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
 public:

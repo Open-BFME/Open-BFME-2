@@ -22,7 +22,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef bool Bool;
+
 
 
 // Retail calls the CRT fprintf import thunk through REL32, so read

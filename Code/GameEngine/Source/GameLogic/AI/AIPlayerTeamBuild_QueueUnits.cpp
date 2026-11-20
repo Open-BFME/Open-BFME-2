@@ -350,7 +350,7 @@ class Rva0035149F : public _STL::vector<Coord3D>
 
 
 
-class LocomotorSet;
+
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -573,7 +573,7 @@ extern int BfmeLogicFramesPerSecond;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class BfmeRoomZC;
+
 #include "../../../Include/Common/Rva003573C4Owner.h"
 #include "../../../Include/Common/Rva0020D451Engine.h"
 
