@@ -7,10 +7,10 @@ struct BfmeObjRB
 };
 
 extern BfmeObjRB *g_bfmeGlobRB;
-void bfmeOneRB(int f, BfmeObjRB *p);
-void bfmeTwoRB(int k, int f);
 
-void bfmeGoRB(void);
+
+
+
 
 
 

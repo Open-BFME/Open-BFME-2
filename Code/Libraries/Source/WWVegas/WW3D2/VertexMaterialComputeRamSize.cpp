@@ -8,7 +8,7 @@
 // nulls Mapper[i]. Honest address name on the real VertexMaterialClass;
 // method computes RAM size like sibling Compute_Ram_Size bodies.
 
-class TextureMapperClass;
+
 
 #include "VertexMaterialClass.h"
 

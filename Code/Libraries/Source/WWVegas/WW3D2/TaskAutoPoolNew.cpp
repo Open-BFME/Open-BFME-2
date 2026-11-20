@@ -7,7 +7,7 @@
 // are independently 12 bytes. Allocation delegates to the complete verified
 // ObjectPoolClass body at 0x001440C0; no element access occurs in this wrapper.
 class PolyRenderTaskClass;
-class MatPassTaskClass;
+
 template<class T, int BLOCK_SIZE> class ObjectPoolClass {
 public:
     T *Allocate_Object_Memory();

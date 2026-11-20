@@ -7,7 +7,7 @@
 // 0x005E4300; calls rowed make_heap 0x005E4C73 and rowed pop 0x005E4A5F and
 // rowed sort_heap rva005E50A7. Evidence: same 92B shape as Rva00204BB8
 // precedent 0x00209A62; retail calls all Rva005E4300Cmp helpers.
-struct Rva005E4300Context;
+
 #include "Rva005E4300Cmp.h"
 void __cdecl rva005E50A7(int *first, int *last, Rva005E4300Cmp comp);
 namespace _STL

@@ -56,8 +56,8 @@ enum GameMessageArgumentDataType
 	ARGUMENTDATATYPE_UNKNOWN
 };
 
-class GameMessageArgument;
-class GameMessageList;
+
+
 
 #include "../../Include/Common/MessageStream.h"
 

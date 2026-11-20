@@ -11,7 +11,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include "unicode_string.h"
-typedef unsigned short wchar_t;
+
 #include <list>
 #include <vector>
 

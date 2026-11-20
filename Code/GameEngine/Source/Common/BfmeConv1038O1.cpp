@@ -101,7 +101,7 @@ public:
 #include "../../Include/GameNetwork/Rva007EB810Diag.h"
 
 Rva007EB810Diag *Rva007EB810Get(void);
-extern char g_bfmeMsg1038[];
+
 
 class BfmeY1038
 {
@@ -158,9 +158,9 @@ public:
 };
 
 extern BfmeAObj1038 *g_bfmeA1038;
-extern int g_bfmeB1038;
-extern int g_bfmeC1038;
-void bfmeFlush1038(void);
+
+
+
 
 class BfmeI1038
 {

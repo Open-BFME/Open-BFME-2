@@ -11,7 +11,7 @@
 // getter 0x0033FC04 in slot 2, returning "AttackPositionHordeStateMachine";
 // its constructor is 0x00343A86.
 
-class Object;
+
 
 template <int N>
 class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>

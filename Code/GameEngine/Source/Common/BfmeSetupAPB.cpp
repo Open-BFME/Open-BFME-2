@@ -13,7 +13,7 @@
 // mode at 0x012ED4E6, and rejects the mode pair through the shared INIException
 // text at 0x01075230 when TheDeepCRC at 0x012ED4E5 is already set.
 
-typedef unsigned int UnsignedInt;
+
 
 extern unsigned int BFME2CommandFlags;
 extern bool TheDeepCRC;	// 0x00A02D86 (Rva0023E7D9Clear.cpp)

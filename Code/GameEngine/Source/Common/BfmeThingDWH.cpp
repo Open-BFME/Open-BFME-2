@@ -17,7 +17,7 @@ struct BfmeThingDWH
 };
 
 
-void bfmeGoDWI();
+
 
 char bfmeGoDWK(const char *s);
 

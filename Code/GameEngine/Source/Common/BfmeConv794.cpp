@@ -43,7 +43,7 @@ struct BfmeThingDXG
 	void bfmeDtorDXG();
 };
 
-void bfmeGoDXI(void *a);
+
 
 struct BfmeThingDXK
 {

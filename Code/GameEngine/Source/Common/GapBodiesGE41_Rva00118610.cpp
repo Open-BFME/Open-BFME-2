@@ -14,7 +14,7 @@ class Debug;
 extern Debug *theDebug;
 
 // --- 0x0011C300 (27B): forward three words to theDebug's slot 30 (+0x78).
-void rva0011C300(int a, int b, int c);
+
 
 
 // --- 0x0010EFBD (16B): vtable 0x00BCFAA4 over a base that clears +4.
@@ -53,11 +53,11 @@ private:
 // --- 0x00120670 / 0x00120690 (29B each), 0x001206B0 (26B): primitive draws
 // through the rowed DX8Wrapper::Draw 0x001203C0: types 2, 3 and 1 with
 // counts n*2, n+1 and n. Draw is private (as in ZH), so the callers are friends.
-void rva00120670(unsigned int start, unsigned int count);
 
-void rva00120690(unsigned int start, unsigned int count);
 
-void rva001206B0(unsigned int start, unsigned int count);
+
+
+
 
 
 // --- 0x0011F620 (19B): the DX8 device recursion depth when this thread

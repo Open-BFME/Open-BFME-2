@@ -10,7 +10,7 @@
 // omitted.
 #include "dx8wrapper.h"
 
-void __cdecl bfmeFreeELA(void *p);
+
 
 struct BfmeThingELAa
 {
@@ -55,7 +55,7 @@ struct BfmeThingELC
 };
 
 
-void __cdecl bfmeFreeELD(void *p);
+
 
 struct BfmeThingELDa
 {
@@ -71,7 +71,7 @@ struct BfmeThingELDb
 };
 
 
-void __cdecl bfmeCallELE(void *p, void *a);
+
 
 struct BfmeThingELE
 {

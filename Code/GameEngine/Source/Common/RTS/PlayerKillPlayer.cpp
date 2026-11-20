@@ -36,7 +36,7 @@ class Player {
     char pad[0x3BC];
     Rva0039B683 score;
 };
-struct Rva002A8AB1Record;
+
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class Object;

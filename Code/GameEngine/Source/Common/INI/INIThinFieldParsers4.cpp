@@ -26,7 +26,7 @@ struct LookupListRec;
 
 extern const LookupListRec shakeTypeNames[];
 extern const LookupListRec scorchTypeNames[];
-extern const char *TheWeatherNames[];
+
 extern const char *const TheStanceNames[];
 
 enum StanceType

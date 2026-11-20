@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /DBFME_STLP_NODE_ALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/stlp_nodealloc
 // ?rva0073CE30@Gen_008F7CD0@@QAEXPAUFloatRect0073CE30@@HI@Z 96B @0x0073CE30: rect wrapper building derived updater (base vtable 0x008F139C then derived 0x008F13A4) with grid=this mask&0xFFFFF extra then 4 ftol2 y2 y1 x2 x1 then rowed Fill. Layout base 12 plus derived +0xC. Evidence: dual vtable stores plus rowed Fill at 0x0073C7C0 plus ftol2 calls plus caller at 0x00739D78.
-class BfmeCellFD;
+
 
 #include "../../../Include/Common/Gen_008F7CD0.h"
 

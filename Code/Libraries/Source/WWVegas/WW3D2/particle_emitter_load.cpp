@@ -86,7 +86,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // _ParticleEmitterLoader: defined in particle_emitter_read_props.cpp.
 
 //	This array is declared in "W3D_File.H"
-extern const char *EMITTER_TYPE_NAMES[EMITTER_TYPEID_COUNT];
+
 
 
 bool
@@ -100,9 +100,9 @@ ParticleEmitterDefClass::Load_W3D (ChunkLoadClass &chunk_load)
 	if ((Read_Header (chunk_load)) &&
 		 (Read_User_Data (chunk_load)) &&
 		 (Read_Info (chunk_load))) {
-		
+
 		if (m_Version > 0x00010000) {
-			
+
 			//
 			// Read the version 2.0 structures from the chunk
 			//
@@ -123,13 +123,13 @@ ParticleEmitterDefClass::Load_W3D (ChunkLoadClass &chunk_load)
 	// (gth) Handle all future additions to the particle emitter file format
 	// in the typical chunk fashion.  
 	while (chunk_load.Open_Chunk() && ret_val) {
-		
+
 		switch (chunk_load.Cur_Chunk_ID()) 
 		{
 			case W3D_CHUNK_EMITTER_LINE_PROPERTIES:
 				ret_val = Read_Line_Properties(chunk_load);
 				break;
-			
+
 			case W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES:
 				ret_val = Read_Rotation_Keyframes(chunk_load);
 				break;
@@ -145,12 +145,12 @@ ParticleEmitterDefClass::Load_W3D (ChunkLoadClass &chunk_load)
 			case W3D_CHUNK_EMITTER_EXTRA_INFO:
 				ret_val = Read_Extra_Info(chunk_load);
 				break;
-				
+
 			default: 
 				WWDEBUG_SAY(("Unhandled Chunk! File: %s Line: %d\r\n",__FILE__,__LINE__));
 				break;
 		}
-		
+
 		chunk_load.Close_Chunk();
 	}
 

@@ -26,7 +26,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../Include/Common/INI/INI.h"
 
-class WeaponTemplate;
+
 
 #include "../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
@@ -37,7 +37,7 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *use
 // Only EvacuateDamageModuleData's FieldParse table (WeaponThatCausesEvacuation)
 // references 0x004BACAF and it writes that class's +8 field, so nothing ties it
 // to class INI: it is declared at file scope.
-void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *store, const void *userData);
+
 
 struct ObjectQuery
 {

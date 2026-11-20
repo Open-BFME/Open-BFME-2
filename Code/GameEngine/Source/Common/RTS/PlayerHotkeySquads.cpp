@@ -23,7 +23,7 @@
 
 class Object;
 class GameMessage;
-typedef unsigned int PlayerMaskType;
+
 
 // The squad's live-object vector (start, finish) as returned by the pinned
 // getLiveObjects 0x004D6D4F, already named for its BFME 1 donor caller.
@@ -38,7 +38,7 @@ private:
 	Object **m_finish;
 };
 
-class BfmeVisitorBF;
+
 #include "../../../Include/GameLogic/Gen_0018BC70.h"
 
 #include "../../../Include/Common/Rva004D6C29.h"

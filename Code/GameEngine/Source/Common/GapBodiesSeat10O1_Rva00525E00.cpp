@@ -27,9 +27,9 @@ struct Rva00584A7DVector
 {
 	void grow(unsigned int count);
 };
-struct Rva00584A7DEntry;
-struct Rva00587057Entry;
-struct BfmePod60;
+
+
+
 namespace _STL
 {
 	template <class T> class allocator;
@@ -96,7 +96,7 @@ namespace _STL
 // local of its type; the owning types are unrecovered.
 class AsciiString;
 struct TreeHintRef0051030C;
-struct BfmeOpaque2148;
+
 struct SBServer;
 
 typedef _STL::pair<const AsciiString, TreeHintRef0051030C> Rva00510D07Pair;
@@ -164,7 +164,7 @@ namespace _STL
 {
 	template <class T> void swap(T &a, T &b);
 }
-void Rva0051C3AB(BfmeE12 &a, BfmeE12 &b);
+
 
 
 // ?rva005206FE@Rva005206FE@@QAEXPAURva005205DAElement@@IABU2@@Z @0x005206FE
@@ -238,7 +238,7 @@ int Rva00531EF6(unsigned short value);
 
 // ?rva00601457@Rva00601457@@QAE?AURva006013B7Pair@@ABURva00600F9CElement@@@Z
 // @0x00601457 20B: forward to the rowed 0x006013B7.
-struct Rva00600F9CElement;
+
 
 
 // ?rva0060CC71@Rva0060CC71@@QAE?AURva0060CAEAIterator@@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z
@@ -277,9 +277,9 @@ template void _STL::vector<Rva00565865Element>::clear();
 // the rowed deque<T>::pop_front / push_back of the same instantiation. The
 // owning adaptor types are unrecovered, so each keeps an address name.
 class PingRequest;
-class BuddyRequest;
-struct BfmeOpaqueOwnedRecord1432;
-struct BfmeOpaqueOwnedRecord1408;
+
+
+
 
 // ?rva0054FF12@Rva0054FF12@@QAEXXZ @0x0054FF12 5B: deque<PingRequest>::pop_front.
 
@@ -327,15 +327,15 @@ public:
 	~Rva00568C4E();
 };
 #include "../../Include/Common/BfmePoolRef10.h"
-void Rva0052BFCF(Rva004E1A04 *p);
 
-void Rva0052BFD8(Rva004E366E *p);
 
-void Rva00534626(Rva005344C0 *p);
 
-void Rva005690DE(Rva00568C4E *p);
 
-void Rva005690E7(BfmePoolRef10 *p);
+
+
+
+
+
 
 
 // Bare tail jumps to a rowed member of the object at +0.
@@ -371,8 +371,8 @@ void Rva005690E7(BfmePoolRef10 *p);
 
 // ?rva005693CF@Rva005693CF@@QAEXXZ @0x005693CF 5B: clear the key tree at +0
 // through the rowed _Rb_tree::clear 0x0056926C.
-struct Rva00568FE4Key;
-struct Rva00568FE4Less;
+
+
 
 
 // ??1Rva00534765@@QAE@XZ @0x00534765 5B: member-only dtor, rowed 0x0053470B.
@@ -384,8 +384,8 @@ struct Rva00568FE4Less;
 // ?rva00586FBB@Rva00586FBB@@QAEXPAVRva00585B16@@IABV2@@Z @0x00586FBB 5B and
 // ?rva005880B8@Rva005880B8@@QAEXPAURva00587375@@IABU2@@Z @0x005880B8 5B:
 // fill-insert into the vector at +0 through the rowed _M_fill_insert.
-class Rva00585B16;
-struct Rva00587375;
+
+
 
 
 
@@ -407,18 +407,18 @@ struct Rva00587375;
 // __uninitialized_copy 0x004C3121 and _M_insert_overflow 0x00057C80), so the
 // vector and the incoming record use that spelling; BfmePod8 in this
 // signature is the same 8-byte record under the older placeholder name.
-struct BfmePod8;
-struct BfmeE8;
+
+
 
 // ?rva005B1908@Rva005B1908@@QAEXPAUBfmePod20@@IABU2@@Z @0x005B1908 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005B1748.
-struct BfmePod20;
+
 
 // ?rva005EE00F@Rva005EE00F@@QAEXPAUBfmeStringRecord005ED5F3@@IABU2@@Z @0x005EE00F 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005EDEF3.
-struct BfmeStringRecord005ED5F3;
+
 
 
 // ?rva005EFD8A@Rva005EFD8A@@QAEXPAURva005EFD53Element@@IABU2@@Z @0x005EFD8A 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005EFC30.
-struct Rva005EFD53Element;
+
 
 
 // Tail jumps to a rowed member of the tree / array at +0.

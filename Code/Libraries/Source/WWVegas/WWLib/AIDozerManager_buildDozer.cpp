@@ -9,7 +9,7 @@ class Object;
 class Rva002A8F24;
 class Rva002A8AB1Record;
 class ProductionEntry;
-class ThingTemplate;
+
 class ThingFactory;
 class SuffixObj;
 

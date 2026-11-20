@@ -8,7 +8,7 @@ struct EmitVtableTag;
 
 // Native ctor 0x491633 and dtor 0x4916AC establish bases at 0/C/10,
 // with the string at 0x20. Match their inheritance when emitting tables.
-class Thing;
+
 class ModuleData;
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 

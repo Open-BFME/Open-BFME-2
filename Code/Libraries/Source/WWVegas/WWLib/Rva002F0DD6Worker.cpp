@@ -38,7 +38,7 @@ struct Rva002F1DDCIter
 	Rva002F1DDCIter(Rva002F1DDCNode *treeNode) : node(treeNode) {}
 };
 
-struct Rva002F1DDCOut;
+
 #include "Rva002F1DDCTree.h"
 
 Rva002F1DDCIter Rva002F1DDCTree::rva002F0DD6(Rva002F1DDCNode *x,

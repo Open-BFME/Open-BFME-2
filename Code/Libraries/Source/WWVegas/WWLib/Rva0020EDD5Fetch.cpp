@@ -6,8 +6,8 @@
 // 0x00037050. Evidence: retail dec-je-dec-je-dec-je chain for 1-2-3,
 // TheGameText VA 0x009FF0BC, empty VA 0x00A0C898, caller 0x003F03C9 forwards
 // hidden plus [ecx+0x5c] selector, sibling Rva0020E89CFetch.cpp model.
-typedef unsigned short wchar_t;
-typedef bool Bool;
+
+
 
 #include "ascii_string.h"
 

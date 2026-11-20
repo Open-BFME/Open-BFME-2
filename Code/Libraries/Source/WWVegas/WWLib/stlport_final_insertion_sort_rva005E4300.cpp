@@ -5,7 +5,7 @@
 // ??$__final_insertion_sort@PAHVRva005E4300Cmp@@@_STL@@YAXPAH0VRva005E4300Cmp@@@Z @0x005E4C2F 68B _STL::__final_insertion_sort<int *, Rva005E4300Cmp>.
 // Over 16 elements guarded insertion sort of the head plus unguarded tail else guarded whole range.
 // Evidence: chain from just-landed 0x005E4A1B and 0x005E4A48; same 68B shape as 0x004243D4 precedent.
-struct Rva005E4300Context;
+
 #include "Rva005E4300Cmp.h"
 namespace _STL {
 const int __stl_threshold = 16;

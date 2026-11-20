@@ -37,7 +37,7 @@ void releaseBrowser(void)
 		obj->m_vtable->m_bfmeF2(obj);
 }
 
-class LANAPI;
+
 
 
 // ?g_bfmeObjECF@@3PAUBfmeObjECF@@A: matched references place it at VA 0xdf7040; also referenced as ?g_bfmeObjECF@@3VBfmeObjECFPtr@@A.

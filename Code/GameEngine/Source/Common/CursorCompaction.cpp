@@ -34,7 +34,7 @@ void *Rva004ED3A2::rva004ED3A2(void *position)
 }
 
 struct Rva005412E2Tag {};
-void rva00541214(char *dst, char *cur, void *p, const Rva005412E2Tag &tag);
+
 
 
 

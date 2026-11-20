@@ -26,7 +26,7 @@ public:
 class ParticleSystemManager;
 
 extern ParticleSystemManager *TheParticleSystemManager;
-void bfmeCall939A(void);
+
 
 
 class Object;

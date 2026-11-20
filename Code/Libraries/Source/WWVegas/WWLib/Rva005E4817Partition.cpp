@@ -7,7 +7,7 @@
 // owner reads that context, and caller5E49FD passes an unused bool* at arg18.
 // Keep the original private address-derived names; WB's MoveTo alignment
 // for the forwarder is unrelated and does not establish a function identity.
-struct Rva005E4300Context;
+
 #include "Rva005E4300Cmp.h"
 
 int *__cdecl Rva005E4817Partition(int *first, int *last, Rva005E4300Cmp comp, int pivot, bool *)

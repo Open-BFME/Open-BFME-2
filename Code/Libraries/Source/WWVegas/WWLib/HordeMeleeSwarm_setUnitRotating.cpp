@@ -13,7 +13,7 @@
 
 #include "Rva00583CE0Elem.h"
 
-struct Rva00583D54Held;
+
 #include "Rva005D6FCC.h"
 
 class HordeMeleeSwarm : public Rva005D6FCC

@@ -9,7 +9,7 @@
 // holds, move the parent down. Evidence: caller 0x005E4913 in rowed
 // __adjust_heap 0x005E48C2; callee pinned 0x005E4300; same 76B shape as
 // stlport_push_heap_rva00204bb8.cpp 0x002059CF.
-struct Rva005E4300Context;
+
 #include "Rva005E4300Cmp.h"
 
 namespace _STL

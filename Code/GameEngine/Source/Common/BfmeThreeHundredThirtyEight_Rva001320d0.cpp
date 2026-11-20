@@ -4,7 +4,7 @@
 // retail 0x001320D0, 89 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/BfmeThreeHundredThirtyEight.cpp: the donor
 // preamble and this one constructor, the donor's other definition omitted.
-extern "C" unsigned char bfmeVftSJ[];
+
 
 #include "wwstring.h"
 
