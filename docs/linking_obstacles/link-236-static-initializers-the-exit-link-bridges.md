@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 464).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 463).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1594,3 +1594,10 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   its include path and registers the copy as `_$E22`. *Lead:* 0x007ABE9F (static 0x00DE1EB0) sits between
   TheTerrainRenderObject and BaseHeightMap's guard, the same sandwich for BaseHeightMap.cpp once that global's
   definition (W3DFloorDrawDtor.cpp) and the unit's readers are settled.
+- *Taken (464 -> 463): ScoreKeeper's copy (round lk63's blocked entry).* Retail's run is the copy 0x007AF2B2, then
+  the four kind masks 0x007AF2C2..0x007AF2F8, closed by the marker 0x007AF30A. The masks' statics
+  0x00E0284C..0x00E028A0 follow the copy's 0x00E02848 and are read only by code approved to RTS/ScoreKeeper.cpp,
+  as are the 12-byte object 0x00E02838 and its flag 0x00E02844 before it. Round lk63 held the entry because the
+  unit is built on Zero Hour's PreRTS.h; the shim of round lk58 serves exactly that case: RTS/ScoreKeeper.cpp takes
+  `reference/shims/bfme2_drawable_flash` first on its include path and registers the copy as `_$E23`. The masks stay
+  bridged (Rva007ADC9CMaskInits.cpp) until their header is known.
