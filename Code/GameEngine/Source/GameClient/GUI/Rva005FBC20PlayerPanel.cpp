@@ -57,7 +57,7 @@ private:
 	void *m_ptr;
 };
 
-class Rva00579E47Delegate;
+
 
 // The +0x08 member: the 12-byte vector of bound names (constructor 0x001F81BF,
 // rowed destructor 0x0052413E); 0x0052458E binds a delegate under a name.

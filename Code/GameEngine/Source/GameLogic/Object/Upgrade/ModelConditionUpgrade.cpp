@@ -151,7 +151,7 @@ extern int BfmeLogicFramesPerSecond;
 // clsmd::buildFieldParse to INI::initFromINIMultiProc, and each landed
 // friend_newModuleData factory pushes its class proc immediate.
 
-class MultiIniFieldParse;
+
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 struct FieldParse
 {

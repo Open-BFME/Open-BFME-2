@@ -5,7 +5,7 @@
 
 // LINK: findEntry is rowed as Rva002CEE1B::rva002CED59 (0x002CED59); the entry
 // record and the drawable word are the same, so the calls keep their shape.
-struct Elem002CED84;
+
 
 // PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
 class RayEffectSystem *TheRayEffects = NULL;

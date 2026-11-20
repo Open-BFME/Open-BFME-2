@@ -34,7 +34,7 @@ extern "C" void *theLogicRandomLogFile;
 
 class GameFont;
 class Object;
-class Drawable;
+
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"

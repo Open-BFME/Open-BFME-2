@@ -10,8 +10,8 @@ inline bool StringBase<T>::isEmpty() const
 {
     return m_data == 0 || m_data->length == 0;
 }
-class FXList;
-class AIUpdateInterface;
+
+
 
 class EmotionNugget;
 

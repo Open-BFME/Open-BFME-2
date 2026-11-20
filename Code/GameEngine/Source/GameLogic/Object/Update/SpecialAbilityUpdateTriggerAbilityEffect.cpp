@@ -16,9 +16,9 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 
 extern GameLogic *TheGameLogic;
-class Player;
+
 class Team;
-class ThingTemplate;
+
 class Module;
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 // These status labels describe use in this body, not recovered enum names.

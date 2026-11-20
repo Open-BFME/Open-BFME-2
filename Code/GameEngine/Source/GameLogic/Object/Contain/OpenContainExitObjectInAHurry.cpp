@@ -44,7 +44,7 @@ extern bool BfmeAIExitDoorFlag;
 // arrival test and the scale (WorldBuilder passes it to MathCoord3D::operator*= by value).
 // Descriptive identifier; the original name is unknown.
 float BfmeOpenContainExitDistance=50.0f;
-class Rva0035149F;
+
 class Matrix3D;
 class LocomotorSet;
 class ConditionBits {

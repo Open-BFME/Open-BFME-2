@@ -16,7 +16,7 @@ struct _iobuf;
 #include "../../Include/Common/ScalarTypes.h"
 
 
-class Object;
+
 class Weapon;
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 

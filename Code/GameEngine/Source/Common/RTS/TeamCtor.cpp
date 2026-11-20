@@ -60,7 +60,7 @@ private:
 	char m_data[0x18];
 };
 
-class Team;
+
 
 #include "../../../Include/Common/Team.h"
 

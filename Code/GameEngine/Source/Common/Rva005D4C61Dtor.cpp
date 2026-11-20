@@ -9,7 +9,7 @@
 // actual typed providers; no new pins or definition markers are introduced.
 // ??1Rva005D4C61@@UAE@XZ retail 0x005D4C61 90B dtor stores vtable 0x00875AAC plus list forEach and holder clear with list free
 
-class Rva005D4C01Listener;
+
 #include "../../Include/Common/Rva00330757Member.h"
 
 class Rva005D4C01Listener

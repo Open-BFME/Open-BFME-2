@@ -10,7 +10,7 @@
 // names are unknown. BFME1 ba7ddda and ZH provide no clean class implementation.
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Oy- /Ireference/shims/bfme2_ascii
 class Object;
-struct Rva004DD8FAInfo;
+
 #include "../../../Include/GameLogic/PathfindCell.h"
 struct Rva004DD8FANode {
     Rva004DD8FANode *m_next;

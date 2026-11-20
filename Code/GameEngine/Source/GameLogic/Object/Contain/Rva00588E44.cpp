@@ -74,7 +74,7 @@ public:
 	virtual Rva00588E44Contain *slot7C();
 };
 
-class Object;
+
 
 
 class Rva00588E44UpdateModule

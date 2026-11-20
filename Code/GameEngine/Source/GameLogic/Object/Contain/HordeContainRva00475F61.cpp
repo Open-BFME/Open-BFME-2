@@ -65,9 +65,9 @@ bool less<int>::operator()(const int &__x, const int &__y) const { return __x < 
 class ThingTemplate;
 class Team;
 class Player;
-class Object;
+
 class AICommandInterface;
-class Rva00475F61Contain;
+
 struct Rva0046E6EAObject;
 struct Rva0046E6EACoord;
 #include "../../../../Include/GameLogic/Module/Rva0046E6EA.h"

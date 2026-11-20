@@ -162,7 +162,7 @@ public:
 };
 
 class ParticleSystemTemplate;
-class W3DModelDraw;
+
 #include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 

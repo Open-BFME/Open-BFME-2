@@ -20,7 +20,7 @@
 
 
 
-class GroupOrder;
+
 
 class Snapshot;
 class AsciiString;

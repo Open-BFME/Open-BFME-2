@@ -30,26 +30,26 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Object;
+
 enum DamageType { DAMAGE_8=8 };
 enum DeathType { DEATH_0=0 };
 enum ObjectStatusTypes { STATUS_32=0x32 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct DamageInfoSourceView { char pad00[8];ObjectID id; };
 class RunOffBodyView { public:
- 
+
  virtual void v0();
  virtual void v1();
  virtual void v2();
  virtual void v3();
  virtual void v4();
- 
+
  virtual void v5();
  virtual void v6();
  virtual void v7();
  virtual void v8();
  virtual void v9();
- 
+
  virtual void v10();
  virtual void v11();
  virtual void v12();
@@ -69,7 +69,7 @@ class Object : public Thing {public:
  void kill(DamageType,DeathType);
  void setStatus(ObjectStatusTypes,bool);
  void rva0028AE6D();
- 
+
  friend class RunOffMapBehavior;
  private:char pad60[0x10c-0x60];RunOffModelFlagsView m_conditions;char pad158[0x254-0x158];RunOffBodyView *m_body;AIUpdateInterface *m_ai;
 };
@@ -83,7 +83,7 @@ struct RunOffWaypointView {char pad00[0xc];Coord3D position;};
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 class RunOffTerrainView {public:
- 
+
  virtual void v0();
  virtual void v1();
  virtual void v2();
@@ -91,7 +91,7 @@ class RunOffTerrainView {public:
  virtual void v4();
  virtual void v5();
  virtual float groundHeight(float,float,void *);
- 
+
  virtual void v7();
  virtual void v8();
  virtual void v9();

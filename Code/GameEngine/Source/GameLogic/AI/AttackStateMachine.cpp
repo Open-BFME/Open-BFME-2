@@ -16,7 +16,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 typedef UnsignedInt StateID;
-class Object;
+
 
 #include "../../../Include/Common/StateConditionInfo.h"
 #include "../../../Include/Common/StateMachineClass.h"

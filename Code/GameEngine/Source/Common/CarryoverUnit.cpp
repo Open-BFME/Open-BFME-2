@@ -69,7 +69,7 @@ class CarryoverUnit:public Snapshot{public:CarryoverUnit();CarryoverUnit &operat
 // rowed Object::updateUpgradeModules. The +0x284 call needs one new pin
 // read from the retail REL32.
 
-class Object;
+
 
 // The callee is the rowed STLport _Base_bitset<32>::_M_do_or.
 namespace _STL

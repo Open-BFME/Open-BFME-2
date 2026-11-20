@@ -18,7 +18,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 typedef UnsignedInt ObjectID;
-class Object;
+
 
 #include "../../../Include/Common/StateConditionInfo.h"
 #define BFME_SNAPSHOT_NAME_SLOT

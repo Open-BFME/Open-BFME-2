@@ -15,7 +15,7 @@
 // under their addresses; identities unproven.
 //
 
-struct Rva005CF22CBig;
+
 
 class Rva00575674Sub
 {

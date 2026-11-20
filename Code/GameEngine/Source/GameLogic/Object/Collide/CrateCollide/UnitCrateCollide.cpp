@@ -12,7 +12,7 @@ struct Coord3D;
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "../../../../../Include/GameClient/Drawable.h"
-class UnitCrateCollideModuleData;
+
 // The class views SalvageCrateCollide.cpp compiles for the family.
 // The collide interface at +0x10: retail's crate tables there (0x00C5A600
 // for UnitCrateCollide) have six slots; slot 0 is CrateCollide::onCollide
@@ -186,8 +186,8 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
- 
- 
+
+
 class UnitCrateCollide : public CrateCollide
 {
 public:

@@ -6,7 +6,7 @@ class ModuleData;
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 // Real 34-pure interface (all =0, vtable all __purecall) to match kept copy from AIUpdate.cpp;
 // single-anchor placeholder emitted 1-entry vtable vs real 34-entry, causing LINK-COMDAT.
-class BodyModuleInterface;
+
 class CollideModuleInterface;
 class ContainModuleInterface;
 class CreateModuleInterface;

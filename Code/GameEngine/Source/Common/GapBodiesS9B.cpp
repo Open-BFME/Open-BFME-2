@@ -21,7 +21,7 @@ public:
 
 #include "../../Include/GameLogic/Module/Rva004CBF9A.h"
 
-class Rva003F59FE;
+
 class Rva0039851D;
 
 class FoundationAIUpdate

@@ -19,7 +19,7 @@ typedef unsigned short WChar;
 class GameFont;
 #include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 struct MouseIO { int x, y; char m_pad8[0x18 - 8]; int leftState; char m_pad1c[0x24 - 0x1C]; int rightState; char m_pad28[0x30 - 0x28]; int middleState; };
-class Drawable;
+
 struct BodyView { virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual float getHealth(); };
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"

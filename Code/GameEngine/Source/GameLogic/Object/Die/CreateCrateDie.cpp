@@ -101,7 +101,7 @@ typedef BitFlags<218> KindOfMaskType;
 class ThingTemplate;
 class Team;
 class ModuleData;
-class Object;
+
 
 #include "../../../../Include/Common/Player.h"
 

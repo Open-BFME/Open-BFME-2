@@ -15,9 +15,9 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 #include "../../../../Include/Common/Rva004F6093Holder.h"
 struct ArmySummaryEntryRef {ArmySummaryEntry*value;__forceinline ~ArmySummaryEntryRef(){if(value)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(static_cast<Rva0007DF07 *>(value)));}};
 struct HeroEntryKey {char opaque[4];};
-class AttackOrdersMember;
-class Rva00318FC6;
-class Rva00319028;
+
+
+
 #include "../../../../Include/Common/Rva00319924.h"
 class Rva0031979COwner {public:void rva0031979C(int);};
 #include "../../../../Include/GameClient/Rva00318FBE.h"

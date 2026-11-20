@@ -102,7 +102,7 @@ class FXShaderSetup : public FXShader::RenderingMethod
 };
 
 class LightEnvironmentClass;
-class CameraClass;
+
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"

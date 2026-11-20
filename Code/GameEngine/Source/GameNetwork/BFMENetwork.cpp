@@ -4,11 +4,11 @@
 
 #include "../../Include/Common/ScalarTypes.h"
 
-class BFMENetworkQueue;
 
-class BFMENetworkQueue1;
 
-class BFMENetwork;
+
+
+
 
 struct BFMENetworkList;
 
@@ -90,7 +90,7 @@ struct BfmeOpaqueOwnedRecord1408;
 
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > BFMENetworkString;
 
-class MutexClass;
+
 
 #include "../../Include/GameNetwork/BFMENetworkListNode.h"
 

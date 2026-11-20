@@ -51,7 +51,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 
 class Object;
-class Team;
+
 
 class Rva0055B0CC
 {

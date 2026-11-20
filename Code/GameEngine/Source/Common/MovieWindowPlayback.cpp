@@ -34,7 +34,7 @@ class StancesBehavior;
 // supplies the behavior reference and signed old/new stance arguments; their
 // original enum spelling remains unresolved, so this view uses integer ABI.
 class CreateAHeroData;
-struct TargetRef00217D4C;
+
 // The existing release provider touches only the 12-byte prefix (ref +8).
 // Retail's hotkey vector advances 16 bytes and tests its active flag at +12.
 // Keep that extra flag in a distinct record instead of widening the prefix.

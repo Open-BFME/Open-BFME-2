@@ -120,7 +120,7 @@ enum WeaponCollideMaskType
 
 class Player;
 class Object;
-class FXList;
+
 float GetGameLogicRandomValueReal(float, float, char *, int);
 
 class WeaponBody

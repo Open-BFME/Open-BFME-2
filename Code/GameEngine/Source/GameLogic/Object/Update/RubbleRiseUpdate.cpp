@@ -41,7 +41,7 @@ enum
 {
 	MAX_IDX = 32
 };
-class Object;
+
 class FXList
 {
 public:
@@ -143,7 +143,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
-class RubbleRiseUpdate;
+
 
 class RubbleRiseUpdate : public UpdateModule, public DieModuleInterface
 {

@@ -104,7 +104,7 @@ class GlobalData;
 
 extern GlobalData *TheWritableGlobalData;
 
-class W3DStatusCircle;
+
 
 #include "../../../../GameEngine/Include/Common/GameEngine.h"
 

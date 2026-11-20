@@ -22,7 +22,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // (ZH DieModule.h). Entered with this at the +0x10 subobject, so retail reads the
 // object at [esi-8], the module data at [esi-0x0C] and calls isDieApplicable on
 // [esi-0x10]; callees rowed getControllingPlayer destroyObject setSpecial... Radar::addObject.
-class Player;
+
 class Object;
 class GameLogic;
 class Radar;

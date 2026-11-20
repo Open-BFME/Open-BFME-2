@@ -8,7 +8,7 @@
 
 
 enum CanMakeType { CANMAKE_OK = 0, CANMAKE_NO_PREREQ, CANMAKE_NO_MONEY, CANMAKE_FACTORY_IS_DISABLED, CANMAKE_QUEUE_FULL };
-class Player;
+
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 #include "../../../../Include/GameLogic/Rva0037EE4C.h"
@@ -164,7 +164,7 @@ public:
 };
 }
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
-struct Rva002A8AB1Record;
+
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class ThingTemplate;

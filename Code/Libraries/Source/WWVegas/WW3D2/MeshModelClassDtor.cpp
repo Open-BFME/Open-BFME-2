@@ -63,7 +63,7 @@ public:
 
 #include "MaterialInfoClass.h"
 
-class MeshModelClass;
+
 
 #include "DX8MeshRendererClass.h"
 

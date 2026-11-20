@@ -13,7 +13,7 @@
 
 class Object;
 
-class Drawable;
+
 
 extern GameLogic *TheGameLogic;
 

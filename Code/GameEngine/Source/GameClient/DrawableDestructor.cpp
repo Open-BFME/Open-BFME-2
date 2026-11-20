@@ -71,7 +71,7 @@ public:
 #include "../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
 
-class Drawable;
+
 #include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 

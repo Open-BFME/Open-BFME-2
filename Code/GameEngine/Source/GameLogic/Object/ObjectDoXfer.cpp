@@ -130,7 +130,7 @@ public:
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class Object;
+
 
 struct Rva002D76C6Owner;
 #include "../../../Include/Common/Radar.h"

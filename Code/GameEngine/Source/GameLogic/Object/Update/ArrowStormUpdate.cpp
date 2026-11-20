@@ -47,7 +47,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class Object;
+
 
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 
@@ -119,7 +119,7 @@ class BridgeBehaviorObjectIDList
 public:
 	void push_back(const ObjectID &id);	// 0x002A1B6F
 };
-class Rva0029FB3BMember;
+
 #include "../../../../Include/Common/Rva002A1B6FNativeList.h"
 #include "../../../../Include/Common/FreelistPool.h"
 extern FreelistPool g_freelistPool;

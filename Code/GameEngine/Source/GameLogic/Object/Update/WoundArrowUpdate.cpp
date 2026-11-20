@@ -34,7 +34,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-class Object;
+
 class DamageInfo;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include <math.h>

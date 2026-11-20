@@ -24,9 +24,9 @@ class BfmeVec3EJ;
 class Gen_000E5A50 {public:float Get3DCenterDistanceSquared(const BfmeVec3EJ*)const throw();};
 class Rva001E438B {public:void rva001E438B(float*,const float*) throw();};
 extern PartitionManager* ThePartitionManager;
-class Rva00375A73Context;
-struct Rva00375A73Coord;
-class Rva00312C95;
+
+
+
 #include "../../../Include/GameLogic/AerialPathfinder.h"
 #include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
