@@ -20,3 +20,12 @@ Follows LINK-175's GlobalWeatherSystem row.
   link_check: `GlobalWeatherSystemCtorDeferred.cpp` 0 -> 155 B LINKS; `GlobalWeatherSystem.cpp`
   (303), `CreateAHeroParseBlingBinder.cpp` (419), `Rva007ABBF6BlockParseInits.cpp` (2,728) and
   `SubsystemInterface.cpp` (22,023) keep linking. Census confirmation: pending.
+
+### 2026-11-20 constructor consolidation follow-up
+
+The verified receiver and engine INI changes remove the first subsystem
+and template collisions. The prepared merge still requires a common
+WeatherData declaration. Whole-file placement also waits on the two
+authored WeatherData callbacks. The source pair keeps all 14 function
+rows and the 479-byte scoped link preview.
+[Verification and placement evidence](../../reverse/attempt_support/weather-constructor-consolidation-20261120-root20.md).
