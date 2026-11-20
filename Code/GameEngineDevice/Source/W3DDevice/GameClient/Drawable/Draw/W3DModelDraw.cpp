@@ -76,6 +76,27 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // The exact assignment specialization is provided by StlportAsciiStringVectorAssign.cpp.
 // Keep this consumer on that verified body rather than instantiate the stock copy.
 #include <vector>
+
+// The three rowed erase/clear helpers call the existing 24-byte partition
+// copy. Their ModelConditionFlags spelling only survives on the emission anchor.
+template <size_t Count> class BitFlags;
+struct Rva00626EF0Element;
+namespace _STL
+{
+template <> Rva00626EF0Element * __copy<Rva00626EF0Element *, Rva00626EF0Element *, int>(
+    Rva00626EF0Element *, Rva00626EF0Element *, Rva00626EF0Element *,
+    const random_access_iterator_tag &, int *);
+
+template <> __forceinline BitFlags<117> * __copy_ptrs<BitFlags<117> *, BitFlags<117> *>(
+    BitFlags<117> *first, BitFlags<117> *last, BitFlags<117> *result, __false_type)
+{
+    return reinterpret_cast<BitFlags<117> *>(__copy(
+        reinterpret_cast<Rva00626EF0Element *>(first),
+        reinterpret_cast<Rva00626EF0Element *>(last),
+        reinterpret_cast<Rva00626EF0Element *>(result),
+        random_access_iterator_tag(), static_cast<int *>(0)));
+}
+}
 #include <map>
 #include <math.h>
 // Declare before W3DModelDraw.h instantiates the PristineBone map lifetime.
