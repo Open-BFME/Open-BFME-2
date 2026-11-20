@@ -349,7 +349,6 @@ public:
     void createPlayerEvent(const Rva002D893BColorSource *source, const Coord3D *world, RadarEventType type, float scale);
 	void newMap();
 	bool radarToWorld(const ICoord2D *, Coord3D *);
-	void rva002D7E68(void *);
 	bool isPriorityVisible(RadarPriorityType priority) const;
 	void addObject(Object *object);
 	bool worldToRadar(const Coord3D *world, ICoord2D *radar);
@@ -360,7 +359,7 @@ public:
 	virtual void refreshTerrain(TerrainLogic *terrain);
 	virtual void queueTerrainRefresh();
 	virtual void loadPostProcess();
-	virtual void s06();
+	virtual void rva002D7E68(void *);
 	virtual void s07();
 	virtual void s09();
 	virtual void s10(int a, int b, int c);

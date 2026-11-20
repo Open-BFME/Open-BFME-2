@@ -88,7 +88,7 @@ public:
 #endif
     virtual void refreshTerrain(TerrainLogic *);
     virtual void queueTerrainRefresh();
-    virtual void vslot06(void *);
+    virtual void rva002D7E68(void *);
     virtual void draw(int, int, int, int, int = -1) = 0;
     virtual void slot08() = 0;
     virtual void setShroudLevel(int, int, CellShroudStatus) = 0;
@@ -117,7 +117,6 @@ public:
     bool rva002D782C(const Coord3D *, Coord2D *);
     void rva002D7BB7(const void *);
     void rva002D7BD3();
-    void rva002D7E68(void *);
     void rva0004DB76(const Coord2D *, Coord2D *, int, int, int, int);
     void rva0004F515(int, int, int, int);
 

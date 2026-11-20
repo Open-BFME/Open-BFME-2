@@ -102,7 +102,7 @@ void TerrainLogic::setActiveBoundary(Int newActiveBoundary)
 	Region3D region;
 	field3C = newActiveBoundary;
 	getExtent(&region);
-	TheRadar->vslot06(TheTerrainLogic);
+	TheRadar->rva002D7E68(TheTerrainLogic);
 	ThePartitionManager->rva00625300(&region);
 	TheShroudManager->setRegion(&region, 0.0f);
 	((Rva0035A2DC *)TheGameLogic->getTerrainResourceManager())->rva0035A2DC(&region, (*(Rva00DFE758Holder **)&TheWritableGlobalData)->m_floatD4);
