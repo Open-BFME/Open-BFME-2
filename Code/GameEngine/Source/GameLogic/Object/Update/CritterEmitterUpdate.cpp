@@ -44,13 +44,16 @@ class Snapshot;
 // No user-declared destructor: retail's ??1 at 0x004C8F49 is the compiler-generated
 // one (no entry store of its own vtable, unlike every user-written ModuleData dtor),
 // emitted here beside ??_G with the vtable the constructor below installs.
-class CritterEmitterUpdateModuleData : public Snapshot
+// Retail's table for CritterEmitterUpdateModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int.
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class CritterEmitterUpdateModuleData : public ModuleData
 {
 public:
 	CritterEmitterUpdateModuleData();
 
 private:
-	int m_unused04; // +4
 	_STL::vector<BfmeE16> m_a08; // +8
 	_STL::vector<BfmeE16> m_b14; // +0x14
 	int m_i20; // +0x20

@@ -89,14 +89,17 @@ struct BfmeExpLevelDraw;
 class FXList;
 // Field identity is retail's own INI table at 0x00C4F9E8; the +0x18/+0x24 element
 // classes keep the names the ledger's vector destructor rows carry.
-class BannerCarrierUpdateModuleData : public Snapshot
+// Retail's table for BannerCarrierUpdateModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int.
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class BannerCarrierUpdateModuleData : public ModuleData
 {
 public:
 	BannerCarrierUpdateModuleData();
 	virtual ~BannerCarrierUpdateModuleData();
 	AsciiString rva00496DA3(const AsciiString &name) const;
 	const FXList *getFX() const { return m_bannerMorphFX; }
-	int m_unused04; // +0x04
 	unsigned m_idleSpawnRate; // +0x08
 	unsigned m_meleeFreeUnitSpawnTime; // +0x0C
 	int m_diedRespawnTime; // +0x10

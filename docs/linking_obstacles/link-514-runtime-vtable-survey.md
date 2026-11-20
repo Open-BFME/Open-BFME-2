@@ -3896,3 +3896,49 @@ with an unnamed +4 int for the module tag. Re-basing the view on the canonical M
 - Not tried: BaseUpgrade.cpp and CommandSetUpgradeModuleDataCtor.cpp (their Rva00253487Base view has an inline
   destructor calling Snapshot::~Snapshot explicitly), the W3D draw module data (slots 14/18/22/30 overridden),
   the contain module data (slot 8/21 overrides) and the `(no base)` deleting-destructor grab-bags.
+
+### 2026-11-20 (later): ModuleData's destructor is inline in retail; four more stand-ins re-based (seat halilkkaya-vt2)
+
+Correction to the bullet above: of the eleven stand-ins only FireWeaponUpdate was byte-tested; the other ten builds
+had failed in the scratch harness (WSL bash, no Wine), not on bytes.
+
+Retail facts (scan of .text for rel32 calls/jumps to 0x0049B47C and for `mov [reg(+d)],0x00BBB554`, each site mapped
+to the matched row containing it; /O1 vs /O2 from the unit's `// cl:` line):
+- `??1ModuleData@@UAE@XZ` is rowed at 0x0049B47C (7 B, `mov [ecx],0x00BBB554; ret`) in Rva004ABFD9Dtor.cpp as a
+  gen-alias; 90 names fold there, `??1Snapshot` among them. `??_GModuleData` has no row; ModuleData's table slot 0
+  is the shared deleting destructor 0x004A10FD, which calls 0x0049B47C.
+- No ModuleData-derived main destructor calls 0x0049B47C. 114 of them (107 units; 16 /O1, 98 /O2) store
+  0x00BBB554 themselves: the ModuleData and Snapshot destructors are inlined.
+- What reaches 0x0049B47C from ModuleData code: 81 EH unwind funclets (20 /O1, 61 /O2), 7 static-object
+  teardowns in ObjectConstructor.cpp (/O1), and one deleting destructor (??_GWeaponSetUpgradeModuleData, the
+  shared 0x004A10FD body).
+- 20 units already make the destructor inline in-unit after including the header (`inline
+  ModuleData::~ModuleData() {}` or the explicit Snapshot call; 12 include ModuleData.h directly, 8 through a module
+  header), and 17 more do the same with BfmeModuleData.h.
+
+Header experiment (`virtual ~ModuleData() {}` in ModuleData.h and the 19 in-unit definitions removed, not
+committed): a scoped build of the header's whole dependency set (368 units from build/match deps plus direct and
+module-header includers) verified 3,867 of 3,868 rows. The one loss is `??_GW3DDebrisDrawModuleData` (0x004A10FD,
+W3DDebrisDrawModuleDataFactory.cpp): retail's deleting destructor calls the 7-byte body, and MSVC 7.1 inlines an
+implicit, inline or same-unit out-of-line destructor into `??_G`. An implicit ModuleData destructor fails the same
+row. The fix is a W3DDebrisDrawModuleData destructor kept out of the unit (or noinline) and rowed as the
+0x0049B47C ICF twin. With the inline header, the stand-in re-base turned four tables correct (bridged 3,041 ->
+3,037, mismatching slots 33,378 -> 33,258) and changed no other table. The header change waits on two claims
+Yoann Laissus holds: RVA 0x0049B47C (that row) and MonsterDockUpdateModuleDataCtor.cpp (its in-unit definition
+would become a redefinition).
+
+Landed instead, with the existing in-unit recipe: FireWeaponUpdate.cpp, BannerCarrierUpdate.cpp,
+CritterEmitterUpdate.cpp and AudioLoopUpgrade.cpp re-base their stand-in on ModuleData.h and add
+`inline ModuleData::~ModuleData() {}`. Still blocked (re_attempts.log, `??_7EmotionTrackerUpdateModuleData@@6B@`):
+five units whose Snapshot.h comes in without BFME_SNAPSHOT_NAME_SLOT, so slot 2 becomes `crc`; ProductionUpdate
+(constructor init list names Snapshot); Rva0044ECCE (C1001); GapBodiesGE17's Rva0025349C (slot 0).
+
+UpdateModule and BehaviorModule, same scan:
+- `??1UpdateModule` (0x0024A797, 25 B) is out of line in retail. Derived destructors call it 43 times and jump to
+  it 72 times, and 109 funclets jump there. Only it and two helper destructors store its +0x10 table 0x00BFBCE4.
+  UpdateModule.h's out-of-line `~UpdateModule()` is right, so the destructor lever does not reach the AIUpdate
+  154-slot tables or the 47-slot BehaviorModuleInterface tables of UpdateModule subclasses.
+- `??1BehaviorModule` (0x004607E1, 18 B) is inline in retail: 13 destructors store its table 0x00BEEA7C themselves
+  (UpdateModule, DieModule, CreateModule, UpgradeModule, BodyModule, SpecialPowerModule and others). Only 4
+  funclets and one deleting destructor reach the out-of-line copy. BehaviorModule.h declares it out of line, but
+  every affected destructor is an intermediate one that is already rowed, so it unlocks no bridged table on its own.

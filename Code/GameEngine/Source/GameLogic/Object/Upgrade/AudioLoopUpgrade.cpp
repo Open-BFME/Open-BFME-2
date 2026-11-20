@@ -246,7 +246,10 @@ public:
 	ConstructedMuxBlock() { construct(); }
 };
 
-class AudioLoopUpgradeModuleData : public Snapshot
+// Retail's table for AudioLoopUpgradeModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int. Its destructor inlines the base teardown.
+inline ModuleData::~ModuleData() {}
+class AudioLoopUpgradeModuleData : public ModuleData
 {
 	friend class AudioLoopUpgrade;
 public:
@@ -255,7 +258,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 
 private:
-	unsigned int m_unused04;
 	OpaqueRefElement4 m_soundToPlay; // +0x08
 	unsigned int m_killAfterMS; // +0x0C
 	bool m_killOnDeath; // +0x10

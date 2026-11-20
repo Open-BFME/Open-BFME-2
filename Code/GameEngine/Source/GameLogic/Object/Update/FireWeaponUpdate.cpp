@@ -214,11 +214,14 @@ struct FireWeaponNugget
 };
 // The nugget list holds FireWeaponNugget pointers through the rowed list<int>
 // bodies, as the entry list does.
-class FireWeaponUpdateModuleData : public Snapshot
+// Retail's table for FireWeaponUpdateModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int.
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class FireWeaponUpdateModuleData : public ModuleData
 {
 public:
 	virtual ~FireWeaponUpdateModuleData();
-	int m_unk04; // +4
 	_STL::list<int> m_nuggets; // +0x08
 	Bool m_heroModeTrigger; // +0x0C
 	Bool m_chargingModeTrigger; // +0x0D
