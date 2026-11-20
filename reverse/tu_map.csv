@@ -13097,11 +13097,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001E3840,28,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE51.cpp
 0x001E385C,58,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE51.cpp
 0x001E3896,35,code,,,-,,Code/GameEngine/Source/Common/Rva001E3896Check.cpp
-0x001E38B9,64,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/GameLogic/Object/LocomotorTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/LocomotorTemplateValidate.cpp
-0x001E38F9,53,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E392E,Code/GameEngine/Source/Common/SmallIniParseCallbacks_CanMoveBackwards.cpp
+0x001E38B9,64,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/GameLogic/Object/LocomotorTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x001E38F9,53,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E392E,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E392E,6,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E3934,Code/GameEngine/Source/Common/ConstIntGetters5.cpp
 0x001E3934,33,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E3955,Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp
-0x001E3955,927,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E3CF4,Code/GameEngine/Source/Common/Rva001E3955Assign.cpp
+0x001E3955,927,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E3CF4,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E3CF4,335,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E3E43,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E3E43,19,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E3E56,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E3E56,6,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E38B9..0x001E3E5C,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
@@ -13154,9 +13154,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001E4A4E,21,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E46E1..0x001E4A63,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E4A63,30,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,Code/GameEngine/Source/GameLogic/Object/LocomotorGetTemplateName.cpp
 0x001E4A81,61,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/GameLogic/Object/LocomotorStore.cpp,Code/GameEngine/Source/GameLogic/Object/LocomotorStore_newLocomotor_Rva001E4A81.cpp
-0x001E4ABE,754,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/Common/Rva001E4DB0Ctor.cpp
-0x001E4DB0,59,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/Common/Rva001E4DB0Dtor.cpp
-0x001E4DEB,961,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E4DB0..0x001E51AC,Code/GameEngine/Source/Common/LocomotorTemplate.cpp
+0x001E4ABE,754,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x001E4DB0,59,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x001E4DEB,961,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E4DB0..0x001E51AC,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E51AC,96,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E4DB0..0x001E520C,Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp
 0x001E520C,78,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/Common/LocomotorStore.cpp,Code/GameEngine/Source/Common/LocomotorStore_newOverride.cpp
 0x001E525A,382,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E520C..0x001E53D8,Code/GameEngine/Source/Common/Rva001E3E43Xfer.cpp
@@ -13171,8 +13171,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001E6731,41,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E6532..0x001E675A,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E675A,68,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E6532..0x001E679E,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp
 0x001E679E,5,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E6532..0x001E67BF,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
-0x001E67A3,28,code,,displaced,-,N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/Common/Rva001E4DB0Dtor.cpp
-0x001E67BF,94,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/Common/Rva001E67BFClone.cpp
+0x001E67A3,28,code,,displaced,-,N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x001E67BF,94,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/Common/LocomotorTemplate.cpp,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E681D,66,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/GameLogic/Object/LocomotorStore.cpp,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x001E685F,120,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,C,C=0x001E681D..0x001E68D7,Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp
 0x001E68D7,692,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp N=Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp
@@ -66467,11 +66467,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00769F90,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x00769F9A,10,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E4A81@FuncInfo0x0090F2E8,Code/GameEngine/Source/GameLogic/Object/LocomotorStore_newLocomotor_Rva001E4A81.cpp
 0x00769FA4,10,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E4A81@FuncInfo0x0090F2E8,Code/GameEngine/Source/GameLogic/Object/LocomotorStore_newLocomotor_Rva001E4A81.cpp
-0x00769FAE,8,code,,,-,,Code/GameEngine/Source/Common/Rva001E4DB0Dtor.cpp
-0x00769FB6,10,code,,,-,,Code/GameEngine/Source/Common/Rva001E4DB0Dtor.cpp
-0x00769FC0,11,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E67BF@FuncInfo0x0090F338,Code/GameEngine/Source/Common/Rva001E67BFClone.cpp
-0x00769FCB,25,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E67BF@FuncInfo0x0090F338,Code/GameEngine/Source/Common/Rva001E67BFClone.cpp
-0x00769FE4,10,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E67BF@FuncInfo0x0090F338,Code/GameEngine/Source/Common/Rva001E67BFClone.cpp
+0x00769FAE,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x00769FB6,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x00769FC0,11,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E67BF@FuncInfo0x0090F338,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x00769FCB,25,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E67BF@FuncInfo0x0090F338,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
+0x00769FE4,10,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E67BF@FuncInfo0x0090F338,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp
 0x00769FEE,10,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E6B8B@FuncInfo0x0093D650,Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp
 0x00769FF8,8,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E6F27@FuncInfo0x0090F35C,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x0076A000,10,code,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,approved,P,P=0x001E6F27@FuncInfo0x0090F35C,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
