@@ -75,7 +75,7 @@ protected:
 	virtual void xfer( Xfer *xfer );
 private:
 	Coord3DBase m_3E4;								///< 0x3E4
-	Rva0026AFDAMember m_3F0;						///< 0x3F0
+	Rva0026AFDAMember m_storedCommand;						///< 0x3F0
 	_STL::list<Int> m_4B4;							///< 0x4B4
 	Int m_4B8;										///< 0x4B8
 	Real m_4BC;										///< 0x4BC
@@ -89,13 +89,13 @@ private:
 	Real m_538;										///< 0x538
 	Real m_53C;										///< 0x53C
 	Real m_540;										///< 0x540
-	Coord3DBase m_544;								///< 0x544
-	Bool m_550;										///< 0x550
+	Coord3D m_544;								///< 0x544
+	Bool m_pathLoops;										///< 0x550
 	ObjectID m_554;									///< 0x554
-	Bool m_558;										///< 0x558
+	Bool m_commandPending;										///< 0x558
 	Int m_55C;										///< 0x55C
-	Coord3DBase m_560;								///< 0x560
-	Coord3DBase m_56C;								///< 0x56C
+	Coord3D m_560;								///< 0x560
+	Coord3D m_56C;								///< 0x56C
 	Bool m_578;										///< 0x578
 };
 
@@ -109,21 +109,21 @@ void GiantBirdAIUpdate::xfer( Xfer *xfer )
 	if( xfer->IsLightCRC() )
 		return;
 
-	m_3F0.doXfer( xfer );
+	reinterpret_cast<Rva0026AFDAMember &>(m_storedCommand).doXfer( xfer );
 	*xfer == m_3E4;
 	Rva0036ABAFXfer( xfer, &m_4B4 );
-	*xfer == m_4B8;
+	*xfer == reinterpret_cast<Int &>(m_4B8);
 	*xfer == m_4BC;
-	XferObjectID( xfer, &m_4C0 );
-	XferObjectID( xfer, &m_4C4 );
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_4C0) );
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_4C4) );
 	xfer->XferRawBytes( &m_528, 4 );
 	*xfer == m_530;
-	XferObjectID( xfer, &m_554 );
-	*xfer == m_558;
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_554) );
+	*xfer == m_commandPending;
 	xfer->XferRawBytes( &m_55C, 4 );
 	*xfer == m_534;
-	*xfer == m_550;
-	*xfer == m_544;
+	*xfer == m_pathLoops;
+	*xfer == asBase(m_544);
 	*xfer == m_52C;
 	*xfer == m_538;
 	*xfer == m_53C;
@@ -131,8 +131,8 @@ void GiantBirdAIUpdate::xfer( Xfer *xfer )
 
 	if( version.m_minimum >= 2 )
 	{
-		*xfer == m_560;
-		*xfer == m_56C;
+		*xfer == asBase(m_560);
+		*xfer == asBase(m_56C);
 		*xfer == m_578;
 	}
 }

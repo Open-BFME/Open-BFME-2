@@ -319,6 +319,8 @@ template list<Rva0036ADF9Element>::_Node *list<Rva0036ADF9Element>::_M_create_no
 // The copier's insertion callees establish a four-byte element independently.
 extern unsigned g_Va00E0362C;
 
+#include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
+
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
@@ -334,25 +336,33 @@ public:
 	const GiantBirdAIUpdateModuleData *getGiantBirdAIUpdateModuleData() const { return (const GiantBirdAIUpdateModuleData *)m_moduleData; }
 	Bool testFlag(Int bit) const { return (m_4B8 >> bit) & 1; }
 	void clearFlag(Int bit) { m_4B8 &= ~(1 << bit); }
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
-	unsigned char m_pad3E4[0x3F0 - 0x3E4];
+	Coord3DBase m_3E4; // +0x3E4
 	Rva00351570 m_storedCommand; // +0x3F0
-	unsigned char m_pad4B4[0x4B8 - 0x3F0 - sizeof(Rva00351570)];
+	_STL::list<Int> m_4B4; // +0x4B4
 	UnsignedInt m_4B8; // +0x4B8
 	Real m_4BC; // +0x4BC
 	Int m_4C0; // +0x4C0
 	UnsignedInt m_4C4; // +0x4C4
 	unsigned char m_pad4C8[0x528 - 0x4C8];
 	Int m_528; // +0x528
-	unsigned char m_pad52C[0x538 - 0x52C];
+	Real m_52C; // +0x52C
+	Real m_530; // +0x530
+	Bool m_534; // +0x534
+	unsigned char m_pad535[0x538 - 0x535];
 	Real m_538; // +0x538
 	Real m_53C; // +0x53C
 	Real m_540; // +0x540
 	Coord3D m_544; // +0x544
 	Bool m_pathLoops; // +0x550
-	unsigned char m_pad551[0x558 - 0x551];
+	unsigned char m_pad551[0x554 - 0x551];
+	UnsignedInt m_554; // +0x554
 	Bool m_commandPending; // +0x558
-	unsigned char m_pad559[0x560 - 0x559];
+	unsigned char m_pad559[0x55C - 0x559];
+	Int m_55C; // +0x55C
 	Coord3D m_560; // +0x560
 	Coord3D m_56C; // +0x56C
 	Bool m_578; // +0x578
