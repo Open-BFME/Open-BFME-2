@@ -283,9 +283,7 @@ struct Rva0036BA77Speed
 	float m_speed;				///< 0x48
 	float getSpeed() const { return m_speed; }
 };
-
 extern const char *TheLocomotorSetNames[];
-
 // Retail VA 0x00C178D8 (.rdata): 8 field records and a zero sentinel.
 extern const FieldParse g_00C178D8[] = {
 	{ "AttackLocomotorType", &INI::parseIndexList, TheLocomotorSetNames, 0x64 },
@@ -298,7 +296,6 @@ extern const FieldParse g_00C178D8[] = {
 	{ "TossFX", &INI::parseFXList, 0, 0x80 },
 	{ 0, 0, 0, 0 }
 };
-
 // Instantiate the recovered operations only. Retail's single insertion calls
 // the node creator; the forced-inline list shim would emit another body here.
 namespace _STL {
@@ -313,13 +310,59 @@ template list<Rva0036ADF9Element>::list(const list<Rva0036ADF9Element> &);
 template _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
 template list<Rva0036ADF9Element>::_Node *list<Rva0036ADF9Element>::_M_create_node(const Rva0036ADF9Element &);
 }
-
 // Retail 36AE51 (40B): clear the descriptor's first word before copying
 // its source, otherwise copy the existing empty-list sentinel at E0362C.
 // The copier's insertion callees establish a four-byte element independently.
 extern unsigned g_Va00E0362C;
-
 #include "../../../../../../Libraries/Include/Lib/Coord3DBase.h"
+//
+// GiantBirdAIUpdate::xfer, retail 0x0036AC73 (390 bytes). BFME 2 only: neither
+// Zero Hour nor the BFME 1 tree has a GiantBirdAIUpdate xfer. Evidence, all
+// read from retail:
+//
+//  - it is slot 3 of GiantBirdAIUpdate's primary vftable 0x00C17A80;
+//  - Version(1,2) through Xfer slot 0x28, then the base AIUpdateInterface::xfer
+//    (0x00267EDD), then the light-CRC gate (slot 0x10);
+//  - the fields are those the rowed constructor 0x0036B717 lays out: the
+//    +0x3F0 command storage's doXfer (0x003533BF), the +0x4B4 int list
+//    through the rowed list helper 0x0036ABAF, ObjectIDs through the rowed
+//    XferObjectID 0x003060B2, Xfer::XferRawBytes for the two 4-byte fields
+//    +0x528 and +0x55C, and the Xfer operator== slots for the rest (Coord3D
+//    0x60, float 0x70, int 0x7C, bool 0x90 -- MSVC groups the overloads in
+//    reverse declaration order);
+//  - +0x560, +0x56C and +0x578 are transferred only from version 2 on.
+//
+// Field names stay offset-derived; their semantics are not recovered.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../../Include/Common/BfmeXfer.h"
+#include "../../../../../Include/Common/XferVersion.h"
+#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+void XferObjectID( Xfer *xfer, ObjectID *value );
+Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<Int> *value );
+class Rva0026AFDAMember
+{
+public:
+	void doXfer( Xfer *xfer );
+private:
+	unsigned char m_unrecovered00[ 0xC4 ];
+};
 
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
@@ -367,6 +410,8 @@ private:
 	Coord3D m_56C; // +0x56C
 	Bool m_578; // +0x578
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 
@@ -772,22 +817,6 @@ void GiantBirdAIUpdate::privateFollowPathAppend(const Coord3D *pos, CommandSourc
 	}
 }
 
-// tu-skeleton: 0x0036819D 63B ?makeStateMachine@GiantBirdAIUpdate@@MAEPAVAIStateMachine@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00368D12 387B ?rva00368D12@GiantBirdAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp (not merged yet)
-
-// tu-skeleton: 0x00369FDF 1034B ?lookForInnerTarget@Rva00369FDFGuardMachine@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardInnerTargetRva00369FDF.cpp (not merged yet)
-
-// tu-skeleton: 0x0036AC73 390B ?xfer@GiantBirdAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0036B567 338B ?doLocomotor@GiantBirdAIUpdate@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp (not merged yet)
-
-// tu-skeleton: 0x0036B6B9 94B ?rva0036B6B9@GiantBirdAIUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0036B717 388B ??0GiantBirdAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0036B8E6 123B ??1GiantBirdAIUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateFollowWaypoints.cpp
 
 //
@@ -836,6 +865,62 @@ void GiantBirdAIUpdate::privateFollowWaypointPath(const Waypoint *way, const Way
 	}
 	privateFollowPath(*(const Rva0035149F *)&path, NULL, goal, 0);
 }
+
+// tu-skeleton: 0x0036819D 63B ?makeStateMachine@GiantBirdAIUpdate@@MAEPAVAIStateMachine@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00368D12 387B ?rva00368D12@GiantBirdAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp (not merged yet)
+
+// tu-skeleton: 0x00369FDF 1034B ?lookForInnerTarget@Rva00369FDFGuardMachine@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardInnerTargetRva00369FDF.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateXfer.cpp
+
+// The real STLport list provides the mangled name and 4-byte size.
+
+void GiantBirdAIUpdate::xfer( Xfer *xfer )
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+
+	AIUpdateInterface::xfer( xfer );
+
+	if( xfer->IsLightCRC() )
+		return;
+
+	reinterpret_cast<Rva0026AFDAMember &>(m_storedCommand).doXfer( xfer );
+	*xfer == m_3E4;
+	Rva0036ABAFXfer( xfer, &m_4B4 );
+	*xfer == reinterpret_cast<Int &>(m_4B8);
+	*xfer == m_4BC;
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_4C0) );
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_4C4) );
+	xfer->XferRawBytes( &m_528, 4 );
+	*xfer == m_530;
+	XferObjectID( xfer, reinterpret_cast<ObjectID *>(&m_554) );
+	*xfer == m_commandPending;
+	xfer->XferRawBytes( &m_55C, 4 );
+	*xfer == m_534;
+	*xfer == m_pathLoops;
+	*xfer == asBase(m_544);
+	*xfer == m_52C;
+	*xfer == m_538;
+	*xfer == m_53C;
+	*xfer == m_540;
+
+	if( version.m_minimum >= 2 )
+	{
+		*xfer == asBase(m_560);
+		*xfer == asBase(m_56C);
+		*xfer == m_578;
+	}
+}
+
+// tu-skeleton: 0x0036B567 338B ?doLocomotor@GiantBirdAIUpdate@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp (not merged yet)
+
+// tu-skeleton: 0x0036B6B9 94B ?rva0036B6B9@GiantBirdAIUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0036B717 388B ??0GiantBirdAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0036B8E6 123B ??1GiantBirdAIUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0036C438 603B ?rva0036C438@AIGiantBirdSwoopState@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp (not merged yet)
 

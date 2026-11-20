@@ -27796,7 +27796,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0036A979,251,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp
 0x0036AA74,315,code,Code/GameEngine/Source/GameLogic/AI/GiantBirdGuardAttackAggressorState.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/AI/GiantBirdGuardAttackAggressorState.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp noncontiguous,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp
 0x0036ABAF,196,code,,,-,,Code/GameEngine/Source/Common/System/XferListObjectID.cpp
-0x0036AC73,390,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateXfer.cpp
+0x0036AC73,390,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 0x0036ADF9,88,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,C,C=0x0036AC73..0x0036AE51,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 0x0036AE51,40,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,C,C=0x0036AC73..0x0036AE79,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 0x0036AE79,650,code,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
