@@ -34,16 +34,7 @@ struct Rva00375B7ACap { char unknown00[0xB0]; float height; };
 
 struct Rva00375B7AAI { char unknown00[0x18]; Rva00375B7ACap *cap; };
 
-class AerialPathfinder {
-public:
-	float getNoFlyZoneHeight(float x,volatile float y);
-private:
-	char unknown00[0x10];
-private:
-	_STL::list<Rva00375AF7Entry> entries;
-public:
-	float rva00375B7A(float x,float y);
-};
+#include "../../../Include/GameLogic/AerialPathfinder.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/AerialPathfinder_getNoFlyZoneHeight.cpp
 
@@ -57,10 +48,11 @@ public:
 
 float AerialPathfinder::getNoFlyZoneHeight(float x,volatile float y)
 {
- if(entries.empty()) return 0.0f;
- _STL::list<Rva00375AF7Entry>::iterator node=entries.begin();
+ typedef _STL::list<Rva00375AF7Entry> NoFlyZoneList;
+ if(reinterpret_cast<NoFlyZoneList *>(&field10)->empty()) return 0.0f;
+ NoFlyZoneList::iterator node=reinterpret_cast<NoFlyZoneList *>(&field10)->begin();
  Rva00375AF7State state; state.highest=-9999.0f;
- for(; node!=entries.end(); ++node) {
+ for(; node!=reinterpret_cast<NoFlyZoneList *>(&field10)->end(); ++node) {
   int px=(int)x; int py=(int)y;
   float height=node->height;
   PolygonTrigger *shape=node->shape;

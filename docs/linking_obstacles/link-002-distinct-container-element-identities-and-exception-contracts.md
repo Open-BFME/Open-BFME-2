@@ -233,3 +233,11 @@ is claimed. [Retirement proof](../../reverse/attempt_support/bonefx-push-pin-ret
 
 
 2026-11-06 recovery trial: ObjListPush 0x005CD018 already has a 26-byte owner; its archived explicit stdcall bridge to the existing 0x005CCED5 owner fails normal byte verification (21-byte candidate, changed iterator-argument construction). The complete trial is tool-banked, Code is restored and the original baseline again passes 1/1; identity debt remains. [Measured boundary and next prerequisite](../../reverse/attempt_support/objlist-push-recovery-20261106.md).
+
+2026-11-20 root20: the AerialPathfinder lifetime units now use the
+same established four-byte flag specialization. The map height query
+adopts its registered class through the observed list storage at +0x10
+and clears one header queue entry. Both exact 56-byte table trials
+preserve the five lifetime rows. Reset slot 9 needs the missing
+revision-bound approval, then slots 1 and 10 need their one-byte folds.
+[Current table and layout evidence](../../reverse/attempt_support/aerial-pathfinder-table-20261120-root20.md).
