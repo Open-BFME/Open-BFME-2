@@ -335,12 +335,7 @@ private:
 	Coord3D m_position; // +0x38
 };
 
-class TeamPrototype
-{
-public:
-	unsigned char m_pad00[0x216];
-	Bool m_216; // +0x216
-};
+#include "../../../Include/Common/Team.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -1901,7 +1896,7 @@ StateReturnType AIAttackApproachTargetState::updateInternal()
 		if (!ai->m_3c7)
 			checkRange = false;
 		Team *team = source->m_team;
-		if (team && team->m_proto->m_216 && team->getTeamTargetObject())
+		if (team && team->m_proto->m_attackCommonTarget && team->getTeamTargetObject())
 			checkRange = false;
 		if (checkRange && !rva00344EB2Gate(source, victim))
 			checkRange = false;

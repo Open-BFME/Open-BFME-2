@@ -48,6 +48,15 @@
       "providers": [
         "Code/GameEngine/Source/GameLogic/AI/Rva00366500Field.cpp"
       ]
+    },
+    {
+      "class": "TeamPrototype",
+      "consumers": [
+        "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp"
+      ],
+      "providers": [
+        "Code/GameEngine/Source/Common/Rva0026163A.cpp"
+      ]
     }
   ]
 }
