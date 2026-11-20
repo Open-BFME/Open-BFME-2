@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 461).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 460).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1613,3 +1613,12 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   GameClient/DrawableFramesPerFlash.h after the cache's definition, in retail's order, and registers the copy as
   `_$E9` after `_$E6`. That a font unit builds this constant is a target fact (its run); which header gave it in
   retail is not known. The pre-existing credit conflict on 0x007AC0FA (our cache's element type) is unchanged.
+- *Taken (461 -> 460): ControlBarUnderConstruction.cpp's copy (round init-1's lead).* 0x007B3BCE is alone in its run
+  (markers 0x007B3BB4 and 0x007B3BDE). The `.bss` runs ControlBarOCLTimer.cpp's key and guard, then its rowed copy
+  0x00E05F5C (a unit with no plain global: locals, then copy), then `updateConstructionTextDisplay`'s descID
+  0x00E05F60 and guard 0x00E05F64 (approved to ControlBarUnderConstruction.cpp), this copy 0x00E05F68, two more
+  bridged copies (0x007B3BF8, 0x007B3C22: copy-only units) and GroupOrder's global. With no plain global before its
+  locals, the unit's copy closes them (round lk54's rule); Zero Hour's ControlBarUnderConstruction.cpp includes
+  GameClient/Drawable.h (donor fact). The map approves every code row of that unit to one file,
+  ControlBarUpdateConstruction.cpp, which takes GameClient/DrawableFramesPerFlash.h and registers the copy as
+  `_$E1`; the function's guard symbol renumbers from `$S1` to `$S3` (a name only; every section keeps its digest).

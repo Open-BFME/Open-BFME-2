@@ -6356,3 +6356,4 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 ?rva007AF2B2@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AF2B2,Retracted for readmission as a compiler-emitted _$E<n> in ScoreKeeper.cpp: retail 0x007AF2B2 is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007B05A4@Rva007AB7F0HalfRateInits@@SAXXZ,0x007B05A4,Retracted for readmission as a compiler-emitted _$E<n> in AnimationSoundModuleManager.cpp: retail 0x007B05A4 is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007AC112@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AC112,Retracted for readmission as a compiler-emitted _$E<n> in W3DGameFont.cpp: retail 0x007AC112 is that unit's Drawable.h copy initializer (LINK-236)
+?rva007B3BCE@Rva007AB7F0HalfRateInits@@SAXXZ,0x007B3BCE,Retracted for readmission as a compiler-emitted _$E<n> in ControlBarUpdateConstruction.cpp: retail 0x007B3BCE is that unit's Drawable.h copy initializer (LINK-236)

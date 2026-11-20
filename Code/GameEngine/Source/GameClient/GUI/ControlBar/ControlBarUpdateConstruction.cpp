@@ -16,6 +16,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <vector>
+// Retail 0x007B3BCE: ControlBarUnderConstruction.cpp's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its
+// initializer run; its static (VA 0x00E05F68) closes the unit's .bss right after updateConstructionTextDisplay's
+// descID and guard. This file holds every code row the map approves to that unit and is built on private views,
+// so it takes the constant's own header.
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 // bfme link decl-only begin
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 // bfme link decl-only end
