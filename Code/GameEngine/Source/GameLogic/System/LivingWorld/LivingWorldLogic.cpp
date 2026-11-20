@@ -453,23 +453,9 @@ struct LivingWorldBuildPlot*rva003F088C(int)const;void BuildBuilding(class Rva00
 	unsigned char m_pad000[0x13c];
 	Int m_ownerPlayer;					// +0x13C
 };
-class SpawnArmy
-{
-public:
-	void *rva004E23C1();
-	// 0x004E23C1
-	SpawnArmy(int index);					// 0x004E30D5
-	virtual ~SpawnArmy();					// 0x004E3184
-
-	StringBase<char> m_name;				// +0x04
-	unsigned char m_pad08[0x20 - 0x8];
-	Rva003F0F13Elem m_pos;					// +0x20
-	unsigned char m_pad28[0x54 - 0x28];
-	// Caller-only getter preserves native AL evaluation before the city branch.
-	Bool flagged()const{return m_flag54;}
-	Bool m_flag54;						// +0x54
-	unsigned char m_pad55[0x58 - 0x55];
-};
+#include "../../../../Include/Common/SpawnArmy.h"
+// Preserve native AL evaluation before the city branch.
+static inline Bool IsCitySpawn(const SpawnArmy *spawn) { return spawn->m_54; }
 struct Rva002B6A04Template
 {
 	unsigned char m_pad00[0x24];
@@ -1591,11 +1577,11 @@ LivingWorldArmy *LivingWorldLogic::CreateEmptyGarrisonArmy(Rva002B6A04Player *pl
 	if (army == 0)
 	{
 		SpawnArmy spawn(0);
-		spawn.m_flag54 = false;
-		spawn.m_name.set(player->m_template->m_name24);
+		spawn.m_54 = false;
+		((StringBase<char> *)&spawn.m_04)->set(player->m_template->m_name24);
 		Rva003F0F13Elem spot;
 		region->GetGarrisonArmyPlacementSpot(&spot);
-		spawn.m_pos = spot;
+		*(Rva003F0F13Elem *)&spawn.m_20 = spot;
 		army = spawnArmy(&spawn, player, true);
 		Rva002B6A04Template *playerTemplate = player->m_template;
 		Rva002B6A04Summary *summary = (Rva002B6A04Summary *)army->m_summary;
@@ -2364,7 +2350,7 @@ bool LivingWorldLogic::rva002B4B83()
 // no unrelated removed turn-phase or army methods are restored here.
 void LivingWorldLogic::spawnCity(SpawnArmy *city)
 {
- if(!city->flagged())return;
+ if(!IsCitySpawn(city))return;
  LivingWorldArmy *army=::new LivingWorldArmy(++m_field9C,city,0);
  reinterpret_cast<Rva00318D14ByteSlot *>(army)->set(0);
  reinterpret_cast<_STL::vector<LivingWorldArmy *> *>(m_pad124)->push_back(army);
@@ -2635,7 +2621,7 @@ void LivingWorldLogic::update(){
 #include "../../../../Include/GameLogic/Rva00319AA0.h"
 LivingWorldArmy *LivingWorldLogic::spawnArmy(SpawnArmy *spawn,Rva002B6A04Player *player,Bool bypass)
 {
- if(spawn->flagged())return 0;
+ if(IsCitySpawn(spawn))return 0;
  if(!bypass && !((Rva002E112A*)player)->rva002E112A((SpawnArmy*)spawn))return 0;
  LivingWorldArmy *army=::new LivingWorldArmy(++m_field9C,spawn,player);
  ((Rva00318D14ByteSlot*)army)->set(1);
