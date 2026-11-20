@@ -130,7 +130,6 @@ Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp	conflicting	abi	1
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGetNextMoodTarget.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	1	0	<WS2tcpip.h>	yes	yes	hand			AI_PASSIVE:abi
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getMoodMatrixActionAdjustment.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<WS2tcpip.h>	yes	yes	hand			AI_PASSIVE:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	1	0	<fltdefs.h>	yes	yes	hand			ERROR_BASE:abi
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamPartialUseCommandButton.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			ceil:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_DllHandleExceptionCopies.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<exception>	no	yes	hand			exception:abi
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuildableStructure.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			floor:abi
 Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<limits.h>	no	yes	hand	1: Code/GameEngine/Source/GameNetwork/GameSpy/nonport.c:36 nonport.h(unknown)		PATH_MAX:abi

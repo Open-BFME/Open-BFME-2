@@ -15,6 +15,12 @@
 // push_back 0x001F211B and Object::doCommandButton 0x00296749.
 // The method name is carried from the donor (same arguments and algorithm);
 // BFME 2 evidence for it is the unnamed dispatcher slot calling this body.
+// Import ceil before STLport includes <stdlib.h>.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <math.h>
+#pragma pop_macro("_CRTIMP")
 #include <vector>
 #include "ascii_string.h"
 // Declaration-only: retail keeps one _STL::max<unsigned int> (17-byte jae
@@ -28,8 +34,6 @@ class Object;
 namespace _STL {
 template <> __declspec(dllimport) __forceinline _Vector_base<Object *, allocator<Object *> >::~_Vector_base() { if (_M_start != 0) _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start); }
 }
-
-extern "C" __declspec(dllimport) double __cdecl ceil(double);
 
 __forceinline long fast_float2long_round(float f)
 {
@@ -89,7 +93,7 @@ void ScriptActions::doTeamPartialUseCommandButton(float percentage, const AsciiS
 			objList.push_back(obj);
 	}
 
-	int numObjs = fast_float2long_round((float)ceil(percentage * objList.size() * 0.01f));
+	int numObjs = fast_float2long_round((float)ceil(static_cast<double>(percentage * objList.size() * 0.01f)));
 	int count = 0;
 	for (_STL::vector<Object *>::const_iterator it = objList.begin(); it != objList.end(); ++it) {
 		Object *obj = *it;
