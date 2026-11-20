@@ -12,6 +12,11 @@
 // and Rva00045473Equal at 0x00045473 with identical shape and /O1 flags.
 #include "../../Include/Common/ScalarTypes.h"
 #include <string.h>
+// Retail 0x007AF00F: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run, the
+// second of two copy-only runs between GameLogicDispatch's and UnitRevivalTracker's, as this unit's code follows
+// Recorder.cpp's; its static (VA 0x00E02298) directly follows Recorder's copy. The unit is built on private views,
+// so it takes the constant's own header.
+#include "../../Include/GameClient/DrawableFramesPerFlash.h"
 // ?GetCommandPointSize@Rva0037DCA5@@QAEHXZ, retail 0x0037DCA5 (39B).
 // Lookup via TheThingFactory global 0x00DFF000 plus AsciiString at +0x4 through
 // rowed 0x002D06CA. Returns 0 when lookup misses else template dword at +0x618

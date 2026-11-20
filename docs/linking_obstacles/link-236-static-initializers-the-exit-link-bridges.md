@@ -1836,7 +1836,7 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
     GameLogic 1). The next homogeneous batch: define each mask in its unit with the BitFlags type after the copy,
     retyping the `unsigned char[28]` consumers through `rename.py global --retype`.
 
-**Round init-4 (halilkkaya-init4, 2026-11-20, bridged 436 -> 434 so far).** Same base, method and per-entry checks as
+**Round init-4 (halilkkaya-init4, 2026-11-20, bridged 436 -> 433 so far).** Same base, method and per-entry checks as
 round init-3. New scripts under `build/init4/`: `mbhd.py` (nbhd.py for the memset shape), `retract_memset.py` (retract
 MaskInits/ZeroInits entries), `scc.py` (scratch compile into `build/init4/obj/` with a source's own `// cl:` line,
 never `build/match`, plus capstone listing).
@@ -1858,3 +1858,11 @@ never `build/match`, plus capstone listing).
   `_$E` rows go with that parent object (`docs/consolidation.md`). BitFlags11Any.cpp's view takes the inline
   constructor and defines both default constructed; they compile as `_$E1` and `_$E3`, retail's bytes outside the
   relocations. The grab-bag's other rows now lie in no voting flag region, so its `// cl:` line takes retail's `/O1`.
+- *Taken (434 -> 433): CarryoverUnit.cpp's copy (round init-3's held lead).* 0x007AF00F is alone in its run, the second
+  of the two copy-only runs between GameLogicDispatch's rowed run and UnitRevivalTracker.cpp's; the code between those
+  units is Recorder.cpp's and then CarryoverUnit.cpp's, and Recorder's copy is the first run (round init-3). The `.bss`
+  agrees: Recorder's plain globals and TheRecorder, Recorder's copy 0x00E02294, this copy 0x00E02298, then
+  UnitRevivalEntry's function-local statics, so CarryoverUnit has no plain global and its copy follows the previous
+  unit's items. Two target facts, no donor one (Zero Hour has no CarryoverUnit). The TU file
+  Code/GameEngine/Source/Common/CarryoverUnit.cpp (private views) takes GameClient/DrawableFramesPerFlash.h after its
+  first includes and registers the copy as `_$E1`.
