@@ -223,7 +223,9 @@ struct BfmeCopyTail
 	int m_bfmeThird;
 };
 
-struct BfmeCopyElementA
+#include "../../../../GameEngine/Include/Common/BfmeCopyElementA.h"
+
+struct BfmeCopyElementALayout
 {
 	int m_bfmeHead;
 	unsigned char m_bfme04;
@@ -238,8 +240,6 @@ struct BfmeCopyElementA
 	BfmeCopySubB m_bfme38;
 	BfmeCopyTail m_bfme44;
 	BfmeCopyWords m_bfme50;
-
-	BfmeCopyElementA *bfmeAssign(BfmeCopyElementA *source);		// retail 0x00003828
 };
 
 struct BfmeCopyElementB
@@ -503,20 +503,22 @@ void _bfmeFileInfoVectorAssignInlineAnchor()
 
 BfmeCopyElementA *BfmeCopyElementA::bfmeAssign(BfmeCopyElementA *source)
 {
-	m_bfme04 = source->m_bfme04;
-	m_bfme08 = source->m_bfme08;
-	m_bfme0c = source->m_bfme0c;
-	m_bfme10 = source->m_bfme10;
-	m_bfme14 = source->m_bfme14;
-	m_bfme18 = source->m_bfme18;
-	m_bfme24 = source->m_bfme24;
-	m_bfme28 = source->m_bfme28;
-	m_bfme2c = source->m_bfme2c;
-	m_bfme38 = source->m_bfme38;
-	m_bfme44 = source->m_bfme44;
+	BfmeCopyElementALayout *dest = reinterpret_cast<BfmeCopyElementALayout *>(this);
+	const BfmeCopyElementALayout *fields = reinterpret_cast<const BfmeCopyElementALayout *>(source);
+	dest->m_bfme04 = fields->m_bfme04;
+	dest->m_bfme08 = fields->m_bfme08;
+	dest->m_bfme0c = fields->m_bfme0c;
+	dest->m_bfme10 = fields->m_bfme10;
+	dest->m_bfme14 = fields->m_bfme14;
+	dest->m_bfme18 = fields->m_bfme18;
+	dest->m_bfme24 = fields->m_bfme24;
+	dest->m_bfme28 = fields->m_bfme28;
+	dest->m_bfme2c = fields->m_bfme2c;
+	dest->m_bfme38 = fields->m_bfme38;
+	dest->m_bfme44 = fields->m_bfme44;
 	// Retail finishes this aggregate copy before scheduling the final tail copy.
 	_ReadWriteBarrier();
-	m_bfme50 = source->m_bfme50;
+	dest->m_bfme50 = fields->m_bfme50;
 	return this;
 }
 
