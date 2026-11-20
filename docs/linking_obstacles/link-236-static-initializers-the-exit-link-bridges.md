@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 453).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 452).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1692,3 +1692,10 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   s_lastExtendedInfoFrame (PeerThread.cpp's), then PhysicsUpdate's pool key: a sandwich. Which header gave the
   GameSpy thread unit the constant is not known. PeerThread.cpp takes GameClient/DrawableFramesPerFlash.h after its
   first includes and registers the copy as `_$E13`.
+- *Taken (453 -> 452): LivingWorldCampaign.cpp's copy.* Retail's run is the unit's rowed BlockParse node `_$E1`
+  0x007B3A0D (its callback 0x0052D04E is approved to LivingWorldCampaign.cpp), the atexit-only 0x007B3A22, then the
+  copy 0x007B3A2E, closed by the marker 0x007B3A3E: one run, one unit. The copy's static 0x00E049F8 follows the
+  function-local statics of Pathfinder's `classifyMapCell` and `ClassifyWall` (0x0052E11A, 0x0052F63F; displaced in the
+  map, but their code lies right after LivingWorldCampaign.cpp's approved code, 0x0052BAC1..), so the unit has no
+  plain global: locals, then its copy. LivingWorldCampaign.cpp takes GameClient/DrawableFramesPerFlash.h after the
+  node, in retail's run order, and registers the copy as `_$E3`.

@@ -6364,3 +6364,4 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 ?rva007AE45F@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AE45F,Retracted for readmission as a compiler-emitted _$E<n> in GameState.cpp: retail 0x007AE45F is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007AED1A@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AED1A,Retracted for readmission as a compiler-emitted _$E<n> in ObjectFilter.cpp: retail 0x007AED1A is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007AF160@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AF160,Retracted for readmission as a compiler-emitted _$E<n> in PeerThread.cpp: retail 0x007AF160 is that unit's Drawable.h copy initializer (LINK-236)
+?rva007B3A2E@Rva007AB7F0HalfRateInits@@SAXXZ,0x007B3A2E,Retracted for readmission as a compiler-emitted _$E<n> in LivingWorldCampaign.cpp: retail 0x007B3A2E is that unit's Drawable.h copy initializer (LINK-236)

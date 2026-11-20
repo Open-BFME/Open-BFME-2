@@ -1273,6 +1273,11 @@ struct BlockParse
 	}
 };
 BlockParse theLivingWorldCampaignBlockParse( "LivingWorldCampaign", LivingWorldCampaign::ParseLivingWorldCampaignBlock );
+// Retail 0x007B3A2E: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, the last entry of the run that opens
+// with the node above (0x007B3A0D) and the atexit-only 0x007B3A22; its static (VA 0x00E049F8) follows the
+// function-local statics of the Pathfinder code inside this unit's .text region. The unit is built on private views,
+// so it takes the constant's own header after the node, in retail's run order.
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 #include "../../../../Include/GameLogic/LivingWorldCampaignAct.h"
 #pragma comment(linker, "/alternatename:??$_Construct@URva0052D801Record@@U1@@_STL@@YAXPAURva0052D801Record@@ABU1@@Z=?Rva0052D6BEConstruct@@YAXPAVRva0056616B@@ABV1@@Z")
 
