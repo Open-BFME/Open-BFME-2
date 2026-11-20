@@ -6,6 +6,10 @@
 #include <stdio.h>
 #include <windows.h>
 #include <time.h>
+// Retail 0x007AEFE5: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run; its static
+// (VA 0x00E02294) directly follows the unit's recorderSavedGlobalValue, recorderSavedGlobalFlag, startTime and
+// TheRecorder. The unit is built on private views, so it takes the constant's own header.
+#include "../../Include/GameClient/DrawableFramesPerFlash.h"
 #include "GameLogicObjectLookupView.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Libraries/Include/Lib/ICoord2D.h"

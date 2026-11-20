@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 437).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 436).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1800,3 +1800,38 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   (read by code approved to Display.cpp) and precedes TheNetwork. Two target facts, no donor one (Zero Hour's Display.cpp
   does not include Drawable.h). Display.cpp (private views) takes GameClient/DrawableFramesPerFlash.h and registers the
   copy as `_$E1`.
+- *Taken (437 -> 436): Recorder.cpp's copy, by link order and layout.* Between GameLogicDispatch's rowed run (`_$E1`
+  0x007AEFA1) and UnitRevivalTracker.cpp's (`_$E1` 0x007AF039), retail's `.text$yc` holds two copy-only runs, 0x007AEFE5
+  and 0x007AF00F; the code between those units is Recorder.cpp's (0x0037ADB6..0x0037DC36) and then CarryoverUnit.cpp's
+  (0x0037DC84..0x0037DF2C), so the copies map in that order. The `.bss` agrees: Recorder's plain recorderSavedGlobalValue,
+  recorderSavedGlobalFlag, startTime and TheRecorder (0x00E02284..0x00E02290), the copy 0x00E02294, the copy 0x00E02298,
+  then UnitRevivalEntry's locals. Recorder.cpp (private views) takes GameClient/DrawableFramesPerFlash.h and registers
+  0x007AEFE5 as `_$E1`. *Left:* 0x007AF00F is CarryoverUnit.cpp's by the same order; that file is claimed by another
+  seat.
+- *What found the round's entries, and what it leaves.* `runorder.py` maps a chain of copy runs between two known runs
+  to the TUs whose code lies between the two units in `.text`; a mapping was taken only with a second fact (the copy
+  directly after the unit's plain globals, a donor or target Drawable.h fact, or our file already compiling the copy).
+  Held: 0x007B2E18/0x007B2E42 (ObjectCreationUpgrade's row between UpgradeModule and DieModule), 0x007B3231..0x007B32B9
+  (five runs for four TUs between AIEconomyBuilder and AIPlayer, no Drawable fact for AIWall, AIBuilder or AITactic),
+  0x007B04F7 (GUICommandTranslator's by order; its files are claimed), 0x007AF00F (CarryoverUnit's; claimed), 0x007B2C5C
+  (ModelConditionSoundSelectorClientBehavior's; two approved TU paths), MapUtil.cpp's 0x007AE595 (renumbers
+  `object-symbol=` initializer rows). 134 half-rate copies remain in the grab-bag.
+- *Survey of the other grab-bags (shape and owner evidence, no edits).*
+  - INI/Rva007ABBF6BlockParseInits.cpp, 56: one shape (21-byte node link). 42 sit in runs with a rowed unit, but no
+    node's callback TU equals its run's unit: the nodes run with INI wrapper units (INIDrawGroupInfo, Eva, INITerrain,
+    INIWater) while their callbacks are approved to subsystem units (CommandSet to ControlBar.cpp, Weapon to Weapon.cpp).
+    Scriptable like AnimationSoundModuleManager's node once those INI*.cpp TUs exist and are approved.
+  - Rva007AD295ZeroInits.cpp, 56: one shape (18 bytes, memset of 4). No global with one reader TU; 35 in runs with
+    rowed units (Locomotor, ModuleFactory, Drawable, ActionManager, SpecialAbilityUpdate, GiantBirdSlowDeathBehavior,
+    SquishCollide; AerialPathfinder's five by run order). A per-includer header static like the copy: the copy script
+    applies once its header and type are named.
+  - Rva007ABBB3CtorInits.cpp, 25: 12 shapes (22-byte constructor plus atexit). 5 globals with one reader TU, 8 with a
+    rowed run-mate. Class-typed: each needs the owner's class and its atexit cleanup readmitted as `_$E<n+1>`.
+  - Rva007AC6DDGlobalInits.cpp, 18: 13 shapes; 6 atexit-only entries in the library tail (0x007B6190..0x007B6680), the
+    rest constructor plus atexit (0x007AD50B in ParticleSys's run, InGameUI's collector 0x007AE097). Per entry.
+  - Rva007ABEF3ArgCtorInits.cpp, 16: 14 shapes (argument constructors plus atexit: three 0x002E8548 pools, BitFlags).
+    5 with one reader TU (scene.cpp, Science.cpp, AIPathfind.cpp twice, Scripts.cpp). Per entry, owner known for five.
+  - Rva007ADC9CMaskInits.cpp, 14: 4 shapes (memset of 4 or 28 bytes, BitFlags defaults). 12 run with units that now
+    register their copies (GiantBirdAIUpdate 5, RTS/ScoreKeeper.cpp 4, GameStateMap 2 for DISABLEDMASK_NONE/ALL,
+    GameLogic 1). The next homogeneous batch: define each mask in its unit with the BitFlags type after the copy,
+    retyping the `unsigned char[28]` consumers through `rename.py global --retype`.
