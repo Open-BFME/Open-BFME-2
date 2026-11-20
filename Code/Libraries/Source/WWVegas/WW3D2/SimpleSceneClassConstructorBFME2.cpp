@@ -142,11 +142,8 @@ public:
     virtual void Destroy_Iterator(SceneIterator *it);
     virtual void Visibility_Check(CameraClass *camera);
     virtual float Compute_Point_Visibility(RenderInfoClass &info, const Vector3 &point);
-    // ?SimpleSceneClass::rva0006EE1B present-unmatched
     virtual int rva0006EE1B() const { return m_104; }
-    // ?SimpleSceneClass::rva001428E0 present-unmatched
     virtual void rva001428E0(const Rva00141F90Bounds &b) { scene_vector.rva00141F90(b); }
-    // ?SimpleSceneClass::rva001428F0 present-unmatched
     virtual void rva001428F0(unsigned int level) { scene_vector.Set_Level(level); }
 
 private:

@@ -1633,7 +1633,6 @@ float HLodClass::Get_Max_Screen_Size(int lod_index) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_Lod_Count present-unmatched
 int HLodClass::Get_Lod_Count(void) const
 {
 	return LodCount;
@@ -3190,7 +3189,6 @@ int HLodClass::Get_LOD_Level(void) const
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?HLodClass::Get_LOD_Count present-unmatched
 int HLodClass::Get_LOD_Count(void) const
 {
 	return LodCount;

@@ -318,7 +318,6 @@ void MeshClass::Free(void)
  * HISTORY:                                                                                    *
  *   5/15/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Get_Name present-unmatched
 const char * MeshClass::Get_Name(void) const
 { 
 	return Model->Get_Name(); 
@@ -337,7 +336,6 @@ const char * MeshClass::Get_Name(void) const
  * HISTORY:                                                                                    *
  *   3/9/99     GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Set_Name present-unmatched
 void MeshClass::Set_Name(const char * name)
 {
 	Model->Set_Name(name);
@@ -374,7 +372,6 @@ uint32 MeshClass::Get_W3D_Flags(void)
  * HISTORY:                                                                                    *
  *   5/15/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Get_User_Text present-unmatched
 const char * MeshClass::Get_User_Text(void) const
 { 
 	return Model->Get_User_Text(); 
@@ -860,7 +857,6 @@ void MeshClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
  * HISTORY:                                                                                    *
  *   6/18/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Generate_Culling_Tree present-unmatched
 void MeshClass::Generate_Culling_Tree(void)
 {
 	Model->Generate_Culling_Tree();
@@ -939,7 +935,6 @@ void Set_MeshModel_Flag(RenderObjClass *robj, int flag, int onoff)
 
 // BFME2's Set_Sort_Level is there too (retail 0x0014A090): this unit's layout puts the byte 4 too high.
 
-// ?MeshClass::Get_Draw_Call_Count present-unmatched
 struct Bfme2MeshModelDrawCountView {
 	char Padding[0x98];
 	MaterialInfoClass *MatInfo;

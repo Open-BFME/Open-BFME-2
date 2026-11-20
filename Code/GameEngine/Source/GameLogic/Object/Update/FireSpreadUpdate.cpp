@@ -118,7 +118,6 @@ FireSpreadUpdate::FireSpreadUpdate( Thing *thing, const ModuleData* moduleData )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?FireSpreadUpdate::~FireSpreadUpdate present-unmatched
 FireSpreadUpdate::~FireSpreadUpdate( void )
 {
 }
@@ -157,7 +156,6 @@ void FireSpreadUpdate::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?FireSpreadUpdate::loadPostProcess present-unmatched
 void FireSpreadUpdate::loadPostProcess( void )
 {
 

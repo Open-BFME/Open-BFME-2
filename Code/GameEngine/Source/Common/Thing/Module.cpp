@@ -203,7 +203,6 @@ void DrawableModule::crc( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** load post process */
 // ------------------------------------------------------------------------------------------------
-// ?DrawableModule::loadPostProcess present-unmatched
 void DrawableModule::loadPostProcess( void )
 {
 

@@ -90,7 +90,6 @@ FloatUpdate::FloatUpdate( Thing *thing, const ModuleData *moduleData )
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?FloatUpdate::~FloatUpdate present-unmatched
 FloatUpdate::~FloatUpdate( void )
 {
 
@@ -130,7 +129,6 @@ void FloatUpdate::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?FloatUpdate::loadPostProcess present-unmatched
 void FloatUpdate::loadPostProcess( void )
 {
 

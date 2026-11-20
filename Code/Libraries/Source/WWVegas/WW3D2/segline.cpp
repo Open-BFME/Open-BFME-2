@@ -415,7 +415,6 @@ void SegmentedLineClass::Render(RenderInfoClass & rinfo)
 		Render_Seg_Line(rinfo);
 }
 
-// ?SegmentedLineClass::Get_Obj_Space_Bounding_Sphere present-unmatched
 void SegmentedLineClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	// Get object-space bounding box and create bounding sphere from it
@@ -563,13 +562,11 @@ void SegmentedLineClass::Set_LOD_Level(int lod)
 	LineRenderer.Set_Current_Subdivision_Level((unsigned int)lod);
 }
 
-// ?SegmentedLineClass::Get_LOD_Level present-unmatched
 int SegmentedLineClass::Get_LOD_Level(void) const
 {
 	return (int) LineRenderer.Get_Current_Subdivision_Level();
 }
 
-// ?SegmentedLineClass::Get_LOD_Count present-unmatched
 int SegmentedLineClass::Get_LOD_Count(void) const
 {
 	return (int)MaxSubdivisionLevels;

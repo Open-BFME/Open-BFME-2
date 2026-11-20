@@ -469,7 +469,6 @@ BoxRenderObjClass & BoxRenderObjClass::operator = (const BoxRenderObjClass & tha
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?BoxRenderObjClass::Get_Num_Polys present-unmatched
 int BoxRenderObjClass::Get_Num_Polys(void) const
 {
 	return 12;
@@ -822,7 +821,6 @@ AABoxRenderObjClass & AABoxRenderObjClass::operator = (const AABoxRenderObjClass
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABoxRenderObjClass::Class_ID present-unmatched
 int AABoxRenderObjClass::Class_ID(void) const
 {
 	return RenderObjClass::CLASSID_AABOX;
@@ -1194,7 +1192,6 @@ OBBoxRenderObjClass & OBBoxRenderObjClass::operator = (const OBBoxRenderObjClass
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?OBBoxRenderObjClass::Class_ID present-unmatched
 int OBBoxRenderObjClass::Class_ID(void) const
 {
 	return RenderObjClass::CLASSID_OBBOX;
@@ -1264,7 +1261,6 @@ inline void OBBoxRenderObjClass::Set_Transform(const Matrix3D &matrix3D)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?OBBoxRenderObjClass::Set_Position present-unmatched
 void OBBoxRenderObjClass::Set_Position(const Vector3 &v)
 {
 	RenderObjClass::Set_Position(v);
@@ -1421,7 +1417,6 @@ bool OBBoxRenderObjClass::Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?OBBoxRenderObjClass::Get_Obj_Space_Bounding_Sphere present-unmatched
 void OBBoxRenderObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	sphere.Init(ObjSpaceCenter,ObjSpaceExtent.Length());
@@ -1439,7 +1434,6 @@ void OBBoxRenderObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) co
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?OBBoxRenderObjClass::Get_Obj_Space_Bounding_Box present-unmatched
 void OBBoxRenderObjClass::Get_Obj_Space_Bounding_Box(AABoxClass & box) const
 {
 	box.Init(ObjSpaceCenter,ObjSpaceExtent);

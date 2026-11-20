@@ -222,7 +222,6 @@ AABTreeClass::AABTreeClass(const AABTreeClass & that) :
  * HISTORY:                                                                                    *
  *   6/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?AABTreeClass::~AABTreeClass present-unmatched
 AABTreeClass::~AABTreeClass(void)
 {
 	Reset();

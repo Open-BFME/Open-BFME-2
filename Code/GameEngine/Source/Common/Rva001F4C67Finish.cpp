@@ -84,7 +84,6 @@ void bfmeAnchorRva001F4C67Dtor(Rva001F4C67 *p)
 {
 	p->Rva001F4C67::~Rva001F4C67();
 }
-// ?Base001F4C67::~Base001F4C67 present-unmatched
 Base001F4C67::~Base001F4C67() {}
 
 // The anchor (no retail counterpart) only makes this TU emit the vector deleting

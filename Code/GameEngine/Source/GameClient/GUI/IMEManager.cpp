@@ -202,12 +202,10 @@ void IMEManager::init(void)
 	enable();
 }
 
-// ?IMEManager::reset present-unmatched
 void IMEManager::reset(void)
 {
 }
 
-// ?IMEManager::update present-unmatched
 void IMEManager::update(void)
 {
 }
@@ -611,7 +609,6 @@ Bool IMEManager::serviceIMEMessage(void *windowsHandle, UnsignedInt message, Int
 	return FALSE;
 }
 
-// ?IMEManager::result present-unmatched
 Int IMEManager::result(void)
 {
 	return m_result;
@@ -639,13 +636,11 @@ Bool IMEManager::isEnabled(void)
 	return m_context != NULL && m_disabled == 0;
 }
 
-// ?IMEManager::isAttachedTo present-unmatched
 Bool IMEManager::isAttachedTo(GameWindow *window)
 {
 	return m_window == window;
 }
 
-// ?IMEManager::getWindow present-unmatched
 GameWindow *IMEManager::getWindow(void)
 {
 	return m_window;

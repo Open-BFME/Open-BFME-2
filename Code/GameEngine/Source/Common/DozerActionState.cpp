@@ -26,7 +26,6 @@ class DozerActionState : public State
 public:
 	virtual ~DozerActionState();
 
-	// ?DozerActionState::loadPostProcess present-unmatched
 	virtual void loadPostProcess() {}
 	virtual const char *GetSnapshotName() const;
 protected:
@@ -35,25 +34,15 @@ public:
 	virtual int rva00488906();
 	virtual void onExit(int);
 	virtual void rva004888F8();
-	// ?DozerActionState::slot07 present-unmatched
 	virtual void slot07() {}
-	// ?DozerActionState::slot08 present-unmatched
 	virtual bool slot08() const { return false; }
-	// ?DozerActionState::slot09 present-unmatched
 	virtual bool slot09() const { return false; }
-	// ?DozerActionState::slot10 present-unmatched
 	virtual bool slot10() const { return false; }
-	// ?DozerActionState::slot11 present-unmatched
 	virtual bool slot11() const { return false; }
-	// ?DozerActionState::slot12 present-unmatched
 	virtual bool slot12() const { return false; }
-	// ?DozerActionState::slot13 present-unmatched
 	virtual bool slot13() const { return false; }
-	// ?DozerActionState::slot14 present-unmatched
 	virtual bool slot14() const { return false; }
-	// ?DozerActionState::slot15 present-unmatched
 	virtual bool slot15() const { return false; }
-	// ?DozerActionState::slot16 present-unmatched
 	virtual void slot16() {}
 
 private:

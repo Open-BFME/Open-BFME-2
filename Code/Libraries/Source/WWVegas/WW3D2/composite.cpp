@@ -188,7 +188,6 @@ void CompositeRenderObjClass::Restart(void)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?CompositeRenderObjClass::Get_Name present-unmatched
 const char * CompositeRenderObjClass::Get_Name(void) const															
 { 
 	return Name; 

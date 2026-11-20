@@ -40,7 +40,6 @@ WaterTransparencySetting::WaterTransparencySetting() : Rva00200D38(AsciiString("
 }
 
 // Slot 1 of the setting table is the shared empty return at 0x000B3FD0.
-// ?WaterTransparencySetting::slot1 present-unmatched
 void WaterTransparencySetting::slot1()
 {
 }

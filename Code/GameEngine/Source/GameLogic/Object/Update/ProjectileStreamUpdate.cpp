@@ -113,7 +113,6 @@ ProjectileStreamUpdate::ProjectileStreamUpdate(Thing *thing, const ModuleData *m
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?ProjectileStreamUpdate::~ProjectileStreamUpdate present-unmatched
 ProjectileStreamUpdate::~ProjectileStreamUpdate( void )
 {
 
@@ -228,7 +227,6 @@ void ProjectileStreamUpdate::setPosition( const Coord3D *newPosition )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?ProjectileStreamUpdate::loadPostProcess present-unmatched
 void ProjectileStreamUpdate::loadPostProcess( void )
 {
 
