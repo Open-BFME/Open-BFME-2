@@ -3877,3 +3877,22 @@ Served table 0086CF0C still needs the already named StanceButton::DoUpdate at 00
 The prepared fold gives five existing rows the constructor's class name. The constructor refers to the rowed 39-byte complete destructor, and its 28-byte deleting thunk still matches the provider. The five vtable repairs remain open. Both parent views are 0x38 bytes, but their +0x20 and +0x24 interface declarations differ. [Native layout and verification](../../reverse/attempt_support/weaponmode-constructor-class-fold-20261120-root20.md).
 
 The constructor emits all three retail bindings at `+0x10`. The destructor emits a separate one-slot copy. At local index `451d9b086f`, the approved destructor split preserves both moved rows and all 70 residual rows but changes selected and losing COMDATs. The constructor merge also fails because the two source views name different direct bases. [Split and merge diagnostics](../../reverse/attempt_support/weaponmode-constructor-class-fold-20261120-root20.md#destructor-split-and-constructor-merge).
+## 2026-11-20: ModuleData stand-ins, 77 bridged tables (seat halilkkaya-vt2)
+
+Base `b796529e5b7`; measured with the local bridge snapshot (tools/vtable_bridge.py plan over build/match, no link):
+3,043 bridged, 2,480 correct, 28 refused, 33,438 mismatching source slots.
+77 bridged tables are ModuleData's 31-slot table (slots 1..30 equal ModuleData's rowed defaults, at most four
+differing slots that are the class's own overrides) while the emitting unit's view stands in for ModuleData: a
+private `class ModuleData { int _pad; }`, a private novtable `Rva00253487Base`, or `class X : public Snapshot`
+with an unnamed +4 int for the module tag. Re-basing the view on the canonical ModuleData.h gives the table all
+31 slots, each naming a row the ledger binds at retail's address.
+- Done: CostModifierUpgrade.cpp (0x00C58210) and PropagandaTowerBehaviorModuleDataCtor.cpp
+  (DetachableRiderUpdateModuleData, 0x00C55510): both bridged -> correct, 60 slots, rows exact, link_check LINKS.
+  Their base destructor is not compiled in the unit (out of line), so no body changes.
+- Blocked (re_attempts.log, `??_7FireWeaponUpdateModuleData@@6B@`): the eleven `: public Snapshot` stand-ins whose
+  unit compiles the derived destructor. Retail inlines the base teardown there (stores Snapshot's 0x00BBB554);
+  ModuleData.h declares `~ModuleData()` out of line, so the re-based destructor calls it and fails bytes.
+  Prerequisite: a ModuleData spelling whose destructor inlines to the Snapshot restore for these units.
+- Not tried: BaseUpgrade.cpp and CommandSetUpgradeModuleDataCtor.cpp (their Rva00253487Base view has an inline
+  destructor calling Snapshot::~Snapshot explicitly), the W3D draw module data (slots 14/18/22/30 overridden),
+  the contain module data (slot 8/21 overrides) and the `(no base)` deleting-destructor grab-bags.

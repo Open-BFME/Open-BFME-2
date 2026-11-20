@@ -17,11 +17,9 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class ModuleData
-{
-private:
-	int _pad;
-};
+// Retail's table 0x00C55510 is ModuleData's 31 slots (0x00C4ED70) with this
+// class's deleting destructor in slot 0: the canonical base supplies them.
+#include "../../../../Include/Common/ModuleData.h"
 
 class DetachableRiderUpdateModuleData : public ModuleData
 {
