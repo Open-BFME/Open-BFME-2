@@ -6,13 +6,13 @@
 // Non-zero return means handled. Evidence: retail /O1 compares select
 // 0x400C then 0x4031-0x4032 and share one return-1 tail, the switch layout;
 // neighbours in Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp.
-typedef unsigned short wchar_t;
+
 
 #include "unicode_string.h"
 
 class GameWindow;
 
-void GadgetTextEntrySetText(GameWindow *g, UnicodeString text);
+
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *g);
 #include <stdlib.h>
 

@@ -11,7 +11,7 @@
 // Dedicated TU: only the placed body is defined; the donor's other seven
 // definitions are omitted.
 
-typedef int Int;
+
 
 // a two-field record: pointer then a 16-bit tag
 class Rva0006AFF0Entry

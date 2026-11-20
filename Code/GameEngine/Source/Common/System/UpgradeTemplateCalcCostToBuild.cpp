@@ -59,7 +59,7 @@ public:
 
 #include "../../../Include/Common/Player.h"
 
-struct Rva002A8AB1Record;
+
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;

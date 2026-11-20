@@ -10,7 +10,7 @@
 // reaches the folded 0x000B3FD0 through its existing
 // Rva000B3FD0NullTarget pin. Every name is address-derived.
 
-typedef int Int;
+
 
 class Rva0004232FNullTarget
 {

@@ -177,10 +177,10 @@ public:
 // Calls in the context arms are deliberately declaration-only.  This keeps
 // each retail call boundary visible to the compiler instead of inlining an
 // already-converted sibling body into this large dispatcher.
-extern void j_0000d495(void);
-extern void j_0000efe8(void);
-extern void j_0001df4d(void);
-extern void j_00034581(void);
+
+
+
+
 class BfmeContextSwitchBfmeTransitionMD
 {
 public:
@@ -230,12 +230,12 @@ public:
 
 #include "../../../../Include/GameClient/Rva0058C040.h"
 
-extern void j_00018f2f(void);
-extern void j_0003367c(void);
+
+
 
 class BfmeTransitionMD;
 class Rva005127A0InGameChat;
-class Glo012F4B98Type;
+
 extern BfmeTransitionMD *g_bfmeTransitionMD;
 extern Rva005127A0InGameChat *g_Rva005127A0InGameChat;
 extern void *g_obj12F4C38;
@@ -421,7 +421,7 @@ public:
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: game/GameEngine/Source/Common/ControlBarDestructorThunk.cpp
-void ControlBarPopupDescriptionUpdateFunc( WindowLayout *layout, void *param );
+
 
 //-------------------------------------------------------------------------------------------------
 /** Initialzie the control bar, this is our interface to the context sinsitive GUI */

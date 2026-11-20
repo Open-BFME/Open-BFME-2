@@ -71,7 +71,7 @@ public:
 inline Rva00574338::~Rva00574338()
 {
 }
-void bfmeAnchorRva00574338(Rva00574338 *p);
+
 
 
 // Further destructors of the same shape, each the pinned complete dtor its
@@ -518,7 +518,7 @@ public:
 	virtual ~Rva005F4EE8();
 };
 
-void bfmeAnchorRva005F4EE8Dtor(Rva005F4EE8 *p);
+
 
 
 class Rva006ED150
@@ -539,30 +539,30 @@ public:
 #include "../../Include/Common/Rva00740555.h"
 
 
-struct Coord3D;
+
 
 #include "Thing/thing.h"
 
 #include "../../Include/GameClient/Drawable.h"
 
 
-class Rva0059E2FD;
-
-class Rva0020E89C;
-struct Res004FCA0C;
-
-void Rva006CF040Tick(unsigned int delay);
-void Rva006CF1B0(int delay);
 
 
-class Rva002E2903Player;
+
+
+
+
+
+
+
+
 
 // Native5E6884..5E6894 RET0: first calls the independently rowed empty
 // body at B3FD0 with the receiver, then tail-dispatches virtual slot6.
 // Two retail tables store this member (file offsets8744A4 and877260).
 // Existing opaque empty-body pin supplies the no-argument thiscall ABI;
 // the original owner and the empty operation's purpose remain unknown.
-void Rva001174D0(int value);
+
 
 
 // ??1W3DSailModelDraw@@UAE@XZ @0x000D08BE (5B): the sail draw module's

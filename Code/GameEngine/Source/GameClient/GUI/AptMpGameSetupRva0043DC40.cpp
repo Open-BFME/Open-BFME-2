@@ -53,12 +53,12 @@ class WinInstanceData;
 class BfmeKeyLC;
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 // The map list box tooltip set by 0x00443BF3 (defined below).
-void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);
+
 // Zero Hour's GadgetListBoxGetEntryBasedOnXY (GadgetListBox.cpp): the
 // 0x00323F6F wrapper forwarding to getListboxEntryBasedOnCoord 0x00323E95,
 // pinned by address.
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *listBox, int x, int y, int &row, int &column);
-struct RGBColor;
+
 #include "../../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 void *bfmeGo925A(BfmeKeyLC *comboBox);
@@ -90,7 +90,7 @@ TreeHintOpaque0043671B *Rva004361B3(const unsigned char *digest);
 // turns its 32 hex digits into the key passed by value to the saved-game
 // lookup at 0x004360B3. The callee address is read from this body's rel32;
 // its semantic name remains address-derived.
-extern "C" void MD5Print(unsigned char digest[16], char output[33]);
+
 TreeHintOpaque0043671B *Rva004360B3(AsciiString key);
 // Rva004361B3 is rowed in MpGameSetupSlots.cpp
 // The validated current game at +0x5C (rowed under its address name); the
@@ -106,7 +106,7 @@ class Rva0043DA65
 
 }
 ;
-void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selected);
+
 void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
 int GadgetComboBoxGetLength(GameWindow *comboBox);
 UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
@@ -114,14 +114,14 @@ int GadgetListBoxGetNumEntries(GameWindow *listBox);
 void GadgetListBoxSetSelected(GameWindow *listBox, int index);
 void GadgetListBoxSetSelected(GameWindow *listBox, const int *selectList, int selectCount);
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
-void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
+
 #include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
-extern const unsigned short g_00C3D9D4[];
-void GadgetComboBoxReset(GameWindow *comboBox);
+
+
 int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
-void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
-void GadgetComboBoxSetMaxDisplay(GameWindow *comboBox, int maxDisplay);
+
+
 int Rva0043DDF8(int count);
 class Image;
 #include "../../../Include/GameClient/Image.h"
@@ -272,7 +272,7 @@ class Rva0057F2DE
 #include "../../../Include/GameClient/Rva0057FD6E.h"
 // A panel member rowed under its own address-named class (0x0043DBE0).
 // Rva00446A71Get.cpp's byte setter for g_Va00A0335C.
-void Rva00446A67Set(unsigned char value);
+
 // The 0x28-byte game rules block at +0x15C (inside the +0xD0 member, whose
 // 0x0057F002 hands +0x8C to 0x00559FAC); 0x00381CED copies it into the game.
 #include "../../../Include/Common/MpGameSetupRules.h"
@@ -280,7 +280,7 @@ void Rva00446A67Set(unsigned char value);
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // Rva00511730Save.cpp's text entry helper.
-void Rva00511730(int value);
+
 // StringBase<char>::isEmpty (0x00001E2F) called out of line and nothrow:
 // OnReadyPress keeps no unwind state around it while the slot's tag
 // temporary is alive. The shared shim declares neither, so the call goes
@@ -312,12 +312,12 @@ static inline bool unicodeIsEmpty(const UnicodeString &text)
  return data == 0 || *(const unsigned short *)(data + 4) == 0;
 
 }
-void MessageBoxOk(UnicodeString title, UnicodeString body, void (*okCallback)());
+
 // Unrowed 0x0055A04C (59 bytes; a rule's display name, fetched from a
 // table of ten labels), pinned by address.
 UnicodeString Rva0055A04C(int kind);
 // The game being set up, spelled as LANAPIRemoveGame.cpp's pin does.
-struct LANGameInfo;
+
 extern class GameInfo *TheGameInfo;
 #include "../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
@@ -346,8 +346,8 @@ class Rva0043E0C5
 ;
 int Rva00322910(GameWindow *comboBox);
 int Rva00322E19Add(GameWindow *comboBox, UnicodeString text, int color);
-void GadgetComboBoxSetText(GameWindow *comboBox, UnicodeString text);
-void GadgetComboBoxHideList(GameWindow *comboBox);
+
+
 // Rowed 0x003F1E2E (BigObfHookWrappers.cpp): the two-int hook the slot
 // loop decodes the encoded index with.
 int __cdecl Rva003F1E2EHook(int a, int b);
@@ -457,7 +457,7 @@ template <class T> class AptRef : public Rva0057BC63FunctorHolder
 
 }
 ;
-class AptCommandMap;
+
 class AptExternHandler;
 // The panel's two adders at +0x04 and +0x10 (AptCallbackAdders.cpp, both
 // rowed): each registers with the Apt player and remembers the name.
@@ -478,8 +478,8 @@ class AptExternHandlerAdder
 // (AptScreenSetRef.cpp). Unrowed, pinned by address. The callback class
 // is named for the InitGadgets handlers the screens bind here.
 class AptScreenInitGadgets;
-void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
-void _bfme_closeAptScreen(const AsciiString &name);
+
+
 class AptMpGameSetup
 
 {

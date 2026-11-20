@@ -49,11 +49,11 @@ class Player { public:
 };
 class Rva002AD5ED { public: float rva002AD5ED(const AsciiString&); };
 #include "../../../Include/Common/Rva002A9BF2.h"
-struct Rva002A8AB1Record;
+
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 // Reuse the data-ledger provider, defined by Rva005EEA20Find.cpp.
 extern Rva002A8F24* TheSkirmishAIManager;
-class Overridable;
+
 #include "../../../Include/Common/Rva0033A68A.h"
 #include "../../../Include/Common/ThingTemplate.h"
 int ThingTemplate::rva0033A69A(const Player*player,int builderAddress,int price) const

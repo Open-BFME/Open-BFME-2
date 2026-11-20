@@ -5,7 +5,7 @@
 #include "ascii_string.h"
 #include "../../../Include/Common/Upgrade.h"
 
-class Image;
+
 
 #include "../../../Include/GameClient/Image.h"
 

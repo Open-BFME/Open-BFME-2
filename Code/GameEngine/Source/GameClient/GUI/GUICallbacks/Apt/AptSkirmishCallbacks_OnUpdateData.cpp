@@ -40,19 +40,19 @@ class GameWindowManager;
 
 extern GameWindowManager *TheWindowManager;
 
-void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
-void GadgetListBoxGetSelected(GameWindow *listBox, int *selectIndex);
+
+
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
-void GadgetListBoxSetSelected(GameWindow *listBox, int selectIndex);
-void GadgetListBoxReset(GameWindow *listBox);
+
+
 int GadgetListBoxAddEntryText(GameWindow *listBox, UnicodeString text, int color, int row, int column, bool overwrite);
 
 #include <string.h>
 
 class BfmeKeyLC;
 class BfmeObjENK;
-void GadgetTextEntrySetMaxChars(BfmeKeyLC *textEntry, unsigned short maxLength);
-void bfmeGoENK(BfmeObjENK *listBox, char flag);
+
+
 
 // The name entry link at +0x6C8 (as the LAN lobby's +0x6AC one): vslot 1
 // attaches the window, kept at its +0x08.
@@ -67,7 +67,7 @@ public:
 };
 
 // The skirmish screen instance (Rva0052192DInit.cpp's g_00E04930).
-extern int g_00E04930;
+
 
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -167,7 +167,7 @@ private:
 };
 // Target memberwise assignment at 0x005232D0 copies the 0x20-byte preference
 // record shape; its owning type remains address-derived in the ledger.
-class GameSlot;
+
 #include "../../../../../Include/GameNetwork/GameInfo.h"
  extern SkirmishGameInfo *TheSkirmishGameInfo;
 #include <new>
@@ -224,7 +224,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 // WB leaves it unnamed and its operation is unresolved; it is the rowed
 // CreateAHeroManager::rva0021A428 (CreateAHero.cpp). The manager pointer is
 // expressed through its canonical data-ledger name above.
-void SelectRandomHero();
+
 
 #include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
@@ -286,7 +286,7 @@ class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
 #include "../../../../../Include/GameClient/MapMetaData.h"
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
-void InitGameLogicRandom(unsigned);
+
 #include "../../../../../Include/Common/MessageStream.h"
 class VideoPlayerInterface {public:
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();

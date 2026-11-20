@@ -3,18 +3,18 @@
 // Clean BFME1 ba7ddda7 ControlBarUpdateVirtual.cpp supplies the workflow.
 // Named WB 0x00C2B8A0 and full native 0x0031E25E..0x0031E4BA supply
 // the BFME2 offsets, 32-button loops, radar cleanup and actual call routes.
-typedef bool Bool;
+
 #include "ascii_string.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
-class GadgetCreateView;
-class Image;
+
+
 class GameWindow;
 class WinInstanceData;
 typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, unsigned int);
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 class Player;
-class Drawable;
-class CommandButton;
+
+
 class GameClient;
 class GameWindowManager;
 class PlayerList;
@@ -41,7 +41,7 @@ class Rva0031FA8E { public: void rva0031FA8E(); };
 #include <vector>
 #include "../../../../Include/Common/Rva000AD6F4.h"
 #include "../../../../Include/Common/Rva000B3FD0Nop.h"
-class BfmeMemberRV;
+
 #include "../../../../Include/GameClient/BfmeThingRV.h"
 void *GadgetButtonGetData(GameWindow *);
 void Rva00328700(GameWindow *);
@@ -106,19 +106,19 @@ enum CommandAvailability
 	COMMAND_LIMITED = 7,
 	COMMAND_DONE = 8
 };
-class CommandSet;
-class INI;
-class Object;
-struct Coord3D;
-class PlayerTemplate;
-class WindowVideoManager;
-class AnimateWindowManager;
-struct ICoord2D;
-struct Rva0031DBFCElement;
-class ControlBarSchemeManager;
-class WindowLayout;
+
+
+
+
+
+
+
+
+
+
+
 class vector;
-struct PlayerAITypeEntry;
+
 #include "../../../../Include/GameClient/ControlBar.h"
 void ControlBar::update()
 {

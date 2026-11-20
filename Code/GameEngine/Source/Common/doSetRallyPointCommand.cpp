@@ -47,7 +47,7 @@ extern class View *TheTacticalView;
 
 extern InGameUI *TheInGameUI;
 
-class Rva0025CEEFHost;
+
 extern class Keyboard *TheKeyboard;
 
 #include "../../Include/GameClient/KeyboardClass.h"

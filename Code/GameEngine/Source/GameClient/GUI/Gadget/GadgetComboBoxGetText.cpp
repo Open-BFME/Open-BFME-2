@@ -5,8 +5,8 @@
 // GWS_COMBO_BOX 0x8000 check via winGetStyle, else TextEntryGetText of child.
 // Retail calls 0x002C032C +0x28 child and 0x00320AAB TextEntryGetText;
 // 11 callers include 0x0043E3AA 0x0056EAC8 0x0057F3D8. Empty at 0xA0C898.
-typedef unsigned short wchar_t;
-typedef unsigned int UnsignedInt;
+
+
 #define BitTest(x, i) (((x) & (i)) != 0)
 #define GWS_COMBO_BOX 0x00008000
 #include <windows.h>

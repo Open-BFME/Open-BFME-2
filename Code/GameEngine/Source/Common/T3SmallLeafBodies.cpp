@@ -9,7 +9,7 @@ Int __stdcall Rva000695C0Less(const void *a, const void *b);
 Int __stdcall Rva000699A0Less(const void *a, const void *b);
 Int __stdcall Rva00069AD0Less(const void *a, const void *b);
 Int __stdcall Rva00069B50Less(const void *a, const void *b);
-void Rva00069520Swap(float &a, float &b);
+
 
 // the unsigned key compared at +0x18
 class Rva00063E50Node

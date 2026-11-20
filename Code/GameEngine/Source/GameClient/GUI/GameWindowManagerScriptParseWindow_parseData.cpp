@@ -79,11 +79,11 @@ public:
 
 GameWindow *createGadget( char *type, void *data, Open2479440Record *record, GameWindow *source );
 
-void GadgetButtonSetText( GameWindow *g, UnicodeString text );
-void GadgetRadioSetText( GameWindow *g, UnicodeString text );
-void GadgetCheckBoxSetText( GameWindow *g, UnicodeString text );
-void GadgetStaticTextSetText( GameWindow *g, UnicodeString text );
-void GadgetTextEntrySetText( GameWindow *g, UnicodeString text );
+
+
+
+
+
 
 
 // Native BFME StringBase inlines at this caller.
@@ -108,8 +108,8 @@ class Display00487F80 { public:
 extern Display00487F80 *display00487F80;
 class HeaderTemplateManager { public: GameFont *getFontFromTemplate(AsciiString name); };
 extern HeaderTemplateManager *TheHeaderTemplateManager;
-void readUntilSemicolon(File*,char*,int);
-extern "C" void *Rva00484F60GetDataTemplate(char*,unsigned int*);
+
+
 bool parseScreenRect(int*,int*,int*,int*);
 bool parseChildWindows(GameWindow*,File*,char*);
 struct GameWindowParse { char *name; bool (*parse)(char*,WinInstanceData*,char*,void*); };
@@ -171,7 +171,7 @@ static __declspec(noinline) Bool parseData( void **data, char *type, char *buffe
 
 		c = strtok( NULL, " \t\n\r" );
 		lData.forceSelect = atoi(c);
-		
+
     *data = &lData;
 
   } 
@@ -215,7 +215,7 @@ static __declspec(noinline) Bool parseData( void **data, char *type, char *buffe
 
 	  c = strtok( buffer, " \t\n\r" );
     tData.centered = atoi(c);
-		
+
 		if( tData.centered != FALSE )
 			tData.centered = TRUE;
 

@@ -9,7 +9,7 @@
 // shape is the same 149B _M_insert as the AsciiString-keyed twins in
 // stlport_tree_asciistring_key_insert.cpp. Node: parent +4 left +8 right +0xc
 // value +0x10; head +0 first +4; _size +4; comparator +8.
-struct Rva002CF120;
+
 namespace _STL {
 	struct _Rb_tree_node_base {};
 	template <typename D> class _Rb_global {

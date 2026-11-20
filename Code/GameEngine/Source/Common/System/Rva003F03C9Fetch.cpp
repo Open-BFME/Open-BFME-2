@@ -8,8 +8,8 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-typedef unsigned short wchar_t;
-typedef bool Bool;
+
+
 
 #include "ascii_string.h"
 

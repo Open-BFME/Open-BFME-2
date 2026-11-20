@@ -14,15 +14,15 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 class Drawable;
 class Object;
-class GadgetCreateView;
-class Image;
+
+
 class GameWindow;
 class WinInstanceData;
 typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, unsigned int);
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 class GameWindowManager;
 class InGameUI;
-class Rva00E01E28Owner;
+
 extern GameWindowManager *TheWindowManager;
 extern InGameUI *TheInGameUI;
 class HotKeyManager;
@@ -217,8 +217,8 @@ struct ContextControlBarView {
     void *unknown2A4;
     _STL::vector<BfmePod8> selections;
 };
-struct Coord3D;
-typedef bool Bool;
+
+
 #define BFME_SUBSYSTEM_SLOTS
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "ControlBarMemberTypes.h"
@@ -243,20 +243,20 @@ enum CommandAvailability
 	COMMAND_LIMITED = 7,
 	COMMAND_DONE = 8
 };
-class CommandButton;
-class AsciiString;
-class Player;
-class CommandSet;
-class INI;
-class PlayerTemplate;
-class WindowVideoManager;
-class AnimateWindowManager;
-struct ICoord2D;
-struct Rva0031DBFCElement;
-class ControlBarSchemeManager;
-class WindowLayout;
-struct PlayerAITypeEntry;
-class Rva000AD6F4;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include "../../../../Include/GameClient/ControlBar.h"
 // Each arm follows the independently read native call order.
 #define HIDE_PARENTS(a,b,c,d,e,f,g,h) \

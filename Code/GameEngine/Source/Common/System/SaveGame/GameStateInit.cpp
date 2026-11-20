@@ -27,7 +27,7 @@ void *Rva0043CCC2Get(); void *Rva004E4312GetRoute();
 class Rva002BA8F1Logic; 
 class AudioManager; extern AudioManager *TheAudio;
 class GameState; extern GameState *TheGameState;
-struct Rva0023D607Holder; class LinearCampaignManager; extern LinearCampaignManager *TheLinearCampaignManager;
+ class LinearCampaignManager; extern LinearCampaignManager *TheLinearCampaignManager;
 class RadarWindowOverrideSource; extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 void *TheGameStateMap = 0;
 class TerrainLogic; extern TerrainLogic *TheTerrainLogic;
@@ -38,7 +38,7 @@ class Radar; extern Radar *TheRadar;
 class ScriptEngine; extern ScriptEngine *TheScriptEngine;
 class SidesList; extern SidesList *TheSidesList;
 class View; extern View *TheTacticalView;
-class ClientFrameSubsystem; class GameClient; extern GameClient *TheGameClient;
+ class GameClient; extern GameClient *TheGameClient;
 class InGameUI; extern InGameUI *TheInGameUI;
 class PartitionManager; extern PartitionManager *ThePartitionManager;
  extern PartitionManager *TheShroudManager;
@@ -58,7 +58,7 @@ void *TheMineshaftPortalNetworkManager = 0;
 class AiOrdersManager;
 AiOrdersManager *TheAiOrdersManager = 0;
 struct Rva0039B95FHolder; extern Rva0039B95FHolder *TheMissionObjectiveTracker;
-class Rva00285D34; class Rva002872BA; extern Rva002872BA *TheTriggerManager;
+ class Rva002872BA; extern Rva002872BA *TheTriggerManager;
 void GameState::init()
 {
     addSnapshotBlock("CHUNK_LivingWorldLogic", (Snapshot *)(SnapshotSubsystemView *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic), (SnapshotType)0);

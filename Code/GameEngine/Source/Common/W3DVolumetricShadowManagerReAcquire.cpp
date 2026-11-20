@@ -8,7 +8,7 @@ void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (CreateVertexBuffer slot 26, CreateIndexBuffer slot 27).
-struct IDirect3DDevice8;
+
 // D3DDevice is protected in dx8wrapper.h; read it through WW3D2's accessor.
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 // g_00DEBCE0: matched references place it at VA 0xdebce0 (retail .data initial value 0).

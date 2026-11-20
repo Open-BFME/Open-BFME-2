@@ -6,7 +6,7 @@ struct Rva0028F2F8Aux {
 	unsigned char m_11F;
 };
 // The rowed lookup ?rva002197A6@CreateAHeroManager@@QAEPAVCreateAHeroData@@H@Z.
-class CreateAHeroData;
+
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Object {

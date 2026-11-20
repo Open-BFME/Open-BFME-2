@@ -66,7 +66,7 @@ class WinInstanceData;
 #include <string.h>
 namespace NativeScriptCrt {
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
-extern "C" __declspec(dllimport) int __cdecl isspace(int);
+
 }
 
 // ?parseDrawCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z

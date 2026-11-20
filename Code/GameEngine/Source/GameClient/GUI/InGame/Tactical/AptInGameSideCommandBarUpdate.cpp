@@ -9,7 +9,7 @@
 class Player;
 #include "../../../../GameLogic/Object/object.h"
 
-class BfmeMemberRV;
+
 #include "../../../../../Include/GameClient/BfmeThingRV.h"
 
 class PlayerList;

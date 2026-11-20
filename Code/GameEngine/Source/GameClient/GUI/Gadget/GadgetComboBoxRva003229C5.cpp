@@ -8,8 +8,8 @@
 // 0x313CD9 winHide 0x313C64 then 0x002C032C entry +0x28 rowed as GetListBox
 // then winGetSize 0x313BC6 twice winSetSize 0x313B87 then manager 0xD4 get
 // 0xD0 set; 5 callers include 0x00322BB8 0x00322FF5.
-typedef int Int;
-typedef bool Bool;
+
+
 
 #include <windows.h>
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"

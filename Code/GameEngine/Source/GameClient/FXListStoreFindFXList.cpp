@@ -13,7 +13,7 @@
 
 #include <windows.h>
 #include <string.h>
-typedef int Int;
+
 
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 

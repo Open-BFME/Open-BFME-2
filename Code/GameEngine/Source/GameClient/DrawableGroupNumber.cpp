@@ -15,7 +15,7 @@
 
 class Object;
 class Player;
-class Drawable;
+
 class Rva00273C47Host;
 class Thing;
 

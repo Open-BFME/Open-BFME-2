@@ -7,7 +7,7 @@
 // callers 4077C3 407823 40786F in 419B body; ret 8 void HH.
 #include <memory>
 #include "ascii_string.h"
-class Xfer;
+
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 void CommandSet::SetCommandButton(int value, int index)
 {

@@ -9,7 +9,7 @@
 // not established; it is address-derived.
 #include "../../../../Include/Common/ScalarTypes.h"
 
-class SpecialPowerTemplate;
+
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 

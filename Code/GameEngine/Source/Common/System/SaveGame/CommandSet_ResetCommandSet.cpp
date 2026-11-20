@@ -6,7 +6,7 @@
 // caller 407791; no callees.
 #include <memory>
 #include "ascii_string.h"
-class Xfer;
+
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Include/GameClient/CommandSet.h"
 void CommandSet::ResetCommandSet()

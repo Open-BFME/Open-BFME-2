@@ -5,10 +5,10 @@
 // and refresh the portrait plus button images via the rowed 0x33BA46 and
 // 0x33B580 resolvers. Prereq vector at +0x324, kindof byte at +0x10a,
 // build-facility flag at +0x5e6 (same holder as the 0x33DDA1 teardown).
-class Image;
+
 class ThingTemplate;
 
-typedef int Int;
+
 
 class ProductionPrerequisite
 {

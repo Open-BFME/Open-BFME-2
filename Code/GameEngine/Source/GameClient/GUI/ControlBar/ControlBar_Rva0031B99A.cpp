@@ -319,8 +319,8 @@ public:
 
 #include "../../../../Include/GameClient/Rva0058C040.h"
 
-extern void j_00018f2f(void);
-extern void j_0003367c(void);
+
+
 
 class BfmeTransitionMD;
 class Rva005127A0InGameChat;
@@ -430,5 +430,5 @@ void ControlBar::switchControlBarStage( ControlBarStages stage )
 	default:
 		DEBUG_ASSERTCRASH(FALSE,("ControlBar::switchControlBarStage we were passed in a stage that's not supported %d", stage));
 	}
-	
+
 }

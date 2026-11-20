@@ -20,7 +20,7 @@ class GameWindow;
 
 extern GameTextInterface *TheGameText;
 
-void bfmeMinimizeCurrentThreadWindow();
+
 class BfmeKeyLC;
 
 void GadgetListBoxReset(GameWindow *listBox);

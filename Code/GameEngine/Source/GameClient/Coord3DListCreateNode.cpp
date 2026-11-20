@@ -5,7 +5,7 @@
 // independently pinned by the retail node body.
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
-typedef float Real;
+
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 namespace _STL {
 template <> void _Construct(Coord3D *p, const Coord3D &val);
