@@ -1,6 +1,6 @@
 // cl: /MD /EHsc /DNDEBUG
 //
-// ??0Rva00098667Product@@QAE@XZ @0x00098667 41B: game-client product
+// ??0Rva00098690@@QAE@XZ @0x00098667 41B: game-client product
 // constructor (size 0x68, vtable 0x00BC8358). Calls the base constructor
 // 0x0030AFC4 (vtable 0x00BC8318 family, pinned), installs its own vtable,
 // and zeroes the seven tail dwords at +0x4C..+0x64. Honest address-derived
@@ -44,16 +44,17 @@ private:
 	int m_18;
 };
 
-class Rva00098667Product : public Rva00985E4
+class Rva00098690 : public Rva00985E4
 {
 public:
-	Rva00098667Product();
+	Rva00098690();
+	virtual ~Rva00098690(); // rowed 0x000986E7 in Rva00098690Destructor.cpp
 
 private:
 	Rva98667Tail m_4C;
 };
 
-// ??0Rva00098667Product@@QAE@XZ
-Rva00098667Product::Rva00098667Product()
+// ??0Rva00098690@@QAE@XZ
+Rva00098690::Rva00098690()
 {
 }

@@ -6388,3 +6388,5 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 ?rva007B0521@Rva007AB7F0HalfRateInits@@SAXXZ,0x007B0521,Retracted for readmission as a compiler-emitted _$E<n> in Rva00431F61Ctor.cpp: retail 0x007B0521 is that unit's Drawable.h copy initializer (LINK-236)
 ?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z,0x0026163A,"Renamed to ?rva0026163A@Rva002619C1Filter@@UAE_NPBUCoord3D@@@Z by tools/rename.py (to-class: retail vftable 0x00C07150 slot 3)"
 _$E10,0x007AE908,"Respelled to _$E1 by tools/rename.py initializers (^code_^game^engine_^source_^game^logic_^system_^global^weather^system.obj's .CRT$XCU order against retail's table)"
+??0Rva00098667Product@@QAE@XZ,0x00098667,"Renamed to ??0Rva00098690@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00BC8358)"
+?rva00098565@Rva00098667Product@@UAEXXZ,0x00098565,"Renamed to ?rva00098565@Rva00098690@@UAEXXZ by tools/rename.py (fold: retail vftable 0x00BC8358)"
