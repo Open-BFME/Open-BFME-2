@@ -7,11 +7,7 @@
 
 #include "../../../../Include/GameLogic/Module/Rva003BD306Target.h"
 
-struct Rva004BDA67M04
-{
-	char m_pad[0x50];
-	unsigned char m_flag50;
-};
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 struct Rva004BDA67ObjInner
 {
@@ -33,24 +29,18 @@ public:
 
 #include "../../../../Include/Common/Rva00298E6A.h"
 
-class Rva004BDA67
-{
-public:
-	void rva004BDA67();
-private:
-	char m_pad00[4];
-	void *m_04;
-	Object *m_08;
-};
+#include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
+#include "../../../../Include/GameLogic/Module/Rva004BDA67.h"
 
 void Rva004BDA67::rva004BDA67()
 {
-	Object *obj = m_08;
+	const ObjectModuleBase *module = reinterpret_cast<const ObjectModuleBase *>(this);
+	Object *obj = module->m_object;
 	Rva003BD306Target *m_experienceTracker = obj->m_target264;
 	if (m_experienceTracker != 0)
 		m_experienceTracker->rva0039B548();
-	Rva004BDA67M04 *moduleData = (Rva004BDA67M04 *)m_04;
-	if (moduleData->m_flag50 != 0)
+	const ActiveBodyModuleData *moduleData = static_cast<const ActiveBodyModuleData *>(module->m_moduleData);
+	if (moduleData->field50)
 		obj->rva0028DA28();
 	Rva004BDA67ObjInner *inner = *(Rva004BDA67ObjInner **)((char *)obj + 4);
 	if (inner->m_commandPointBonus > 0)
