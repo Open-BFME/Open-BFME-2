@@ -10,10 +10,8 @@
 // /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
 // lookuptable.cpp pattern) so this unit's copy is that body.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "refcount.h"
-#pragma optimize("", on)
 // Preserve native inline math without a competing Normalize COMDAT.
 #include "always.h"
 #include "wwmath.h"

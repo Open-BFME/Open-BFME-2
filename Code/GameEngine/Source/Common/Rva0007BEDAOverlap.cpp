@@ -17,7 +17,6 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Retain inline arithmetic while binding external helpers to the rowed Vector3 providers.
 class __declspec(dllimport) Vector3;

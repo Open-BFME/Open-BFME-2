@@ -10,10 +10,8 @@
 
 class VertexMaterialClass;
 
-#pragma optimize("s", on)
 #include "../WWLib/RefCountData.h"
 inline RefCountClass::~RefCountClass() {}
-#pragma optimize("", on)
 
 template <class T>
 class ShareBufferClass : public RefCountClass

@@ -16,7 +16,6 @@ extern DebugCriticalSection g_bfmeCsDWC;
 #include "../../../../GameEngine/Source/Common/debug.h"
 
 // LookupFrame is frameless at retail RVA 0x00038330.
-#pragma optimize("y", on)
 
 // ?LookupFrame@Debug@@AAEPAUFrameHashEntry@1@I@Z
 __forceinline Debug::FrameHashEntry *Debug::LookupFrame(unsigned int address)
@@ -31,7 +30,6 @@ __forceinline Debug::FrameHashEntry *Debug::LookupFrame(unsigned int address)
 }
 
 // The matched caller retains its frame pointer.
-#pragma optimize("y", off)
 
 // ?frameStatus@Debug@@UAE_NI_N@Z
 bool Debug::frameStatus(unsigned int address, bool reset)

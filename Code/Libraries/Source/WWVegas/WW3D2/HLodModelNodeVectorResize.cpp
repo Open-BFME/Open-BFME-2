@@ -10,9 +10,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 #include <new>
 #define _OPERATOR_NEW_DEFINED_

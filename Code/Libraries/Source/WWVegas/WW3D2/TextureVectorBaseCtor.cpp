@@ -32,9 +32,7 @@ typedef RefCountPtr<TextureClass> TextureVectorCell;
 // The compiler-generated RefCountPtr<TextureClass> vector deleting destructor (??_E) takes
 // the optimization state of the first function that needs it; retail links the /O1 copy
 // (TextureHandleAssignment.cpp emits it). This unemitted anchor makes this unit's copy that body.
-#pragma optimize("gsy", on)
 static void bfmeTextureCellVddAnchor(TextureVectorCell *textureVectorCell) { delete [] textureVectorCell; }
-#pragma optimize("", on)
 
 class TextureVectorBaseCtorShim
 {

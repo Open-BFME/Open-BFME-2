@@ -11,9 +11,7 @@
 // the target release-before-null operation; other buffers use RefCountClass.
 // Match the retail RefCountClass release helper at 0x5D1A7D.
 // Its declaration uses the verified provider's size context; callers retain theirs.
-#pragma optimize("gsy", on)
 #include "../WWLib/RefCountData.h"
-#pragma optimize("", on)
 #include "MeshMatDescClass.h"
 // TU-local completions of the descriptor's forward-declared buffer and state
 // types: Reset needs only their RefCountClass release and the state's dtor.

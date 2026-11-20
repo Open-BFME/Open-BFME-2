@@ -123,9 +123,7 @@ extern const void *const g_00CE3008[2] = {
 };
 
 #include "../../Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 class Rva007F6BA0
 {

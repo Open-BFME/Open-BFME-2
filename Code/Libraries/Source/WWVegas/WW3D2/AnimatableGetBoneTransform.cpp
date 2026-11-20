@@ -17,10 +17,8 @@
 #include <assert.h>
 #include "vector2.h"
 #include "vector3.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "matrix3d.h"
-#pragma optimize("", on)
 
 // BFME 2's pivot keeps its current transform as a rotation quaternion at +0x30
 // and a translation at +0x40 (HTreePivotClass.cpp's constructor and assignment

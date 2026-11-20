@@ -4,10 +4,8 @@
 // A refcount base, an array of eight stage wrappers, then four fields.
 // The tail is written in retail store order: +0x28, +0x2C, +0x34, then +0x30.
 
-#pragma optimize("s", on)
 #include "../WWLib/RefCountData.h"
 inline RefCountClass::~RefCountClass() {}
-#pragma optimize("", on)
 
 class MaterialPassStage
 {

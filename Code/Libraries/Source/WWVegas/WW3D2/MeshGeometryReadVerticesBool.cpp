@@ -39,11 +39,9 @@
 // ShareBufferClass<Vector3> constructor inlines it and drops the Vector3
 // construction loop that retail's copy (0x00169780) still calls ??_H for.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 #pragma auto_inline(off)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma auto_inline(on)
-#pragma optimize("", on)
 
 // Their byte-matched specializations live in MeshGeometryShareBufferInstantiations.cpp.
 // Do not implicitly re-emit their virtual destructors in this TU.

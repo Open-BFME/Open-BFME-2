@@ -13,7 +13,6 @@
 // O1 header context preserves retail Fabs (19B) and VCI (34B) copies.
 // Local floor/table helpers preserve the donor formulas without emitting
 // incompatible shared WWMath COMDAT copies.
-#pragma optimize("gsy", on)
 // Use the native quaternion siblings' CRT inline-adapter visibility.
 #pragma push_macro("inline")
 #define inline __declspec(dllimport) __forceinline
@@ -38,7 +37,6 @@ static __forceinline int bfmeFastSlerpFloor (const float& f)
 	r = ((r & expsign) ^ (sign)) + ((!((mantissa<<8)&imask)&(expsign^((a-1)>>31)))&sign);	// if (fabs(value)<1.0) value = 0; copy sign; if (value < 0 && value==(int)(value)) value++;
 	return r;
 }
-#pragma optimize("", on)
 
 bool Rva00E1D058FastSlerpInline;
 extern "C" Quaternion * __stdcall rva0075B4C6D3DXQuaternionSlerp(Quaternion *, const Quaternion *, const Quaternion *, float);

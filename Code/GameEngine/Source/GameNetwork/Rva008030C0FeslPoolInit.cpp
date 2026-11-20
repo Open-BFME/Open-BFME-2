@@ -11,9 +11,7 @@
 // here that build arrays inline the /O1 body and lose retail's call to ??_H.
 #include "../../Include/Common/BfmeVciAnchorElem.h"
 #pragma auto_inline(off)
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #pragma auto_inline(on)
 class Gen007F0150
 {

@@ -14,10 +14,8 @@
 // compiler vector constructor iterator at retail's 34B /O1 shape.
 // This static driver is unemitted and has no retail claim.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 // ?bfmePairTransformVciAnchor absent-from-retail
 static void bfmePairTransformVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 #include "matrix3d.h"
 class Rva00168AD0MatrixPairTransform : public Matrix3D

@@ -11,9 +11,7 @@
 // /O1 body at 0x00001423. Instantiate it first in an unemitted anchor (the
 // lookuptable.cpp pattern) so this unit's copy is that body.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 // The Vector4 view is the SSE link view (ctor/Set/scalar product stay inline
 // without emitting copies that compete with retail's owners); the row below
 // keeps this unit's /O2 flags. WWMath's Fabs is inlined everywhere here, so

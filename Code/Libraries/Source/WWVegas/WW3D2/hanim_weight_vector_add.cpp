@@ -17,9 +17,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #include <new.h>
 #include <assert.h>
 #include "nstrdup.h"
@@ -48,9 +46,7 @@ public:
 // Retail links the size-optimized WeightInfoStruct vector deleting destructor (??_E,
 // the copy htree.cpp emits); it takes the optimization state of the first function
 // that needs it, so this unemitted anchor needs it first.
-#pragma optimize("gsy", on)
 static void bfmeWeightInfoVddAnchor(NamedPivotMapClass::WeightInfoStruct *p) { delete [] p; }
-#pragma optimize("", on)
 inline NamedPivotMapClass::WeightInfoStruct & NamedPivotMapClass::WeightInfoStruct::operator = (WeightInfoStruct const &that)
 {
 	if(Name) delete [] Name;

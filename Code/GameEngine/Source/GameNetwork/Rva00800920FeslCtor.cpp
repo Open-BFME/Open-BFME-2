@@ -8,9 +8,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 extern "C" char __identifier("??_7Rva003F498ACallback@@6B@");
 // VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.

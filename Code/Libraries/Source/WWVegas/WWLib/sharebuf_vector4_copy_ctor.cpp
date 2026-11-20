@@ -13,7 +13,6 @@
 // constructor's Vector4 array inlines it and loses retail's call to ??_H.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
 #pragma auto_inline(off)
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma auto_inline(on)
 
@@ -23,7 +22,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // the size form: compile this class for size, as hlod.cpp does.
 #include "RefCountData.h"
 inline RefCountClass::~RefCountClass() {}
-#pragma optimize("", on)
 
 template <class Type>
 class ShareBufferClass : public RefCountClass

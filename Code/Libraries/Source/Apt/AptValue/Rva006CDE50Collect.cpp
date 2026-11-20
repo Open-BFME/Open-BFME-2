@@ -16,7 +16,6 @@ void bfmeDropVGO(void *);
 // The out-of-line ~BfmeRefVGO this unit emits for its unwind path must be the
 // kept retail copy (0x000A9822, /O1 shape); in-class members take the optimize
 // state of their definition, while the rows still inline them under /O2.
-#pragma optimize("s", on)
 class BfmeRefVGO {
 protected:unsigned *value;
 public:
@@ -29,7 +28,6 @@ public:
   }return *this;
  }
 };
-#pragma optimize("", on)
 class Rva004A9DF3Element:public BfmeRefVGO {public:Rva004A9DF3Element &operator=(const BfmeRefVGO &x){BfmeRefVGO::operator=(x);return *this;}};
 struct Rva006CDE50Cursor {
  Rva004A9DF3Element *position;

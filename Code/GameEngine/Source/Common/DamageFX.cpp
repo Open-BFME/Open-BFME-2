@@ -22,7 +22,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include "../../Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 /*
 **	Command & Conquer Generals Zero Hour(tm)
