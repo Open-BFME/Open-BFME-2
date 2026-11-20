@@ -19,7 +19,7 @@ enum Relationship
 };
 
 
-class Object;
+
 class Pathfinder;
 
 #include "../../../../Include/Common/ThingTemplate.h"

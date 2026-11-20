@@ -14,7 +14,7 @@
 // Replaces the exact address-named view; this is identity repair, not new bytes.
 
 class Player;
-class LargeGroupAudioUpdate;
+
 class Rva0020D959Host;
 
 struct Block19

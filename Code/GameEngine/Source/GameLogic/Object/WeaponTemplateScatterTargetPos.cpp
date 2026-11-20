@@ -57,7 +57,7 @@ Real GetGameLogicRandomValueReal(Real lo, Real hi, char *file, Int line);
 
 #define WEAPON_CPP "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Weapon.cpp"
 
-class Object;
+
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

@@ -10,7 +10,7 @@
 // 0x002A8F24, hash_map::bucket_count 0x002BEDAB, index lookup 0x0025BFF8);
 // true when any structure in it carries kind bit 0xC2, which is the fortress
 // kind the picker above it masks (AISpecialPowerPickers.cpp sets 194).
-class Object;
+
 class Player;
 
 // Native object template, +0x120 holds the kind-of flags; bit 0x04 of that

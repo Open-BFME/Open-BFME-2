@@ -12,7 +12,7 @@
 
 #include "ascii_string.h"
 
-class Object;
+
 class MidTarget
 {
 public:

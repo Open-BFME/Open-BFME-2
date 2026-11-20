@@ -10,7 +10,7 @@
 // recruitSpecificTeam, extern g_Va009FE16C, caller 0x003CA9CD, ret 0xc.
 #include "ascii_string.h"
 
-class TeamPrototype;
+
 class Team;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -440,7 +440,7 @@ struct PathfinderOpenQueue
  }
 };
 
-struct Rva002E7261Info;
+
 #include "../../../Include/GameLogic/AIPathfind.h"
 // The 0x002E8045 walk calls this ABI view. The callback at 0x002E7261
 // writes its result key at +8 and cell coordinates at +0xC/+0x10.

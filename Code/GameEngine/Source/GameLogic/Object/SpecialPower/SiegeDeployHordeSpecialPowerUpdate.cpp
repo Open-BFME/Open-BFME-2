@@ -34,7 +34,7 @@ struct Coord3D;
 extern int BfmeLogicFramesPerSecond;	// logic frames per second
 extern GameLogic *TheGameLogic;
 
-class Object;
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

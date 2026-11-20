@@ -33,7 +33,7 @@
 
 
 struct Coord3D;
-class Object;
+
 class WeaponTemplate;
 class Matrix3D;
 

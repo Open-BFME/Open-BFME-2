@@ -243,7 +243,7 @@ private:
 };
 
 class AIUpdateInterface;
-class Object;
+
 
 // The object reached through Object +0x250 slot 31 (slot 105 is a bool query).
 class Rva0026C4EBRider : public BfmeVirtualSlots<105>

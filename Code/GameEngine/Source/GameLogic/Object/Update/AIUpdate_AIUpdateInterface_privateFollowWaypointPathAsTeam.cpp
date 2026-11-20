@@ -678,7 +678,7 @@ static __forceinline Object *rva00279A50FindClosest(AI *ai, const Object *owner,
 		owner, range, flags, info, filter);
 }
 
-class Rva00279A50StateProbe;
+
 
 #define RVA00279A50_SLOT(N) virtual void slot##N(void) = 0
 class Rva00279A50StateProbe

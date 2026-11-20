@@ -10,7 +10,7 @@
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
-class Object;
+
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 struct ObjectKind

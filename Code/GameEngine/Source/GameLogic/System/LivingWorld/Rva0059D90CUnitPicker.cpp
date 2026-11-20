@@ -29,7 +29,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 
-struct BfmeE8;
+
 namespace _STL
 {
 

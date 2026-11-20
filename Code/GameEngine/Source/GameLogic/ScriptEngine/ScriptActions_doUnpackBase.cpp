@@ -30,7 +30,7 @@ public:
 	void initiateUnpack(bool a, const ThingTemplate *b);
 };
 
-class Object;
+
 class ScriptActions;
 
 class Object

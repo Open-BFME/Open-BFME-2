@@ -34,7 +34,7 @@ enum WeaponSetType
 
 
 
-class Object;
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

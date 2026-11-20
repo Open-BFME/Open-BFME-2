@@ -30,7 +30,7 @@
 #include "ascii_string.h"
 
 class ThingTemplate;
-class Object;
+
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 

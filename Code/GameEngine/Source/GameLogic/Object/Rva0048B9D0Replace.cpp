@@ -14,7 +14,7 @@
 
 class WeaponTemplate;
 class Object;
-class Weapon;
+
 enum WeaponSlotType
 {
 	WEAPON_SLOT_PRIMARY = 0

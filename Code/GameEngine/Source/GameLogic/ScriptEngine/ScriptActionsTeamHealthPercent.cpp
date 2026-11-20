@@ -9,7 +9,7 @@
 #include "ascii_string.h"
 
 
-class Object;
+
 class Team;
 
 template<class OBJCLASS>

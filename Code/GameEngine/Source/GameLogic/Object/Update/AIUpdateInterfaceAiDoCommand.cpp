@@ -13,7 +13,7 @@
 #include "Coord3D.h"
 #include "GameLogic/BfmeStoredAICommandView.h"
 #include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
-class Object;
+
 #include "../../../../Include/GameLogic/AICommandParms.h"
 // Keep the existing opaque handler declarations below: their symbol identities
 // predate this parameter-block adoption. Aggregate arguments now take the

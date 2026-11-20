@@ -12,8 +12,8 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Parameter;
-class Object;
-class Waypoint;
+
+
 
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"

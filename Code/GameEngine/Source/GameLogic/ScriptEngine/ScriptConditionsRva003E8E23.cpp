@@ -29,7 +29,7 @@
 
 class ThingTemplate;
 class ExperienceTracker;
-class Object;
+
 
 // BFME2 Object skeleton (reference/open-bfme-1/inputs/reference/shims/objectdlink/ObjectDlinkPmf.h).
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"

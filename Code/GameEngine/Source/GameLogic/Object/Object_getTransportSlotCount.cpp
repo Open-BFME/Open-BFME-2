@@ -7,7 +7,7 @@
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-struct Tmp;
+
 struct Node;
 struct List
 {

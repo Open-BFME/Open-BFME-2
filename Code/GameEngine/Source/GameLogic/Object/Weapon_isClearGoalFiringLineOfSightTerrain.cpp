@@ -9,7 +9,7 @@ struct FlagBlock { char m_pad[0x10f]; unsigned char m_flags; };
 
 class AI;
 class Pathfinder;
-class TerrainLogic;
+
 #include "../../../Include/GameLogic/Weapon.h"
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 #include "../../../Include/GameLogic/AI.h"

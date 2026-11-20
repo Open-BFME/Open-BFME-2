@@ -23,7 +23,7 @@ enum Relationship
 
 
 
-class Object;
+
 #include "../../../Include/GameLogic/Module/HordeContainInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 #include "../../../Include/Common/ThingTemplate.h"

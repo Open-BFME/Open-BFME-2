@@ -36,7 +36,7 @@ enum Relationship
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Object;
+
 
 #include "../../../Include/Common/StateMachineClass.h"
 

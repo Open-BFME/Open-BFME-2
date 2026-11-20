@@ -18,7 +18,7 @@
 #include "../../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
 
-class Object;
+
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
 

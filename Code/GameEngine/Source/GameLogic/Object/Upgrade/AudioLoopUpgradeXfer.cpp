@@ -52,7 +52,7 @@ extern AudioManager *TheAudio;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class AudioLoopUpgrade;
+
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 

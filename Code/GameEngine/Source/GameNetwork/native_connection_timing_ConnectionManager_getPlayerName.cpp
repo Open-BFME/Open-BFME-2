@@ -247,7 +247,7 @@ class Connection
 // mangled names; the BFME-native helpers below keep the BFMEConnectionManager
 // name because theirs are unknown.
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/ConnectionManager.h
-class DisconnectManager;
+
 class NetDisconnectChatCommandMsg : public NetCommandMsg
 {
 public:

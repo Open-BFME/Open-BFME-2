@@ -9,7 +9,7 @@
 // caller 0x003CB896, ret 4, prev/next Hunt/Do pattern.
 #include "ascii_string.h"
 
-class TeamPrototype;
+
 class Rva002A9DCF
 {
 public:

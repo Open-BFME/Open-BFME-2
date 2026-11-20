@@ -17,7 +17,7 @@ struct CreateMask
 {
 	unsigned char data[0x10];
 };
-class Object;
+
 class Player;
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"

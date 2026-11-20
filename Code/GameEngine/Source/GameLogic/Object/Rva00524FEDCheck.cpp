@@ -17,7 +17,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 typedef unsigned char UChar;
 
-class Object;
+
 class BuildListInfo
 {
 public:

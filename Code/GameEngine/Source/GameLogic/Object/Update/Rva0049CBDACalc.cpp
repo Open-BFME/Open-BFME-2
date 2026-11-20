@@ -7,7 +7,7 @@
 // 0x00328700; unblocks 0x00328700; flags /O1 /arch:SSE /DNDEBUG /MD copied
 // from next TU Rva0049D1B1Check.cpp for movss mulss addss cvttss2si. Owner
 // unproven so the name stays address-derived; friend grants the private row.
-class Rva0049CBDA;
+
 
 #include "../../../../Include/Common/GameEngine.h"
 

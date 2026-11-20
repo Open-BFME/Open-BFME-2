@@ -31,7 +31,7 @@ template <class T, class A> class vector;
 
 struct Rva0040F87EGameLogic { char pad00[0x98]; bool m_98; };
 
-class Player;
+
 #include "../../../Include/Common/PlayerList.h"
 
 // 0x003805BB is rowed as Rva00380200::rva003805BB (Rva00380200Getter.cpp).

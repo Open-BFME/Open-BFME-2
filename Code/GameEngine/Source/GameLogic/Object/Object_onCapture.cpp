@@ -17,8 +17,8 @@
 class Xfer;
 class Player;
 class PartitionData;
-class Rva009A2350;
-class Rva00625840;
+
+
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 

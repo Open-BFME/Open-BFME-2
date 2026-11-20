@@ -18,7 +18,7 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-class Object;class SpecialPowerTemplate;class SpecialPowerModuleInterface;class Waypoint;
+class SpecialPowerTemplate;class SpecialPowerModuleInterface;class Waypoint;
 #include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/SpecialPower.h"
@@ -29,7 +29,7 @@ enum CommandSourceType { GRAB_SOURCE0=0,GRAB_SOURCE1=1 };
 class Object {public:char head[0x1C8];BitFlags<11> disabled;public:bool isDisabled()const{return disabled.any();}SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType)const;void setStatus(ObjectStatusTypes,bool);};
 #include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
-class SpecialPowerModule;
+
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class GrabHordeView {public:
  virtual void s0();

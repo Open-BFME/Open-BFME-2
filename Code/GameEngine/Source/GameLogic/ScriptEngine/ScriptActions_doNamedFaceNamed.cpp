@@ -12,7 +12,7 @@
 // spelling currently resolves to a different-layout body in AIUpdate.cpp.
 #include "ascii_string.h"
 
-class Object;
+
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 #include "../../../Include/GameLogic/Rva00358752Opaque.h"
