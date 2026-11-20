@@ -20,7 +20,7 @@
 // text exists for this specific wide-string wrapper (BFME2 addition), so it
 // is named for its observable role rather than presented as a ported ZH name.
 
-typedef unsigned short WideChar;
+
 
 #include "unicode_string.h"
 

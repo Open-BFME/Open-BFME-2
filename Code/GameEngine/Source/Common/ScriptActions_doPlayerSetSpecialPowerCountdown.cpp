@@ -5,13 +5,13 @@
 enum NameKeyType { NK_NONE = 0 };
 
 class SpecialPowerTemplate;
-class SpecialPowerModuleInterface;
+
 
 #include "../GameLogic/Object/object.h"
 
 class Object;
 class Player;
-class ScriptEngine;
+
 
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

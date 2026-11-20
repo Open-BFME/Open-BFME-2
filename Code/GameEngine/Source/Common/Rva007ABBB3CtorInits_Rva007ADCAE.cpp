@@ -64,7 +64,7 @@ typedef _STL::map<int, BfmePod24, _STL::less<int>, _STL::allocator<_STL::pair<co
 
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
-class TextureClass;
+
 
 template <class T> class RefCountPtr
 {
@@ -80,36 +80,36 @@ public:
 	__declspec(dllimport) __forceinline Rva0023DBF9() { ((Rva0023C641 *)this)->Rva0023C641::Rva0023C641(); }
 };
 
-void __cdecl rva007B6AA0();
-void __cdecl rva007B6AD2();
-void __cdecl rva007B6ADC();
-void __cdecl rva007B6E90();
-void __cdecl rva007B707A();
-void __cdecl rva007B7A19();
-void __cdecl rva007B7B8C();
-void __cdecl rva007B7B82();
-void __cdecl rva007B7C7C();
-void __cdecl rva007B7DC7();
-void __cdecl rva007B80BF();
-void __cdecl rva007B80C9();
-void __cdecl rva007B8155();
-void __cdecl rva007B823D();
-void __cdecl rva007B83A5();
-void __cdecl rva007B8F08();
-void __cdecl rva007B8F6D();
-void __cdecl rva007B903F();
-void __cdecl rva007B916C();
-void __cdecl rva007B9748();
-void __cdecl rva007B9997();
-void __cdecl rva007B9B1E();
-void __cdecl rva007B7CC3();
-void __cdecl rva007B6EAE();
-void __cdecl rva007B6EC2();
-void __cdecl rva007B7786();
-void __cdecl rva007B83B9();
-void __cdecl rva007B9071();
 
-extern unsigned int g_00DE1CCD;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void __cdecl rva007B7786();
+
+
+
+
 class Rva002B7250;
 extern Rva002B7250 g_registryAtE02E88; // 0x00E02E88, Rva003EF14ADtor.cpp
 

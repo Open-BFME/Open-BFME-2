@@ -5,7 +5,7 @@
 // recovered; the name is address-derived. No // cl: line: the default /O2
 // frameless shape matches.
 
-class AptValue;
+
 
 class Rva006F1F50Sub
 {

@@ -7,8 +7,8 @@
 // donor was found for the lowercasing step, so the name stays
 // address-derived and descriptive rather than claiming a class.
 
-typedef int Int;
-typedef int Bool;
+
+
 
 template <typename T> struct BfmeStringData;
 

@@ -10,7 +10,7 @@
 
 #include "ascii_string.h"
 
-class AudioManager0029E159;
+
 class ProjectedShadowManager;
 extern ProjectedShadowManager *TheProjectedShadowManager;	// retail singleton at VA 0x00DEC2D4
 

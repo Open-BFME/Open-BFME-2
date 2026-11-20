@@ -12,7 +12,7 @@
 
 typedef void (__cdecl *BfmeChunkParserVE)(void);
 
-extern void __cdecl bfmeChunkParserVE(void);
+
 
 class AsciiString;
 class DataChunkInput;

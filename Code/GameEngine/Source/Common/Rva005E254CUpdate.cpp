@@ -2,7 +2,7 @@
 // Native5E254C..5E25B1 complete101B: pending selection24, icon range14/18,
 // refresh clip, optionally display building-type1 tooltip. Original method unclaimed.
 #include "unicode_string.h"
-struct RGBColor;
+
 #include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 namespace StrategicInGameUI {

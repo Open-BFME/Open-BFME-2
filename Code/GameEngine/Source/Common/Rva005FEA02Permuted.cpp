@@ -28,7 +28,7 @@ private:
 	char m_pad[12];
 };
 
-class Image;
+
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

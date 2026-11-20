@@ -9,7 +9,7 @@
 #include "ascii_string.h"
 #include "BattlePromptCounterView.h"
 
-class ThingTemplate;
+
 #include "../../Include/Common/ThingFactory.h"
 
 extern class ThingFactory *TheThingFactory;

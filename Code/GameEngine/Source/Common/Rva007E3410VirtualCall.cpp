@@ -12,7 +12,7 @@
 // virtual declarations preserve slot spacing only, not original signatures.
 // The callee at 0x1A3140 is AggregateDefClass::Create (agg_def.cpp); only that
 // member is declared here.
-class RenderObjClass;
+
 #include "../../../Libraries/Source/WWVegas/WW3D2/AggregateDefClass.h"
 
 class Rva00180AD6HelperOwner

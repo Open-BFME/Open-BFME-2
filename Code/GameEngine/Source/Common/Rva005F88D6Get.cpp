@@ -6,7 +6,7 @@
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-struct Rva002B2579Result;
+
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 

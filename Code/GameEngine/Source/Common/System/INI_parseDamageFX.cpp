@@ -27,7 +27,7 @@ extern DamageFXStore *TheDamageFXStore;
 // The lookup's retail body 0x00360966 is the ICF-shared one rowed as
 // ArmorStore::findArmorTemplate (ArmorStoreCtor.cpp); call it by that name
 // with the same thiscall ABI (DamageFXStore::findDamageFX has no row).
-class ArmorTemplate;
+
 #include "../../../Include/GameLogic/ArmorStore.h"
 
 #include "../../../Include/Common/INI/INI.h"

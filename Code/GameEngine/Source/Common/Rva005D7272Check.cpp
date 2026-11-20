@@ -8,7 +8,7 @@
 // Evidence: gap lane same TU/flags; callees Stances namekey 0x0045EE2C findModule 0x0028B6D6
 // Stances 0x0045ED4B victim 0x00268D71 Object 0x0028C197 float slots 0x264/0x14;
 // global g_Va007C26F0.
-typedef int Bool;
+
 enum NameKeyType
 {
 	NK_UNKNOWN = 0

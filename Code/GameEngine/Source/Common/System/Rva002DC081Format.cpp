@@ -5,7 +5,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 #include "../../../Include/Common/ScalarTypes/WideChar.h"
 typedef unsigned int DWORD;
-typedef unsigned short WORD;
+
 #define NULL 0
 
 #include "../../../Include/Common/SYSTEMTIME.h"

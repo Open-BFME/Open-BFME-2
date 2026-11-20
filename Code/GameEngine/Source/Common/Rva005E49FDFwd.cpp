@@ -4,7 +4,7 @@
 // The four-byte comparator carries the caller's army context. The fifth
 // bool* is passed last and is unused by the owned75B partition provider.
 // Original function names remain unknown; remove the former void alias pin.
-struct Rva005E4300Context;
+
 #include "../../../Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h"
 int *__cdecl Rva005E4817Partition(int *,int *,Rva005E4300Cmp,int,bool *);
 

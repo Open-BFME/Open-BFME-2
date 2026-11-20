@@ -42,11 +42,11 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
 template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*, size_t);
 }
 
-void Rva006016C9Init() throw();
+
 
 // ?rva00601C53@@YAXPAXH000@Z @0x00601C53 1027B worker (unrowed): __cdecl 5-param
 // (outer, flag, m_1C, m_28, &m_04); address-derived ABI from the native call; semantic identity remains unknown.
-void __cdecl rva00601C53(void *outer, int flag, void *vec1, void *vec2, void *member);
+
 
 struct Rva00524415
 {

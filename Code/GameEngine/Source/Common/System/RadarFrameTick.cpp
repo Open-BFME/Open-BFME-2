@@ -80,7 +80,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
-extern float g_00BC26EC;
+
 
 class TerrainLogic;
 

@@ -4,7 +4,7 @@
 // GameEngine/Source/Common/System/RAMFile.cpp RAMFile::write returns -1.
 // Evidence: direct callers push 2 args then call at 0x0042C108 and 0x005E592B
 // plus jmp at 0x005753AF; cmp eax -1 in 0x005E5920 proves -1 sentinel.
-class AsciiString;
+
 
 #include "../../../Include/Common/File.h"
 

@@ -5,7 +5,7 @@
 #include "ascii_string.h"
 
 class SpecialPowerTemplate;
-class SpecialPowerModuleInterface;
+
 
 #include "../GameLogic/Object/object.h"
 

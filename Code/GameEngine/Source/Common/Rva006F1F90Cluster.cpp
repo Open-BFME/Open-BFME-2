@@ -4,7 +4,7 @@
 // A __cdecl free function; identity is not recovered, so the name is
 // address-derived. No // cl: line: the default /O2 frameless shape matches.
 
-class AptValue;
+
 
 class Rva006F1F90Sub
 {

@@ -30,15 +30,15 @@
 // pop's epilogue. Same shape as the matched siblings 0x0010F4FA / 0x0010F557
 // and 0x0010F5A8.
 
-extern "C" __declspec(dllimport) void __stdcall AIL_close_stream(void *stream);
-extern "C" __declspec(dllimport) int __stdcall AIL_service_stream(void *stream, int fillup);
+
+
 extern "C" __declspec(dllimport) int __stdcall AIL_stream_info(void *stream, int *datarate, int *sndtype, int *length, int *memory);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_playback_rate(void *stream, int rate);
-extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_volume_pan(void *stream, float volume, float pan);
-extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_reverb_levels(void *stream, float dryLevel, float wetLevel);
-extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_loop_count(void *stream, int count);
-extern "C" __declspec(dllimport) void __stdcall AIL_stream_ms_position(void *stream, int *totalMs, int *currentMs);
-extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_ms_position(void *stream, int ms);
+
+
+
+
+
 
 #include "../../Include/Common/Rva0010F24F.h"
 

@@ -11,7 +11,7 @@
 
 // Native caller42C879 forwards GameMessage* and tests the full int result.
 // Correct the existing thunk owner ABI; its seven target bytes stay unchanged.
-class GameMessage;
+
 
 class Rva005E3AA2Outer
 {

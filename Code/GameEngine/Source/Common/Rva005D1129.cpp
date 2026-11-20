@@ -17,7 +17,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../Include/Common/Rva005EB87A.h"
 
 class Object;
-class Rva002BA8F1Logic;
+
 
 #include "../../Include/Common/Rva00575674.h"
 

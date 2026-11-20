@@ -54,7 +54,7 @@ class Player;
 class Object;
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class PlayerList;
+
 extern GameLogic *TheGameLogic;
 
 class Object
