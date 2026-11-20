@@ -56,13 +56,13 @@ public:
 	virtual bool isClearToApproach(const Object *docker) const;
 };
 
-class Rva004A0E0C : public DockUpdate
+class SupplyCenterDockUpdate : public DockUpdate
 {
 public:
-	virtual ~Rva004A0E0C();
+	virtual ~SupplyCenterDockUpdate();
 };
 
-Rva004A0E0C::~Rva004A0E0C()
+SupplyCenterDockUpdate::~SupplyCenterDockUpdate()
 {
 }
 

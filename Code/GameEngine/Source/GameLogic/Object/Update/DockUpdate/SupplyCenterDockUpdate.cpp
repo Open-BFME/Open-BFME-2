@@ -510,7 +510,7 @@ UpdateSleepTime SupplyCenterDockUpdate::update()
 
 // tu-skeleton: 0x004A0E06 6B ?Rva004A0E06Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004A0E0C 32B ??1Rva004A0E0C@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)
+// tu-skeleton: 0x004A0E0C 32B ??1SupplyCenterDockUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateXfer.cpp
 
@@ -530,4 +530,4 @@ NameKeyType SupplyCenterDockUpdate::getModuleNameKey() const
 	return TheSupplyCenterDockUpdatePoolKey;
 }
 
-// tu-skeleton: 0x004A0E91 28B ??_GRva004A0E0C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)
+// tu-skeleton: 0x004A0E91 28B ??_GSupplyCenterDockUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp (not merged yet)
