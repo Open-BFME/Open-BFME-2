@@ -108,3 +108,17 @@ open to them.
 
 Not measured: this item's pass test needs a published real link, which this
 seat cannot run, so whether the queue still lists the table is unverified here.
+
+### The sibling table 0x008ED844 took the identical repair
+
+`tools/vftable_map.py --va 0x00CED844` against `--va 0x00CED808` shows the two
+retail tables are the **same addresses in slots 0..13** and differ only at slot
+14, each class's own deleting destructor (0x006FB980 vs 0x006FB9E0). So
+`Rva006FBA10` (destructor in the same `Rva006DE350Derived.cpp`, deleting
+destructor in `Rva006FBA10DeletingDtor.cpp`) took the same re-base and the same
+two override rows, with type 8 in the local enum where the first used 4.
+
+Both tables now bind **15/15 slots to retail's address**, and each table's two
+COMDAT copies are identical across its two units (`??_G` ec0926376eab, `??_7`
+389d616d7d8d for this one). The constructor-side names `Rva006FB960` and
+`Rva006FB9C0` are untouched and remain the naming lane's to reconcile.

@@ -98,17 +98,26 @@ bool Rva006FB9B0::IsGarbageCollected() const { return false; }
 
 void Rva006FB9B0::RegisterReferences() const {}
 
-class Rva006FBA10 : public Rva006DE350
+// Rva006FBA10 is the sibling of Rva006FB9B0 above: retail table 0x008ED844 is
+// identical to 0x008ED808 in slots 0..13 and differs only at slot 14, its own
+// deleting destructor at 0x006FB9E0. Same AptValue base, same two overrides.
+class Rva006FBA10 : public AptValue
 {
 public:
 	virtual ~Rva006FBA10();
+	virtual bool IsGarbageCollected() const;
+	virtual void RegisterReferences() const;
 	static void operator delete(void *p, unsigned int size)
 	{
 		g_pChainBlockAllocator->freeBlock(p, size);
 	}
-	char m_pad[8]; // +0x04..0x0B: sizeof 0xC for the sized delete
+	char m_pad[4]; // AptValue is 8 bytes: +0x08..0x0B keeps sizeof 0xC
 };
 
 Rva006FBA10::~Rva006FBA10()
 {
 }
+
+bool Rva006FBA10::IsGarbageCollected() const { return false; }
+
+void Rva006FBA10::RegisterReferences() const {}
