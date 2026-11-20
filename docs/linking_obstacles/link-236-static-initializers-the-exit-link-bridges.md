@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 459).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 458).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1632,3 +1632,11 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   (round lk54), so Radar's copy is 0x007AE40B. Radar.cpp (private views) takes
   GameClient/DrawableFramesPerFlash.h and registers it as `_$E1`. *Lead:* 0x007AE435 after TheMappedImageCollection
   is System/Image.cpp's by the same pairing, once a second fact shows that unit includes Drawable.h.
+- *Taken (459 -> 458): ParticleSys.cpp's copy.* Retail's run is the copy 0x007AD4FB, then 0x007AD50B (constructs the
+  16-byte 0x00DFDD0C through 0x001F4A40, code inside ParticleSys.cpp's approved range 0x001F392E..0x001FCF11, and
+  registers its cleanup), then the FXParticleSystem BlockParse node 0x007AD521, closed by the marker 0x007AD536. The
+  `.bss` holds ObjectCreationList's function-local statics, TheParticleSystemManager 0x00DFDD04, this copy
+  0x00DFDD08, then 0x00DFDD0C; link order agrees (ObjectCreationList.cpp's code 0x001F0132.. precedes ParticleSys.cpp's,
+  PlayerTemplate.cpp's 0x001FD1B7.. follows, as their runs do). Zero Hour's ParticleSys.cpp defines
+  TheParticleSystemManager and includes GameClient/Drawable.h (donor facts). ParticleSys.cpp (private views) takes
+  GameClient/DrawableFramesPerFlash.h and registers the copy as `_$E1`; the run's other two entries stay bridged.

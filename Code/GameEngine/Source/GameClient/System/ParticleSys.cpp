@@ -4,6 +4,10 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include <vector>
 #include "ascii_string.h"
+// Retail 0x007AD4FB: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, the first entry of its initializer
+// run (before 0x007AD50B and the BlockParse node 0x007AD521); its static (VA 0x00DFDD08) directly follows the unit's
+// TheParticleSystemManager (0x00DFDD04). The unit is built on private views, so it takes the constant's own header.
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
 // ?set@Rva001F3C20Slot@@QAEXPBVRva0055A88BDwordField@@@Z @0x001F3C20 35B,
 // ?set@Rva001F3C43Slot@@QAEXPBURva001F3C43Arg@@@Z @0x001F3C43 29B,
 // ?set@Rva001F3C60Slot@@QAEXABVAsciiString@@@Z @0x001F3C60 11B.
