@@ -16,6 +16,10 @@ unsigned long __cdecl bfmeVM0WorkerThread(void *param);
 
 // Retail's timer frequency at 0x00DFE9E0 is one object, owned by Rva0025D489Ctor.cpp, which Display's ctor fills through QueryPerformanceFrequency.
 #include "../../Include/Common/DisplayCriticalSection.h"
+// Retail 0x007ADD9D: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run (the only
+// run between ModuleFactory's and Network's); its static (VA 0x00DFEA24) directly follows the unit's MovieFrameDropped.
+// The unit is built on private views, so it takes the constant's own header.
+#include "../../Include/GameClient/DrawableFramesPerFlash.h"
 extern DisplayCriticalSection g_00DFE9E0;
 #define g_bfmeVM0Total g_00DFE9E0.frequency
 

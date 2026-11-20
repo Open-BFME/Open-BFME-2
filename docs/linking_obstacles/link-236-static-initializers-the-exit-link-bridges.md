@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 438).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 437).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1793,3 +1793,10 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   second. ObjectTypes.cpp (private views) takes GameClient/DrawableFramesPerFlash.h right after its ThingFactory.h
   include and registers the copy as `_$E1`. *Lead:* the mask run before it is then AerialPathfinder's (five 4-byte
   ZeroInits masks), which round in-o6 had first traced to an AerialPathfinder header.
+- *Taken (438 -> 437): Display.cpp's copy, by link order and layout.* 0x007ADD9D is the only run between ModuleFactory.cpp's
+  (`_$E208` 0x007ADD72) and Network.cpp's (`_$E1` 0x007ADDC7). In `.text` the only unit between ModuleFactory's code
+  (`init` ends 0x0025BF40) and Network's (0x0025DB6D..) is Display.cpp (0x0025C134..0x0025DA8D), with small helpers.
+  In the `.bss` the copy 0x00DFEA24 directly follows Display's plain g_bfmeVM0Scale, MovieFrameCount and MovieFrameDropped
+  (read by code approved to Display.cpp) and precedes TheNetwork. Two target facts, no donor one (Zero Hour's Display.cpp
+  does not include Drawable.h). Display.cpp (private views) takes GameClient/DrawableFramesPerFlash.h and registers the
+  copy as `_$E1`.
