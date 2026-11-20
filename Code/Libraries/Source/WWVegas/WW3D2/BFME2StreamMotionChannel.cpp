@@ -44,11 +44,20 @@ struct BFME2StreamCache
 // bytes. Dedicated TU so BFME2MotionChannelFactory.cpp cannot see this body.
 // Calls the base ctor then zeros the payload pointer at this+0x28.
 
+// Retail's base table (VA BD6CB4) is __purecall in every slot but the deleting
+// dtor; the stream table (VA BD7624) adds Load, the dtor and slot 2 and leaves
+// slots 3..6 pure. Slot order is the factory unit's (BFME2MotionChannelFactory.cpp).
 class BFME2MotionChannel
 {
 public:
 	BFME2MotionChannel();
+	virtual bool Load(ChunkLoadClass &) = 0;
 	virtual ~BFME2MotionChannel();
+	virtual int UnknownSlot2() = 0;
+	virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor) = 0;
+	virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor) = 0;
+	virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor) = 0;
+	virtual int UnknownSlot6() = 0;
 	int Type;
 	int Pivot;
 	int Count;
@@ -69,7 +78,9 @@ class BFME2StreamMotionChannel : public BFME2MotionChannel
 {
 public:
 	BFME2StreamMotionChannel();
+	virtual bool Load(ChunkLoadClass &);
 	virtual ~BFME2StreamMotionChannel();
+	virtual int UnknownSlot2();
 	float Scale;
 	float Initial[4];
 	unsigned char *Data;
@@ -82,6 +93,7 @@ public:
     virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
     virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
     virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
+    virtual int UnknownSlot6();
     inline void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *frameValue, Vector3 *nextFrameValue);
     inline void decompress(unsigned int *state, unsigned int from, unsigned int frame, float *frameValue, float *nextFrameValue);
     inline void rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *nextFrameValue);
@@ -104,6 +116,7 @@ public:
 	virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
 public:
 	virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
+	virtual int UnknownSlot6();
 public:
 	inline void rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *frameValue, Vector3 *nextFrameValue);
 public:
