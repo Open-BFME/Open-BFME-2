@@ -6390,3 +6390,7 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 _$E10,0x007AE908,"Respelled to _$E1 by tools/rename.py initializers (^code_^game^engine_^source_^game^logic_^system_^global^weather^system.obj's .CRT$XCU order against retail's table)"
 ??0Rva00098667Product@@QAE@XZ,0x00098667,"Renamed to ??0Rva00098690@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00BC8358)"
 ?rva00098565@Rva00098667Product@@UAEXXZ,0x00098565,"Renamed to ?rva00098565@Rva00098690@@UAEXXZ by tools/rename.py (fold: retail vftable 0x00BC8358)"
+??0Rva005CE804@@QAE@PAXHHHHPAUFwdArg@@@Z,0x005CE804,"Renamed to ??0Rva005CE874@@QAE@PAXHHHHPAUFwdArg@@@Z by tools/rename.py (fold: retail vftable 0x00C75184)"
+__ehhandler$??0Rva005CE804@@QAE@PAXHHHHPAUFwdArg@@@Z,0x007A1714,"Renamed to __ehhandler$??0Rva005CE874@@QAE@PAXHHHHPAUFwdArg@@@Z by tools/rename.py (fold: retail vftable 0x00C75184)"
+??1Rva005CE804@@UAE@XZ,0x005CE874,"Merged into ??1Rva005CE874@@UAE@XZ (one body, one class) by tools/rename.py (fold: retail vftable 0x00C75184)"
+??_GRva005CE804@@UAEPAXI@Z,0x005CE8C0,"Merged into ??_GRva005CE874@@UAEPAXI@Z (one body, one class) by tools/rename.py (fold: retail vftable 0x00C75184)"

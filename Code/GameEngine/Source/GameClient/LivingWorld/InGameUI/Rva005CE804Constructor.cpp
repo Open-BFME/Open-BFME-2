@@ -24,13 +24,14 @@ class Rva005E8F50;
 #include "../../../../Include/Common/Rva005CEA51.h"
 typedef char Rva005CEA51SizeCheck[(sizeof(Rva005CEA51)==4)?1:-1];
 struct FwdArg { char pad[0x1c]; int id; };
-// The inline dtor compiles to the 76 bytes of the rowed ??1Rva005CE874 at
-// 0x005CE874 (both vptrs, member +1C through 0x005CE7EA, observer vptr
-// BED658, base dtor 0x005E6810), which its deleting dtor 0x005CE8C0 calls.
-class Rva005CE804 : public Rva005E67FE, public Rva005CE804Observer {
- public: Rva005CE804(void*,int,int,int,int,FwdArg*); virtual ~Rva005CE804() {} virtual void onBuildingChanged() = 0;
+// The destructor is the rowed ??1Rva005CE874 at 0x005CE874 (Rva005CE874Destructor.cpp:
+// both vptrs, member +1C through 0x005CE7EA, observer vptr BED658, base dtor
+// 0x005E6810), which its deleting dtor 0x005CE8C0 calls; declared here, not
+// defined, so this unit emits no second ??1Rva005CE874 COMDAT.
+class Rva005CE874 : public Rva005E67FE, public Rva005CE804Observer {
+ public: Rva005CE874(void*,int,int,int,int,FwdArg*); virtual ~Rva005CE874(); virtual void onBuildingChanged() = 0;
  private: int a; int b; int c; FwdArg *region; Rva005CEA51 owned;
 };
-Rva005CE804::Rva005CE804(void *owner,int context,int unused,int ui,int extra,FwdArg *fwdArg):Rva005E67FE(owner),a(context),b(ui),c(extra),region(fwdArg) {
+Rva005CE874::Rva005CE874(void *owner,int context,int unused,int ui,int extra,FwdArg *fwdArg):Rva005E67FE(owner),a(context),b(ui),c(extra),region(fwdArg) {
  ((Rva005E683EMid*)this)->fwd(region->id,(int)region);
 }

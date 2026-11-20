@@ -12,9 +12,9 @@ class Object;
 #include "../../../../Include/Common/Rva00575674.h"
 
 struct FwdArg;
-class Rva005CE804 {
-public: Rva005CE804(void *owner,int context,int unused,int ui,int extra,FwdArg *region);
-virtual ~Rva005CE804();
+class Rva005CE874 {
+public: Rva005CE874(void *owner,int context,int unused,int ui,int extra,FwdArg *region);
+virtual ~Rva005CE874();
 private: unsigned char storage[0x20-4];
 };
 #include "../../../../Include/Common/Rva00328A83PtrChaseField.h"
@@ -95,7 +95,7 @@ void Rva005759A5::rva005759A5(int value)
 	}
 	reinterpret_cast<Rva000AD6F4 *>(&m_current28)->clear();
 	reinterpret_cast<Rva00575674 *>(&m_current28)->rva00575674(reinterpret_cast<Object *>(
-		new Rva005CE804(static_cast<Rva005759A5Base4 *>(this), m_1C, m_20,
+		new Rva005CE874(static_cast<Rva005759A5Base4 *>(this), m_1C, m_20,
 			Rva005759A5Word(Rva005759A5Ref(m_source18->m_field04).first()->get()),
 			Rva005759A5Ref(m_source18->m_field04).second()->get(),
 			(FwdArg *)value)));
