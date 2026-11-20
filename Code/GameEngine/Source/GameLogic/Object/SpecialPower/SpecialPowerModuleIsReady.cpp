@@ -17,13 +17,10 @@ static unsigned frame() { return ((SpecialReadyFrameView *)TheGameLogic)->frame;
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface {
-public: virtual bool isReady() const; virtual void startPowerRecharge(float percent);
- int unknown14; unsigned available; int paused; unsigned pausedOnFrame; float pausedPercent; bool blocked;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleClass.h"
 bool SpecialPowerModule::isReady() const
 {
- if (blocked)
+ if (m_28)
   return false;
  const Object *obj = getObject();
  if (obj->testStatus(Status70))
@@ -37,7 +34,7 @@ bool SpecialPowerModule::isReady() const
     return frame() >= ((Rva002AC6B1PlayerTimers *)player)->getOrStart(power);
   }
  }
- return paused == 0 && frame() >= available;
+ return m_pausedCount == 0 && frame() >= m_availableOnFrame;
 }
 
 // ?startPowerRecharge@SpecialPowerModule@@UAEXM@Z @0x0049369D 360B (WorldBuilder
@@ -81,13 +78,13 @@ void SpecialPowerModule::startPowerRecharge(float percent)
    ready -= percent;
    if (ready < 0.0f)
     ready = 0.0f;
-   available = frame() + (unsigned)(frames * (1.0f - ready));
+   m_availableOnFrame = frame() + (unsigned)(frames * (1.0f - ready));
   }
   else
   {
-   available = frame() + frames;
-   unknown14 = available - frame();
+   m_availableOnFrame = frame() + frames;
+   m_rechargeFrames = m_availableOnFrame - frame();
   }
  }
- blocked = false;
+ m_28 = false;
 }

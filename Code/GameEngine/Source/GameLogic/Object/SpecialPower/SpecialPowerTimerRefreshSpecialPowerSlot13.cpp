@@ -9,27 +9,7 @@
 #include "../../../../Include/Common/BitFlagsTemplate.h"
 #include "../object.h"
 class ModuleData;
-class SpecialPowerModule
-{
-public:
-	virtual ~SpecialPowerModule();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void ApplyPowerToObject(Object *obj, int value, const BitFlags<11> *disabled);
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleClass.h"
 class SpecialPowerTimerRefreshSpecialPower : public SpecialPowerModule
 {
 public:
