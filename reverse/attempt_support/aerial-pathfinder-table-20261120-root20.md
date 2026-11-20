@@ -38,3 +38,14 @@ retain their rows. The typed constructor and destructor match all
 existing lifetime rows and bind the admitted list helpers. The
 six-source build verified 81 function rows and six exact EH graphs.
 The scoped preview kept 2,735 linked bytes.
+
+The lifetime destructor's two declaration-only instantiations now use
+`extern template`. In isolation all four rows, the EH graph, COMDATs
+and references are unchanged. The owning merge still refuses this
+donor. MSVC C2929 rejects forcing and suppressing the same member in
+one unit, in either order. Scratch composition with the suppression
+removed retains the typed providers and matches six of nine rows.
+The 59-byte destructor, its EH handler and its cleanup funclet fail.
+The constructor alone emits all four typed helpers without explicit
+instantiation, so removing those definitions does not restore the
+merged destructor's exact code. Both lifetime files stay separate.

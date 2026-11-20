@@ -245,3 +245,8 @@ revision-bound approval, then slots 1 and 10 need their one-byte folds.
 The native polygon/height list now binds the four admitted helper
 folds in both lifetimes. All 81 rows and six EH graphs across the six
 consumer and provider units match, with 2,735 scoped linked bytes.
+
+The lifetime merge still needs a combined-source instantiation context
+that preserves the exact destructor and its two EH companions. MSVC
+C2929 rejects both declaration orders, and a merged scratch source
+without suppression matches six of nine rows.
