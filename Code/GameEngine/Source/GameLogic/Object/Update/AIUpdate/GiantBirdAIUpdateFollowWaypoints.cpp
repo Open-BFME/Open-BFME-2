@@ -61,25 +61,25 @@ struct Rva0036BA77Speed
 	float getSpeed() const { return m_speed; }
 };
 
-class GiantBirdAIUpdate
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
+
+class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
 	// 0x003697F9 (Rva003697F9.cpp): follow the built point path.
 	void privateFollowPath(const Rva0035149F &path, const Object *object, const Waypoint *goal, int flag);
 	void privateFollowWaypointPath(const Waypoint *way, const Waypoint *goal);
 private:
-	char m_unrecovered000[0x1F0];
-	Rva0036BA77Speed *m_speedSource;	///< 0x1F0
-	char m_unrecovered1F4[0x540 - 0x1F4];
-	float m_speed;						///< 0x540
+	char m_unrecovered3E4[0x540 - 0x3E4];
+	float m_540; // +0x540
 	char m_unrecovered544[0x550 - 0x544];
 	bool m_pathLoops;					///< 0x550
 };
 
 void GiantBirdAIUpdate::privateFollowWaypointPath(const Waypoint *way, const Waypoint *goal)
 {
-	if (m_speedSource)
-		m_speed = m_speedSource->getSpeed();
+	if (m_curLocomotor)
+		m_540 = reinterpret_cast<const Rva0036BA77Speed *>(m_curLocomotor)->getSpeed();
 	m_pathLoops = false;
 	_STL::vector<Coord3D> path;
 	if (!way)

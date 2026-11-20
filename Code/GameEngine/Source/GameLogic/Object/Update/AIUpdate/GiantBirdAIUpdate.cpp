@@ -315,6 +315,9 @@ public:
 	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 	virtual void privateFollowPathAppend(const Coord3D *pos, CommandSourceType commandSource);
+	using AIUpdateInterface::privateFollowPath;
+	void privateFollowPath(const Rva0035149F &path, const Object *object, const Waypoint *goal, int flag);
+	void privateFollowWaypointPath(const Waypoint *way, const Waypoint *goal);
 	void rva0036AE79();
 	const GiantBirdAIUpdateModuleData *getGiantBirdAIUpdateModuleData() const { return (const GiantBirdAIUpdateModuleData *)m_moduleData; }
 	Bool testFlag(Int bit) const { return (m_4B8 >> bit) & 1; }
@@ -332,7 +335,7 @@ private:
 	unsigned char m_pad52C[0x538 - 0x52C];
 	Real m_538; // +0x538
 	Real m_53C; // +0x53C
-	unsigned char m_pad540[0x544 - 0x540];
+	Real m_540; // +0x540
 	Coord3D m_544; // +0x544
 	Bool m_pathLoops; // +0x550
 	unsigned char m_pad551[0x558 - 0x551];
