@@ -23,7 +23,7 @@ private:
 };
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/Damage.h"
-class ModuleData;
+
 #include "../../../../Include/GameLogic/Module/ModuleBase.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"

@@ -11,7 +11,7 @@
 // count and refuses above the module data's +0x98 limit. Only the layout
 // this body touches is modelled.
 
-class Rva00588E44Contain;
+
 
 enum ObjectStatusTypes
 {
@@ -27,7 +27,7 @@ public:
 	void *m_hordeMember;	// +0x250
 };
 
-struct Coord3D;
+
 #include "../../../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 
 struct HordeTransportContainModuleData

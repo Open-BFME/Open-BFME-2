@@ -45,7 +45,7 @@ class Path;
 float normalizeAngle(float);
 #include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
-struct Rva003642DFNode;
+
 #include "../../../../Include/GameLogic/PathfindPath.h"
 enum CommandSourceType { COMMAND_SOURCE_2 = 2 };
 class AICommandInterface {

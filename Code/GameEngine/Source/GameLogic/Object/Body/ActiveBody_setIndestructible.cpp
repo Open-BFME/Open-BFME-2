@@ -18,8 +18,8 @@
 // up with the rowed GameLogic::findObjectByID 0x00049DC5). Structural
 // inference: the tower's body module is held in a local before its null test
 // so it is loaded once, as retail.
-class Thing;
-class ModuleData;
+
+
 #include "../../../Common/GameLogicObjectLookupView.h"
 class BridgeBehaviorInterface
 {

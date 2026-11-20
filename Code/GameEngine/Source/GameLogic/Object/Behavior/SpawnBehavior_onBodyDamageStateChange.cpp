@@ -29,7 +29,7 @@ public:
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 class ThingTemplate;
 struct UpgradeMaskType;
-struct AEXPAVDamageInfo;
+
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,

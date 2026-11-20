@@ -9,8 +9,8 @@
 // with BehaviorModuleOther at +0x0C and UpdateModuleInterface at +0x10 plus
 // secondary at +0x20 with m_object at primary+0x08). No EH frame; no STL.
 
-class Thing;
-class ModuleData;
+
+
 class Object;
 
 enum UpdateSleepTime

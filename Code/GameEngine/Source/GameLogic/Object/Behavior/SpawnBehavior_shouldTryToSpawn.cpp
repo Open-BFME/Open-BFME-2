@@ -15,8 +15,8 @@
 // virtual slot 9 (offset 0x24) on the +0x20 secondary. testStatus 2/0x13/0x15
 // are UNDER_CONSTRUCTION/SOLD/RECONSTRUCTING via rowed 0x0004E536.
 
-class Thing;
-class ModuleData;
+
+
 class Object;
 
 enum ObjectStatusTypes

@@ -14,7 +14,7 @@
 // FireWeaponWhenDamagedBehavior pool key at 0x4827AA names the family.
 class ModuleData;
 class INI;
-class MultiIniFieldParse;
+
 
 #include "../../../../Include/Common/INI/INI.h"
 

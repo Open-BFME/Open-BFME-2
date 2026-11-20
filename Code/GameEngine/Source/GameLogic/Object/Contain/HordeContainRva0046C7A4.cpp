@@ -118,7 +118,7 @@ public:
 	virtual Object *rva0046C7A4(bool skipStatus, const Coord3D *pos, float maxDistance, Object *attacker, int useClientRandom) = 0;
 };
 
-struct AEXPBVObject;
+
 class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:

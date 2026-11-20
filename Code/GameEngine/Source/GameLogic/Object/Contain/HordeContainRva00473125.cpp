@@ -26,7 +26,7 @@ public:
 	void bfmeGoDSU(void *what, void *v);
 };
 
-class ObjectArg;
+
 class HordeContain20Iface
 {
 public:

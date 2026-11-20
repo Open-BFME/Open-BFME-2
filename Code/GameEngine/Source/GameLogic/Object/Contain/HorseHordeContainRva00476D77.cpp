@@ -10,7 +10,7 @@ struct Rva0028AC4EEntry;class Rva001E3591 {public:bool rva001E3591();};class Rva
 struct Rva001E4194A;bool __stdcall Rva001E4194Get(Rva001E4194A*);
 float normalizeAngle(float);
 #include "../../../../Include/GameLogic/Rva0008BB38FloatField.h"
-struct Rva003642DFNode;
+
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 enum CommandSourceType {COMMAND_SOURCE_2=2};

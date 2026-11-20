@@ -65,9 +65,9 @@ class Locomotor;
 
 #include "../../../../Include/Common/Geometry.h"
 
-class Drawable;
-struct Rva0028AC4EEntry;
-class Rva003BD306Target;
+
+
+
 #include "../object.h"
 
 template <int N> class AODTerrainSlots : public AODTerrainSlots<N - 1>
@@ -197,7 +197,7 @@ class Rva00474B51
  Coord3D *rva00474B51(Coord3D *out,Object *obj, int word);
 };
 
-struct AEXPBVObject;
+
 class HordeContain : public HordeContainPrimary, public HordeContainIface
 {
  public:

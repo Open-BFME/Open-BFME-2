@@ -49,7 +49,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include <algorithm>
 
-typedef bool Bool;
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

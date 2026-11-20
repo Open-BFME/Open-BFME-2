@@ -19,8 +19,8 @@
 // not established.
 
 class Coord3D;
-class ModuleData;
-class Player;
+
+
 
 // Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
 #include "../../../Common/GameLogicObjectLookupView.h"

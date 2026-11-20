@@ -20,8 +20,8 @@ namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9El
 __declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &p)
 {void *base=this;char *field=(char *)base+0x20;p.m00=(ContainModuleInterface *)(base?field:0);p.m04=(IntList *)((char *)base+0x54);}
 class Object;
-struct Coord3D;
-class Rva00588E44Contain;
+
+
 #include "../../../../../Include/GameLogic/Module/Rva0047A040Base9E0.h"
 #include "../../../../../Include/Common/Rva00270260.h"
 enum DamageType { DeathDamage=8 }; enum DeathType { NormalDeath=0 };

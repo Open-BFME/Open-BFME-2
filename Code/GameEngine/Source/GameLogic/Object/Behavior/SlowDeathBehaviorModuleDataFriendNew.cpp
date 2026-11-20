@@ -14,7 +14,7 @@
 // immediate; the ctor fits the 0x190 news size.
 class ModuleData;
 class INI;
-class MultiIniFieldParse;
+
 
 #include "../../../../Include/Common/INI/INI.h"
 

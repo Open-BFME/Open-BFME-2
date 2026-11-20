@@ -29,7 +29,7 @@
 
 
 class Thing;
-class ModuleData;
+
 class DamageInfo;
 class WeaponTemplate;
 

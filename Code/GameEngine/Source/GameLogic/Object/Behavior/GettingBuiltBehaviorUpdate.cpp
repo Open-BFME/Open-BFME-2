@@ -50,7 +50,7 @@ public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();
  virtual void v4();virtual void cleanup();virtual bool active();
 };
 #include "../../../../Include/GameLogic/Module/BfmeThingE63.h"
-class ModuleData;
+
 #include "../../../../Include/Common/BehaviorModuleBase.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
