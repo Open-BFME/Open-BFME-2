@@ -9,7 +9,7 @@
 // Evidence: callers at 0x00069340/0x0006B416 (both unclaimed), rowed callee,
 // and-zero plus tail-jmp shape.
 
-struct BfmeResetResource;
+
 
 struct RefObj00067878
 {

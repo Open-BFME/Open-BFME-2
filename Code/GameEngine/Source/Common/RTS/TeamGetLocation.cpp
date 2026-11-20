@@ -23,10 +23,10 @@ inline Coord3D::Coord3D(float xv,float yv,float zv) { x=xv;y=yv;z=zv; }
 
 #include "Common/Snapshot.h"
 #include "../../../Include/Common/TeamBFME2.h"
-class Player;
+
 struct Rva002C5FBAResult { char pad[12]; Coord3D location; };
 class Rva002C5FBA { public: void *rva002C5FBA(int); };
-class TeamPrototype;
+
 #include "../../../Include/Common/Rva002A8AB1Record.h"
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;

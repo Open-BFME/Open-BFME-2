@@ -30,7 +30,7 @@ extern "C" void _ReadWriteBarrier();
 #include "unicode_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class Image;
+
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplayClass.h"
 
 class ListNode0025D9E3

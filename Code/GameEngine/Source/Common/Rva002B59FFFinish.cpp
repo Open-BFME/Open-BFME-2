@@ -44,7 +44,7 @@
 // exactly as retail has.  Same 96 bytes, all 96 exact.
 #include <vector>
 
-typedef bool Bool;
+
 
 #include "../../Include/Common/Rva0023C6A4.h"
 

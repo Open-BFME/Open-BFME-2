@@ -13,8 +13,8 @@
 // the ZH struct (globalTextureClass, firstTile, numTiles, width,
 // isBlendEdgeTile, name at +0x14, positionInTexture).
 
-typedef int Int;
-typedef bool Bool;
+
+
 
 #include "ascii_string.h"
 

@@ -20,7 +20,7 @@ union GameMessageArgumentType
 
 #include "../../Include/Common/MessageStream.h"
 
-struct ObjList;
+
 #include "../../Include/Common/Rva0029DE76.h"
 
 #include "../../Include/GameClient/InGameUI.h"

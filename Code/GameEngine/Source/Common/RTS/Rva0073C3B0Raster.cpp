@@ -3,12 +3,12 @@
 // Same midpoint-circle shape as 0x0073BF40 (donor taintmanager_impl.cpp bfmeRasterCircleFC);
 // per-row gate is the rowed rva0073BB40 decrement updater, checked with 1 on full sweep 0 on early out.
 // Caller 0x0073CD2A; unblocks 0x0073CCC0.
-class BfmeCellFD;
+
 
 #include "../../../Include/Common/Gen_008F7CD0.h"
 
-class ShroudManagerImpl;
-class ShroudManagerCell;
+
+
 
 #include "../../../Include/Common/Rva0073BAA0Base.h"
 

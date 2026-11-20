@@ -13,8 +13,8 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 void Rva006CFAB0(int value);
 void Rva00411B52();
 void Rva006CDF60();
-void Rva006CC600(const char *first, char *second);
-void Rva00411E80(int value);
+
+
 
 #include <stdio.h>
 // Retail calls the IAT slot directly rather than the CRT import thunk.

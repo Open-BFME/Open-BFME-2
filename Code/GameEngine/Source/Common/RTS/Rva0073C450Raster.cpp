@@ -9,7 +9,7 @@
 // Index wrap is two inline helpers: as macros, cl's tie-breaks put the edge start sum in the
 // wrong register at the set sites. Caller UndoShroudReveal 0x0073CCC0; twin 0x0073BFE0 differs
 // only in calling the increment updater 0x0073BAA0.
-class Gen_008F7CD0;
+
 
 #include "../../../Include/Common/Rva0073BAA0Base.h"
 

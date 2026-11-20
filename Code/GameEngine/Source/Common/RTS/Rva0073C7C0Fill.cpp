@@ -3,12 +3,12 @@
 // Normalizes (x1 x2) and (y1 y2) with swaps then sweeps y calling the decrement updater per row;
 // 0 on first row failure 1 on full sweep. Caller 0x0073CE84 in 0x0073CE30; twin of the 0x0073BF40 circle
 // family but rect (no midpoint state). Updater is Rva0073BB40 by value (16B: base12 plus derived extra4).
-class BfmeCellFD;
+
 
 #include "../../../Include/Common/Gen_008F7CD0.h"
 
-class ShroudManagerImpl;
-class ShroudManagerCell;
+
+
 
 #include "../../../Include/Common/Rva0073BAA0Base.h"
 

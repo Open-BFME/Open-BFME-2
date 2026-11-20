@@ -8,7 +8,7 @@
 // existing24B Team cursor and owned Object advance provider263526.
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-typedef unsigned int UnsignedInt;
+
 class PolygonTrigger;
 template<class OBJCLASS>
 class DLINK_ITERATOR

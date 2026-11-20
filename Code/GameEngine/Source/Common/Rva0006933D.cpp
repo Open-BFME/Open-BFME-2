@@ -12,7 +12,7 @@ struct RefObj0006933D
 	virtual void v0();
 	int m_ref;
 };
-struct BfmeResetResource;
+
 #include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
 class Rva000687B8

@@ -18,11 +18,11 @@ enum Relationship
 	NEUTRAL = 1,
 	ALLIES = 2
 };
-class Team;
+
 class TeamPrototype;
-class Object;
-class PlayerTemplate;
-struct RetailPlayerRelationMap;
+
+
+
 #include "../../../Include/Common/Player.h"
 
 #include "../GameLogicObjectLookupView.h"

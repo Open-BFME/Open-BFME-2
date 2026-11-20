@@ -10,7 +10,7 @@
 // +0xA4 +0x9C, caller at 0x39F131, prev 0x39E042 TeamHasAnyObjects next
 // 0x39E20D TeamDidPartialEnter share Team iteration and DLINK layout.
 
-typedef unsigned int UnsignedInt;
+
 
 enum ObjectStatusTypes
 {

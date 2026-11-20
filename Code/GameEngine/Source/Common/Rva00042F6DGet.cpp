@@ -7,7 +7,7 @@
 
 // dx8wrapper.cpp's protected ?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A, read through a
 // friend of the canonical DX8WrapperClass.h (real decoration, no alias).
-class DX8Caps;
+
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 int Rva00042F6DGet(void)

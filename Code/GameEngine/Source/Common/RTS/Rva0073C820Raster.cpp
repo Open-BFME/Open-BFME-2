@@ -1,11 +1,11 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /DBFME_STLP_NODE_ALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/stlp_nodealloc
 // ?Rva0073C820Raster@@YADHHHVRva0073BBE0@@@Z 155B @0x0073C820: shroud circle raster via rowed 0x0073BBE0 updater twin of 0x0073BF40/0x0073C3B0 but BBE0 adjust. Midpoint-circle with per-row gate rowed rva0073BBE0 checked test al fail 1 full sweep 0 early out ret 0 is centerXY radius updater. Evidence: twin shape plus rowed 0x0073BBE0 plus caller at 0x0073CED8.
-class BfmeCellFD;
+
 
 #include "../../../Include/Common/Gen_008F7CD0.h"
 
-class ShroudManagerImpl;
-class ShroudManagerCell;
+
+
 
 #include "../../../Include/Common/Rva0073BBE0.h"
 

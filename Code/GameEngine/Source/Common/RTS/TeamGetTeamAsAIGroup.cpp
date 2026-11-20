@@ -15,7 +15,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 class Object;
-class Player;
+
 class AIGroup;
 
 #include "../GameLogicObjectLookupView.h"

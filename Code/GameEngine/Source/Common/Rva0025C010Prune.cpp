@@ -8,7 +8,7 @@
 // Code/GameEngine/Source/Common (Rva0025BFF8ObjectGetter.cpp /O1 /MD).
 #include "GameLogicObjectLookupView.h"
 
-class Object;
+
 
 extern GameLogic *TheGameLogic;
 

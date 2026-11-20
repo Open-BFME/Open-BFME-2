@@ -7,7 +7,7 @@
 
 // dx8wrapper.cpp's protected ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A, read through a
 // friend of the canonical DX8WrapperClass.h (real decoration, no alias).
-struct IDirect3DDevice8;
+
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 int Rva00042F67Get(void)

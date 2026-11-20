@@ -12,7 +12,7 @@
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Player;
-class Dict;
+
 
 // Before PlayerList.h, which selects Snapshot's capitalized slots.
 #include "../../../Include/Common/Team.h"

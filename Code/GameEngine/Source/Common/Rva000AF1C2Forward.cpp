@@ -10,7 +10,7 @@ struct Rva000ADF1BInput;
 struct Rva000ADF1BOutput;
 struct Rva000ADF1BIteratorTag;
 Rva000ADF1BOutput *__cdecl Rva000ADF1BRangeForward(Rva000ADF1BInput *a, Rva000ADF1BInput *b, Rva000ADF1BOutput *c, const Rva000ADF1BIteratorTag &tag); // rowed 0x000ADF1B
-void __cdecl rva000ADF1B(int a, int b, int c, unsigned char *tmp);
+
 
 // ?rva000AF1C2@@YAXHHH@Z
 void __cdecl rva000AF1C2(int a, int b, int c)

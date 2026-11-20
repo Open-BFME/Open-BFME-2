@@ -4,7 +4,7 @@
 // the 0x00290E67 command-set name) and returns true when any of its 32
 // buttons has option bit 0x200000 (byte +0x1E, bit 0x20) set.
 
-class AsciiString;
+
 class ControlBar;
 extern ControlBar *TheControlBar;
 

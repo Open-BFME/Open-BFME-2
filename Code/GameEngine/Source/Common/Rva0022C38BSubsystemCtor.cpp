@@ -11,7 +11,7 @@
 #include <vector>
 #include "int_dealloc.h"
 
-typedef bool Bool;
+
 #include "subsystem_interface.h"
 
 class Rva0022C38BSubsystem : public SubsystemInterface
