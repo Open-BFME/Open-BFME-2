@@ -8,7 +8,7 @@
 #include "Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 enum Relationship{ENEMIES=0,NEUTRAL=1,ALLIES=2};enum ObjectStatusTypes{};class Object;class AIUpdateInterface;class LocomotorSet;class Rva0008BB38FloatField;
-class Thing {public:void getUnitDirectionVector2D(Coord3D&)const;};
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../../Include/GameLogic/Module/Rva001E3511.h"
 class Path {public:Rva003642DFResult rva00364521(const Rva0008BB38FloatField*);char pad[8];struct Node{char pad[12];Coord3D point;}*node;};
@@ -19,8 +19,7 @@ class CollisionConditionBits{public:unsigned test(int n)const{return words[n>>5]
 class Object:public Thing {public:
  Relationship getRelationship(const Object*)const;bool rva0029493F(Object*,int);int rva0028B511()const;
  bool testStatus(ObjectStatusTypes)const;float rva0028AC7D()const;void rva0028AE6D();
- char pad[4];ThingTemplate*templ;char pad8[0x38-8];Coord3D position;
- char pad44[0x74-0x44];int id;char pad78[0x10c-0x78];CollisionConditionBits conditions;
+ char pad60[0x74-0x60];int id;char pad78[0x10c-0x78];CollisionConditionBits conditions;
  char pad158[0x258-0x158];AIUpdateInterface*ai;char pad25c[0x410-0x25c];void*formation;float fx,fy;char pad41c[0x438-0x41c];unsigned flags438;
 
 };
@@ -187,21 +186,21 @@ bool AIUpdateInterface::rva0026CF11(Object*other)
  Object*obj=owner;Relationship relationship=obj->getRelationship(other);
  if(relationship==0 && obj->rva0029493F(other,2))return false;
  if(loco && loco->ignores())return false;
- if(((obj->templ->m_kindof[3] & 0x2000U)!=0)&&relationship==2){if(obj->rva0028B511()!=1)return false;if(TheTerrainLogic->slot50(&obj->position))return false;}
+ if(((obj->m_template->m_kindof[3] & 0x2000U)!=0)&&relationship==2){if(obj->rva0028B511()!=1)return false;if(TheTerrainLogic->slot50(&obj->m_cachedPos))return false;}
  if(aiOther->currentVictim()==obj)return false;
  if(!isDoingGroundMovement())return false;if(!aiOther->isDoingGroundMovement())return false;
- if(((obj->templ->m_kindof[0] & 0x100U)!=0)&&machine->getID()==0x13)return false;
+ if(((obj->m_template->m_kindof[0] & 0x100U)!=0)&&machine->getID()==0x13)return false;
  bool selfMoving=isMoving();bool otherMoving=aiOther->isMoving();
- if(selfMoving&&path&&(unsigned char)Rva00264237Check(&obj->position,&path->node->point))return false;
- if(otherMoving&&aiOther->path&&(unsigned char)Rva00264237Check(&other->position,&aiOther->path->node->point))return false;
+ if(selfMoving&&path&&(unsigned char)Rva00264237Check(&obj->m_cachedPos,&path->node->point))return false;
+ if(otherMoving&&aiOther->path&&(unsigned char)Rva00264237Check(&other->m_cachedPos,&aiOther->path->node->point))return false;
  if(path){Rva003642DFResult p=path->rva00364521(loco);if(reinterpret_cast<Rva001E3511*>(&p)->rva001E3511()!=0x7fffffff)return false;}
  if(aiOther->path){Rva003642DFResult p=aiOther->path->rva00364521(aiOther->loco);if(reinterpret_cast<Rva001E3511*>(&p)->rva001E3511()!=0x7fffffff)return false;}
  if(!selfMoving){
-  if(dead&&((obj->templ->m_kindof[0] & 0x100U)!=0)&&other->rva0029493F(obj,1))return false;
+  if(dead&&((obj->m_template->m_kindof[0] & 0x100U)!=0)&&other->rva0029493F(obj,1))return false;
   if(otherMoving)return false;if(rva00260DED()==0x2a)return false;
-  if(obj->testStatus((ObjectStatusTypes)0x46))return false;if(obj->flags438&8)return false;if(((obj->templ->m_kindof[5] & 0x4000000U)!=0))return false;
+  if(obj->testStatus((ObjectStatusTypes)0x46))return false;if(obj->flags438&8)return false;if(((obj->m_template->m_kindof[5] & 0x4000000U)!=0))return false;
   if(!isIdle())return false;
-  Coord3D safe,old;safe.x=obj->position.x;safe.y=obj->position.y;safe.z=obj->position.z;old.x=safe.x;old.y=safe.y;old.z=safe.z;
+  Coord3D safe,old;safe.x=obj->m_cachedPos.x;safe.y=obj->m_cachedPos.y;safe.z=obj->m_cachedPos.z;old.x=safe.x;old.y=safe.y;old.z=safe.z;
   TheAI->m_pathfinder->adjustToPossibleDestination(obj,collisionLocomotorSet(),&safe);
   if(!(safe==old))command.aiMoveToPosition(&safe,CMD_FROM_AI);
   return false;
