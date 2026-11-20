@@ -6378,3 +6378,4 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 ?rva007AC70D@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AC70D,Retracted for readmission as a compiler-emitted _$E<n> in W3DFloorBuffer.cpp: retail 0x007AC70D is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007B2C86@Rva007AB7F0HalfRateInits@@SAXXZ,0x007B2C86,Retracted for readmission as a compiler-emitted _$E<n> in UpgradeSoundSelectorClientBehavior.cpp: retail 0x007B2C86 is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007AC0D0@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AC0D0,Retracted for readmission as a compiler-emitted _$E<n> in W3DTerrainTracks.cpp: retail 0x007AC0D0 is that unit's Drawable.h copy initializer (LINK-236)
+?rva007AEF77@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AEF77,Retracted for readmission as a compiler-emitted _$E<n> in ObjectTypes.cpp: retail 0x007AEF77 is that unit's Drawable.h copy initializer (LINK-236)

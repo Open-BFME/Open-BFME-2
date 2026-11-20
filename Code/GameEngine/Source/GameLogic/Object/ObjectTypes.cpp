@@ -59,6 +59,10 @@ public:
 // the facade view is replaced so the call resolves to the rowed body
 // instead of the unrowed BfmeThingFactory spelling (sole U on this unit).
 #include "../../../Include/Common/ThingFactory.h"
+// Retail 0x007AEF77: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer run (Zero Hour's
+// ObjectTypes.cpp reaches Drawable.h through Common/ThingFactory.h); the unit is built on private views, so it takes
+// the constant's own header here.
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
 
 extern ThingFactory *TheThingFactory;
 

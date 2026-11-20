@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 439).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 438).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1784,3 +1784,12 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   One unrowed static of the file, Zero Hour's `computeTrackSpacing(RenderObjClass *)` (not retail's 0x00084B18), changes
   its stack-slot order; every rowed body and every other section keep their bytes. *Not this unit's:* 0x007AC052 after
   TheTerrainTracksRenderObjClassSystem, whose `.bss` lies before W3DView's while this unit's code follows W3DView's.
+- *Taken (439 -> 438): ObjectTypes.cpp's copy, by link order.* Between StealthUpdate's rowed run (Rva0037441ELeaf.cpp
+  `_$E1` 0x007AEED9; 0x0037441E is StealthUpdate code) and GameLogicDispatch's (`_$E1` 0x007AEFA1), retail's `.text$yc`
+  holds two runs: five ZeroInits masks (0x007AEF03..0x007AEF4B), then the copy 0x007AEF77 alone. The code between those
+  units is AerialPathfinder.cpp's (0x00375A73..0x00375DFF, BFME 2 only) and then ObjectTypes.cpp's (0x00376988..), with
+  displaced and small helpers after it. The two runs are two units in that order; Zero Hour's ObjectTypes.cpp reaches
+  GameClient/Drawable.h through Common/ThingFactory.h (donor fact), so ObjectTypes has a copy, and the copy run is the
+  second. ObjectTypes.cpp (private views) takes GameClient/DrawableFramesPerFlash.h right after its ThingFactory.h
+  include and registers the copy as `_$E1`. *Lead:* the mask run before it is then AerialPathfinder's (five 4-byte
+  ZeroInits masks), which round in-o6 had first traced to an AerialPathfinder header.
