@@ -67,20 +67,40 @@ class Rva007E8810Message;
 
 class Rva007F96C0Hub;
 
+class Rva007E8810Message;
+class Rva007F96C0Hub;
+struct Rva007FA170Slot;
+struct Rva007F9A40Key
+{
+ const char *m_a;
+ const char *m_b;
+ int m_c;
+ bool matches(const Rva007F9A40Key *other) const;
+};
+struct Rva007F96C0Rec
+{
+ char m_active;
+ char m_pad[3];
+ Rva007F9A40Key m_key;
+ void (__cdecl *fn)(Rva007E8810Message *msg, void *ctx);
+ void *ctx;
+};
 class Rva007FA2C0
 {
 public:
-	void rva007F95A0(Rva007FA170Slot *slot, unsigned timeout);
-	bool onTxn(Rva007E8810Message *msg);
-	Rva007F96C0Rec *lookup(void *key);
-
+ void rva007F95A0(Rva007FA170Slot *slot, unsigned timeout);
+ bool onTxn(Rva007E8810Message *msg);
+ Rva007F96C0Rec *lookup(void *key);
 private:
-	char m_pad[0x14];
-	int m_14;
-	unsigned m_watermark;
-	char m_pad1C[4];
-	void *m_20;
-	Rva007F96C0Hub *m_24;
+ char m_pad00[0x10];
+ int m_count;
+ int m_14;
+ unsigned m_watermark;
+ char m_pad1C[4];
+ void *m_20;
+ Rva007F96C0Hub *m_hub;
+ char m_pad28[0x380];
+ Rva007F96C0Rec m_records[0x20];
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -239,7 +259,8 @@ private:
 
 class Rva00801600 { public: void clear(); };
 
-class Rva00802A10 { public: void clear(); };
+class Rva00802A10Elem;
+#include "../../../GameEngine/Include/GameNetwork/Rva00802A10.h"
 
 // ?rva0066DF00@Rva0066DF00@@QAEXXZ @0x0066DF00 5B: rowed Rva00801570::clear 0x0066D890.
 class Rva0066DF00
@@ -340,16 +361,6 @@ public:
 
 #include "../../../GameEngine/Include/GameNetwork/BfmeThingUPB.h"
 
-struct Rva007F96C0Rec
-{
-	char m_00;
-	char m_pad[3];
-	void *m_04;
-	void *m_08;
-	void *m_0C;
-	void (__cdecl *fn)(Rva007E8810Message *msg, void *ctx);
-	void *ctx;
-};
 
 class Rva007F96C0Obj
 {
@@ -528,7 +539,7 @@ void Rva007F9610Holder::release()
 
 bool Rva007FA2C0::onTxn(Rva007E8810Message *msg)
 {
-	Rva007F96C0Obj *obj = m_24->v4(m_20, msg);
+	Rva007F96C0Obj *obj = m_hub->v4(m_20, msg);
 	if (!obj)
 	{
 		char txn[0x20] = {0};
