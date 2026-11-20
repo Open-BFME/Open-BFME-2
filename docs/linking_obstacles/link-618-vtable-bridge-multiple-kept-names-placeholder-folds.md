@@ -436,3 +436,54 @@ bytes being the three merged alias rows, whose bodies their primary owners still
 
 **Trap.** A refused `rename.py` run restores every file but not `build/match`: the units it built keep the
 folded objects. Rebuild them with `./build.sh` before any snapshot or link_check.
+
+### 2026-11-20 (later): registered-NEW folds and the COMDAT-constructor trap (seat halilkkaya-vt3)
+
+Base `f18a74f8b52`. A registered NEW needs every unit that spells OLD `--prepared` on NEW's canonical header.
+State of the 36 such pairs from the census:
+- **Landed: none.** The one trap pair with an approved unit landed (below).
+- **Verified but refused on a comment** (false reject recorded): Rva0044ECCE into
+  SpecialAbilityUpdateModuleData. All 19 units that spell it in code, prepared by one script, verify 247/247.
+  SpecialAbilityUpdate.cpp spells it only in three tu-skeleton markers. The planner still wants that unit
+  prepared, and it keeps a private copy that header_adopt_lane refuses (`OpaqueRefElement4` against
+  `OpaqueRefPtr`). Files and script: `reverse/attempt_support/specialabilityupdatemoduledata-fold-20261120/`.
+- **Applied and reverted:** Rva002E4049 into PolygonTrigger. Both units were prepared on PolygonTrigger.h:
+  18/18 rows exact, copies identical, bridged -1. Removing the unit's private VBase00C6EE28 view
+  dropped the only definer of `??_7VBase00C6EE28@@6B@`. Disp0DwordImmSettersAddr.cpp and
+  Rva00575F38Dtor.cpp name that table by `__identifier`, so it became unresolved. VBase00C6EE28's registered
+  header (1 slot against retail's 7) needs an owning definer first.
+- **Needs a name_lane approval:** Rva0033FF2B into AIInternalMoveToState. The header's slot 2 is
+  `GetSnapshotName`, rowed `?name@Rva0033F2F7Named`; to-class needs an approval for it. Slot 7 0x0033F2D7 is an
+  ICF body shared with 0x00C136A0/0x00C6A1F0. 49 retail tables reach 0x0033FF2B from slot 0, 48 of them through
+  the folded `jmp 0x00368793`. 39 are bridged, with 4-17 mismatches each. The fold would only merge
+  0x00C10DE8's second name.
+- **Canonical header too thin to define the destructor:** MineshaftPortalBehaviour, W3DFloorBuffer,
+  W3DTreeBuffer, BannerUI, SpecialPowerStore, LivingWorldEyeTower and DeletionUpdate are call views with no
+  virtual destructor. FXListStore and EmotionSystem keep their vectors and maps as opaque bytes, so the 215 B
+  and 183 B destructors cannot be written over them. VideoPlayer (three ints) and Rva0056DC6B (`void *`) lack
+  the constructor the placeholder rows. BfmeDirtyBase lacks retail's two pure slots after the destructor,
+  and Y2ScalarDeleters.cpp already defines a strong `??0BfmeDirtyBase`. These go to the header lane
+  (class_contract.py, header_adopt_lane.py) first.
+- **NEW's own unit keeps a private copy of NEW** that the header lane has not adopted: AITactic.cpp,
+  W3DTreeBuffer.cpp, EmotionSystem.cpp, VideoPlayer.cpp and W3DGameClient.cpp.
+- **Held by other seats:** DeletionUpdate and LifetimeUpdate (Rva0024A797Derived.cpp), ExperienceTracker
+  (ExperienceTracker.cpp), and W3DFloorBuffer.
+- **Same `??_E` pin refusal as RTS2DScene:** Rva006F7BD into RTS3DScene.
+- **Not attempted** (grab-bag RvaSmallVtableCtors.cpp hosting a strong constructor row the header does not
+  declare): Rva0040EDB, MultiListObjectClass, BehaviorModuleInterface, BodyModuleInterface,
+  HordeContainInterface, GameSpyPeerMessageQueueInterface and Rva00575125Second. Rva004C6CC1 is tied to
+  three registered module data classes at once, an ICF-shared destructor, so it is no single class.
+
+**COMDAT-constructor trap.** tu_map.csv, rebuilt in memory, approves a unit for one trap row only. 0x004BDC1C
+is approved for ActiveBody.cpp, which already emits the constructor as a SELECT_ANY COMDAT.
+`4d6146588d5` folds Rva004BDC1C into Rva004BDA0C and moves the row there with
+`add_match.py --replace-existing`, dropping the RvaSmallVtableCtors.cpp view. link_check 3/3; the bridge is
+neutral (two correct names became one). The others stay:
+- 0x002262DE is approved for GameEngine.cpp and 0x004626A6 for OpenContain.cpp. Neither unit emits that
+  constructor.
+- 0x003E3C22 and 0x00661D60 are only proposed.
+- 0x00148AB0, 0x0059667D, 0x002D3347 and 0x005CFB81 have no TU.
+
+**Check before committing a prepared fold:** a removed private view can be the only definer of a name
+other units still reference. `build/vt3/lostdefs.py` (scratch) compares the unit's object against the last
+snapshot's symbol table.

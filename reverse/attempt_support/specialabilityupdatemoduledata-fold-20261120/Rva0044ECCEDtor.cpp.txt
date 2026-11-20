@@ -1,0 +1,22 @@
+// cl: /DNDEBUG /MD /GX /Ireference/shims/moduledata
+//
+// ??1SpecialAbilityUpdateModuleData@@UAE@XZ, retail 0x0044ECCE, 199 bytes.
+// The module data destructor (size 0xC8) whose own table is retail vftable
+// 0x00C3F2A8 (slot 0 the deleting destructor 0x0044EF42). It clears the
+// template pointers at +0x38 and +0x3C; the compiler then tears down the
+// AsciiStrings at +0xC0 +0xBC +0x48 +0x44 +0x40 (rowed releaseBuffer 0x36410)
+// and the sound references at +0x34 +0x14 +0x10 +0x0C +0x08 (rowed
+// Release_Ref 0x50ED3), and the inline ModuleData and Snapshot destructors
+// restore Snapshot's table 0x00BBB554. 14 matched derived destructors call
+// this body.
+
+#include "../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
+
+// Retail inlines ModuleData's destructor into its derived destructors.
+inline ModuleData::~ModuleData() {}
+
+SpecialAbilityUpdateModuleData::~SpecialAbilityUpdateModuleData()
+{
+	m_specialPowerTemplate = 0;
+	m_disableFXParticleSystem = 0;
+}

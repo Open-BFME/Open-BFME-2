@@ -1,0 +1,27 @@
+"""Prepare every unit that spells Rva0044ECCE on the registered SpecialAbilityUpdateModuleData.h (one shape).
+
+  python build/vt3/prep_saumd.py OUTDIR UNIT...
+Each unit's stand-in `class Rva0044ECCE ... };` block becomes an #include of the canonical header (relative
+path from the unit), and every remaining spelling of the placeholder becomes SpecialAbilityUpdateModuleData.
+Line endings are kept. Prints one line per unit; refuses a unit with no or several stand-in blocks.
+"""
+import os, re, sys
+OLD, NEW = 'Rva0044ECCE', 'SpecialAbilityUpdateModuleData'
+HEADER = 'Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h'
+out_dir = sys.argv[1]
+os.makedirs(out_dir, exist_ok=True)
+head = re.compile(r'^class ' + OLD + r'\b[^\n;]*$', re.M)
+for unit in sys.argv[2:]:
+    text = open(unit, encoding='utf-8', newline='').read()
+    nl = '\r\n' if '\r\n' in text else '\n'
+    starts = [m.start() for m in head.finditer(text)]
+    if len(starts) != 1:
+        print('REFUSE', unit, len(starts), 'stand-in blocks'); continue
+    s = starts[0]
+    e = text.index(nl + '};', s) + len(nl + '};')
+    rel = os.path.relpath(HEADER, os.path.dirname(unit)).replace('\\', '/')
+    text = text[:s] + '#include "%s"' % rel + text[e:]
+    text = re.sub(r'(?<![A-Za-z_])' + OLD + r'(?![A-Za-z0-9_])', NEW, text)
+    dest = os.path.join(out_dir, os.path.basename(unit))
+    open(dest, 'w', encoding='utf-8', newline='').write(text)
+    print('OK', unit, '->', dest)
