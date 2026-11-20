@@ -6,8 +6,9 @@
 class Rva00366500
 {
 public:
-	bool rva00366500(int);
+	// The bridge classifier's byte match depends on this declaration order.
 	bool rva0036652D(int);
+	bool rva00366500(int);
 };
 
 #endif // CANONICAL_RVA00366500_H

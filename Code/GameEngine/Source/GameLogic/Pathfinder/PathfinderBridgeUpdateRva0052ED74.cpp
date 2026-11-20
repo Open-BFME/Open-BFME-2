@@ -34,7 +34,7 @@ class PathfindCell {public:int getOwner()const{return info?info->owner:0;}int ge
 // constant argument and its callee's declaration position (larger constants and
 // later declarations first). Retail's four orders need connect declared just
 // after SetType_Dirty and before layer, and E0A1 declared well after both.
-class Rva00366500{public:bool rva0036652D(int);bool rva00366500(int);};
+#include "../../../Include/GameLogic/Rva00366500.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 bool Rva001E3679(int);

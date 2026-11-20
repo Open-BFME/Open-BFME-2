@@ -39,6 +39,15 @@
         "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick.cpp",
         "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior_OnMouseLeftClick_OnMouseLeftClick.cpp"
       ]
+    },
+    {
+      "class": "Rva00366500",
+      "consumers": [
+        "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderBridgeUpdateRva0052ED74.cpp"
+      ],
+      "providers": [
+        "Code/GameEngine/Source/GameLogic/AI/Rva00366500Field.cpp"
+      ]
     }
   ]
 }
