@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 457).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 456).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1648,3 +1648,13 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   already compiled the copy as its only registration (`_$E1`), so only the rows change; the run's other two entries
   stay bridged. Not this unit's: 0x007B041B after g_fakeDesync 0x00E03204, which GameLogicInit reads but which sits
   far outside this object's `.bss`.
+- *Taken (457 -> 456): DamageFX.cpp's copy.* 0x007AECF0 is alone in its run (markers 0x007AECD6 and 0x007AED00). The
+  `.bss` holds TheDamageFXStore 0x00E01E5C (its approved reader 0x00360B0F is DamageFX.cpp's), this copy 0x00E01E60,
+  the bridged copy 0x00E01E64 (0x007AED1A, which opens the run of g_validityBegin's initializer 0x007AED2A), then
+  ObjectFilter's g_validityBegin 0x00E01E68 and GlowMaterial's globals; link order agrees (DamageFX.cpp's code
+  0x00360B0F, then System/ObjectFilter.cpp's 0x00361439.., then GlowMaterial.cpp's 0x00362702..). Zero Hour's
+  DamageFX.cpp reaches GameClient/Drawable.h through Common/ThingFactory.h (donor fact; `build/init2/zh_drawable.py`
+  follows quoted includes). DamageFX.cpp is built on Zero Hour's headers, so it takes
+  `reference/shims/bfme2_drawable_flash` first on its include path and registers the copy as `_$E14`. *Lead:*
+  0x007AED1A shares its run with 0x007AED2A, which builds g_validityBegin (read only by code approved to
+  System/ObjectFilter.cpp), so it is that unit's copy, ahead of the vector initializer.
