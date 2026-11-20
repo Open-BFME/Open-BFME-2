@@ -60,6 +60,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #define COORD2D_VIEW_DTOR
 #include "../../../Libraries/Include/Lib/Coord2DCtorView.h"
+// Retail Snapshot slot 2 names this subsystem. Select that existing base surface
+// before the first Snapshot include, then override the same inherited slot.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 // Version pair xfer (slot 10) reads and rewrites; xfer (0x0005E3E5) seeds
 // 1 and 4 and gates its later fields on the second byte.
@@ -1258,6 +1261,7 @@ public:
     void init3DSamplePools();
     void createListener();
 protected:
+    virtual const char *GetSnapshotName() const;
     virtual void loadPostProcess(void);
 public:
     virtual void xfer(Xfer *transfer);
@@ -7532,7 +7536,7 @@ template _STL::map<Rva0005B5EAElement, int>::size_type _STL::map<Rva0005B5EAElem
 
 // tu-skeleton: 0x000518A4 14B ?rva000518A4@MilesAudioManager@@UAEHH@Z -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
-// tu-skeleton: 0x000518B2 6B ?name@MilesAudioManager@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+// tu-skeleton: 0x000518B2 6B ?GetSnapshotName@MilesAudioManager@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x000519D6 9B ?get@Rva000519D6SubImm32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubImm32DwordFieldGetters.cpp (not merged yet)
 

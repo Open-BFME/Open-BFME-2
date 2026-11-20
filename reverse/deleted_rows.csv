@@ -6412,3 +6412,4 @@ __ehhandler$??1Rva005D06CB@@UAE@XZ,0x007A1B09,"Renamed to __ehhandler$??1Rva005C
 ??_GRva004BDC1C@@UAEPAXI@Z,0x004BDA0C,"Merged into ??_GRva004BDA0C@@UAEPAXI@Z (one body, one class) by tools/rename.py (fold: retail vftable 0x00C5AEB0)"
 ?rva002D7E68@Radar@@QAEXPAX@Z,0x002D7E68,"Renamed to ?rva002D7E68@Radar@@UAEXPAX@Z by tools/rename.py (virtual: retail vtable slot)"
 ?dynamicPortalExtraB@DynamicPortalExtraB@@UAEXXZ,0x000B3FD0,The sole table consumer now uses the native CreateModuleInterface onCreate at the same folded address. The original Region2D body and other admitted return aliases remain.
+?name@MilesAudioManager@@QBEPBDXZ,0x000518B2,"Renamed to ?GetSnapshotName@MilesAudioManager@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00BC559C slot 2)"

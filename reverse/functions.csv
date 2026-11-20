@@ -10008,7 +10008,7 @@ _math_random,,0x00748900,298,Code/Libraries/Source/Lua/lmathlib.c,matched,vendor
 ?name@Rva002AE621Named@@QBEPBDXZ,,0x002AE621,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning Command; vtable ref in .rdata; address-derived placeholder name
 ?GetSnapshotName@GeometryInfo@@UAEPBDXZ,,0x00050C2B,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning GeometryInfo; vtable ref at 0x7C4E9C with 0x4B3FD0 family slot pattern; address-derived placeholder name
 _str_len,,0x00748AA0,64,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=lua-4.0.1; Lua string len via donor; callees pinned
-?name@MilesAudioManager@@QBEPBDXZ,,0x000518B2,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning MilesAudioManager; vtable ref at 0x7C55A4; address-derived placeholder name
+?GetSnapshotName@MilesAudioManager@@MBEPBDXZ,,0x000518B2,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning MilesAudioManager; vtable ref at 0x7C55A4; address-derived placeholder name
 ?GetSnapshotName@W3DRenderObjectSnapshot@@MBEPBDXZ,,0x000638A2,6,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp,matched,literal name getter returning W3DRenderObjectSnapshot; vtable ref at 0x7C59FC with 0x4B3FD0 family slot pattern; address-derived placeholder name; slot 2 of retail table 0xBC59F4 (Snapshot name getter); rehomed into its table's unit
 _str_sub,,0x00748AF0,173,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=lua-4.0.1; Lua string sub via donor; callees pinned
 _str_rep,,0x00748CE0,114,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=lua-4.0.1; Lua string rep via donor; callees pinned

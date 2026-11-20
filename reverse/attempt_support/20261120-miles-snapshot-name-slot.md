@@ -60,3 +60,20 @@ Completion of the served bridge task still requires the next published real
 link to stop bridging/refusing this table while retaining its data coverage.
 No completed queue item, new code coverage, startup or runtime improvement is
 claimed from this naming prerequisite or private byte controls.
+
+## Ordinary source integration
+
+After the separate generic compiler-dtor verifier repair, the unchanged
+prepared sources pass the normal to-class transaction using committed approval
+44358b2dbb. All464 existing code rows,63 literals,33 floats,106 imports and
+the existing data row pass. The two compiler deleting-dtor slots are proved
+through their complete real local scalar copies; generic weak defaults remain
+refused. No shared header, class contract, alias, pin or generated source was
+changed.
+
+Fresh per-file linking previews remain identical before/after: the main unit
+predicts43,087B and the getter unit257B, both clean. The main's older census
+baseline43,068B already differed before this source change, so its19B gap is
+not new credit. The old unused public name declaration in the canonical header
+remains explicit declaration debt; this is not full main-TU header adoption.
+The served task still awaits a published real-link bridge/data-coverage result.
