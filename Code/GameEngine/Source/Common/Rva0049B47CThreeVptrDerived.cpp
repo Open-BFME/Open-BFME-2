@@ -108,27 +108,29 @@ void Rva004B96CC_Anchor(Rva004B96CC *p)
 	p->Rva004B96CC::Rva004B96CC();
 }
 
-class Rva004BB68E_B2
-{
-public:
-  virtual void f2() {}
-};
+#include "../../Include/Common/CollideModuleInterface.h"
 
-class Rva004BB68E : public PrimaryP, public Rva004BB68E_B2
+class Rva004BB68E : public PrimaryP, public CollideModuleInterface
 {
 public:
+	Rva004BB68E() {}
 	virtual ~Rva004BB68E();
+	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 };
 
 Rva004BB68E::~Rva004BB68E()
 {
 }
 
-// Anchor: new/delete devirtualizes to a direct ??_G call (see above).
-void Rva004BB68E_Anchor()
+// Anchor: abstract class cannot be new'd directly, so call the inline ctor
+// which references the primary vtable and forces emission of the ??_G COMDAT.
+void Rva004BB68E_Anchor(Rva004BB68E *p)
 {
-	Rva004BB68E *p = new Rva004BB68E;
-	delete p;
+	p->Rva004BB68E::Rva004BB68E();
 }
 
 class Rva00462151_B2
