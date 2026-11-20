@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 452).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 451).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1699,3 +1699,12 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   map, but their code lies right after LivingWorldCampaign.cpp's approved code, 0x0052BAC1..), so the unit has no
   plain global: locals, then its copy. LivingWorldCampaign.cpp takes GameClient/DrawableFramesPerFlash.h after the
   node, in retail's run order, and registers the copy as `_$E3`.
+- *Taken (452 -> 451): BaseHeightMap.cpp's copy (round init-2's lead).* Retail's run is the atexit-only 0x007ABE93, then
+  the copy 0x007ABE9F, closed by the marker 0x007ABEAF. The static 0x00DE1EB0 lies between TheTerrainRenderObject
+  0x00DE1EAC and `evaluateAsVisibleCliff`'s guard 0x00DE1EB4 (read only by 0x0006737E, approved to BaseHeightMap.cpp).
+  A copy before a unit's function-local static belongs to that unit only after its plain globals, and otherwise
+  closes the unit that owns the item before it; either way it is the unit of TheTerrainRenderObject, which Zero Hour's
+  BaseHeightMap.cpp defines (donor fact; ours sits in W3DFloorDrawDtor.cpp). Link order agrees: BaseHeightMap.cpp's
+  approved code (0x0006737E) precedes W3DScene.cpp's (0x0007054F), whose SceneModeOverride follows the guard.
+  BaseHeightMap.cpp (private views) takes GameClient/DrawableFramesPerFlash.h and registers the copy as `_$E1`;
+  0x007ABE93 stays bridged.

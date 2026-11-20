@@ -32,6 +32,11 @@ typedef unsigned short UShort;
 #include <vector>
 
 #include "../../../../GameEngine/Include/Common/ScalarTypes.h"
+// Retail 0x007ABE9F: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, after the atexit-only 0x007ABE93 in
+// its initializer run; its static (VA 0x00DE1EB0) lies between TheTerrainRenderObject (0x00DE1EAC) and
+// evaluateAsVisibleCliff's guard (0x00DE1EB4). The unit is built on private views, so it takes the constant's own
+// header.
+#include "../../../../GameEngine/Include/GameClient/DrawableFramesPerFlash.h"
 
 
 
