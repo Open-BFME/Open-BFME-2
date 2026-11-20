@@ -9,20 +9,29 @@
 // (BitFlags11DisabilityCtors.cpp proves DISABLED_COUNT 11). Sibling shape:
 // BitFlags69Test.cpp test() over seven words; this is the one-word any().
 
+#include <string.h>
+
 template <int N>
 class BitFlags
 {
 public:
+	// Inline, as retail's is: a default-constructed global's dynamic
+	// initializer memsets its words in place (push 4; push 0; push &g; call
+	// memset), while member construction calls the out-of-line copy
+	// (0x003B31AD, BitFlags11DisabilityCtors.cpp).
+	BitFlags() { memset(m_words, 0, sizeof(m_words)); }
 	bool any() const;
 	unsigned int m_words[(N + 31) / 32];
 };
 
-// VA 0x00E030CC: memset clear by the dynamic initializer at 0x007B00F1;
-// read (DIR32) by the rowed UpdateModule::getDisabledTypesToProcess.
-BitFlags<11> DISABLEDMASK_NONE = { { 0 } };
-// VA 0x00E030D0: memset clear at 0x007B0103; the rowed 0x00419CC8 sets every
-// bit at runtime; read (DIR32) by the rowed Rva004DF396 override.
-BitFlags<11> DISABLEDMASK_ALL = { { 0 } };
+// Zero Hour's Common/System/DisabledTypes.cpp defines both, default
+// constructed ("inits to all zeroes"), NONE first. Retail's .text$yc runs
+// their two initializers back to back, 0x007B00F1 then 0x007B0103, clearing
+// VA 0x00E030CC then 0x00E030D0. NONE is read (DIR32) by the rowed
+// UpdateModule::getDisabledTypesToProcess; the rowed 0x00419CC8 sets every
+// bit of ALL at runtime, and the rowed Rva004DF396 override reads it.
+BitFlags<11> DISABLEDMASK_NONE;	// inits to all zeroes
+BitFlags<11> DISABLEDMASK_ALL;
 
 template <>
 bool BitFlags<11>::any() const

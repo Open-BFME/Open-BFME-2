@@ -1835,3 +1835,26 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
     register their copies (GiantBirdAIUpdate 5, RTS/ScoreKeeper.cpp 4, GameStateMap 2 for DISABLEDMASK_NONE/ALL,
     GameLogic 1). The next homogeneous batch: define each mask in its unit with the BitFlags type after the copy,
     retyping the `unsigned char[28]` consumers through `rename.py global --retype`.
+
+**Round init-4 (halilkkaya-init4, 2026-11-20, bridged 436 -> 434 so far).** Same base, method and per-entry checks as
+round init-3. New scripts under `build/init4/`: `mbhd.py` (nbhd.py for the memset shape), `retract_memset.py` (retract
+MaskInits/ZeroInits entries), `scc.py` (scratch compile into `build/init4/obj/` with a source's own `// cl:` line,
+never `build/match`, plus capstone listing).
+- *The memset form (target and compiler facts).* `push N; push 0; push &g; call memset; add esp, 0xC; ret` is what
+  cl 7.1 emits for a default-constructed global whose class has an **inline** default constructor
+  `{ memset(words, 0, sizeof words); }` under retail's `/O1` (GameEngine's flag region): `/O1` has no `/Oi`, so memset
+  stays a call and the store is not folded into static zero. Under `/O2` the same source folds (no `_$E`), which is
+  why in-o7's scratch failed. Under `/O1` the same inline constructor is still called out of line (`call`, not inlined)
+  when it builds a member inside an EH constructor, so one inline definition explains both retail's in-place memsets
+  and its calls to 0x003B31AD from ModuleData constructors. `BitFlagsTemplate.h` declares that constructor out of line,
+  so a unit that needs the memset initializer gives its own view an inline one.
+- *Taken (436 -> 434): DISABLEDMASK_NONE and DISABLEDMASK_ALL (0x007B00F1, 0x007B0103).* Not GameStateMap's: the run
+  [five BlockParse nodes, 0x007B00F1, 0x007B0103, GameStateMap's copy `_$E1`, marker] holds three units, and the
+  `.bss` runs the LivingWorld auto-resolve stores, 0x00419A99's item, DISABLEDMASK_NONE 0x00E030CC and ALL 0x00E030D0,
+  then TheGameResultsQueue and only then TheGameStateMap and GameStateMap's copy; in `.text` the code that sets ALL
+  (0x00419CC8) lies before GameResultsThread's and GameStateMap's. Zero Hour's Common/System/DisabledTypes.cpp
+  defines both, default constructed, NONE first (donor fact), and their two initializers run back to back in that
+  order (target fact). The map has no unit for DisabledTypes; the globals are defined in BitFlags11Any.cpp, so their
+  `_$E` rows go with that parent object (`docs/consolidation.md`). BitFlags11Any.cpp's view takes the inline
+  constructor and defines both default constructed; they compile as `_$E1` and `_$E3`, retail's bytes outside the
+  relocations. The grab-bag's other rows now lie in no voting flag region, so its `// cl:` line takes retail's `/O1`.
