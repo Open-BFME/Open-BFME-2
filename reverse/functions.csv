@@ -8155,7 +8155,7 @@ _vp6_writeframe,,0x001BB3B0,104,Code/Libraries/Source/VP6/WriteFrame.cpp,matched
 ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z,,0x00656C30,52,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 port; CloseHandle import plus scalar delete replace BFME1 helpers
 ?bfmeDelTVB@BfmeThingTVB@@QAEPAXE@Z,,0x00176D90,54,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 port; SysFreeString plus array and scalar delete replace BFME1 helpers
 ?addSlot@FeslStateMachine@@QAEXHH@Z,,0x006723E0,71,Code/GameEngine/Source/Common/SmallGaps/FeslStateMachine_addSlot.cpp,matched,BFME1 byte-identical donor; b1 0x008063B0; 2 DIR32 string literal(s) agree
-?lookup@Rva007FA2C0@@QAEPAURva007F96C0Rec@@PAX@Z,,0x00665AD0,71,Code/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp,matched,BFME1 byte-identical donor; b1 0x007F9530
+?lookup@Rva007FA2C0@@QAEPAURva007F96C0Rec@@PAX@Z,,0x00665AD0,71,Code/Libraries/Source/Fesl/transactor.cpp,matched,BFME1 byte-identical donor; b1 0x007F9530
 ?bfmeStepsEU@BfmeHostEU@@QAEHPBVBfmeShapeEU@@@Z,,0x0073B750,140,Code/GameEngine/Source/Common/BfmeConv2042.cpp,matched,BFME1 donor with ceil import per retail IAT slot 0xBBA578; b1 0x008F93B0
 ?releaseNode@Rva009A2C30Table@@QAEXPAURva009A2C30Node@@@Z,,0x00758BD0,71,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,matched,BFME1 byte-identical donor; b1 0x009A2C30
 ?bfmeRegisterZC@BfmeOwnerZC@@QAEXXZ,,0x006611A0,67,Code/GameEngine/Source/Common/BfmeConv1871.cpp,matched,BFME1 byte-identical donor; b1 0x007F46F0

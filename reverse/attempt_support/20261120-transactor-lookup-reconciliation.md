@@ -80,3 +80,23 @@ acceptance for Rva00802A10 passes the seed and retires exactly its one header
 queue row. Shared headers, original flags and the reply source remain
 unchanged. Full served-item completion is still open pending native merger
 results and the excluded reply blocker.
+
+## Root native partial merge and consumer audit
+
+The normal tu_skeleton merge accepts exactly the seed and lookup and removes
+FeslTransactor_lookup_rva007F9530.cpp. All8 rows pass the ordinary merged-TU
+build with6 literals; declared-unmatched reports no remaining definition.
+The reply donor and both mixed files stay. Only the native merger repoints
+the existing row, its map source column and existing flag bookkeeping.
+
+This batch has one absorbed source path. The exact old-path/basename audit
+finds two intentionally retained references: the native merger's '// ----
+from' provenance comment, and the previous census's reverse/link_status.csv
+measurement. Neither is an active source include/tool input requiring a
+rewritten path. The measured census is preserved; link_check --update-index
+refreshes the live provider index after this commit. No other old-path
+consumer appears in Code, tools, hooks, workflows or CSV/TSV registers.
+
+The merger's normal link guard preserves census-linked source bytes. This
+is one removed fragment, not completion of the original two-donor item,
+new linked-byte coverage, a full-image link or runtime verification.
