@@ -924,7 +924,7 @@ def test_an_e_does_not_agree_when_its_g_row_is_elsewhere(tree, monkeypatch):
 def test_an_e_with_its_own_row_is_judged_by_that_row(tree, monkeypatch):
     # a rowed ??_E elsewhere is a clash, whatever the ??_G row says
     functions = (tree / "reverse/functions.csv").read_text() + f"{VECTOR},,0x00405100,28,Code/Game/Widget.cpp,matched,\n"
-    (tree / "reverse/functions.csv").write_text(functions)
+    (tree / "reverse/functions.csv").write_text(functions, newline="\n")
     retail(monkeypatch, TWO_SLOTS, compiled={"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [VECTOR, NEW]}})
     with pytest.raises(Refusal, match="does not prove the slot"):
         plan(tree)
@@ -1253,7 +1253,7 @@ def test_the_final_reports_are_warned_and_kept_in_the_tombstone(tree, monkeypatc
     # planning reads sound copies; after the rebuild Other's copy is broken elsewhere (its table bridged) while
     # Gadget's still proves the move
     functions = (tree / "reverse/functions.csv").read_text() + "??0Gadget@@QAE@XZ,,0x0040C000,64,Code/Game/Gadget.cpp,matched,ctor\n"
-    (tree / "reverse/functions.csv").write_text(functions)
+    (tree / "reverse/functions.csv").write_text(functions, newline="\n")
     tables = dict(BASE_TABLES)
     tables[GADGET_TABLE_VA - retail_identity.IMAGE_BASE] = ([0x00405000, 0x00401000], {GADGET_STORE: 0})
     entry = BASE._replace(tables={OTHER_TABLE_VA: ("Other", BASE_FACTS), GADGET_TABLE_VA: ("Gadget", GADGET_FACTS)})
@@ -1663,7 +1663,7 @@ def register(tree, cls="Widget", header=WIDGET_H):
     text = path.read_text() if path.exists() else "class,header,notes\n"
     path.write_text(text + f"{cls},{header},registered\n")
     if not (tree / header).exists():
-        (tree / header).write_text(f"class {cls} {{ public: virtual ~{cls}(); }};\n")
+        (tree / header).write_text(f"class {cls} {{ public: virtual ~{cls}(); }};\n", newline="\n")
     _git(tree, "add", "-A")
     _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", f"register {cls}")
 
@@ -1858,7 +1858,7 @@ def test_votes_a_header_edited_after_the_votes_ends_the_approval(tree, monkeypat
     register(tree)
     approve(tree, key_of(0x00C00000, 1), "spin")
     assert plan(tree).new == NEW
-    (tree / WIDGET_H).write_text("class Widget { public: virtual ~Widget(); virtual void spin(); };\n")
+    (tree / WIDGET_H).write_text("class Widget { public: virtual ~Widget(); virtual void spin(); };\n", newline="\n")
     _git(tree, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "an edit")
     with pytest.raises(Refusal, match="no approved name"):
         plan(tree)
@@ -2155,6 +2155,217 @@ def test_r3_a_weak_externals_default_is_no_alias(tmp_path, monkeypatch):
     monkeypatch.setattr(link_census, "object_symbols", lambda path, data=None: (
         {"_fall"}, set(), [("_weak", "_middle"), ("_middle", "_fall")], {"?alias@@YAXXZ": "_fall"}, set()))
     assert rename.object_link_names(None, "Code/Game/Unit.cpp") == ({"_fall"}, {"?alias@@YAXXZ": "_fall"})
+
+
+@pytest.fixture
+def compiler_weak_slot(tmp_path, monkeypatch):
+    """Real COFF/rows/native-byte fixture; only compile currency is substituted.
+
+    A weak's TagIndex may name an UNDEF external while its same-name scalar
+    definition is a separate positive-section symbol, exactly as VC7.1 emits.
+    """
+    import hashlib
+    import json
+    from types import SimpleNamespace
+    import build
+    from test_gate_exploits import coff, TEXT, RDATA
+    weak = "??_EWidget@@UAEPAXI@Z"
+    scalar = "??_GWidget@@UAEPAXI@Z"
+    table = "??_7Widget@@6B@"
+    rel = "Code/Game/Weak.cpp"
+    source, obj = tmp_path / "Weak.cpp", tmp_path / "weak.obj"
+    text = b"class Widget { public: virtual ~Widget() {} };\n"
+    source.write_bytes(text)
+    owner = dict(name=scalar, target_rva="0x2000", target_size="6", source=rel, status="matched", notes="")
+    rows = [owner]
+    symbols = {scalar: [0x2000], "_destroy": [0x3000]}
+    native = b"\xe8" + struct.pack("<i", 0x3000 - 0x2005) + b"\xc3"
+    context = SimpleNamespace(rows=lambda: rows, pins=lambda: [], path=lambda _: source)
+    monkeypatch.setattr(rename, "_source_object", lambda *a, **k: obj)
+    monkeypatch.setattr(build, "compile_is_current", lambda path, out, **k: path.read_bytes() == text)
+    monkeypatch.setattr(build, "load_all_function_rows", lambda: rows)
+    monkeypatch.setattr(build, "load_symbol_map", lambda: symbols)
+    monkeypatch.setattr(build, "read_target_bytes", lambda rva, size: native[:size] if rva == 0x2000 else None)
+    def stamp():
+        build._deps_sidecar(obj).write_text(json.dumps({
+            "path": build._root_key(source), "object": hashlib.md5(obj.read_bytes()).hexdigest()}))
+    def write(*, characteristic=2, tag=2, body=b"\xe8\0\0\0\0\xc3", code_flags=TEXT,
+              definition_section=2, definition_type=32, weak_name=weak, default_name=scalar,
+              relocation_kind=6, table_addend=0, duplicate=False, weak_default=False, callee="_destroy", chain=None):
+        records = [(weak_name, 0, 0, 32, 105, 1)]
+        if chain:
+            records.append((default_name, 0, 0, 32, 105, 1))
+        else:
+            records.append((default_name, 0, 0, 32, 105 if weak_default else 2, 0))
+        records += [(default_name, 0, definition_section, definition_type, 2, 0),
+                    (table, 0, 1, 0, 2, 0), (callee, 0, 0, 32, 2, 0)]
+        raw = bytearray(coff([
+            (".rdata", RDATA | 0x1000, struct.pack("<I", table_addend), [(0, 0, relocation_kind)]),
+            (".text$g", code_flags, body, [(1, 6 if chain else 5, 20)])], records))
+        at, count = struct.unpack_from("<II", raw, 8)
+        struct.pack_into("<II", raw, at + 18, tag, characteristic)
+        if chain:
+            struct.pack_into("<II", raw, at + 3 * 18, 0 if chain == "cycle" else 4, 2)
+        if duplicate:
+            raw[at + count * 18:at + count * 18] = raw[at + 3 * 18:at + 4 * 18]
+            struct.pack_into("<I", raw, 12, count + 1)
+        obj.write_bytes(raw)
+        stamp()
+    write()
+    check = {"units": [rel], "vtables": {}, "retired": [], "new": "?moved@@YAXXZ"}
+    return SimpleNamespace(ctx=context, rel=rel, obj=obj, source=source, owner=owner, rows=rows,
+                           symbols=symbols, weak=weak, scalar=scalar, table=table, write=write,
+                           stamp=stamp, build=build, check=check)
+
+
+def test_compiler_deleting_weak_slot_uses_strict_local_definition_not_a_global_alias(compiler_weak_slot):
+    f = compiler_weak_slot
+    assert rename.object_link_names(f.ctx, f.rel) == ({f.scalar, f.table}, {})
+    assert rename.object_compiler_weak_dtor_slots(f.ctx, f.rel) == {(f.table, 0, f.weak)}
+    assert rename.to_class_dangling_problems(f.ctx, f.check) == []
+    assert f.weak not in f.symbols  # the proof never installs a global weak binding
+
+
+@pytest.mark.parametrize("changes", [
+    {"characteristic": 0}, {"characteristic": 1}, {"characteristic": 3},
+    {"tag": 0}, {"tag": 1}, {"tag": 4}, {"tag": 5}, {"tag": 99},
+    {"weak_default": True}, {"definition_section": 0}, {"duplicate": True},
+    {"chain": "terminal"}, {"chain": "cycle"},
+    {"definition_type": 0}, {"definition_type": 0x30}, {"code_flags": 0x40000040},
+    {"code_flags": 0x40000020}, {"code_flags": 0x60000040},
+    {"body": b"\xe8\0\0\0\0\xc3\x90"},
+    {"body": b"\xe8\0\0\0\0\x90"},
+    {"body": b"\xe8\x01\0\0\0\xc3"}, {"callee": "_wrong_destroy"},
+    {"default_name": "??_GOther@@UAEPAXI@Z"},
+    {"weak_name": "_unrelated_weak"}, {"relocation_kind": 20}, {"table_addend": 4},
+])
+def test_compiler_weak_slot_missing_wrong_chained_cycle_or_unverified_code_stays_refused(compiler_weak_slot, changes):
+    f = compiler_weak_slot
+    f.write(**changes)
+    assert rename.object_compiler_weak_dtor_slots(f.ctx, f.rel) == set()
+    assert rename.to_class_dangling_problems(f.ctx, f.check)
+
+
+@pytest.mark.parametrize("changes", [{}, {"definition_section": 0}, {"duplicate": True},
+                                     {"body": b"\xe8\0\0\0\0\xc3\x90"}, {"callee": "_wrong_destroy"}])
+def test_cross_unit_scalar_owner_still_requires_complete_strict_same_object_copy(compiler_weak_slot, changes):
+    f = compiler_weak_slot
+    f.owner["source"] = "Code/Game/CanonicalScalar.cpp"
+    # A separate already-gated row supplies the real referrer's unit context;
+    # its body is not the scalar body's proof. The API otherwise permits a
+    # default owned/gated by another TU, so the new local checks are essential.
+    f.rows.append(dict(name="_context", source=f.rel, status="matched", target_rva="0x1000", target_size="1", notes=""))
+    f.write(**changes)
+    slots = rename.object_compiler_weak_dtor_slots(f.ctx, f.rel)
+    assert bool(slots) is (changes == {})
+    assert bool(rename.to_class_dangling_problems(f.ctx, f.check)) is (changes != {})
+
+
+@pytest.mark.parametrize("change", ["missing-row", "duplicate-row", "wrong-rva", "alias", "generated",
+                                     "unverified", "stale-object", "stale-source", "missing-receipt",
+                                     "wrong-receipt-path", "retired-weak", "retired-scalar", "strong-primary"])
+def test_compiler_weak_slot_needs_current_real_row_object_and_receipt(compiler_weak_slot, change):
+    import json
+    f = compiler_weak_slot
+    if change == "missing-row":
+        f.rows.clear()
+    elif change == "duplicate-row":
+        f.rows.append(dict(f.owner))
+    elif change == "wrong-rva":
+        f.owner["target_rva"] = "0x2001"
+    elif change == "alias":
+        f.owner["notes"] = "object-symbol=??_GOther@@UAEPAXI@Z"
+    elif change == "generated":
+        f.owner["notes"] = "gen-alias"
+    elif change == "unverified":
+        f.owner["status"] = "unverified"
+    elif change == "stale-object":
+        f.obj.write_bytes(f.obj.read_bytes() + b"\0")
+    elif change == "stale-source":
+        f.source.write_bytes(f.source.read_bytes() + b"// changed\n")
+    elif change == "missing-receipt":
+        f.build._deps_sidecar(f.obj).unlink()
+    elif change == "wrong-receipt-path":
+        p = f.build._deps_sidecar(f.obj)
+        r = json.loads(p.read_text()); r["path"] = "Code/Elsewhere.cpp"; p.write_text(json.dumps(r))
+    elif change.startswith("retired-"):
+        f.check["retired"] = [f.weak if change == "retired-weak" else f.scalar]
+    elif change == "strong-primary":
+        f.symbols[f.weak] = [0x9999]
+    assert rename.object_compiler_weak_dtor_slots(f.ctx, f.rel, f.check["retired"]) == set()
+    assert rename.to_class_dangling_problems(f.ctx, f.check)
+
+
+@pytest.mark.skipif(sys.platform != "win32", reason="native VC7.1 deleting-dtor/link control")
+def test_native_compiler_deleting_dtor_slot_links_its_real_same_object_default(monkeypatch):
+    """Real compiler/linker/receipt and native slot; no game/runtime admission.
+
+    The fixture's row/map/target bytes describe its actual linked DLL rather
+    than impersonating a BFME retail row. All scalar relocations must resolve.
+    """
+    import json
+    import uuid
+    from types import SimpleNamespace
+    import build
+    import pefile
+    root = build.vc71_root()
+    monkeypatch.setenv("BFME_OBJSTORE", "off")
+    work = build.ROOT / "build/test_rename_weak_dtor_native" / uuid.uuid4().hex[:8]
+    work.mkdir(parents=True)
+    source, obj = work / "weak.cpp", work / "weak.obj"
+    source.write_text('// cl: /O1 /MD\n'
+                      'class RenameWeakWidget { int value; public:\n'
+                      'RenameWeakWidget():value(7){}\n'
+                      'virtual ~RenameWeakWidget(){value=0;} };\n'
+                      'extern "C" RenameWeakWidget *RenameWeakMake() { return new RenameWeakWidget; }\n')
+    ok, log, code = build.try_compile_source(source, obj)
+    assert ok and code == 0, log
+    assert build.compile_is_current(source, obj)
+    weak = "??_ERenameWeakWidget@@UAEPAXI@Z"
+    scalar = "??_GRenameWeakWidget@@UAEPAXI@Z"
+    table = "??_7RenameWeakWidget@@6B@"
+    symbols = build.read_object_symbols(obj.read_bytes())
+    assert sum(s["name"] == weak and s.get("storage") == 105 for s in symbols) == 1
+    body, _ = build.read_object_symbol_bytes(obj, scalar, code_only=True)
+    dll, mapping = work / "weak.dll", work / "weak.map"
+    cmd = [str(root / "Vc7/bin/link.exe"), "/NOLOGO", "/MACHINE:X86", "/DLL", "/NOENTRY",
+           "/NODEFAULTLIB", "/OPT:NOREF", "/OPT:NOICF", "/OUT:" + str(dll), "/MAP:" + str(mapping),
+           str(obj), str(root / "Vc7/lib/msvcrt.lib"), str(root / "Vc7/lib/oldnames.lib")]
+    linked = subprocess.run(cmd, cwd=build.ROOT, env=build.compiler_environment(root),
+                            capture_output=True, text=True, errors="replace")
+    assert linked.returncode == 0, linked.stdout + linked.stderr
+    image = pefile.PE(str(dll))
+    try:
+        base = image.OPTIONAL_HEADER.ImageBase
+        selected = {}
+        for line in mapping.read_text(encoding="latin-1").splitlines():
+            match = re.match(r"^\s+[0-9a-fA-F]+:[0-9a-fA-F]+\s+(\S+)\s+([0-9a-fA-F]{8})\s", line)
+            if match:
+                selected[match[1]] = int(match[2], 16) - base
+        assert scalar in selected and table in selected
+        # The native linker really takes the compiler's weak default for this
+        # exact table word, without /FORCE or a custom provider/stub.
+        actual_slot = struct.unpack("<I", image.get_data(selected[table], 4))[0]
+        assert actual_slot == base + selected[scalar]
+        rel = source.relative_to(build.ROOT).as_posix()
+        row = dict(name=scalar, target_rva=hex(selected[scalar]), target_size=str(len(body)),
+                   source=rel, status="matched", notes="")
+        context = SimpleNamespace(rows=lambda: [row], pins=lambda: [], path=lambda _: source)
+        ordinary_map = {name: [rva] for name, rva in selected.items() if name != weak}
+        monkeypatch.setattr(build, "load_symbol_map", lambda: ordinary_map)
+        monkeypatch.setattr(build, "load_all_function_rows", lambda: [row])
+        monkeypatch.setattr(build, "read_target_bytes", lambda rva, size: image.get_data(rva, size))
+        monkeypatch.setattr(rename, "_source_object", lambda *a, **k: obj)
+        assert rename.object_compiler_weak_dtor_slots(context, rel) == {(table, 0, weak)}
+        assert weak not in ordinary_map
+        check = {"units": [rel], "vtables": {}, "retired": [], "new": "?Moved@@YAXXZ"}
+        assert rename.to_class_dangling_problems(context, check) == []
+        (work / "proof.json").write_text(json.dumps({
+            "scope": "Native fixture DLL only; not a BFME runtime/admission result", "link_exit": 0,
+            "weak": weak, "scalar": scalar, "scalar_size": len(body), "scalar_rva": selected[scalar],
+            "table_rva": selected[table], "selected_slot_va": actual_slot, "compiler_command": build.compiler_command(source, obj)[0]}))
+    finally:
+        image.close()
 
 
 
