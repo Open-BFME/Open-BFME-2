@@ -2,10 +2,10 @@
 //
 // EH dtor at 0x00502D03 destroys its three members in reverse declaration
 // order: +0x1C, +0x10, then +0x04. Their destructor bodies are rowed elsewhere.
-class Rva004FF630Member
+class Rva004FF408
 {
 public:
-    ~Rva004FF630Member();
+    ~Rva004FF408();
 private:
     unsigned char m_pad[4];
 };
@@ -36,7 +36,7 @@ private:
     unsigned char m_pad00[0x04];
     Rva00502D48 m_member04;
     Rva004FFE96 m_member10;
-    Rva004FF630Member m_member1C;
+    Rva004FF408 m_member1C;
 };
 
 Rva00502D03::~Rva00502D03()
@@ -51,4 +51,3 @@ Rva00502D03::~Rva00502D03()
 //   0x0050298D reads ??1?$_Rb_tree@HU?$pair@$$CBHURva00501656@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00501656@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00501656@@@_STL@@@2@@_STL@@QAE@XZ
 #pragma comment(linker, "/alternatename:??1Rva004FFE96@@QAE@XZ=??1?$_Rb_tree@HU?$pair@$$CBHURva00501656@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00501656@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00501656@@@_STL@@@2@@_STL@@QAE@XZ")
 //   0x004FF630 reads ??1Rva004FF408@@QAE@XZ
-#pragma comment(linker, "/alternatename:??1Rva004FF630Member@@QAE@XZ=??1Rva004FF408@@QAE@XZ")

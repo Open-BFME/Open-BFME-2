@@ -49,10 +49,10 @@ public:
     ~Rva00257464() {}
 };
 
-class Rva00256461Member
+class Rva00255CD1
 {
 public:
-	~Rva00256461Member();
+	~Rva00255CD1();
 
 private:
 	int m_x;
@@ -79,7 +79,7 @@ private:
 	Rva003623E5Member m_filter40;		// +0x40
 	Rva003623E5Filter m_filter44;		// +0x44
 	Rva00257464 m_member48;		// +0x48
-	Rva00256461Member m_member4C;		// +0x4C
+	Rva00255CD1 m_member4C;		// +0x4C
 	unsigned char m_pad50[0x88 - 0x50];
 	RvaVecAscii m_vector88;			// +0x88
 	unsigned char m_pad94[0x98 - 0x94];

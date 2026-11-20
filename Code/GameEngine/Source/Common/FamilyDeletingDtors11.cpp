@@ -5,10 +5,10 @@
 
 template <> _STL::_List_base<int, _STL::allocator<int> >::~_List_base();
 
-class Rva0053470B
+class Rva00534641
 {
 public:
-	~Rva0053470B();
+	~Rva00534641();
 };
 // Scalar deleting destructors that retail keeps but never references: no
 // vtable slot, call or jmp reaches them. Each is the 28B shape that calls
@@ -59,7 +59,7 @@ public:
 
 private:
 	_STL::list<int> m_list;
-	Rva0053470B m_member;
+	Rva00534641 m_member;
 };
 void famgenDelete(Rva0053476A *objectToDelete) { delete objectToDelete; }
 
@@ -122,4 +122,3 @@ void famgenDelete(Rva004E364F *objectToDelete) { delete objectToDelete; }
 //   0x004E366E reads ?rva004E366E@Rva004E366E@@QAEXXZ
 #pragma comment(linker, "/alternatename:??1Rva004E364F@@QAE@XZ=?rva004E366E@Rva004E366E@@QAEXXZ")
 //   0x0053470B reads ??1Rva00534641@@QAE@XZ
-#pragma comment(linker, "/alternatename:??1Rva0053470B@@QAE@XZ=??1Rva00534641@@QAE@XZ")

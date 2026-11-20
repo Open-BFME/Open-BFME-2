@@ -79,7 +79,6 @@ Rva00801FB0Elem::Rva00801FB0Elem()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??0BfmeRva0066E270@@QAE@XZ=??0Rva00801FB0Elem@@QAE@XZ")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

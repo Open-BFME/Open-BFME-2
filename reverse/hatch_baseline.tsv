@@ -1498,7 +1498,6 @@ alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp	??1Rva0028
 alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp	??1Rva0042D92E@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp	??1Rva004D2344@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp	??1Rva004E364F@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp	??1Rva0053470B@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp	??1Rva0056A061@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp	??1Rva00527CCE@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp	??1Rva005282BA@@QAE@XZ	1
@@ -1660,7 +1659,6 @@ alternatename	Code/GameEngine/Source/Common/Rva001DD0A0Copy.cpp	??0BfmePod52@@QA
 alternatename	Code/GameEngine/Source/Common/Rva001DD8C9Alloc.cpp	?rva001DD8C9@Rva001DE556@@QAEPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva001E42F2Init.cpp	?rva001E42F2@Object@@QAEXPBH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva001E431EInit.cpp	?rva001E431E@Object@@QAEXPBH@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp	??1Rva004FF630Member@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp	??1Rva004FFE96@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp	??1Rva00502D48@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001F4D06Ctor.cpp	??0Rva001F4D06Base@@QAE@PAX0@Z	1
@@ -1953,7 +1951,6 @@ alternatename	Code/GameEngine/Source/Common/RvaDeletingDtorBatch04.cpp	??1Rva002
 alternatename	Code/GameEngine/Source/Common/RvaDeletingDtorBatch04.cpp	??1Rva002D339F@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp	??1Rva002076E7Map@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp	??1Rva0020779EMap@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp	??1Rva00256461Member@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp	??1BfmeVector0022C55B@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp	??1Rva0039C151Subobject@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp	??1Rva004EE501Subobject@@QAE@XZ	1
@@ -2586,7 +2583,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Rva007FA990Ctor.cpp	?v4@Rva007F
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	?v0@Rva00800920Sec@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801BD0FeslAlloc.cpp	?allocate@Rva00802040Arr@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801EC0FeslFill.cpp	?bfmeHitZP@BfmeSlotZP@@QAEXPAVBfmeKeyZP@@@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva00801FB0FeslElemCtor.cpp	??0BfmeRva0066E270@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801FB0FeslElemCtor.cpp	?slot@Rva00801FB0Elem@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp	??0BfmeC994@@QAE@PADH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp	?addInt@BfmeC994@@QAEXPBDH@Z	1
@@ -2670,7 +2666,6 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva0
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp	?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFontLibraryRva002CEF6C.cpp	??0Rva0050CBA2@@QAE@PAX@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	?Release_Ref@W3DRoadBufferRef18Target@@QAEXXZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp	??0Rva000E9C1DRecord@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp	??0Rva000E9C1DType@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp	??1Rva000E9C1DType@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp	?tailB@Rva00066A9ASub@@QAEXXZ	1
@@ -2847,7 +2842,6 @@ alternatename	Code/Libraries/Source/DirtySock/Y4CommTable.c	_Rva007F0000	1
 alternatename	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	_Rva008171C0Op	1
 alternatename	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	_Rva00818BF0Op	1
 alternatename	Code/Libraries/Source/DirtySock/Y4CommTransportLife.c	_Rva00818D20Op	1
-alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockDate.cpp	??0Rva007FF700FeslString@@QAE@XZ	1
 alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva007FD2D0SocketOpen@@YAPAXHHH@Z	1
 alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva007FD3F0SocketClose@@YAXPAX@Z	1
 alternatename	Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c	?Rva007FD4E0SocketShutdown@@YAXPAXH@Z	1
@@ -5162,7 +5156,6 @@ pin	reverse/symbols.csv	0x00255CFA	2
 pin	reverse/symbols.csv	0x00255D17	2
 pin	reverse/symbols.csv	0x00255D1F	1
 pin	reverse/symbols.csv	0x00255ED8	1
-pin	reverse/symbols.csv	0x00256461	1
 pin	reverse/symbols.csv	0x00256641	1
 pin	reverse/symbols.csv	0x00256646	2
 pin	reverse/symbols.csv	0x00256653	1
@@ -7379,7 +7372,7 @@ pin	reverse/symbols.csv	0x004FF471	6
 pin	reverse/symbols.csv	0x004FF49F	1
 pin	reverse/symbols.csv	0x004FF4F1	1
 pin	reverse/symbols.csv	0x004FF539	1
-pin	reverse/symbols.csv	0x004FF630	2
+pin	reverse/symbols.csv	0x004FF630	1
 pin	reverse/symbols.csv	0x004FF6AB	1
 pin	reverse/symbols.csv	0x004FF6D5	1
 pin	reverse/symbols.csv	0x004FF6FF	1
@@ -7600,7 +7593,6 @@ pin	reverse/symbols.csv	0x005344C8	1
 pin	reverse/symbols.csv	0x00534557	1
 pin	reverse/symbols.csv	0x00534581	1
 pin	reverse/symbols.csv	0x005346D9	1
-pin	reverse/symbols.csv	0x0053470B	1
 pin	reverse/symbols.csv	0x00534AAE	1
 pin	reverse/symbols.csv	0x00534E13	1
 pin	reverse/symbols.csv	0x00535776	2
@@ -8690,7 +8682,6 @@ pin	reverse/symbols.csv	0x0066AEF0	1
 pin	reverse/symbols.csv	0x0066AF70	1
 pin	reverse/symbols.csv	0x0066B0A0	1
 pin	reverse/symbols.csv	0x0066B180	1
-pin	reverse/symbols.csv	0x0066BBD0	1
 pin	reverse/symbols.csv	0x0066C0E0	1
 pin	reverse/symbols.csv	0x0066C730	2
 pin	reverse/symbols.csv	0x0066C760	2
@@ -8707,7 +8698,6 @@ pin	reverse/symbols.csv	0x0066DD00	1
 pin	reverse/symbols.csv	0x0066DEB0	1
 pin	reverse/symbols.csv	0x0066DF10	1
 pin	reverse/symbols.csv	0x0066E190	1
-pin	reverse/symbols.csv	0x0066E270	1
 pin	reverse/symbols.csv	0x0066EFC0	1
 pin	reverse/symbols.csv	0x0066F8D0	1
 pin	reverse/symbols.csv	0x0066F9B0	1

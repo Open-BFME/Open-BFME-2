@@ -134,16 +134,7 @@ public:
 // this 0x228-byte record.  Names below remain address-derived where the retail
 // image supplies layout but not C++ type information.
 
-class Rva007FF700FeslString
-{
-public:
-	Rva007FF700FeslString();
-
-private:
-	unsigned int m_kind;
-	void *m_text;
-	unsigned int m_capacity;
-};
+#include "../../../GameEngine/Include/Common/Rva007FF700Date.h"
 
 class Rva007F0CB0BlobRecord
 {
@@ -163,8 +154,8 @@ private:
 	volatile int m_024;
 	volatile int m_028;
 	volatile int m_02C;
-	Rva007FF700FeslString m_030;
-	Rva007FF700FeslString m_03C;
+	Rva007FF700Date m_030;
+	Rva007FF700Date m_03C;
 	volatile unsigned char m_048;
 	char m_pad049[ 0x1F ];
 	volatile unsigned char m_068;

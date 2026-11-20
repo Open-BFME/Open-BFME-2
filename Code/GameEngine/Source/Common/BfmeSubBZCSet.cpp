@@ -10,10 +10,10 @@
 
 #include <new.h>
 
-class BfmeRva0066E270
+class Rva00801FB0Elem
 {
 public:
-	BfmeRva0066E270() throw();
+	Rva00801FB0Elem() throw();
 
 private:
 	unsigned char m_bfmeBytes[0x80];
@@ -37,16 +37,16 @@ public:
 	void bfmeSetBZC(int count);
 
 private:
-	BfmeRva0066E270 *m_bfmeArray;
+	Rva00801FB0Elem *m_bfmeArray;
 	int m_bfmeCount;
 };
 
 void BfmeSubBZC::bfmeSetBZC(int count)
 {
 	((Rva00802A10 *)this)->clear();
-	m_bfmeArray = static_cast<BfmeRva0066E270 *>(
-		((BfmeRva0065CEA0Allocator *)Gen007EFFC0())->bfmeAllocate(count * sizeof(BfmeRva0066E270), 0));
+	m_bfmeArray = static_cast<Rva00801FB0Elem *>(
+		((BfmeRva0065CEA0Allocator *)Gen007EFFC0())->bfmeAllocate(count * sizeof(Rva00801FB0Elem), 0));
 	for (int index = 0; index < count; ++index)
-		new (&m_bfmeArray[index]) BfmeRva0066E270;
+		new (&m_bfmeArray[index]) Rva00801FB0Elem;
 	m_bfmeCount = count;
 }
