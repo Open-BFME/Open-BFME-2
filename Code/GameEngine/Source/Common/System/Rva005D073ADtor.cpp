@@ -7,7 +7,7 @@
 // callee parameter. A parameter's ledger spelling does not establish a
 // CreateAHeroData base: that class's verified table is 0x00C38D88, whereas
 // this body restores 0x00C62A14. Shape follows neighboring MI dtors
-// Rva005D06CB and Rva005D078B.
+// Rva005CFACB and Rva005D078B.
 class CreateAHeroData; // retained only for the existing callee ABI spelling
 
 class LivingWorldBattle;

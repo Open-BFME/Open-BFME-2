@@ -31,7 +31,7 @@
 //   0x005CFEC3  0x005CFEDF  0x00C752E4#0
 //   0x005CFF9C  0x005CFFB8  0x00C752EC#0
 //   0x005D08E1  0x005D0643  0x00C75538#0
-//   Rva005D06CB wrappers rehomed to the complete MI lifetime unit.
+//   Rva005CFACB wrappers rehomed to the complete MI lifetime unit.
 //   0x005D0A83  0x005D073A  0x00C75568#0
 
 struct EmitVtableTag;
@@ -259,7 +259,7 @@ Rva005CFFB8::Rva005CFFB8(EmitVtableTag *)
 {
 }
 
-// Rva005D06CB and its+C deleting adjustment now emit from the verified
+// Rva005CFACB and its+C deleting adjustment now emit from the verified
 // complete103B destructor unit; its synthetic base declarations are retired.
 
 class Rva005D073A

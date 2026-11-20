@@ -152,7 +152,7 @@ void StrategicInGameUI::BattleResolver::Impl::StartUpStateHandler::Update()
 // delay is targetA0663C's mutable zero-filled DWORD (sole code xref here).
 // Its class/static spelling is structural; no original data name claimed.
 // C752CCslot04 ties Update to existing Rva005CF9FF ctor/dtor.
-// The callback overrides the existing Rva005D06CB third base atC.
+// The callback overrides the existing Rva005CFACB third base atC.
 // Real MI generates native secondary-this owner-8/flag+8 accesses.
 // Code only is credited; existing providers reused, no pins/hatches.
 class Rva005D073A{public:Rva005D073A(void*);virtual ~Rva005D073A();char fields[8];};
@@ -170,7 +170,7 @@ class LivingWorldAutoResolveEventObserver {public: ~LivingWorldAutoResolveEventO
 
 class Rva005D06CBB2 : public LivingWorldAutoResolveEventObserver{public:};
 class Rva005EB753{public:Rva005EB753(void*,void*,void*);virtual ~Rva005EB753();virtual void veterancySlot04();void*member04;};
-class Rva005D06CB:public Rva005CF872,public Rva005D06CBB2,public Rva005EB753{public:Rva005D06CB(Rva005D06CBOwner*,void*,void*);virtual ~Rva005D06CB();virtual void veterancySlot04();bool flag14;};
+class Rva005CFACB:public Rva005CF872,public Rva005D06CBB2,public Rva005EB753{public:Rva005CFACB(Rva005D06CBOwner*,void*,void*);virtual ~Rva005CFACB();virtual void veterancySlot04();bool flag14;};
 struct ResolveBattleIDView{char unknown[0x34];int id;};
 struct ResolvePlanView{char unknown[0xc];Rva0042D6BAPtrChaseField*argument;void*unknown10;ResolveBattleIDView*battle;void*unknown18;Rva00575674 state;};
 class Rva005CF9FF:public Rva005CF872{public:Rva005CF9FF(void*,int,int,bool);virtual ~Rva005CF9FF();virtual void Update();static unsigned delay;int m_08;unsigned m_0C;bool m_flag;};
@@ -180,7 +180,7 @@ void Rva005CF9FF::Update(){
  bool showDialog=true;if(TheGameInfo)showDialog=((ResolveGameInfoView*)TheGameInfo)->isEmpty();
  if(showDialog){
   int value=((ResolvePlanView*)m_04)->argument->get();
-  Object*next=(Object*)new Rva005D06CB((Rva005D06CBOwner*)m_04,(void*)value,(void*)m_08);
+  Object*next=(Object*)new Rva005CFACB((Rva005D06CBOwner*)m_04,(void*)value,(void*)m_08);
   ((ResolvePlanView*)m_04)->state.rva00575674(next);
  }else{
   GameMessage*message=TheMessageStream->CreateMessage(0x6be);
@@ -190,7 +190,7 @@ void Rva005CF9FF::Update(){
  }
 }
 
-void Rva005D06CB::veterancySlot04(){
+void Rva005CFACB::veterancySlot04(){
  if(flag14)((ResolvePlanView*)m_04)->state.rva00575674((Object*)new Rva005CFEDF(m_04));
  else ((ResolvePlanView*)m_04)->state.rva00575674((Object*)new Rva005D073A(m_04));
 }

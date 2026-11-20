@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /O1 /arch:SSE /G7
 class LivingWorldBattle;
-// ??0Rva005D06CB@@QAE@PAXPAX0@Z @ 0x005D0B5E 127B. Constructor of the rowed
-// Rva005D06CB (dtor 0x005D06CB, scalar deleting dtor 0x005D0A67). Target
+// ??0Rva005CFACB@@QAE@PAXPAX0@Z @ 0x005D0B5E 127B. Constructor of the rowed
+// Rva005CFACB (dtor 0x005D06CB, scalar deleting dtor 0x005D0A67). Target
 // evidence: first base (vtable 0x00C75290) owner at +4, second base (vtable
 // 0x00C62A14) at +8, third base Rva005EB753 at +0xC built from (arg, owner+0x14,
 // arg) via the rowed constructor 0x005EB706, final vtables 0x00C75554/48/40,
@@ -61,17 +61,17 @@ struct Rva005D06CBOwner
 	void *m_14;
 };
 
-class Rva005D06CB : public Rva005D06CBB1, public Rva005D06CBB2, public Rva005EB753
+class Rva005CFACB : public Rva005D06CBB1, public Rva005D06CBB2, public Rva005EB753
 {
 public:
-	Rva005D06CB(Rva005D06CBOwner *owner, void *a, void *c);
-	virtual ~Rva005D06CB();
+	Rva005CFACB(Rva005D06CBOwner *owner, void *a, void *c);
+	virtual ~Rva005CFACB();
 	virtual void veterancySlot04();
 private:
 	bool m_14;
 };
 
-Rva005D06CB::Rva005D06CB(Rva005D06CBOwner *owner, void *a, void *c)
+Rva005CFACB::Rva005CFACB(Rva005D06CBOwner *owner, void *a, void *c)
 	: Rva005D06CBB1(owner), Rva005EB753(a, owner->m_14, c)
 {
 	m_14 = false;
