@@ -1,4 +1,9 @@
 // cl: /O1 /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// Isolate the donor coordinate declaration before adopting the shared target view.
+#define ICoord2D BfmeDonorICoord2D
+#include "Lib/BaseType.h"
+#undef ICoord2D
+#include "../../../../../../Libraries/Include/Lib/ICoord2D.h"
 // W3DGadgetProgressBarDraw 0x000A0D5E (493B), W3DGadgetProgressBarImageDrawA
 // 0x000A0F4B (169B) and W3DGadgetProgressBarImageDrawLocalCopy 0x000A0FF4
 // (754B): Zero Hour's W3DProgressBar.cpp through BFME1's donor of the same
@@ -126,10 +131,7 @@ public:
 };
 
 // Coordinates with an empty default constructor; see the header note.
-struct CtorCoord : ICoord2D
-{
-	CtorCoord() {}
-};
+#include "../../../../../../GameEngine/Include/Common/CtorCoord.h"
 
 // W3DGadgetProgressBarDraw ===================================================
 /** Draw colored Progress Bar using standard graphics */
