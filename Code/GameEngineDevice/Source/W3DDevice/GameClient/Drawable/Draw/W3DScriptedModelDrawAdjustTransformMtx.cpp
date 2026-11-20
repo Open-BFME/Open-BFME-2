@@ -37,7 +37,7 @@ public:
 	float rva0028B6A2();
 };
 
-class Object;
+
 
 #include "../../../../../../GameEngine/Include/GameLogic/Weapon.h"
 

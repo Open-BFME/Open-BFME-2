@@ -61,7 +61,7 @@ public:
 
 #include "../../Include/GameNetwork/Rva007F7810Block.h"
 
-class Rva007F7980Browser;
+
 
 class Rva00802DF0Element
 {

@@ -12,7 +12,7 @@
 #include <vector>
 #define BFME_SNAPSHOT_NAME_SLOT 1
 #include "Common/Snapshot.h"
-class Player;
+
 class Object;
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"

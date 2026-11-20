@@ -10,7 +10,7 @@ public:
     void *m_bfmeWhat;
 };
 
-class Rva00131BE5;
+
 
 #include "../WWLib/StringClassData.h"
 __forceinline StringClass::~StringClass(void) { Free_String(); }

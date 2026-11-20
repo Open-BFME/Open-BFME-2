@@ -19,7 +19,7 @@ class AsciiString;
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
-class Rva00397FEBInterface;
+
 
 // Retail calls the CRT fprintf import thunk through REL32, so read
 // <stdio.h> without dllimport.

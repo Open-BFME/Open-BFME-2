@@ -25,7 +25,7 @@ public:
  operator bool() const { return m_system != 0; }
 };
 #include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
-class W3DModelDraw;
+
 #include "../../../../../../GameEngine/Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Rva000B6EDEParticleNode

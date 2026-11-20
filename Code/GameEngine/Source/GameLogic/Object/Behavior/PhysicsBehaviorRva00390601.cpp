@@ -15,7 +15,7 @@ struct Gen_p12pod
 // Existing retail callee name; this is the PhysicsBehavior receiver at
 // 003909FA. Its original method identity is still unresolved.
 struct Rva003909FAModuleData;
-class Object;
+
 #include "../../../../Include/Common/Rva003909FAObj.h"
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"

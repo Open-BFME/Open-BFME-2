@@ -34,7 +34,7 @@
 
 #include "../../Include/GameNetwork/Rva007E8810Message.h"
 
-class Rva00802040Owner;
+
 
 class Rva00802680Owner
 {

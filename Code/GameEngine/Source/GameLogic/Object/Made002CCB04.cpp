@@ -13,7 +13,7 @@ class PartitionManager;
 extern PartitionManager *ThePartitionManager;
 #include "../../Common/PartitionRangeQueryCallView.h"
 
-class Object;
+
 
 struct MadeArg
 {

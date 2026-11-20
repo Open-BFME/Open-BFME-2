@@ -26,7 +26,7 @@
 //   The guard as one boolean and the list walk as an inline helper give
 //   retail's block order and late ebx/edi pushes.
 
-class Object;
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -70,7 +70,7 @@ enum DeathType
 	DEATH_TYPE_NONE = 0
 };
 
-class GettingBuiltBehaviorInterface;
+
 
 
 #include "../../../../Include/Common/ScoreKeeperClass.h"

@@ -62,7 +62,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 
 class Team;
 class Player;
-class Object;
+
 
 #include "../../../Include/Common/Player.h"
 

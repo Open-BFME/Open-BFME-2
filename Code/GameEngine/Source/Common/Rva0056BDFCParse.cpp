@@ -21,7 +21,7 @@ namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::a
 
 #include "../../Include/Common/INI/INI.h"
 
-class Rva0056BDC8;
+
 class ModuleData
 {
 };

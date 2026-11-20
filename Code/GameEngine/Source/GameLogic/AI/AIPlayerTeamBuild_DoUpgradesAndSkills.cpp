@@ -176,7 +176,7 @@ template <> void vector<Coord3D, allocator<Coord3D> >::push_back(const Coord3D &
 }
 #include <math.h>
 class ThingTemplate;
-class Player;
+
 class Team;
 
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -198,7 +198,7 @@ enum ObjectStatusTypes
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Object;
+
 enum BodyDamageType { BODY_PRISTINE = 0 };
 #include "../../../Include/GameLogic/Rva0037EE4C.h"
 #include "../../../Include/GameLogic/Rva0037E6E8.h"

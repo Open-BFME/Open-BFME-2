@@ -9,7 +9,7 @@
 // dtor ??1AutoAbilityBehavior at 0x0045A37F (AsciiString at +0x20, Object at
 // +8) and the sibling 0x0045A6FE. Callers at 0x003C32B0 plus 0x003C339E.
 
-class Object;
+
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 

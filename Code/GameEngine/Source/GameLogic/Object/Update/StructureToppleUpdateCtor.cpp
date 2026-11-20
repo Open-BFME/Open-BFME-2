@@ -23,7 +23,7 @@
 
 class Thing;
 class ModuleData;
-class Object;
+
 class DamageInfo;
 
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"

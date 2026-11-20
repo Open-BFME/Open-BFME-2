@@ -54,8 +54,8 @@ _List_node<Object *> *list<Object *, allocator<Object *> >::_M_create_node(Objec
 }
 }
 class Player;
-class BfmeTab1026;
-class Rva001EB130Holder;
+
+
 
 class Object
 {

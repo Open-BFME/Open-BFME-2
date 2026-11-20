@@ -11,7 +11,7 @@
 #include "GameLogicObjectLookupView.h"
 enum CommandSourceType{CMD_FROM_AI=2};enum ObjectStatusTypes{STATUS_NONE=0};
 enum DamageType{DAMAGE_NONE=0};enum DeathType{DEATH_NONE=0};
-class Object;class Team;class ThingTemplate;class Player;
+class Team;class ThingTemplate;class Player;
 class Rva0039B7AD;
 #include "../../../../Include/GameLogic/Module/Rva003B0D7C.h"
 #include "../../../../Include/Common/ScoreKeeperClass.h"

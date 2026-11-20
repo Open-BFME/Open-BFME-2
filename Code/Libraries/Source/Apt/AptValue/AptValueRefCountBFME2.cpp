@@ -14,7 +14,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class AptValue;
+
 
 #include "../AptValueVector.h"
 

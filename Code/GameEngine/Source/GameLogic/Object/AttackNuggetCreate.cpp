@@ -14,7 +14,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object;
+
 class Team;
 class Waypoint;
 class PolygonTrigger;
@@ -47,7 +47,7 @@ static __forceinline void aiAttackPositionInlined(AICommandInterface *ai, const 
 
 #include "../../../Include/GameClient/RadiusDecalTemplate.h"
 
-class RadiusDecalUpdate;
+
 #include "../../../Include/Common/Module.h"
 
 class Object {

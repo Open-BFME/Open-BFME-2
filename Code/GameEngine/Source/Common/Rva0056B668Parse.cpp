@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "../../Include/Common/INI/INI.h"
 
-class Rva0056B63E;
+
 class ModuleData
 {
 };

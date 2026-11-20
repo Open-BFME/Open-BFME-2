@@ -14,7 +14,7 @@ enum NameKeyType
 NameKeyType Rva0045EE2CGet();
 
 class Module;
-class Object;
+
 #include "../../Include/GameLogic/StancesBehavior.h"
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 class Object

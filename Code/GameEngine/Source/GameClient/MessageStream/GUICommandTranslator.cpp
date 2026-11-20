@@ -113,7 +113,7 @@ public:
 	ObjectID m_id;
 };
 class DrawableList;
-class PickAndPlayInfo;
+
 class PickAndPlayInfo
 {
 public:

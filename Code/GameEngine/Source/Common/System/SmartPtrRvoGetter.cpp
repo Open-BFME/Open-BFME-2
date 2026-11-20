@@ -11,7 +11,7 @@
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/Rva001F384AByteZeroSetter.h"
-class Rva003FDA90SmartField;
+
 class RvaSmartPtr12 { public:
  RvaSmartPtr12(const RvaSmartPtr12 &);
  void rva0004CBC0() throw();

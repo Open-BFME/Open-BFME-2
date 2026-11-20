@@ -7,7 +7,7 @@
 
 #include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 
-class Gen0002857E;
+
 
 // Retail 0x10ED1F passes the owner at entry+4 and the complete entry pointer
 // to the verified manager helper at 0xA8127. Both owner views put the mutex

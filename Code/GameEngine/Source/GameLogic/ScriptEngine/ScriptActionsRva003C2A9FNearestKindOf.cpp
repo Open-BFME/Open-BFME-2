@@ -16,7 +16,7 @@
 
 typedef bool Bool;
 class Object;
-class Player;
+
 class PlayerList;
 class AIGroup;
 #include "Code/Libraries/Include/Lib/Coord3D.h"

@@ -43,7 +43,7 @@ public:
 // a live one's physics (Object+0x25C, rowed PhysicsBehavior::rva003906BF).
 // Method identity not established.
 
-class Object;
+
 
 class WeaponTemplate;
 

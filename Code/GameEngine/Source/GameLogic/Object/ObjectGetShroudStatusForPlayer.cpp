@@ -44,7 +44,7 @@ class Module;
 #include "../../../Include/Common/Rva002039B6Host.h"
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
-class Object;
+
 struct Rva002D76C6Owner;
 #include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;

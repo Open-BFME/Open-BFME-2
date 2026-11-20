@@ -19,7 +19,7 @@ enum WeaponSlotType {OBSERVED_SLOT_0=0};
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Object;class Module;class Weapon;
+class Module;class Weapon;
 #include "../../../Include/Common/Rva002C9400ByteField.h"
 #include "../../../Include/GameLogic/Weapon.h"
 struct AttackQueryTemplate {char pad[0x108];unsigned kind[8];unsigned kindOf(unsigned k)const{return kind[k>>5]&(1U<<(k&31));}};

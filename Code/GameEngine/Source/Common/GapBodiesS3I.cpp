@@ -6,7 +6,7 @@
 
 // --- 0x005D8929 (41B): whether the object's AI (+0x258) victim is a
 // structure (kind-of bit 7 of its template word +0x108).
-class Object;
+
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 

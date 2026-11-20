@@ -49,8 +49,8 @@ public:
 };
 
 class RTS3DScene;
-class Drawable;
-class Object;
+
+
 
 #include "../../../../GameEngine/Include/GameClient/DrawableInfoClass.h"
 

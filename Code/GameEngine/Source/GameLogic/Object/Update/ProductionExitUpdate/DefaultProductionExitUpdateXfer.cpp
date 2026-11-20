@@ -92,7 +92,7 @@ namespace _STL {
 template <> void _Construct<Coord3D, Coord3D>(Coord3D *, const Coord3D &);
 }
 
-class Object;
+
 class ThingTemplate;
 class LocomotorSet;
 

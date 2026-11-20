@@ -10,7 +10,7 @@ class TeamPrototype;
 class ModuleData;
 class ThingTemplate;
 struct PlayerTeamNode;
-class Player;
+
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include "../../../../Include/Common/UnitRevivalTracker.h"

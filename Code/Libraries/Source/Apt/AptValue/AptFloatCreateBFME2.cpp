@@ -19,7 +19,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class AptValue;
+
 #include "../AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 class Rva006DB270;

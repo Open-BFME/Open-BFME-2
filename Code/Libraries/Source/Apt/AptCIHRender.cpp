@@ -34,7 +34,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #include "EAStringC.h"
 EAStringC *Rva0070B4F0GetString(int id);
 
-class AptString;
+
 class AptNativeHash;
 #include "AptValue.h"
 class AptString : public AptValue

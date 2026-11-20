@@ -22,7 +22,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-class AptValue;
+
 
 #include "../AptValueVector.h"
 

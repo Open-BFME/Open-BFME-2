@@ -12,7 +12,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT 1
 #include "Common/Snapshot.h"
 class Player;
-class Object;
+
 // Native DB8FEC object-list policy is distinct from generic allocator41B.
 template<class T>class Rva001EB984PoolAllocator {};
 #include "../../Common/GameLogicObjectLookupView.h"

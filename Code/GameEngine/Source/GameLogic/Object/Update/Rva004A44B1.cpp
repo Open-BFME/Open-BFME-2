@@ -13,7 +13,7 @@
 
 
 class Module;
-class Object;
+
 class BoneFXUpdate;
 class GameLogic;
 class NameKeyGenerator;

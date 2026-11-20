@@ -20,7 +20,7 @@ public:
  BfmeParticleSystemHandle *previous,*next;
 };
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
-class Rva0020453CHolderBase;
+
 #include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 class Rva0020453CHolderBase {

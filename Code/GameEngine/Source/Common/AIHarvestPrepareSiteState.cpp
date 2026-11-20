@@ -3,7 +3,7 @@
 // Derived State ctor via rowed State hash ctor 0x004D73FC with hash
 // 0xA2C0BF2B then zero of +0x20 then vtable 0x00C69C98. Evidence:
 // vtable store at [this]; base StateCtor row; prev 0x00544AD2 same dir.
-class StateMachine;
+
 class Xfer;
 
 #include "../../Include/Common/StateMachine.h"

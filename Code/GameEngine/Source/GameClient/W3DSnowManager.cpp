@@ -37,7 +37,7 @@ protected:
     unsigned char m_target50[0x24];
 };
 
-class TextureClass;
+
 
 template <class T>
 class RefCountPtr
