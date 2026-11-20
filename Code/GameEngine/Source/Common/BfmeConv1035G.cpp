@@ -5,7 +5,7 @@
 // TU holding the preamble and this one body; the donor's other five bodies
 // (bfmeGo1035A, bfmeGo1035B, bfmeGo1035C, bfmeGo1035E and bfmeGo1035F) are
 // omitted -- bfmeGo1035C is recovered in its own TU.
-class BfmeG1035;
+
 
 // The name is a StringClass (wwstring.cpp): the empty test reads its private
 // sentinel StringClass::m_NullChar (VA 0xE08C18) and the fix-up is the cdecl

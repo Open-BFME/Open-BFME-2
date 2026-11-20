@@ -19,7 +19,7 @@ class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class BfmeMemberRV;
+
 #include "../../Include/GameClient/BfmeThingRV.h"
 class PlayerList;
 extern PlayerList *ThePlayerList;

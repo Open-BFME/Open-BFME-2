@@ -24,7 +24,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
 };
 
-class Object;
+
 class Player;
 
 #include "../../../Include/Common/ThingTemplate.h"

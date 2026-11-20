@@ -13,7 +13,7 @@
 // no stack result slot -- the only push is the argument passed to the second --
 // so each returns its value directly in eax.
 
-class BfmeThingGX;
+
 
 class BfmeThingGX
 {

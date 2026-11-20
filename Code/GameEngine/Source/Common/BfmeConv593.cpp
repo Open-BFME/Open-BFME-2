@@ -1,4 +1,4 @@
-class BfmeThingCFF;
+
 
 class BfmeOwnerCFF;
 

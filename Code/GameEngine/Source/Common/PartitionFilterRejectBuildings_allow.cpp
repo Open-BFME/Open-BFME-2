@@ -7,8 +7,8 @@
 // bool. Evidence is vtable plus ctor layout plus rowed callees.
 
 class Player;
-class ObjectTemplate;
-class Provider;
+
+
 
 class ObjectTemplate
 {

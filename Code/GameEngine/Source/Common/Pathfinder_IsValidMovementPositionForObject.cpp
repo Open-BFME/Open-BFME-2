@@ -15,7 +15,7 @@ enum PathfindLayerEnum
 
 #include "../../Include/GameLogic/PathfindCell.h"
 
-class Object;
+
 
 #include "../../Include/GameLogic/AIPathfind.h"
 

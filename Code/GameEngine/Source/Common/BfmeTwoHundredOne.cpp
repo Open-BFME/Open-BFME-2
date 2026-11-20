@@ -93,7 +93,7 @@ void BfmeThingGL::bfmeReleaseGL(void)
 	m_bfmeHeld = 0;
 }
 
-class BfmeItemGM;
+
 
 class BfmeItemGM
 {

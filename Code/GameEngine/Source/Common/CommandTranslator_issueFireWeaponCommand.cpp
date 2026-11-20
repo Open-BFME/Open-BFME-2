@@ -10,7 +10,7 @@ enum ObjectID
 };
 
 class Drawable;
-class Object;
+
 
 class GameMessage
 {

@@ -6,7 +6,7 @@
 // donor body is byte-identical to retail once relocations are masked (unique
 // hit on unclaimed .text). Only the placed body is defined here; the donor's
 // other definitions are omitted.
-struct BfmeNodeLC;
+
 
 struct BfmeNodeLC
 {
