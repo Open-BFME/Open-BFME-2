@@ -302,6 +302,8 @@ engine init.
 | UpgradeSoundSelectorClientBehavior, ModelConditionSoundSelectorClientBehavior | **repaired** over a real 19-slot base (`Common/Rva00252B68.h`): empty ctor bodies, compiler-installed tables, all 3 interface slots and 17 of 19 primary slots resolve or equal retail's bytes. Slot 2 reads the base's name (P41). Slot 1 is `DrawableModule::loadPostProcess`, still Module.cpp's: retail's 0x000B3FD0 was claimed by another worker, so it is not rowed yet. See the notes below |
 | HordeTransportContain | open, large: its ctor stores 10 tables (OpenContain, TransportContain and Horde levels); nearly all 31 primary slots are rowed under real names, but no shared view of the chain exists |
 
+On 2026-11-20 the SpawnedModelConditionCreate constructor's 12-slot primary table still needed slots 1, 2 and 3. Its slot 1 now binds the verified shared `loadPostProcess` body. Slots 2 and 3 still need supported changes to the existing getter and `xfer` rows. [Native slot evidence and naming refusals](../../reverse/attempt_support/spawned-model-condition-create-slots-20261120-root20.md).
+
 **Repaired: DamageFieldUpdate** (ctor 0x004912A9, dtor 0x0049122C). The HeightDieUpdate recipe, with FireWeaponUpdate on the
 canonical UpdateModule: the compiler installs `??_7DamageFieldUpdate`'s three tables in retail's order.
 

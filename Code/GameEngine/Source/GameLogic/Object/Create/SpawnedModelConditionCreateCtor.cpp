@@ -20,10 +20,18 @@ public:
 	SpawnedModelConditionCreate(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onCreate() {}
+
+protected:
+	virtual void loadPostProcess();
 };
 
 // ??0SpawnedModelConditionCreate@@QAE@PAVThing@@PBVModuleData@@@Z @0x00250A1F
 SpawnedModelConditionCreate::SpawnedModelConditionCreate(Thing *thing, const ModuleData *moduleData) :
 	CreateModule(thing, moduleData)
 {
+}
+
+void SpawnedModelConditionCreate::loadPostProcess()
+{
+	CreateModule::loadPostProcess();
 }
