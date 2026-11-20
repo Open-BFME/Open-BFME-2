@@ -136,11 +136,19 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class __declspec(novtable) Rva00253487Base
+#include "../../../../Include/Common/ModuleData.h"
+
+// Retail's CostModifierUpgradeModuleData table 0x00C58210 is ModuleData's 31
+// slots (0x00C4ED70) with slot 10 returning true, as Rva00253487Base.h says;
+// deriving from the canonical ModuleData gives this view those slots, and
+// slot10 is the base's rowed override (0x0050B5C6). The eight-byte ModuleData
+// base ends where the derived padding starts.
+class __declspec(novtable) Rva00253487Base : public ModuleData
 {
 public:
 	Rva00253487Base();
 	virtual ~Rva00253487Base();
+	virtual bool slot10() const;
 };
 
  // Virtual (shares the derived vptr at +0, so the base call stays
@@ -155,7 +163,7 @@ public:
 	virtual ~CostModifierUpgradeModuleData();
 
 private:
-	unsigned char m_pad[0x118 - 4]; // +4..+0x117, vptr at +0 is compiler-installed
+	unsigned char m_pad[0x118 - 8]; // +8..+0x117, ModuleData occupies +0..+7
 	Rva003623E5Member m_objectFilter; // +0x118, ObjectFilter
 	_STL::vector<float> m_percentages; // +0x11C, Percentage list
 	bool m_upgradeDiscount; // +0x128, UpgradeDiscount
