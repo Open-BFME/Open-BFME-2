@@ -30,7 +30,7 @@
 #include <d3d9.h>
 #undef D3DTRANSFORMSTATETYPE
 
-struct IDirect3DDevice8;
+
 
 #include "../WWMath/Vector4Data.h"
 

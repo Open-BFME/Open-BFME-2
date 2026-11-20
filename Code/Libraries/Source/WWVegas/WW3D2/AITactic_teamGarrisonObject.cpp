@@ -14,14 +14,14 @@ class AITactic;
 class TeamFactory;
 extern class AI *TheAI;
 extern TeamFactory *TheTeamFactory;
-struct Rva003A2FD4Proto;
-class AsciiString;
-class TeamPrototype;
+
+
+
 #include "../../../../GameEngine/Include/Common/TeamFactory.h"
 #include "../../../../GameEngine/Include/Common/Rva004ECECDNode.h"
 enum CommandSourceType;
-struct Coord3D;
-struct Rva00372571Params;
+
+
 #include "../../../../GameEngine/Include/GameLogic/AIGroup.h"
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"

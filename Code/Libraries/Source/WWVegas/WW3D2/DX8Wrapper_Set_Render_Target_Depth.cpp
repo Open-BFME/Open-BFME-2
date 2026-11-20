@@ -11,7 +11,7 @@
 #include <d3d9.h>
 
 struct IDirect3DSurface8;
-struct IDirect3DDevice8;
+
 
 #define DEVICE9 (reinterpret_cast<IDirect3DDevice9 *>(D3DDevice))
 #define SURFACE9(surface) (reinterpret_cast<IDirect3DSurface9 *>(surface))

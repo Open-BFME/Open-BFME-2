@@ -17,7 +17,7 @@
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 std::wstring MultiByteToWideCharSingleLine(const char*);
-class GameFont;
+
 #include "../../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 #include "../../../../../GameEngine/Include/GameClient/DisplayString.h"
@@ -27,7 +27,7 @@ extern DisplayStringManager *TheDisplayStringManager;
 class AptTextListener;
 class WindowManager { public: void bfme_bindAptText(const AsciiString&,const UnicodeString&,AptTextListener*); };
 extern WindowManager *g_rva012F19E8WindowManager;
-extern bool Rva012BB864ScaleEnabled;
+
 extern float Rva012BB86CScaleX,Rva012BB870ScaleY;
 class Rva00788290Base { public: virtual ~Rva00788290Base() {} };
 class Rva00788290Object {

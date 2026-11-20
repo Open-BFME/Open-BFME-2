@@ -37,7 +37,7 @@ extern float _FastSinTable[SIN_TABLE_SIZE];
 class RenderInfoClass;class TextureBaseClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 namespace Debug_Statistics {void Record_DX8_Polys_And_Vertices(int,int,const ShaderClass&);}
-struct IDirect3DDevice8;
+
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 float Rva000930C0(float,float);
 __forceinline int WWMath::Float_To_Int_Floor (const float& f)
@@ -66,7 +66,7 @@ __forceinline float WWMath::Fast_Sin(float val)
 
 	idx0 = ((unsigned)idx0) & (SIN_TABLE_SIZE-1);
 	idx1 = ((unsigned)idx1) & (SIN_TABLE_SIZE-1);
-	
+
 	return (1.0f - frac) * _FastSinTable[idx0] + frac * _FastSinTable[idx1];
 }
 

@@ -28,7 +28,7 @@ public:
 	void rva00081EA8(Rva001408C0Target *target);
 };
 
-class Rva0007F944Item;
+
 #include "../../../../../Include/W3DDevice/GameClient/Rva0007F944Host.h"
 
 extern void *W3DGCData00DE2000;

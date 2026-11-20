@@ -6,7 +6,7 @@
 // 0x006E6D50 landing; no callers.
 #include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
-class AptValue;
+
 #include "../AptValueVector.h"
 AptValueVector *AptValueVector::rva006CC350(unsigned int flag)
 {

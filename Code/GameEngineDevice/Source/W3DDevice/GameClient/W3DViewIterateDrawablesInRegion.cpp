@@ -53,7 +53,7 @@ enum PickType
 	PICK_TYPE_FORCE_32 = 0x7fffffff
 };
 
-class Object;
+
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 class GameClientView

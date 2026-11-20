@@ -38,8 +38,8 @@ private:
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Image.h
 
 W3DRadarResetSurface getBackBufferSurface(Int index);
-void copySurfaceRects(W3DRadarResetSurface source, const BfmeRect *sourceRect,
-	W3DRadarResetSurface destination, const BfmeRect *destinationRect, Int mode);
+
+
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DDisplay.h
 

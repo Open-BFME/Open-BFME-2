@@ -12,7 +12,7 @@
 
 #include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 
-struct IDirect3DDevice8;
+
 
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"

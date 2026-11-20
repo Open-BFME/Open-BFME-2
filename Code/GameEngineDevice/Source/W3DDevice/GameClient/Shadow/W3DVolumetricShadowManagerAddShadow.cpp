@@ -127,7 +127,7 @@ private:
 	void *m_ref04; // +0x04, points at the kind-flags block
 };
 
-class HAnimClass;
+
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/HAnimManagerClass.h"
 
 class W3DShadowGeometry;

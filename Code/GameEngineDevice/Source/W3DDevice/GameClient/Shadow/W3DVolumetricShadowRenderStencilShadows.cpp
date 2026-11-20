@@ -13,7 +13,7 @@
 // (0x007B9280), itself the ZH body; BFME 2 drops the device-null guard and
 // routes the raw device SetRenderState calls through DX8Wrapper.
 
-typedef float Real;
+
 #include <windows.h>
 typedef DWORD D3DRENDERSTATETYPE;
 

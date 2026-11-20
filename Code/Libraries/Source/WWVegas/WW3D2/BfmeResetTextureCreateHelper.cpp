@@ -20,7 +20,7 @@ void Log_DX8_ErrorCode(unsigned code);
 
 // The device at 0x00DEDA34 is DX8Wrapper's protected D3DDevice (defined in
 // dx8wrapper.cpp), read through its public inline accessor.
-struct IDirect3DDevice8;
+
 
 #include "DX8WrapperClass.h"
 

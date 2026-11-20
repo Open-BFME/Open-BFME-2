@@ -46,7 +46,7 @@ public:
 	Rva006F1530Inner *m_inner20;	// +0x20
 };
 
-class AptValue;
+
 // The value maker is the rowed AptBoolean::Create.
 #include "../AptBoolean.h"
 

@@ -40,7 +40,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "w3derr.h"
 #include "chunkio.h"
 #include "predlod.h"
-class CameraClass;
+
 #include "rinfo.h"
 #include "sphere.h"
 #include "boxrobj.h"

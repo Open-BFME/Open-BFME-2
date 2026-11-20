@@ -10,7 +10,7 @@
 // device's SetTexture is slot 65.
 #include "../../../../GameEngine/Include/Common/IDirect3DBaseTexture8.h"
 struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
-struct IDirect3DDevice8;
+
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 

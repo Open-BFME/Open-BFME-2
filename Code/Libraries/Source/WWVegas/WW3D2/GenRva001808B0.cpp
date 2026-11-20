@@ -7,8 +7,8 @@
 // +0x14, releases File via slot 8. Evidence: vtable slot, callers share.
 
 
-typedef unsigned int uint32;
-typedef unsigned char uint8;
+
+
 
 
 // Retail imports strchr but calls the multibyte copy through its thunk.
@@ -20,7 +20,7 @@ typedef unsigned char uint8;
 #include <new>
 #include "../../../../GameEngine/Include/Common/File.h"
 
-class FileClass;
+
 
 File *__cdecl GetGameFilePart(const char *filename, int a, int b);
 

@@ -24,7 +24,7 @@
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class View;
-class Drawable;
+
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class RenderObjClass;

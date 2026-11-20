@@ -10,7 +10,7 @@
 // signature/defaults are from the Redwood6 PDB and _AptActions.h. The context,
 // current-frame and native-hash relationships below follow the retail calls;
 // offsets +0x24 and +0x30 are target accesses supported by the donor layout.
-class AptCIH;
+
 class AptValue;
 class AptScriptFunctionBase;
 class AptFrameStack;

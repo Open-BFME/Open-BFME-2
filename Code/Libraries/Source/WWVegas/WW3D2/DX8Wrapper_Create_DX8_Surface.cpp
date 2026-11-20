@@ -5,7 +5,7 @@
 
 class IDirect3DSurface9;
 
-struct IDirect3DDevice8;
+
 struct IDirect3DDevice9;
 
 struct IDirect3DDevice9Vtbl

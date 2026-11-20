@@ -20,7 +20,7 @@
 
 #include "../../../../GameEngine/Include/Common/ScalarTypes.h"
 
-struct IDirect3DDevice8;
+
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 #define g_d3dDevice (reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8()))
 

@@ -28,7 +28,7 @@
 
 
 
-struct IDirect3DDevice8;
+
 struct IDirect3DVertexBuffer8;
 struct IDirect3DIndexBuffer8;
 // The device and buffers keep their D3D8 type names (the decorations of

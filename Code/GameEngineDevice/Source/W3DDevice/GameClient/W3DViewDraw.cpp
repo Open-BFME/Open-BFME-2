@@ -81,7 +81,7 @@ public:
 	const Coord3D *getDebugPathPosition() { return (const Coord3D *)((Rva003EFDD7LeaField *)this)->get(); }
 	Bridge *getFirstBridge() { return m_firstBridge; }
 };
-class AIData007446A0;
+
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;
 

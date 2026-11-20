@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 // RVA 0x008A5360: extract bits 2-9 of the last packed key, offset by two.
-class AptValue;
+
 #include "../../../../GameEngine/Include/Common/AptInteger.h"
 
 #include "../../Apt/AptActionInterpreter.h"

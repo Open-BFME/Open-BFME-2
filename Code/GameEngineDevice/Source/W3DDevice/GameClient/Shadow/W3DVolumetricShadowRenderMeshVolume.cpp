@@ -30,9 +30,9 @@
 
 
 
-struct IDirect3DDevice8;
+
 struct IDirect3DVertexBuffer8;
-struct IDirect3DIndexBuffer8;
+
 // The device and buffers keep their D3D8 type names (the decorations of
 // DX8Wrapper::D3DDevice, the shadow buffers and the WW3D buffer classes) but
 // are Direct3D 9 objects: SetTransform 44, DrawIndexedPrimitive 82,

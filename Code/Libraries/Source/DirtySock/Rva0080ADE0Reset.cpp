@@ -10,7 +10,7 @@ extern "C" void Rva007FD3F0( void *socket );
 extern "C" void Rva0080AD00( int a, int b, unsigned char *state );
 #include <string.h>
 void bfmeGo1019C(int a);
-extern "C" void __RTC_CheckEsp( void );
+
 
 struct Rva0080ADE0Object
 {
