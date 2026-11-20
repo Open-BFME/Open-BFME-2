@@ -90,7 +90,6 @@ template <> int DynamicVectorClass<float>::ID(float const &);
 
 template <> int VectorClass<float>::ID(float const &);
 
-template <> int VectorClass<float>::ID(float const *);
 
 template <> bool VectorClass<float>::Resize(int, float const *);
 

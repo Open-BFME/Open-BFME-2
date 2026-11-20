@@ -75,7 +75,6 @@ static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [
 template <> bool VectorClass<float>::operator==(VectorClass<float> const &) const;
 template <> int DynamicVectorClass<float>::ID(float const &);
 template <> int VectorClass<float>::ID(float const &);
-template <> int VectorClass<float>::ID(float const *);
 template <> bool VectorClass<float>::Resize(int, float const *);
 template <> bool VectorClass<BfmeWeightInfoVddAnchor::Info>::Resize(int, BfmeWeightInfoVddAnchor::Info const *);
 // bfme link decl-only end

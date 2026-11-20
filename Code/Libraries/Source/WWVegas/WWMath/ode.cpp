@@ -53,7 +53,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "ode.h"
 #include <assert.h>
 // bfme link decl-only begin
-template <> int VectorClass<float>::ID(float const *);
 template <> bool VectorClass<float>::Resize(int, float const *);
 // bfme link decl-only end
 
