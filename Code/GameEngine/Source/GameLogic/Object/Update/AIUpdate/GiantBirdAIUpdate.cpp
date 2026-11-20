@@ -136,23 +136,6 @@ private:
 	unsigned char m_pad260[0x438 - 0x260];
 	unsigned char m_privateStatus; // +0x438
 };
-// Sets a status on the Object for the lifetime of the scope (WB 0x00E414C0
-// and 0x00E41500, inlined in retail); the name is a structural inference.
-class ObjectStatusScope
-{
-public:
-	__forceinline ObjectStatusScope(Object *obj, ObjectStatusTypes status) : m_obj(obj), m_status(status)
-	{
-		m_obj->setStatus(m_status, true);
-	}
-	__forceinline ~ObjectStatusScope()
-	{
-		m_obj->setStatus(m_status, false);
-	}
-private:
-	Object *m_obj;
-	ObjectStatusTypes m_status;
-};
 #include "../../../../../Include/GameLogic/AiOrdersManager.h"
 extern AiOrdersManager *TheAiOrdersManager;
 struct AICommandParms
@@ -334,7 +317,7 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../Include/Common/XferVersion.h"
-#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+#include "../../../../Common/GameLogicObjectLookupView.h"
 void XferObjectID( Xfer *xfer, ObjectID *value );
 Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<Int> *value );
 class Rva0026AFDAMember
@@ -390,6 +373,24 @@ private:
 	Coord3D m_560; // +0x560
 	Coord3D m_56C; // +0x56C
 	Bool m_578; // +0x578
+};
+
+// Sets a status on the Object for the lifetime of the scope (WB 0x00E414C0
+// and 0x00E41500, inlined in retail); the name is a structural inference.
+class ObjectStatusScope
+{
+public:
+	__forceinline ObjectStatusScope(Object *obj, ObjectStatusTypes status) : m_obj(obj), m_status(status)
+	{
+		m_obj->setStatus(m_status, true);
+	}
+	__forceinline ~ObjectStatusScope()
+	{
+		m_obj->setStatus(m_status, false);
+	}
+private:
+	Object *m_obj;
+	ObjectStatusTypes m_status;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp

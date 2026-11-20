@@ -33,3 +33,11 @@ Rva00375A73Context parameter identities in AerialPathfinder. The observed
 cannot yet replace those field views. Both deferrals and the native offset
 map are retained; broader GiantBird/census clearance remains pending.
 [Accepted caller and context prerequisites](../../reverse/attempt_support/rva00368c7a-header-20261112.md).
+
+2026-11-20: GiantBirdAIUpdate.cpp now owns the append, waypoint and
+Xfer bodies. Three absorbed source paths and eight existing rows moved
+through the guarded merge. The shared Thing header retired one queue
+entry, and the shared enum declarations preserve the native objects.
+The remaining four donors still need Object layout, interface slots
+and exact EH reconciliation.
+[Current consolidation evidence](../../reverse/attempt_support/giantbird-tu-consolidation-20261120-root20.md).
