@@ -1836,7 +1836,7 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
     GameLogic 1). The next homogeneous batch: define each mask in its unit with the BitFlags type after the copy,
     retyping the `unsigned char[28]` consumers through `rename.py global --retype`.
 
-**Round init-4 (halilkkaya-init4, 2026-11-20, bridged 436 -> 432 so far).** Same base, method and per-entry checks as
+**Round init-4 (halilkkaya-init4, 2026-11-20, bridged 436 -> 431).** Same base, method and per-entry checks as
 round init-3. New scripts under `build/init4/`: `mbhd.py` (nbhd.py for the memset shape), `retract_memset.py` (retract
 MaskInits/ZeroInits entries), `scc.py` (scratch compile into `build/init4/obj/` with a source's own `// cl:` line,
 never `build/match`, plus capstone listing).
@@ -1873,5 +1873,46 @@ never `build/match`, plus capstone listing).
   SelectionXlat's copy 0x00E03224, this copy 0x00E03228 (a unit with no plain global), then TheFormationTranslator
   0x00E0322C (read by FormationTranslator code) and the second copy 0x00E03230. Zero Hour's GUICommandTranslator.cpp
   includes GameClient/Drawable.h (donor fact), and the approved TU file already compiled the copy as `_$E1`, so only
-  the rows change. *Left:* 0x007B0521 is FormationTranslator's by the same order and layout, but its TU
-  (Common/FormationTranslator.cpp) is only proposed and has no file.
+  the rows change.
+- *Taken (432 -> 431): FormationTranslator's copy 0x007B0521.* The second of the same two runs, by the same link order;
+  its static 0x00E03230 directly follows TheFormationTranslator 0x00E0322C, the unit's plain global (a unit with a
+  plain global, then its copy). No donor fact (Zero Hour has no FormationTranslator). The map only proposes
+  Common/FormationTranslator.cpp and no such file exists, so the `_$E` row goes with its parent: the fragment
+  Rva00431F61Ctor.cpp, which defines TheFormationTranslator and its constructor, takes
+  GameClient/DrawableFramesPerFlash.h right after that global and registers the copy as `_$E1`. It moves with the
+  fragment when the TU is approved and merged.
+- *Held from the MaskInits batch (target facts, no edits).*
+  - KINDOFMASK_NONE 0x007AE26A (28 bytes at 0x00DFEFA4, defined in ThingIsAnyKindOf.cpp as `BitFlags<116>`, Zero Hour's
+    KindOf.cpp default-constructs it). The inline constructor compiles the initializer exactly, but cl 7.1 also emits
+    the constructor's COMDAT `??0?$BitFlags@$0HE@@@QAE@XZ` (even `__forceinline` does), and the Zero Hour-based units
+    define that symbol for their 4-word bitset; link_check refuses the differing copy. Real fix: the canonical
+    7-word KindOfMaskType (retail's name table is 218 bits, not Zero Hour's 116), so the ctor name stops colliding.
+  - ScoreKeeper's four 28-byte masks 0x007AF2C2..0x007AF2F8. RTS/ScoreKeeper.cpp is a Zero Hour port built on Zero
+    Hour's bitset BitFlags (whose `BitFlags<218>` would be 7 words), and its only rows besides the copy are two STLport
+    map instantiations at 0x0075A1xx, so its flag region votes `/O2`, under which the memset folds and no `_$E` is
+    emitted. The unit needs retail's `/O1` (its own code, 0x0039B6EE.., is in the `/O1` region) and the BFME 2 mask
+    type first.
+  - GameLogic's 16-byte mask 0x007ADC9C (0x00DFE794): by the run (GameLogic's copy `_$E1`, this, the timing-log object
+    0x007ADCAE, marker) and the `.bss` (TheGameLogic, the copy, this, then 0x00DFE7A8 read by GameLogic code) it is
+    GameLogic.cpp's, but only FireLogicSystem's vslot getters (0x002856F7/0x002856FD pair it with the 76-byte
+    0x00DFEA50) read it, so its type is a 4-word BitFlags whose N (101 or 104 by retail's name tables) nothing proves,
+    and GameLogic.cpp's BitFlagsTemplate.h declares the constructor out of line.
+  - 0x007ADE4C (76 bytes, 0x00DFEA50, BitFlags<591>-sized) sits in a run with the AllocCtorInits entry 0x007ADE2F after
+    View.cpp's run; its `.bss` follows the KA list globals of unassigned code. No unit.
+  - GiantBirdAIUpdate's five 0x007AEDE7..0x007AEE2F: the ZeroInits header's five objects (below); GiantBird's split
+    fragments share them as `g_00E01EC0`..`g_00E01ED0`, so they wait for the TU merge, as in-o4 said.
+- *ZeroInits: the static's type (WorldBuilder target fact).* WorldBuilder's copy of the GiantBirdAIUpdate constructor
+  (WB 0xF37F80, paired with retail 0x0036B717) sets bits in its five masks through an inlined assert of
+  `BitFlags<8,enum AerialPathfinder::AerialPathShapeType>::SetBit` (Source\Common/BitFlags.h line 59), and
+  WB's `AerialPathfinder::computeAerialPath` (WB 0xF2A4B0, GameLogic\Ai\AerialPathfind.cpp) tests the mask argument
+  through `BitFlags<8,AerialPathfinder::AerialPathShapeType>::test`. So each ZeroInits run is five default-constructed
+  `BitFlags<8, AerialPathfinder::AerialPathShapeType>` objects with internal linkage (one set per includer, at that
+  includer's own `.bss`), and the 18-byte body is their inline memset constructor under `/O1`. The header must see
+  AerialPathfinder's nested enum; GameEngine.cpp, which allocates TheAerialPathfinder, has none, so it is not
+  AerialPathfind.h but a header that includes it, most likely GiantBirdAIUpdate.h (in-o4): ModuleFactory.cpp's run
+  places the five after SpawnBehavior's rate (`_$E206`) and before SlavedUpdate's SLAVED (`_$E208`), Zero Hour's
+  include order of a behavior header, then an update header that sorts before SlavedUpdate. *Blocked:* nothing names
+  the five objects or the header file (WB's names come from asserts, and its globals are unnamed), and rowing them
+  needs a name per object in every includer; the template also needs its second (enum) parameter, which
+  `BitFlagsTemplate.h` does not have. The ctor COMDAT of a two-parameter instantiation would not collide with any other
+  BitFlags<8>.

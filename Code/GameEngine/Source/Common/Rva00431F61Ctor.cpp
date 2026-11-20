@@ -40,6 +40,12 @@ public:
 // g_00E0322C: matched references place it at VA 0xe0322c (retail .data initial value 0).
 FormationTranslator * TheFormationTranslator = 0;
 
+// Retail 0x007B0521: FormationTranslator's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, alone in its initializer
+// run, the second of two copy-only runs between SelectionXlat's and PlaceEventTranslator's, as this unit's code
+// follows GUICommandTranslator's; its static (VA 0x00E03230) directly follows TheFormationTranslator. The unit has no
+// TU file yet, so the fragment that defines that global takes the constant's own header.
+#include "../../Include/GameClient/DrawableFramesPerFlash.h"
+
 #include <new>
 
 FormationTranslator::FormationTranslator()
