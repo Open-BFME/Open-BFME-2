@@ -1,0 +1,663 @@
+{
+ "array_count_unit": "elements",
+ "bases": [
+  "OpenContain"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "GarrisonContain",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "OpenContain"
+   ]
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x100": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x420": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 6
+   },
+   "0x9d0": {
+    "4": 2
+   },
+   "0x9de": {
+    "1": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x477f06"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "OpenContain",
+       "offset": 0,
+       "own_vftable": "0x8461f8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x477f06"
+     ],
+     "value": 2527
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x477f06"
+     ],
+     "value": {
+      "0x100": [
+       4
+      ],
+      "0x104": [
+       4
+      ],
+      "0x108": [
+       4
+      ],
+      "0x10c": [
+       4
+      ],
+      "0x110": [
+       4
+      ],
+      "0x420": [
+       4
+      ],
+      "0x424": [
+       4
+      ],
+      "0x428": [
+       4
+      ],
+      "0x42c": [
+       4
+      ],
+      "0x9d0": [
+       4
+      ],
+      "0x9d4": [
+       4
+      ],
+      "0x9d8": [
+       4
+      ],
+      "0x9dc": [
+       1
+      ],
+      "0x9dd": [
+       1
+      ],
+      "0x9de": [
+       1
+      ],
+      "0xfc": [
+       4
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24ba85"
+     ],
+     "value": 2528
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x477f06"
+     ],
+     "value": {
+      "0x10": [
+       "0x846560"
+      ],
+      "0x20": [
+       "0x846080"
+      ],
+      "0x24": [
+       "0x846064"
+      ],
+      "0x28": [
+       "0x846f78"
+      ],
+      "0x2c": [
+       "0x8463d8"
+      ],
+      "0x30": [
+       "0x846034"
+      ],
+      "0x34": [
+       "0x848b28"
+      ],
+      "0xc": [
+       "0x843528"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x477f06"
+     ],
+     "value": {
+      "0x0": "0x8461f8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8461f8"
+     ],
+     "value": {
+      "count": 28,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGarrisonContain@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x47860d"
+       },
+       {
+        "name": "?rva004783D7@Rva004697E1Contain@@QAEXXZ",
+        "slot": 1,
+        "target": "0x4783d7"
+       },
+       {
+        "name": "?name@GarrisonContain@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x478061"
+       },
+       {
+        "name": "?xfer@GarrisonContain@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x478260"
+       },
+       {
+        "name": "?getModuleNameKey@GarrisonContain@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x47801c"
+       },
+       {
+        "name": "?onObjectCreated@GarrisonContain@@UAEXXZ",
+        "slot": 5,
+        "target": "0x4787b0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?onDelete@OpenContain@@UAEXXZ",
+        "slot": 8,
+        "target": "0x464120"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       },
+       {
+        "name": "?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z",
+        "slot": 13,
+        "target": "0x462f75"
+       },
+       {
+        "name": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+        "slot": 14,
+        "target": "0x5cb9fa"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 15,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 16,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?monitorConditionChanges@OpenContain@@MAEXXZ",
+        "slot": 17,
+        "target": "0x462c72"
+       },
+       {
+        "name": "?redeployOccupants@GarrisonContain@@MAEXXZ",
+        "slot": 18,
+        "target": "0x479395"
+       },
+       {
+        "name": "?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z",
+        "slot": 19,
+        "target": "0x464ee7"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 20,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?doLoadSound@OpenContain@@MAEXXZ",
+        "slot": 21,
+        "target": "0x46279c"
+       },
+       {
+        "name": "?doUnloadSound@OpenContain@@MAEXXZ",
+        "slot": 22,
+        "target": "0x46282b"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 23,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z",
+        "slot": 24,
+        "target": "0x462e3a"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 25,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z",
+        "slot": 26,
+        "target": "0x465972"
+       },
+       {
+        "name": "?getObjectGarrisonPointIndex@GarrisonContain@@UAEHW4ObjectID@@@Z",
+        "slot": 27,
+        "target": "0x479292"
+       }
+      ],
+      "table": "0x8461f8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 15,
+  "retail_vtables": {
+   "0x8461f8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGarrisonContain@@UAEPAXI@Z",
+     "1": "?rva004783D7@Rva004697E1Contain@@QAEXXZ",
+     "2": "?name@GarrisonContain@@QBEPBDXZ",
+     "3": "?xfer@GarrisonContain@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@GarrisonContain@@UBE?AW4NameKeyType@@XZ",
+     "5": "?onObjectCreated@GarrisonContain@@UAEXXZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "?onDelete@OpenContain@@UAEXXZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+     "13": "?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z",
+     "14": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+     "15": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "16": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "17": "?monitorConditionChanges@OpenContain@@MAEXXZ",
+     "18": "?redeployOccupants@GarrisonContain@@MAEXXZ",
+     "19": "?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z",
+     "20": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "21": "?doLoadSound@OpenContain@@MAEXXZ",
+     "22": "?doUnloadSound@OpenContain@@MAEXXZ",
+     "23": "??1Region2D@@QAE@XZ",
+     "24": "?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z",
+     "25": "??1Region2D@@QAE@XZ",
+     "26": "?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z",
+     "27": "?getObjectGarrisonPointIndex@GarrisonContain@@UAEHW4ObjectID@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 1,
+   "12": 1,
+   "2528": 6
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/GarrisonContain.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "GarrisonContainModuleData*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "m_object",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "m_containList._M_node._M_data",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_originalTeamID",
+   "name_by": "tie",
+   "offset": 252,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_garrisonPoint",
+   "name_by": "majority",
+   "offset": 1060,
+   "retail_widths": {},
+   "size": 1440,
+   "type": "Coord3D[120]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_tail",
+   "name_by": "majority",
+   "offset": 2500,
+   "retail_widths": {},
+   "size": 28,
+   "type": "uchar[28]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_garrisonPointsInitialized",
+   "name_by": "majority",
+   "offset": 2524,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_hideGarrisonedStateFromNonallies",
+   "name_by": "tie",
+   "offset": 2525,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "GarrisonContain"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "4:P": 1
+   },
+   "class": "GarrisonContain"
+  },
+  {
+   "attribute": "name@0xfc",
+   "candidates": {
+    "m_instance": 1,
+    "m_originalTeamID": 1
+   },
+   "class": "GarrisonContain"
+  },
+  {
+   "attribute": "name@0x9dd",
+   "candidates": {
+    "m_hideFlag": 1,
+    "m_hideGarrisonedStateFromNonallies": 1
+   },
+   "class": "GarrisonContain"
+  },
+  {
+   "attribute": "nested@0x34",
+   "candidates": {
+    "m_containList._M_node._M_data": 4
+   },
+   "class": "GarrisonContain"
+  },
+  {
+   "attribute": "straddle@0x9dc",
+   "candidates": {},
+   "class": "GarrisonContain"
+  },
+  {
+   "attribute": "straddle@0x9dd",
+   "candidates": {},
+   "class": "GarrisonContain"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "onContaining(Object*,bool)": 1,
+    "onObjectCreated()": 1
+   },
+   "class": "GarrisonContain"
+  }
+ ],
+ "size": 2528,
+ "size_by": "retail-new",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

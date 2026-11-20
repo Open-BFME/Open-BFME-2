@@ -2782,3 +2782,4 @@ ChecklistSelectNode,Code/GameEngine/Include/Common/ChecklistSelectNode.h,generat
 ProneUpdate,Code/GameEngine/Include/GameLogic/Module/ProneUpdate.h,existing header; contract class_contracts/ProneUpdate.json; 2/4 sampled units adopt
 OpenContain,Code/GameEngine/Include/GameLogic/Module/OpenContain.h,existing header; contract class_contracts/OpenContain.json; 2/8 sampled units adopt
 SpecialPowerModule,Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h,existing header; contract class_contracts/SpecialPowerModule.json; 4/8 sampled units adopt
+GarrisonContain,Code/GameEngine/Include/GameLogic/Module/GarrisonContain.h,existing header; contract class_contracts/GarrisonContain.json; 0/8 sampled units adopt
