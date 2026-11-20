@@ -53,7 +53,7 @@ class LocomotorTemplate;
 #include "../../../Include/GameLogic/LocomotorStore.h"
 extern LocomotorStore *TheLocomotorStore;
 
-class Object;
+
 #include "../../../Include/GameClient/Drawable.h"
 
 #include "../../../Include/Common/Player.h"

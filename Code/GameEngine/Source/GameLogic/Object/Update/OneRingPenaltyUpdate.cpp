@@ -8,7 +8,7 @@
 
 class ThingTemplate;
 class Team;
-class Object;
+
 struct CreateMask
 {
 	unsigned int words[4];

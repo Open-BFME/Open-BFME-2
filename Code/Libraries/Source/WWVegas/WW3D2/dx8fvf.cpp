@@ -39,7 +39,7 @@ template<> __forceinline void FxVertexElements::push_back(const ICoord2D &value)
 }
 }
 struct IDirect3DDevice8;
-class BfmeFVFDescriptor;
+
 #include "DX8WrapperClass.h"
 #include <stl/_algobase.h>
 namespace _STL {
@@ -265,7 +265,7 @@ FVFInfoClass::FVFInfoClass(unsigned FVF_, unsigned vertex_size)
 {
 	location_offset=0;
 	blend_offset=location_offset;
-	
+
 	if ((FVF&D3DFVF_XYZ)==D3DFVF_XYZ) blend_offset+=3*sizeof(float);
 	normal_offset=blend_offset;
 

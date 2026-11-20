@@ -31,7 +31,7 @@ float Cos(float);
 float Sin(float);
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 enum PathfindLayerEnum {GROUND=0};
-class Object;
+
 #include "../../../../Include/GameLogic/Weapon.h"
 #include "../../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Common/Thing/thing.h"

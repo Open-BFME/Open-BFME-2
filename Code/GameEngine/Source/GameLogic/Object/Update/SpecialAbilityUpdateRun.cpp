@@ -115,7 +115,7 @@ class Rva0044E655 {public:bool rva0044E655();bool rva0044E689();
 bool Rva0044E655::rva0044E689(){if(m_object->m_ai==0)return false;return m_7E==0||m_7F==0;}
 class Rva00451EAC {public:void killSpecialObjects();void rva00451EAC();};
 struct AbilityObjectNode {AbilityObjectNode *next,*previous;ObjectID id;};
-class SpecialAbilityUpdate;
+
 class AbilityPrimary {public:virtual void v00();const SpecialAbilityUpdateModuleData *m_data;Object *m_object;};
 class AbilityOther {public:virtual void v00();};
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

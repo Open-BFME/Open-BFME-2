@@ -19,9 +19,9 @@ class Rva0052BE33;
 struct BfmePod32;
 class Rva003A6F70;
 class Rva004E32F2;
-class Rva0052CD81;
-class Rva0052C867;
-class Rva0052C8AB;
+
+
+
 class Rva004E1A04;
 struct Rva005668E9Element;
 class Rva0052BEF0;

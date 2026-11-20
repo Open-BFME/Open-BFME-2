@@ -15,7 +15,7 @@
 #include "../../../../Include/GameLogic/Module/RespawnUpdateModuleData.h"
 #include "../../../../Include/Common/ModuleData.h"
 #include "../../../../Include/Common/ModuleInfoClass.h"
-class ThingTemplate;
+
 #include "../../../../Include/GameLogic/UnitRevivalEntry.h"
 
 struct Rva002E2D10Record {char unknown[0xD8];};

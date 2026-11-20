@@ -127,7 +127,7 @@ enum SleepyUpdatePhase;
 
 template <int N> class BitFlags;
 
-class CivilianSpawnUpdateModuleData;
+
 
 
 

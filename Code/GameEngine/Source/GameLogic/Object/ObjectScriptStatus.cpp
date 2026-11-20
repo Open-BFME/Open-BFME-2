@@ -96,7 +96,7 @@ public:
 #include "../../Common/GameLogicObjectLookupView.h"
 class Matrix3D;
 #include "../../Common/Thing/thing.h"
-class Object;
+
 struct Rva00287C21Other;
 #include "../../../Include/GameLogic/FireLogicSystem.h"
 class Rva002872BA;

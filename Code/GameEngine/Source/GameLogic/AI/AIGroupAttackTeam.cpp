@@ -69,7 +69,7 @@ namespace _STL {
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/AttitudeType.h" // opaque order enum, passed through as int (BFME1 donor)
 
 class Team;
-class Object;
+
 
 enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
 enum AbleToAttackType { ATTACK_NEW_TARGET=0, ATTACK_NEW_TARGET_FORCED=1 };

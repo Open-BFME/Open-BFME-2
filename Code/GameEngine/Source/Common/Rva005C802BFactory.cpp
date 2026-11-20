@@ -18,7 +18,7 @@
 // reference; the owner factory retains its existing neutral signature.
 #include <new>
 
-class Rva005C802B;
+
 
 struct Rva005C802BChild
 {

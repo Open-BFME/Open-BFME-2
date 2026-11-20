@@ -38,7 +38,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "Common/Snapshot.h"
 
-class Object;
+
 class ModuleData;
 // Use the rowed push_back owner at4DFCB0; it calls overflow2DFCF6.
 // This avoids competing copies of its allocator/clear dependencies.

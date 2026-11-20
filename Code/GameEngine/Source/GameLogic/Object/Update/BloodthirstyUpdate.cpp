@@ -145,7 +145,7 @@ enum ObjectStatusTypes
 
 extern int BfmeLogicFramesPerSecond;
 
-class Object;
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

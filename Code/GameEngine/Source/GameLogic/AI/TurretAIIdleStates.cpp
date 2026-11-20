@@ -78,7 +78,7 @@ enum WhichTurretType
 #include "../../../Include/Common/StateMachine.h"
 extern GameLogic *TheGameLogic;
 
-class Object;
+
 class Team;
 class Weapon;
 

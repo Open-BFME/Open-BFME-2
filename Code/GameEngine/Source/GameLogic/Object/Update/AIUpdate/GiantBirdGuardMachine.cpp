@@ -44,7 +44,7 @@ typedef UnsignedInt TeamID;
 
 
 
-class StateMachine;
+
 
 class State;
 struct StateConditionInfo;

@@ -45,7 +45,7 @@ class LivingWorldBuildPlotIconTemplate;
 
 class LivingWorldRegion;
 
-struct Rva003F1BD3TemplateView;
+
 
 class LivingWorldBuildPlotIcon
 {

@@ -54,7 +54,7 @@ enum AICommandType
 // ID +0x74, flee distance +0x1AC.
 // Donor semantic guide: BFME1 revision 9cbfb551 attempt 0x002B32A0.
 
-class Object;
+
 #include "../../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
 

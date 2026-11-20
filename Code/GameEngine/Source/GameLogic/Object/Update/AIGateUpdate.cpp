@@ -7,7 +7,7 @@
 // The gate's opener is looked up once for the owning object (+0x08) by the
 // unrowed cdecl helper 0x00498725 (unnamed in WB) and cached at +0x20.
 
-class Object;
+
 void *Rva00498725Find(void *gate);
 			// 0x00498725 rowed
 
@@ -15,7 +15,7 @@ class Thing;
 class ModuleData;
 class GateOpener;
 class Vector2;
-class AIGateUpdateModuleData;
+
 enum NameKeyType { NK_UNKNOWN = 0 };
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"

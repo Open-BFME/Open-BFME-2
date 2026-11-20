@@ -138,7 +138,7 @@ class Thing;
 
 class ModuleData;
 
-class Object;
+
 
 typedef bool Bool;
 

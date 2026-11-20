@@ -53,9 +53,9 @@ enum Relationship { NEUTRAL = 0, ALLIES = 2 };
 enum CellShroudStatus { CELLSHROUD_CLEAR = 0 };
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-class Object; class ThingTemplate; class Player; class Team; class Drawable;
+ class ThingTemplate; class Player; class Team; class Drawable;
 class GameWindow; class ContainModuleInterface; class SpecialDisguiseUpdate; class SupplyWarehouseDockUpdate;
-class TooltipRecord;
+
 struct MouseIO { ICoord2D pos; };
 class Mouse {
  public:

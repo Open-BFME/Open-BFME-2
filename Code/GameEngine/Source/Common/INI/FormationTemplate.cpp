@@ -35,7 +35,7 @@ void Rva00425421Parse(INI *ini, void *what);
 void rva00425842(INI *ini, void *instance, void *store, const void *userData);
 
 class ModuleData;
-struct BfmeOpaque40;
+
 struct Rva001408C0Target;
 struct BfmeWordValue4
 {

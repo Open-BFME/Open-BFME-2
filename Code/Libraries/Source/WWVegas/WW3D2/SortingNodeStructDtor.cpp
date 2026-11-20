@@ -39,7 +39,7 @@ private:
 class VertexMaterialClass;
 class VertexBufferClass;
 class IndexBufferClass;
-class TextureClass;
+
 
 // TU-local mirror of WWLib RefCountClass (refcount.h, NDEBUG shape): the
 // refcount lives at +4 behind the vptr, Release_Ref inlines to a decrement

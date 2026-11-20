@@ -48,7 +48,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-class Object;
+
 #include "../../../../Include/Common/BfmeXfer.h"
 // ?getModuleNameKey@BuildingBehavior@@UBE?AW4NameKeyType@@XZ @0x4561C1
 // (69B): cached pool-name key for BuildingBehavior. The class

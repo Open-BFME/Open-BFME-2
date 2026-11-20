@@ -38,7 +38,7 @@ extern ControlBar *TheControlBar;
 // Slot 0x20, then copy the controlling player's 128-byte storage at +0x13C
 // and OR the bitset at [this-8]+0x284 into it. Slot 1 receives the local.
 
-class Player;
+
 #include "../object.h"
 #include "../../../../Include/Common/BfmeFixedStorage128.h"
 class Player

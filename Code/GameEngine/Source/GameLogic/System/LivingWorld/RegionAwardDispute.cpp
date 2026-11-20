@@ -81,7 +81,7 @@ struct RegionAwardDisputeFlags
 	int m_bits;
 };
 
-class Rva002E2903Player;
+
 
 #include "../../../../Include/Common/Rva002B2B66.h"
 

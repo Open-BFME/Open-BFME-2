@@ -23,7 +23,7 @@ namespace _STL {
 
 #include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 struct Rva003F498AOuter;
-struct Rva003F4E07Results;
+
 struct Rva003F4E07Entry {
  int opaque00; StringBase<char> name; char pad08[0xA8-8]; bool flagA8;
 };

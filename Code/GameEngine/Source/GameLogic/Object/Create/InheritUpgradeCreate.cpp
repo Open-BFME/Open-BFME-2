@@ -13,7 +13,7 @@
 // (ThePartitionManager 0x00625610), the hit handle (0x00045623 / 0x0004AA28), UpgradeCenter 0x0026EEA0 and
 // Object 0x00293077; filter shape from RousingSpeechUpdateUpdate.cpp / Rva004051BC.cpp. Member roles are inferred.
 class Player;
-class Object;
+
 class ModuleData;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"

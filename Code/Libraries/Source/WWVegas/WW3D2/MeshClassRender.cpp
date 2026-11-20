@@ -309,7 +309,7 @@ public:
 	void Add_Visible_Skin(MeshClass *mesh);
 };
 
-class RenderObjClass;
+
 
 #include "WW3DClass.h"
 

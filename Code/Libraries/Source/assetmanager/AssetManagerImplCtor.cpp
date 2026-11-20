@@ -183,7 +183,7 @@ public:
 	unsigned int m_last;
 };
 
-class AssetManagerImpl;
+
 class Q1Receiver0134FAAC;
 extern Q1Receiver0134FAAC *TheQ1Receiver;
 extern void __cdecl Rva00622670ThreadProc(void *);

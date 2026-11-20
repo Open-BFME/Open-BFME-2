@@ -64,7 +64,7 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-class Object;
+
 #include "../../../../Include/Common/BfmeXfer.h"
 #include <windows.h>
 

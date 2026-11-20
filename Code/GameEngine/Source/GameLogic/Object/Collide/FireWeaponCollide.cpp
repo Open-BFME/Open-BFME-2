@@ -32,7 +32,7 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-class Object;
+
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/Rva004CE56D.h"
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"

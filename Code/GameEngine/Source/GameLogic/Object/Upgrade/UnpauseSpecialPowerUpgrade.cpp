@@ -19,7 +19,7 @@ class UnpauseSpecialPowerUpgrade;
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
-class Rva004B555F;
+
 #include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 // ?getModuleNameKey@UnpauseSpecialPowerUpgrade@@UBE?AW4NameKeyType@@XZ @0x4B5405

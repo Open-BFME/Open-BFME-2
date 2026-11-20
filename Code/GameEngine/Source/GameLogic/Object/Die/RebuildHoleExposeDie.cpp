@@ -45,7 +45,7 @@ class Snapshot;
 // size 42 corrects the 39B park note which cut the ret.
 
 class Thing;
-class Object;
+
 class ModuleData;
 class DamageInfo;
 class Xfer;
@@ -308,8 +308,8 @@ extern const FieldParse BfmeRebuildHoleExposeDieFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
- 
- 
+
+
 class RebuildHoleExposeDieModuleData : public DestroyDieModuleData
 {
 public:

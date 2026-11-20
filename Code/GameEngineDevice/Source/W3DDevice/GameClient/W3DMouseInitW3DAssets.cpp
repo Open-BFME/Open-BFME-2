@@ -248,7 +248,7 @@ public:
 	virtual void Remove_Render_Object( RenderObjClass *obj );	// slot 3 (+0x0C)
 };
 
-class Image;
+
 
 #include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;

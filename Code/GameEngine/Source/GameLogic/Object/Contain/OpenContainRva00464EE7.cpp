@@ -40,7 +40,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // claimed for this 88-byte EH-operand variant.
 
 class Player;
-class Object;
+
 
 static inline void coordSet(Coord3D &dst, const Coord3D *source)
 {

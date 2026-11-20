@@ -9,7 +9,7 @@
 #include "../../Include/Common/ScalarTypes.h"
 
 
-class Object;
+
 class Player;
 class CommandButton;
 struct Coord3D;

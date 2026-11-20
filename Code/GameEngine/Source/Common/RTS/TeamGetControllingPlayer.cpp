@@ -261,7 +261,7 @@ public:
 	unsigned char m_dead; // +0x438
 };
 
-class TeamPrototype;
+
 class PlayerTemplate;
 #include "../../../Include/Common/Player.h"
 

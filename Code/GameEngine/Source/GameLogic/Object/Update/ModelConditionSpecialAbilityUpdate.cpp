@@ -66,7 +66,7 @@ public:
 
 class ModuleData;
 
-class Object;
+
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 

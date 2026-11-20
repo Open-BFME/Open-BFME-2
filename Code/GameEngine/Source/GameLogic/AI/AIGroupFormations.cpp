@@ -286,7 +286,7 @@ inline void Coord3D::normalize() {
  if(len!=0.0f){float scale=1.0f/len;x*=scale;y*=scale;z*=scale;}
 }
 template<class T> inline volatile T &__vref(T &value){return *(volatile T *)&value;}
-class Object;
+
 struct Rva0028AC4EEntry;
 class Object { public: const Rva0028AC4EEntry *rva0028AC4E() const; };
 #include "../../Common/RTS/XYDistanceCallView.h"
