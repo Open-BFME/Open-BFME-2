@@ -15,3 +15,9 @@ The final seven-source build passes 105/105 rows with strict provider receipts a
 | `0x24` | `0x0084E900` | 25 | Canonical `SpecialPowerModuleInterface` parent provider bindings, then the derived overrides at 19 and 20 |
 
 The parent fold `Rva00589079` into `WeaponModeSpecialPowerUpdateBase` refuses duplicate declarations in `SiegeDeploySpecialPower.cpp`. The current compiler records agree on size and field offsets but identify different direct bases at `+0x20` and `+0x24`. Reconcile those views against the registered interfaces before retrying that fold. The served pass test remains open until a later published real link clears all five tables.
+
+## Constructor Update interface
+
+The constructor now inherits the existing `UpdateModule` interface and its fields at `+0x14` through `+0x1C`. Its `+0x10` table has 12 bytes and all three retail targets at `0x00494C18`, `0x00253376` and `0x0044DF8D`. Its wake call uses the existing `UpdateModule` row at `0x0044DF71`. Both constructor rows and its EH graph remain exact.
+
+The destructor still emits a separate one-slot table at the same retail address. Including `UpdateModule.h` in its current mixed file collides with that file's private `ObjectModule` and its emission constructor. The official split confirms that the destructor rows are approved for `WeaponModeSpecialPowerUpdate.cpp`, then refuses the inline complete destructor because it finds no separately spelled definition. The three-source adoption trial was restored and the original 75 rows passed.
