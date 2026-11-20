@@ -10670,7 +10670,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObj
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Cast_OBBox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Class_ID	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Intersect_AABox	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	AABoxRenderObjClass::Intersect_OBBox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	BoxLoaderClass::Load_W3D	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	BoxPrototypeClass::BoxPrototypeClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	BoxPrototypeClass::Create	1
@@ -10683,7 +10682,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObj
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Get_Obj_Space_Bounding_Box	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Get_Obj_Space_Bounding_Sphere	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Intersect_AABox	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Intersect_OBBox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Set_Position	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0AABoxCollisionTestClass@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0OBBoxCollisionTestClass@@	1

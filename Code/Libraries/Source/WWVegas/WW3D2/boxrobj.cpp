@@ -1039,11 +1039,11 @@ bool AABoxRenderObjClass::Intersect_AABox(AABoxIntersectionTestClass & boxtest)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?AABoxRenderObjClass::Intersect_OBBox present-unmatched
+// Retail slot 61 of AABoxRenderObjClass's table is 0x005CB9FF, the five-byte `return false` that
+// retail folds with RenderObjClass::Intersect_OBBox; Zero Hour's box test is not there.
 bool AABoxRenderObjClass::Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)
 {
-	if ((Get_Collision_Type() & boxtest.CollisionType) == 0) return false;
-	return CollisionMath::Intersection_Test(CachedBox,boxtest.Box);
+	return false;
 }
 
 /***********************************************************************************************
@@ -1402,11 +1402,11 @@ bool OBBoxRenderObjClass::Intersect_AABox(AABoxIntersectionTestClass & boxtest)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?OBBoxRenderObjClass::Intersect_OBBox present-unmatched
+// Retail slot 61 of OBBoxRenderObjClass's table is 0x005CB9FF, the five-byte `return false` that
+// retail folds with RenderObjClass::Intersect_OBBox; Zero Hour's box test is not there.
 bool OBBoxRenderObjClass::Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)
 {
-	if ((Get_Collision_Type() & boxtest.CollisionType) == 0) return false;
-	return CollisionMath::Intersection_Test(CachedBox,boxtest.Box);
+	return false;
 }
 
 /***********************************************************************************************
