@@ -1,9 +1,9 @@
 // Open-BFME5 conversions.
 
+#include "../../Include/Common/Rva00801570.h"
 class BfmeSubAVHW
 {
 public:
-	void bfmeClearAVHW();
 	char m_bfmePad[8];
 };
 
@@ -73,7 +73,7 @@ void BfmeThingVHW::bfmeClearVHW()
 	m_bfme74 = 0;
 	m_bfme6c = 0;
 	m_bfme78 = 0;
-	m_bfme3c.bfmeClearAVHW();
+	((Rva00801570 *)&m_bfme3c)->clear();
 	m_bfme1c.bfmeClearBVHW();
 	m_bfme10.bfmeClearBVHW();
 	m_bfmeVfptr = __identifier("??_7Rva0066D950@@6B@");

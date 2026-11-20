@@ -4,11 +4,15 @@
 // Code/GameEngine/Source/Common/BfmeConv805.cpp); trimmed to the three
 // bodies the sweep places. The donor's ECJ defs are omitted.
 
+class Rva007EAA70Owner
+{
+public:
+	void prepare();
+};
 struct BfmeHeldECKa
 {
 	unsigned char m_bfmeHead[0x280];
 	void *m_bfmeX;
-	void bfmeDoECKa();
 };
 
 struct BfmeThingECKa
@@ -20,15 +24,19 @@ struct BfmeThingECKa
 
 void *BfmeThingECKa::bfmeGoECKa()
 {
-	m_bfmeP->bfmeDoECKa();
+	((Rva007EAA70Owner *)m_bfmeP)->prepare();
 	return m_bfmeP->m_bfmeX;
 }
 
+class Rva007EAB40Owner
+{
+public:
+	void prepare();
+};
 struct BfmeHeldECKb
 {
 	unsigned char m_bfmeHead[0x29c];
 	void *m_bfmeX;
-	void bfmeDoECKb();
 };
 
 struct BfmeThingECKb
@@ -40,7 +48,7 @@ struct BfmeThingECKb
 
 void *BfmeThingECKb::bfmeGoECKb()
 {
-	m_bfmeP->bfmeDoECKb();
+	((Rva007EAB40Owner *)m_bfmeP)->prepare();
 	return m_bfmeP->m_bfmeX;
 }
 

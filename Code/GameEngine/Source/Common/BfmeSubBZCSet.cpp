@@ -29,11 +29,12 @@ public:
 
 class GenAlloc; GenAlloc *Gen007EFFC0();
 
+class Rva00802A10Elem;
+#include "../../Include/GameNetwork/Rva00802A10.h"
 class BfmeSubBZC
 {
 public:
 	void bfmeSetBZC(int count);
-	void bfmeRva0066EB40();
 
 private:
 	BfmeRva0066E270 *m_bfmeArray;
@@ -42,7 +43,7 @@ private:
 
 void BfmeSubBZC::bfmeSetBZC(int count)
 {
-	bfmeRva0066EB40();
+	((Rva00802A10 *)this)->clear();
 	m_bfmeArray = static_cast<BfmeRva0066E270 *>(
 		((BfmeRva0065CEA0Allocator *)Gen007EFFC0())->bfmeAllocate(count * sizeof(BfmeRva0066E270), 0));
 	for (int index = 0; index < count; ++index)

@@ -30,10 +30,14 @@ int BfmeThingVFA::bfmeGoVFA(BfmeRecVFA *r)
 	return bfmeSendVFA(m_handle, r->m_bfme00, r->m_bfme04, r->m_bfme08, r->m_bfme0c);
 }
 
+class Rva00800290Buffer
+{
+public:
+	void append(const char *s);
+};
 class BfmeBufVFD
 {
 public:
-	void bfmeAppendVFD(const char *s);
 	char m_bfmePad[8];
 };
 
@@ -60,7 +64,7 @@ void __stdcall bfmeGoVFD(BfmeThingVFD *p)
 	p->m_bfme10 = 0;
 	p->m_bfme14 = 0;
 	p->m_bfme18 = 0;
-	p->m_bfmeBuf.bfmeAppendVFD((char *)"");
+	((Rva00800290Buffer *)&p->m_bfmeBuf)->append((char *)"");
 	p->m_bfme24 = 0;
 	p->m_bfme28 = 0;
 	p->m_bfme6c = 0;

@@ -221,9 +221,7 @@ void *Rva00800520Alloc( void *owner )
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeAppendFN@BfmeBufFN@@QAEXPBD@Z=?append@Rva00800290Buffer@@QAEXPBD@Z")
-#pragma comment(linker, "/alternatename:?bfmeDropTWB@BfmeListTWB@@QAEXXZ=?reset@Rva00800290Buffer@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?bfmeResetVJO@BfmeCVJO@@QAEXPAVBfmeXVJO@@@Z=?Rva008014F0ResetHpState@@YGXPAVRva008022A0Owner@@@Z")
-#pragma comment(linker, "/alternatename:?bfmeAppendVFD@BfmeBufVFD@@QAEXPBD@Z=?append@Rva00800290Buffer@@QAEXPBD@Z")
 #pragma comment(linker, "/alternatename:?bfmeSetESI@BfmeStateESI@@QAEXH@Z=?Rva008014F0ResetHpState@@YGXPAVRva008022A0Owner@@@Z")
 #pragma comment(linker, "/alternatename:?bfmeClearBVHW@BfmeSubBVHW@@QAEXXZ=?clear@Rva008003C0Owner@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?bfmeSet1251@BfmeSub1251@@QAEXPAX@Z=?append@Rva00800290Buffer@@QAEXPBD@Z")

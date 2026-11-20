@@ -5,8 +5,6 @@
 #pragma comment(linker, "/alternatename:?init@ServiceHubImpl@@QAEXXZ=?init@Rva007EA9C0Owner@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?prepare@Rva007EAD30Owner@@QAEXXZ=?prepare@Rva007EAA70Owner@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?prepare@Rva007EADC0Owner@@QAEXXZ=?prepare@Rva007EAB40Owner@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?bfmeDoECKa@BfmeHeldECKa@@QAEXXZ=?prepare@Rva007EAA70Owner@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?bfmeDoECKb@BfmeHeldECKb@@QAEXXZ=?prepare@Rva007EAB40Owner@@QAEXXZ")
 // 0x007EAC30: strncpy MAC into +0x1E3, lazy-make +0x244, then send through
 // the +0xA0 flag or the +0x30/+0x70/+0x90 triple.
 //

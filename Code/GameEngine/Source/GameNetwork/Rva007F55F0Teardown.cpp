@@ -12,10 +12,14 @@ public:
 	char m_bfmePad[0x10];
 };
 
+class Rva00800290Buffer
+{
+public:
+	void reset();
+};
 class BfmeListTWB
 {
 public:
-	void bfmeDropTWB();
 	char m_bfmePad[0x10];
 };
 
@@ -39,7 +43,7 @@ void Rva007F55F0Host::teardown()
 	m_08 = 0;
 	m_a.bfmeDtorTWB();
 	m_b.bfmeDtorTWB();
-	m_list.bfmeDropTWB();
+	((Rva00800290Buffer *)&m_list)->reset();
 	m_vft = __identifier("??_7Rva007F6D60ChildBase@@6B@");
 }
 

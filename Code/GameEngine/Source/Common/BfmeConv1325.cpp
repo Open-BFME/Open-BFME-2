@@ -17,11 +17,15 @@ public:
 
 void bfmeFreeTWA(void *p, int n);
 
+class BfmeE1036
+{
+public:
+	void bfmeGo1036E();
+};
 class BfmeThingTWA
 {
 public:
 	void *bfmeDelTWA(unsigned char flags);
-	void bfmeStepTWA();
 	void *m_bfmeVft0;
 	void *m_bfmeVft1;
 	char m_bfmePad[8];
@@ -32,7 +36,7 @@ void *BfmeThingTWA::bfmeDelTWA(unsigned char flags)
 {
 	m_bfmeVft0 = __identifier("??_7BfmeThingTWA@@6BDemanglerPrimary@@@");
 	m_bfmeVft1 = __identifier("??_7BfmeThingTWA@@6BRva00803080@@@");
-	bfmeStepTWA();
+	((BfmeE1036 *)this)->bfmeGo1036E();
 	m_bfmeStr.bfmeDtorTWA();
 	m_bfmeVft0 = __identifier("??_7Rva00665030@@6B@");
 	if (flags & 1)
@@ -50,10 +54,14 @@ public:
 	char m_bfmePad[0x10];
 };
 
+class Rva00800290Buffer
+{
+public:
+	void reset(void);
+};
 class BfmeListTWB
 {
 public:
-	void bfmeDropTWB(void);
 	char m_bfmePad[0x10];
 };
 
@@ -78,7 +86,7 @@ void *BfmeThingTWB::bfmeDelTWB(unsigned char flags)
 	m_bfme08 = 0;
 	m_bfmeA.bfmeDtorTWB();
 	m_bfmeB.bfmeDtorTWB();
-	m_bfmeList.bfmeDropTWB();
+	((Rva00800290Buffer *)&m_bfmeList)->reset();
 	m_bfmeVft = __identifier("??_7Rva007F6D60ChildBase@@6B@");
 	if (flags & 1)
 		::operator delete(this);

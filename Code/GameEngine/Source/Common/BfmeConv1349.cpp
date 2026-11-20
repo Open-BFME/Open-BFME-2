@@ -1,7 +1,6 @@
 // Open-BFME5 conversions.
 
 // These call sites use rowed FESL buffer and allocator operations.
-#pragma comment(linker, "/alternatename:?bfmeAppendVCB@BfmeBufVCB@@QAEXPBD@Z=?append@Rva00800290Buffer@@QAEXPBD@Z")
 // The VCC receiver's slot-3 (block, flags) call matches GenAlloc::release.
 // The size word is ignored by the rowed cdecl class delete; caller cleans both.
 #pragma comment(linker, "/alternatename:?bfmeFreeVCC@@YAXPAXH@Z=??3Gen007F0170@@SAXPAX@Z")
@@ -18,10 +17,14 @@ struct BfmeSrcVCB
 	char m_bfmeTextB[4];
 };
 
+class Rva00800290Buffer
+{
+public:
+	void append(const char *s);
+};
 class BfmeBufVCB
 {
 public:
-	void bfmeAppendVCB(const char *s);
 	char m_bfmePad[8];
 };
 
@@ -45,8 +48,8 @@ public:
 void BfmeThingVCB::bfmeInitVCB(BfmeSrcVCB *s, int a)
 {
 	m_bfme04 = a;
-	m_bfmeBufA.bfmeAppendVCB(s->m_bfmeTextA);
-	m_bfmeBufB.bfmeAppendVCB(s->m_bfmeTextB);
+	((Rva00800290Buffer *)&m_bfmeBufA)->append(s->m_bfmeTextA);
+	((Rva00800290Buffer *)&m_bfmeBufB)->append(s->m_bfmeTextB);
 	m_bfme08 = s->m_bfme00;
 	m_bfme2c = s->m_bfme04;
 	m_bfme30 = s->m_bfme08;

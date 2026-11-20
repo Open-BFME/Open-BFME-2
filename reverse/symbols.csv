@@ -4624,8 +4624,6 @@ name,address,notes
 ?bfmeAppend@Gen003B1B40@@QAEXPAVBfmeItemXN@@@Z,0x0056655F,callee of ?ParseFlashRegionsEvent@@YAXPAVINI@@PAX1PBX@Z at retail 0x004E152B read from its REL32 displacement; this+0x84 adjustor thunk route=0x005663DF (16-byte element vector append); body unrowed
 ?bfmeAppendFN@BfmeBufFN@@QAEXPBD@Z,0x0066C760
 ?bfmeAppendV36@BfmeStrV36@@QAEXPAD00@Z,0x0001B3E0
-?bfmeAppendVCB@BfmeBufVCB@@QAEXPBD@Z,0x0066C760
-?bfmeAppendVFD@BfmeBufVFD@@QAEXPBD@Z,0x0066C760
 ?bfmeAppendVME@BfmeStrVME@@QAEXID@Z,0x00029380
 ?bfmeAskBJA@BfmeThingBJA@@QAE_NXZ,0x00256996
 ?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ,0x00256996
@@ -4656,7 +4654,6 @@ name,address,notes
 ?bfmeCallVMC@@YAXHHH@Z,0x000179B0
 ?bfmeClear987@BfmeDrop987@@QAEXHH@Z,0x002984D4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeClear@BfmeWindowManager@@QAEXPAH@Z,0x00758240,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?bfmeClearAVHW@BfmeSubAVHW@@QAEXXZ,0x0066D890
 ?bfmeClearBVHW@BfmeSubBVHW@@QAEXXZ,0x0066CA50
 ?bfmeClearVHX@Rva0055011A@@AAEXXZ,0x0054FC14,callee of ??1Rva006609D0@@UAE@XZ at retail 0x0054FFA5 read from its REL32 displacement; ICF alias onto the matched ?rva0054FC14@Rva0054FC14@@QAEXXZ body at this address
 ?bfmeClearYK@BfmeStringYK@@QAEXXZ,0x00036410,callee of 0Rva0034C5E0 (0x00356FDC) at the site its BFME1 donor calls it; may be an ICF alias
@@ -4685,8 +4682,6 @@ name,address,notes
 ?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z,0x001F08D3,callee read from the retail REL32 in placed BFME1-donor body ?update@Rva002D6EB0@@QAEXXZ (0x004B4204)
 ?bfmeDoBPC@@YGXPAVBfmeThingBPC@@PAX@Z,0x00478C2C,callee read from the retail REL32 in placed BFME1-donor body ?bfmeGoBPC@@YGXPAVBfmeThingBPC@@PAX@Z (0x0047DB95)
 ?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z,0x001F0878,callee read from the retail REL32 in placed BFME1-donor body ?bfmeGoBUC@@YAXPAVBfmeSubBUC@@PAX111@Z (0x00456520)
-?bfmeDoECKa@BfmeHeldECKa@@QAEXXZ,0x00657A10
-?bfmeDoECKb@BfmeHeldECKb@@QAEXXZ,0x00657AE0
 ?bfmeDoOU@BfmeThingOU@@QAEXE@Z,0x0000C330
 ?bfmeDoPQ@@YAXPAD000@Z,0x00024FC0
 ?bfmeDoQR@@YAXPAUBfmeElemQR@@U1@PAX@Z,0x002176F1,callee of ?bfmeEachQR@@YAXPAUBfmeElemQR@@0HPAX@Z at retail 0x002178FD read from its REL32 displacement; ICF alias onto ?Rva002176F1Insert@@YAXPAUFileInfoStruct@MixFileCreator@@U12@@Z (matched)
@@ -4697,11 +4692,8 @@ name,address,notes
 ?bfmeDoneVJN@BfmeMsgVJN@@QAEXXZ,0x00655780
 ?bfmeDoneVJO@BfmeMsgVJO@@QAEXXZ,0x00655780
 ?bfmeDropA@@YAXPAX@Z,0x006D0440
-?bfmeDropTWB@BfmeListTWB@@QAEXXZ,0x0066C730
 ?bfmeDropVE@BfmeSubVE@@QAEXPAX@Z,0x00306D7B,callee read from the retail REL32 in placed BFME1-donor body ?bfmeKillVE@BfmeThingVE@@QAEPAXH@Z (0x000AD930)
 ?bfmeDropVIH@BfmeSubVIH@@QAEXPAVBfmeThingVIH@@@Z,0x006891E0,BFME1 BfmeConv1374 donor call site
-?bfmeDtorATYA@BfmeHeadTYA@@QAEXXZ,0x0066D900,read from REL32 at placed ?bfmeDelTYA 0x66E3D0; BFME1 pins same name at 0x00801600; folds with clear@Rva00801600 row
-?bfmeDtorBTYA@BfmeSlotTYA@@QAEXXZ,0x00663FA0
 ?bfmeDtorTRB@BfmeThingTRB@@QAEXXZ,0x00719CC0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeDtorTVA@BfmeThingTVA@@QAEXXZ,0x0065D180
 ?bfmeDtorTWA@BfmeStrTWA@@QAEXXZ,0x00655780
@@ -4896,7 +4888,6 @@ name,address,notes
 ?bfmeRunZC@BfmeOwnZC@@QAEXVBfmeRoomZC@@PAX@Z,0x00204F3B,callee of bfmeCallZC (0x00357130) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeRva00161350@@YAPAUBfmeRva00161350Elem@@PAU1@00ABUBfmeRva00161350Tag@@PAH@Z,0x00161350,placeholder name: STLport-style random-access copy helper (first; last; result; tag; distance*) that HTreeClass::Free at 0x00166510 calls to erase its +0x1C member; element type and identity not recovered
 ?bfmeRva0065CEA0@@YAPAVBfmeRva0065CEA0Allocator@@XZ,0x0065CEA0,placeholder name: argument-less getter whose result BfmeSubBZC::bfmeSetBZC (0x0066ED50) allocates through at vtable slot 2; identity not recovered
-?bfmeRva0066EB40@BfmeSubBZC@@QAEXXZ,0x0066EB40,placeholder name: the reset BfmeSubBZC::bfmeSetBZC (0x0066ED50) calls on this before reallocating; identity not recovered
 ?bfmeSameSX@@YA_NABUBfmeInnerSX@@0@Z,0x00301B24,inner-compare helper called by the placed ?bfmeEqualSX 0x00301E3B; returns bool so the caller tests al; REL32 read off retail at 0x00301E69
 ?bfmeSameUW@@YADPAXPAVBfmeItemUW@@0@Z,0x0030141B,callee read from the retail REL32 in placed BFME1-donor body ?Rva00452FE0Same@@YAHABURva00452FE0Key@@0@Z (0x00301B24)
 ?bfmeSay1025@BfmeP1025@@QAEDPAD@Z,0x00621170
@@ -4943,7 +4934,6 @@ name,address,notes
 ?bfmeStepBVA@BfmeThingBVA@@QAEXPAV1@@Z,0x002CF742
 ?bfmeStepCN@BfmeTargetCN@@QAEDH@Z,0x00307AC0,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D946 read from its REL32 displacement; donor-reconstruction name; body unrowed
 ?bfmeStepTKD@@YAXNH@Z,0x000664BE,step helper called by the placed ?bfmeGoTKD 0x00069130; REL32 read off retail at 0x0006913D
-?bfmeStepTWA@BfmeThingTWA@@QAEXXZ,0x00664FC0
 ?bfmeStrlenV51@@YAIPAD@Z,0x00006F30
 ?bfmeStrlenV55@@YAIPAD@Z,0x00006F30
 ?bfmeSubVJE@BfmeThingVJE@@QAEXPAVBfmeMsgVJC@@HPAX@Z,0x0065E380

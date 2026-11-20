@@ -14,17 +14,25 @@ extern "C" void *__identifier("??_7Rva00802040Owner@@6B@")[];
 
 extern "C" void *__identifier("??_7Rva00802040OwnerBase@@6B@")[];
 
+class Rva007F78E0Block
+{
+public:
+	void clear();
+};
 class BfmeSlotTYA
 {
 public:
-	void bfmeDtorBTYA();
 	char m_bfmePad[8];
 };
 
+class Rva00801600
+{
+public:
+	void clear();
+};
 class BfmeHeadTYA
 {
 public:
-	void bfmeDtorATYA();
 	char m_bfmePad[8];
 };
 
@@ -58,9 +66,9 @@ void *BfmeThingTYA::bfmeDelTYA(unsigned char flags)
 	m_bfme30 = 0;
 	m_bfme55 = 0;
 	m_bfme2c = 0;
-	m_bfmeA.bfmeDtorATYA();
-	m_bfmeB.bfmeDtorBTYA();
-	m_bfmeC.bfmeDtorBTYA();
+	((Rva00801600 *)&m_bfmeA)->clear();
+	((Rva007F78E0Block *)&m_bfmeB)->clear();
+	((Rva007F78E0Block *)&m_bfmeC)->clear();
 	m_vtable = __identifier("??_7Rva00802040OwnerBase@@6B@");
 	if (flags & 1)
 		bfmeFreeTYA(this, 0xd8);
@@ -79,9 +87,9 @@ void BfmeThingTYA::rva008020D0()
 	m_bfme30 = 0;
 	m_bfme55 = 0;
 	m_bfme2c = 0;
-	m_bfmeA.bfmeDtorATYA();
-	m_bfmeB.bfmeDtorBTYA();
-	m_bfmeC.bfmeDtorBTYA();
+	((Rva00801600 *)&m_bfmeA)->clear();
+	((Rva007F78E0Block *)&m_bfmeB)->clear();
+	((Rva007F78E0Block *)&m_bfmeC)->clear();
 	m_vtable = __identifier("??_7Rva00802040OwnerBase@@6B@");
 }
 

@@ -26,4 +26,3 @@ S3_ARRAY_CLEAR( Rva00802A10, 128 )
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeRva0066EB40@BfmeSubBZC@@QAEXXZ=?clear@Rva00802A10@@QAEXXZ")
