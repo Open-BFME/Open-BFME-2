@@ -1,0 +1,456 @@
+{
+ "bases": [
+  "BehaviorModule",
+  "SpecialPowerModuleInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "SpecialPowerModule",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 6,
+   "inherited_slots": 12,
+   "inherited_spans": [
+    [
+     0,
+     16
+    ],
+    [
+     16,
+     20
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x493c5a"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "BehaviorModule",
+       "offset": 0,
+       "own_vftable": "0x84e868",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva00492FB9",
+       "offset": 16,
+       "own_vftable": "0x85e080",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x493c5a"
+     ],
+     "value": 49
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x493c5a"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       1
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x493c5a"
+     ],
+     "value": {
+      "0x10": [
+       "?startPowerRecharge@SpecialPowerModule@@UAEXM@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24dc7b"
+     ],
+     "value": 52
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x493c5a"
+     ],
+     "value": {
+      "0xc": [
+       "0x7efcf8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x493c5a"
+     ],
+     "value": {
+      "0x0": "0x84e868",
+      "0x10": "0x85e080"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x84e868"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GSpecialPowerModule@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4941d7"
+       },
+       {
+        "name": "?loadPostProcess@SpecialPowerModule@@MAEXXZ",
+        "slot": 1,
+        "target": "0x493b1e"
+       },
+       {
+        "name": "?Rva00493DA4Get@@YAHXZ",
+        "slot": 2,
+        "target": "0x493da4"
+       },
+       {
+        "name": "?xfer@Rva00493009@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x493009"
+       },
+       {
+        "name": "?getModuleNameKey@SpecialPowerModule@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x493daa"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva00493805@SpecialPowerModule@@UAEXXZ",
+        "slot": 12,
+        "target": "0x493805"
+       },
+       {
+        "name": "?ApplyPowerToObject@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z",
+        "slot": 13,
+        "target": "0x493ea7"
+       }
+      ],
+      "table": "0x84e868"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x84e868": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GSpecialPowerModule@@UAEPAXI@Z",
+     "1": "?loadPostProcess@SpecialPowerModule@@MAEXXZ",
+     "2": "?Rva00493DA4Get@@YAHXZ",
+     "3": "?xfer@Rva00493009@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@SpecialPowerModule@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?rva00493805@SpecialPowerModule@@UAEXXZ",
+     "13": "?ApplyPowerToObject@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z"
+    },
+    "stores": 1
+   },
+   "0x85e080": {
+    "offset": 16,
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 1,
+   "20": 4,
+   "32": 1,
+   "44": 1,
+   "52": 1
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_SpecialPowerModule.cpp: compile failed: C2143: syntax error : missing ',' before '*'; C2143: syntax error : missing ',' before '*'; C2143: syntax error : missing ',' before '*'",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDo.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "s02()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "s03()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "s04()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "s06()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "s08()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "s10()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "s11()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "s12()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "s13()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "s14()": 1
+   },
+   "class": "SpecialPowerModule",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "rva00493805()": 1,
+    "s00()": 1,
+    "s12()": 1
+   },
+   "class": "SpecialPowerModule"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "ApplyPowerToObject(Object*,int,BitFlags<11>*)": 1,
+    "s01()": 1
+   },
+   "class": "SpecialPowerModule"
+  }
+ ],
+ "size": 52,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
