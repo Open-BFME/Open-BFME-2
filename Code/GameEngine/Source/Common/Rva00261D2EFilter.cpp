@@ -10,7 +10,7 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #include "../../Include/Common/ScalarTypes.h"
-class Object;
+
 class ModuleData;
 #include "../../Include/Common/Geometry.h"
 class ThingTemplate {

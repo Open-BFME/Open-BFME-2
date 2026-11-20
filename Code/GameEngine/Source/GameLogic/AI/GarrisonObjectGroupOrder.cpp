@@ -11,10 +11,10 @@ enum CanEnterType
 	CHECK_CAPACITY = 0
 };
 class Drawable;
-class Object;
+
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ActionManager;
-class Xfer;
+
 #include "../../../Include/Common/ScalarTypes.h"
 
 

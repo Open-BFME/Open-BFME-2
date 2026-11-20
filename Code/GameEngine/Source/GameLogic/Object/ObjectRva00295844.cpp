@@ -11,7 +11,7 @@
 // AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
 // filter (PartitionFilter::link 0x00625790), then each filter's members;
 // address-derived names after allow (slot 1), the ctors being inline.
-class Object;
+
 class Player;
 
 #include "../../../Include/GameLogic/PartitionFilter.h"

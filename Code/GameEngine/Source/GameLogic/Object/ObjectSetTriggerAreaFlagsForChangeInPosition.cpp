@@ -24,7 +24,7 @@
 
 
 
-class Object;
+
 struct Coord3D;
 
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"

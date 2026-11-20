@@ -9,7 +9,7 @@
 // wrapper forwards that result after releasing its local RenderInfo.
 // Original wrapper and inner render API names remain unknown; the ZH
 // WW3D::Render source supplies the RenderInfo lifetime as a semantic lead.
-class CameraClass;
+
 #include "RenderInfoClass.h"
 // Canonical global identity is established by ww3d.cpp (WW3D::End_Render) at DEC3D4.
 #include "../WWMath/Vector3Data.h"

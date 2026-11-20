@@ -42,7 +42,7 @@ extern AudioManager *TheAudio;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct Rva0021246DInput;
+
 
 #include "../../../Include/GameClient/Rva0021237E.h"
 

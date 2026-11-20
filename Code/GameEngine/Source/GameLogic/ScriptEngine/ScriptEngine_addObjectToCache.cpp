@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 
-class Object;
+
 struct ObjectTemplate
 {
 	char m_pad[0x64];

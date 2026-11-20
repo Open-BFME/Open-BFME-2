@@ -31,7 +31,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 extern GameLogic*TheGameLogic;
 enum ObjectStatusTypes{STATUS_51=51};
-class Object;
+
 #include "../../Common/Thing/thing.h"
 #include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/GameLogic/Module/PathfinderPosGoalManager.h"

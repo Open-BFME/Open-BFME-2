@@ -57,7 +57,7 @@ template <> class AIApproachAISlots<0>
 {
 };
 
-class Object;
+
 class Weapon;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

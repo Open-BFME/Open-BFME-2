@@ -375,7 +375,7 @@ UnsignedInt m_sellFrame;
 };
 typedef _STL::list< ObjectSellInfo* > ObjectSellList;
 typedef ObjectSellList::iterator ObjectSellListIterator;
-class Rva0039205C;
+
 #include "../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant*TheBuildAssistant;
 enum ObjectID; class ThingFactory

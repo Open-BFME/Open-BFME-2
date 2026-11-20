@@ -13,7 +13,7 @@
 // these are ordinary C++ statics, following the verified pool-key source.
 // The inline helper keeps the virtual SRET call before the overlap argument
 // push. Both bodies independently match, with no newpins or address globals.
-class Object;class Module;class SpecialPowerTemplate;
+class Module;class SpecialPowerTemplate;
 enum NameKeyType {NK_UNKNOWN=0};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;

@@ -228,7 +228,7 @@ extern MessageStream *TheMessageStream;
 
 #include "../../../Include/Common/ScoreKeeperClass.h"
 
-class Player;
+
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 

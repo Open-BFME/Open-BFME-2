@@ -83,7 +83,7 @@ extern SidesList *TheSidesList;
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class Player;
+
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 

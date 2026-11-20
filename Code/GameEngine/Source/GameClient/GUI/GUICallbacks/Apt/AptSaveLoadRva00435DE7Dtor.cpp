@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /O1 /G7 /arch:SSE /I.
-class AptSaveLoad;
+
 // stlport
 // Target evidence: vptr pair 0x00C3CDC8/0x00C3CDC4 at this/+0x218, AptSaveLoad
 // strings and neighboring callbacks, pending kind at +0x28, and the fields

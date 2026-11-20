@@ -12,7 +12,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 #include <stdlib.h>
 #include <string.h>
 
-class BfmeAptValue006DCD20;
+
 class EAStringC;
 
 #include "../../../Libraries/Source/Apt/AptBasePtrStack.h"

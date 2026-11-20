@@ -24,7 +24,7 @@ extern FreelistPool g_freelistPool00DB8FEC;
 #include <algorithm>
 #include <string.h>
 #include "Common/LatchRestore.h"
-class Object;
+
 // Keep typed node comparisons local and bind the out-of-line node factory
 // to retail's pooled list implementation at 0x001EB9AC.
 namespace _STL {
@@ -34,7 +34,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 class HordeContain;
-class ThingTemplate;
+
 class Team;
 class Matrix3D;
 enum ObjectStatusTypes 

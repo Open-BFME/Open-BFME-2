@@ -47,7 +47,7 @@
 
 class Module;
 class ThingTemplate;
-class Object;
+
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 

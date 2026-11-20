@@ -16,7 +16,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/Common/Rva003BBAD3.h"
 
-class Player;
+
 struct Rva003BE5C9P34
 {
 	unsigned char m_pad[0x1BC];

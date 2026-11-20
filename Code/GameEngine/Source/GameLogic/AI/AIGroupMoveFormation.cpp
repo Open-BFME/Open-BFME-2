@@ -101,7 +101,7 @@ namespace _STL { template <> unsigned int const & max<unsigned int>(unsigned int
 float ACos(float);
 class Object;
 class LocomotorSet;
-class Rva0035149F;
+
 
 void Rva00030830GameFree(void *);
 enum AICommandType

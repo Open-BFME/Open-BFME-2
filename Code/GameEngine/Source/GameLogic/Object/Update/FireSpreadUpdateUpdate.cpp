@@ -27,7 +27,7 @@
 
 class ModuleData;
 class Module;
-class Object;
+
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 

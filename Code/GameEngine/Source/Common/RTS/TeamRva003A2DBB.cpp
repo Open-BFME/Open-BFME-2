@@ -14,7 +14,7 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../PartitionRangeQueryCallView.h"
 
-class Object;
+
 
 #include "../../../Include/GameLogic/PartitionFilter.h"
 

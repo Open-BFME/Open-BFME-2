@@ -75,7 +75,7 @@ extern unsigned int g_00DFE358[3];
 
 #include "../../../Include/GameLogic/Rva0021937DTarget.h"
 
-class Object;
+
 class DamageInfo;
 
 #include "../../../Include/GameLogic/CreateAHeroManager.h"

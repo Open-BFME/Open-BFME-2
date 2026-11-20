@@ -36,7 +36,7 @@ public:
 
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
-class Rva0021294A;
+
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 

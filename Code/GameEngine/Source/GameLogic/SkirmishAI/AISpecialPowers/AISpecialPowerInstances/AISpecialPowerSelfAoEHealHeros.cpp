@@ -12,7 +12,7 @@
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents).
 
-class Object;
+
 class Player;
 
 #include "../../../../../Include/GameLogic/PartitionFilter.h"

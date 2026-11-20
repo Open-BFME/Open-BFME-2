@@ -125,7 +125,7 @@ void Rva0052416D::rva00524378(const AsciiString &name)
 // --- 0x00219713 (68B): the first object (from GameLogic's list, linked at
 // +0x8C) with template flag 0x40 at +0x11F whose controlling player is the
 // local one.
-class Object;
+
 
 #include "../../Include/Common/Player.h"
 

@@ -155,7 +155,7 @@ class Module;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class LocomotorSet;
-class Rva0035149F;
+
 void Rva00030830GameFree(void*);
 struct BfmeE12
 {

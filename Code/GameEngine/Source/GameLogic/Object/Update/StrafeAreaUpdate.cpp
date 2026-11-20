@@ -33,7 +33,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-class Object;
+
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 class AIUpdateInterface;

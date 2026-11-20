@@ -62,7 +62,7 @@ extern GameInfo *TheGameInfo;
 // allocator/deallocation COMDAT copies for the accessed D8 record view.
 namespace _STL { template<> vector<Rva002E2690Element>::~vector(); }
 struct Rva002E2D10Record { char bytes[0xD8]; };
-class Player;
+
 #include "../../../Include/Common/UnitRevivalTracker.h"
 #include "../../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E2903Player;

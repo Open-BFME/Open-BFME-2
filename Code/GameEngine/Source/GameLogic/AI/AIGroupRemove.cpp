@@ -114,7 +114,7 @@ public:
 	virtual void slot0(int a, int b);
 };
 
-class AIGroup;
+
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

@@ -13,7 +13,7 @@
 // No donor code or new pin. A lexical scope ends the name before publishing
 // the singleton; by-value binding preserves native MOVSD four-word copy.
 #include "ascii_string.h"
-class AptOnline;
+
 class Rva0056DC4C
 {
 public:

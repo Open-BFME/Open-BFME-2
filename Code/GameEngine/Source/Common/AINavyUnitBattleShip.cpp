@@ -22,7 +22,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../Include/Common/Rva005DCC4B.h"
 
-class Object;
+
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 

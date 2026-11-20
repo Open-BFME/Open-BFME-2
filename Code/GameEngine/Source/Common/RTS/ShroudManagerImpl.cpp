@@ -24,7 +24,7 @@ template <> deque<BfmeE32, allocator<BfmeE32> >::~deque();
 template <> _Deque_base<BfmeE32, allocator<BfmeE32> >::~_Deque_base();
 }
 
-class ShroudManagerImpl;
+
 
 class ShroudManagerImpl008FBA40Node;
 

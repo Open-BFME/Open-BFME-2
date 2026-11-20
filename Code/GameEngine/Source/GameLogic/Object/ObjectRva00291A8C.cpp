@@ -111,7 +111,7 @@ public:
 #include "../../Common/GameLogicObjectLookupView.h"
 class Matrix3D;
 #include "../../Common/Thing/thing.h"
-class Object;
+
 struct Rva00287C21Other;
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;

@@ -44,7 +44,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_INVALID = -1,
 	MODELCONDITION_COUNT = 0x24F
 };
-class Object;
+
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/WeaponSlotType.h"
 
 

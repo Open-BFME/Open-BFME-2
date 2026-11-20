@@ -56,7 +56,7 @@ enum WhichTurretType
 {
     TURRET_DUMMY=-1
 };
-class Object;
+
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameLogic/Module/Rva00463235.h"
 #include "../../../../Include/GameLogic/Module/Rva001E42F2.h"

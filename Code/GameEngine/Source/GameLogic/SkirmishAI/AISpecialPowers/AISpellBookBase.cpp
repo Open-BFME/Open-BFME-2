@@ -5,7 +5,7 @@
 
 // BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
 // a vptr, the +0x04 link to the next filter, then each filter's own members.
-class Object;
+
 
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 

@@ -27,7 +27,7 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-class ContainModuleInterface;
+
 
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 

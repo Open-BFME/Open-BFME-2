@@ -20,7 +20,7 @@ class Object;
 class Player;
 class ThingTemplate;
 class Matrix3D;
-class FXList;
+
 #define COORD3D_VIEW_INLINE
 #include "../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"

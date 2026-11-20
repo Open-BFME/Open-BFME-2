@@ -17,9 +17,9 @@
 
 #include "../../Include/Common/ScalarTypes.h"
 
-class BFMENetworkQueue;
-class BFMENetworkQueue1;
-class BFMENetwork;
+
+
+
 struct BFMENetworkList;
 
 namespace _STL
@@ -55,7 +55,7 @@ public:
 
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > BFMENetworkString;
 
-class MutexClass;
+
 void *BFMENetworkAllocate(unsigned int bytes);
 
 #include "../../Include/GameNetwork/BFMENetworkListNode.h"

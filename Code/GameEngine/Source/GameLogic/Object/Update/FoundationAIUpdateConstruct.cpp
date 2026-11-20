@@ -56,7 +56,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ModuleData;
 class Team;
-class Player;
+
 class Object;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
@@ -218,7 +218,7 @@ public:
 
 #include "../../../../Include/Common/Rva0028CBFD.h"
 
-class Rva0039B795;
+
 struct Rva0039BAD2Input;
 
 #include "../../../../Include/GameLogic/Module/Rva0039BAD2.h"

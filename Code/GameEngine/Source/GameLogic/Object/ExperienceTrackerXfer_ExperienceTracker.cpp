@@ -32,7 +32,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-class Object;
+
 class ThingTemplate;
 
 #include "../../../Include/Common/BfmeXfer.h"
@@ -76,7 +76,7 @@ struct ExperienceLevelHandle
 	void *m_iter;
 };
 
-class ExperienceTracker;
+
 #include "../../../Include/GameLogic/ExperienceLevelStore.h"
 class Overridable;
 // The store as the rowed 0x002897A8 names it: the next level of a list
