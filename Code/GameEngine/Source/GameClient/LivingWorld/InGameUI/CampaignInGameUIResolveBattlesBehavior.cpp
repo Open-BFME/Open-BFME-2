@@ -38,7 +38,7 @@
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
-class LivingWorldPendingBattle;
+
 #include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class LivingWorldLogic;

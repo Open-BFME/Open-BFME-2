@@ -10,8 +10,8 @@
 #include "wwmath.h"
 #include "vector3.h"
 #include <math.h>
-extern int BfmeClientFramesPerSecond;
-extern float opacityLogicStepSeconds;
+
+
 #include "../../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host {

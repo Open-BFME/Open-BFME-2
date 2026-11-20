@@ -19,10 +19,10 @@
 //   InGameUI_selectMatchingAcrossScreen.cpp.
 // - Non-virtual member (QAEX), unlike ZH's virtual spelling.
 
-typedef int Int;
-typedef bool Bool;
 
-class UnicodeString;
+
+
+
 class AsciiString;
 
 #include "ascii_string.h"

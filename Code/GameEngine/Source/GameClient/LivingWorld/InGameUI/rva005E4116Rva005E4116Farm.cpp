@@ -9,7 +9,7 @@
 // AL zero/one ABI without claiming the original C++ return spelling.
 #include "ascii_string.h"
 #include "unicode_string.h"
-class ThingTemplate;
+
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include "../../../../Include/GameClient/Rva005E4300Entry.h"
@@ -45,7 +45,7 @@ class Rva005E6B3E {public:void updateTooltip();char unknown0[4];void*clip;char u
 // Rva005E6B3E::rva005E6B3E is rowed in its home unit; this copy was a duplicate definition.
 
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+
 namespace StrategicInGameUI {TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*);}
 class Rva003FE20FBase {public:virtual void slot1(void*);};
 class Rva005E6AD8 {public:void rva005E6AD8();char pad0[4];void*clip;Rva003FE20FBase*owner;char padC[8];int value;Rva005E4300Entry*entry;TreeHintRef00217D4C held;};

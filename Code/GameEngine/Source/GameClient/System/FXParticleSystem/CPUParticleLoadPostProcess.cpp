@@ -1,7 +1,7 @@
 // cl: /O1 /MD /arch:SSE2 /EHs
 // WB va 0xb0d8f0 FXParticleSystem::CPUParticle::LoadPostProcess
 // GameClient/System/FXParticleSystem.cpp:1070
-typedef unsigned int UnsignedInt;
+
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
 

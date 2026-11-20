@@ -12,7 +12,7 @@
 class DataChunkInput;
 struct DataChunkInfo;
 class AsciiString;
-class UserParser;
+
 
 #include "string_base.h"
 

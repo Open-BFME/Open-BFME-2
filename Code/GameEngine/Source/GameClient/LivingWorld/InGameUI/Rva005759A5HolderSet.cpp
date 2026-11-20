@@ -5,7 +5,7 @@
 // Getter328A83 evaluated first via the same local-word temporary as sibling.
 // Receiver and purpose remain unnamed; use existing pinned address spelling.
 class Object;
-class LivingWorldRegion;
+
 
 #include "../../../../Include/Common/Rva000AD6F4.h"
 

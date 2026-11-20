@@ -65,7 +65,7 @@ private:
 // next frame.
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
-class PlayerList;
+
 
 struct Rva00481A6EPlayerListView
 {
@@ -79,13 +79,13 @@ struct Rva00481A6EPlayerListView
 // campaign (+0x08), run TheLivingWorldManager's rowed 0x00210F96 and the
 // campaign's rowed 0x0020F3E8 over the holder, then slot 1 of the current
 // (+0x04) entry of the +0x08 table.
-class LivingWorldRegionManager;
+
 
 #include "../../Include/GameLogic/LivingWorldRegionCampaign.h"
 
 #include "../../Include/GameLogic/LivingWorldManager.h"
 
-class LivingWorldLogic;
+
 
 #include "../../Include/Common/Rva003B8DD7Holder.h"
 
@@ -167,9 +167,9 @@ extern GameLogic *TheGameLogic;
 // --- 0x004E6882 (22B): 1 when +0x40 is set, or +0x44 is set while the +0x08
 // state is not 4. Native vtable862440 slot4 identifies the named movie clip;
 // the constructor and destructor install this same five-slot table.
-class UnicodeString;
 
-class Rva002217EA;
+
+
 
 #include "../../Include/GameClient/InGameNotificationBoxMovieClip.h"
 

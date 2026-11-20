@@ -7,7 +7,7 @@
 // ParticleSys.cpp OUTWARD case with two speeds; retail Speed/OtherSpeed in
 // Outward writeINI 0x0055ED5F; vtable shares slot 3 DoXfer 0x0055ED34 with
 // Cylindrical; volume getVelocity via EmissionVolumeModuleInterface slot 0.
-typedef float Real;
+
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 namespace FXParticleSystem
 {
