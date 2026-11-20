@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 466).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 465).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1576,3 +1576,11 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   is this unit, is settled by those approvals: the second. W3DProjectedShadow.cpp already compiled the copy as
   its only registration (`_$E2`), so only the rows change. 0x007ACB09 (after TheW3DProjectedShadowManager) stays
   bridged.
+- *Taken (466 -> 465): W3DRadar.cpp's copy.* Retail's run is the copy 0x007ABD3B, then 0x007ABD4B and 0x007ABD79,
+  closed by the marker 0x007ABDA7. The `.bss` holds RadarEndpointColor 0x00DE1CF8 (read by 0x0004E55B and
+  0x00050125, approved to W3DRadar.cpp), the copy 0x00DE1CFC, the two 96-byte statics 0x00DE1D00/0x00DE1D60 the
+  other two entries build (read only by 0x0004DF6F, approved to W3DRadar.cpp), then `drawEvents`' locals: plain
+  global, copy, dynamic statics, function-local statics of one unit. The unit is built on Zero Hour's headers,
+  which bring in Zero Hour's GameClient/Drawable.h, so it takes `reference/shims/bfme2_drawable_flash` first on its
+  include path (round lk58) and its object registers the copy as `_$E31`. The two radar statics stay bridged
+  (Rva007ABD4BGeometryInits.cpp).
