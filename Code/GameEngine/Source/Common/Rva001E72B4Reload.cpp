@@ -32,11 +32,7 @@ public:
 	void rva002CF1C9();
 };
 
-// View: only the 0x002CF1C9 member is called here.
-class ThingFactory : public Rva002CF1C9
-{
-};
-extern ThingFactory *TheThingFactory;	// VA 0x00DFF000
+#include "../../Include/Common/ThingFactory.h"
 
 // g_Va00DFDC60: VA 0x00DFDC60 (.bss); retail initial byte 00.
 static bool g_Va00DFDC60;
@@ -84,7 +80,8 @@ bool Rva001E72B4::rva001E3934()
 {
 	if (g_Va00DFDC60)
 	{
-		TheThingFactory->rva002CF1C9();
+		// The separately rowed reload helper takes the factory as this.
+		reinterpret_cast<Rva002CF1C9 *>(TheThingFactory)->rva002CF1C9();
 		g_Va00DFDC60 = false;
 		return true;
 	}

@@ -531,15 +531,7 @@ public:
     char m_pad124[0x484 - 0x124];
     ThingTemplate *next;
 };
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	void *newDrawable(void *tmplate, int a, int b); // 0x002CF21B
-	char m_pad00[0xC];
-	ThingTemplate *first; // +0x0C
-};
-extern ThingFactory *TheThingFactory;
+#include "../../../../Include/Common/ThingFactory.h"
 class PlayerTemplate
 {
 public:
@@ -2070,7 +2062,7 @@ void ControlBar::rva0031D64F() {
  Player *player=ThePlayerList->m_local;
  if(!player)return;
  AsciiString side=player->m_side;
- for(ThingTemplate *thingTemplate=TheThingFactory->first;thingTemplate;thingTemplate=thingTemplate->next) {
+ for(ThingTemplate *thingTemplate=const_cast<ThingTemplate *>(TheThingFactory->firstTemplate());thingTemplate;thingTemplate=thingTemplate->next) {
   if((thingTemplate->kindOf[0]&2)&&thingTemplate->side.compare(side)==0) {
    rva0031D61E(&thingTemplate->commandSet);
    if(thingTemplate->getButtonImage()) const_cast<Image*>(thingTemplate->getButtonImage())->rva002D937E();
