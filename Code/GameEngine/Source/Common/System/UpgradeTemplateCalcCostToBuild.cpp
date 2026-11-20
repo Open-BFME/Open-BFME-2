@@ -23,7 +23,7 @@
 // visible reproduces the native early tests without scheduling barriers.
 
 class Player;
-class Object;
+
 class UpgradeTemplate;
 class ThingTemplate;
 

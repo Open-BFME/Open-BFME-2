@@ -4,7 +4,7 @@
 // +0x88 is present build a 3-float record (the pair reinterpreted plus
 // zero) for the rowed maker plus a slot-5 virtual on the helper. All
 // names but rowed/banked callees are address-derived.
-class Rva003195C9Owner;
+
 
 class Rva003195C9Owner
 {

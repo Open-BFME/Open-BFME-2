@@ -13,7 +13,7 @@ typedef unsigned char UByte;
 
 #include "../../Include/Common/ThingTemplate.h"
 
-class Object;
+
 
 class AI110
 {

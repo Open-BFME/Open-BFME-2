@@ -8,7 +8,7 @@
 // +0x14 value of the object the base keeps at +0x04, that object's +0x1C
 // holder is given a new 8-byte callback on it (vtable 0x00C752A8; holder
 // replacement rowed 0x00575674). The event word names are not known.
-class Rva005D0034Target;
+
 
 // The callback's owner pointer lives in Rva005CF872, and Rva005D1255 installs
 // vtable 0x00C752A8 (??_GRva005D1255@@UAEPAXI@Z + ?Update@Rva005D1255@@UAEXXZ).

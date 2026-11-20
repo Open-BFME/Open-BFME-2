@@ -51,7 +51,7 @@ template <> pair<Lk11RbIntSet::iterator, bool> Lk11RbIntSet::insert_unique(const
 #include "GameLogicObjectLookupView.h"
 
 class Player;
-class Object;
+
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
 

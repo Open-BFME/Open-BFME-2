@@ -1,7 +1,7 @@
 // ?iniScanEvaEventID@Eva@@QAEHPBD@Z
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
-class Rva00056F61;
+
 #include "../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {

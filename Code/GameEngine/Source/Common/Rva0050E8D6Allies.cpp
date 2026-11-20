@@ -12,7 +12,7 @@ enum Relationship
 	REL_ALLY = 2
 };
 
-class Player;
+
 
 #include "../../Include/Common/PlayerList.h"
 

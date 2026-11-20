@@ -10,7 +10,7 @@
 // precedent). Single int arg is unused (ret 4).
 
 class AIUpdateInterface;
-class Object;
+
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 

@@ -53,7 +53,7 @@ public:
 	char m_pad1D[0x20 - 0x1D];
 };
 
-class TurretStateMachine;
+
 
 
 class TurretStateMachine

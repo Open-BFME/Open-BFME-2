@@ -8,7 +8,7 @@ class Player;
 class MaterialPassClass;
 class Overridable;
 class RadiusDecalTemplate;
-class Shadow;
+
 
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

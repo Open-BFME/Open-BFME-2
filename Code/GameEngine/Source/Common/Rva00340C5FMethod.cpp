@@ -6,7 +6,7 @@
 // globals 0x00A03745 0x009FEFF0 string 0x008121B4, caller 0x0036808B.
 class Object;
 struct TurretStateMachine;
-struct FprintfTarget;
+
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

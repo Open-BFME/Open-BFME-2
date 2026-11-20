@@ -21,7 +21,7 @@ class RealRange;
 class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
-class Rva0055DB41SnapshotView;
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 

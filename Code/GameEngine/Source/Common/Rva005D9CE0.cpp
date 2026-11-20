@@ -3,7 +3,7 @@
 // Evidence: gap between Rva005D9CD5 dtor 0x005D9CD5 and deleting dtor 0x005D9D2C plus vslot 6 of 0x00876424.
 // Retail loads the float at RVA 0x00876420 (bits 0x3E99999A).
 // Use its exact literal so MSVC supplies the constant instead of an unowned global.
-class Object;
+
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../Include/Common/Rva005EE816.h"
 class Rva005D9Float {

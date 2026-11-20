@@ -1,5 +1,5 @@
 // cl: /MD
-class Rva0028572AHost;
+
 class Rva0020D959Host
 {
 public:

@@ -8,7 +8,7 @@
 // GapBodiesS3H.cpp), loads ecx with its own this and tests al: a bool member
 // of that class that ignores this. No donor.
 
-class Weapon;
+
 enum WeaponSlotType;
 #include "../GameLogic/Object/object.h"
 class Weapon

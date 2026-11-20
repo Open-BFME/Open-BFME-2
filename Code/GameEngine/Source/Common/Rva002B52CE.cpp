@@ -18,7 +18,7 @@
 // Boundary: range-table 102B ending at 0x2B5334 (push ebx). Element layout
 // (m_44 flag) matches the established Rva002E2903Player view. Names are
 // address-derived except rowed callees and state pins.
-class Rva002E2903Player;
+
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva004FBB25Sub

@@ -19,7 +19,7 @@ enum ObjectStatusTypes
 	ObjectStatus_Two = 2
 };
 
-class Object;
+
 
 template<class OBJCLASS>
 class DLINK_ITERATOR

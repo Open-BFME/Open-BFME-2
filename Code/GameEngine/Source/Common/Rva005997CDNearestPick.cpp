@@ -19,7 +19,7 @@ struct Vec2
     Vec2(const Vec2 &vec2) : x(vec2.x), y(vec2.y) {}
 };
 
-class Object;
+
 enum ObjectStatusTypes;
 
 class Object

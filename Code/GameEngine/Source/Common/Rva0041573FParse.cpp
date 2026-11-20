@@ -27,7 +27,7 @@ _Rb_tree_iterator<pair<const int, int>, _Nonconst_traits<pair<const int, int> > 
 
 class INI;
 
-class Rva0041573F;
+
 #include "../../Include/Common/INI/INI.h"
 
 int __cdecl Rva0033A495Get();

@@ -38,7 +38,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_44 = 0x44
 };
 
-class Object;
+
 class Player;
 
 extern unsigned char g_00E03745;

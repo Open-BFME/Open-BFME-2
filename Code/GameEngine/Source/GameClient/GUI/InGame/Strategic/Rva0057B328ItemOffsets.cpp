@@ -17,7 +17,7 @@ namespace StrategicHUD
 class ChecklistUIImpl;
 }
 
-struct Rva0057B328Node;
+
 
 struct Rva0057B328Obj
 {

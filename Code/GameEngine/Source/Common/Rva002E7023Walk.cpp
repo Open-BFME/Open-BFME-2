@@ -10,7 +10,7 @@
 // pinned 0x00269566 on the item. Honest address-derived name; host/type
 // identities unproven beyond the call shapes.
 
-class Object;
+
 #include "../../Include/GameLogic/Module/Rva003638BA.h"
 
 // 0x00269566 is rowed as AIUpdateInterface::NotifyPathHasInvalidPortals.

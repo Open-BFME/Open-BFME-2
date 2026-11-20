@@ -8,7 +8,7 @@
 // for same Table::add call; pin Table::add via addIfAbsent 0x0070B4C0 call target.
 
 class Rva8D0D80String;
-class Rva8D0D80Value;
+
 
 #include "../../../Libraries/Source/EA/Apt/Rva8D0D80Table.h"
 

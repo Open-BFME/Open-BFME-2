@@ -10,7 +10,7 @@
 // 0x004D7726 getDockUpdateInterface 0x0028BCB4 halt 0x004D73A4 already rowed.
 
 class Object;
-class DockUpdateInterface;
+
 
 #include "../../Include/GameLogic/Module/TurretStateMachine.h"
 

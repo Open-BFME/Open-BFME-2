@@ -8,7 +8,7 @@
 // and ObjectID at +0x28; Object +4 -> flag byte at +0x110 bit 2 and +0x74 vs this+4.
 #include "../GameLogicObjectLookupView.h"
 
-class Object;
+
 class PathfindCell;
 
 

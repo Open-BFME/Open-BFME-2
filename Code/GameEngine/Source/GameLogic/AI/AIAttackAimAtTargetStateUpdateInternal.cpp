@@ -41,7 +41,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_3A = 0x3A,
 	OBJECT_STATUS_4B = 0x4B
 };
-class Object;
+
 class Player;
 #include <math.h>
 // CRT fabs returns double; retail keeps its result on the x87 stack.

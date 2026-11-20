@@ -13,10 +13,10 @@
 
 
 
-class Object;
+
 class Player;
 
-class Rva00273C47Host;
+
 class Thing;
 
 #include "../../Include/GameClient/Rva002AA191.h"

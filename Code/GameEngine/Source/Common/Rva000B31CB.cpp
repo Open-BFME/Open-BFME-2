@@ -8,7 +8,7 @@
 // object's visual position from the rowed 0x0028D4E0 straight into the by-value Coord3D and calls
 // the rowed RadiusDecalTemplate creator 0x0033121F on the template at +0x1E0 with the decal
 // at +0x1D0. Evidence: target bytes and the rowed callees; names are neutral views.
-class Object;
+
 // Coord3D: retail user ctors, opt-in view (Lib/Coord3DCtorView.h); no private copy.
 #define COORD3D_VIEW_DTOR
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"

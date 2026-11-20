@@ -9,7 +9,7 @@
 // Honest address name; owner unproven.
 
 class Player;
-class Object;
+
 class AIUpdateInterface;
 
 #include "GameLogicObjectLookupView.h"

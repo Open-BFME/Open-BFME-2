@@ -102,7 +102,7 @@ struct LocomotorTemplate
 	Real m_rollBobRate;			// +0x120
 };
 
-class Object;
+
 enum KindOfType { KINDOF_FIRST };
 
 #include "../../Include/GameLogic/Module/Rva001E46E1.h"

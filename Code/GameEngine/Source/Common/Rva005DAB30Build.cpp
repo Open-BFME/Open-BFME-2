@@ -11,7 +11,7 @@ extern BuildAssistant *TheBuildAssistant;
 
 #include "ascii_string.h"
 
-class Object;
+
 
 
 #include "GameLogicObjectLookupView.h"

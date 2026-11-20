@@ -143,7 +143,7 @@ struct RetHolder
 	int m_val;
 };
 
-class Rva00495840;
+
 #include "../../Include/Common/CommandButtonHuntUpdate.h"
 
 class Rva00495840

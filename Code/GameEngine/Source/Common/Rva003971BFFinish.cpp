@@ -7,7 +7,7 @@
 
 #include "GameLogicObjectLookupView.h"
 
-class Object;
+
 class GameLogic;
 extern GameLogic *TheGameLogic; // ?TheGameLogic@@3PAVGameLogic@@A
 

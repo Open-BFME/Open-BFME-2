@@ -26,7 +26,7 @@ template <> __declspec(dllimport) __forceinline void **vector<void*>::end() { re
 }
 
 class GameWindow;
-class WindowVideo;
+
 
 #include "../../Include/Common/Overridable.h"
 

@@ -13,7 +13,7 @@ struct Rva00287C21Other
 	int m_49C;
 };
 #include "../../Include/GameLogic/FireLogicSystem.h"
-class Object;
+
 // Row spellings: 0x00333F37 is LuaDrawableState::rva00333F37(Object *),
 // 0x002A8F56 is Rva002A8F24::UnRegister(Object *).
 #include "../../Include/GameLogic/LuaDrawableState.h"

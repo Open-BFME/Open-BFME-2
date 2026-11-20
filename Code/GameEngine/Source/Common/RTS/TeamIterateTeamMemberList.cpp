@@ -10,7 +10,7 @@
 // vbptr layout at Object+0x68 giving delta -100. Callers include 0x003C9A80
 // and 0x0039E042 which copy the 24-byte output.
 
-class Object;
+
 
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"
 

@@ -12,7 +12,7 @@
 // reads the inner radius parameter into its own XMM register before the
 // sums, which the volatile read of a2 reproduces (the fleet's volatile
 // operand form).
-class Drawable;
+
 #include "../../Include/GameClient/Rva002716Holder.h"
 
 class Drawable

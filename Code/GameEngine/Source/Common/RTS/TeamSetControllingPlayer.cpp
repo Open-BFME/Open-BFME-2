@@ -18,7 +18,7 @@ public:
 	unsigned char m_head[8];
 	BfmeOwnerCFF *m_owner;
 };
-class Object;
+
 #include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/BfmeObjectVirtualTail.h"

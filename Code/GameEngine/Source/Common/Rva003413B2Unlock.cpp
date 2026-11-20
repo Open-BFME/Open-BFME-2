@@ -5,7 +5,7 @@
 // Flag byte at this+0x41 gates the early false when the goal is null. The
 // +0x258 object provides the CommandSource int through virtual slot 0x23c.
 // Callers 0x0034B574 0x0034F991. Honest address names; class unproven.
-class Object;
+
 
 enum WeaponChoiceCriteria
 {
