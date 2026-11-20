@@ -7,7 +7,7 @@
 #include "ascii_string.h"
 
 class ModuleData;
-class Rva004210B0;
+
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

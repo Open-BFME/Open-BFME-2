@@ -11,7 +11,7 @@
 // donor null-adjustment shape; common mode7/mode0 call must follow both guards.
 // Render helper 0x0006FB59 is RTS3DScene::renderOneObject (2550 B, ZH donor
 // name), four stack arguments; its fourth argument is unused in retail.
-class RenderObjClass;
+
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class RefCountClass{public:virtual ~RefCountClass();int refs;};class MultiListObjectClass{public:struct MultiListNodeClass*node;};

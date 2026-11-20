@@ -679,7 +679,7 @@ static __forceinline Object *rva00279A50FindClosest(AI *ai, const Object *owner,
 		owner, range, flags, info, filter);
 }
 
-class Rva00279A50StateProbe;
+
 
 #define RVA00279A50_SLOT(N) virtual void slot##N(void) = 0
 class Rva00279A50StateProbe
@@ -847,7 +847,7 @@ enum {WAYPOINT_PATH_LIMIT=1024};
 
 #endif
 
- 
+
 
   // end isPathAvailable
 
@@ -858,7 +858,7 @@ enum {WAYPOINT_PATH_LIMIT=1024};
 Others, like missles, should stack destinations.  AdjustDestination in pathfinder unstacks
 destinations, and this routine identifies non-ground units that should unstack. */
 
- 
+
 
   // end joinTeam
 

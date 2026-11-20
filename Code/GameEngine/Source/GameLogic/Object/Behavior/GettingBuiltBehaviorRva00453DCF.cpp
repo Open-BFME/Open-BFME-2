@@ -17,7 +17,7 @@ void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<i
 
 class Thing;
 class ModuleData;
-class Object;
+
 class GameLogic;
 
 #include "../../../Common/GameLogicObjectLookupView.h"

@@ -12,7 +12,7 @@
 // offsets +0x24 and +0x30 are target accesses supported by the donor layout.
 
 class AptValue;
-class AptScriptFunctionBase;
+
 class AptFrameStack;
 class Rva8D0D80String;
 class Rva8D0D80Value;

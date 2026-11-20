@@ -31,7 +31,7 @@ public:
 };
 
 class WeaponTemplate;
-class Object;
+
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 template <int N> class Rva004C2095Slots : public Rva004C2095Slots<N - 1>

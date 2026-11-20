@@ -69,7 +69,7 @@ static bool rva0027900B(char *self)
 // 0x2000 draws nothing; otherwise this drawable draws
 // (Drawable::drawVeterancy 0x00277DB4 with the flag and the rank).
 class Player;
-class Object;
+
 
 #include "../../Include/GameLogic/Module/Rva2225E0Filter.h"
 

@@ -64,7 +64,7 @@ static __forceinline void matrixRotateZ(Matrix3D &m, float theta)
 
 enum KindOfType { KINDOF_RVA0047A895_DA = 0xDA };
 
-class Object;
+
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 struct Rva0028AC4EEntry;
 

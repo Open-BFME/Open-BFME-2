@@ -31,7 +31,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <vector>
-struct BfmeE8;
+
 struct Rva0060C9D9Element;
 namespace _STL {
 // 0x0060C9D9, rowed in StlSweepW6Rva0060C9D9.cpp: the out-of-line _Construct

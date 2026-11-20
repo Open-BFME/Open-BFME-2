@@ -6,7 +6,7 @@
 // the 60B record, version bytes, field offsets and chained calls are target facts.
 #include <vector>
 #include "Coord3DBase.h"
-class Object;
+
 #include "../../../Include/GameLogic/HordeMeleeAmoeba.h"
 namespace _STL {template<> void vector<BfmePod60>::resize(size_type);}
 struct HmaTransferVersion {unsigned char minimum,current; HmaTransferVersion(unsigned char c,unsigned char m):minimum(m),current(c) {}};

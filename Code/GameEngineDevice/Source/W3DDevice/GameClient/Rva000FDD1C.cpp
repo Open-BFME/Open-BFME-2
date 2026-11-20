@@ -16,7 +16,7 @@ struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
-struct Rva000FDD1C;
+
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 extern unsigned int number_of_DX8_calls;

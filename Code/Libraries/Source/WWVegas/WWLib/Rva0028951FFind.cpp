@@ -64,7 +64,7 @@ template <> size_t vector<void*>::size() const;
 }
 
 class GameWindow;
-class WindowVideo;
+
 
 #include "../../../../GameEngine/Include/Common/Overridable.h"
 

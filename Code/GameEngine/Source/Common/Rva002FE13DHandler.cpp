@@ -7,7 +7,7 @@ enum Relationship
 	ALLIES = 2
 };
 
-class Object;
+
 class Player;
 #include "../../Include/GameLogic/Rva00390533.h"
 

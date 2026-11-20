@@ -14,7 +14,7 @@ class IndexBufferClass;
 
 struct IDirect3DDevice8;
 
-class FXShaderGeometry;
+
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 

@@ -15,7 +15,7 @@
 // 0x00403744 is now rowed under rva00403744; its original spelling is unresolved. Horde/contain class names are placeholders.
 #include "ascii_string.h"
 
-class Object;
+
 class Player;
 struct Rva002A7588In;
 

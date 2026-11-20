@@ -58,7 +58,7 @@ Real Sin(Real);									///< retail 0x0002FBB0
 #define PI 3.14159265359f
 #define PATHFIND_CELL_SIZE_F 10.0f
 
-class Object;
+
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 

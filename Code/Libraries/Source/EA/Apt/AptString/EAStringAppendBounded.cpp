@@ -12,7 +12,7 @@ struct BfmeStringDataVKG
 	unsigned short m_hash;
 };
 
-class BfmeBufVKG;
+
 #include "../../../Apt/EAStringC.h"
 
 class BfmeStrVKJ

@@ -28,7 +28,7 @@ typedef bool Bool;
 enum KindOfType { KINDOF_INVALID = -1 };
 enum Relationship { REL_ENEMIES = 0, REL_NEUTRAL = 1, REL_ALLIES = 2 };
 
-class Object;
+
 class Team;
 class Module;
 

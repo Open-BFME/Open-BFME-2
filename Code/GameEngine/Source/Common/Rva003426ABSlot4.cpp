@@ -10,7 +10,7 @@
 // Chain-head types are TU-local pads; only slots and offsets are
 // evidence-backed. State base layout copied from rowed StateCtor.cpp.
 
-class StateMachine;
+
 
 class CEMid
 {

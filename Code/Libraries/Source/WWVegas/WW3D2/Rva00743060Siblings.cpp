@@ -8,7 +8,7 @@
 // offsets are the whole difference. Identity unknown; address-derived class.
 #include "vector2.h"
 
-class Rva00743060Class;
+
 
 // The sync time at 0x00DEC3CC is WW3D's private static (defined in ww3d.cpp).
 #include "WW3DClass.h"

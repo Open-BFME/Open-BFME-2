@@ -4,7 +4,7 @@
 
 #include <windows.h>
 
-struct Rva00819920Comm;
+
 
 struct Rva00819920Message
 {

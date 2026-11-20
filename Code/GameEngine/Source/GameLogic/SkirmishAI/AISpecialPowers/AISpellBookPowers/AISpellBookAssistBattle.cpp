@@ -88,7 +88,7 @@ static bool __fastcall Rva005D839BCheck(int dummy, Rva005D839BParam *player)
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Player;
-class Object;
+
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object {
 public:

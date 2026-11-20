@@ -4,7 +4,7 @@
 // Layout from caller 0x005E948B deleting wrapper vtable 0x00C780A8#0 and rowed clear 0x005E9E27.
 // Evidence: mov [ecx] C780A8 plus add ecx 4 plus jmp clear; twin 0x005E888A 8B plus vptr.
 
-class Rva005E9F3F;
+
 class Rva0057C394;
 class LivingWorldBattle;
 // The 0x005E98A0 implementation is rowed as StrategicInGameUI::BattlePromptDialog::Impl.

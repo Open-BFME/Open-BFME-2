@@ -9,7 +9,7 @@
 #include <d3d9.h>
 
 struct IDirect3DDevice8;
-class Rva00DF6F94GapFillerContext;
+
 #include "DX8WrapperClass.h"
 struct DX8WrapperStageHelper
 {

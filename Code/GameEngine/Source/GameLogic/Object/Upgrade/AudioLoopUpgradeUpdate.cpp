@@ -24,7 +24,7 @@ class Xfer;
 extern AudioManager *TheAudio;
 
 class Object;
-class AudioLoopUpgrade;
+
 
 // Access-only view of the UpdateModule subobject; no instance or vtable is emitted.
 class AudioLoopUpdateAccess : public UpdateModule

@@ -76,7 +76,7 @@ inline bool operator==(const BFME2TextureRef &left, const BFME2TextureRef &right
 #include "ShaderClass.h"
 
 class DX8PolygonRendererClass;
-class DX8FVFCategoryContainer;
+
 
 class DX8TextureCategoryClass : public MultiListObjectClass
 {

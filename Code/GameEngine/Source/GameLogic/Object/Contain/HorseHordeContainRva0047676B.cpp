@@ -3,7 +3,7 @@
 // Evidence: Native47676B..47680E RET4 primary neighbour HorseHordeContain. Receiver adjusted-FC to containment interface and virtual118 outputs8B range; float maxTurn from independently rowed holder28AC4E andLocomotor1E3E9F; orientation44 inline getter yields native dualSSE loads; normalizeAngle238954/fabs629210 and native x87 greater comparison. Original virtual method name remains unknown.
 #include <math.h>
 float normalizeAngle(float);
-class Object;
+
 struct Rva0028AC4EEntry {unsigned char m_pad[0x40];mutable float m_40;};
 #include "../../../../Include/GameLogic/LocomotorClass.h"
 class Object {public:const Rva0028AC4EEntry*rva0028AC4E()const;char pad[0x44];float angle;float getOrientation()const{return angle;}};

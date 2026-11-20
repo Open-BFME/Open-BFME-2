@@ -34,7 +34,7 @@ enum WeaponChoiceCriteria
 	PREFER_LONGEST_RANGE = 1
 };
 
-class Object;
+
 struct Coord3D;
 
 #include "../../../Include/GameLogic/WeaponSetClass.h"

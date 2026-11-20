@@ -13,9 +13,9 @@ class Player;
 struct Coord3D;
 class PartitionManager;
 class Rva002A8F24;
-class Rva00049D20;
+
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-class Object;
+
 class ModuleData;
 class AIUpdateInterface;
 #include "GameLogicObjectLookupView.h"

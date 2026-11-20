@@ -61,7 +61,7 @@ enum WhichTurretType
 	TURRET_INVALID = -1,
 	TURRET_MAIN = 0
 };
-class Object;
+
 template <int N> class AttackSlots : public AttackSlots<N - 1>
 {
 public:

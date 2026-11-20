@@ -154,7 +154,7 @@ public:
 #include "../../../Include/GameClient/Drawable.h"
 
 class DrawableList;
-class PickAndPlayInfo;
+
 
 class PickAndPlayInfo
 {

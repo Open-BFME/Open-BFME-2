@@ -27,7 +27,7 @@
 
 #define INT_TO_REAL(x) ((Real)(x))
 
-class Thing;
+
 class ModuleData;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"

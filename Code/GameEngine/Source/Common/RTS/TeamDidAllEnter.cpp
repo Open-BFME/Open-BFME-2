@@ -20,7 +20,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 class PolygonTrigger;
-class Object;
+
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

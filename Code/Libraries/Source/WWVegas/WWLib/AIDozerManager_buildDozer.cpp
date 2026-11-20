@@ -11,7 +11,7 @@ class Rva002A8AB1Record;
 class ProductionEntry;
 
 class ThingFactory;
-class SuffixObj;
+
 
 #include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 

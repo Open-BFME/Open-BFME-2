@@ -190,7 +190,7 @@ class Module;
 // The SiegeDeploySpecialPower module's rowed bool getter (0x004C5772).
 class PolygonTrigger;
 class AttackPriorityInfo;
-class PartitionFilter;
+
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

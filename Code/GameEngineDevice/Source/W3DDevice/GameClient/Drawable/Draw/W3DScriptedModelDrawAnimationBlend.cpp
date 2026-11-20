@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy-
 // Target B5D7F..B5FB3. Eight args, standard thiscall; native caller BEE25.
 // ZH adjustAnimation establishes purpose; BFME2 three-lane blending is target-specific.
-class HAnimClass;
+
 class RefCounted{public:virtual void v0();int ref;};
 #include "../../../../../Include/W3DDevice/GameClient/Rva000B3C61.h"
 class Rva000B3BA8Arg;

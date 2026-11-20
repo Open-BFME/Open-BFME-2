@@ -28,7 +28,7 @@ int __cdecl Rva002E6E8AGet(int layer);
 
 #include "../../../Include/GameLogic/PathfindCell.h"
 
-class Object;
+
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

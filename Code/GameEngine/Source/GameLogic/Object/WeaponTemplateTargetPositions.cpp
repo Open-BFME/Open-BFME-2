@@ -12,7 +12,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Matrix3D;
-struct ThingKindBytes;
+
 enum ObjectStatusTypes { OBJECT_STATUS_PLACEHOLDER = 0 };
 #include "../../../Include/Common/ScalarTypes.h"
 

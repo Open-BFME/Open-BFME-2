@@ -34,7 +34,7 @@ PartitionManager * TheShroudManager;
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class FXList;
+
 
 #include "../../Include/GameClient/FXListStore.h"
 

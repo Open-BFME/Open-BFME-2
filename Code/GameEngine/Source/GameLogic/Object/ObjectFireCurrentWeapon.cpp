@@ -62,7 +62,7 @@ enum ObjectPrivateStatusBits
 	UNDETECTED_DEFECTOR = 0x02
 };
 
-class Object;
+
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 

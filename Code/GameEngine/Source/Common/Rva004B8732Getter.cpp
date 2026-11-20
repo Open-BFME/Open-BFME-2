@@ -12,7 +12,7 @@
 #include "ascii_string.h"
 class Thing;
 class ModuleData;
-class Object;
+
 
 // Retail 0x004B886F, 341 bytes: SpawnUnitBehavior::update, the once-a-second
 // tick of the same module (slot 0 of its UpdateModuleInterface table
