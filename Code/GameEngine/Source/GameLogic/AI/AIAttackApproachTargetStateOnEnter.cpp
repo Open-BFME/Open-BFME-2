@@ -159,7 +159,6 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-extern "C" float __cdecl fabs(double); // CRT fabs (the /O1 call); x87 result compared as float
 Real normalizeAngle(Real angle);
 
 #define PATHFIND_CELL_SIZE_F 10.0f
