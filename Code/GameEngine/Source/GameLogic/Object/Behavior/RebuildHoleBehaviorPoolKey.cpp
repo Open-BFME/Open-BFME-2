@@ -11,7 +11,7 @@
 
 enum NameKeyType
 {
-	NK_UNKNOWN = 0
+	NAMEKEY_INVALID = 0
 };
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
@@ -24,7 +24,7 @@ class Object;
 // newWorkerRespawnProcess's callees: the module data's worker respawn delay
 // (+0x08), TheGameLogic's destroyObject, the Object mask/status/selection
 // members and TheAI's pathfinder (+0x10).
-struct RebuildHoleBehaviorModuleData
+struct RebuildHoleWorkerDelayView
 {
 	unsigned char m_pad00[0x8];
 	float m_workerRespawnDelay;				// +0x08
@@ -43,7 +43,32 @@ public:
 	unsigned m_bits[4]; // +0x00
 };
 
-#include "../object.h"
+class BehaviorModule;
+class Player;
+class SpawnBehaviorInterface;
+enum ObjectStatusTypes;
+enum DamageType;
+enum DeathType;
+
+class Object
+{
+public:
+	BehaviorModule **getBehaviorModules() { return m_behaviorModules; }
+	__declspec(dllimport) __forceinline Team *getTeam();
+	void *rva0028BD17() const;
+	Player *getControllingPlayer() const;
+	void setProducer(Object*);
+	void maskObject(bool);
+	void setSelectable(bool);
+	void rva0028CDEB(const Rva00346BC0&,bool);
+	bool testStatus(ObjectStatusTypes) const;
+	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
+	void kill(DamageType,DeathType);
+
+private:
+	char m_pad[0x244];
+	BehaviorModule **m_behaviorModules;
+};
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
@@ -69,7 +94,7 @@ NameKeyType RebuildHoleBehavior::getModuleNameKey() const
 // map. Unlike the class's SSE units this body converts with x87 _ftol2.
 void RebuildHoleBehavior::newWorkerRespawnProcess(Object *existingWorker)
 {
-	const RebuildHoleBehaviorModuleData *modData = (const RebuildHoleBehaviorModuleData *)m_moduleData;
+	const RebuildHoleWorkerDelayView *modData = (const RebuildHoleWorkerDelayView *)m_moduleData;
 	Object *hole = m_object;
 
 	// if we have an existing worker, get rid of it
