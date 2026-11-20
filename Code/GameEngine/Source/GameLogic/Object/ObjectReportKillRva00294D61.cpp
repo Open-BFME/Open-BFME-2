@@ -21,7 +21,7 @@ extern PlayerList *ThePlayerList;
 
 enum Relationship { RELATIONSHIP_INVALID = 0, RELATIONSHIP_1 = 1, RELATIONSHIP_2 = 2 };
 
-class Team;
+
 #include "../../../Include/Common/Player.h"
 
 struct Rva00294D61Template
@@ -92,7 +92,7 @@ public:
 // VA 0x00E032F8: the StatsCollector pointer BfmeOwnVVDCtor.cpp defines.
 class StatsCollector;
 extern StatsCollector *g_00E032F8;
-class CreateAHeroData;
+
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 

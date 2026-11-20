@@ -32,7 +32,7 @@ public:
 	int m_ownerID; // +8
 };
 
-class AsciiString;
+
 #include "../../../Include/GameLogic/WeaponStore.h"
 
 extern WeaponStore *TheWeaponStore;

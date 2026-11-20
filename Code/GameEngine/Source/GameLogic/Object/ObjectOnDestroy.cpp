@@ -10,7 +10,7 @@
 // ZH's trailing handlePartitionCellMaintenance is gone. The +0x84 type and
 // both helpers' identities are unknown (address-derived names).
 
-typedef bool Bool;
+
 
 class Object;
 

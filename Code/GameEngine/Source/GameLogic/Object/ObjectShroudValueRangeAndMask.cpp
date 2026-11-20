@@ -24,7 +24,7 @@ struct ShroudTemplateView{char pad0[0x108];unsigned char kinds[0x20];char pad128
 // This is not the complete original base: +0x68 is a vbptr, reserved separately.
 // Original class identity and the empty slot's return type remain unknown;
 // the opaque slot is never called through this query-only view.
-class AsciiString;
+
 #include "ObjectShroudClient.h"
 
 // Partial storage view only: the native nonvirtual prefix has vfptr+vbptr.

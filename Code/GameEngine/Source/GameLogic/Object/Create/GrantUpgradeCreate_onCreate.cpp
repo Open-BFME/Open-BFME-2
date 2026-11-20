@@ -24,7 +24,7 @@
 
 class Player;
 
-class Upgrade;
+
 
 class Object
 {

@@ -55,7 +55,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 
 
 
-class ArmorTemplate;
+
 class Rva0035516C
 {
 public:

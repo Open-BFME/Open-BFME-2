@@ -20,10 +20,10 @@
 // AsDrawable ternary.
 
 class ModuleData;
-class Object;
+
 class Drawable;
-class Player;
-typedef int Bool;
+
+
 
 // Retail inlines this existing friend helper at the constructor call site.
 class Thing;

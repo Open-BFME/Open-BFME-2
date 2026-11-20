@@ -107,7 +107,7 @@ public:
 class Matrix3D;
 #include "../../Common/Thing/thing.h"
 class Object;
-struct Rva00287C21Other;
+
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 extern GameLogic *TheGameLogic;
@@ -136,10 +136,10 @@ enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
-struct Rva002D76C6Owner;
+
 #include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
-struct Obj00526309;
+
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 #include "../../../Include/Common/BitFlagsTemplate.h"
@@ -159,7 +159,7 @@ public:
 	char m_pad08[0x38];
 	float m_float; // +0x40 +0x040 (read via 0x8BB38, never directly)
 };
-extern int BfmeLogicFramesPerSecond;
+
 class Object
 {
 public:

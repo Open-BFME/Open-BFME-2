@@ -9,7 +9,7 @@
 // je-vs-jne branch layout only; trying non-null-first ternary.
 #include "ascii_string.h"
 
-class ThingTemplate;
+
 #include "../../../../Include/Common/ThingFactory.h"
 
 class ThingFactory;

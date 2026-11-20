@@ -14,7 +14,7 @@
 // by target evidence and stay offset-named (Zero Hour's validate makes damaged
 // values fall back to undamaged ones, an unverified donor reading).
 
-typedef float Real;
+
 
 enum LocomotorAppearance
 {

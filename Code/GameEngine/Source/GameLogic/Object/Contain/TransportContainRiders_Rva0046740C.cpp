@@ -78,7 +78,7 @@ enum KindOfType
 	BFME_KINDOF_BF = 0xBF
 };
 
-class Locomotor;
+
 
 #include "../../../../Include/Common/ThingTemplate.h"
 

@@ -12,9 +12,9 @@
 // inlines to four SSE compares.
 
 
-typedef float Real;
-typedef int Int;
-typedef unsigned char UnsignedByte;
+
+
+
 typedef int Bool;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

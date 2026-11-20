@@ -12,7 +12,7 @@
 // Callers 0x0046016B 0x004833B3 0x004838D4 0x004A415D.
 
 #include "../../../Include/Common/ScalarTypes.h"
-typedef unsigned int PlayerMaskType;
+
 
 #include "../../../Include/Common/Player.h"
 

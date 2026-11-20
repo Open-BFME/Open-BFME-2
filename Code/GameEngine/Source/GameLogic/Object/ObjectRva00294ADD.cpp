@@ -32,7 +32,7 @@ private:
 	void *m_5C; // +0x5C
 };
 
-struct Rva002A8AB1Record;
+
 
 #include "../../../Include/GameLogic/Rva002A8F24.h"
 

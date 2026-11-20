@@ -58,7 +58,7 @@ struct ReflectDamageModuleData
 	float m_reflectDamageMinimum;		// +0x10
 };
 
-class ModuleData;
+
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 class ReflectDamage : public DamageModule

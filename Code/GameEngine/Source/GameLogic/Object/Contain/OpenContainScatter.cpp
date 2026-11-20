@@ -15,8 +15,8 @@ extern float GetGameLogicRandomValueReal(float, float, char *, int);
 extern float Cos(float);
 extern float Sin(float);
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
-struct AICommandParms;
-class Rva0035149F;
+
+
 class Object;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Common/Thing/thing.h"

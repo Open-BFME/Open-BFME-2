@@ -11,7 +11,7 @@
 #include <vector>
 #include "Lib/Coord2D.h"
 #include "ascii_string.h"
-class ThingTemplate;
+
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 struct Rva004693D9Input { float x,y; int partner,localIndex; };

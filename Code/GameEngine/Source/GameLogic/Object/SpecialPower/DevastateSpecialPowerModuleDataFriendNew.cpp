@@ -13,7 +13,7 @@
 // to BFME1's DevastateSpecialPower table (four of five fields verbatim).
 class ModuleData;
 class INI;
-class MultiIniFieldParse;
+
 
 #include "../../../../Include/Common/INI/INI.h"
 

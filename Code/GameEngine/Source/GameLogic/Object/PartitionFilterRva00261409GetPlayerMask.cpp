@@ -8,7 +8,7 @@
 // players with those relationships (plus bit 0) to the filter's player,
 // inverted when the filter excludes them.
 
-class Object;
+
 
 #include "../../../Include/Common/Player.h"
 

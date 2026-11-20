@@ -6,7 +6,7 @@
 // the original public method spelling is unresolved.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 static __forceinline bool visualGroundBit(unsigned v){return(v>>6)&1;}
-class Matrix3D;
+
 struct VisualMatrixTranslation {float values[3][4];};
 #include "../../../Include/GameClient/Drawable.h"
 class Object;

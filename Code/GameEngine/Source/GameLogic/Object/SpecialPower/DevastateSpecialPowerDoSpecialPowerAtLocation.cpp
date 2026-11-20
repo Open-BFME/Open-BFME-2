@@ -158,7 +158,7 @@ public:
 
 static __forceinline UnsignedInt devastateMoneyAmount(Real value) {return (UnsignedInt)value;}
 
-struct AEXPAVObject;
+
 class DevastateSpecialPower : public SpecialPowerModule
 {
 public:

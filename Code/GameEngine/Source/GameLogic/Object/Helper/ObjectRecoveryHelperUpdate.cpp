@@ -18,7 +18,7 @@ public:
 	virtual void rvaSlot3() = 0;
 };
 #include "../object.h"
-class ModuleData;
+
 #include "../../../../Include/GameLogic/Module/ModuleBase.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"

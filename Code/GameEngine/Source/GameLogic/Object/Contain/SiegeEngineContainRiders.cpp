@@ -40,7 +40,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class Thing;
+
 class ModuleData;
 class Player;
 enum WeaponSetType

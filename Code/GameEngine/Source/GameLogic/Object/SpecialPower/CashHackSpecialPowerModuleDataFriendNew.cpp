@@ -13,7 +13,7 @@
 // to BFME1's CashHackSpecialPower table (both fields verbatim).
 class ModuleData;
 class INI;
-class MultiIniFieldParse;
+
 
 #include "../../../../Include/Common/INI/INI.h"
 

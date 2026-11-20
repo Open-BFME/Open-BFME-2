@@ -22,7 +22,7 @@ template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List
 }
 class DamageInfo;
 class Object;
-class Drawable;
+
 #include "../../../../Include/GameLogic/Module/DieMuxData.h"
 #include "../../../Common/Thing/thing.h"
 #include "../object.h"

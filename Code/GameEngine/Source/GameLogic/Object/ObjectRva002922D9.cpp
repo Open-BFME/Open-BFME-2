@@ -11,7 +11,7 @@ struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 
 class SpecialPowerTemplate;
-class SpecialPowerModuleInterface;
+
 
 #include "../../../Include/Common/Rva0031D5F8.h"
 

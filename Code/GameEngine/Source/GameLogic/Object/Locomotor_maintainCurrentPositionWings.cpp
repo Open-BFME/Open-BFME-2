@@ -10,7 +10,7 @@ class Object;
 int __cdecl Rva001E3896Check(float);
 float Cos(float); float Sin(float);
 struct Rva001E3F08Arg;
-struct Rva001E3F08MidA;
+
 #include "../../../Include/GameLogic/Rva001E3F08.h"
 #include "../../../Include/GameLogic/Module/Rva001E7C2B.h"
 class Rva001E4073

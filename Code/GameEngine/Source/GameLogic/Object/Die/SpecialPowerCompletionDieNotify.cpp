@@ -8,7 +8,7 @@
 // Evidence: ZH donor SpecialPowerCompletionDie.cpp notifyScriptEngine direct reuse with retail offsets;
 // xfer 0x00486AC2 proves base 0x14 plus creatorID +0x14; disassembly push esi mov esi ecx cmp je call mov edi add.
 
-class Thing;
+
 class ModuleData;
 class Object;
 class Player;

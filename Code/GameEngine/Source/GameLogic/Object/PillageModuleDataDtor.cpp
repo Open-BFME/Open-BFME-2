@@ -13,7 +13,7 @@
 // 0x254FFF (vtable 0xBF0568).
 
 
-class Xfer;
+
 
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 

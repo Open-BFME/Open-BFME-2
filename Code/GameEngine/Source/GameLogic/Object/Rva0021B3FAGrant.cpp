@@ -11,7 +11,7 @@
 
 class Player;
 class UpgradeTemplate;
-class Upgrade;
+
 
 #include "../../Common/RTS/PlayerUpgradeStatus.h"
 
