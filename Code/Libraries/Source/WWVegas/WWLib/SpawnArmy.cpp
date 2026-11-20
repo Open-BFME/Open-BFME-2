@@ -732,15 +732,18 @@ bool Rva0010E676_SetEmissive(RenderObjClass *,float,float,float);
 
 class SplineEffect
 {
-    virtual void unused0()=0;
-    virtual void unused1()=0;
-    virtual void rvaSlot2(int)=0;
+public:
+    virtual ~SplineEffect();
+    virtual void unused1();
+    virtual void rvaSlot2(int);
+    virtual void rva004E3383(const AsciiString &subObjName, Bool visible);
+    void Execute();
+    void SetSubObjectColor(const AsciiString &,const Rva004E34B1Color &);
+private:
     Rva00064880Tree curve;
     unsigned frame;
     _STL::vector<SplineGeometry> geometry;
-public:
-    void Execute();
-    void SetSubObjectColor(const AsciiString &,const Rva004E34B1Color &);
+    Bool m_allVisible;
 };
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp

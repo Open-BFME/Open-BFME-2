@@ -98,59 +98,65 @@ struct Rva005F17C6S16 : Rva0020F58E
 Rva005F17C6S16 Rva005F17C6Build(const Rva005F17C6S12 &src, int v);
 AsciiString Rva004E2ED9Construct(Rva0020F58E &value);
 
-struct SplineEffectColor
+struct Rva004E34B1Color { float red,green,blue; };
+
+struct SplineGeometry
 {
-	float r, g, b;
+    AsciiString name;
+    RenderObjClass *render;
+    _STL::set<int> subobjects;
+    _STL::vector<Rva004E34B1Color> colors;
 };
 
-struct SplineEffectSubObject
-{
-	AsciiString m_name;										// +0x00
-	RenderObjClass *m_renderObj;							// +0x04
-	_STL::set<Int> m_visible;								// +0x08
-	_STL::vector<SplineEffectColor> m_colors;				// +0x14
+struct Rva00064390;
+
+class Rva00064880Tree {public:
+    bool atEnd(unsigned);
+    bool rva005042F2(unsigned,Rva00064390 *);
+    void *header;
+    unsigned count,unknown08;
 };
 
 class SplineEffect
 {
 public:
-	virtual ~SplineEffect();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void rva004E3383(const AsciiString &subObjName, Bool visible);
+    virtual ~SplineEffect();
+    virtual void unused1();
+    virtual void rvaSlot2(int);
+    virtual void rva004E3383(const AsciiString &subObjName, Bool visible);
+    void Execute();
+    void SetSubObjectColor(const AsciiString &,const Rva004E34B1Color &);
 private:
-	Int m_04;
-	Int m_08;
-	Int m_0C;
-	Int m_10;
-	_STL::vector<SplineEffectSubObject> m_subObjects;		// +0x14
-	Bool m_allVisible;										// +0x20
+    Rva00064880Tree curve;
+    unsigned frame;
+    _STL::vector<SplineGeometry> geometry;
+    Bool m_allVisible;
 };
 
 void SplineEffect::rva004E3383(const AsciiString &subObjName, Bool visible)
 {
 	if (!visible)
 		m_allVisible = false;
-	for (UnsignedInt i = 0; i < m_subObjects.size(); ++i)
+	for (UnsignedInt i = 0; i < geometry.size(); ++i)
 	{
-		if (m_subObjects[i].m_renderObj == 0)
+		if (geometry[i].render == 0)
 			continue;
 		Int index;
-		RenderObjClass *subObj = m_subObjects[i].m_renderObj->Get_Sub_Object_By_Name(
-			Rva004E2ED9Construct(Rva005F17C6Build(m_subObjects[i].m_name + ".", (int)&subObjName)).str(), &index);
+		RenderObjClass *subObj = geometry[i].render->Get_Sub_Object_By_Name(
+			Rva004E2ED9Construct(Rva005F17C6Build(geometry[i].name + ".", (int)&subObjName)).str(), &index);
 		if (subObj == 0)
 			continue;
 		subObj->Set_Hidden(!visible);
 		subObj->Release_Ref();
-		_STL::set<Int>::iterator it = m_subObjects[i].m_visible.find(index);
+		_STL::set<Int>::iterator it = geometry[i].subobjects.find(index);
 		if (visible)
 		{
-			if (it == m_subObjects[i].m_visible.end())
-				m_subObjects[i].m_visible.insert(index);
+			if (it == geometry[i].subobjects.end())
+				geometry[i].subobjects.insert(index);
 		}
-		else if (it != m_subObjects[i].m_visible.end())
+		else if (it != geometry[i].subobjects.end())
 		{
-			m_subObjects[i].m_visible.erase(it);
+			geometry[i].subobjects.erase(it);
 		}
 	}
 }
