@@ -14,6 +14,8 @@ contexts before retrying. No clearance or census gain is claimed.
 
 2026-11-04: Moving the existing console frame pragma before _pch.h preserves 6/6 rows and the 958-byte link preview; the merge now rejects only DebugIOCon vtable copies. Next reconcile its native slot-2 predicate/member ABI and seven-slot provider views; identity debt and census clearance remain pending. [Evidence](../../reverse/attempt_support/debug-console-frame-context-20261104-codexb.md).
 
+2026-11-21: The shared interface now includes the native HasInput slot. Five providers pass 52 function rows, 10 exact EH graphs and the scoped preview (5,274 to 5,302 bytes at census c390153944). Interface, ODS, Flat and Net agree with all seven local slot checks. The Console identity key remains. Rva00419C7FDtor still binds the private console table, and both standalone console fragments emit the framed 34-byte base deleting destructor where retail uses 31 frameless bytes. [Evidence](../../reverse/attempt_support/debugio-seven-slot-20261120-root20.md).
+
 Naming-review publication (2026-10-29, `b1399e7439`, base `d99d2428cb`):
 the two inferred BfmeNodeZK member renames preserve 20/20 owner rows; the push
 gate verifies 58/58 rows across three affected sources. The link audit remains
