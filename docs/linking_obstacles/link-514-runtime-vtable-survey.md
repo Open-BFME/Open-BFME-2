@@ -3871,3 +3871,7 @@ GapBodiesGE37.cpp still emits a destructor-only Rva000FD58A table for native 007
 ## 2026-11-17: StanceButton identity dependency rechecked
 
 Served table 0086CF0C still needs the already named StanceButton::DoUpdate at 005679A4, exactly the two-table fold prerequisite documented above. Rva00567CCDCtor.cpp passes its unchanged normal build; no duplicate method or alias is retained. The normal class rename needs the currently claimed tombstone register. Evidence: `reverse/attempt_support/stance-button-identity-preflight-20261117.md`.
+
+## 2026-11-20 WeaponModeSpecialPowerUpdate ownership
+
+The prepared fold gives five existing rows the constructor's class name. The constructor refers to the rowed 39-byte complete destructor, and its 28-byte deleting thunk still matches the provider. The five vtable repairs remain open. Both parent views are 0x38 bytes, but their +0x20 and +0x24 interface declarations differ. [Native layout and verification](../../reverse/attempt_support/weaponmode-constructor-class-fold-20261120-root20.md).

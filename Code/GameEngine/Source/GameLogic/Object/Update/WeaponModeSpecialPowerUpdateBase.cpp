@@ -177,7 +177,7 @@ public:
 	virtual Rva002390CB rva00589560() const = 0;
 };
 
-class Rva00494A97 : public B00, public B0C, public B10, public B20, public Iface24
+class WeaponModeSpecialPowerUpdate : public B00, public B0C, public B10, public B20, public Iface24
 {
 public:
 	virtual AsciiString rva00589414() const;
@@ -355,21 +355,21 @@ float Rva005892F6::rva005892F6()
 // ---- from Code/GameEngine/Source/Common/Rva00494A97Getters.cpp
 
 //
-// ?rva00589414@Rva00494A97@@UBE?AVAsciiString@@XZ and ?rva00589560@Rva00494A97@@UBE?AVRva002390CB@@XZ @0x00589414 38B.
+// ?rva00589414@WeaponModeSpecialPowerUpdate@@UBE?AVAsciiString@@XZ and ?rva00589560@WeaponModeSpecialPowerUpdate@@UBE?AVRva002390CB@@XZ @0x00589414 38B.
 // Target evidence: the only reference to this body is slot 5 of the
-// vtable 0x00C4E900 that the matched Rva00494A97 dtor 0x00494A97 installs at +0x24, the
+// vtable 0x00C4E900 that the matched WeaponModeSpecialPowerUpdate dtor 0x00494A97 installs at +0x24, the
 // +0x24 interface base of the class; the slot's name is not established,
 // hence the address name. cl 7.1 compiles an override of a non-primary base's
 // virtual with the base subobject's this and folds the adjustment into the
 // member accesses, which is why retail reads the module data pointer (+4) as
 // [ecx-0x20]. Slot 5 (38B) returns by value the AsciiString at +0x10 of the final override (rowed Overridable::friend_getFinalOverride 0x00288609) of the pointer at +8 of the module data; slot 16 (0x00589560, 30B) returns by value the Rva002390CB at +0x0C of the module data.
 
-AsciiString Rva00494A97::rva00589414() const
+AsciiString WeaponModeSpecialPowerUpdate::rva00589414() const
 {
 	return m_moduleData->m_08->getName();
 }
 
-Rva002390CB Rva00494A97::rva00589560() const
+Rva002390CB WeaponModeSpecialPowerUpdate::rva00589560() const
 {
 	return m_moduleData->m_0C;
 }

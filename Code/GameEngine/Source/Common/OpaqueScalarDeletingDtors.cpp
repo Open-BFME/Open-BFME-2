@@ -530,19 +530,19 @@ public:
 	virtual void f4() = 0;
 };
 
-class Rva00494A97 : public Rva00589079, public Rva00494A97_S1, public Rva00494A97_S2, public Rva00494A97_S3, public Rva00494A97_S4
+class WeaponModeSpecialPowerUpdate : public Rva00589079, public Rva00494A97_S1, public Rva00494A97_S2, public Rva00494A97_S3, public Rva00494A97_S4
 {
 public:
-	virtual ~Rva00494A97()
+	virtual ~WeaponModeSpecialPowerUpdate()
 	{
 	}
 };
 
 // Anchor: forces out-of-line emission of the in-class destructor COMDAT,
 // including the scalar deleting destructor.
-void Rva00494A97_Anchor(Rva00494A97 *object)
+void Rva00494A97_Anchor(WeaponModeSpecialPowerUpdate *object)
 {
-	object->Rva00494A97::~Rva00494A97();
+	object->WeaponModeSpecialPowerUpdate::~WeaponModeSpecialPowerUpdate();
 }
 
 class Rva005C3EE8
@@ -1030,7 +1030,7 @@ Rva005F329E::~Rva005F329E()
 
 // Names the emitted vtables and deleting destructors above reference that no unit defines
 // under this spelling. Each is bound to the row owning the retail address: the nine opaque
-// destructors by the REL32 in their ??_G (read from retail), the Rva00494A97 secondary-base
+// destructors by the REL32 in their ??_G (read from retail), the WeaponModeSpecialPowerUpdate secondary-base
 // slots by slot 0 of its retail vftables (0x00C4E988, 0x00C4E964, 0x00C4E900). ObjectModule
 // has a single vptr in retail, so ObjectModule_B2 is a stand-in base: its placeholder is
 // bound to slot 1 of the ObjectModule vftable (0x00C07E1C), the empty virtual, and claims

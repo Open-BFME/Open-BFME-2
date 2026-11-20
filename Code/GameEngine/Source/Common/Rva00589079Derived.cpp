@@ -2,7 +2,7 @@
 //
 // Opaque five-vptr MI destructor tail-calling the pinned 0x24A797 base.
 // Retail 0x00589079 (39B) stores four vptrs plus the const 0xC70108 at +0x24,
-// then tail-jumps to the 0x24A797 middle. Same model as the landed Rva00494A97
+// then tail-jumps to the 0x24A797 middle. Same model as the landed WeaponModeSpecialPowerUpdate
 // body (which tail-calls this one); the fifth slot carries a const, not a
 // zero. Identity unproven (opaque Rva name); the shape (vptr stores plus a
 // tail-jump into a rowed/pinned MI dtor) is the dtor evidence.

@@ -58,6 +58,7 @@ class WeaponModeSpecialPowerUpdate : public WeaponModeSpecialPowerUpdateBase, pu
 {
 public:
 	WeaponModeSpecialPowerUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~WeaponModeSpecialPowerUpdate();
 
 protected:
 	Object *getObject(void) const { return m_object; }

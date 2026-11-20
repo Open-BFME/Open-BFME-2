@@ -6344,3 +6344,8 @@ __ehhandler$??1Rva008BD5E@@UAE@XZ,0x0075FCEB,"Renamed to __ehhandler$??1W3DView@
 __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022C0CDSubsystem@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE7628)"
 ??_GRva002E0427@@UAEPAXI@Z,0x0022DA4A,"Renamed to ??_GRva0022C0CDSubsystem@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE7628)"
 ?rva005D0089@Rva005D0089@@UAEXXZ,0x005D0089,"Renamed to ?rva005D0089@Rva005D0D85@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C75590 slot 2)"
+??_GRva00494A97@@UAEPAXI@Z,0x00494B9E,"Renamed to ??_GWeaponModeSpecialPowerUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4EA54)"
+??1Rva00494A97@@UAE@XZ,0x00494A97,"Renamed to ??1WeaponModeSpecialPowerUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4EA54)"
+?xfer@Rva00494A97@@MAEXPAVXfer@@@Z,0x00494BBA,"Renamed to ?xfer@WeaponModeSpecialPowerUpdate@@MAEXPAVXfer@@@Z by tools/rename.py (fold: retail vftable 0x00C4EA54)"
+?rva00589414@Rva00494A97@@UBE?AVAsciiString@@XZ,0x00589414,"Renamed to ?rva00589414@WeaponModeSpecialPowerUpdate@@UBE?AVAsciiString@@XZ by tools/rename.py (fold: retail vftable 0x00C4EA54)"
+?rva00589560@Rva00494A97@@UBE?AVRva002390CB@@XZ,0x00589560,"Renamed to ?rva00589560@WeaponModeSpecialPowerUpdate@@UBE?AVRva002390CB@@XZ by tools/rename.py (fold: retail vftable 0x00C4EA54)"

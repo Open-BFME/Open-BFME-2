@@ -10,7 +10,7 @@
 // restores the five vtable pointers of the complete object -- the derived
 // slot at +0x00 plus secondaries at +0x0C/+0x10/+0x20/+0x24 -- then
 // tail-jumps to the rowed base dtor ??1Rva00589079@@UAE@XZ at 0x00589079.
-// Model follows ??1Rva00494A97@@UAE@XZ in OpaqueScalarDeletingDtors.cpp
+// Model follows ??1WeaponModeSpecialPowerUpdate@@UAE@XZ in OpaqueScalarDeletingDtors.cpp
 // (same 5-store plus tail-jmp shape, fifth slot const 0xC4E900) and
 // PoisonedBehaviorDtor.cpp. The base is declared only so the call resolves
 // via its ledger row, and the vtable values are DIR32 auto-patches.
