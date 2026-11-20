@@ -20,7 +20,6 @@ class ThingTemplate;
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 #define BFME_SNAPSHOT_NAME_SLOT
-#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;
@@ -28,6 +27,13 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/BehaviorModuleBase.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+struct RebuildHoleSpawnerView
+{
+    unsigned char m_pad[0x324];
+    float m_324;
+};
+
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
@@ -60,7 +66,7 @@ void RebuildHoleBehavior::startRebuildProcess(const ThingTemplate *rebuild, Obje
 {
 	Object *spawner = TheGameLogic->findObjectByID(spawnerID);
 	if (spawner)
-		m_40 = spawner->m_324;
+		m_40 = reinterpret_cast<const RebuildHoleSpawnerView *>(spawner)->m_324;
 	m_rebuildTemplate = rebuild;
 	m_spawnerObjectID = spawnerID;
 	Object *worker = TheGameLogic->findObjectByID(m_workerID);
