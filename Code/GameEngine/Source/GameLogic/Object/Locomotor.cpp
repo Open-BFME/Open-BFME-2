@@ -71,9 +71,9 @@ class Rva001E4954
 public:
 	void rva001E4954(Rva001E4954Node *p);
 };
-#define _CRTIMP
-#include <stdlib.h>
-#undef _CRTIMP
+// Use the direct CRT allocator names required by these rows.
+extern "C" void *__cdecl malloc(size_t size);
+extern "C" void __cdecl free(void *pointer);
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
 // COMDATs (one byte shape per TU malloc/free wiring); explicit
 // dllimport+forceinline specializations take those calls inline so this
