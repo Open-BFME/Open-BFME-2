@@ -6,7 +6,7 @@
 // primary vtable 0x00BEF338 (RVA 0x007EF338, installed at +0 by the rowed
 // ctor 0x24E2CC). Each overrides the base GateOpenAndCloseBehavior float
 // getters at 0x4987FA/0x4987FE: when the pinned ask at 0x256996
-// (?resolveGateBehavior@Rva00128780GateBehaviorOwner@@QAE_NXZ, also pinned as DSK/BJB) succeeds it
+// (?resolveGateBehavior@Rva00128780GateBehaviorOwner@@QAE_NXZ) succeeds it
 // returns the sub-object at +0x4C through that slot, otherwise 0.0f.
 // No callers. Recipe: float temp via if/else assignment to one local plus
 // single return (early returns give tail-jmp plus flds); /arch:SSE gives

@@ -1,9 +1,9 @@
 // Open-BFME5 conversions.
 
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 class BfmeMsgVJC
 {
 public:
-	void bfmeRunVJC();
 	void bfmeSetVJC(const char *k, void *v);
 	void bfmeSet3VJC(const char *k, int v);
 	char m_bfmePad[0x1c];
@@ -24,7 +24,7 @@ public:
 void BfmeThingVJE::bfmeGoVJE(BfmeMsgVJC *m, int downloadMin, int downloadMax, int topN, int periodType, int periodsPast, void *b)
 {
 	void *g = g_bfmeVJE;
-	m->bfmeRunVJC();
+	((Rva007E8AC0 *)m)->run();
 	m->m_bfme1c = 0x626c6f62;
 	m->bfmeSetVJC("TXN", g);
 	bfmeSubVJE(m, topN, b);

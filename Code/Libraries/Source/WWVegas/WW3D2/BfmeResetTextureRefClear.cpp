@@ -42,5 +42,3 @@ void Rva0004D754::clear()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?clear@HAnimPrototypeOwner@@QAEXXZ=?clear@BfmeResetTextureRef@@QAEXXZ")
-#pragma comment(linker, "/alternatename:?clear@HTreePrototypeOwner@@QAEXXZ=?clear@BfmeResetTextureRef@@QAEXXZ")

@@ -33,11 +33,11 @@ template <typename T> class RefCountPtr
 public:
 	const RefCountPtr<T> &operator=(const RefCountPtr<T> &other);
 };
+#include "BfmeResetTextureRef.h"
 class HTreePrototypeOwner
 {
 public:
 	HTreePrototypeOwner &operator=(const HierarchyPrototypeRef &source);
-	void clear();
 private:
 	HierarchyPrototype *m_prototype;
 };
@@ -49,7 +49,7 @@ HTreePrototypeOwner &HTreePrototypeOwner::operator=(const HierarchyPrototypeRef 
 	}
 	else
 	{
-		((HTreePrototypeOwner *)this)->clear();
+		((BfmeResetTextureRef *)this)->clear();
 	}
 	return *this;
 }

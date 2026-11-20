@@ -3,10 +3,10 @@
 
 #include <stdio.h>
 
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 class BfmeMsgVJF
 {
 public:
-	void bfmeRunVJF();
 	void bfmeSetVJF(const char *k, void *v);
 	void bfmeSet2VJF(const char *k, void *a, void *b);
 	void bfmeSet3VJF(const char *k, int v);
@@ -28,7 +28,7 @@ void __stdcall bfmeGoVJF(BfmeMsgVJF *m, FeslUserId *arr, int n)
 {
 	char buf[0x10];
 	void *txn = g_bfmeVJF;
-	m->bfmeRunVJF();
+	((Rva007E8AC0 *)m)->run();
 	m->m_category = 0x6664626b;
 	m->bfmeSetVJF("TXN", txn);
 	for (int i = 0; i < n; ++i)

@@ -4624,7 +4624,6 @@ name,address,notes
 ?bfmeAppendFN@BfmeBufFN@@QAEXPBD@Z,0x0066C760
 ?bfmeAppendV36@BfmeStrV36@@QAEXPAD00@Z,0x0001B3E0
 ?bfmeAppendVME@BfmeStrVME@@QAEXID@Z,0x00029380
-?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ,0x00256996
 ?bfmeAskEME@BfmeObjEME@@QAE_NPAX@Z,0x0061FF70
 ?bfmeAskEQ@BfmeThingEQ@@QAEEPAX@Z,0x00625720
 ?bfmeAssignPL@BfmeThingPL@@QAEXPAD0@Z,0x0001B4E0
@@ -4873,9 +4872,6 @@ name,address,notes
 ?bfmeRun1073@BfmeR1073@@QAEXPAVBfmeX1073@@PADH11111@Z,0x00222A8B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeRunCF@BfmeTmpCF@@QAEXPAX0@Z,0x001EA3AE,callee of ?bfmeMakeCF@@YAXPAX0@Z at retail 0x0033A5DC read from its REL32 displacement; donor-reconstruction name; body unrowed
 ?bfmeRunRE@BfmeThingRE@@QAEXPAX@Z,0x006574A0,caller at 0x00664AB6 forwards the explicit stack argument; the matched 44B helper at this RVA is byte-identical to BFME1 0x007EA4F0 and tail-jumps through vtable slot 5 without cleaning it establishing this ICF signature alias
-?bfmeRunVIR@BfmeMsgVIR@@QAEXXZ,0x00655B50
-?bfmeRunVJC@BfmeMsgVJC@@QAEXXZ,0x00655B50
-?bfmeRunVJF@BfmeMsgVJF@@QAEXXZ,0x00655B50
 ?bfmeRunZC@BfmeOwnZC@@QAEXVBfmeRoomZC@@PAX@Z,0x00204F3B,callee of bfmeCallZC (0x00357130) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeRva00161350@@YAPAUBfmeRva00161350Elem@@PAU1@00ABUBfmeRva00161350Tag@@PAH@Z,0x00161350,placeholder name: STLport-style random-access copy helper (first; last; result; tag; distance*) that HTreeClass::Free at 0x00166510 calls to erase its +0x1C member; element type and identity not recovered
 ?bfmeRva0065CEA0@@YAPAVBfmeRva0065CEA0Allocator@@XZ,0x0065CEA0,placeholder name: argument-less getter whose result BfmeSubBZC::bfmeSetBZC (0x0066ED50) allocates through at vtable slot 2; identity not recovered
@@ -5062,8 +5058,6 @@ name,address,notes
 ?clear@BfmeC994@@QAEXXZ,0x00655780
 ?clear@FXList@@QAEXXZ,0x001E11A6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?clear@GenBase003BB1E0@@QAEXXZ,0x004E2199,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?clear@HAnimPrototypeOwner@@QAEXXZ,0x0004D75B,fold twin of BfmeResetTextureRef clear; generic 4B holder Release via 0x61ED10 then zero; called by HAnimPrototypeOwner assign 0x14CDE4 on type mismatch
-?clear@HTreePrototypeOwner@@QAEXXZ,0x0004D75B,fold twin of BfmeResetTextureRef clear and HAnim clear; generic 4B holder Release via 0x61ED10 then zero; called by HTreePrototypeOwner assign 0x17FB0F on type mismatch
 ?clear@LocomotorSet@@QAEXXZ,0x001E7E25,called on the +0x1CC locomotor set by the byte-verified AIUpdateInterface::chooseLocomotorSetExplicit 0x00268A37 where Zero Hour calls m_locomotorSet.clear() read from its REL32 displacement; rowed as ?rva001E7E25@Rva001E7E25@@QAEXXZ (vector clear plus deletes plus flag clears)
 ?clear@PlayerRelationHashMap@@QAEXXZ,0x001DBCDC,TU view of the +4 relation hash map cleared by the byte-verified ~PlayerRelationMap 0x002AD078 (Zero Hour m_map.clear()) read from its REL32 displacement; ICF-folded hashtable clear rowed under another instantiation name
 ?clear@Rva000AD6F4@@QAEXXZ,0x000AD6F4,opaque guarded-delete helper (nulls member at +0 then ::delete via slot-0 plus operator delete); called with +4 adjust from 14B vptr bodies; exact method unproven

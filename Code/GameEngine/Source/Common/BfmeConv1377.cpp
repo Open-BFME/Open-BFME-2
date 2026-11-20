@@ -1,9 +1,9 @@
 // Open-BFME5 conversions.
 
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 class BfmeMsgVIR
 {
 public:
-	void bfmeRunVIR();
 	void bfmeSetVIR(const char *a, void *b);
 	char m_bfmePad[0x1c];
 	int m_bfme1c;
@@ -25,7 +25,7 @@ public:
 void BfmeThingVIR::bfmeGoVIR(BfmeMsgVIR *message, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c)
 {
 	void *transactionName = g_bfmeVIR;
-	message->bfmeRunVIR();
+	((Rva007E8AC0 *)message)->run();
 	message->m_bfme1c = 0x72616e6b;
 	message->bfmeSetVIR("TXN", transactionName);
 	bfmeSendVIR(message, o, n, a, b, c);
@@ -45,7 +45,7 @@ public:
 void BfmeThingVIS::bfmeGoVIS(BfmeMsgVIR *message, const BfmeOwnerVIR *o, const char *const *n, int a, int b, int c)
 {
 	void *transactionName = g_bfmeVIS;
-	message->bfmeRunVIR();
+	((Rva007E8AC0 *)message)->run();
 	message->m_bfme1c = 0x72616e6b;
 	message->bfmeSetVIR("TXN", transactionName);
 	bfmeSendVIS(message, o, n, a, b, c);
