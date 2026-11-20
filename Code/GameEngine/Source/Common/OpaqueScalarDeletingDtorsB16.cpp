@@ -46,12 +46,17 @@ Rva005D078B::Rva005D078B(EmitVtableTag *)
 {
 }
 
+// The table's other slots as Rva005D0D85Dtor.cpp declares them (retail
+// 0x00C75590: slot 1 __purecall, slot 2 0x005D0089), so both units emit the
+// same copy of it.
 class Rva005D0D85
 {
 public:
 	Rva005D0D85(EmitVtableTag *);
 public:
 	virtual ~Rva005D0D85();
+	virtual void slot1() = 0;
+	virtual void rva005D0089();
 };
 
 // ?<Rva005D0D85::Rva005D0D85> absent-from-retail

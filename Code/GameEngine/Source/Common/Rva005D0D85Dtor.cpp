@@ -13,10 +13,13 @@ private:
 	Rva005D0C87 *m_impl;
 };
 
+// Retail table 0x00C75278: the deleting destructor, then two __purecall slots.
 class Rva005D0D85Base
 {
 public:
 	virtual ~Rva005D0D85Base();
+	virtual void slot1() = 0;
+	virtual void rva005D0089() = 0;
 };
 
 inline Rva005D0D85Base::~Rva005D0D85Base()
@@ -28,6 +31,8 @@ class Rva005D0D85 : public Rva005D0D85Base
 public:
 	Rva005D0D85(int a, int b, int c);
 	virtual ~Rva005D0D85();
+	// Table 0x00C75590 slot 2, 0x005D0089 (GapBodiesS3J.cpp); slot 1 stays pure.
+	virtual void rva005D0089();
 private:
 	Rva005D0ABB m_holder;
 };

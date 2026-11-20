@@ -6343,3 +6343,4 @@ __ehhandler$??1Rva008BD5E@@UAE@XZ,0x0075FCEB,"Renamed to __ehhandler$??1W3DView@
 ??1Rva002E0427@@UAE@XZ,0x002E0427,"Renamed to ??1Rva0022C0CDSubsystem@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE7628)"
 __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022C0CDSubsystem@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE7628)"
 ??_GRva002E0427@@UAEPAXI@Z,0x0022DA4A,"Renamed to ??_GRva0022C0CDSubsystem@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE7628)"
+?rva005D0089@Rva005D0089@@UAEXXZ,0x005D0089,"Renamed to ?rva005D0089@Rva005D0D85@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C75590 slot 2)"

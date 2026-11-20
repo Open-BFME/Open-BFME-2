@@ -104,7 +104,17 @@ struct Rva005D0089Holder
 	Rva005D0089Target *m_target;							// +0x1C
 };
 
-class Rva005D0089
+// Slot 2 of Rva005D0D85's table 0x00C75590 (Rva005D0D85Dtor.cpp); the base's
+// table 0x00C75278 leaves slots 1 and 2 pure.
+class Rva005D0D85Base
+{
+public:
+	virtual ~Rva005D0D85Base();
+	virtual void slot1() = 0;
+	virtual void rva005D0089() = 0;
+};
+
+class Rva005D0D85 : public Rva005D0D85Base
 {
 public:
 	virtual void rva005D0089();
@@ -112,7 +122,7 @@ private:
 	Rva005D0089Holder *m_holder;							// +0x04
 };
 
-void Rva005D0089::rva005D0089()
+void Rva005D0D85::rva005D0089()
 {
 	m_holder->m_target->s1();
 }
