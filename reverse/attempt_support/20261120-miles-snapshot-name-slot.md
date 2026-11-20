@@ -77,3 +77,39 @@ baseline43,068B already differed before this source change, so its19B gap is
 not new credit. The old unused public name declaration in the canonical header
 remains explicit declaration debt; this is not full main-TU header adoption.
 The served task still awaits a published real-link bridge/data-coverage result.
+
+## Authoritative local real-link follow-up
+
+On2026-11-20 the documented native Windows command
+`python3 tools/exit_link.py --link --local` measured the unchanged source head
+1a59743774fa326e94d0f5fa188e3faa1e0b78e1 at base0x02000000. This is a local
+Michael-PC measurement, not a GitHub Actions run. The preceding object plan
+found all17,502 expected objects and proved835/835 omitted funclets covered
+by exact kept parents. The real link reran the native currency, data, omission
+and EH proofs, selected17,486 objects, and exited0 after61.9s in the linker.
+There are0 unresolved and0 duplicate names;5 warning/error-log lines remain.
+The image receipt is authoritative with omission_proof=passed, no stubs,
+no /FORCE, fillers or code aliases. The native export path records24 export
+aliases; no custom alias was added. Existing EH debt remains9 baselined byte
+differences among11,939 EH rows; no baseline was expanded.
+
+The bridge report places the actual Snapshot table at007C559C in `correct`,
+with4 slots, previous_extent16, the real kept Miles object, and no source-slot
+mismatches. It occurs in neither bridge entries nor refusals. The related
+111-slot/444-byte SubsystemInterface table is likewise correct. Thus the target
+table remains measured and covered rather than disappearing from the ledger.
+The native `exit_link.py --blockers` writer used this matching unstubbed result
+to update both queue files; the Snapshot bridge item is absent from its output.
+Publishing this measured queue result satisfies this served bridge item's pass
+test. It does not finish other Miles class/header debts or create new code bytes.
+
+Global scaffolding remains:3,013 bridged vtables,44,552 bridged slots,27 refused
+tables and431 bridged initializers. This successful link is not a completed
+game rebuild and the image was not executed.
+
+ImageSHA256:ded78594be5e9e45d0fd93e6ec2d06fa8fb6654334a247cbd54ce7a7156bb3c0.
+MapSHA256:36d6b6cc676f6618757cbcf64904faa0305855957cb60cc2d85b58a84fbf8263.
+The complete unmodified result, bridge decisions, native queues, link log and
+image receipt are preserved locally under diagnostics/continue-20261120-body-recovery-1656/
+bfme2/local-real-link-1a59743774 with an artifact-hash manifest. These native
+artifacts belong to the exact source head above, not a later changed code head.
