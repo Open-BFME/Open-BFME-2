@@ -163,12 +163,6 @@ class Rva00604A1E
 public:
 	bool rva00604A1E(const unsigned short *path);
 };
-bool Rva00604A1E::rva00604A1E(const unsigned short *path)
-{
-	if (path && *path)
-		return CreateDirectoryW(path, 0) != 0;
-	return false;
-}
 
 // 0x00740A96: the rowed 0x007401A3 setter on the +0x20 member with the first
 // argument and the rowed 0x00740A60 lookup of the second.
