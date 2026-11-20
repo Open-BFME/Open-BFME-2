@@ -44,10 +44,10 @@ private:
 
 extern EmotionSystem *TheEmotionSystem; // 0x012F0878
 
-class BfmeThingVKC
+class Rva004DC920
 {
 public:
-	void bfmeCopyVKC( const BfmeThingVKC &source );
+	void rva004DC788( const Rva004DC920 &source );	// 0x004DC788
 };
 
 // ?parseEmotionNuggetCopyFrom@@YAXPAVINI@@PAX1PBX@Z
@@ -65,7 +65,7 @@ void parseEmotionNuggetCopyFrom( INI *ini, void *, void *store, const void * )
 	if( source == 0 )
 		throw INIException( 3, "Emotion nugget to copy from not found." );
 
-	((BfmeThingVKC *)store)->bfmeCopyVKC( *(BfmeThingVKC *)source );
+	((Rva004DC920 *)store)->rva004DC788( *(Rva004DC920 *)source );
 }
 
 // Each retail call in this body reads an address the ledger already carries
@@ -73,7 +73,5 @@ void parseEmotionNuggetCopyFrom( INI *ini, void *, void *store, const void * )
 // address keeps one definition and the unit links.
 //   0x00037BA0 reads ??0?$StringBase@D@@AAE@PBD@Z
 #pragma comment(linker, "/alternatename:??0BfmeStringLiteralBase@@AAE@PBD@Z=??0?$StringBase@D@@AAE@PBD@Z")
-//   0x004DC788 reads ?rva004DC788@Rva004DC920@@QAEXABV1@@Z
-#pragma comment(linker, "/alternatename:?bfmeCopyVKC@BfmeThingVKC@@QAEXABV1@@Z=?rva004DC788@Rva004DC920@@QAEXABV1@@Z")
 //   0x00036410 reads ??1?$StringBase@D@@QAE@XZ
 #pragma comment(linker, "/alternatename:??1BfmeEmotionName@@QAE@XZ=??1?$StringBase@D@@QAE@XZ")

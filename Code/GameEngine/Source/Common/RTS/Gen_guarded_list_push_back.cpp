@@ -65,12 +65,7 @@ struct Rva003320C7Iterator
 Rva003320C7Iterator __cdecl Rva003320C7Find(
     Rva003320C7Iterator first, Rva003320C7Iterator last, void *const &value);
 #pragma comment(linker, "/alternatename:?Rva003320C7Find@@YA?AURva003320C7Iterator@@U1@0ABQAX@Z=??$find@U?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@_STL@@W4ObjectID@@@_STL@@YA?AU?$_List_iterator@W4ObjectID@@U?$_Nonconst_traits@W4ObjectID@@@_STL@@@0@U10@0ABW4ObjectID@@@Z")
-class Rva003320C7AppendABI
-{
-public:
-    void append(void *const &value);
-};
-#pragma comment(linker, "/alternatename:?append@Rva003320C7AppendABI@@QAEXABQAX@Z=?append@Rva002A1B6FNativeList@@QAEXABQAX@Z")
+#include "../../../Include/Common/Rva002A1B6FNativeList.h"
 
 class Rva003320C7ListOwner
 {
@@ -89,5 +84,5 @@ void Rva003320C7ListOwner::appendIfAbsent(void *value)
 {
     Rva003320C7Iterator position = Rva003320C7Find(begin(), end(), value);
     if (position.node == head)
-        reinterpret_cast<Rva003320C7AppendABI *>(&head)->append(value);
+        reinterpret_cast<Rva002A1B6FNativeList *>(&head)->append(value);
 }

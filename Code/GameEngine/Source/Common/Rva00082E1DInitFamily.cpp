@@ -38,10 +38,10 @@ Rva004FFE72Obj *Rva004FFE72Obj::Reset()
 	return this;
 }
 
-class Rva00082E1DBase
+class Rva00082D6A
 {
 public:
-	void Init();
+	void rva00082D6A();	// 0x00082D6A
 };
 
 class Rva00082E1DObj
@@ -56,7 +56,7 @@ public:
 // then raises the ready flag. The stack argument is unused.
 void Rva00082E1DObj::Start(int)
 {
-	((Rva00082E1DBase *)((char *)this - 8))->Init();
+	((Rva00082D6A *)((char *)this - 8))->rva00082D6A();
 	m_enabled = 1;
 }
 
@@ -87,5 +87,3 @@ void Rva003733B5Obj::Start(int)
 #pragma comment(linker, "/alternatename:?Init@Rva000BB3D7Part@@QAEXXZ=??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ")
 //   0x0033C432 reads ??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ
 #pragma comment(linker, "/alternatename:?Init@Rva004FFE72Part@@QAEXXZ=??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ")
-//   0x00082D6A reads ?rva00082D6A@Rva00082D6A@@QAEXXZ
-#pragma comment(linker, "/alternatename:?Init@Rva00082E1DBase@@QAEXXZ=?rva00082D6A@Rva00082D6A@@QAEXXZ")

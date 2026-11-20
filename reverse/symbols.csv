@@ -3739,7 +3739,6 @@ name,address,notes
 ?HeaderTemplateGetRegistryLanguage@@YA?AVHeaderTemplateString@@XZ,0x00235029,callee of ?bfmeHeaderTemplateRegistryLanguage@@YA?AVHeaderTemplateString@@XZ at retail 0x002604BA read from its REL32 displacement; ICF alias onto ?GetRegistryLanguage@@YA?AVAsciiString@@XZ (matched)
 ?Helper0056BC3D@@YA?AURvaF6Ret@@H@Z,0x0056BC3D,opaque value-return helper called by forwarder 0x005CEC10; identity unproven; address-derived name
 ?HideDisconnectWindow@@YAXXZ,0x00512C88,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?Init@Rva00082E1DBase@@QAEXXZ,0x00082D6A,address-derived thiscall no-arg method; RETAIL REL32 in back-adjusted wrapper 0x00082E1D targets this Ghidra body; identity unproven
 ?Init@Rva000BB3D7Part@@QAEXXZ,0x00007850,address-derived thiscall no-arg method; RETAIL REL32 in return-this wrapper 0x000BB3D7 targets this 101B Ghidra body; identity unproven
 ?Init@Rva004FFE72Part@@QAEXXZ,0x0033C432,address-derived thiscall no-arg method; RETAIL REL32 in return-this wrapper 0x004FFE72 targets this 25B Ghidra body; identity unproven
 ?InitRandom@@YAXXZ,0x0023424C,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
@@ -4571,7 +4570,6 @@ name,address,notes
 ?allow@Rva0026119DFilter@@UAE_NPAVObject@@@Z,0x0026119D,"slot 1 of partition filter vftable 0x00BFAD10: returns the object's status +0x438 bit 0 clear (alive)"
 ?allow@Rva00261409Filter@@UAE_NPAVObject@@@Z,0x00261409,"slot 1 of partition filter vftable 0x00C004D8: the +0x08 player's relationship (0x002AD0C6) to the object's +0x304 team selects flag 4/8/2 of +0x10; a set flag returns the +0x0C match bool"
 ?append@Rva0005548FNativeList@@QAEXABQAX@Z,0x0005548F,External native 4-byte-element append ABI; native2007B6 calls rowed5548F26 with this+8 and pointer to argument; full provider calls native5925E2 rather than distinct526103 provider insert125A87; linker alternate binds existing list-int provider; no container owner identity assertion
-?append@Rva003320C7AppendABI@@QAEXABQAX@Z,0x002A1B6F,Native3320FC in complete3320C7/63 passes receiver+8 and address of four-byte argument to rowed2A1B6F/26; external append ABI alternate binds its verified provider; original container identity remains unknown
 ?append@Rva003B7BA0Owner@@QAEXPAVEnableRegionRecord@@@Z,0x00566527,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?append@Rva003B7DC0Owner@@QAEXPAVRva003B7DC0Record@@@Z,0x0056652F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?append@Rva003B8610Owner@@QAEXPAVRva003B8610Record@@@Z,0x00566557,callee of ?ParseWorldTextBlock@@YAXPAVINI@@PAX1PBX@Z at retail 0x004E19A4 read from its REL32 displacement; owner append routine taking the 0x14-byte Rva003B8610Record (donor comment calls it the 0x00443167 append); body unrowed; distinct from the 0x0056655F adjustor thunk pinned by ParseFlashRegionsEvent
@@ -4673,7 +4671,6 @@ name,address,notes
 ?bfmeCopyOneCDF@BfmePartCDF@@QAEXPAU1@@Z,0x0021C21B
 ?bfmeCopyTwoCDF@BfmePartCDF@@QAEXPAU1@@Z,0x0026F4F4
 ?bfmeCopyUVKE@BfmeUniVKE@@QAEXABV1@@Z,0x000365F0,element copy helper called by the placed ?bfmeInitVKE 0x000B6D4B; REL32 read off retail at 0x000B6D55
-?bfmeCopyVKC@BfmeThingVKC@@QAEXABV1@@Z,0x004DC788,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?bfmeCtorECMa@BfmeThingECMa@@QAEPAV1@XZ,0x00672340
 ?bfmeCur1094@BfmeK1094@@QAEPAVBfmeR1094@@XZ,0x0028AFA9,callee read from the retail REL32 in placed BFME1-donor body ?bfmeVisitABG@BfmeHostABG@@QAEXPAX0@Z (0x0036E22F)
 ?bfmeDecVGO@@YAIPAI@Z,0x006CFDF0
@@ -7658,7 +7655,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?push_back@?$vector@PBVSpecialPowerTemplate@@V?$allocator@PBVSpecialPowerTemplate@@@_STL@@@_STL@@QAEXABQBVSpecialPowerTemplate@@@Z,0x004DFCB0,pointer-vector push_back fold (rowed ModuleData-const instance at this address); REL32 at 0x00339D11 in iniParseSpecialPowerTemplateVector; fold-proof=Code/GameEngine/Source/Common/INI/inihelp.cpp
 ??0AptCommandMapAdder@@QAE@XZ,0x001F81BF,ICF-folded vector default ctor (19B: allocator temp plus _Vector_base ctor call) for the 12-byte command-map name list; REL32 call at 0x00578D8E in the Palantir ctor 0x00578D22 constructing its +0x34 member; fold-proof=Code/GameEngine/Source/Common/Rva00578AC1.cpp
 ??0AptTimerAdder@@QAE@XZ,0x001F81BF,ICF-folded vector default ctor for the 12-byte timer name list whose AddTimer is rowed at 0x005247A9; REL32 read at 0x005E13AB in CommandButtonMovieClip::Impl::Impl 0x005E136C constructing its +0x1C member; fold-proof=Code/GameEngine/Source/Common/Rva005E10A8Method.cpp
-?rva002C61AF@Rva002C61AF@@QAEXXZ,0x002C61AF,callee of ??1Rva002C6354@@UAE@XZ
 ??0Rva005E98A0@@QAE@PAVRva005E9F3F@@PAVRva0057C394@@PAVLivingWorldBattle@@PAX33@Z,0x005E9E41,Native5E9EEC alloc20 and forwards owner plus5 machine-word inputs to ctor5E9E41; native stores0/4/8/C/10/14; provider4 consumed by rowed57C394 and battle8 consumed by WB-paired LivingWorldBattle GetResolutionOptions3F4FD4; final3 borrowed input roles/types remain opaque; member18 dtor5E98A0 agrees with owner reset5E9E27.
 ??0Rva005C33D2@@QAE@PAVRva005C3549@@PAX11@Z,0x005C35A6,Target 119B constructor installs C74434 owned by rowed Rva005C33D2 destructor; four pointer arguments from 5C361D and 5C3697; original input identities remain opaque
 ?rva005F4EED@Rva005F54DA@@QAEXPAX0@Z,0x005F4EED,Native5F53E6 allocates34-byte handler at C/10; 129B handler523F stores owner8 sideC and opaque input10 then observes input; reset5F50B9 owns rowed dtor501E. Callback4EED is native108B EH entry through RET8 at4F56 and is the object-method descriptor installed by53E6; original callback arguments remain opaque

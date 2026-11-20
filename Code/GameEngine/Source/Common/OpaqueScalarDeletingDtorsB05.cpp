@@ -323,7 +323,7 @@ public:
 private:
     char m_unmodelled04[4];
 };
-class Rva002C61AF { public: void rva002C61AF(); };
+class Rva002C60E4 { public: void rva002C61AF(); };
 
 class Rva002C6354 : public Rva00506B1B
 {
@@ -375,7 +375,7 @@ Rva002D0588::Rva002D0588(EmitVtableTag *)
 
 Rva002C6354::~Rva002C6354()
 {
-    ((Rva002C61AF *)this)->rva002C61AF();
+    ((Rva002C60E4 *)this)->rva002C61AF();
 }
 
 // Native 0x002C63A1..0x002C64D0; WB TacticalAI::DoXfer at 0x00E894D0
@@ -416,5 +416,4 @@ void Rva002C6354::DoXfer(Xfer *x)
 #pragma comment(linker, "/alternatename:??1Rva002BFB2D@@UAE@XZ=??1LivingWorld@@UAE@XZ")
 // Callees bound to their rows at retail's call targets: ~Rva002C6354 calls 0x002C61AF and
 // DoXfer constructs its slot with the constructor at 0x002C6234.
-#pragma comment(linker, "/alternatename:?rva002C61AF@Rva002C61AF@@QAEXXZ=?rva002C61AF@Rva002C60E4@@QAEXXZ")
 #pragma comment(linker, "/alternatename:??0Rva002C5EF0@@QAE@ABVCoord3DBase@@MI@Z=??0Rva002C5EF0@@QAE@ABUCoord3DBase@@MPAVPlayer@@@Z")
