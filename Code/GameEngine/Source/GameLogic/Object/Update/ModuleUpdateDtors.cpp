@@ -15,31 +15,12 @@
 // commit at a time. Each class also emits its scalar deleting destructor
 // (vtable slot 0), claimed as its own row once the primary lands.
 
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+
 class Thing;
 class ModuleData;
 
-extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
-extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
-extern "C" const void *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[9];
-
-// Opaque 0x88-byte UpdateModule-derived intermediate; dtor resolves to the
-// opaque pin at 0x00451F45. Protected slots mirror the retail stores.
-class Rva0044EF5E
-{
-public:
-	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva0044EF5E();
-
-protected:
-	unsigned char m_pad0[8];
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad1[0x20 - 0x14];
-	const void *m_p20;
-	unsigned char m_pad2[0x88 - 0x24];
-};
-
-class OCLUpdate : public Rva0044EF5E
+class OCLUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual ~OCLUpdate();
@@ -47,38 +28,38 @@ public:
 
 OCLUpdate::~OCLUpdate()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-class CurseSpecialPower : public Rva0044EF5E
+enum NameKeyType;
+class CurseSpecialPower : public SpecialAbilityUpdate
 {
 public:
 	virtual ~CurseSpecialPower();
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
+public:
+	virtual void triggerAbilityEffect();
 };
 
 CurseSpecialPower::~CurseSpecialPower()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-class EvacuateGarrisonSpecialPower : public Rva0044EF5E
+class EvacuateGarrisonSpecialPower : public SpecialAbilityUpdate
 {
 public:
 	virtual ~EvacuateGarrisonSpecialPower();
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
+public:
+	virtual void finishAbility();
 };
 
 EvacuateGarrisonSpecialPower::~EvacuateGarrisonSpecialPower()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-class Rva00490D3F : public Rva0044EF5E
+class Rva00490D3F : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva00490D3F();
@@ -86,22 +67,20 @@ public:
 
 Rva00490D3F::~Rva00490D3F()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-class Rva00492179 : public Rva0044EF5E
+class Rva00492179 : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva00492179();
+public:
+	virtual void triggerAbilityEffect();
+public:
+	virtual void startUnpacking();
 };
 
 Rva00492179::~Rva00492179()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 extern "C" const void *const s_dummy20[9];
@@ -109,17 +88,18 @@ static int s_dummyEB30;
 static int s_dummyE184;
 static int s_dummyEB0C;
 
-class Rva00492402 : public Rva0044EF5E
+class Rva00492402 : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva00492402();
+public:
+	virtual void triggerAbilityEffect();
+public:
+	virtual void startUnpacking();
 };
 
 Rva00492402::~Rva00492402()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = s_dummy20;
 }
 
 
@@ -128,7 +108,7 @@ Rva00492402::~Rva00492402()
 
 
 
-class Rva00494F1B : public Rva0044EF5E
+class Rva00494F1B : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva00494F1B();
@@ -136,9 +116,6 @@ public:
 
 Rva00494F1B::~Rva00494F1B()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 // These two interface tables were previously represented by zero-filled
@@ -215,24 +192,23 @@ extern "C" const void *const s_dummy62D8[47] = {
 	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 46, RVA 0x0047A69C
 };
 
-class Rva004B0164 : public Rva0044EF5E
+class Rva004B0164 : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva004B0164();
 
 private:
 	const void *m_tail88;
+public:
+	virtual bool handlePackingProcessing();
 };
 
 Rva004B0164::~Rva004B0164()
 {
-	m_p0C = &s_dummy62D8;
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 	m_tail88 = &s_dummy62C8;
 }
 
-class Rva004B29BE : public Rva0044EF5E
+class Rva004B29BE : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva004B29BE();
@@ -240,12 +216,9 @@ public:
 
 Rva004B29BE::~Rva004B29BE()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-class Rva004CC9BF : public Rva0044EF5E
+class Rva004CC9BF : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva004CC9BF();
@@ -253,22 +226,20 @@ public:
 
 Rva004CC9BF::~Rva004CC9BF()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
-class ActivateModuleSpecialPower : public Rva0044EF5E
+class ActivateModuleSpecialPower : public SpecialAbilityUpdate
 {
 public:
 	virtual ~ActivateModuleSpecialPower();
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
+public:
+	virtual void triggerAbilityEffect();
 };
 
 ActivateModuleSpecialPower::~ActivateModuleSpecialPower()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 static int s_dummy52C8;
@@ -313,7 +284,7 @@ extern "C" const void *const s_dummyFD98[9] = {
 
 
 
-class Rva004AE4E2 : public Rva0044EF5E
+class Rva004AE4E2 : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva004AE4E2();
@@ -321,24 +292,22 @@ public:
 
 Rva004AE4E2::~Rva004AE4E2()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = &s_dummy5348;
 }
 
 
 
-class UnleashSpecialPower : public Rva0044EF5E
+class UnleashSpecialPower : public SpecialAbilityUpdate
 {
 public:
 	virtual ~UnleashSpecialPower();
+public:
+	virtual enum NameKeyType getModuleNameKey() const;
+public:
+	virtual void triggerAbilityEffect();
 };
 
 UnleashSpecialPower::~UnleashSpecialPower()
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = &s_dummyFD98;
 }
 
 extern "C" {
@@ -376,19 +345,21 @@ extern "C" const void *const s_dummy5188[4] = {
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 3, RVA 0x0047A699
 };
 
-class Rva004AD9B0 : public Rva0044EF5E
+class Xfer;
+class Rva004AD9B0 : public SpecialAbilityUpdate
 {
 public:
 	virtual ~Rva004AD9B0();
 
 private:
 	const void *m_tail88;
+protected:
+	virtual void xfer(class Xfer *);
+public:
+	virtual bool handlePackingProcessing();
 };
 
 Rva004AD9B0::~Rva004AD9B0()
 {
-	m_p0C = &s_dummy62D8;
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = &s_dummy5198;
 	m_tail88 = &s_dummy5188;
 }

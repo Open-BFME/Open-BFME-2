@@ -23,7 +23,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
 extern "C" const void *const s_dummy62C8[4];
-extern "C" const void *const __identifier("??_7Rva004B0164@@6B@")[];
+extern "C" const void *const __identifier("??_7Rva004B0164@@6BObjectModule@@@")[];
 extern "C" const void *const s_dummy62D8[47];
 extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
 extern "C" const void *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[9];
@@ -65,7 +65,7 @@ SpecialDisguiseUpdate::SpecialDisguiseUpdate(Thing *thing, const ModuleData *mod
 	const void * volatile *slot = (const void * volatile *)((char *)this + 0x88);
 	*slot = __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 	*slot = s_dummy62C8;
-	m_vtable = __identifier("??_7Rva004B0164@@6B@");
+	m_vtable = __identifier("??_7Rva004B0164@@6BObjectModule@@@");
 	m_p0C = s_dummy62D8;
 	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");

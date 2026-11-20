@@ -11,7 +11,7 @@
 class Thing;
 class ModuleData;
 
-extern "C" char __identifier("??_7Rva00494F1B@@6B@");
+extern "C" char __identifier("??_7Rva00494F1B@@6BObjectModule@@@");
 extern "C" char __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 extern "C" char __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 // +0x20: retail stores 0x00C552A4, SpecialAbilityUpdate's SpecialPowerUpdateInterface
@@ -47,7 +47,7 @@ private:
 FlingPassengerSpecialAbilityUpdate::FlingPassengerSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = &__identifier("??_7Rva00494F1B@@6B@");
+	m_vtable = &__identifier("??_7Rva00494F1B@@6BObjectModule@@@");
 	m_p0C = &__identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &__identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
