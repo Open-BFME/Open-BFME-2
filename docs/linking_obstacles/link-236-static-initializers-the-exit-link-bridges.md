@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 458).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 457).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1640,3 +1640,11 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   PlayerTemplate.cpp's 0x001FD1B7.. follows, as their runs do). Zero Hour's ParticleSys.cpp defines
   TheParticleSystemManager and includes GameClient/Drawable.h (donor facts). ParticleSys.cpp (private views) takes
   GameClient/DrawableFramesPerFlash.h and registers the copy as `_$E1`; the run's other two entries stay bridged.
+- *Taken (458 -> 457): GameLogic.cpp's copy.* Retail's run is the copy 0x007ADC8C, then 0x007ADC9C (a 16-byte mask into
+  0x00DFE794) and 0x007ADCAE, closed by the marker 0x007ADCDE, between GameClient.cpp's rowed run and ModuleFactory.cpp's.
+  The `.bss` after GameClient's copy and `update`'s local holds g_00DFE788 (read only by 0x002423E3, approved to
+  GameLogic.cpp), TheGameLogic 0x00DFE78C, this copy 0x00DFE790, the mask, then 0x00DFE7A8 and 0x00DFE840 (read by
+  GameLogicInit code approved to GameLogic.cpp): one unit's plain globals, copy and dynamic statics. GameLogic.cpp
+  already compiled the copy as its only registration (`_$E1`), so only the rows change; the run's other two entries
+  stay bridged. Not this unit's: 0x007B041B after g_fakeDesync 0x00E03204, which GameLogicInit reads but which sits
+  far outside this object's `.bss`.

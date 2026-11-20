@@ -6359,3 +6359,4 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 ?rva007B3BCE@Rva007AB7F0HalfRateInits@@SAXXZ,0x007B3BCE,Retracted for readmission as a compiler-emitted _$E<n> in ControlBarUpdateConstruction.cpp: retail 0x007B3BCE is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007AE40B@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AE40B,Retracted for readmission as a compiler-emitted _$E<n> in Radar.cpp: retail 0x007AE40B is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007AD4FB@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AD4FB,Retracted for readmission as a compiler-emitted _$E<n> in ParticleSys.cpp: retail 0x007AD4FB is that unit's Drawable.h copy initializer (LINK-236)
+?rva007ADC8C@Rva007AB7F0HalfRateInits@@SAXXZ,0x007ADC8C,Retracted for readmission as a compiler-emitted _$E<n> in GameLogic.cpp: retail 0x007ADC8C is that unit's Drawable.h copy initializer (LINK-236)
