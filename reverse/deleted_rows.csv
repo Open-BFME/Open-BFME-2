@@ -6368,3 +6368,5 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 ?rva007ABE9F@Rva007AB7F0HalfRateInits@@SAXXZ,0x007ABE9F,Retracted for readmission as a compiler-emitted _$E<n> in BaseHeightMap.cpp: retail 0x007ABE9F is that unit's Drawable.h copy initializer (LINK-236)
 ?rva007ADE88@Rva007ABC6FFrameRateInits@@SAXXZ,0x007ADE88,Retracted for readmission as a compiler-emitted _$E<n> in AIUpdate.cpp: retail 0x007ADE88 is that unit's SPAWN_UPDATE_RATE initializer right after its Drawable.h copy (LINK-236)
 ?rva007ADE78@Rva007AB7F0HalfRateInits@@SAXXZ,0x007ADE78,Retracted for readmission as a compiler-emitted _$E<n> in AIUpdate.cpp: retail 0x007ADE78 is that unit's Drawable.h copy initializer (LINK-236)
+?rva007AE043@Rva007ABC6FFrameRateInits@@SAXXZ,0x007AE043,Retracted for readmission as a compiler-emitted _$E<n> in Object.cpp: retail 0x007AE043 is that unit's SPAWN_UPDATE_RATE initializer right after its Drawable.h copy (LINK-236)
+?rva007AE033@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AE033,Retracted for readmission as a compiler-emitted _$E<n> in Object.cpp: retail 0x007AE033 is that unit's Drawable.h copy initializer (LINK-236)

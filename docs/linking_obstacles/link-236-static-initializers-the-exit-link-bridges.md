@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 449).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 447).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1718,3 +1718,12 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   on its include path and GameLogic/Module/SpawnUpdateRate.h right after its Drawable.h include, and registers them as
   `_$E23` and `_$E28`. Its unrowed 19-byte `_$E129` renumbers to `_$E133`. AIUpdate.cpp did not link in the census
   before (LocomotorSetType map COMDATs) and still does not; every section keeps its digest.
+- *Taken (449 -> 447): Object.cpp's copy and SPAWN_UPDATE_RATE (round lk62's held pair).* Retail's run is the copy
+  0x007AE033 and the rate 0x007AE043, closed by the marker 0x007AE06D. The `.bss` holds ExperienceLevelSystem's items
+  and rowed copy, then g_Va00DFECD0 (defined in an Object fragment), the copy 0x00DFECD4, the rate 0x00DFECD8, then
+  Object's function-local statics from 0x00DFECDC to 0x00DFEDEC (all in Object.cpp's approved code) with no other copy
+  before InGameUI's TheInGameUI. Zero Hour's Object.cpp includes GameClient/Drawable.h (donor fact), so the unit has a
+  copy, and the only copy its `.bss` can hold is this one, after its plain global and before its locals. Round lk62
+  held the pair because Object.cpp had no Drawable.h include; the file is built on private views, so it takes
+  GameClient/DrawableFramesPerFlash.h and GameLogic/Module/SpawnUpdateRate.h after its first includes and registers
+  them as `_$E1` and `_$E3`.

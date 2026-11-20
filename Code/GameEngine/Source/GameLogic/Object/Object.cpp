@@ -6,6 +6,11 @@
 #include "unicode_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+// Retail 0x007AE033 and 0x007AE043: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, then SPAWN_UPDATE_RATE,
+// its whole initializer run; their statics (VA 0x00DFECD4, 0x00DFECD8) follow g_Va00DFECD0 and precede the unit's
+// function-local statics. The unit is built on private views, so it takes the constants' own headers.
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
+#include "../../../Include/GameLogic/Module/SpawnUpdateRate.h"
 class BehaviorModule;
 class BodyModuleInterface;
 class StealthUpdate;
