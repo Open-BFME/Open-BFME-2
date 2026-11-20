@@ -1,6 +1,6 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Open-BFME5 conversions.
-class BfmeArg985;
+
 
 // 0x00290D2B is rowed as Object::hasUpgrade(const UpgradeTemplate *) const
 // (ObjectRva00290D2B.cpp); the argument is the upgrade template.

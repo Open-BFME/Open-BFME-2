@@ -8,7 +8,7 @@
 // calls this out-of-line and is EDI-sensitive, so the definition lives here
 // (same-class-in-2-TUs precedent; cf. PlayerTemplateGetName.cpp).
 
-typedef unsigned short wchar_t;
+
 
 class UnicodeString;
 

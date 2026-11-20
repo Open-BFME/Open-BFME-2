@@ -5,7 +5,7 @@
 // address-derived name and a view of only the members it touches.
 
 struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);	// 0x0007DEEF
+	// 0x0007DEEF
 
 // --- 0x00343EFA (144B): a turret-state predicate: the machine's owner (+0x14)
 // and goal object exist, the owner's template enables it (+0x5FD), the goal is

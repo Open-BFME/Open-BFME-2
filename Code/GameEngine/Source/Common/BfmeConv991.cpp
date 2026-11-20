@@ -9,9 +9,9 @@
 // carried; the donor's other definitions are omitted.
 // Open-BFME5 conversions.
 
-void bfmeStepA991(void);
-void bfmeStepB991(void);
-void bfmeFinish991(void);
+
+
+
 
 
 

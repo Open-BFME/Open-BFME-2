@@ -20,8 +20,8 @@
 
 #include "ascii_string.h"
 
-typedef int Int;
-struct FieldParse;
+
+
 
 // BFME adds an integer after the message pointer; its meaning is unresolved.
 #include "../../../Include/Common/INI/FieldParse.h"

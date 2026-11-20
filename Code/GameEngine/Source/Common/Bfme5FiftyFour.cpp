@@ -7,8 +7,8 @@ public:
 	int m_bfmeBody[4];					// +0x00
 };
 
-void __cdecl bfmePush(BfmeItemDX *item);
-void __cdecl bfmeRemove(BfmeItemDX *item);
+
+
 
 class BfmeNodeDX
 {

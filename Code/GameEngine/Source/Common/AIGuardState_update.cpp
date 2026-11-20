@@ -4,7 +4,7 @@
 // Precedent State m_machine plus Snapshot slot shape.
 // Vtable 0x00811740 slot 6.
 class StateMachine;
-class Snapshot;
+
 class M20
 {
 public:

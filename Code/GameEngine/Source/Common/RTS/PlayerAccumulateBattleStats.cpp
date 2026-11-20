@@ -68,7 +68,7 @@ typedef _STL::map<const ThingTemplate *, int, _STL::less<const ThingTemplate *>,
 
 #include "../../../Include/Common/ScoreKeeperClass.h"
 
-extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *source);
+
 
 #include "../../../Include/Common/Player.h"
 

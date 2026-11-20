@@ -3,12 +3,12 @@
 // Swaps x1 x2 plus y1 y2 then per-row gate is rowed rva0073BAA0 testFunc updater
 // checked (test al fail) with 1 on full sweep 0 on early out; ret 0 is (x1 x2 y1 y2 updater).
 // Precedent Rva0073BF40Raster.cpp circle twin; caller 0x0073CCB4 passes 4 ftol ints.
-class BfmeCellFD;
+
 
 #include "../../../Include/Common/Gen_008F7CD0.h"
 
-class ShroudManagerImpl;
-class ShroudManagerCell;
+
+
 
 #include "../../../Include/Common/Rva0073BAA0Base.h"
 

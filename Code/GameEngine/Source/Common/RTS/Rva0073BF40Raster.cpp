@@ -5,12 +5,12 @@
 // char __cdecl with Rva0073BAA0Base updater by value, per-row gate is the rowed rva0073BAA0 testFunc updater,
 // checked (test al fail) with 1 on full sweep 0 on early out; ret 0 is (centerX centerY radius updater).
 // Caller 0x0073CB5A builds the 0x008F139C updater temp; unblocks 0x0073CAF0.
-class BfmeCellFD;
+
 
 #include "../../../Include/Common/Gen_008F7CD0.h"
 
-class ShroudManagerImpl;
-class ShroudManagerCell;
+
+
 
 #include "../../../Include/Common/Rva0073BAA0Base.h"
 

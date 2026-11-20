@@ -6,7 +6,7 @@
 // donor body is byte-identical to retail once relocations are masked (unique
 // hit on unclaimed .text). Only the placed body is defined here; the donor's
 // other definitions are omitted.
-class Player;
+
 
 // The ledger names bfmeGoESB's parameter BfmeObjESA, so the body-facing
 // stand-in keeps that spelling; the call this body makes is retail's real

@@ -44,4 +44,3 @@ void BfmeLinkXX::bfmeDropXX(void)
 
 struct BfmeNodeXZ;
 struct BfmeHeadXZ;
-void __stdcall bfmeInsertXZ(BfmeHeadXZ *head, BfmeNodeXZ *node, BfmeNodeXZ *after);

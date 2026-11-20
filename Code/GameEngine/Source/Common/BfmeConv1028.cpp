@@ -36,5 +36,3 @@ void BfmeH1028::bfmeGo1028H(void)
 	m_bfmeState = -2;
 	m_bfmeOwner->m_bfmeSink->bfmeSend1028(m_bfmeArg, &m_bfmeB, &m_bfmeA);
 }
-
-void __stdcall bfmeGo1028B(int a);

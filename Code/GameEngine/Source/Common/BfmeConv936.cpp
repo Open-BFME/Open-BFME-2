@@ -17,7 +17,7 @@ void BfmeThing936B::bfmeGo936B(void)
 }
 
 
-void bfmeGo936C(void);
+
 
 // The former936G view was the stream Init constructor at16AA0. It now
 // shares the STLport ios_base::Init view in stlport_loc_init.cpp, beside the

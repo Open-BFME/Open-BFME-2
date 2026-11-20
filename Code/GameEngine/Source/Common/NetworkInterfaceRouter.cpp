@@ -4,7 +4,7 @@
 // frame-pacing query. It asks the connection manager whether its two router
 // frame counters are equal; this source only exposes the retail predicate.
 
-class Transport;
+
 #include "../../Include/GameNetwork/BFMEConnectionManager.h"
 
 class NetworkInterface

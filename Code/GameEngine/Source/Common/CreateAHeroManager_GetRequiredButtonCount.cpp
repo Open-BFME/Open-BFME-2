@@ -15,7 +15,7 @@ extern class ControlBar *TheControlBar;
 
 #include "../../Include/Common/Rva0031D5F8.h"
 
-class CommandButton;
+
 #include "../../Include/GameClient/CommandSet.h"
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"

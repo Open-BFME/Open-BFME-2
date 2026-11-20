@@ -9,7 +9,7 @@
 // Evidence: ecx passthrough to Player rva002AC629 proves Player this; callees all rowed;
 // global g_bfmeWorldRV used by 1 TU; caller 0x002AE8A1 unclaimed; neighbours share RTS shard flags.
 class SpecialPowerTemplate;
-class SpecialPowerModuleInterface;
+
 
 class AsciiString;
 struct BfmeWorldRV;

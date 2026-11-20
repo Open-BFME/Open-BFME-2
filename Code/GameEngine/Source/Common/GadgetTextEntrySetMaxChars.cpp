@@ -17,11 +17,11 @@ struct BfmeNodeLC
 
 #include "../../Include/Common/BfmeKeyLC.h"
 
-void bfmeGo924A(BfmeKeyLC *k, char v);
+
 int bfmeGo924B(BfmeKeyLC *k);
 int bfmeGo924C(BfmeKeyLC *k);
-void bfmeGo924D(BfmeKeyLC *k, unsigned int mask);
-void bfmeGo924E(BfmeKeyLC *k, unsigned int mask);
+
+
 
 // ?GadgetTextEntrySetMaxChars@@YAXPAVBfmeKeyLC@@G@Z
 void GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w)
@@ -32,5 +32,3 @@ void GadgetTextEntrySetMaxChars(BfmeKeyLC *k, unsigned short w)
 			o->m_bfmeW = w;
 	}
 }
-
-void bfmeGo924G(void);

@@ -3,7 +3,7 @@
 // ?bfmeAskBIC@BfmeSubBIC@@QAEHXZ, retail 0x00290fc9, 183 bytes. Banked partial (score 0.93) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 // Evidence: pin bfmeAskBIC, callers 0x000B329B 0x00468FAC Drawable_rva00275545, rowed getControllingPlayer 0x0028AFA9 rva0028F4BC 0x0028F4BC getRelationship 0x002AD0C6 bfmeAskRV 0x002AA231 getNthPlayer 0x002A7A29 getIndicatorColor 0x0028B026, ThePlayerList 0x009FEEE8.
-class Team;
+
 enum Relationship
 {
 	REL_ENEMY = 0,

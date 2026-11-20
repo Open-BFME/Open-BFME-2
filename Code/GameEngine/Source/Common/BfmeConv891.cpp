@@ -17,7 +17,7 @@
 // receiver is the member at +0x08 as retail loads it.
 // LINK: the check 0x0035B2C3 is rowed as bool Rva0035B2C3::rva0035B2C3(void*, int, Coord3D const*, int) (Rva0035B2C3Audio.cpp);
 // the old char-returning call shape stays through a member-pointer cast.
-struct Coord3D;
+
 #include "../../Include/GameLogic/Rva0035B2C3.h"
 typedef char (Rva0035B2C3::*Rva0035B2C3CharShape)(void *, void *, int, void *);
 

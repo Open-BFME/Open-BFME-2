@@ -21,7 +21,7 @@ struct TexturePtr
 
 #include "../../../Include/Common/VirtualReleaser00739E00.h"
 
-void Log_DX8_ErrorCode( unsigned int code );
+
 
 class Member0C00739C70
 {

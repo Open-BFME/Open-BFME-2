@@ -25,7 +25,7 @@ struct BfmeStateTDB
 // The ledger's DX8Wrapper device (0x9EDA34, a protected static read through a
 // derived view) and DX8 call counter (0x9EDA98). The device keeps its D3D8
 // type name but is a Direct3D 9 device.
-struct IDirect3DDevice8;
+
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 extern unsigned number_of_DX8_calls;

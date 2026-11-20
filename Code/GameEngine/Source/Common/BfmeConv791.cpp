@@ -35,5 +35,3 @@ struct BfmeThingDWF
 	void bfmeGoDWF();
 	BfmeNodeDWF *m_bfmeHead;
 };
-
-void bfmeGoDWG();

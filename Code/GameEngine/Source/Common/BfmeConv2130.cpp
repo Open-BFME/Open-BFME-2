@@ -5,10 +5,10 @@
 // places uniquely on unclaimed game.dat .text by masked whole-.text search:
 //   ?bfmeVisitABG@BfmeHostABG@@QAEXPAX0@Z 0x0036E22F (58B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
-class BfmeR1094;
+
 
 // The probe is the rowed Object::getControllingPlayer.
-class Player;
+
 #include "../GameLogic/Object/object.h"
 
 class BfmeK1094

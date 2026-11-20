@@ -108,7 +108,7 @@ struct CreateAHeroBlingEntry
 
 CreateAHeroBlingEntry *rva0021D120(CreateAHeroBlingEntry *first, CreateAHeroBlingEntry *last, const AsciiString &upgradeName);	// 0x0021D120
 
-class CommandButton;
+
 
 #include "../../Include/GameClient/CommandSet.h"
 
@@ -270,7 +270,7 @@ bool Rva00219453Validate(int stat, const char *name);	// 0x00219453
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-class UpgradeTemplate;
+
 
 #include "../../Include/Common/Upgrade.h"
 

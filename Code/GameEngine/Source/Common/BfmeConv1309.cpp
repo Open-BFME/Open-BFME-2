@@ -37,7 +37,7 @@ void BfmeThingTDA::bfmeGoTDA()
 // the DX8 call counter (0x9EDA98) and ShaderClass's dirty flag (0x9B621C).
 // The two class statics are protected, so derived views read them. The device
 // keeps its D3D8 type name but is a Direct3D 9 device (SetVertexShader, slot 92).
-struct IDirect3DDevice8;
+
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern unsigned number_of_DX8_calls;

@@ -7,7 +7,7 @@
 // callee isHuman rowed 0x003FF0F1; callers in 0x00449258; neighbours share flags.
 #include "../../Include/Common/ScalarTypes.h"
 
-typedef unsigned short WideChar;
+
 
 #include "ascii_string.h"
 

@@ -11,7 +11,7 @@
 
 class AsciiString;
 struct Coord;
-struct Rva002120C2Entry;
+
 
 #include "../../Include/Common/Rva002120A4.h"
 

@@ -11,7 +11,7 @@
 
 #include "../../Include/Common/MixFileInfoBuffer.h"
 
-extern int TheMixFileInfoCount;
+
 
 // ?bfmeUnlink@MixFileInfoBuffer@@AAEXXZ @0x2E6BE2
 void MixFileInfoBuffer::bfmeUnlink(void) throw()

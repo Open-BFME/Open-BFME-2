@@ -30,7 +30,7 @@ public:
 };
 
 class Rva007837C0Owner;
-void Rva007837C0(Rva007837C0Owner *owner);
+
 
 class Rva006915E0
 {

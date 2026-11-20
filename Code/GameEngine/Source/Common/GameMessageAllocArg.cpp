@@ -4,7 +4,7 @@
 // Dedicated TU so MessageStream.cpp cannot see this body.
 // Argument is 0x1C with vptr then m_next; m_argCount is a byte at +0x18.
 
-typedef unsigned char UnsignedByte;
+
 
 extern "C" const void *const __identifier("??_7BfmeNetGameMessageArgument@@6B@")[];
 

@@ -6,9 +6,9 @@
 // 0x005C4ACD, same slot as the other bfmeGet/bfmeFind pins). Dedicated TU;
 // the TU defines only this body.
 
-typedef int Int;
-typedef bool Bool;
-typedef short Short;
+
+
+
 
 struct BfmeSubENK
 {
