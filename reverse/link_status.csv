@@ -10670,9 +10670,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateXfer.cpp,ye
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateFollowWaypoints.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdFollowPathStates.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp,yes,0,0,0,0,0
