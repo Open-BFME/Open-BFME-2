@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 451).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 449).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1708,3 +1708,13 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   approved code (0x0006737E) precedes W3DScene.cpp's (0x0007054F), whose SceneModeOverride follows the guard.
   BaseHeightMap.cpp (private views) takes GameClient/DrawableFramesPerFlash.h and registers the copy as `_$E1`;
   0x007ABE93 stays bridged.
+- *Taken (451 -> 449): AIUpdate.cpp's copy and SPAWN_UPDATE_RATE (round lk62's held pair).* Retail's run is the copy
+  0x007ADE78, then 0x007ADE88 (`BfmeLogicFramesPerSecond / 2`), closed by the marker 0x007ADEB2. The `.bss` holds
+  `AIUpdateInterface`'s function-local statics (`rva0026717B`'s direction and guard, `getModuleNameKey`'s pool key and
+  guard 0x00DFEB54, read by 0x00773046 approved to AIUpdate.cpp), then the copy 0x00DFEB58 and the rate 0x00DFEB5C,
+  then Upgrade.cpp's TheUpgradeCenter: a unit with no plain global, its locals, then its copy and rate. Zero Hour's
+  AIUpdate.cpp includes GameClient/Drawable.h directly, as ours does (donor fact). Round lk62 held it because six
+  fragments compile a copy; the TU file is AIUpdate.cpp itself, which takes `reference/shims/bfme2_drawable_flash` first
+  on its include path and GameLogic/Module/SpawnUpdateRate.h right after its Drawable.h include, and registers them as
+  `_$E23` and `_$E28`. Its unrowed 19-byte `_$E129` renumbers to `_$E133`. AIUpdate.cpp did not link in the census
+  before (LocomotorSetType map COMDATs) and still does not; every section keeps its digest.
