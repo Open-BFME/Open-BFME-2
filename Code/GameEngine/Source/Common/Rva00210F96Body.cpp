@@ -37,9 +37,7 @@ public:
 	void rva002D43A0();
 };
 
-class RadarWindowOverrideSource : public Rva002D43A0Owner
-{
-};
+#include "../../Include/Common/RadarWindowOverrideSource.h"
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
@@ -65,7 +63,7 @@ void Rva003EF008::rva003EF008()
 
 void LivingWorldManager::rva00210F96()
 {
-	theRadarWindowOverrideSource->rva002D43A0();
+	reinterpret_cast<Rva002D43A0Owner *>(theRadarWindowOverrideSource)->rva002D43A0();
 	SetUpRegionEffectsManager();
 	if (!field268)
 		return;
