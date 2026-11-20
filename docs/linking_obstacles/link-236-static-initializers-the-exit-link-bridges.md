@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 441).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 440).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1765,3 +1765,13 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   (0x000E473F..0x000E6186, with the small methods before it that its own classes declare). W3DFloorBuffer is BFME 2
   code with no Zero Hour file; it keeps a Drawable pointer and resolves drawables by id, and our TU file already
   compiled the copy as `_$E2`, so only the rows change.
+- *Taken (441 -> 440): UpgradeSoundSelectorClientBehavior.cpp's copy, by link order.* Between AnimationSoundClientBehavior's
+  rowed run (`_$E1` 0x007B2C32) and RandomSoundSelectorClientBehavior's (`_$E1` 0x007B2CB0), retail's `.text$yc` holds two
+  copy-only runs, 0x007B2C5C and 0x007B2C86, and the `.bss` the two copies 0x00E04364 and 0x00E04368. The code between
+  those two units is ModelConditionSoundSelectorClientBehavior's (0x004CAB8B..0x004CB0F3, BfmeObject544.cpp's approved
+  rows interleaved inside it) and then UpgradeSoundSelectorClientBehavior's (0x004CB3F8..0x004CBBC5), with only small
+  helpers of the two between and after. Two units, two copies, in order: the second is UpgradeSoundSelectorClientBehavior's,
+  whose TU file already compiled it as `_$E1` (it includes Drawable.h and is a drawable client module), so only the rows
+  change. *Left:* 0x007B2C5C is ModelConditionSoundSelectorClientBehavior's by the same order, but the map approves that
+  unit's rows to two files (`Object/Behavior/` and `Object/Update/ModelConditionSoundSelectorClientBehavior.cpp`), so the
+  copy waits for one TU.
