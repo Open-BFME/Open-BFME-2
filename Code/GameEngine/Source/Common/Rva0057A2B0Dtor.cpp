@@ -3,13 +3,7 @@
 // plus Rva005D40A6 second base at +8. Evidence: MI vptr prologue pair plus
 // virtual slot6 call through member at +0x54 plus rowed ??1Rva005D40A6 at
 // 0x005D40A6 plus deleting-dtor caller 0x0057A455.
-class Rva005D40A6
-{
-public:
-	virtual ~Rva005D40A6();
-private:
-	char m_pad[0x28];
-};
+#include "../../Include/Common/Rva005D40A6.h"
 
 class Rva0057A2B0B1
 {
@@ -41,7 +35,7 @@ class Rva0057A2B0 : public Rva0057A2B0B1, public Rva005D40A6
 public:
 	virtual ~Rva0057A2B0();
 private:
-	char m_pad[0x20];
+	char m_pad[0x54 - 8 - sizeof(Rva005D40A6)];
 	If0057A2B0 *m_54;
 };
 Rva0057A2B0::~Rva0057A2B0()

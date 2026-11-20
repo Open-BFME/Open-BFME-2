@@ -487,3 +487,11 @@ neutral (two correct names became one). The others stay:
 **Check before committing a prepared fold:** a removed private view can be the only definer of a name
 other units still reference. `build/vt3/lostdefs.py` (scratch) compares the unit's object against the last
 snapshot's symbol table.
+
+2026-11-20 root20: the checklist item's destructor and the secondary
+base provider share the full 0x40-byte base declaration. Two header
+queue rows retired. The base provider retained all 59 COMDATs and all
+seven affected units retained 11,482 scoped linked bytes. The primary
+has thirteen ordinary slots. Its exact seven-byte nonvirtual base
+teardown remains blocked on the owning special-member transition.
+[Native table and lifetime evidence](../../reverse/attempt_support/checklist-item-base-tables-20261120-root20.md).
