@@ -346,6 +346,22 @@ void Rva000A92B0SetMatrix(const AptRenderTransform *input) {
  if(aptFar(m[0]-1.0f) || aptFar(m[1]) || aptFar(m[2]) || aptFar(m[3]-1.0f)) aptMatrixMode=1;
  else aptMatrixMode=3;
 }
+#if defined(BFME2_MODERN)
+// Stage units that move the HUD's edge panels (Rva006F6A50Cluster.cpp) from the
+// centred box's edges to the screen's. BFME2_MODERN_HUD_EDGES=0 keeps them in
+// the box. Set when such a panel was drawn, so the next Apt pass is not
+// clipped to the box (W3DDisplay.cpp).
+bool g_modernAptEdgesDrawn;
+float modernAptEdgeShift() {
+ static int edges=-1;
+ if(edges<0) {
+  const char *option=getenv("BFME2_MODERN_HUD_EDGES");
+  edges=!(option && strcmp(option,"0")==0);
+ }
+ if(!edges || !modernAptKeepAspect() || aptScaleX<=0.0f) return 0.0f;
+ return g_modernAptOffsetX/aptScaleX;
+}
+#endif
 
 // Native A90B0..A9192, 226B. WB8A5E20 independently preserves unsigned
 // ARGB decode, divide255, multiplier/addend transform and unbounded packing.

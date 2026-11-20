@@ -962,7 +962,14 @@ void AptAnimationPoolData::rva006FB860(int value, char isFirst)
     int y;
     int field;
     if ((packed & 3) == 0) {
+#if defined(BFME2_MODERN)
+        // The modern HUD moves the palantir past the stage's left edge
+        // (Rva006F6A50Cluster.cpp), so the mouse can sit at a negative stage
+        // x. The packer keeps its sign; read it back signed.
+        *(int *)((char *)g_bfmeAptPtrAtE176D0 + 0x74) = (int)packed >> 17;
+#else
         *(int *)((char *)g_bfmeAptPtrAtE176D0 + 0x74) = packed >> 17;
+#endif
         unsigned int yValue = (packed >> 2) & 0x7FFF;
         x = 0xC8;
         y = 5;

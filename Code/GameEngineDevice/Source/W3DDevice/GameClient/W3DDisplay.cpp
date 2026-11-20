@@ -235,6 +235,13 @@ struct ModernAptClip
     enum { SCISSOR_TEST_ENABLE = 174 };
     ModernAptClip() : device(0)
     {
+        // The edge panels were drawn past the box last frame: leave the pass
+        // unclipped (they push the parked art past the screen's edge instead).
+        extern bool g_modernAptEdgesDrawn;
+        bool edges = g_modernAptEdgesDrawn;
+        g_modernAptEdgesDrawn = false;
+        if (edges)
+            return;
         if (!modernAptKeepAspect() || (g_modernAptOffsetX < 0.5f && g_modernAptOffsetY < 0.5f))
             return;
         IDirect3DDevice8 *d = DX8Wrapper::_Get_D3D_Device8();

@@ -439,6 +439,47 @@ struct BfmeS1209;
 
 #include "Rva006E15C0.h"
 
+#if defined(BFME2_MODERN)
+#include <string.h>
+#include "../../../GameEngine/Include/Common/AptMatrix.h"
+// The modern Apt stage keeps its aspect in a centred box (W3DAptAux.cpp).
+// Palantir.apt lays its panels out on one 1024x768 stage: the palantir (left)
+// and the side command bar (right) sit on the stage's edges. Shift those
+// top-level clips by the box's margin so they reach the screen's edges, in
+// stage units ahead of the clip's own matrix. Buttons record the matrix they
+// are drawn with for hit-testing, so clicks follow the shift.
+float modernAptEdgeShift();
+extern bool g_modernAptEdgesDrawn;
+static const char *modernEAString(const EAStringC &text)
+{
+	return text.data ? reinterpret_cast<const char *>(text.data) + sizeof(EAStringC::StringDataC) : 0;
+}
+static int modernAptEdgeSide(const AptCIH *item)
+{
+	static const char *const left[] = {
+		"ButtonFlashStage", "SpellBookUI", "PalantirBack", "CommandBackground", "RegionBackground",
+		"GlobeSwirlRender", "BigGlobeSwirlRender", "EmptyGlobe", "CommandUI", "RadarBackground",
+		"Radar", "RadarPings", "MoviePlayback", "PalantirFrame", "CommandButtons",
+		"AutoAbilityOverlays", "ResourceBar", "PalantirSpectralHighlight", "PalantirButtons",
+		"MovieButton", "ObserverStuff", "messengerButton", "CommandPointsFlash", 0 };
+	const AptCIH *parent = item->field48;
+	if (!parent)
+		return 0;
+	const char *parentName = modernEAString(parent->field08);
+	if (parentName && *parentName)
+		return 0;
+	const char *name = modernEAString(item->field08);
+	if (!name || !*name)
+		return 0;
+	if (strcmp(name, "SideCommandBar") == 0)
+		return 1;
+	for (int i = 0; left[i]; ++i)
+		if (strcmp(name, left[i]) == 0)
+			return -1;
+	return 0;
+}
+#endif
+
 void __cdecl rva006F7330(AptRenderingContext *context, AptCIH *item, int flags)
 {
 	if (!((const AptCIH *)item)->rva006E24E0())
@@ -449,6 +490,19 @@ void __cdecl rva006F7330(AptRenderingContext *context, AptCIH *item, int flags)
 	context->pushVertexMatrix();
 	if ((char)((const BfmeAptValue006DCD20 *)item)->rva006E02B0())
 		((Rva006E1260 *)item)->call(*(void **)((char *)item + 0x48));
+#if defined(BFME2_MODERN)
+	float modernShift = modernAptEdgeShift();
+	if (modernShift > 0.0f)
+	{
+		int side = modernAptEdgeSide(item);
+		if (side)
+		{
+			AptMatrix shift = { 1.0f, 0.0f, 0.0f, 1.0f, side * modernShift, 0.0f };
+			((BfmeThingDXH *)context)->bfmeGoDXH(&shift);
+			g_modernAptEdgesDrawn = true;
+		}
+	}
+#endif
 	((BfmeThingDXH *)context)->bfmeGoDXH((char *)item + 0x0c);
 	((Rva006E15C0 *)item)->call(context, 0, flags);
 	context->popVertexMatrix();
