@@ -258,6 +258,10 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 
 	virtual CreateModuleInterface *getCreate() { return this; }
+	virtual DieModuleInterface *getDie()
+	{
+		return reinterpret_cast<DieModuleInterface *>(static_cast<DynamicPortalExtraA *>(this));
+	}
 	virtual void onCreate() { }
 	virtual void onBuildComplete();
 	virtual void slot02() { }
