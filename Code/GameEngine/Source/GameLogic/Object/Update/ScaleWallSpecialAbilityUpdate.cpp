@@ -94,9 +94,9 @@ class ModuleData;
 
 extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00492C90@@6BRva00451F45_B2@@@")[];
+extern "C" const void *const __identifier("??_7Rva00492C90@@6BUpdateModule@@@")[];
 
-extern "C" const void *const __identifier("??_7Rva00494E01@@6BRva00451F45_E1@@@")[];
+extern "C" const void *const __identifier("??_7Rva00494E01@@6BSpecialPowerUpdateInterface@@@")[];
 
 // Opaque 0x88-byte UpdateModule-derived intermediate; ctor resolves to the
 // opaque pin at 0x0044EF5E. Protected slots mirror the retail stores.
@@ -448,8 +448,8 @@ Rva00494DCA::Rva00494DCA(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
 	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7Rva00492C90@@6BRva00451F45_B2@@@");
-	m_p20 = __identifier("??_7Rva00494E01@@6BRva00451F45_E1@@@");
+	m_p10 = __identifier("??_7Rva00492C90@@6BUpdateModule@@@");
+	m_p20 = __identifier("??_7Rva00494E01@@6BSpecialPowerUpdateInterface@@@");
 }
 
 // ?Rva00494DCA::~Rva00494DCA present-unmatched
