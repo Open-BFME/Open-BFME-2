@@ -1345,9 +1345,7 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1347.cpp	?bfmeGetAUZA@BfmeSu
 alternatename	Code/GameEngine/Source/Common/BfmeConv1349.cpp	?bfmeFreeVCC@@YAXPAXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1349.cpp	?clearSlot@Rva007FA2C0@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1369.cpp	??1Rva00801FB0Elem@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1385.cpp	?bfmeGoVJH@BfmeOwner803BF0@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1390.cpp	?bfmeUseTFC@BfmeSinkTFC@@QAEXPAX0@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1417.cpp	?bfmeSetSizeVLR@Rva007EB8B0Log@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1427.cpp	?bfmeAppendVME@BfmeStrVME@@QAEXID@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1427.cpp	?bfmeFwdTwoSVA@BfmeThingSVA@@QAEXHH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1434.cpp	?bfmeImplVMN@BfmeStrVMN@@QAEXHHHH@Z	1
@@ -1780,7 +1778,6 @@ alternatename	Code/GameEngine/Source/Common/Rva003ADFDBCopyCtor.cpp	_Rva003ADEBF
 alternatename	Code/GameEngine/Source/Common/Rva003C4B2DInsert.cpp	?rva003BD4C3@@YAXPAX00@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva003FD14D.cpp	?vbfunc@Rva003FD14DBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva003FDCEB.cpp	?rva003FDC46@Rva003FDCEB@@QAEHXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00403055CopyCtor.cpp	?clearItems@Rva00402D7E@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004079D5.cpp	?rva00388E63@Rva004079D5Sub74@@QAEHPAH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00407AF9.cpp	?g_00BBD40C@@3QBDB	1
 alternatename	Code/GameEngine/Source/Common/Rva0040DC1FErase.cpp	??$__copy_ptrs@PAURva004F69C3@@PAU1@@_STL@@YAPAURva004F69C3@@PAU1@00ABU__false_type@0@@Z	1
@@ -2875,7 +2872,6 @@ alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?bfmeDoBDB@
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?bfmeDo1052@Rva00800E50Owner@@QAEXHPAURva00800E50Stamp@@H@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
-alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?onConnectReply@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045A	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045B	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??1Gen008030A0@@UAE@XZ	1

@@ -31,7 +31,3 @@ void BfmeThingVJH::bfmeGoVJH(int messageTid)
 	msg.bfmeSetVJH("NAME", "LAN");
 	((Rva008038F0Sender *)this)->send((BfmeC994 *)&msg);
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeGoVJH@BfmeOwner803BF0@@QAEXH@Z=?bfmeGoVJH@BfmeThingVJH@@QAEXH@Z")

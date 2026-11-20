@@ -38,7 +38,3 @@ void BfmeBufVLR::bfmeSetSizeVLR(int size)
 	m_bfme0c = (char *)((BfmePoolVLR *)Gen007EFFC0())->bfmeNewVLR(m_bfme10, 0);
 	memset(m_bfme0c, 0, m_bfme10);
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeSetSizeVLR@Rva007EB8B0Log@@QAEXH@Z=?bfmeSetSizeVLR@BfmeBufVLR@@QAEXH@Z")
