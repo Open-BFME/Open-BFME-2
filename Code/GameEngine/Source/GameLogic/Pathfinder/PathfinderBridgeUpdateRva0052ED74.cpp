@@ -24,9 +24,19 @@ static __forceinline int float2long(float f){int i;__asm{fld f
  fistp i}return i;}
 #define FLOOR(x) float2long((float)floor(x))
 #define CEIL(x) float2long((float)ceil(x))
-struct BridgeBounds {struct {float x,y;}lo,hi;BridgeBounds(const BridgeBounds &r){lo.x=r.lo.x;lo.y=r.lo.y;hi.x=r.hi.x;hi.y=r.hi.y;}~BridgeBounds(){}};
-class Rva0027C36A {public:Rva0027C36A();Rva0027C36A &operator=(const Rva0027C36A &);Coord3D from,to;char rest[0xA8-24];};
-class Bridge {public:virtual ~Bridge();Bridge *next;int word8;Rva0027C36A info;BridgeBounds bounds;bool isPointOnBridge(const Coord3D *loc);float getBridgeHeight(const Coord3D *loc,Coord3D *normal);bool isCellOnEnd(const Region2D *cellBounds);};
+struct BridgeBounds
+{
+ struct { float x, y; } lo, hi;
+ explicit BridgeBounds(const Region2D &bounds)
+ {
+  lo.x = bounds.lo.x;
+  lo.y = bounds.lo.y;
+  hi.x = bounds.hi.x;
+  hi.y = bounds.hi.y;
+ }
+ ~BridgeBounds() {}
+};
+#include "../../../Include/GameLogic/BridgeClass.h"
 struct CellOwnerInfo{char pad[0x28];int owner;};
 struct Rva0052DFB1Arg;
 class PathfindCell {public:int getOwner()const{return info?info->owner:0;}int getType()const{return type;}int getLayer()const{return layer;}int getObstacleID()const{return info?info->owner:0;}void setPinched(bool p){pinched=p;}bool rva0052DFB1(const Rva0052DFB1Arg *arg);CellOwnerInfo *info;char pad[8];unsigned int type:4,layer:6,unused:6,pinched:1,rest:15;bool SetType_Dirty(int);};
@@ -137,21 +147,21 @@ void Rva002E713FOwner::rva0052ED74(void *opaque,int flags)
 {
  Bridge *bridge=(Bridge *)opaque;
 #define update (*(bool *)&flags)
- BridgeBounds bounds=bridge->bounds;
+ BridgeBounds bounds(bridge->m_bounds);
  if(!update){
   Bridge *previous=0;
   for(Bridge *node=bridges;node;){
-   Bridge *next=node->next;BridgeBounds other=node->bounds;
+   Bridge *next=node->m_next;BridgeBounds other(node->m_bounds);
    if(fabs(bridgeDelta(other.lo.x,bounds.lo.x))<1.0f && fabs(bridgeDelta(other.lo.y,bounds.lo.y))<1.0f && fabs(bridgeDelta(other.hi.x,bounds.hi.x))<1.0f && fabs(bridgeDelta(other.hi.y,bounds.hi.y))<1.0f){
-    if(previous)previous->next=next;else bridges=next;
-    node->next=0;::delete node;
+    if(previous)previous->m_next=next;else bridges=next;
+    node->m_next=0;::delete node;
    }else previous=node;
    node=next;
   }
  }
  int first=1,second=1,actualFirst=1,actualSecond=1;
  if(update){
-  Rva0027C36A info;info=bridge->info;
+  Rva0027C36A info;info=bridge->m_bridgeInfo;
   actualFirst=first=((Pathfinder *)this)->rva002ED236(0,info.from);
   if(Rva001E3679(first)){ICoord2D cell;layers[first].AddWallConnectCell(Rva002E7875WorldToCell(&cell,true,&info.from));}else first=1;
   actualSecond=second=((Pathfinder *)this)->rva002ED236(0,info.to);
