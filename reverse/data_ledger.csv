@@ -32427,8 +32427,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A037B8,4,.data,global,_DRAWABLE_FRAMES_PER_FLASH,Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehavior.cpp,owned,,1,1
 0x00A037BC,4,.data,global,?key@?1??getRebuildHoleBehaviorInterfaceFromObject@RebuildHoleBehavior@@SAPAVRebuildHoleBehaviorInterface@@PAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp,owned,,1,2
 0x00A037C0,4,.data,global,?$S1@?1??getRebuildHoleBehaviorInterfaceFromObject@RebuildHoleBehavior@@SAPAVRebuildHoleBehaviorInterface@@PAVObject@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp,owned,,1,2
-0x00A037C4,4,.data,global,?TheRebuildHoleBehaviorPoolKey@?1??getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp,owned,,1,2
-0x00A037C8,4,.data,global,?$S1@?1??getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp,owned,,1,2
+0x00A037C4,4,.data,global,?TheRebuildHoleBehaviorPoolKey@?1??getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp,owned,,1,2
+0x00A037C8,4,.data,global,?$S1@?1??getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp,owned,,1,2
 0x00A037CC,4,.data,global,_DRAWABLE_FRAMES_PER_FLASH,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp,owned,,1,1
 0x00A037D0,4,.data,global,_SPAWN_UPDATE_RATE,Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp,owned,,1,1
 0x00A037D4,4,.data,global,?TheSupplyWarehouseCripplingBehaviorPoolKey@?1??getModuleNameKey@SupplyWarehouseCripplingBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SupplyWarehouseCripplingBehavior.cpp,owned,,1,2

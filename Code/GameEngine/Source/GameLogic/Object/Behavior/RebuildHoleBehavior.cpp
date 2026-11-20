@@ -210,7 +210,6 @@ virtual void slot13();
 virtual Object *build(Object*,const ThingTemplate*,const Coord3D*,float,Player*);};
 #include "../../../../Include/GameLogic/ScriptEngine.h"
 #include "../../../../Include/Common/ScalarTypes.h"
-
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
@@ -242,11 +241,28 @@ class Object;
 extern class ThingFactory *TheThingFactory;
 void XferObjectID(Xfer *xfer, ObjectID *id);
 #include "../../../../Include/Common/BehaviorModuleBase.h"
+// newWorkerRespawnProcess's callees: the module data's worker respawn delay
+// (+0x08), TheGameLogic's destroyObject, the Object mask/status/selection
+// members and TheAI's pathfinder (+0x10).
+struct RebuildHoleWorkerDelayView
+{
+	unsigned char m_pad00[0x8];
+	float m_workerRespawnDelay;				// +0x08
+};
+#include "../../../Common/GameLogicObjectLookupView.h"
+class BehaviorModule;
+enum ObjectStatusTypes;
+enum DamageType;
+enum DeathType;
+#include "../../../../Include/GameLogic/AI.h"
+
 extern ScriptEngine *TheScriptEngine;
 
 extern int BfmeLogicFramesPerSecond;
 
 struct RebuildData {char pad[8];float wait,heal;AsciiString workerName;};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp
 
@@ -382,14 +398,6 @@ RebuildHoleBehaviorInterface *RebuildHoleBehavior::getRebuildHoleBehaviorInterfa
 	return this;
 }
 
-// tu-skeleton: 0x00483260 17B ?buildFieldParse@RebuildHoleBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004832D7 69B ?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0048334A 48B ??1RebuildHoleBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048337A 114B ?newWorkerRespawnProcess@RebuildHoleBehavior@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorXfer.cpp
 
 //
@@ -440,15 +448,50 @@ void RebuildHoleBehavior::xfer(Xfer *xfer)
 		*xfer == m_40;
 }
 
+// tu-skeleton: 0x00483260 17B ?buildFieldParse@RebuildHoleBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType RebuildHoleBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheRebuildHoleBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("RebuildHoleBehavior");
+	return TheRebuildHoleBehaviorPoolKey;
+}
+
+// RebuildHoleBehavior::newWorkerRespawnProcess, retail 0x0048337A (114
+// bytes): Zero Hour's RebuildHoleBehavior.cpp body (WB names it): any
+// existing worker is destroyed, the respawn wait restarts from the module
+// data and the hole is unmasked. BFME 2 then clears three status bits
+// (0, 3, 0x3C), makes the hole selectable and puts it back on the pathfind
+// map. Unlike the class's SSE units this body converts with x87 _ftol2.
+void RebuildHoleBehavior::newWorkerRespawnProcess(Object *existingWorker)
+{
+	const RebuildHoleWorkerDelayView *modData = (const RebuildHoleWorkerDelayView *)m_moduleData;
+	Object *hole = m_object;
+
+	// if we have an existing worker, get rid of it
+	if (existingWorker)
+		TheGameLogic->destroyObject(existingWorker);
+	m_workerID = INVALID_OBJECT_ID;
+
+	// set the timer for the next worker respawn
+	m_workerWaitCounter = (unsigned int)modData->m_workerRespawnDelay;
+
+	hole->maskObject(false);
+	hole->rva0028CDEB((const Rva00346BC0 &)Rva00391F4E(0, 3, 0x3c), false);
+	hole->setSelectable(true);
+	TheAI->m_pathfinder->AddObjectToPathfindMap(hole);
+}
+
+// tu-skeleton: 0x0048334A 48B ??1RebuildHoleBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0048353E 118B ??1RebuildHoleBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004835B4 71B ?startRebuildProcess@RebuildHoleBehavior@@UAEXPBVThingTemplate@@W4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00483629 28B ??_GRebuildHoleBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BC40 13B $L562 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BC4D 10B __ehhandler$?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BC57 8B Unwind@00b8bc57 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorModuleDataDtor.cpp (not merged yet)
 
