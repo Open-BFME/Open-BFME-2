@@ -8,14 +8,20 @@
 class Thing;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/BaseUpgrade.h"
-class Rva00253487Base
+// Retail's Rva00253487Base tables are ModuleData's 31 slots with slot 10 returning true (0x0050B5C6),
+// as Rva00253487Base.h records; the canonical base supplies them. Its destructor inlines to the
+// Snapshot restore (0x00BBB554), which the empty inline ModuleData and Snapshot destructors give.
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class Rva00253487Base : public ModuleData
 {
 public:
 	Rva00253487Base();
-	virtual ~Rva00253487Base() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
+	virtual ~Rva00253487Base() {}
+	virtual bool slot10() const;
 
 private:
-	unsigned char m_pad[0x118 - 4];
+	unsigned char m_pad[0x118 - 8];
 };
 #include "ascii_string.h"
 //
