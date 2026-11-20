@@ -109,7 +109,7 @@ void WriteGlobalLighting_Rva000AD112(DataChunkOutput &chunkWriter) {
 // The inline store is a descriptive C++ adapter, not a claimed native helper:
 // passing the boolean reproduces native branch selection before the one store.
 // Scalar vector snapshots are shared so MSVC can reuse the dead argument homes.
-struct DataChunkInfo;
+
 class Dict;
 class UserParser;
 class ChunkInputStream;

@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 // The reply adapter (BFME 1 0x007F8640, BFME 2 0x00664CC0) is defined below;
 // this unit's main body is the request that follows it (BFME 1 0x007F8650).
-class BfmeHostBT;
+
 class BfmeMsgVJH
 {
 public:

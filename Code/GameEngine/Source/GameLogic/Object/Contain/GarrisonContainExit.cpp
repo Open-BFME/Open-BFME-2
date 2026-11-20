@@ -34,7 +34,7 @@ _Vector_base<Coord3D,allocator<Coord3D> >::~_Vector_base() {
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 class Locomotor;
 class LocomotorSet;
-class Object;
+
 class Rva0035149F;
 float Cos(float); float Sin(float);
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"

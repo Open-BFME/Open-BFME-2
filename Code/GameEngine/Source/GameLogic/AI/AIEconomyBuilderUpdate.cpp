@@ -11,7 +11,7 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "GameLogicObjectLookupView.h"
-class AIEconomyBuilder;
+
 class Rva002A9BF2;
 #include "../../../Include/GameLogic/AIDifficulty.h"
 int Rva0058AEB6Get();

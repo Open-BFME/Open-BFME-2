@@ -8,7 +8,7 @@
 #include "ascii_string.h"
 
 class Object;
-class Player;
+
 class GameLogic;
 class GameWindow;
 class NameKeyGenerator;

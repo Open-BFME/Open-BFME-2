@@ -9,7 +9,7 @@
 // caller 0x0045F9D8 (SpawnBehavior, uses return for setProducer) and the
 // SpawnBehaviorCtor layout (this+4 ModuleData, this+8 Object).
 
-class Object;
+
 class Player;
 class AsciiString;
 

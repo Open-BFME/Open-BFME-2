@@ -4,7 +4,7 @@
 // 5CCDDD and vtable C74F44 establish the address-derived owner name.
 #include "../../Include/Common/Rva0007DF07.h"
 
-class Rva005CCDDD;
+
 
 // Existing ~Rva005CCC69 and its C74F24 vtable identify the child.
 // Its constructor 5CCC50 stores the owner at +24, calls the 55-byte

@@ -50,7 +50,7 @@ enum GuardMode
 
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Object;
+
 class Team;
 class PolygonTrigger;
 #include "../../../Include/Common/TeamFactory.h"

@@ -41,7 +41,7 @@ public:
 #include "ShaderClass.h"
 
 class DX8PolygonRendererClass;
-class MeshModelClass;
+
 class DX8FVFCategoryContainer;
 
 class DX8PolygonRendererList : public GenericMultiListClass

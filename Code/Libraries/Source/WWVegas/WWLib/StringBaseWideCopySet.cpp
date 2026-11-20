@@ -12,7 +12,7 @@ typedef unsigned short wchar_t;
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section) throw();
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION *section) throw();
 
-class WideLock;
+
 
 Rva00041004 *Rva00035DF0Get();
 

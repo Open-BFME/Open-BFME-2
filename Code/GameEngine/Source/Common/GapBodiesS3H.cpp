@@ -89,7 +89,7 @@ struct Rva002E373CHolder
 
 extern Rva002E373CHolder *g_Va00DBD0F4;
 
-class Rva002E41EC;
+
 
 #include "../../Include/GameLogic/PolygonTrigger.h"
 

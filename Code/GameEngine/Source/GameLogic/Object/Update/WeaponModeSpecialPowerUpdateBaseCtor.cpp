@@ -9,7 +9,7 @@
 // callees remain governed by retail bytes.
 
 class Thing;
-class ModuleData;
+
 class Object;
 
 // BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).

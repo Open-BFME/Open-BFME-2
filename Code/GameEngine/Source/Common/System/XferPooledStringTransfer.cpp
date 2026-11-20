@@ -50,7 +50,7 @@ class Xfer;
 
 class AsciiString;
 class UnicodeString;
-class PooledString;
+
 struct XferUnknown11;
 
 #include "ascii_string.h"

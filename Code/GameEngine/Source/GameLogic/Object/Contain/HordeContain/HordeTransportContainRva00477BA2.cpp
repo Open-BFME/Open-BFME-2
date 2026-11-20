@@ -37,7 +37,7 @@ namespace _STL { template <> _Rb_tree_iterator<pair<int const, int>, _Nonconst_t
 namespace _STL { template <> pair<_Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::iterator, bool> _Rb_tree<int, pair<const int, int>, _Select1st<pair<const int, int> >, less<int>, allocator<pair<const int, int> > >::insert_unique(const pair<const int, int> &); }
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-struct Rva00477BA2Vector;
+
 struct Rva00477BA2Vector {float x,y,z; Rva00477BA2Vector(float xx,float yy,float zz):x(xx),y(yy),z(zz){} void operator*=(float n){x*=n;y*=n;z*=n;} };
 #include "../../../../Common/Thing/thing.h"
 enum DamageType{DAMAGE=8}; enum DeathType{DEATH=0};

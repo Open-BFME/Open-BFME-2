@@ -17,7 +17,7 @@
 // always answers 1. Names are address-derived.
 
 class Player;
-class Object;
+
 
 #include "../../../Include/Common/ThingTemplate.h"
 

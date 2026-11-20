@@ -3,7 +3,7 @@
 // Virtual slot 11 (0x2C) of 0x0086E3E8 (class Rva00574815 ctor 0x00574815).
 // Evidence: calls rowed ctor 0x00575125 with (m08 int plus mgr arg); rowed clear 0x000AD6F4 and set 0x00575674 on m08+0x54; rowed new 0x0002FDA0 size 0x18; virtual slot4 check on *(m08+0x54) with mgr arg for early-out; ret 4 one arg; unblocks 0x005751ED chain from 0x00575125.
 // Honest Rva name on proven vtable class.
-class Rva00574815;
+
 #include "../GameLogic/Object/object.h"
 #include "../../Include/Common/Rva00575674.h"
 #include "../../Include/Common/Rva000AD6F4.h"

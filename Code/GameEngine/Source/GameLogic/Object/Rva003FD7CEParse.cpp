@@ -11,7 +11,7 @@ class INI;
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
 template <typename T> class StringBase;
-class Rva0021294A;
+
 class Rva003FD789;
 
 template <typename T>

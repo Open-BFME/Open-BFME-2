@@ -17,7 +17,7 @@ class Waypoint;
 class Object;
 class Team;
 class AIGroup;
-class Rva0036FAF8;
+
 class Player;
 template<class OBJCLASS>
 class DLINK_ITERATOR

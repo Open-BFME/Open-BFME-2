@@ -51,7 +51,7 @@ static bool g_Va00E01D0C;
 // remains unknown, but its thiscall ABI is established independently of the
 // eight-byte optimized body, which does not need to read the receiver.
 class INI;
-class CommandSet;
+
 typedef bool Bool;
 #define BFME_SUBSYSTEM_SLOTS
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"

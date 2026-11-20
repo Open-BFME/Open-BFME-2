@@ -42,7 +42,7 @@ enum ExitDoorType
 	DOOR_NONE_AVAILABLE = -1,
 	DOOR_NONE_NEEDED = 0
 };
-class Object;
+
 class ThingTemplate;
 template <int N> class VSlots : public VSlots<N - 1>
 {

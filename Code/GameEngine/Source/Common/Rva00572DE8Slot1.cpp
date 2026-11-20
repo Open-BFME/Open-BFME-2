@@ -6,7 +6,7 @@
 #include "ascii_string.h"
 
 class UpgradeTemplate;
-class Object;
+
 class Player;
 class GameLogic;
 class UpgradeCenter;

@@ -17,7 +17,7 @@ class BfmeTab1026
 {
 };
 
-class Object;
+
 class Player;
 #include "../../../../Include/GameLogic/Module/Rva2225E0Filter.h"
 

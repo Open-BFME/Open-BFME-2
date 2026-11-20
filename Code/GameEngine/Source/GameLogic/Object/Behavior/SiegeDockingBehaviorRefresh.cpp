@@ -10,7 +10,7 @@
 // cl: /O1 /G7 /MD /DNDEBUG /EHsc /ICode/GameEngine/Source/Common
 // stlport
 #include <vector>
-class Object;
+
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 enum NameKeyType { INVALID_NAME_KEY=0 };

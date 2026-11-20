@@ -18,7 +18,7 @@
 
 
 
-class Object;
+
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

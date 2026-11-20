@@ -47,7 +47,7 @@ template <> inline void _Construct<const ModuleData *, const ModuleData *>(
 }
 
 class Player;
-class Object;
+
 
 
 struct Rva00506A0COther

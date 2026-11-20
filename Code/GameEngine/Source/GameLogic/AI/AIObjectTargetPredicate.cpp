@@ -9,7 +9,7 @@
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 enum WeaponSlotType {WEAPON_FIRST=0};
-class Object;class Module;
+class Module;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 #include "../../../Include/Common/Rva002C9400ByteField.h"

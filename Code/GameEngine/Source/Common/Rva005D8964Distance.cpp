@@ -16,7 +16,7 @@
 // positions at +0x38); names are address-derived, the class identity is unproven.
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-class Object;
+
 
 #include "../../Include/Common/ThingTemplate.h"
 

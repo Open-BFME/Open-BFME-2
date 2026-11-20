@@ -31,7 +31,7 @@ class Team;
 #include "../../../../Include/Common/ThingTemplate.h"
 static __forceinline Real templatePayloadSeconds(const ThingTemplate *t) { return t->m_buildFadeInOnCreateTime; }
 
-class Object;
+
 
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 

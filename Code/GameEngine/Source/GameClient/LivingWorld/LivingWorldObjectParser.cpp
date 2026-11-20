@@ -8,7 +8,7 @@
 // Existing address-derived providers retain their unknown original names;
 // the clone and field-table getter use the method ABI witnessed by this caller.
 #include "../../../Include/Common/INI/FieldParse.h"
-class INI;
+
 class INI {
 public:
  const char *getNextToken(const char *seps);

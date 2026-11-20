@@ -23,7 +23,7 @@ enum GuardMode
 	GUARDMODE_NORMAL = 0
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Object;
+
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:

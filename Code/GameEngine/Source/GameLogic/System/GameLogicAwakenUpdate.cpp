@@ -26,7 +26,7 @@ extern class Debug *theDebug;
 #include <vector>
 #include <list>
 
-class Object;
+
 
 // processDestroyList's retail module interface is embedded at +0x0C;
 // slot +0x24 returns an interface 0x10 bytes into the UpdateModule.

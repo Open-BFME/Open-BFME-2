@@ -38,7 +38,7 @@ struct Rva0040DD3ARef {
 struct Rva002B488EResult;
 struct Rva002B3740Item;
 class Rva002E2903Player;
-class Rva003F468D;
+
 #include "../../../Include/GameLogic/Rva0020E6B7RegionManager.h"
 class Rva0020E6B7RegionManager;
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"

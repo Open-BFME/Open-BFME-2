@@ -6,7 +6,7 @@
 
 enum NameKeyType { NK_NONE = 0 };
 
-class Object;
+
 class Module;
 #include "../../../Include/GameClient/CommandButton.h"
 #include "../../../Include/GameClient/ControlBar.h"

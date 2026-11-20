@@ -24,7 +24,7 @@
 
 class Object;
 class Player;
-class FXList;
+
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 

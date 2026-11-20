@@ -55,7 +55,7 @@ public:
 	UnsignedInt m_blingGroupCount;					// +0x28
 };
 
-class CreateAHeroHero;
+
 // The rowed award test (0x0040AA27): every requirement holds for the hero.
 #include "../../../Include/GameLogic/Module/CreateAHeroAward.h"
 // The award record's upgrade-key list (+0x04) and its keyed getter.

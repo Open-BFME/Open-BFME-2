@@ -7,7 +7,7 @@
 // stlport
 #include <vector>
 
-class Rva006EE520;
+
 
 #include "unicode_string.h"
 

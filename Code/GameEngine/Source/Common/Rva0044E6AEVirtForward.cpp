@@ -22,7 +22,7 @@
 // the register, which the pair (up, upgrade) reproduces.
 #include "GameLogicObjectLookupView.h"
 
-class Object;
+
 
 #include "../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 

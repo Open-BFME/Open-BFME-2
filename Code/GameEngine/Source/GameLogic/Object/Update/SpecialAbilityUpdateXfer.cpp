@@ -73,7 +73,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-class Object;
+
 
 #include "../../../../Include/Common/BfmeXfer.h"
 

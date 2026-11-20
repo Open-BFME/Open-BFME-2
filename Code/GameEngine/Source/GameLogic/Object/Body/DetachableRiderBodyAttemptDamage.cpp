@@ -20,7 +20,7 @@
 // 6, whose bodies read ActiveBody +0x18 and +0x20. Field names past those are
 // positional: their identities are not established.
 
-class Object;
+
 class ModuleData;
 
 #include "../../../../Include/Common/ScalarTypes.h"

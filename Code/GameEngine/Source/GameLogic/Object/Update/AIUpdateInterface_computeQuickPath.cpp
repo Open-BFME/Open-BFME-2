@@ -28,7 +28,7 @@
 
 
 
-class Object;
+
 extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/GameLogic/PathNode.h"

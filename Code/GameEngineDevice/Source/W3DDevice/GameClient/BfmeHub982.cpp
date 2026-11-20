@@ -8,7 +8,7 @@
 // RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
 // Textures[16], Lights[4] and LightEnable[4], then world at +0x1EC
 // (0x00DEE7C4) and view at +0x22C (0x00DEE804).
-class VertexMaterialClass;
+
 
 class VertexBufferClass;
 

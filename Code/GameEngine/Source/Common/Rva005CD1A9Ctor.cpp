@@ -30,7 +30,7 @@ private:
 };
 }
 
-class Rva005CD1A9;
+
 
 #include "../../Include/Common/Rva005CD0FEElem.h"
 
