@@ -61,6 +61,11 @@ public:
 
 SimpleDynVecClass<FontCharsClass*> BfmeFontCharsCache;
 
+// Retail 0x007AC112: this unit's 16-byte half-rate copy (the DRAWABLE_FRAMES_PER_FLASH shape), the second
+// entry of its initializer run after the font cache above (0x007AC0FA); its static (VA 0x00DE2094) directly
+// follows the cache (0x00DE2084). It takes the constant's own header after the cache, in retail's order.
+#include "../../../../../GameEngine/Include/GameClient/DrawableFramesPerFlash.h"
+
 struct FontCharsHandle
 {
 	char m_pad[8];

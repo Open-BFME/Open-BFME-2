@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 462).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 461).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1606,3 +1606,10 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   TheAnimationSoundModuleManager 0x00E032D0 (the unit's plain global, defined today in AnimationSoundClientBehavior.cpp),
   then the copy 0x00E032D4; the node itself is `.data`. The unit is built on private views and the node closes the
   file, so it takes GameClient/DrawableFramesPerFlash.h after the node, in retail's order; the copy compiles as `_$E3`.
+- *Taken (462 -> 461): W3DGameFont.cpp's copy.* Retail's run is 0x007AC0FA, the font cache's constructor and atexit
+  registration (which W3DGameFont.obj's `_$E6` already registers), then the copy 0x007AC112, closed by the marker
+  0x007AC122. The `.bss` holds the 16-byte BfmeFontCharsCache 0x00DE2084 (read by 0x0009017D and 0x0009023C,
+  approved to W3DGameFont.cpp), then the copy 0x00DE2094, then the next unit's 1 KB tables. W3DGameFont.cpp takes
+  GameClient/DrawableFramesPerFlash.h after the cache's definition, in retail's order, and registers the copy as
+  `_$E9` after `_$E6`. That a font unit builds this constant is a target fact (its run); which header gave it in
+  retail is not known. The pre-existing credit conflict on 0x007AC0FA (our cache's element type) is unchanged.
