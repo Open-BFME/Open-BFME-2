@@ -151,36 +151,19 @@ public:
 	Rva003623E5Filter m_attributeModifierAffects;		// +0xD8
 };
 
-extern "C" char __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-
-extern "C" char __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-
 // +0x20: retail stores 0x00C552A4, SpecialAbilityUpdate's SpecialPowerUpdateInterface
 // table (ICF-shared); the ledger binds this compiled name there. The canonical
 // SpecialAbilityUpdate.h class above owns that vftable, so the name is redeclared
 // with the compiler's own vftable type (9 slots); any other type is C2040/C2373.
 extern "C" void (__cdecl *const __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@")[9])(void);
 
-// Opaque 0x88-byte UpdateModule-derived intermediate; ctor resolves to the
-// opaque pin at 0x0044EF5E. Protected slots mirror the stores the ctor
-// repeats and the fields slot 17 reads.
-class Rva0044EF5E
+// Rva0044EF5E only spells the base constructor call: the ledger rows SpecialAbilityUpdate's constructor
+// under that name. It adds nothing to SpecialAbilityUpdate.
+class Rva0044EF5E : public SpecialAbilityUpdate
 {
 public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva0044EF5E();
-
-protected:
-	const void *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad1[0x20 - 0x14];
-	const void *m_p20;
-	unsigned char m_pad2[0x40 - 0x24];
-	ObjectID m_40;		// +0x40
-	Coord3D m_44;		// +0x44
-	unsigned char m_pad3[0x88 - 0x50];
 };
 
 class DominateEnemySpecialPower : public Rva0044EF5E
@@ -203,9 +186,6 @@ private:
 DominateEnemySpecialPower::DominateEnemySpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_p0C = &__identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");
 }
 
 // ?DominateEnemySpecialPower::~DominateEnemySpecialPower present-unmatched
@@ -301,20 +281,20 @@ void DominateEnemySpecialPower::triggerAbilityEffect()
 	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::triggerAbilityEffect();
 	const DominateEnemySpecialPowerModuleData *data = getDominateEnemySpecialPowerModuleData();
 	Object *owner = m_object;
-	Object *target = TheGameLogic->findObjectByID(m_40);
+	Object *target = TheGameLogic->findObjectByID(m_targetID);
 	if (target) {
 		rva004CCB0E(target, owner, data, true);
 		return;
 	}
 	ObjectStatusMask bits;
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, data->m_dominateRadius, 0,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_targetPos, data->m_dominateRadius, 0,
 		Rva00260EB1Filter(owner, 1, false).link(&Rva0026119DFilter())->link(&Rva002611BFFilter(owner))
 			->link(&Rva002FDF1C(*(BfmeObject872Header *)(ObjectStatusMask *)((Rva0023DA79 *)&bits)->rva0023DA79(0, OBJECT_STATUS_RVA004CCBDF_38),
 				*(BfmeObject872Header *)&ObjectStatusMaskNone())), 1);
 	Object *other;
 	while ((other = hits.next()) != 0)
 		rva004CCB0E(other, owner, data, false);
-	FXList::doFXPos(data->m_triggerFX, &m_44, 0, 0.0f, 0);
+	FXList::doFXPos(data->m_triggerFX, &m_targetPos, 0, 0.0f, 0);
 }
 
 // tu-skeleton: 0x007908A6 8B uw_007908a6 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
