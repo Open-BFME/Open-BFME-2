@@ -1836,7 +1836,7 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
     GameLogic 1). The next homogeneous batch: define each mask in its unit with the BitFlags type after the copy,
     retyping the `unsigned char[28]` consumers through `rename.py global --retype`.
 
-**Round init-4 (halilkkaya-init4, 2026-11-20, bridged 436 -> 433 so far).** Same base, method and per-entry checks as
+**Round init-4 (halilkkaya-init4, 2026-11-20, bridged 436 -> 432 so far).** Same base, method and per-entry checks as
 round init-3. New scripts under `build/init4/`: `mbhd.py` (nbhd.py for the memset shape), `retract_memset.py` (retract
 MaskInits/ZeroInits entries), `scc.py` (scratch compile into `build/init4/obj/` with a source's own `// cl:` line,
 never `build/match`, plus capstone listing).
@@ -1866,3 +1866,12 @@ never `build/match`, plus capstone listing).
   unit's items. Two target facts, no donor one (Zero Hour has no CarryoverUnit). The TU file
   Code/GameEngine/Source/Common/CarryoverUnit.cpp (private views) takes GameClient/DrawableFramesPerFlash.h after its
   first includes and registers the copy as `_$E1`.
+- *Taken (433 -> 432): GUICommandTranslator.cpp's copy (round init-3's held lead).* Between SelectionXlat.cpp's rowed run
+  (`_$E1` 0x007B04B3) and PlaceEventTranslator.cpp's (`_$E1` 0x007B054B) retail's `.text$yc` holds two copy-only runs,
+  0x007B04F7 and 0x007B0521; in `.text` the code between those units is GUICommandTranslator's (0x00431057..0x004318A1)
+  and then FormationTranslator's (0x00431C35..0x004320B0, proposed to FormationTranslator.cpp). The `.bss` agrees:
+  SelectionXlat's copy 0x00E03224, this copy 0x00E03228 (a unit with no plain global), then TheFormationTranslator
+  0x00E0322C (read by FormationTranslator code) and the second copy 0x00E03230. Zero Hour's GUICommandTranslator.cpp
+  includes GameClient/Drawable.h (donor fact), and the approved TU file already compiled the copy as `_$E1`, so only
+  the rows change. *Left:* 0x007B0521 is FormationTranslator's by the same order and layout, but its TU
+  (Common/FormationTranslator.cpp) is only proposed and has no file.
