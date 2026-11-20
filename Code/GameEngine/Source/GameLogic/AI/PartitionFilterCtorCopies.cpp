@@ -118,11 +118,14 @@ void *bfmeAnchorRva0028AABB(void *where, const Object *obj, int flags, bool matc
 }
 
 // vftable 0x00C07150: Rva002619C1Filter, out-of-line constructor copy at 0x002FD66B (22B).
+struct Coord3D;
+
 class Rva002619C1Filter : public Rva000421C8
 {
 public:
 	Rva002619C1Filter(const Object *obj);
 	virtual bool allow(Object *obj);
+	virtual bool rva0026163A(const Coord3D *target);
 	const Object *m_obj;
 };
 

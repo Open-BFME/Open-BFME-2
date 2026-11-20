@@ -49,10 +49,13 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../Include/GameLogic/PartitionFilter.h"
 
+struct Coord3D;
+
 class Rva002619C1Filter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *obj);
+	virtual bool rva0026163A(const Coord3D *target);
 	const Object *m_obj;
 };
 

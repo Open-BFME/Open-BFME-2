@@ -444,12 +444,15 @@ Bool rva00344EB2Gate(Object *obj, Thing *other);
 #include "../../../Include/GameLogic/PartitionFilter.h"
 
 // The line-of-sight partition filter (vtable 0x00C07150).
+struct Coord3D;
+
 class Rva002619C1Filter : public Rva000421C8
 {
 public:
 	Rva002619C1Filter(Object *owner) : m_owner(owner) {}
 	virtual ~Rva002619C1Filter() {}
 	virtual Bool allow(Object *other);
+	virtual bool rva0026163A(const Coord3D *target);
 
 	Object *m_owner;
 };
@@ -744,7 +747,6 @@ Bool Rva0034311ECheck(Object *obj);
 // Retail 0033F9FE..0033FA64: position half of the line-of-sight guard.
 // Native calls establish Object / Coord3D / Weapon roles; filter shape reused
 // from the independently matched object-target guard below, not a donor name.
-#include "../../../Include/Common/Rva0026163A.h"
 
 Bool rva0033F9FE(Object *source, const Coord3D *target, Weapon *weapon)
 {
@@ -752,7 +754,7 @@ Bool rva0033F9FE(Object *source, const Coord3D *target, Weapon *weapon)
      !weapon->getTemplate()->isContactWeapon())
  {
   Rva002619C1Filter filter(source);
-  if (!((Rva0026163A *)&filter)->rva0026163A(target))
+  if (!filter.Rva002619C1Filter::rva0026163A(target))
    return false;
  }
  return true;

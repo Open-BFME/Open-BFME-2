@@ -88,17 +88,19 @@ __forceinline Int spType(const SpecialPowerTemplate *power) { return power->getF
 // remains at+8. This is the same base used by the exact2FD66B-family provider.
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 
+struct Coord3D;
+
 class Rva002619C1Filter : public Rva000421C8
 {
 public:
 	Rva002619C1Filter(Object *owner) : m_owner(owner) {}
 	virtual ~Rva002619C1Filter() {}
 	virtual Bool allow(Object *other);
+	virtual bool rva0026163A(const Coord3D *target);
 
 	Object *m_owner;
 };
 
-#include "../../../../Include/Common/Rva0026163A.h"
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
@@ -187,7 +189,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 			}
 			else
 			{
-				if (((Rva0026163A *)&filterLOS)->rva0026163A(&m_targetPos))
+				if (filterLOS.Rva002619C1Filter::rva0026163A(&m_targetPos))
 					return true;
 			}
 		}

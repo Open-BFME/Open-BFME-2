@@ -430,12 +430,15 @@ static __forceinline Bool weaponTemplateIs16B(const WeaponTemplate *wt) { return
 #include "../../../Include/GameLogic/PartitionFilter.h"
 
 // The line-of-sight partition filter (vtable 0x00C07150).
+struct Coord3D;
+
 class Rva002619C1Filter : public Rva000421C8
 {
 public:
 	Rva002619C1Filter(Object *owner) : m_owner(owner) {}
 	virtual ~Rva002619C1Filter() {}
 	virtual Bool allow(Object *other);
+	virtual bool rva0026163A(const Coord3D *target);
 
 	Object *m_owner;
 };

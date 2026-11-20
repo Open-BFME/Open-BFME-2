@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva0026163A@Rva0026163A@@QAE_NPBUCoord3D@@@Z RVA 0x0026163A 151B
+// ?rva0026163A@Rva002619C1Filter@@UAE_NPBUCoord3D@@@Z RVA 0x0026163A 151B
 // Evidence: calls GeometryInfo::getMaxHeightAbovePosition 0x006BD7C0, TheTerrainLogic virtual +0x3c,
 //   Pathfinder::isAttackViewBlockedByObstacle(Object*,Coord3D*) 0x002F3B9C; donor ZH PartitionManager
 //   PartitionFilterLineOfSight::allow pattern with BFME2 height adjustment.
@@ -25,15 +25,17 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva0026163A
+#include "../../Include/GameLogic/PartitionFilter.h"
+
+class Rva002619C1Filter : public Rva000421C8
 {
 public:
-	unsigned char _00[8];
-	Object *m_obj;
-	bool rva0026163A(const Coord3D *target);
+    virtual bool allow(Object *object);
+    virtual bool rva0026163A(const Coord3D *target);
+    Object *m_obj;
 };
 
-bool Rva0026163A::rva0026163A(const Coord3D *target)
+bool Rva002619C1Filter::rva0026163A(const Coord3D *target)
 {
 	Coord3D sourcePos;
 	sourcePos.x = m_obj->m_pos.x;

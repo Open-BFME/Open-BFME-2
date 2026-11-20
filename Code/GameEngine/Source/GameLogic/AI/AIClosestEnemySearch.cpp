@@ -59,11 +59,14 @@ public:
 // vftable 0x00BF91BC, allow 0x002611BF.
 // vftable 0x00C07190, allow 0x002614DF.
 // vftable 0x00C07150, allow 0x002619C1.
+struct Coord3D;
+
 class Rva002619C1Filter : public Rva000421C8
 {
 public:
 	Rva002619C1Filter(const Object *obj) : m_obj(obj) {}
 	virtual bool allow(Object *obj);
+	virtual bool rva0026163A(const Coord3D *target);
 	const Object *m_obj;
 };
 

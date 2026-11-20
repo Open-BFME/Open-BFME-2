@@ -75,11 +75,14 @@ public:
 #include "../../../Include/GameLogic/Rva002614DFFilter.h"
 
 // vftable 0x00C07150, allow 0x002619C1.
+struct Coord3D;
+
 class Rva002619C1Filter : public Rva000421C8
 {
 public:
 	Rva002619C1Filter(const Object *obj) : m_obj(obj) {}
 	virtual bool allow(Object *obj);
+	virtual bool rva0026163A(const Coord3D *target);
 	const Object *m_obj;
 };
 
