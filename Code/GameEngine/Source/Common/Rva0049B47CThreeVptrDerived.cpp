@@ -40,12 +40,17 @@ public:
 class Rva00484EF4_B2
 {
 public:
-  virtual void f2() {}
+	virtual void slot0() = 0;
+	virtual void slot1(int v) { m_14 = v; }
+
+protected:
+	int m_14;
 };
 
 class Rva00484EF4 : public PrimaryP, public Rva00484EF4_B2
 {
 public:
+	Rva00484EF4() {}
 	virtual ~Rva00484EF4();
 };
 
@@ -53,18 +58,13 @@ Rva00484EF4::~Rva00484EF4()
 {
 }
 
-// Anchor: forces emission of the scalar deleting destructor COMDAT (an
-// out-of-class destructor no longer emits ??_G on its own, and `delete` on a
-// pointer would only virtual-call it). Deleting a freshly-newed object lets
-// the compiler devirtualize to a direct ??_G call, which emits the COMDAT;
-// ??_G calls the dtor above plus the pinned operator delete. The anchor
-// itself is unclaimed scratch. Operator new/delete resolve to their pins.
+// Anchor: abstract class cannot be new'd directly, so call the inline ctor
+// which references the primary vtable and forces emission of the ??_G COMDAT.
 #include <new>
 
-void Rva00484EF4_Anchor()
+void Rva00484EF4_Anchor(Rva00484EF4 *p)
 {
-	Rva00484EF4 *p = new Rva00484EF4;
-	delete p;
+	p->Rva00484EF4::Rva00484EF4();
 }
 
 // BodyModule (ZH BodyModule.h: BehaviorModule plus BodyModuleInterface at
