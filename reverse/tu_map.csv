@@ -2869,7 +2869,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00050A60,25,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00255d17_destroy.cpp
 0x00050A79,63,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00255d17_destroy.cpp
 0x00050AB8,63,code,,,-,,Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp
-0x00050AF7,51,code,,,-,,Code/GameEngine/Source/Common/System/GeometryRecordVector.cpp
+0x00050AF7,51,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp
 0x00050B2A,63,code,,displaced,-,S=Code/GameEngine/Source/Common/System/Geometry.cpp N=Code/GameEngine/Source/Common/System/GeometryInfo.cpp,Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp
 0x00050B69,11,code,,,-,,Code/GameEngine/Source/Common/System/GeometryRecordVectorCopyConstructor.cpp
 0x00050B74,183,code,,,-,,Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp
@@ -3582,7 +3582,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00063531,6,code,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectManager.cpp,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp
 0x00063537,116,code,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectManager.cpp,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp
 0x000635AB,77,code,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp,approved,C,C=0x00063537..0x000635F8,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp
-0x000635F8,47,code,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp,approved,C,C=0x00063537..0x00063627,Code/GameEngine/Source/Common/System/GeometryRecordVector.cpp
+0x000635F8,47,code,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp,approved,C,C=0x00063537..0x00063627,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp
 0x00063627,75,code,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp,approved,C,C=0x00063537..0x000636B3,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp
 0x00063672,11,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameLogic/GhostObject.cpp,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp
 0x0006367D,11,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameLogic/GhostObject.cpp,Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp
