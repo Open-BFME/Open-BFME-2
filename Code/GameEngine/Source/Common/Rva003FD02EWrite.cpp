@@ -7,7 +7,7 @@
 // holds PlusText at +0 and Ref at +0xC (Rva0020F58E shape); ret 4 one char*
 // arg returning total bytes.
 
-class AsciiString;
+
 
 #include "../../Include/Common/AsciiStringRef.h"
 

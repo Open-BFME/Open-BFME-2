@@ -16,7 +16,7 @@
 
 class Object;
 class WeaponBonus;
-struct Coord3D;
+
 #include "../../Include/Common/BfmeRangedWeaponTemplate.h"
 
 #include "../../Include/GameLogic/Module/Rva002C9B80Owner.h"

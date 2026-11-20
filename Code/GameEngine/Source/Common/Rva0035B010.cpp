@@ -13,7 +13,7 @@ enum Relationship
 	ALLIES = 2
 };
 
-class Team;
+
 class Object;
 #include "../../Include/Common/Player.h"
 

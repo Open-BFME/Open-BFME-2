@@ -3,7 +3,7 @@
 // Leaf __thiscall 3-arg setter: if this+0x10 != arg1, store arg1, store arg3 to +0x28,
 // store arg2 to [TheTriggerManager+0x98], then rowed 0x003184B8 with same this.
 // Evidence: callee 0x003184B8 rowed Rva003184B8 same offsets; global VA 0x00DFEC68; callers 0x00318799 0x004943B1.
-class Rva00285D34;
+
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 

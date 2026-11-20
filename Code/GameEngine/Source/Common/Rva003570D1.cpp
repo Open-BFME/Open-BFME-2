@@ -9,7 +9,7 @@
 #include "ascii_string.h"
 
 class TeamPrototype;
-class BfmeTab1026;
+
 
 class Rva002046C0Owner
 {

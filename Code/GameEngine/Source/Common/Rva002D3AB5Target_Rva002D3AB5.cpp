@@ -10,10 +10,10 @@ class Rva002BA8F1Logic;
 
 #include "../../Include/Common/BfmeSelectionState.h"
 
-struct BfmeWorldRV;
+
 extern class ControlBar *TheControlBar;
 
-class GameWindow;
+
 class CommandButton;
 
 #include "../../Include/GameClient/ControlBar.h"

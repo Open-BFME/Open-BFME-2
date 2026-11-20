@@ -8,7 +8,7 @@
 // this + 4 args (2 float pairs + 2 unused ints); this+0x64 GameWindow* and
 // this+0x68 rect. Honest owner-unknown method name.
 
-struct FieldParse;
+
 
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 

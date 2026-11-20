@@ -14,8 +14,8 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-typedef int Int;
-typedef float Real;
+
+
 
 enum AICommandType
 {

@@ -7,8 +7,8 @@
 // displayHeight at +0x3C and displayPos at +0x44, then refreshes via pinned
 // Rva003249D2. Evidence: callers FUN_00725635/FUN_00725fbf push window short
 // bool, unblocks 0x00325635, prev/next share /O1 /DNDEBUG /MD.
-typedef int Int;
-typedef short Short;
+
+
 
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 

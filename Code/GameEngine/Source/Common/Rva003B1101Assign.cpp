@@ -58,7 +58,7 @@ private:
 };
 
 struct OpaqueRefElement4;
-class OpaqueRefCounted;
+
 
 #include "../../Include/Common/OpaqueRefElement4.h"
 

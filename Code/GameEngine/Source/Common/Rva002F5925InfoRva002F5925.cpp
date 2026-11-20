@@ -18,7 +18,7 @@ struct In002E6BA1
 	Int m_04;
 };
 
-class Rva002E6BA1;
+
 #include "../../Include/Common/MixFileInfoBuffer.h"
 
 extern int TheMixFileInfoPool;

@@ -6,7 +6,7 @@
 // Pathfinder::RemoveObjectFromPathfindMap. Evidence: direct call 0x00497805 with
 // ecx=this; cmpl $0,0x34; mov eax,[0xdff0f8]; push 0x8(esi);
 // mov ecx,[eax+0x10]; call 0x002E718A.
-class Object;
+
 
 #include "../../Include/GameLogic/AIPathfind.h"
 

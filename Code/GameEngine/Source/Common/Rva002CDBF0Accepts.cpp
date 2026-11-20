@@ -6,7 +6,7 @@
 //   ?check@Rva002CDBF0@@QAE_NPAVObject@@@Z 0x004A1475 (49B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
 
-class Player;
+
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
 #include "../GameLogic/Object/object.h"
 

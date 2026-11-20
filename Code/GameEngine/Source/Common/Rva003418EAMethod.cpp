@@ -3,7 +3,7 @@
 // Member at +0x20 via virtual slot15 then slot0 with 0 plus delete plus clear plus ptr chase +0x18 +0x14 +0x258 null-checked plus byte at +0x3BA cleared.
 // Precedent AIHarvestState dtor member shape plus State m_machine chase.
 // Vtable 0x008113B8 slot 5.
-class StateMachine;
+
 #include "../../Include/Common/StateMachine.h"
 class Rva003418EAMember {
 public:
