@@ -78,9 +78,7 @@ private:
 
 #include "../../../Include/GameLogic/Module/UpdateModule.h"
 
-class TransportContain : public UpdateModule, public ContainModuleInterface
-{
-};
+#include "../../../Include/GameLogic/Module/TransportContain.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 // Kind-mask byte test on the canonical +0x108 storage.

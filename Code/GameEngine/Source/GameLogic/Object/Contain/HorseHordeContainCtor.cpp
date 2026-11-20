@@ -13,15 +13,15 @@
 class Thing;
 class ModuleData;
 
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB0@@@")[];  // vftable 0x00C45C38
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB1@@@")[];  // vftable 0x00C441B8
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB2@@@")[];  // vftable 0x00C45040
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB3@@@")[];  // vftable 0x00C45AC0
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB4@@@")[];  // vftable 0x00C45AA4
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB5@@@")[];  // vftable 0x00C46F78
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB6@@@")[];  // vftable 0x00C58790
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB7@@@")[];  // vftable 0x00C43FFC
-extern "C" const void *const __identifier("??_7HorseHordeContain@@6BB8@@@")[];  // vftable 0x00C46B9C
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BObjectModule@@@")[];  // vftable 0x00C45C38
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C441B8
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BUpdateModule@@@")[];  // vftable 0x00C45040
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BContainModuleInterface@@@")[];  // vftable 0x00C45AC0
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BCollideModuleInterface@@@")[];  // vftable 0x00C45AA4
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BDieModuleInterface@@@")[];  // vftable 0x00C46F78
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BDamageModuleInterface@@@")[];  // vftable 0x00C58790
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BExitInterface@@@")[];  // vftable 0x00C43FFC
+extern "C" const void *const __identifier("??_7HorseHordeContain@@6BCreateModuleInterface@@@")[];  // vftable 0x00C46B9C
 extern "C" const void *const __identifier("??_7HorseHordeContain@@6BTransportContain@@@")[];  // vftable 0x00C47834
 extern "C" const void *const __identifier("??_7HorseHordeContain@@6BHLC@@@")[];  // vftable 0x00C45838
 
@@ -62,15 +62,15 @@ public:
 HorseHordeContain::HorseHordeContain(Thing *thing, const ModuleData *moduleData)
 	: HordeContain(thing, moduleData)
 {
-	m_vtable = __identifier("??_7HorseHordeContain@@6BB0@@@");
-	m_p0C = __identifier("??_7HorseHordeContain@@6BB1@@@");
-	m_p10 = __identifier("??_7HorseHordeContain@@6BB2@@@");
-	m_p20 = __identifier("??_7HorseHordeContain@@6BB3@@@");
-	m_p24 = __identifier("??_7HorseHordeContain@@6BB4@@@");
-	m_p28 = __identifier("??_7HorseHordeContain@@6BB5@@@");
-	m_p2C = __identifier("??_7HorseHordeContain@@6BB6@@@");
-	m_p30 = __identifier("??_7HorseHordeContain@@6BB7@@@");
-	m_p34 = __identifier("??_7HorseHordeContain@@6BB8@@@");
+	m_vtable = __identifier("??_7HorseHordeContain@@6BObjectModule@@@");
+	m_p0C = __identifier("??_7HorseHordeContain@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7HorseHordeContain@@6BUpdateModule@@@");
+	m_p20 = __identifier("??_7HorseHordeContain@@6BContainModuleInterface@@@");
+	m_p24 = __identifier("??_7HorseHordeContain@@6BCollideModuleInterface@@@");
+	m_p28 = __identifier("??_7HorseHordeContain@@6BDieModuleInterface@@@");
+	m_p2C = __identifier("??_7HorseHordeContain@@6BDamageModuleInterface@@@");
+	m_p30 = __identifier("??_7HorseHordeContain@@6BExitInterface@@@");
+	m_p34 = __identifier("??_7HorseHordeContain@@6BCreateModuleInterface@@@");
 	m_pFC = __identifier("??_7HorseHordeContain@@6BTransportContain@@@");
 	m_p11C = __identifier("??_7HorseHordeContain@@6BHLC@@@");
 }
