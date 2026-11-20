@@ -10,6 +10,7 @@
 // Original trailing string spellings and the remaining virtual API are unasserted.
 #include <string.h>
 #include "ascii_string.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
@@ -32,12 +33,15 @@ public: Rva00360D26Member(); ~Rva00360D26Member();
 private: unsigned int index;
 };
 #include "../../../../Include/GameLogic/Module/Rva003623E5Filter.h"
-class InvisibilityUpdateModuleData : public Snapshot {
+// Retail's table for InvisibilityUpdateModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int.
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class InvisibilityUpdateModuleData : public ModuleData {
 public:
  InvisibilityUpdateModuleData();
  __declspec(noinline) virtual ~InvisibilityUpdateModuleData();
 private:
- unsigned int unused04;
  Rva002542F3Member nugget;
  unsigned int updatePeriod;
  Rva001EAE6FHelper requiredUpgrades;

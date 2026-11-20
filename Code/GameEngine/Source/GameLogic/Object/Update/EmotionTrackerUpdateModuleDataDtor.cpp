@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 
@@ -52,13 +53,16 @@ struct EntryVec
 	Rva004DC9EDEntry **m_end;
 };
 
-class EmotionTrackerUpdateModuleData : public Snapshot
+// Retail's table for EmotionTrackerUpdateModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int.
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class EmotionTrackerUpdateModuleData : public ModuleData
 {
 public:
 	virtual ~EmotionTrackerUpdateModuleData();
 
 private:
-	int m_unused04; // +0x04, retail never stores it
 	float m_value08; // +0x08
 	int m_flags0C; // +0x0C
 	Rva003623E5Filter m_filter0; // +0x10
