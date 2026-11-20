@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 465).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 464).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1584,3 +1584,13 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   which bring in Zero Hour's GameClient/Drawable.h, so it takes `reference/shims/bfme2_drawable_flash` first on its
   include path (round lk58) and its object registers the copy as `_$E31`. The two radar statics stay bridged
   (Rva007ABD4BGeometryInits.cpp).
+- *Taken (465 -> 464): W3DScene.cpp's copy.* 0x007ABEC9 is alone in its run (markers 0x007ABEAF and 0x007ABED9).
+  The `.bss` runs: TheTerrainRenderObject 0x00DE1EAC, the bridged copy 0x00DE1EB0 (0x007ABE9F), the guard of
+  `BaseHeightMapRenderObjClass::evaluateAsVisibleCliff` 0x00DE1EB4, SceneModeOverride 0x00DE1EB8 (read only by
+  0x0007054F, approved to W3DScene.cpp), this copy 0x00DE1EBC, then `W3DShroud::interpolateFogLevels`' locals.
+  W3DScene.cpp includes GameClient/Drawable.h (our source, and Zero Hour's W3DScene.cpp, a donor fact), and its
+  RTS3DScene fragments compile copies, so the unit has a copy, and by the plain-global layout it follows
+  SceneModeOverride: the next item is W3DShroud's. The unit takes `reference/shims/bfme2_drawable_flash` first on
+  its include path and registers the copy as `_$E22`. *Lead:* 0x007ABE9F (static 0x00DE1EB0) sits between
+  TheTerrainRenderObject and BaseHeightMap's guard, the same sandwich for BaseHeightMap.cpp once that global's
+  definition (W3DFloorDrawDtor.cpp) and the unit's readers are settled.
