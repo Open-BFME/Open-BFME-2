@@ -57,6 +57,15 @@
       "providers": [
         "Code/GameEngine/Source/Common/Rva0026163A.cpp"
       ]
+    },
+    {
+      "class": "Thing",
+      "consumers": [
+        "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp"
+      ],
+      "providers": [
+        "Code/GameEngine/Source/Common/Rva0026163A.cpp"
+      ]
     }
   ]
 }

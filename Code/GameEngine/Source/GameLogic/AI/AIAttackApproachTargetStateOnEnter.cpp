@@ -322,18 +322,7 @@ static inline Bool thingTemplateIsKindOfProjectile(const ThingTemplate *tmpl)
 static inline UnsignedInt thingTemplateKindOfWord(const ThingTemplate *tmpl, Int i)
 { return ((const UnsignedInt *)thingTemplateKindOfBytes(tmpl))[i]; }
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	const Coord3D *getUnitDirectionVector2D() const;
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-};
+#include "../../Common/Thing/thing.h"
 
 #include "../../../Include/Common/Team.h"
 
@@ -376,7 +365,6 @@ public:
 	const Rva0028AC4EEntry *rva0028AC4E() const;
 	void rva0028CDB6();
 	Real GetRelativeAngle(const Coord3D *pos) const;
-	Real getOrientation() const { return m_orientation; }
 	Bool rva002943B2(const Player *player);
 	Bool isOutOfAmmo() const;
 	Object *adjustVictim(Object *owner, bool useWeaponRange, Int index);
@@ -396,8 +384,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 public:
 	ObjectID getID() const { return (ObjectID)m_id; }
-	Real m_orientation; // +0x44
-	unsigned char m_pad048[0x74 - 0x48];
+	unsigned char m_pad060[0x74 - 0x60];
 	Int m_id; // +0x74
 	unsigned char m_pad078[0x94 - 0x78];
 	UnsignedInt m_94; // +0x94 (bit 0: destroyed)
