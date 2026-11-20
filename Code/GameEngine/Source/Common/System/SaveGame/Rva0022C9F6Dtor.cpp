@@ -15,13 +15,13 @@
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
-template <> void _List_base<Rva00375AF7Entry, allocator<Rva00375AF7Entry> >::clear();
+extern template void _List_base<Rva00375AF7Entry, allocator<Rva00375AF7Entry> >::clear();
 }
 
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
-template <> _List_base<Rva00375AF7Entry, allocator<Rva00375AF7Entry> >::~_List_base();
+extern template _List_base<Rva00375AF7Entry, allocator<Rva00375AF7Entry> >::~_List_base();
 }
 
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
