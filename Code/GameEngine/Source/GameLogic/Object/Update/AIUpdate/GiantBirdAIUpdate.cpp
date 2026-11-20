@@ -33,7 +33,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 enum AICommandType { AICMD_NO_COMMAND = -1 };
-enum CommandSourceType { CMD_FROM_AI = 2 };
+#include "../../../command_source_type.h"
 enum KindOfType { KINDOF_BFME_9B = 0x9B };
 
 class Object;
@@ -240,6 +240,7 @@ public:
 	Bool isCommandPending() const { return m_commandPending; }
 	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+	virtual void privateFollowPathAppend(const Coord3D *pos, CommandSourceType commandSource);
 	void rva0036AE79();
 	const GiantBirdAIUpdateModuleData *getGiantBirdAIUpdateModuleData() const { return (const GiantBirdAIUpdateModuleData *)m_moduleData; }
 	Bool testFlag(Int bit) const { return (m_4B8 >> bit) & 1; }
@@ -259,7 +260,8 @@ private:
 	Real m_53C; // +0x53C
 	unsigned char m_pad540[0x544 - 0x540];
 	Coord3D m_544; // +0x544
-	unsigned char m_pad550[0x558 - 0x550];
+	Bool m_pathLoops; // +0x550
+	unsigned char m_pad551[0x558 - 0x551];
 	Bool m_commandPending; // +0x558
 	unsigned char m_pad559[0x560 - 0x559];
 	Coord3D m_560; // +0x560

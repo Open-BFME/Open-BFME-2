@@ -38,7 +38,7 @@ _Vector_base<Coord3D,allocator<Coord3D> >::~_Vector_base() {
 class Object;
 class Rva0035149F;
 
-#include "../../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "../../../command_source_type.h"
 
 
 
