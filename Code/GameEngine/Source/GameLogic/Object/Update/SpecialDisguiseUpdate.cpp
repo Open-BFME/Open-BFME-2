@@ -218,7 +218,7 @@ protected:
 	unsigned char m_pad0C[0x24 - 0x0C];
 	int m_state; // +0x24
 };
-class FXList;
+
 // The destructor fragment proves the 0xC8 polymorphic base and the two string
 // members. Keep its existing base spelling until that identity is recovered.
 class Rva0044ECCE

@@ -138,7 +138,7 @@ private:
 struct Rva00506C82Arg;
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
 
-struct Rva002A8AB1Record;
+
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 

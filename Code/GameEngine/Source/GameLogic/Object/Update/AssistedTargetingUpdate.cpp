@@ -40,7 +40,7 @@ extern const LookupListRec TheWeaponSlotTypeNamesLookupList[6];
 class Team;
 class ThingTemplate;
 class Drawable;
-class ClientUpdateModule;
+
 #include "../../../../Include/Common/Player.h"
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"

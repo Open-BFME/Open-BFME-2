@@ -27,7 +27,7 @@ struct Pos0047FFFE
 	float y;
 	float z;
 };
-class Object;
+
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.

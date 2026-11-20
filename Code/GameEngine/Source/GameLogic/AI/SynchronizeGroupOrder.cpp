@@ -42,7 +42,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 class Rva0036E346;
-class Xfer;
+
 struct Coord3D;
 struct GroupOrderCommand;
 #include "../../../Include/Common/ScalarTypes.h"

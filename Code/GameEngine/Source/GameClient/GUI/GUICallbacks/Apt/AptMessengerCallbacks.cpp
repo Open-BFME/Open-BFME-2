@@ -151,7 +151,7 @@ struct Rva00511730State;
 // inferred from use).
 #include "../../../../../../Libraries/Include/Lib/Coord2D.h"
 
-class Rva005B000C;
+
 
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 

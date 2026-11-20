@@ -67,7 +67,7 @@ Rva00041D03::Rva00041D03(int skip)
 // (10B each): out-of-line copies of WW3D's inline static accessors over
 // IsInitted, ThumbnailEnabled, IsScreenUVBiased, the 0x00DB5F88 word and
 // AreStaticSortListsEnabled.
-class Rva000422F3;
+
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

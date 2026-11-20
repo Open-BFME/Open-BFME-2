@@ -20,8 +20,8 @@ enum NameKeyType
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Thing;
 class ModuleData;
-class Object;
-class TerrainResourceBehaviorModuleData;
+
+
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include <math.h>
 #include "unicode_string.h"

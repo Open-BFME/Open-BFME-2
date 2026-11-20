@@ -43,7 +43,7 @@ template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List
 #include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 class DamageInfo;
 #include "../../../../../GameEngine/Include/GameClient/Drawable.h"
-class Object;
+
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;

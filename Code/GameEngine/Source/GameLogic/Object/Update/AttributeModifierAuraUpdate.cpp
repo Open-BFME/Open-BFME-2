@@ -9,7 +9,7 @@
 #include <stddef.h>
 class Object;
 class Player;
-class FXList;
+
 class ModuleData;
 enum UpdateSleepTime
 {

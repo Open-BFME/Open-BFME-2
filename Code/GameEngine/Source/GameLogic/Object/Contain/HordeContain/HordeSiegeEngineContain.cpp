@@ -322,7 +322,7 @@ class ModuleData;
 
 class Object;
 
-class Rva0047BDED;
+
 
 struct Rva0047BDEDNode
 {

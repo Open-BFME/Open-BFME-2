@@ -89,7 +89,7 @@ public:
 	char m_pad00[0x34];
 };
 
-class Text004721F0;
+
 
 struct ICoord2D;
 

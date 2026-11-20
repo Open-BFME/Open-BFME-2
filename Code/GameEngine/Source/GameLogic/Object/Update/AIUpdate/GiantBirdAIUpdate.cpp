@@ -35,7 +35,7 @@ enum UpdateSleepTime
 enum AICommandType { AICMD_NO_COMMAND = -1 };
 enum CommandSourceType { CMD_FROM_AI = 2 };
 enum KindOfType { KINDOF_BFME_9B = 0x9B };
-class FXList;
+
 class Object;
 class FXList
 {

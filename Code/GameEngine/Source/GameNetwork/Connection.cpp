@@ -27,7 +27,7 @@
 
 #include "../../Include/Common/ScalarTypes.h"
 
-class NetCommandRef;
+
 class NetCommandMsg;
 #include "../../Include/GameNetwork/NetCommandListClass.h"
 
@@ -44,8 +44,8 @@ struct ConnectionBlock0C
 	UnicodeString m_name;
 };
 class Transport;
-class NetAckBothCommandMsg;
-struct InitAddrs;
+
+
 
 extern const float g_00BC26EC;
 #include "../../Include/GameNetwork/NetCommandMsg.h"

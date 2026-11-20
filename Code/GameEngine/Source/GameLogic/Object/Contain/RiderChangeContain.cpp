@@ -57,7 +57,7 @@ class AsciiString;
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
-class Coord3DBase;
+
 class ICoord3D;
 class Region3D;
 class IRegion3D;

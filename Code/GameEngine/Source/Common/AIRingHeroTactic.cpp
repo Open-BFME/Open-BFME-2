@@ -12,7 +12,7 @@ struct Rva005AC7E1Template
 	unsigned char m_120;
 	unsigned char m_121;
 };
-class Object;
+
 class Rva00352ECA
 {
 public:

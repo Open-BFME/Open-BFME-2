@@ -64,8 +64,8 @@ extern GameEngine *TheGameEngine;
 
 extern Display *TheDisplay;
 
-class Object;
-class Player;
+
+
 
 // Money at +0x90 here (canonical Rva003B0D7C, 12 bytes; count at +0x94).
 #include "../../Include/GameLogic/Module/Rva003B0D7C.h"

@@ -14,7 +14,7 @@ class Thing;
 
 class ModuleData;
 
-class Object;
+
 
 class ThingTemplate;
 

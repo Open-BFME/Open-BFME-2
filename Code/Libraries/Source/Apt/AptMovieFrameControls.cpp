@@ -46,7 +46,7 @@ struct AptFrame {int count; AptControl **controls;};
 #include "EAStringC.h"
 #include "AptDisplayListState.h"
 #include "AptDisplayList.h"
-class AptPseudoDisplayList;
+
 
 void AptMovie::doFrameControls(AptDisplayList *display,AptCIH *inst,int frame) {
  CHECK(frame>=0 && frame<nFrames,0x110,"nFrame >= 0 && nFrame < (int)nFrames");

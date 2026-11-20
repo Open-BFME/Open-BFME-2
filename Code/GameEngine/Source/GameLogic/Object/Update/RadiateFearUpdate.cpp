@@ -41,7 +41,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // 0x0049C195 calls UpdateModule::xfer and the member at +0x20.
 class Thing;
 class ModuleData;
-class Object;
+
 #include "../../../../Include/Common/ObjectModule.h"
 //
 // ?xfer@RadiateFearUpdate@@MAEXPAVXfer@@@Z, retail 0x0049C195, 61 bytes.
@@ -114,7 +114,7 @@ class Snapshot;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class RadiateFearUpdate;
+
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 class Player;
 #include "../../../../Include/GameLogic/PartitionFilter.h"

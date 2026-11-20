@@ -92,7 +92,7 @@ class Rva0070B4F0GetString_t;
 
 EAStringC *Rva0070B4F0GetString(int index);
 
-class Rva0070B380;
+
 
 class Rva0070B380
 {
@@ -341,7 +341,7 @@ void    AptNativeHash::Expand()
 
     for(i = 0 ; i < mnTotalSize ; ++i)
     {
-        
+
         pKey = (EAStringC *)&mpData[i].key;
         if (((AsciiString *)pKey)->hasData() == false)
         {

@@ -25,7 +25,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class Object;
+
 
 extern GameLogic *TheGameLogic;
 

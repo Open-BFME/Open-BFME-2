@@ -100,7 +100,7 @@ private:
 	unsigned char m_data[4];
 };
 class ModuleData;
-class AIUpdateInterface;
+
 #include "../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../Include/Common/XferVersion.h"
 // The Object's AI as these units use it: slot 110 (+0x1B8) answers whether

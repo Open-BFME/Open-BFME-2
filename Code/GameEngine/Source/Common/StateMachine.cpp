@@ -13,7 +13,7 @@
 namespace _STL { template <> _Rb_tree<int, pair<int const, void *>, _Select1st<pair<int const, void *> >, less<int>, allocator<pair<int const, void *> > >::~_Rb_tree(); }
 // bfme link decl-only end
 
-class Object;
+
 class Xfer;
 // ?rva004D7127@State@@QAEXPBUStateConditionInfo@@@Z at retail 0x004D7127 (33B).
 // State transitions array setter called by StateMachine::defineState 0x004D7B0F.
@@ -21,7 +21,7 @@ class Xfer;
 // +0x10/+0x14 match StateCtor layout and friend_checkForTransitions 0x004D7148 count loop;
 // stride 0xC matches StateConditionInfo (test/toState/userData) null-terminated.
 
-class StateMachine;
+
 #include "../../Include/Common/ScalarTypes.h"
 typedef unsigned int StateID;
 

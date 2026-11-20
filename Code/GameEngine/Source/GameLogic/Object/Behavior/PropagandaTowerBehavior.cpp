@@ -75,7 +75,7 @@ public:
 // BitFlags 0x00481B7F share /O1.
 
 #include "../../../../Include/Common/ScalarTypes.h"
-class Object;
+
 class Rva0028ADECmpBoolField
 {
 public:
@@ -162,7 +162,7 @@ private:
 	char m_pad0C[0x2c - 0x0c];
 	const UpgradeTemplate *m_tmpl; // +0x2c
 };
-class PropagandaTowerBehaviorModuleData;
+
 extern GameLogic *TheGameLogic;
 class ObjectTracker
 {

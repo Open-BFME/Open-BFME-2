@@ -44,7 +44,7 @@ public:
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class FXList;
+
 
 struct FindPositionOptions{
  FindPositionOptions():flags(0),minRadius(0),maxRadius(0),startAngle(-99999.9f),maxZDelta(1e10f),ignoreObject(0),sourceToPathToDest(0),relationshipObject(0){}
@@ -220,7 +220,7 @@ extern PartitionManager *ThePartitionManager;
 
 
 
-class Rva004CD4DCItem;
+
 
 struct Coord3D;
 

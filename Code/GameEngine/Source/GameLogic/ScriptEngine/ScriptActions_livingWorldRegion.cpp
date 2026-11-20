@@ -127,7 +127,7 @@ private:
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class Player;
+
 #ifndef BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif

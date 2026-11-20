@@ -539,7 +539,7 @@ public:
 	virtual void rva00664370(int result, Rva00664370Probe *probe);
 };
 
-class BfmeResBT;
+
 
 class BfmeResBT
 {

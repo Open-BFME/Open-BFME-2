@@ -17,7 +17,7 @@ public:
 // Native 5CCC74 copies a counted reference and an implementation pointer.
 // WB inlines the equivalent pair construction; its original pair type is
 // unknown, so this view keeps the retail constructor's address.
-class Rva005CCC74Record;
+
 class Rva005CD018Obj;
 #include <list>
 // These adjacent matched calls remain out of line; erase below uses its verified

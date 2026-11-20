@@ -71,7 +71,7 @@ public:
 
 class ParticleSystemTemplate;
 
-class LaserUpdate;
+
 
 #include "../../../../Include/GameClient/ParticleSys.h"
 
@@ -79,7 +79,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 
 class Matrix3D;
 
-class Rva00603BB0ObjectView;
+
 
 class Drawable;
 

@@ -149,7 +149,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
-class Object;
+
 #include "../../../Include/GameLogic/Weapon.h"
 
 #include "../../../Include/GameLogic/StancesBehavior.h"

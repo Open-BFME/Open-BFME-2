@@ -223,7 +223,7 @@ __declspec(noinline) inline void Rva006D15B0Stack::rva006D15B0(int *const *handl
 #include "AptActionInterpreter.h"
 extern AptActionInterpreter g_aptDateInterpreter;
 
-class AptLinker;
+
 #include "BfmeAptValue006DCD20.h"
 
 #include "AptNativeHash.h"

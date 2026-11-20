@@ -151,7 +151,7 @@ private:
 	unsigned int m_words[19];
 };
 
-class Object;
+
 class AIUpdateInterface;
 
 enum DisabledType

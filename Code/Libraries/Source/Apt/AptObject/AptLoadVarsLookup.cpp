@@ -50,7 +50,7 @@ extern Rva008B2BD0Item *g_rva008B2BD0_0,*g_rva008B2BD0_1,*g_rva008B2BD0_2,*g_rva
 const R4Word *Rva008A44A0(const char *,unsigned int);
 void Rva006CC110Log(int,const char *,...);
 AptValue *rva006e9730(AptValue *);
-class AptString;
+
 // The existing pooled string factory returns AptString; SetString has the
 // actual AptValue provider. No complete string layout is assumed here.
 class AptString : public AptValue
