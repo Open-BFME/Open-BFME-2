@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 456).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 455).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1658,3 +1658,10 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   `reference/shims/bfme2_drawable_flash` first on its include path and registers the copy as `_$E14`. *Lead:*
   0x007AED1A shares its run with 0x007AED2A, which builds g_validityBegin (read only by code approved to
   System/ObjectFilter.cpp), so it is that unit's copy, ahead of the vector initializer.
+- *Taken (456 -> 455): GameState.cpp's copy.* 0x007AE45F is alone in its run (markers 0x007AE445 and 0x007AE46F). The
+  `.bss` holds TerrainRoads' m_idCounter 0x00DFF088, then TheGameState 0x00DFF08C and s_inLoadGame 0x00DFF090 (read
+  only by 0x002DD91A and 0x002DE3C1, approved to GameState.cpp), this copy 0x00DFF094, then
+  TheLivingWorldBuildingTemplateStore. Link order agrees (Terrain/TerrainRoads.cpp's code 0x002DAC34.. precedes
+  GameState.cpp's 0x002DBB9A..). Zero Hour's GameState.cpp reaches GameClient/Drawable.h through
+  GameClient/GameClient.h (donor fact), and so does ours, through Zero Hour's header. GameState.cpp takes
+  `reference/shims/bfme2_drawable_flash` first on its include path and registers the copy as `_$E34`.
