@@ -19,11 +19,13 @@ class AIInternalMoveToState : public State
 public:
 	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
 	virtual ~AIInternalMoveToState();
-	virtual void xfer(Xfer *xfer);
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
+	// retail 0x0033FF76 (slot 3) and 0x003441F7 (slot 17) are rowed protected
+	virtual void xfer(Xfer *xfer);
+	virtual bool computePath();
 	Coord3D m_goalPosition; // +0x20
 	Real m_2C;
 	int m_30;
@@ -126,6 +128,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIAttackApproachTargetState::AIAttackApproachTargetState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking)
 	: AIInternalMoveToState(machine, 0xcc44c7b1u)
@@ -168,6 +173,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIAttackApproachTargetState00C12678::AIAttackApproachTargetState00C12678(StateMachine *machine)
 	: AIInternalMoveToState(machine, 0x2c0e0e68u)
@@ -207,6 +215,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIAttackPursueTargetState::AIAttackPursueTargetState(StateMachine *machine, Bool follow, Bool attackBuildings, Bool forceAttacking)
 	: AIInternalMoveToState(machine, 0xd69031bfu)
@@ -264,6 +275,9 @@ protected:
 public:
 	// retail vftable slot: the rowed override
 	virtual StateReturnType onEnter();
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIAttackMeleeApproachState::AIAttackMeleeApproachState(StateMachine *machine)
 	: AIInternalMoveToState(machine, 0x11c8c40du)
@@ -294,6 +308,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIAttackMeleeSquishState::AIAttackMeleeSquishState(StateMachine *machine)
 	: AIInternalMoveToState(machine, 0xc891265au)
@@ -407,6 +424,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIFollowPathState::AIFollowPathState(StateMachine *machine, unsigned int hash)
 	: AIInternalMoveToState(machine, hash)
@@ -607,6 +627,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIMoveAwayAndCowerState::AIMoveAwayAndCowerState(StateMachine *machine)
 	: Rva00342843(machine, 0x0c947cc9u)
@@ -631,6 +654,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 AIBackAwayState::AIBackAwayState(StateMachine *machine)
 	: Rva00342843(machine, 0x0fcb3e8du)
