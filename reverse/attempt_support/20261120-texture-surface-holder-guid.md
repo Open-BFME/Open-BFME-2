@@ -1,5 +1,15 @@
 # Texture TU: canonical surface/holder and GUID provider reconciliation
 
+Root outcome: only the seed SurfaceClass prerequisite was accepted (24/24)
+and committed as 7c52b0ebb1. The proposed cursor remains blocked: ordinary
+7/7 bytes pass, but native header acceptance and the normal merged-object
+link guard both predict 547 -> 0 linked bytes because the canonical default
+constructor's existing O2/O1 copies differ. The uncommitted cursor patch was
+reverted; its original source again passes 7/7 and LINKS 547 -> 547. No donor
+was absorbed and no cursor queue entry was retired. See the independent
+provider, actual-retail-constructor and default-profile evidence in
+20261120-texture-cursor-canonical-link-blocker.md in this directory.
+
 Private verified proposals only. No production source, header, ledger, Git,
 claim or register changes by this agent.
 
