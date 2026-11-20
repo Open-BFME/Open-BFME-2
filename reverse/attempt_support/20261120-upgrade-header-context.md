@@ -32,3 +32,22 @@ diagnostics/continue-20261120-body-recovery-1656/agents/melee/
 retained-upgradecenter-slot-audit.json and early-upgradecenter-include-results.json.
 The remaining selected class sources stay open; this is a source-level partial
 adoption, not completion of the14-source served item or runtime proof.
+
+## Final retained contexts
+
+The incorrect AI adoption was removed from the unpublished local series;
+AIPlayer is byte-for-byte the original source and both original header
+debts remain. A normal revert was refused as adding a new private class,
+so the unpublished introduction itself was removed; no class-gate
+allowance or other exemption was added. Previously published history is
+preserved and remains an ancestor. No AI retirement is claimed.
+
+ReloadIniFileNotices first aligns the existing inherited slot2 name with
+loadIniFilesFromLegend. Upgrade.h then precedes MessageStream.h, the first
+full SubsystemInterface include. Actual source equals the independently
+checked early-header composition. All13 rows,11 literals and external
+code/data/undefined-reference footprints remain unchanged. Full native
+type records change only the expected SubsystemInterface names and the
+UpgradeCenter override slots, preserving14 slots and correct4/5 dispatch.
+Both OCL and Reload use the existing unchanged header and native class
+acceptance. Reload retires exactly one header-queue source row.
