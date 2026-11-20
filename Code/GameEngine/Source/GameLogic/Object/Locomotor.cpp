@@ -529,14 +529,7 @@ private:
 
 #include "../../../Include/GameLogic/Module/Rva001E685F.h"
 
-class Rva001E702E
-{
-public:
-	void rva001E702E(Thing *o, int b, int c);
-	char m_pad00[0x68];
-private:
-	char m_mat[64]; // +0x68
-};
+#include "../../../Include/GameLogic/Module/Rva001E702E.h"
 
 class Rva001E7E25Elem
 {
@@ -1026,7 +1019,8 @@ void LocomotorStore::reset()
 void Rva001E702E::rva001E702E(Thing *thing, int b, int c)
 {
 	((Rva001E685F *)this)->rva001E685F((Object *)thing, (const Coord3D *)b, (float *)c);
-	thing->setTransformMatrix((const Matrix3D *)&m_mat);
+	const unsigned char *storage = reinterpret_cast<const unsigned char *>(this);
+	thing->setTransformMatrix(reinterpret_cast<const Matrix3D *>(storage + 0x68));
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva001E7C2BForwarders.cpp
