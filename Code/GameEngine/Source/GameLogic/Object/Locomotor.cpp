@@ -118,12 +118,7 @@ void *&vector<void *>::operator[](size_t n) { return this->_M_start[n]; }
 
 enum NameKeyType;
 
-class LocomotorTemplate
-{
-public:
-	char m_pad00[0x10];
-	int m_surfaces;							// +0x10, the legal-surface mask
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 // Zero Hour's OVERRIDE<T>: operator-> resolves the final override
 // (0x0035C95F for LocomotorTemplate).
@@ -1322,7 +1317,8 @@ int Locomotor::getLegalSurfaces() const
 {
 	// The class's +8 is a position, not an override: retail's 0x002BEDBE is not this class's method, and its owner is
 	// still unproven (LocomotorClass.h). The row keeps its name and its exact bytes until that owner is found.
-	return reinterpret_cast<const OVERRIDE<LocomotorTemplate> &>(m_08)->m_surfaces;
+	const LocomotorTemplate *resolved = reinterpret_cast<const OVERRIDE<LocomotorTemplate> &>(m_08).operator->();
+	return *reinterpret_cast<const int *>(reinterpret_cast<const unsigned char *>(resolved) + 0x10);
 }
 
 // INI block registration (LINK-236). BFME's INI keeps its block types on a
