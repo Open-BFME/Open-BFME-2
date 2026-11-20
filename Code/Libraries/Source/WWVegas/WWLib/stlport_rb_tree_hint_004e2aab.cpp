@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // BFME2 STLport tree with an AsciiString key and a four-byte opaque mapped value.
 // The application's original mapped-type name is not established.
@@ -17,13 +17,6 @@ bool operator<(const AsciiString &, const AsciiString &);
 struct TreeHintPayload004E2257 { char m_body[4]; };
 typedef _STL::pair<const AsciiString, TreeHintPayload004E2257> TreeHintPair004E2257;
 typedef _STL::_Rb_tree<AsciiString, TreeHintPair004E2257, _STL::_Select1st<TreeHintPair004E2257>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair004E2257> > TreeHint004E2257;
-// BFME replaces STLport allocation with a static byte allocator (RVA 0x307F0).
-namespace _STL {
-template <> class allocator<char> {
-public:
-    static char *allocate(unsigned int bytes, const void *hint);
-};
-}
 
 // Retail 0x004E2089 allocates the node, then constructs its value.
 // Unlike stock STLport, this retail body has no allocation-cleanup catch path.
