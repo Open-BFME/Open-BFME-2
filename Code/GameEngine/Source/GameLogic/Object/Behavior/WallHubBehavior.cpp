@@ -122,15 +122,22 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 };
 
+template <int N> class BitFlags;
+// Retail's UpdateModuleInterface table is update, getDisabledTypesToProcess and a
+// sleep-time setter; UpdateModule overrides the last two (0x00253376, 0x0044DF8D).
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
+	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
+	virtual void rva0044DF8D(UpdateSleepTime) = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
+	virtual BitFlags<11> getDisabledTypesToProcess() const;
+	virtual void rva0044DF8D(UpdateSleepTime);
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
 	virtual void xfer(Xfer *xfer);

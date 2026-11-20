@@ -48,7 +48,11 @@ enum NameKeyType
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface { public: virtual UpdateSleepTime update(); };
+template <int N> class BitFlags;
+// Retail's UpdateModuleInterface table is update, getDisabledTypesToProcess and a
+// sleep-time setter; UpdateModule overrides the last two (0x00253376, 0x0044DF8D).
+class UpdateModuleInterface { public: virtual UpdateSleepTime update();
+	virtual BitFlags<11> getDisabledTypesToProcess() const = 0; virtual void rva0044DF8D(UpdateSleepTime) = 0; };
 
 // UpdateModule base; ctor and xfer resolve to their rows. The update()
 // override runs on the UpdateModuleInterface subobject at +0x10.
@@ -59,6 +63,8 @@ public:
 	UpdateModule(Thing *thing, const ModuleData *data);
 	virtual ~UpdateModule();
 	virtual void xfer(Xfer *xfer);
+	virtual BitFlags<11> getDisabledTypesToProcess() const;
+	virtual void rva0044DF8D(UpdateSleepTime);
 
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime frame);
