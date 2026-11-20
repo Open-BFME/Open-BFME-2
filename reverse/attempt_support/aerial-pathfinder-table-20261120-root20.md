@@ -30,9 +30,11 @@ matched list clear at 0x0023DAA5. The owning transfer to
 AerialPathfinder::reset requires the missing approved slot key
 `Code/GameEngine/Include/GameLogic/AerialPathfinder.h|slot|AerialPathfinder@0x00BE74F0|9`.
 
-The two lifetime units still have different list template spellings.
-The native polygon/height element is an eight-byte payload supported
-by the map query. The current native scratch objects reproduce the
-four proposed typed helper bodies at 0x0014F3C4, 0x0023DAA5,
-0x0035C9A6 and 0x004EC395. Any adoption must admit their existing
-relocation targets through the owning fold checks.
+Both lifetimes and the map query now share the existing eight-byte
+polygon/height payload declaration. The owning fold admissions
+established the 11-, 39-, 41- and 23-byte helper names at 0x0014F3C4,
+0x0023DAA5, 0x0035C9A6 and 0x004EC395. Their original providers
+retain their rows. The typed constructor and destructor match all
+existing lifetime rows and bind the admitted list helpers. The
+six-source build verified 81 function rows and six exact EH graphs.
+The scoped preview kept 2,735 linked bytes.

@@ -15,18 +15,11 @@
 // after it. Reproducing that live range needs the address local to survive
 // past the flag write, hence the two |0x28 stores rather than one.
 #include <list>
-// With the static STLport configuration this unit's allocator calls are the ones
-// every other BfmePod8 list unit makes, so its copies of the list helpers are theirs.
-// Suppress this TU's non-retail copy of ?clear@?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAEXXZ:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmePod8;
-namespace _STL { template <> void _List_base<BfmePod8,allocator<BfmePod8> >::clear(); }
+#include "../../../../Include/GameLogic/AerialPathfinderListEntry.h"
 
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 #include "../../../../Include/Common/BitFlags11.h"
-
-struct BfmePod8 { int a[2]; };
 
 // Both native lifetime edges use SubsystemInterface: constructor 0x001B4E63
 // and the constructor's unwind cleanup 0x001B4E74. Use the same base as the
@@ -38,14 +31,23 @@ public:
 	virtual ~AerialPathfinder();
 private:
 	BitFlags<11> m_flags0C;
-	_STL::_List_base<BfmePod8, _STL::allocator<BfmePod8> > m_list10;
+	_STL::_List_base<Rva00375AF7Entry, _STL::allocator<Rva00375AF7Entry> > m_list10;
 };
 
 AerialPathfinder::AerialPathfinder()
 	: m_flags0C()
-	, m_list10(_STL::allocator<BfmePod8>())
+	, m_list10(_STL::allocator<Rva00375AF7Entry>())
 {
 	unsigned int *w = reinterpret_cast<unsigned int *>(&m_flags0C);
 	*(int *)&m_flags0C |= 0x28;
 	*w |= 0x28;
+}
+
+
+namespace _STL
+{
+template _List_base<Rva00375AF7Entry, allocator<Rva00375AF7Entry> >::_List_base(
+    const allocator<Rva00375AF7Entry> &);
+template _List_base<Rva00375AF7Entry, allocator<Rva00375AF7Entry> >::~_List_base();
+template void _List_base<Rva00375AF7Entry, allocator<Rva00375AF7Entry> >::clear();
 }

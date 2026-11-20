@@ -241,3 +241,7 @@ and clears one header queue entry. Both exact 56-byte table trials
 preserve the five lifetime rows. Reset slot 9 needs the missing
 revision-bound approval, then slots 1 and 10 need their one-byte folds.
 [Current table and layout evidence](../../reverse/attempt_support/aerial-pathfinder-table-20261120-root20.md).
+
+The native polygon/height list now binds the four admitted helper
+folds in both lifetimes. All 81 rows and six EH graphs across the six
+consumer and provider units match, with 2,735 scoped linked bytes.

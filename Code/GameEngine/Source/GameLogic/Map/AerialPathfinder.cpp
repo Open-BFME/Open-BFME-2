@@ -18,7 +18,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 
 // Volatile observations preserve native y/height/shape load order; the
 // retail loads are proven, but the original source qualifiers are unknown.
-struct Rva00375AF7Entry { PolygonTrigger *volatile shape; volatile float height; };
+#include "../../../Include/GameLogic/AerialPathfinderListEntry.h"
 
 struct Rva00375AF7State { ICoord3D point; int padding; float height; float highest; };
 
