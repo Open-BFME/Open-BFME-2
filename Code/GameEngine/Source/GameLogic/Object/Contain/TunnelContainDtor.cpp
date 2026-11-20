@@ -24,11 +24,7 @@ enum BodyDamageType;
 #include "../../../../Include/Common/B7.h"
 #include "../../../../Include/Common/B8.h"
 
-class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
-{
-public:
-	virtual ~OpenContain();
-};
+#include "../../../../Include/GameLogic/Module/OpenContain.h"
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
