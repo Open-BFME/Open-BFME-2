@@ -90,11 +90,11 @@ struct Rva003184B8Entry
 	int pad04;
 };
 
-class Rva003184B8
+#include "Common/Rva003184B8.h"
+
+// Weather fields accessed by the audio update through the opaque receiver.
+struct Rva003184B8Storage
 {
-public:
-	void rva003184B8();
-private:
 	char m_pad00[0x10];
 	int m_index10;
 	int m_handle14;
@@ -190,12 +190,13 @@ void GlobalWeatherSystem::parseWeatherData( INI *ini )
 
 void Rva003184B8::rva003184B8()
 {
-	reinterpret_cast<Rva003184B8AudioView *>(TheAudio)->removeAudioEvent(m_handle14);
-	Rva003184B8Entry *entry = &m_entries30[m_index10];
-	m_handle14 = 1;
+	Rva003184B8Storage &fields = *reinterpret_cast<Rva003184B8Storage *>(this);
+	reinterpret_cast<Rva003184B8AudioView *>(TheAudio)->removeAudioEvent(fields.m_handle14);
+	Rva003184B8Entry *entry = &fields.m_entries30[fields.m_index10];
+	fields.m_handle14 = 1;
 	if (entry->ref.referent != 0) {
 		BfmeAudioEventPrefix136 evt(entry->ref, 0);
-		m_handle14 = reinterpret_cast<Rva003184B8AudioView *>(TheAudio)->addAudioEvent(&evt);
+		fields.m_handle14 = reinterpret_cast<Rva003184B8AudioView *>(TheAudio)->addAudioEvent(&evt);
 	}
 }
 
