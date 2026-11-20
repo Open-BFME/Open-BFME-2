@@ -24,7 +24,7 @@
 
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
 
-extern "C" const void *const __identifier("??_7Rva003A4CAE@@6BRva003A4CAE_B2@@@")[];  // vftable 0x00C1B158
+extern "C" const void *const __identifier("??_7Rva003A4CAE@@6B@")[];  // vftable 0x00C1B158
 // The retail table at RVA 0x0081B164: 13 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
@@ -93,7 +93,7 @@ StrafeAreaUpdate::StrafeAreaUpdate(Thing *thing, const ModuleData *moduleData)
 	float *fromSlot = &m_strafeFromX;
 	*reinterpret_cast<const void **>(this) = (const void *)((unsigned int)vtbl_00C1B164);
 	*reinterpret_cast<const void **>((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	*reinterpret_cast<const void **>((char *)this + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva003A4CAE@@6BRva003A4CAE_B2@@@"));
+	*reinterpret_cast<const void **>((char *)this + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva003A4CAE@@6B@"));
 	m_sweepOffset = fzero;
 	m_strafeMode = zero;
 	m_strafing = 0;

@@ -324,17 +324,12 @@ extern BitFlags<116> KINDOFMASK_NONE;
 // news 0x34 with this ctor as sole raw caller).
 //
 // Shape: frameless single-base ctor over the rowed UpdateModule base
-// 0x253390 with three explicit vtable stores at +0/+0xC/+0x10 via byte-wise
-// pointer casts (StopSpecialPower precedent: explicit stores, no virtuals
-// declared anywhere so no vtable is emitted here; all three immediates are
-// DIR32-masked in comparison). Zero new pins (base resolves via the
-// rowed UpdateModule spelling).
+// 0x253390; the compiler stores the class's three tables (0x00C4F838 at
+// +0, UpdateModule's BehaviorModuleInterface table 0x00BEFF90 at +0x0C,
+// 0x00C4F82C at +0x10), the ones Rva0024A797Derived.cpp's destructor also
+// stores. The immediates are DIR32-masked in comparison. Zero new pins
+// (base resolves via the rowed UpdateModule spelling).
 
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
-  // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
-
-extern "C" const void *const __identifier("??_7BannerCarrierUpdate@@6BRva004969FF_B2@@@")[];
-  // vftable 0x00C4F82C
 class Thing;
 
 extern PartitionManager *ThePartitionManager;
@@ -824,8 +819,6 @@ void BannerCarrierUpdate::rva004973CF()
 BannerCarrierUpdate::BannerCarrierUpdate(Thing *thing, const ModuleData *moduleData) :
 	UpdateModule(thing, moduleData)
 {
-	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7BannerCarrierUpdate@@6BRva004969FF_B2@@@"));
 }
 
 // tu-skeleton: 0x00496AC2 28B ??_GBannerCarrierUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)

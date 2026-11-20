@@ -1,35 +1,25 @@
 // cl: /MD
 //
-// Opaque multiple-inheritance destructors tail-calling UpdateModule::~
-// UpdateModule at 0x0024A797 (pinned opaque MI base: three vptrs tail-jumping
-// the 0x49B47C fold; identity unproven). Each class below derives (in order)
-// from the opaque base, a shared empty polymorphic base, and its own empty
-// polymorphic base, giving vptrs at +0x00/+0x0C/+0x10; the empty bases have
-// implicit trivial destructors, so the derived destructor stores all three
-// vptrs and tail-calls the base destructor. The +0x0C secondary is shared
-// across the family (0xBEFF90). Owner identities are unproven (opaque Rva
-// names). One ledger row per destructor, landed one commit at a time.
+// Destructors of 24 UpdateModule classes, each storing its three vftables at
+// +0x00, +0x0C and +0x10 and tail-jumping to UpdateModule::~UpdateModule at
+// 0x0024A797.
+//
+// Target facts: every destructor here stores the shared 0x00BEFF90 at +0x0C,
+// which is UpdateModule's BehaviorModuleInterface table (slot 9 getUpdate,
+// 0x002533D3), and a three-slot table at +0x10 whose slots 1 and 2 are
+// UpdateModule's getDisabledTypesToProcess (0x00253376) or a class override
+// and rva0044DF8D (0x0044DF8D). So each class derives from the canonical
+// UpdateModule (UpdateModule.h), whose +0x0C and +0x10 interfaces those are.
+// A class declares only the overrides a matched row spells under its own
+// name (update, xfer; the rest of each family's overrides where its
+// constructor unit's view declares them, so both units' vftable copies are
+// one copy). Owner identities of the address-named classes stay unproven;
+// several constructor units store their tables by name.
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
+#include "../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../Include/GameLogic/Module/ObjectHelper.h"
 
-private:
-	char m_pad04[8];
-};
-
-#include "../../Include/Common/MiBase1.h"
-
-enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3fffffff };
-
-class Rva00253E19_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva00253E19 : public UpdateModule, public MiBase1, public Rva00253E19_B2
+class Rva00253E19 : public UpdateModule
 {
 public:
 	virtual ~Rva00253E19();
@@ -39,13 +29,7 @@ Rva00253E19::~Rva00253E19()
 {
 }
 
-class Rva00253EF5_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva00253EF5 : public UpdateModule, public MiBase1, public Rva00253EF5_B2
+class Rva00253EF5 : public UpdateModule
 {
 public:
 	virtual ~Rva00253EF5();
@@ -55,13 +39,7 @@ Rva00253EF5::~Rva00253EF5()
 {
 }
 
-class Rva0033EEC9_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0033EEC9 : public UpdateModule, public MiBase1, public Rva0033EEC9_B2
+class Rva0033EEC9 : public UpdateModule
 {
 public:
 	virtual ~Rva0033EEC9();
@@ -71,101 +49,85 @@ Rva0033EEC9::~Rva0033EEC9()
 {
 }
 
-// The +0x10 update interface: slot 0 of its retail table is the rowed StealthUpdate::update.
-class Rva00373CB1_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
 // StealthUpdate (retail module class, module_factory_registrations.csv): its
 // constructor 0x00374B02 stores the same three vftables (0x00817F20 at +0,
 // the shared 0x007EFF90 at +0xC, 0x00817F14 at +0x10) as this destructor,
-// and slot 0 of 0x00817F20 is the deleting destructor 0x00373F3D.
-class StealthUpdate : public UpdateModule, public MiBase1, public Rva00373CB1_B2
+// and slot 0 of 0x00817F20 is the deleting destructor 0x00373F3D. The view
+// is StealthUpdateCtor.cpp's, so the vftable copies agree.
+class StealthUpdate : public UpdateModule
 {
 public:
 	virtual ~StealthUpdate();
 	virtual UpdateSleepTime update();
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
 };
 
 StealthUpdate::~StealthUpdate()
 {
 }
 
-class Rva003A4322_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva003A4322 : public UpdateModule, public MiBase1, public Rva003A4322_B2
+class Rva003A4322 : public UpdateModule
 {
 public:
 	virtual ~Rva003A4322();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva003A4322::~Rva003A4322()
 {
 }
 
-class Rva003A49D1_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva003A49D1 : public UpdateModule, public MiBase1, public Rva003A49D1_B2
+class Rva003A49D1 : public UpdateModule
 {
 public:
 	virtual ~Rva003A49D1();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva003A49D1::~Rva003A49D1()
 {
 }
 
-class Rva003A4CAE_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva003A4CAE : public UpdateModule, public MiBase1, public Rva003A4CAE_B2
+class Rva003A4CAE : public UpdateModule
 {
 public:
 	virtual ~Rva003A4CAE();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva003A4CAE::~Rva003A4CAE()
 {
 }
 
-// The +0x10 update interface: slot 0 of its retail table is the rowed BuildingBehavior::update.
-class Rva004561A2_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class BuildingBehavior : public UpdateModule, public MiBase1, public Rva004561A2_B2
+// The view of GameLogic/Object/Behavior/BuildingBehavior.cpp.
+class BuildingBehavior : public UpdateModule
 {
 public:
 	virtual ~BuildingBehavior();
+
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 
 BuildingBehavior::~BuildingBehavior()
 {
 }
 
-class Rva0047F92D_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0047F92D : public UpdateModule, public MiBase1, public Rva0047F92D_B2
+class Rva0047F92D : public UpdateModule
 {
 public:
 	virtual ~Rva0047F92D();
@@ -175,15 +137,7 @@ Rva0047F92D::~Rva0047F92D()
 {
 }
 
-
-
-class Rva00488338_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva00488338 : public UpdateModule, public MiBase1, public Rva00488338_B2
+class Rva00488338 : public UpdateModule
 {
 public:
 	virtual ~Rva00488338();
@@ -193,13 +147,7 @@ Rva00488338::~Rva00488338()
 {
 }
 
-class Rva0048B671_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0048B671 : public UpdateModule, public MiBase1, public Rva0048B671_B2
+class Rva0048B671 : public UpdateModule
 {
 public:
 	virtual ~Rva0048B671();
@@ -209,47 +157,39 @@ Rva0048B671::~Rva0048B671()
 {
 }
 
-class Rva0048D742_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0048D742 : public UpdateModule, public MiBase1, public Rva0048D742_B2
+class Rva0048D742 : public UpdateModule
 {
 public:
 	virtual ~Rva0048D742();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva0048D742::~Rva0048D742()
 {
 }
 
-// The +0x10 update interface: slot 0 of its retail table is the rowed HeightDieUpdate::update.
-class Rva0048FBBA_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class HeightDieUpdate : public UpdateModule, public MiBase1, public Rva0048FBBA_B2
+// The view of HeightDieUpdateCtor.cpp.
+class HeightDieUpdate : public UpdateModule
 {
 public:
 	virtual ~HeightDieUpdate();
+
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 
 HeightDieUpdate::~HeightDieUpdate()
 {
 }
 
-class Rva0049188D_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0049188D : public UpdateModule, public MiBase1, public Rva0049188D_B2
+class Rva0049188D : public UpdateModule
 {
 public:
 	virtual ~Rva0049188D();
@@ -259,89 +199,71 @@ Rva0049188D::~Rva0049188D()
 {
 }
 
-
-
-
-
-
-
-// The +0x10 update interface: slot 0 of its retail table is the rowed BannerCarrierUpdate::update.
-class Rva004969FF_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class BannerCarrierUpdate : public UpdateModule, public MiBase1, public Rva004969FF_B2
+// The view of GameLogic/Object/Update/BannerCarrierUpdate.cpp.
+class BannerCarrierUpdate : public UpdateModule
 {
 public:
 	virtual ~BannerCarrierUpdate();
 	virtual UpdateSleepTime update();
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
 };
 
 BannerCarrierUpdate::~BannerCarrierUpdate()
 {
 }
 
-class Rva00499F45_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva00499F45 : public UpdateModule, public MiBase1, public Rva00499F45_B2
+class Rva00499F45 : public UpdateModule
 {
 public:
 	virtual ~Rva00499F45();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva00499F45::~Rva00499F45()
 {
 }
 
-// The +0x10 update interface: slot 0 of its retail table is the rowed AutoDepositUpdate::update.
-class Rva0049A1AB_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class AutoDepositUpdate : public UpdateModule, public MiBase1, public Rva0049A1AB_B2
+// The view of AutoDepositUpdateCtor.cpp.
+class AutoDepositUpdate : public UpdateModule
 {
 public:
 	virtual ~AutoDepositUpdate();
+
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 
 AutoDepositUpdate::~AutoDepositUpdate()
 {
 }
 
-// The +0x10 update interface: slot 0 of its retail table is the rowed Rva0049B2A2::update.
-class Rva0049B2A2_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class Rva0049B2A2 : public UpdateModule, public MiBase1, public Rva0049B2A2_B2
+class Rva0049B2A2 : public UpdateModule
 {
 public:
 	virtual ~Rva0049B2A2();
 	virtual UpdateSleepTime update();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva0049B2A2::~Rva0049B2A2()
 {
 }
 
-class Rva0049FE7B_B2
-{
-public:
-	virtual void f2();
-};
-
-class ProneUpdate : public UpdateModule, public MiBase1, public Rva0049FE7B_B2
+class ProneUpdate : public UpdateModule
 {
 public:
 	virtual ~ProneUpdate();
@@ -351,13 +273,7 @@ ProneUpdate::~ProneUpdate()
 {
 }
 
-class Rva004A0C0E_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004A0C0E : public UpdateModule, public MiBase1, public Rva004A0C0E_B2
+class Rva004A0C0E : public UpdateModule
 {
 public:
 	virtual ~Rva004A0C0E();
@@ -367,29 +283,20 @@ Rva004A0C0E::~Rva004A0C0E()
 {
 }
 
-class Rva004A3F8B_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004A3F8B : public UpdateModule, public MiBase1, public Rva004A3F8B_B2
+class Rva004A3F8B : public UpdateModule
 {
 public:
 	virtual ~Rva004A3F8B();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva004A3F8B::~Rva004A3F8B()
 {
 }
 
-class Rva004AE78E_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004AE78E : public UpdateModule, public MiBase1, public Rva004AE78E_B2
+class Rva004AE78E : public UpdateModule
 {
 public:
 	virtual ~Rva004AE78E();
@@ -399,69 +306,19 @@ Rva004AE78E::~Rva004AE78E()
 {
 }
 
-// EntEnragedUpdate: its constructor 0x004B2516 stores the same three vftables
-// (0x00856948 at +0, the shared 0x007EFF90 at +0xC, 0x0085693C at +0x10) that
-// this destructor stores; slot 0 of 0x0085693C is the rowed
-// EntEnragedUpdate::update. The +0x10 interface is the one-slot view
-// EntEnragedUpdateCtorThunk.cpp uses, so the shared vftable copies agree.
-
-
-
-
-
-class Rva004CC63A_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva004CC63A : public UpdateModule, public MiBase1, public Rva004CC63A_B2
+class Rva004CC63A : public UpdateModule
 {
 public:
 	virtual ~Rva004CC63A();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva004CC63A::~Rva004CC63A()
 {
 }
 
-class Rva004DF7C2_B2
-{
-public:
-	virtual void f2() = 0;
-};
-
-class ObjectHelper : public UpdateModule, public MiBase1, public Rva004DF7C2_B2
-{
-public:
-	virtual ~ObjectHelper();
-};
-
 ObjectHelper::~ObjectHelper()
 {
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f2@Rva0033EEC9_B2@@UAEXXZ=?update@ProjectileStreamUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva00488338_B2@@UAEXXZ=?update@DeletionUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0049FE7B_B2@@UAEXXZ=?update@ProneUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva004A0C0E_B2@@UAEXXZ=?update@RadarUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f2@Rva00253E19_B2@@UAEXXZ=?update@Rva004CED4BUpdateInterface@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva00253EF5_B2@@UAEXXZ=?update@NotifyTargetsOfImminentProbableCrushingUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva003A4322_B2@@UAEXXZ=?update@Rva003A4322_B2@@QAEHXZ")
-#pragma comment(linker, "/alternatename:?f2@Rva003A49D1_B2@@UAEXXZ=?update@LifetimeUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva003A4CAE_B2@@UAEXXZ=?update@StrafeAreaUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0047F92D_B2@@UAEXXZ=?update@CivilianSpawnUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0048B671_B2@@UAEXXZ=?update@FireSpreadUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0048D742_B2@@UAEXXZ=?update@FloatUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva0049188D_B2@@UAEXXZ=?update@AttachUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva00499F45_B2@@UAEXXZ=?update@SpecialEnemySenseUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva004A3F8B_B2@@UAEXXZ=?update@HijackerUpdate@@UAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva004AE78E_B2@@UAEXXZ=?update@DetachableRiderUpdateUpdateReceiver@@QAE?AW4UpdateSleepTime@@XZ")
-#pragma comment(linker, "/alternatename:?f2@Rva004CC63A_B2@@UAEXXZ=?update@TemporarilyDefectUpdate@@UAE?AW4UpdateSleepTime@@XZ")
