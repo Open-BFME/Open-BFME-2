@@ -24,19 +24,7 @@ int __cdecl Rva0043DB23(Rva00222A8BTarget *,void *,const char *);
 #include "../../../../../Include/GameClient/Rva002239B2.h"
 // AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
 // and destructor, and the fields the screen reads.
-class CreateAHeroData {
-public:
- virtual ~CreateAHeroData();
- virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- CreateAHeroData &operator=(const CreateAHeroData &);
-protected:
- char pad04[4];
- UnicodeString heroName08;
- int field0C,field10;
- char pad14[0x138-0x14];
- const Image *image138;
- char pad13C[4];
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 // Native vector cleanup uses the game CRT allocator at00030830.
 extern "C" void __cdecl free(void *) throw(...);
 struct BfmePod8
@@ -1132,7 +1120,7 @@ void AptMyHero::SwitchToPendingHero(){
 // Native005B0473..005B0487 forwards fields10 then0C through the existing
 // typed manager global. Named locals preserve the independently observed
 // read order; the getter and returned view retain address-derived names.
-Rva005B0473View *AptMyHero::rva005B0473(){int b=field10;int a=field0C;return const_cast<Rva005B0473View *>(reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b)));}
+Rva005B0473View *AptMyHero::rva005B0473(){int b=m_10;int a=m_0c;return const_cast<Rva005B0473View *>(reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b)));}
 
 // WB AptMyHero.cpp line1170 and native005B0923..005B097F prove this
 // unnamed record loop. Retail retains the exact diagnostic path and line1203.
@@ -1149,7 +1137,7 @@ void AptMyHero::rva005B0923(int group){
 
 // Native005B0487..005B04B6 and WB corresponding view access prove the
 // +60 float bound and +168/+16C range. Retail emits SSE2 stores.
-void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b))->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
+void AptMyHero::rva005B0487(){int b=m_10;int a=m_0c;float upper=reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b))->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
 
 // WB record-minimum loop and native005B097F..005B09BB; independent index.
 void AptMyHero::rva005B097F(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->minimum);slot14();}
@@ -1162,7 +1150,7 @@ void AptMyHero::rva005B0FCD(int group){MyHeroBlingBlock &block=blocks174[group];
 // HPGandalf fallback and Cah::Portrait. Existing canonical image global
 // and retained image-store owner are used without a new alias or pin.
 bool AptMyHero::rva005B0725(){
- const Image *image=image138;
+ const Image *image=field138;
  if(!image){AsciiString name("HPGandalf");image=TheMappedImageCollection->findImageByName(name);}
  const char *key="Cah::Portrait";
  if(reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->FindRenderImage(key,0)==image)return false;
@@ -1357,7 +1345,7 @@ int AptMyHero::rva005B0A95(int,int){
 // gets its Apt label and a value clamped into range through SetBling.
 void AptMyHero::BuildBlingData(){
  reinterpret_cast<Rva005B1830 *>(this)->rva005B1830();
- int sub=field10;int cls=field0C;
+ int sub=m_10;int cls=m_0c;
  maxAttribPoints158=availAttribPoints154=TheCreateAHeroManager->GetSubClassSpendableAttributePoints(cls,sub);
  reinterpret_cast<CreateAHeroHero *>(this)->ConstructHeroBlingList();
  unsigned int count=TheCreateAHeroManager->binders168.size();
@@ -1379,19 +1367,19 @@ void AptMyHero::BuildBlingData(){
   case 1:
    record.minimum=0;
    record.maximum=TheCreateAHeroManager->GetBlingCount(record.field00,reinterpret_cast<const CreateAHeroHero *>(this))-1;
-   {int s2=field10;int c2=field0C;record.field10=TheCreateAHeroManager->GetSubClassDefaultBlingId(record.field00,c2,s2);}
+   {int s2=m_10;int c2=m_0c;record.field10=TheCreateAHeroManager->GetSubClassDefaultBlingId(record.field00,c2,s2);}
    key.format("APT:MyHeroAppearance_%d",slot);
    g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(binder->label),false);
    if(hasValue)value=record.field10;
    break;
   case 0:
    if(TheCreateAHeroManager->GetBlingCount(record.field00,reinterpret_cast<const CreateAHeroHero *>(this))){
-    {int s2=field10;int c2=field0C;record.minimum=TheCreateAHeroManager->GetSubClassAttributeMinValue(record.field00,c2,s2);}
-    {int s2=field10;int c2=field0C;record.maximum=TheCreateAHeroManager->GetSubClassAttributeMaxValue(record.field00,c2,s2);}
-    {int s2=field10;int c2=field0C;record.field10=TheCreateAHeroManager->GetSubClassAttributeDefaultValue(record.field00,c2,s2);}
+    {int s2=m_10;int c2=m_0c;record.minimum=TheCreateAHeroManager->GetSubClassAttributeMinValue(record.field00,c2,s2);}
+    {int s2=m_10;int c2=m_0c;record.maximum=TheCreateAHeroManager->GetSubClassAttributeMaxValue(record.field00,c2,s2);}
+    {int s2=m_10;int c2=m_0c;record.field10=TheCreateAHeroManager->GetSubClassAttributeDefaultValue(record.field00,c2,s2);}
    }else{
-    {int s2=field10;int c2=field0C;record.minimum=((c2+1)*(s2+1)*(i+1))%10+5;}
-    record.maximum=record.minimum+3+(int)(i*3)%10-field0C;
+    {int s2=m_10;int c2=m_0c;record.minimum=((c2+1)*(s2+1)*(i+1))%10+5;}
+    record.maximum=record.minimum+3+(int)(i*3)%10-m_0c;
    }
    if(hasValue)value=record.minimum;
    reinterpret_cast<Rva00407E28 *>(this)->rva00407DE0(record.field00,record.minimum);

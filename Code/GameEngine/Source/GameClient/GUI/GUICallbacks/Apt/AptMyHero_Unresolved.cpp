@@ -30,26 +30,7 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0043DB23(Rva00222A8BTarget *,void *,const char *);
 // AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
 // and destructor, and the fields the screen reads.
-class CreateAHeroData {
-public:
- virtual ~CreateAHeroData();
-protected:
- virtual void loadPostProcess();
-public:
- virtual const char *GetSnapshotName() const;
- // Slot 3 as canonical CreateAHeroData.h spells it (AptMyHeroCtor.cpp's table, first in link
- // order since b056878e3e); both names reach retail 0x00408C11 through existing alternatenames.
- virtual void xfer(class Xfer *);
- virtual bool Update(int);
- CreateAHeroData &operator=(const CreateAHeroData &);
-protected:
- char pad04[4];
- UnicodeString heroName08;
- int field0C,field10;
- char pad14[0x138-0x14];
- const Image *image138;
- char pad13C[4];
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 // Native vector cleanup uses the game CRT allocator at00030830.
 extern "C" void __cdecl free(void *) throw(...);
 struct BfmePod8
@@ -303,8 +284,8 @@ void AptMyHero::FrameUpdate() {
  if(flag150) {
   rva005B0446();
   if(!TheCreateAHeroManager)return;
-  unsigned classIndex=field0C;unsigned subclassIndex=field10;
-  {AsciiString key("APT:MyHeroName");g_bfmeAptWindowManager->bfmeSetText(key,heroName08,true);}
+  unsigned classIndex=m_0c;unsigned subclassIndex=m_10;
+  {AsciiString key("APT:MyHeroName");g_bfmeAptWindowManager->bfmeSetText(key,field08,true);}
   {AsciiString key("APT:MyHeroClass");g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(TheCreateAHeroManager->GetClassNameTag(classIndex)),true);}
   {AsciiString key("APT:MyHeroType");g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(TheCreateAHeroManager->GetSubClassNameTag(classIndex,subclassIndex)),true);}
 
