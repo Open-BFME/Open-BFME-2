@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 447).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 445).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1727,3 +1727,15 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   held the pair because Object.cpp had no Drawable.h include; the file is built on private views, so it takes
   GameClient/DrawableFramesPerFlash.h and GameLogic/Module/SpawnUpdateRate.h after its first includes and registers
   them as `_$E1` and `_$E3`.
+- *Taken (447 -> 445): ProductionPrerequisite.cpp's and TunnelTracker.cpp's copies, by link order.* Retail's `.text$yc`
+  runs AIPlayer's rowed copy (`_$E1` 0x007B32E3), then 0x007B3327 and 0x007B3351, each alone between markers, then
+  three marker-only units. The `.bss` holds AIPlayer's rowed copy 0x00E044D4, the two copies 0x00E044D8 and
+  0x00E044DC, then ResourceGatheringManager's function-local statics. So two copy-bearing units sit between AIPlayer and
+  ResourceGatheringManager in link order. In `.text` the approved code between them is exactly ProductionPrerequisite.cpp
+  (0x004F4B6D..0x004F5334) and TunnelTracker.cpp (0x004F5385..), in that order, and both reach GameClient/Drawable.h
+  (Zero Hour's files include it directly, a donor fact; our TunnelTracker.cpp compiles the copy). ResourceGatheringManager
+  has no copy (none follows its locals; Zero Hour's file does not reach Drawable.h). The copies map in order:
+  ProductionPrerequisite.cpp (Zero Hour's headers, so the shim) registers 0x007B3327 as `_$E21`, and TunnelTracker.cpp's
+  existing `_$E1` is rowed as 0x007B3351. The same argument does not settle 0x007B2E18/0x007B2E42 after UnleashSpecialPower:
+  UpgradeModule.cpp and DieModule.cpp lie between, but so does a row proposed to ObjectCreationUpgrade.cpp, whose Zero
+  Hour file also reaches Drawable.h.
