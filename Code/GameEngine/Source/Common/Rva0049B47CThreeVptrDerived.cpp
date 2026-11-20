@@ -1,4 +1,4 @@
-// cl: /MD /GX
+// cl: /MD
 //
 // Opaque three-vptr destructors tail-calling Rva0049B47C::~Rva0049B47C at
 // 0x0049B47C (pinned opaque fold-point dtor; identity unproven). These bodies
@@ -37,66 +37,64 @@ public:
 	~PrimaryP() {}
 };
 
+// BodyModule (ZH BodyModule.h: BehaviorModule plus BodyModuleInterface at
+// +0x10). Target evidence: the BodyModule constructor 0x004BD7FD stores the
+// vftable whose slot 0 is the deleting dtor 0x004BD841 (calls this dtor), and
+// the InactiveBody constructor 0x004BD8BD's unwind map destroys its BodyModule
+// base through 0x004BD763. Defining ~BehaviorModule inline reproduces retail's
+// (+0x10, +0, +0x0C) store order and tail-jump to ~ObjectModule (0x0049B47C),
+// and gives Rva004BD78F (InactiveBody) and Rva00484F5D (PillageModule) their
+// full 47-slot BehaviorModuleInterface vtables (0x0085AD78 and 0x00870008).
+// The deleting dtor is emitted and rowed in BodyModuleCtor.cpp (slot 0 of its
+// vftable).
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
+#include "../../Include/GameLogic/Module/BodyModuleClass.h"
+
+inline BehaviorModule::~BehaviorModule()
+{
+}
+
+BodyModule::~BodyModule()
+{
+}
+
 class Rva00484EF4_B2
 {
 public:
-  virtual void f2() {}
+	virtual void slot0() = 0;
+	virtual void slot1(int v) { m_14 = v; }
+
+protected:
+	int m_14;
 };
 
-class Rva00484EF4 : public PrimaryP, public Rva00484EF4_B2
+class Rva00484EF4 : public BehaviorModule, public Rva00484EF4_B2
 {
 public:
+	Rva00484EF4(Thing *thing, const ModuleData *data) : BehaviorModule(thing, data) {}
 	virtual ~Rva00484EF4();
+	virtual void *slot05() { return (Rva00484EF4_B2 *)this; }
 };
 
 Rva00484EF4::~Rva00484EF4()
 {
 }
 
-// Anchor: forces emission of the scalar deleting destructor COMDAT (an
-// out-of-class destructor no longer emits ??_G on its own, and `delete` on a
-// pointer would only virtual-call it). Deleting a freshly-newed object lets
-// the compiler devirtualize to a direct ??_G call, which emits the COMDAT;
-// ??_G calls the dtor above plus the pinned operator delete. The anchor
-// itself is unclaimed scratch. Operator new/delete resolve to their pins.
+// Anchor: abstract class cannot be new'd directly, so call the inline ctor
+// which references the primary vtable and forces emission of the ??_G COMDAT.
 #include <new>
 
-void Rva00484EF4_Anchor()
+void Rva00484EF4_Anchor(Rva00484EF4 *p, Thing *thing, const ModuleData *data)
 {
-	Rva00484EF4 *p = new Rva00484EF4;
-	delete p;
+	p->Rva00484EF4::Rva00484EF4(thing, data);
 }
 
-// BodyModule (ZH BodyModule.h: BehaviorModule plus BodyModuleInterface at
-// +0x10). Target evidence: the BodyModule constructor 0x004BD7FD stores the
-// vftable whose slot 0 is the deleting dtor 0x004BD841 (calls this dtor), and
-// the InactiveBody constructor 0x004BD8BD's unwind map destroys its BodyModule
-// base through 0x004BD763. PrimaryP stands for BehaviorModule (its +0/+0xC
-// vftables 0x007EEA7C/0x007EE9C0 are BehaviorModule's). The +0x10 interface
-// is the one-slot pure view BodyModuleCtor.cpp uses, so the shared
-// ??_7BodyModule@@6B@ copies agree. The deleting dtor is emitted and rowed in
-// BodyModuleCtor.cpp (slot 0 of its vftable).
-#include "../../Include/GameLogic/Module/BodyModule.h"
+#include "../../Include/GameLogic/Module/DamageModuleInterface.h"
 
-class BodyModule : public PrimaryP, public BodyModuleInterface
+class Rva004B96CC : public PrimaryP, public DamageModuleInterface
 {
 public:
-	virtual ~BodyModule();
-};
-
-BodyModule::~BodyModule()
-{
-}
-
-class Rva004B96CC_B2
-{
-public:
-  virtual void f2() {}
-};
-
-class Rva004B96CC : public PrimaryP, public Rva004B96CC_B2
-{
-public:
+	Rva004B96CC() {}
 	virtual ~Rva004B96CC();
 };
 
@@ -104,34 +102,36 @@ Rva004B96CC::~Rva004B96CC()
 {
 }
 
-// Anchor: new/delete devirtualizes to a direct ??_G call (see above).
-void Rva004B96CC_Anchor()
+// Anchor: abstract class cannot be new'd directly, so call the inline ctor
+// which references the primary vtable and forces emission of the ??_G COMDAT.
+void Rva004B96CC_Anchor(Rva004B96CC *p)
 {
-	Rva004B96CC *p = new Rva004B96CC;
-	delete p;
+	p->Rva004B96CC::Rva004B96CC();
 }
 
-class Rva004BB68E_B2
-{
-public:
-  virtual void f2() {}
-};
+#include "../../Include/Common/CollideModuleInterface.h"
 
-class Rva004BB68E : public PrimaryP, public Rva004BB68E_B2
+class Rva004BB68E : public PrimaryP, public CollideModuleInterface
 {
 public:
+	Rva004BB68E() {}
 	virtual ~Rva004BB68E();
+	virtual bool wouldLikeToCollideWith(const Object *other) const { return false; }
+	virtual bool slot02() const { return false; }
+	virtual bool slot03() const { return false; }
+	virtual bool slot04() const { return false; }
+	virtual bool isSalvageCrateCollide() const { return false; }
 };
 
 Rva004BB68E::~Rva004BB68E()
 {
 }
 
-// Anchor: new/delete devirtualizes to a direct ??_G call (see above).
-void Rva004BB68E_Anchor()
+// Anchor: abstract class cannot be new'd directly, so call the inline ctor
+// which references the primary vtable and forces emission of the ??_G COMDAT.
+void Rva004BB68E_Anchor(Rva004BB68E *p)
 {
-	Rva004BB68E *p = new Rva004BB68E;
-	delete p;
+	p->Rva004BB68E::Rva004BB68E();
 }
 
 class Rva00462151_B2

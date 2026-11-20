@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /EHsc
+// cl: /O2 /G6 /DNDEBUG /MD /EHsc
 // Single-function extraction of BFME1 Code/GameEngine/Source/Common/System/Geometry.cpp
 // ?expandFootprint@GeometryInfo@@QAEXM@Z (b1 0x0087F2B0, 53B, T2 byte-identical donor).
 // Grows every enabled footprint shape by radius, then recomputes the extents

@@ -1,4 +1,4 @@
-// cl: /O2 /Ob2 /G6 /DNDEBUG /MD /EHs-c- /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
+// cl: /O2 /G6 /DNDEBUG /MD /EHs-c- /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
 // GeometryInfo bodies, one retail unit: the shape transform 0x006BE190 (132 B),
 // GeometryInfo::CollidesWith 0x006BEB80..0x006BEEB5 (821 bytes, RET 0x14) and
 // GeometryInfo::getBestContactPoint 0x006BEF80 (1082 bytes, RET 0x18).

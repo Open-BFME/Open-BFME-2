@@ -412,6 +412,14 @@ above did not list: `vector<EvaMessageInfo>::_M_insert_overflow` 0x003F6B24 call
 | `~_Rb_tree<int,pair<const int,void*>>` 0x000554FA | GameFont.cpp, AptPalantirConstructor.cpp | `_Rb_tree::clear` 0x00286656 / 0x004ABC5C | 0x00054B9A (`?rva00054B9A@Rva00053DC5`) | by hand, real (bytes equal but the callee) |
 | `hashtable::_M_initialize_buckets` 0x00148DDF | GameWindowTransitionsHandler.cpp, window_video_manager.cpp | `vector<void*>::insert` 0x0002A2D0 | `_M_fill_insert` 0x00029CA0 | callee only, not by hand |
 
+2026-11-20: The WindowVideo specialization now calls the existing
+`_M_fill_insert` body directly at the retail site. Its four affected string
+cleanup sites bind the rowed `StringBase<char>::releaseBuffer`. The existing
+WindowVideo map erase and table erase match the 30-byte and 86-byte FXList
+folds, including their direct calls at +0x16 and +0x49. The native build
+verifies all 45 rows and the owning identity tool retires all four
+WindowVideo keys. The two erase folds add no unique code coverage.
+
 Not verified for any of them: which copy the real link keeps, and whether the difference is reached
 at run time.
 

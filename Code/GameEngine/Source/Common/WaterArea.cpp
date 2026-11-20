@@ -4,53 +4,11 @@
 
 #include "../../Include/Common/DataChunkOutput.h"
 
-class Rva00537EAD
-{
-public:
-	void rva00537EAD(DataChunkOutput *output);
-
-private:
-	unsigned char m_pad00[0x20];
-	AsciiString m_str20;                // +0x20
-	AsciiString m_str24;                // +0x24
-	float m_float28;                    // +0x28
-	unsigned char m_byte2C;             // +0x2C
-};
+#include "../../Include/GameLogic/Rva00537EAD.h"
 
 #include "../../Include/Common/DataChunk.h"
 
-class WaterArea
-{
-public:
-	virtual ~WaterArea();
-public:
-	virtual void v1();
-public:
-	virtual void v2();
-public:
-	virtual void v3();
-public:
-	virtual void v4();
-public:
-	virtual void v5();
-public:
-	void rva00537E7C(bool v);
-private:
-	unsigned char m_pad[0x1C];
-	AsciiString m_s20;
-	AsciiString m_s24;
-	float m_f28;
-private:
-	bool m_b2C;
-public:
-	void parse(DataChunkInput &input, void *info);
-public:
-	void rva00537F74(const AsciiString &v);
-public:
-	void rva00537FA0(const AsciiString &v);
-public:
-	void rva00537E90(float v);
-};
+#include "../../Include/GameLogic/WaterArea.h"
 
 //
 // Six broadcast slots of the vtable around 0x00C07F88, the same pattern as
@@ -239,10 +197,11 @@ void WaterArea::rva00537E7C(bool v)
 
 void Rva00537EAD::rva00537EAD(DataChunkOutput *output)
 {
-	output->writeAsciiString(m_str20);
-	output->writeAsciiString(m_str24);
-	output->writeReal(m_float28);
-	output->writeByte(m_byte2C);
+	const WaterArea *area = reinterpret_cast<const WaterArea *>(this);
+	output->writeAsciiString(area->m_s20);
+	output->writeAsciiString(area->m_s24);
+	output->writeReal(area->m_f28);
+	output->writeByte(area->m_b2C);
 }
 
 // ---- from Code/GameEngine/Source/Common/WaterArea_parse.cpp

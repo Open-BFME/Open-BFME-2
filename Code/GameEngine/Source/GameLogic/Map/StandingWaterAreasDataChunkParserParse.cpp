@@ -65,11 +65,7 @@ public:
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 
-class WaterArea : public TargetRef00217D4C
-{
-public:
-	void parse(DataChunkInput &file, void *userData);
-};
+#include "../../../Include/GameLogic/WaterArea.h"
 
 #include "../../../Include/GameLogic/Rva005CB283.h"
 
@@ -90,7 +86,7 @@ struct Rva0030902EVirtualBase
 {
 };
 
-class Rva0030902E : public WaterArea, public virtual Rva0030902EVirtualBase
+class Rva0030902E : public TargetRef00217D4C, public virtual Rva0030902EVirtualBase
 {
 public:
 	Rva0030902E(Int);
@@ -188,7 +184,7 @@ Bool StandingWaterAreasDataChunkParser::parse(DataChunkInput &file, DataChunkInf
 	{
 		Int id = file.readInt();
 		StandingWaterRef water(new Rva0030902E(0));
-		water->parse(file, (void *)1);
+		reinterpret_cast<WaterArea *>(water.m_ptr)->parse(file, (void *)1);
 		for (Int i = 0; i < 2; ++i)
 			reinterpret_cast<Rva00308765 *>(water.m_ptr)->rva00308765(i, file.readAsciiString());
 		{

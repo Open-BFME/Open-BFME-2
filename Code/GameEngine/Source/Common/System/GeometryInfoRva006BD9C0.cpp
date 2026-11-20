@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ox /Ob2 /G6
+// cl: /O2 /G6 /DNDEBUG /MD /EHsc
 //
 // GeometryInfo::rva006BD9C0, retail 0x006BD9C0, 560 bytes. Banked partial
 // (score 0.95: tail fst/fstp and store order) closed by tools/permute.py:

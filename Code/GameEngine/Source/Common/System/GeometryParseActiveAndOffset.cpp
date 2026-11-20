@@ -1,4 +1,4 @@
-// cl: /EHsc /Ob2
+// cl: /EHsc
 // stlport
 // Open-BFME: GeometryInfo::parseGeometryActive, retail 0x0087DE10, and
 // GeometryInfo::parseGeometryOffset, retail 0x0087DE50.

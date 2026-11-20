@@ -1,4 +1,3 @@
-// cl: /Ob0
 
 struct BfmeTailF5
 {
