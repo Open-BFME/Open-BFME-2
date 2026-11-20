@@ -95,10 +95,15 @@ struct GameLogicFrameView
 extern GameLogic *TheGameLogic;
 
 // Retained legacy vector-delete emitter pending its separately claimed retirement.
+class Xfer;
 class Rva00426745SnapshotBase
 {
 public:
 	virtual ~Rva00426745SnapshotBase() {}
+	// Retail slots 1, 2, 3 are __purecall (Snapshot's loadPostProcess, GetSnapshotName, xfer).
+	virtual void loadPostProcess() = 0;
+	virtual const char *GetSnapshotName() const = 0;
+	virtual void xfer(Xfer *) = 0;
 };
 
 // Native secondary getter426737 names this subsystem MissionObjectiveTracker.
