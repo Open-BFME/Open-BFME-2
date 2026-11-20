@@ -1552,7 +1552,7 @@ slot of image `a9c23ee`'s table name) plus the round.
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
 
-**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 467).** Base: the CI real link of `c91e52d054`
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 466).** Base: the CI real link of `c91e52d054`
 (10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
 (`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
 `image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
@@ -1568,3 +1568,11 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   unit. Round bridge-1 had rejected the entry while those readers sat unapproved in SnapshotXfersBfme.cpp; the
   map approves them now. GlowMaterial.cpp already compiled the copy as its only registration (`_$E1`), so only
   the rows change. The map 0x007AED71 stays bridged (its object needs the map type, round lk63).
+- *Taken (467 -> 466): W3DProjectedShadow.cpp's copy.* 0x007ACB33 is alone in its run (markers 0x007ACB19 and
+  0x007ACB43). Its static 0x00DEC2EC sits between the plain drawEdgeX/drawEdgeY/drawStartX/drawStartY
+  (0x00DEC2DC..0x00DEC2E8, read only by 0x0010A736, 0x0010C841, 0x0010DA71 and 0x0010DF33, approved to
+  W3DProjectedShadow.cpp) and the function-local statics of `updateTexture`, `flushDecals` and 0x0010DA71 (all
+  approved to it): a sandwich. Round lk58's open question, which of the two objects around 0x007ACB09 and 0x007ACB33
+  is this unit, is settled by those approvals: the second. W3DProjectedShadow.cpp already compiled the copy as
+  its only registration (`_$E2`), so only the rows change. 0x007ACB09 (after TheW3DProjectedShadowManager) stays
+  bridged.
