@@ -7,53 +7,15 @@
 // MonsterDockUpdateDestructor.cpp protected virtual ~MonsterDockUpdate.
 // The body restores the four vtable pointers of the complete object -- the
 // derived slot at +0x00 (0x851D74) plus the +0x0C (0x851B20), +0x10
-// (0x851D68) and +0x20 (0x851D18) secondary slots -- then tail-jumps to the
-// opaque SEH base destructor (pinned ??1DockUpdate@@UAE@XZ at 0x0058A0F4).
-// The base is modelled with its full four-vptr shape here and only declared
-// (defined nowhere) so the call resolves via the pin. Vtable values are
-// DIR32 auto-patches. Caller: scalar deleting dtor at 0x004A1459.
+// (0x851D68) and +0x20 (0x851D18) secondary slots -- then tail-jumps to
+// ~DockUpdate (0x0058A0F4).
+// Those four vptrs are UpdateModule's three and DockUpdateInterface's, the
+// DockUpdate view SupplyWarehouseDockUpdate.cpp compiles against
+// (SupplyWarehouseDockUpdateNative.h, whose SupplyWarehouseDockUpdate tables
+// are retail's). MonsterDockUpdate declares only its destructor here.
+// Caller: scalar deleting dtor at 0x004A1459.
 
-class Rva0058A0F4_Root
-{
-public:
-	virtual ~Rva0058A0F4_Root();
-
-private:
-	char m_pad04[8];
-};
-
-class Rva0058A0F4_M1
-{
-public:
-	virtual void f1();
-};
-
-class Object;
-enum UpdateSleepTime;
-// The +0x10 update interface: slot 0 is the rowed DockUpdate::update.
-class Rva0058A0F4_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-
-private:
-	char m_pad08[12];
-};
-
-// The +0x20 dock interface: slot 0 is the rowed DockUpdate::isClearToApproach.
-class Rva0058A0F4_E1
-{
-public:
-	virtual bool isClearToApproach(const Object *docker) const = 0;
-};
-
-class DockUpdate : public Rva0058A0F4_Root, public Rva0058A0F4_M1, public Rva0058A0F4_B2, public Rva0058A0F4_E1
-{
-public:
-	virtual ~DockUpdate();
-	virtual UpdateSleepTime update();
-	virtual bool isClearToApproach(const Object *docker) const;
-};
+#include "DockUpdate/SupplyWarehouseDockUpdateNative.h"
 
 class MonsterDockUpdate : public DockUpdate
 {
@@ -64,16 +26,3 @@ protected:
 MonsterDockUpdate::~MonsterDockUpdate()
 {
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f1@Rva0058A0F4_M1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
