@@ -106,6 +106,21 @@ public:
 	virtual ~AIInternalMoveToState();
 protected:
 	unsigned char m_pad20[0x4C - 0x20];
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *xfer);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType status);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 // ZH's AIMoveToState, rowed by address.
 class Rva0034005D : public AIInternalMoveToState

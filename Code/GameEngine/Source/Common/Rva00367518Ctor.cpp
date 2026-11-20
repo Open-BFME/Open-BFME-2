@@ -33,6 +33,9 @@ protected:
 	Bool m_49;
 	Bool m_4A;
 	Bool m_4B;
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 class AIFollowPathState : public AIInternalMoveToState
 {
@@ -48,6 +51,9 @@ protected:
 	Bool m_50;
 	Bool m_51;
 	int m_54;
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 class Rva00367518 : public AIFollowPathState
 {
