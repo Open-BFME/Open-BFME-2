@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /G7 /EHsc /MD /DNDEBUG
+// stlport
 //
 // ?rva00210F96@LivingWorldManager@@QAEXXZ @ 0x00210F96 (48B).
 // Unlock lane: missing callee of free functions; landing unblocks 0x003B8C06.
@@ -10,6 +11,7 @@
 // LivingWorldRegionEffectsManager::rva003EF2FF 0x003EF2FF tail jmp; callers
 // 0x003B8C59 0x003B8DF2 unclaimed so class from this-layout plus
 // LivingWorldManager callee and +0x268 same as rowed 0x00210D68.
+#include <map>
 #include "ascii_string.h"
 
 // The target body reads the data-ledger global at 0x00DFEF10, then offsets
@@ -27,11 +29,7 @@ public:
 	void rva003EEDD6(int value);
 };
 
-class Rva004E3629
-{
-public:
-	void rva004E3629(const AsciiString &name, int value);
-};
+#include "../../Include/Common/Rva004E3629.h"
 
 class Rva002D43A0Owner
 {
