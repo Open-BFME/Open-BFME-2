@@ -135,7 +135,16 @@ public:
 };
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h"
-struct GeometryRecord;
+struct GeometryRecord
+{
+	~GeometryRecord();
+	int m_first;
+	int m_second;
+	int m_third;
+	AsciiString m_name;
+public:
+	GeometryRecord &operator=(const GeometryRecord &);
+};
 
 class Rva0021887C
 {
@@ -150,9 +159,6 @@ private:
 // assignment's native calls while using STLport's vector layout.
 namespace _STL
 {
-template <> GeometryRecord *__copy_ptrs<GeometryRecord *, GeometryRecord *>(
-    GeometryRecord *, GeometryRecord *, GeometryRecord *, const __false_type &);
-template <> void _Destroy<GeometryRecord *>(GeometryRecord *, GeometryRecord *);
 template <> MixFileCreator::FileInfoStruct *__uninitialized_copy<
     MixFileCreator::FileInfoStruct *, MixFileCreator::FileInfoStruct *>(
     MixFileCreator::FileInfoStruct *, MixFileCreator::FileInfoStruct *,
