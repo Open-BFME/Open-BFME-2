@@ -1390,19 +1390,12 @@ bool Rva00340FBF::rva00340FBF() const
 
 // --- 0x003360F6, 0x00339F65, 0x0033EBAA (11B each): erase every element of
 // the vector at +0 through its rowed range eraser.
-class Rva00335C88
-{
-public:
-	void *rva00335C88(void *first, void *last);				// 0x00335C88
-	void rva003360F6();
-private:
-	void *m_start;
-	void *m_finish;
-};
+struct BfmeStringRecord00063BE4;
+#include "../../Include/Common/Rva00335C88.h"
 
 void Rva00335C88::rva003360F6()
 {
-	rva00335C88(m_start, m_finish);
+	rva00335C88(m_start, m_04);
 }
 
 struct DynamicPortalLink;

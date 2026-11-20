@@ -33,11 +33,8 @@ struct BfmePod36
 	unsigned short w;
 };
 
-class Rva00335C88
-{
-public:
-	void *rva00335C88(void *a, void *b);
-};
+struct BfmeStringRecord00063BE4;
+#include "../../../../GameEngine/Include/Common/Rva00335C88.h"
 
 class BfmePod36Vector : public _STL::vector<BfmePod36, _STL::allocator<BfmePod36> >
 {
