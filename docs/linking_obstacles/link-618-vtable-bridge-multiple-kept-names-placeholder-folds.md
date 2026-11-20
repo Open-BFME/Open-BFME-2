@@ -378,3 +378,61 @@ loadPostProcessB3FD0 bindings. The owning A1 check rejects a new cross-TU
 empty row; reset's flat view also needs a normal virtual correction preserving
 layout. No source/row/pin changes banked or bridge retirement claimed.
 [Evidence](../../reverse/attempt_support/eva-native-tables-20261113-root20.md).
+
+### 2026-11-20: fold census over retail's own tables (seat halilkkaya-vt3)
+
+Base `a077b99a692` (branch seat-vt-1120). Bridge figures are the local snapshot (tools/vtable_bridge.py's
+plan over build/match, no link): bridged 3,026 -> 3,020, correct 2,497 -> 2,497, refusals identical (28),
+mismatching source slots 33,039 -> 32,895, undefined-without-definer 2,806 -> 2,806, strong duplicates 0 -> 0.
+
+**Census.** Every (placeholder OLD, NEW) pair one retail table ties: both `??_7` names on the table, a slot-0
+deleting destructor of one class in a table named for the other, a slot body that no other retail table holds
+rowed as a method of one class, or a constructor/destructor of one class installing as its own a table named
+for the other. 5,533 ordered pairs over tables named by at most six classes (35 tables named by more are ICF
+folds or stand-in bases, not paired). rename.py's own `fold_evidence` and `plan_fold`, in process: 148 plan;
+refusals: OLD owns no table 2,070, NEW not named on OLD's table 1,445, third name on the table 639,
+the names own different tables 510, OLD's rows own several tables 338, a third class's deleting destructor in
+the table 110, ICF table of a third class 62, frozen register key 48, unit declares both views or header
+fan-out 44, registered NEW needs every unit `--prepared` on its header 36, other narrow refusals 83. No fold
+needs a name_lane approval (a fold invents no name). The `--with` route admits none of the 639 third-name
+refusals: every third name rows its own constructor or destructor (or rows nothing). The 2-3-class bridged
+tables (422 tables, 745 bridged names) give 482 pairs; the 168 whose copies agree ran the CLI dry run: 23 plans.
+
+**Two checks the planner does not make** (both decide whether a fold loses a unit in link_check):
+1. Every compiled copy of each `??_7NEW` name must be identical after the respelling (step 2 above): 91 of the
+   148 plans fail it.
+2. COMDAT selection of the special members. An out-of-line `/Gy` definition is NODUPLICATES (selection 1),
+   which the census counts as a strong definition; an inline or implicit one is SELECT_ANY (2). After a fold,
+   any `??0/??1/??_G` name with a selection-1 copy beside a second copy is a `duplicate`, even when the two
+   are byte- and relocation-identical (`??0Rva006613E0`: both 9-byte copies equal, both units lost). Of the
+   34 identical-copy plans only 8 pass this; most of the rest are the COMDAT-constructor trap (a strong
+   constructor row in RvaSmallVtableCtors.cpp or InlineDtorDeletingDtors2.cpp, the real class's unit inlining
+   it). Check selections before applying: read each defining object's COMDAT section selection.
+
+**Landed** (each its own commit, rename.py's subject): Rva00098667Product into Rva00098690 (0x00BC8358),
+Rva005CE804 into Rva005CE874 (0x00C75184), Rva005B5CF4 into Rva005B6B93 (0x00C735C0), Rva004A0E0C into
+SupplyCenterDockUpdate (0x00C51BDC), Rva004C089E into ImmortalBody (0x00C5B550), Rva005D06CB into Rva005CFACB
+(0x00C75554, the virtual-slot route). Duplicate fixes used: the constructor unit's view declares the
+destructor instead of an implicit or inline copy (Rva00098690, Rva005CE874); a present-unmatched destructor
+body goes (Rva005B6B93); a dead placeholder view whose destructor became a second strong definition goes
+(ImmortalBody, where the fold made the ICF-alias rows in ImmortalBodyConstructor.cpp the primaries).
+link_check over the 55 units spelling the folded classes: 55 of 55 link; LINKED 55,462 -> 55,305, the 157
+bytes being the three merged alias rows, whose bodies their primary owners still link.
+
+**Blocked** (re_attempts.log):
+- Rva006ED6F into RTS2DScene: pin_admission refuses the in-place respelled `??_E` weak-alias pin as a second
+  real name on the `??_G` row (recorded as a false reject; Rva006F7BD, Rva008F00D, Rva003ABA36, Rva0057A2B0
+  and Rva005AE30A carry the same pin). The fold would also leave two different `??_7RTS2DScene@@6BSimpleSceneClass@@@`
+  copies (2 slots in Rva006ED6FDtor.cpp, 28 in RTS2DSceneCtor.cpp; RTS2DScene is not registered).
+- Rva00362EC7 into Rva00362EE3: RadarMarkerClientUpdateDtor.cpp's inline base destructor (retail inlines it,
+  and an unwind funclet calls its out-of-line copy) becomes a second `??1Rva00362EE3` beside
+  Rva0049B47CDerived.cpp's strong row, with another base spelling for 0x0049B47C.
+- Gen007F4D00Listener into Rva006613E0: the COMDAT-constructor trap (Y2ScalarDeleters.cpp's implicit
+  constructor; declaring it fails `??0Gen007F4D00`, retail inlines the base).
+- Not applied, held by other seats: CivilianSpawnUpdate, FireSpreadUpdate, FloatUpdate, ProneUpdate,
+  DetachableRiderUpdate (Rva0024A797Derived.cpp), Rva00492C59/Rva00492C90 and Rva00494DCA/Rva00494E01
+  (Rva00451F45Derived.cpp; both have a present-unmatched destructor in the constructor unit, the Rva005B6B93
+  recipe), TBuff (W3DFloorBuffer.cpp).
+
+**Trap.** A refused `rename.py` run restores every file but not `build/match`: the units it built keep the
+folded objects. Rebuild them with `./build.sh` before any snapshot or link_check.
