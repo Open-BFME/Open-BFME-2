@@ -9627,8 +9627,8 @@ Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideFriendNew.cpp,
 Code/GameEngine/Source/GameLogic/Object/Collide/HordeMemberCollideOnCollide.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp,no,1,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainOnContaining.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainPoolKey.cpp,yes,0,0,0,0,0
