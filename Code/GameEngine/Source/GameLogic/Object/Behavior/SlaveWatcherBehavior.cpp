@@ -232,10 +232,15 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
+template <int N> class BitFlags;
+// Retail's UpdateModuleInterface table is update, getDisabledTypesToProcess and a
+// sleep-time setter; UpdateModule overrides the last two (0x00253376, 0x0044DF8D).
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
+	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
+	virtual void rva0044DF8D(UpdateSleepTime) = 0;
 };
 
 // Primary vftable 0x00C4A264: the deleting dtor, loadPostProcess, the snapshot
@@ -244,6 +249,8 @@ public:
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
+	virtual BitFlags<11> getDisabledTypesToProcess() const;
+	virtual void rva0044DF8D(UpdateSleepTime);
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
 protected:
