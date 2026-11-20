@@ -13,5 +13,11 @@
 extern float g_modernAptOffsetX;
 extern float g_modernAptOffsetY;
 bool modernAptKeepAspect();
+// Stage units that move the HUD's edge panels (Palantir.apt's palantir and
+// side command bar) from the centred box's edges to the screen's; 0 when the
+// stage is stretched or BFME2_MODERN_HUD_EDGES=0.
+float modernAptEdgeShift();
+// Set while such a panel is drawn; the next Apt pass then is not clipped.
+extern bool g_modernAptEdgesDrawn;
 
 #endif

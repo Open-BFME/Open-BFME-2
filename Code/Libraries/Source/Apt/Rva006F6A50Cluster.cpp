@@ -442,14 +442,13 @@ struct BfmeS1209;
 #if defined(BFME2_MODERN)
 #include <string.h>
 #include "../../../GameEngine/Include/Common/AptMatrix.h"
+#include "../../../GameEngine/Include/Common/ModernAptLayout.h"
 // The modern Apt stage keeps its aspect in a centred box (W3DAptAux.cpp).
 // Palantir.apt lays its panels out on one 1024x768 stage: the palantir (left)
 // and the side command bar (right) sit on the stage's edges. Shift those
 // top-level clips by the box's margin so they reach the screen's edges, in
 // stage units ahead of the clip's own matrix. Buttons record the matrix they
 // are drawn with for hit-testing, so clicks follow the shift.
-float modernAptEdgeShift();
-extern bool g_modernAptEdgesDrawn;
 static const char *modernEAString(const EAStringC &text)
 {
 	return text.data ? reinterpret_cast<const char *>(text.data) + sizeof(EAStringC::StringDataC) : 0;

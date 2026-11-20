@@ -237,7 +237,7 @@ struct ModernAptClip
     {
         // The edge panels were drawn past the box last frame: leave the pass
         // unclipped (they push the parked art past the screen's edge instead).
-        extern bool g_modernAptEdgesDrawn;
+        // The decision lags one frame behind the panels appearing.
         bool edges = g_modernAptEdgesDrawn;
         g_modernAptEdgesDrawn = false;
         if (edges)

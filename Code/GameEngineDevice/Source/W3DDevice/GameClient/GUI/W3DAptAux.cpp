@@ -347,10 +347,8 @@ void Rva000A92B0SetMatrix(const AptRenderTransform *input) {
  else aptMatrixMode=3;
 }
 #if defined(BFME2_MODERN)
-// Stage units that move the HUD's edge panels (Rva006F6A50Cluster.cpp) from the
-// centred box's edges to the screen's. BFME2_MODERN_HUD_EDGES=0 keeps them in
-// the box. Set when such a panel was drawn, so the next Apt pass is not
-// clipped to the box (W3DDisplay.cpp).
+// ModernAptLayout.h: the edge panels' shift (applied in Rva006F6A50Cluster.cpp)
+// and the flag W3DDisplay.cpp's clip reads.
 bool g_modernAptEdgesDrawn;
 float modernAptEdgeShift() {
  static int edges=-1;
