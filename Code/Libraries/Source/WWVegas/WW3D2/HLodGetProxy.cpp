@@ -20,9 +20,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #define Matrix4x4 Matrix4
 #include <sweep/winbase_shim.h>
 #include <string.h>
@@ -55,9 +53,7 @@ struct BfmeWeightInfoVddAnchor;
 #include "hanim.h"
 #undef private
 struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
-#pragma optimize("gsy", on)
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
-#pragma optimize("", on)
 // Retail's Get_Bone_Transform returns by value; the shim's guard keeps the reference animobj.h out.
 #include "../../../../../reference/shims/bfmeanimobj/animobj.h"
 #include "hlod.h"

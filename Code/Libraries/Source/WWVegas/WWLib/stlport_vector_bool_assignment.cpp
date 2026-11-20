@@ -18,9 +18,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 
 // stlport
 // BFME's vector<bool> bodies use the node allocator's small/large split.

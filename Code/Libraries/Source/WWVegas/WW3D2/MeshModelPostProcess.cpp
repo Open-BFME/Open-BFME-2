@@ -18,11 +18,13 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
+#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 // RefCountClass's inline members and deleting destructor are retail's
 // size-optimised bodies: compile them for size, as hlod.cpp does.
 #include "refcount.h"
+#pragma optimize("", on)
 // Use the measured BFME2 cull bit and 0x118 material layout before donor headers.
 #include "../../../../../reference/shims/bfmeshader/shader.h"
 #include "../../../../../reference/shims/meshmatdesclayout/meshmatdesc.h"

@@ -13,9 +13,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
-#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 #include "vector3.h" // select the verified three-word constructor before donor math headers
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "colmath.h"

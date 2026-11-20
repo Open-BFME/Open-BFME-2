@@ -19,6 +19,7 @@
 // change nothing else in this unit, but if a function added later that builds
 // an array will not match, try it without this block.
 #include "../../../../GameEngine/Include/Common/BfmeVciAnchorElem.h"
+#pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #define Matrix4x4 Matrix4
 #include <sweep/winbase_shim.h>
@@ -27,6 +28,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Retail's RefCountClass inline copies (Add_Ref, Release_Ref 0x005D1A7D) are the size
 // form: compile refcount.h for size, as hlod.cpp does.
 #include "refcount.h"
+#pragma optimize("", on)
 #include "rendobj.h"
 #include "winbase_shim.h"
 // Retail links the size-optimized WeightInfoStruct vector deleting destructor (??_E,
@@ -38,7 +40,9 @@ struct BfmeWeightInfoVddAnchor;
 #include "hanim.h"
 #undef private
 struct BfmeWeightInfoVddAnchor { typedef NamedPivotMapClass::WeightInfoStruct Info; };
+#pragma optimize("gsy", on)
 static void bfmeWeightInfoVddAnchor(BfmeWeightInfoVddAnchor::Info *p) { delete [] p; }
+#pragma optimize("", on)
 // Retail's Get_Bone_Transform returns by value; the shim's guard keeps the reference animobj.h out.
 #include "../../../../../reference/shims/bfmeanimobj/animobj.h"
 #include "hlod.h"
