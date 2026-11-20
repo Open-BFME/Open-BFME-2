@@ -3942,3 +3942,12 @@ UpdateModule and BehaviorModule, same scan:
   (UpdateModule, DieModule, CreateModule, UpgradeModule, BodyModule, SpecialPowerModule and others). Only 4
   funclets and one deleting destructor reach the out-of-line copy. BehaviorModule.h declares it out of line, but
   every affected destructor is an intermediate one that is already rowed, so it unlocks no bridged table on its own.
+
+### Line-of-sight filter fourth slot (2026-11-20)
+
+The 151-byte provider at 0x0026163A now occupies the verified fourth
+Rva002619C1Filter slot. Six emitted tables have the native 16-byte
+extent. The 11-source scope verifies 150 function rows and maintains
+17,825 bytes in the ordinary link preview. The next authoritative link
+that includes the change must confirm bridge retirement.
+[Native evidence](../../reverse/attempt_support/line-of-sight-filter-slot3-20261120-root20.md).
