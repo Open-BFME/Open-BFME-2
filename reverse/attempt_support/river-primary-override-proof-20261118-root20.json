@@ -1,0 +1,65 @@
+{
+  "artifacts": {
+    "notifiers-before.obj": "dad8543879eb6409934abec1b1bba525041934031113276de14e14f165019c2a",
+    "notifiers-override-spelling-evidence.cpp.txt": "abee5bb2600b2de553cca4111d818c294e9e77b24ff486a326c18b0f70936918",
+    "notifiers-override-spelling.obj": "1a135ba589773cddb2e540d2a095de8b3481cc73f9fdac68a16efb35d7b99679",
+    "override-spelling-native-evidence.json": "1490b6a6eb98a28c130cb9832431cbdd7cdfb0d0e762e6ca95cbe6899aa87dc5"
+  },
+  "controls": {
+    "ctor_dtor_eh": "2 EXACT",
+    "normal_functions": 46,
+    "queue_retirement": 0,
+    "source_changes": 0,
+    "sources": 3
+  },
+  "evidence_only": true,
+  "native_tables": {
+    "base": {
+      "rva": "0x8691ec",
+      "targets": [
+        "0x5381b9",
+        "0x47a699",
+        "0x53805d",
+        "0x53806c",
+        "0x53807b",
+        "0x53808a",
+        "0x3b810"
+      ]
+    },
+    "river": {
+      "rva": "0x8088fc",
+      "targets": [
+        "0x30c6a2",
+        "0x50b5c6",
+        "0x30c1fc",
+        "0x30c214",
+        "0x30c22c",
+        "0x30c244",
+        "0x30bcba",
+        "0x30c25c",
+        "0x30c280",
+        "0x30c28f",
+        "0x30c29e",
+        "0x30c2b6",
+        "0x30c271"
+      ]
+    }
+  },
+  "new_name": "?rva0053805D@Rva0030C1FCOwner@@QAEXXZ",
+  "not_admitted": true,
+  "old_name": "?rva0030C1FC@Rva0030C1FCOwner@@QAEXXZ",
+  "owning_refusal": "rename: refused: new name rva0053805D is itself a placeholder or weak name\n",
+  "remaining": "Need general native-slot/caller-bound mechanical inherited-name normalization, then real virtual/provider/boolean/table/lifetime reconciliation across whole cohort. Evidence-only single rename is not full13-slot clearance.",
+  "required_interface_facts": [
+    "Base slot1 is false at47A699; river overrides it with true at50B5C6.",
+    "Base slots2..5 are53805D/53806C/53807B/53808A; river overrides each at the same slot.",
+    "Base slot6 is pure; river supplies30BCBA (currently a placeholder-class void(int) forwarder).",
+    "River slots7..12 add30C25C/30C280/30C28F/30C29E/30C2B6/30C271.",
+    "Base538099 is a nonvirtual broadcast helper, not base slot6."
+  ],
+  "revision": "9dcb0c7478c079b63e08d7a737c1bf238804ebba",
+  "runtime_identical_after_exact_symbol_mapping": true,
+  "sections_after": 34,
+  "sections_before": 34,
+  "source_restored": true
+}

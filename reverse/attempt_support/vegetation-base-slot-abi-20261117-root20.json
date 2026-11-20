@@ -1,0 +1,65 @@
+{
+  "controls": {
+    "ctor_dtor_EH": "2/2 EXACT; no baseline debt",
+    "data_rows": 1,
+    "new_aliases": 0,
+    "new_source_changes": 0,
+    "normal_functions": 66,
+    "queue_retirement": 0,
+    "sources": 3
+  },
+  "held_ledgers": {
+    "files": [
+      "reverse/symbols.csv",
+      "reverse/hatch_counts.json"
+    ],
+    "holder": "Krzysztof W\u0142och@DESKTOP-D6QURIN/807d632b"
+  },
+  "planner_refusals": {
+    "class-identity-dry-run.log": "rename: refused: retail vftable 0x00BCEAB4 slot 0 holds Rva000E6C6F's deleting destructor (??_GRva000E6C6F@@UAEPAXI@Z at 0x000E6D78): the table is not one class's of Rva000E6AC0 and W3DVegetationBufferBase\n",
+    "deleting-family-dry-run.log": "rename: refused: both names have a deleting destructor row (??_GRva000E6C6F@@UAEPAXI@Z at 0x000E6D78; ??_GRva000E6AC0@@UAEPAXI@Z at 0x000E6D78): one class has one (a folded vftable of two classes, or overloads or an ICF alias pair this mode does not merge)\n",
+    "xfer-owning-dry-run.log": "rename: refused: ?Rva000E63DCDo@@YGXPAVRva000E63DCObj@@@Z is not a method, destructor or supported stream operator this mode can respell (constructors, other operators, templates and funclets are not)\n"
+  },
+  "revision": "9dcb0c7478c079b63e08d7a737c1bf238804ebba",
+  "scope": "All plans dry-run/refused; no source, naming, ABI, header, pin, ledger or bridge change admitted.",
+  "source_facts": {
+    "alias": "Both Rva000E6C6F and Rva000E6AC0 have deleting-destructor rows at0x000E6D78; opaque complete-dtor pin at0x000E6C6F remains in symbols.csv.",
+    "getter": {
+      "current_name": "?name@Rva000E6B93Named@@QBEPBDXZ",
+      "literal": "W3DVegetationBufferBase",
+      "rva": "0x000E6B93"
+    },
+    "slot04": "Matched BinderDtor caller declares nonconst parameterless bool slot04() pure; no semantic name inferred.",
+    "slot05": "Native base is empty; derived setters do not prove an original base semantic identifier.",
+    "transfer": {
+      "candidate_role": "Snapshot transfer, pending supported ABI/type recovery",
+      "current_form": "free stdcall(void Rva000E63DCObj*)",
+      "current_name": "?Rva000E63DCDo@@YGXPAVRva000E63DCObj@@@Z",
+      "rva": "0x000E63DC",
+      "size": 42,
+      "source_callers": [
+        "W3DShrubBufferDoXfer.cpp",
+        "W3DTreeBufferDoXfer.cpp"
+      ]
+    }
+  },
+  "source_sha256": {
+    "Code/GameEngine/Source/Common/Rva000E6AC0Ctor.cpp": "e8bdd560c951573b4bb3feeb3a5bc7aa526ffb7b0398d1cedc6fbc677adb556d",
+    "Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp": "942f740e212fce5dbf2988f7e5674f8163956befc256116dff496168cb8c11b3",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp": "a6393dcde937410fa06d3180474da24e1c1c533c243e808658537796163fca82"
+  },
+  "table": {
+    "compiled_extent": 16,
+    "name": "??_7Rva000E6AC0@@6B@",
+    "retail_extent": 24,
+    "retail_targets": [
+      "0x000E6D78",
+      "0x0003B810",
+      "0x000E6B93",
+      "0x000E63DC",
+      "0x0003B810",
+      "0x000B3FD0"
+    ],
+    "rva": "0x007CEAB4"
+  }
+}

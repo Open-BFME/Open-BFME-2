@@ -1,0 +1,572 @@
+{
+  "ModuleData_constructor_definitions": [],
+  "ModuleData_table_definitions": [],
+  "after_layouts": {
+    "CivilianSpawnUpdateModuleData": {
+      "bases": [
+        [
+          "ModuleData",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          8,
+          "m_int08",
+          "uint",
+          4
+        ],
+        [
+          12,
+          "m_filter0C",
+          "Rva003623E5Filter",
+          4
+        ],
+        [
+          16,
+          "m_int10",
+          "int",
+          4
+        ],
+        [
+          20,
+          "m_vec14",
+          "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+          12
+        ]
+      ],
+      "fwd": false,
+      "key": "class",
+      "methods": [
+        "CivilianSpawnUpdateModuleData",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "buildFieldParse",
+        "~CivilianSpawnUpdateModuleData"
+      ],
+      "size": 32,
+      "statics": [],
+      "vfptr": false,
+      "virtual": [
+        "__vecDelDtor",
+        "~CivilianSpawnUpdateModuleData"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      }
+    },
+    "ModuleData": {
+      "bases": [
+        [
+          "Snapshot",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          4,
+          "m_moduleTagNameKey",
+          "enum",
+          4
+        ]
+      ],
+      "fwd": false,
+      "key": "class",
+      "methods": [
+        "GetSnapshotName",
+        "ModuleData",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "buildFieldParse",
+        "getAsW3DModelDrawModuleData",
+        "getAsW3DPropDrawModuleData",
+        "getHordeModuleData",
+        "getMinimumRequiredGameLOD",
+        "getModuleTagNameKey",
+        "isAiModuleData",
+        "loadPostProcess",
+        "setModuleTagNameKey",
+        "slot05",
+        "slot06",
+        "slot07",
+        "slot08",
+        "slot09",
+        "slot10",
+        "slot11",
+        "slot12",
+        "slot13",
+        "slot14",
+        "slot15",
+        "slot16",
+        "slot17",
+        "slot20",
+        "slot23",
+        "slot24",
+        "slot25",
+        "slot26",
+        "slot27",
+        "slot28",
+        "slot29",
+        "slot30",
+        "xfer",
+        "~ModuleData"
+      ],
+      "size": 8,
+      "statics": [],
+      "vfptr": false,
+      "virtual": [
+        "GetSnapshotName",
+        "__vecDelDtor",
+        "getAsW3DModelDrawModuleData",
+        "getAsW3DPropDrawModuleData",
+        "getHordeModuleData",
+        "getMinimumRequiredGameLOD",
+        "isAiModuleData",
+        "loadPostProcess",
+        "slot05",
+        "slot06",
+        "slot07",
+        "slot08",
+        "slot09",
+        "slot10",
+        "slot11",
+        "slot12",
+        "slot13",
+        "slot14",
+        "slot15",
+        "slot16",
+        "slot17",
+        "slot20",
+        "slot23",
+        "slot24",
+        "slot25",
+        "slot26",
+        "slot27",
+        "slot28",
+        "slot29",
+        "slot30",
+        "xfer",
+        "~ModuleData"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)",
+        "10": "slot10()",
+        "11": "slot11()",
+        "12": "slot12()",
+        "13": "slot13()",
+        "14": "slot14(int)",
+        "15": "slot15()",
+        "16": "slot16()",
+        "17": "slot17()",
+        "18": "getAsW3DModelDrawModuleData()",
+        "19": "getAsW3DPropDrawModuleData()",
+        "20": "slot20()",
+        "21": "getHordeModuleData()",
+        "22": "getMinimumRequiredGameLOD()",
+        "23": "slot23()",
+        "24": "slot24()",
+        "25": "slot25()",
+        "26": "slot26()",
+        "27": "slot27()",
+        "28": "slot28()",
+        "29": "slot29()",
+        "30": "slot30()",
+        "4": "isAiModuleData()",
+        "5": "slot05()",
+        "6": "slot06()",
+        "7": "slot07()",
+        "8": "slot08()",
+        "9": "slot09()"
+      }
+    }
+  },
+  "artifacts": {
+    "seed-before.obj": "d0604960c22874e843a4ef1a2ffc3977e413bdfc6d9d44da787ffd0049e96588",
+    "seed-canonical-evidence.cpp.txt": "b7d1d38decc704cbc35039ba71944b20773e77cb8ab6ceaea032668f72b433a5",
+    "seed-canonical-evidence.obj": "e2c273390ff2113a1bd8543c445ebc399323bb956ccdf699e19eb8cd4498b88e",
+    "seed-layout-prepared.cpp.txt": "c64957873ef200ab526c0d128ee952d4516082c017ef9be1dcdc7b105e9cc224",
+    "seed-original.cpp.txt": "3d36b53e17d739f9660e96a90d6fed8a9cf51fbea4fe16e04721c7c4865cc358"
+  },
+  "baseline": {
+    "data_rows": 1,
+    "function_rows": 15,
+    "normal_build_passed": true
+  },
+  "before_layouts": {
+    "CivilianSpawnUpdateModuleData": {
+      "bases": [
+        [
+          "ModuleData",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          12,
+          "m_filter0C",
+          "Rva003623E5Filter",
+          4
+        ],
+        [
+          16,
+          "m_int10",
+          "int",
+          4
+        ],
+        [
+          20,
+          "m_vec14",
+          "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+          12
+        ]
+      ],
+      "fwd": false,
+      "key": "class",
+      "methods": [
+        "CivilianSpawnUpdateModuleData",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "buildFieldParse",
+        "~CivilianSpawnUpdateModuleData"
+      ],
+      "size": 32,
+      "statics": [],
+      "vfptr": false,
+      "virtual": [
+        "__vecDelDtor",
+        "~CivilianSpawnUpdateModuleData"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      }
+    },
+    "ModuleData": {
+      "bases": [],
+      "fields": [
+        [
+          4,
+          "m_unsourced04",
+          "void*",
+          4
+        ],
+        [
+          8,
+          "m_int08",
+          "uint",
+          4
+        ]
+      ],
+      "fwd": false,
+      "key": "class",
+      "methods": [
+        "ModuleData",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "~ModuleData"
+      ],
+      "size": 12,
+      "statics": [],
+      "vfptr": true,
+      "virtual": [
+        "__vecDelDtor",
+        "~ModuleData"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      }
+    }
+  },
+  "evidence_only": true,
+  "layout_preparation_runtime_identical": true,
+  "not_admitted": true,
+  "old_text_section_identity": {
+    "??0?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@PAVAsciiString@@@Z": true,
+    "??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z": true,
+    "??0?$allocator@VAsciiString@@@_STL@@QAE@ABV01@@Z": true,
+    "??0?$allocator@VAsciiString@@@_STL@@QAE@XZ": true,
+    "??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z": true,
+    "??0CivilianSpawnUpdateModuleData@@QAE@XZ": true,
+    "??0Rva000421C8@@QAE@XZ": true,
+    "??0Rva0026119DFilter@@QAE@XZ": true,
+    "??0Rva002611BFFilter@@QAE@PBVObject@@@Z": true,
+    "??0Rva002614ECFilter@@QAE@PBXPAVPlayer@@_N@Z": true,
+    "??1?$_STLP_alloc_proxy@PAVAsciiString@@V1@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ": true,
+    "??1?$allocator@VAsciiString@@@_STL@@QAE@XZ": true,
+    "??1Rva000421C8@@UAE@XZ": true,
+    "??1Rva0026119DFilter@@UAE@XZ": true,
+    "??1Rva002611BFFilter@@UAE@XZ": true,
+    "??1Rva002614ECFilter@@UAE@XZ": true,
+    "??A?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBEABVAsciiString@@I@Z": true,
+    "??_GCivilianSpawnUpdateModuleData@@UAEPAXI@Z": true,
+    "??_GRva000421C8@@UAEPAXI@Z": true,
+    "??_GRva0026119DFilter@@UAEPAXI@Z": true,
+    "??_GRva002611BFFilter@@UAEPAXI@Z": true,
+    "??_GRva002614ECFilter@@UAEPAXI@Z": true,
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": true,
+    "?CivilianSpawnHitCount@@YAHABUBfmeWideResult@@@Z": true,
+    "?CivilianSpawnScale@@YAXAAUCoord3D@@M@Z": true,
+    "?begin@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBEPBVAsciiString@@XZ": true,
+    "?buildFieldParse@CivilianSpawnUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z": true,
+    "?getAI@Object@@QBEPAVAIUpdateInterface@@XZ": true,
+    "?getBoundingRadius@Object@@QBEMXZ": true,
+    "?getID@Object@@QBE?AW4ObjectID@@XZ": true,
+    "?getModuleData@Module@@IBEPBVModuleData@@XZ": true,
+    "?getModuleNameKey@CivilianSpawnUpdate@@UBE?AW4NameKeyType@@XZ": true,
+    "?getObject@ObjectModule@@IAEPAVObject@@XZ": true,
+    "?getPlayerMask@Rva000421C8@@UAEHXZ": true,
+    "?getPosition@Thing@@QBEPBUCoord3D@@XZ": true,
+    "?getTeam@Object@@QBEPAVTeam@@XZ": true,
+    "?pathfinder@AI@@QAEPAVPathfinder@@XZ": true,
+    "?set@CivilianSpawnModelConditionFlags@@QAEXI@Z": true,
+    "?setModelConditionState@Object@@QAEXW4ModelConditionFlagType@@@Z": true,
+    "?size@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QBEIXZ": true,
+    "?test@CivilianSpawnModelConditionFlags@@QBEII@Z": true,
+    "?update@CivilianSpawnUpdate@@UAE?AW4UpdateSleepTime@@XZ": true
+  },
+  "owner_refusal": "field renames: ModuleData::m_unsourced04 (+0x4) is void*; canonical ModuleData::m_moduleTagNameKey is enum",
+  "prepared_layouts": {
+    "CivilianSpawnUpdateModuleData": {
+      "bases": [
+        [
+          "ModuleData",
+          0
+        ]
+      ],
+      "fields": [
+        [
+          8,
+          "m_int08",
+          "uint",
+          4
+        ],
+        [
+          12,
+          "m_filter0C",
+          "Rva003623E5Filter",
+          4
+        ],
+        [
+          16,
+          "m_int10",
+          "int",
+          4
+        ],
+        [
+          20,
+          "m_vec14",
+          "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+          12
+        ]
+      ],
+      "fwd": false,
+      "key": "class",
+      "methods": [
+        "CivilianSpawnUpdateModuleData",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "buildFieldParse",
+        "~CivilianSpawnUpdateModuleData"
+      ],
+      "size": 32,
+      "statics": [],
+      "vfptr": false,
+      "virtual": [
+        "__vecDelDtor",
+        "~CivilianSpawnUpdateModuleData"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      }
+    },
+    "ModuleData": {
+      "bases": [],
+      "fields": [
+        [
+          4,
+          "m_unsourced04",
+          "void*",
+          4
+        ]
+      ],
+      "fwd": false,
+      "key": "class",
+      "methods": [
+        "ModuleData",
+        "__local_vftable_ctor_closure",
+        "__vecDelDtor",
+        "~ModuleData"
+      ],
+      "size": 8,
+      "statics": [],
+      "vfptr": true,
+      "virtual": [
+        "__vecDelDtor",
+        "~ModuleData"
+      ],
+      "vslots": {
+        "0": "__vecDelDtor(uint)"
+      }
+    }
+  },
+  "remaining_verification": "No source admitted. After a separate unused-scalar proof repair, normal15row+1data/EH checks, current providers/link preview and next real bridge absence remain required.",
+  "revision": "9dcb0c7478c079b63e08d7a737c1bf238804ebba",
+  "slots": [
+    {
+      "kind": 6,
+      "slot": 0,
+      "symbol": "??_ECivilianSpawnUpdateModuleData@@UAEPAXI@Z"
+    },
+    {
+      "kind": 6,
+      "slot": 1,
+      "symbol": "?loadPostProcess@ModuleData@@UAEXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 2,
+      "symbol": "?GetSnapshotName@ModuleData@@UBEPBDXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 3,
+      "symbol": "?xfer@ModuleData@@UAEXPAVXfer@@@Z"
+    },
+    {
+      "kind": 6,
+      "slot": 4,
+      "symbol": "?isAiModuleData@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 5,
+      "symbol": "?slot05@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 6,
+      "symbol": "?slot06@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 7,
+      "symbol": "?slot07@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 8,
+      "symbol": "?slot08@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 9,
+      "symbol": "?slot09@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 10,
+      "symbol": "?slot10@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 11,
+      "symbol": "?slot11@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 12,
+      "symbol": "?slot12@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 13,
+      "symbol": "?slot13@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 14,
+      "symbol": "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z"
+    },
+    {
+      "kind": 6,
+      "slot": 15,
+      "symbol": "?slot15@ModuleData@@UBE_NXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 16,
+      "symbol": "?slot16@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 17,
+      "symbol": "?slot17@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 18,
+      "symbol": "?getAsW3DModelDrawModuleData@ModuleData@@UBEPBVW3DModelDrawModuleData@@XZ"
+    },
+    {
+      "kind": 6,
+      "slot": 19,
+      "symbol": "?getAsW3DPropDrawModuleData@ModuleData@@UBEPBVW3DPropDrawModuleData@@XZ"
+    },
+    {
+      "kind": 6,
+      "slot": 20,
+      "symbol": "?slot20@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 21,
+      "symbol": "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ"
+    },
+    {
+      "kind": 6,
+      "slot": 22,
+      "symbol": "?getMinimumRequiredGameLOD@ModuleData@@UBEHXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 23,
+      "symbol": "?slot23@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 24,
+      "symbol": "?slot24@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 25,
+      "symbol": "?slot25@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 26,
+      "symbol": "?slot26@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 27,
+      "symbol": "?slot27@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 28,
+      "symbol": "?slot28@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 29,
+      "symbol": "?slot29@ModuleData@@UBEPBXXZ"
+    },
+    {
+      "kind": 6,
+      "slot": 30,
+      "symbol": "?slot30@ModuleData@@UBE_NXZ"
+    }
+  ],
+  "source_restored": true,
+  "table_extent": 124
+}

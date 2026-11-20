@@ -24,3 +24,14 @@ own bridge), unify `Rva000E9BAC` with `W3DShrubBuffer`, then respell the five ro
 as `W3DShrubBuffer` virtual overrides across their three files
 (`rename.py function --virtual` cannot change the class). Not attempted: no source
 change landed.
+
+
+2026-11-17 at9dcb0c7478c: base six-slot words independently confirmed as
+[E6D78,pure,E6B93,E63DC,pure,B3FD0]. Slot4's neutral bool/noargs/nonconst
+prototype comes from the matched binder callback; slot1 stays pure. The E63DC
+body is currently a free stdcall42B routine with an Xfer-like argument, and
+owning --to-class refuses this ABI conversion. Retail class fold and opaque
+deleting-family fold also refuse the existing dual-G rows atE6D78; the complete
+dtor pin remains under foreign-held symbols/hatch ledgers. All plans dry-run,
+all sources unchanged. Restored controls66/66+1data and2EXACT lifetimeEH.
+No bridge or class/ABI/alias change admitted. [Detailed supported-boundary handoff](../../reverse/attempt_support/vegetation-base-slot-abi-20261117-root20.md).

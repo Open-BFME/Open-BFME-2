@@ -3875,3 +3875,5 @@ Served table 0086CF0C still needs the already named StanceButton::DoUpdate at 00
 ## 2026-11-20 WeaponModeSpecialPowerUpdate ownership
 
 The prepared fold gives five existing rows the constructor's class name. The constructor refers to the rowed 39-byte complete destructor, and its 28-byte deleting thunk still matches the provider. The five vtable repairs remain open. Both parent views are 0x38 bytes, but their +0x20 and +0x24 interface declarations differ. [Native layout and verification](../../reverse/attempt_support/weaponmode-constructor-class-fold-20261120-root20.md).
+
+The constructor emits all three retail bindings at `+0x10`. The destructor emits a separate one-slot copy. At local index `451d9b086f`, the approved destructor split preserves both moved rows and all 70 residual rows but changes selected and losing COMDATs. The constructor merge also fails because the two source views name different direct bases. [Split and merge diagnostics](../../reverse/attempt_support/weaponmode-constructor-class-fold-20261120-root20.md#destructor-split-and-constructor-merge).
