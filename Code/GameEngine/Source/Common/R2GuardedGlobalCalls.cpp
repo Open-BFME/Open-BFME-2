@@ -51,7 +51,6 @@ void Rva007B7600()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeRunVJA@BfmeMsgVJA@@QAEXXZ=?run@Rva007E8AC0@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?bfmeRunVJC@BfmeMsgVJC@@QAEXXZ=?run@Rva007E8AC0@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?bfmeRunVIR@BfmeMsgVIR@@QAEXXZ=?run@Rva007E8AC0@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?bfmeRunVJF@BfmeMsgVJF@@QAEXXZ=?run@Rva007E8AC0@@QAEXXZ")

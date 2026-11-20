@@ -3798,7 +3798,6 @@ name,address,notes
 ?Release_Ref@CountedAsset@@QAEXXZ,0x0061ED10
 ?Release_Ref@HierarchyPrototype@@QAEXXZ,0x0061ED10,36B dec-WORD-at-4 conditional-virtual release body; called as thiscall on prototype refs by Get_HTree temp/owner teardown
 ?Release_Ref@RefCountedThing@@QAEXXZ,0x00050ED3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?Release_Ref@Rva009EB7A0RefOwner@@QAEXXZ,0x0061ED10
 ?Release_Ref@TaggedRefObject@@QAEXXZ,0x0061ED10,shared 36B dec-word-at-4 fold rowed as TextureBaseClass Release_Ref; TU spelling alias for the P8ZeroingCtors init member release
 ?Release_Ref@TextureBaseClass@@QAEXXZ,0x0061ED10,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Release_Ref@W3DRoadBufferRef18Target@@QAEXXZ,0x0061ED10,release in the W3DRoadBuffer+0x18 holder dtor (call at 0x000DC557 in ~W3DRoadBuffer); folded generic Release_Ref
@@ -4626,7 +4625,6 @@ name,address,notes
 ?bfmeAppendV36@BfmeStrV36@@QAEXPAD00@Z,0x0001B3E0
 ?bfmeAppendVME@BfmeStrVME@@QAEXID@Z,0x00029380
 ?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ,0x00256996
-?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ,0x00256996
 ?bfmeAskEME@BfmeObjEME@@QAE_NPAX@Z,0x0061FF70
 ?bfmeAskEQ@BfmeThingEQ@@QAEEPAX@Z,0x00625720
 ?bfmeAssignPL@BfmeThingPL@@QAEXPAD0@Z,0x0001B4E0
@@ -4876,7 +4874,6 @@ name,address,notes
 ?bfmeRunCF@BfmeTmpCF@@QAEXPAX0@Z,0x001EA3AE,callee of ?bfmeMakeCF@@YAXPAX0@Z at retail 0x0033A5DC read from its REL32 displacement; donor-reconstruction name; body unrowed
 ?bfmeRunRE@BfmeThingRE@@QAEXPAX@Z,0x006574A0,caller at 0x00664AB6 forwards the explicit stack argument; the matched 44B helper at this RVA is byte-identical to BFME1 0x007EA4F0 and tail-jumps through vtable slot 5 without cleaning it establishing this ICF signature alias
 ?bfmeRunVIR@BfmeMsgVIR@@QAEXXZ,0x00655B50
-?bfmeRunVJA@BfmeMsgVJA@@QAEXXZ,0x00655B50
 ?bfmeRunVJC@BfmeMsgVJC@@QAEXXZ,0x00655B50
 ?bfmeRunVJF@BfmeMsgVJF@@QAEXXZ,0x00655B50
 ?bfmeRunZC@BfmeOwnZC@@QAEXVBfmeRoomZC@@PAX@Z,0x00204F3B,callee of bfmeCallZC (0x00357130) at the site its BFME1 donor calls it; may be an ICF alias
@@ -5071,7 +5068,6 @@ name,address,notes
 ?clear@PlayerRelationHashMap@@QAEXXZ,0x001DBCDC,TU view of the +4 relation hash map cleared by the byte-verified ~PlayerRelationMap 0x002AD078 (Zero Hour m_map.clear()) read from its REL32 displacement; ICF-folded hashtable clear rowed under another instantiation name
 ?clear@Rva000AD6F4@@QAEXXZ,0x000AD6F4,opaque guarded-delete helper (nulls member at +0 then ::delete via slot-0 plus operator delete); called with +4 adjust from 14B vptr bodies; exact method unproven
 ?clear@Rva000C6D44ListProxy74@@QAEXXZ,0x00239D49,opaque 4B list-proxy clear ABI for Pod248 dtor 0xC6D44; retail E8 at 0xC6D61 with ecx=esi+0x74 targets 0x239D49; payload 32B per ctor 0xC6A4D->0xB92D2 and copy 0xC6B17->0xBDA52 (primary ledger RVAs 0xB92D2/0xBDA52); not AsciiString identity
-?clear@Rva00180023@@QAEXXZ,0x0004D75B,fold twin of BfmeResetTextureRef clear; generic 4B holder Release via 0x61ED10 then zero; called by Rva00180023 assign 0x0017FF45 on type mismatch
 ?clear@Rva0023DAA5List@@QAEXXZ,0x0023DAA5,address read from the REL32 displacement at byte-matched body 0x005997CD; folded _List_base clear
 ?clear@Rva002DEE9A0E0C@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
 ?clear@Rva002DEE9A0E10@@QAEXXZ,0x0023DAA5,pin for 0x2DEE9A sub-clear thiscall void () (same body as rowed list clear)
@@ -6263,7 +6259,6 @@ name,address,notes
 ?rva00796023@@YAHPAVObject@@PAX@Z,0x00796023,iterate callback pushed at retail 0x003960FF in rva003960BD 0x003960BD for Player::iterateObjects over the Rva0036BDD0 box; identity unproven
 ?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z,0x00663DC0
 ?rva007F76D0@Rva00802550Host@@QAEPAHPAVBfmeVecCZ@@H@Z,0x00663DC0
-?rva007FBE80@Rva007FBC60Game@@QAE_NPBDPADI@Z,0x00668380
 ?rva0082ADB0Fill@@YAXPAD0ABD@Z,0x000237C0
 ?rva0082C6E0CopyValues@@YAPAURva0082C6E0Value@@PAU1@00@Z,0x000179B0
 ?rva008AF650Implementation@@YAXHHH@Z,0x006EE6C0

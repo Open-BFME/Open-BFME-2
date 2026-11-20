@@ -57,11 +57,11 @@ public:
 	BfmeVecCZ m_gameKeys;
 };
 
+#include "../../Include/Common/Rva007FBEF0GameRecord.h"
 class Rva007FBC60Game
 {
 public:
 	char *rva007FBE70();
-	bool rva007FBE80( const char *key, char *dest, unsigned destSize );
 
 	int m_lid;
 	int m_gid;
@@ -185,7 +185,7 @@ void Rva00802A90Elem::notify( Rva00802A90Query *query, void *context,
 		char *key = (char *)m_host->rva007F76D0( vector, index );
 		char text[0x40];
 		text[0] = 0;
-		if( !record->rva007FBE80( key, text, sizeof(text) ) )
+		if( !((Rva007FBEF0GameRecord *)record)->Rva007FBE80( key, text, sizeof(text) ) )
 			m_keys[index] = 0;
 		else
 			m_keys[index] = ((Rva00800460Arena *)&m_buffer)->append( text );

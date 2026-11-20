@@ -46,4 +46,3 @@ void TextureBaseClass::Release_Ref()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?Release_Ref@Rva009EB7A0RefOwner@@QAEXXZ=?Release_Ref@TextureBaseClass@@QAEXXZ")

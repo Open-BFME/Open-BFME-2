@@ -46,11 +46,11 @@ public:
 // platform buffer used by the matched +0x7FBE70 accessor is at +190.  The
 // short Rva007FBEF0GameRecord is a different 0x34-byte UGID record and is not
 // used as this body's argument view.
+#include "../../Include/Common/Rva007FBEF0GameRecord.h"
 class Rva007FBC60Game
 {
 public:
 	char *rva007FBE70();
-	bool rva007FBE80( const char *key, char *dest, unsigned destSize );
 
 	int m_lid;
 	int m_gid;
@@ -106,7 +106,7 @@ void BfmeThingVHW::rva00801670( Rva007FBC60Game *rec )
 	{
 		key = (char *)m_bfme04->rva007F76D0( vector, i );
 		slot[0] = 0;
-		if( rec->rva007FBE80( key, slot, 0x40 ) )
+		if( ((Rva007FBEF0GameRecord *)rec)->Rva007FBE80( key, slot, 0x40 ) )
 			m_bfme10.addString( slot );
 	}
 }

@@ -21,6 +21,11 @@ public:
 	virtual bool bfmeRunDSL();
 };
 
+class Rva00128780GateBehaviorOwner
+{
+public:
+	bool resolveGateBehavior();
+};
 class BfmeThingDSK
 {
 public:
@@ -29,27 +34,26 @@ public:
 	bool bfmeGoDSL();
 	float bfmeGoDSM();
 	float bfmeGoDSN();
-	bool bfmeAskDSK();
 	char m_bfmeHead[0x4c];
 	BfmeSubDSK *m_bfmeSub;
 };
 
 bool BfmeThingDSK::bfmeGoDSK()
 {
-	if (bfmeAskDSK())
+	if (((Rva00128780GateBehaviorOwner *)this)->resolveGateBehavior())
 		return m_bfmeSub->bfmeRunDSK();
 	return false;
 }
 
 bool BfmeThingDSK::bfmeGoDSL()
 {
-	if (bfmeAskDSK())
+	if (((Rva00128780GateBehaviorOwner *)this)->resolveGateBehavior())
 		return m_bfmeSub->bfmeRunDSL();
 	return false;
 }
 
 void BfmeThingDSK::bfmeGoDSP()
 {
-	if (bfmeAskDSK())
+	if (((Rva00128780GateBehaviorOwner *)this)->resolveGateBehavior())
 		m_bfmeSub->bfmeRun9DSK();
 }

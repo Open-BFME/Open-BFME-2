@@ -3,7 +3,7 @@
 // The caller supplies hidden aggregate storage and one explicit name.
 // The original registry/helper names are not independently established.
 
-class Rva009EB7A0RefOwner
+class TextureBaseClass
 {
 public:
 	void Release_Ref();
@@ -25,7 +25,7 @@ public:
 	{
 		if ( m_object )
 		{
-			((Rva009EB7A0RefOwner *)m_object)->Release_Ref();
+			((TextureBaseClass *)m_object)->Release_Ref();
 		}
 	}
 

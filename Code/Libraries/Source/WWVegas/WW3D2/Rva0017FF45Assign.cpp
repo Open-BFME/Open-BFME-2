@@ -28,11 +28,11 @@ template <typename T> class RefCountPtr
 public:
 	const RefCountPtr<T> &operator=(const RefCountPtr<T> &other);
 };
+#include "BfmeResetTextureRef.h"
 class Rva00180023
 {
 public:
 	Rva00180023 &operator=(const HierarchyPrototypeRef &source);
-	void clear();
 private:
 	HierarchyPrototype *m_prototype;
 };
@@ -44,7 +44,7 @@ Rva00180023 &Rva00180023::operator=(const HierarchyPrototypeRef &source)
 	}
 	else
 	{
-		((Rva00180023 *)this)->clear();
+		((BfmeResetTextureRef *)this)->clear();
 	}
 	return *this;
 }

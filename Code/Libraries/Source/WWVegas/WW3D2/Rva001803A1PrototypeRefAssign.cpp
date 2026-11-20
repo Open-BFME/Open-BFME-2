@@ -39,10 +39,10 @@ public:
 	const RefCountPtr<T> &operator=(const RefCountPtr<T> &other);
 };
 
+#include "BfmeResetTextureRef.h"
 class Rva00180023
 {
 public:
-	void clear();
 };
 
 class Rva0018043C
@@ -62,7 +62,7 @@ Rva0018043C &Rva0018043C::operator=(const HierarchyPrototypeRef &source)
 	else
 	{
 		// Reuse the already-rowed generic holder clear alias at 0x0004D75B.
-		((Rva00180023 *)this)->clear();
+		((BfmeResetTextureRef *)this)->clear();
 	}
 	return *this;
 }

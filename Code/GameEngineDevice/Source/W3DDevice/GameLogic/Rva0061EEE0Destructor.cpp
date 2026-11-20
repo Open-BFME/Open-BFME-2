@@ -144,10 +144,14 @@ public:
 
 // The shared release leaf 0x009EB7A0 decrements the low word at +4 and, once
 // it reaches zero with bit 24 set, dispatches through the vtable at +0.
-class Rva009EB7A0RefOwner
+class TextureBaseClass
 {
 public:
 	void Release_Ref();
+};
+class Rva009EB7A0RefOwner
+{
+public:
 
 	void *m_vtable;
 	unsigned int m_refs : 16;
@@ -315,7 +319,7 @@ AssetManagerImpl::~AssetManagerImpl()
 	for (GenHashMap44::iterator it = m_map4c.begin(); it != m_map4c.end(); ++it)
 	{
 		((Rva009EB7A0RefOwner *)it->second)->m_deleteOnRelease = 1;
-		((Rva009EB7A0RefOwner *)it->second)->Release_Ref();
+		((TextureBaseClass *)it->second)->Release_Ref();
 	}
 	m_map4c.clear();
 

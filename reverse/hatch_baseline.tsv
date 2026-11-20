@@ -1592,7 +1592,6 @@ alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva
 alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva007FBB20Object@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva007FCF80Object@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeRunVIR@BfmeMsgVIR@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeRunVJA@BfmeMsgVJA@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeRunVJC@BfmeMsgVJC@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeRunVJF@BfmeMsgVJF@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/RTS/Gen_guarded_list_push_back.cpp	?Rva003320C7Find@@YA?AURva003320C7Iterator@@U1@0ABQAX@Z	1
@@ -2281,7 +2280,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBe
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp	?update@UpdateModule@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp	?g_bfmePropagandaHeal@@3MA	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp	?g_Va00DE0878@@3IA	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	??1Rva004BF951@@UAE@XZ	1
@@ -2622,7 +2620,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeS
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeSetESI@BfmeStateESI@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHC@BfmeThingVHC@@QAEXPAVBfmeMsgVHC@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHD@BfmeThingVHD@@QAEXPAVBfmeMsgVHC@@@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?rva007FBE80@Rva007FBC60Game@@QAE_NPBDPADI@Z	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown01@GameEngine@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown02@GameEngine@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown03@GameEngine@@UAEXXZ	1
@@ -2911,7 +2908,6 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp	?slot0
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp	?slot18@Rva009EB810TailBase@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp	?clear@HAnimPrototypeOwner@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp	?clear@HTreePrototypeOwner@@QAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp	?clear@Rva00180023@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/DX8Caps_constructors.cpp	??0BfmeEnumerationCaps@@QAE@PAUIDirect3D8@@ABUBFME_DeviceCaps9@@W4WW3DFormat@@ABUBFME_AdapterIdentifier9@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/DX8RendererAddMesh.cpp	?Peek_Texture@MeshModelClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/DynamicIBAccessWriteLock.cpp	??0WriteLock@BfmeSortingIBAccess@@QAE@PAU1@@Z	1
@@ -2971,7 +2967,6 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStre
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureBaseReleaseRefThunk.cpp	?Release_Ref@BFME2TextureResource@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureBaseReleaseRefThunk.cpp	?Release_Ref@BfmeResetResource@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureBaseReleaseRefThunk.cpp	?Release_Ref@CountedAsset@@QAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureBaseReleaseRefThunk.cpp	?Release_Ref@Rva009EB7A0RefOwner@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	??4?$RefCountPtr@VHierarchyPrototype@@@@QAEABV0@ABV0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	??4BfmeMapPictureTexture@@QAEAAV0@ABV0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	??4CursorTextureSlot@@QAEXABVBFME2ParticleTextureHandle@@@Z	1
@@ -3666,7 +3661,7 @@ pin	reverse/symbols.csv	0x0004CD49	1
 pin	reverse/symbols.csv	0x0004CF47	1
 pin	reverse/symbols.csv	0x0004D649	1
 pin	reverse/symbols.csv	0x0004D754	1
-pin	reverse/symbols.csv	0x0004D75B	4
+pin	reverse/symbols.csv	0x0004D75B	3
 pin	reverse/symbols.csv	0x0004E4BD	3
 pin	reverse/symbols.csv	0x0004E4E1	1
 pin	reverse/symbols.csv	0x0004F82B	4
@@ -5178,7 +5173,7 @@ pin	reverse/symbols.csv	0x00256641	1
 pin	reverse/symbols.csv	0x00256646	2
 pin	reverse/symbols.csv	0x00256653	1
 pin	reverse/symbols.csv	0x002567B9	1
-pin	reverse/symbols.csv	0x00256996	2
+pin	reverse/symbols.csv	0x00256996	1
 pin	reverse/symbols.csv	0x00256B94	1
 pin	reverse/symbols.csv	0x00256CB0	1
 pin	reverse/symbols.csv	0x00256E19	1
@@ -8481,7 +8476,7 @@ pin	reverse/symbols.csv	0x00619120	1
 pin	reverse/symbols.csv	0x0061A8C0	1
 pin	reverse/symbols.csv	0x0061B0A0	2
 pin	reverse/symbols.csv	0x0061B510	1
-pin	reverse/symbols.csv	0x0061ED10	10
+pin	reverse/symbols.csv	0x0061ED10	9
 pin	reverse/symbols.csv	0x0061ED40	1
 pin	reverse/symbols.csv	0x0061ED80	3
 pin	reverse/symbols.csv	0x0061F230	1
@@ -8626,7 +8621,7 @@ pin	reverse/symbols.csv	0x00655990	13
 pin	reverse/symbols.csv	0x00655A50	1
 pin	reverse/symbols.csv	0x00655AA0	10
 pin	reverse/symbols.csv	0x00655B10	4
-pin	reverse/symbols.csv	0x00655B50	4
+pin	reverse/symbols.csv	0x00655B50	3
 pin	reverse/symbols.csv	0x00655F00	1
 pin	reverse/symbols.csv	0x00655F90	1
 pin	reverse/symbols.csv	0x00656B30	1
@@ -8687,7 +8682,6 @@ pin	reverse/symbols.csv	0x006661A0	1
 pin	reverse/symbols.csv	0x00666BA0	2
 pin	reverse/symbols.csv	0x00668100	1
 pin	reverse/symbols.csv	0x00668130	2
-pin	reverse/symbols.csv	0x00668380	1
 pin	reverse/symbols.csv	0x00669530	1
 pin	reverse/symbols.csv	0x006697A0	1
 pin	reverse/symbols.csv	0x006698C0	1

@@ -91,7 +91,6 @@ int TheBfmeSetupGlobal006569B0;
 class BfmeMsgVJA
 {
 public:
-	void bfmeRunVJA();
 	void bfmeSetVJA(const char *k, void *v);
 	void bfmeSet3VJA(const char *k, int v);
 	char m_bfmePad[0x1c];
@@ -755,7 +754,7 @@ void __stdcall bfmeGoVJA(BfmeMsgVJA *m, void *name, void **kw, int n, int max)
 {
 	char buf[0x20];
 	void *g = g_bfmeVJA;
-	m->bfmeRunVJA();
+	((Rva007E8AC0 *)m)->run();
 	m->m_bfme1c = 0x61636374;
 	m->bfmeSetVJA("TXN", g);
 	m->bfmeSetVJA("name", name);
@@ -772,7 +771,7 @@ void __stdcall bfmeGoVJB(BfmeMsgVJA *m, void *name, void **kw, int n, int max)
 {
 	char buf[0x20];
 	void *g = g_bfmeVJB;
-	m->bfmeRunVJA();
+	((Rva007E8AC0 *)m)->run();
 	m->m_bfme1c = 0x61636374;
 	m->bfmeSetVJA("TXN", g);
 	m->bfmeSetVJA("name", name);
