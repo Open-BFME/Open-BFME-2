@@ -439,14 +439,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Rva001E415F
-{
-public:
-	void rva001E415F(float f, int i);
-	char _0[0x5c];
-	float m_5c;
-	int m_60;
-};
+#include "../../../Include/GameLogic/Module/Rva001E415F.h"
 
 // ?rva001E4194@Locomotor@@QAE_NPAVObject@@@Z @0x001E4194 24B, RET4.
 // Native 471500 passes unitAI->loco in ECX and Object* on the stack.
@@ -815,8 +808,9 @@ void Rva001E4147::rva001E4147(Rva001E4147Twelve *src)
 
 void Rva001E415F::rva001E415F(float f, int i)
 {
-	m_5c = f;
-	m_60 = TheGameLogic->getFrame() + i;
+	unsigned char *storage = reinterpret_cast<unsigned char *>(this);
+	*reinterpret_cast<float *>(storage + 0x5C) = f;
+	*reinterpret_cast<int *>(storage + 0x60) = TheGameLogic->getFrame() + i;
 }
 
 // tu-skeleton: 0x001E417C 24B ?rva001E417C@Rva001E417C@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
