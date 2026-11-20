@@ -4,31 +4,21 @@
 // Callers 0x00343417 unclaimed.
 class StateMachine;
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void xfer();
-	virtual int onEnter();
-	virtual void onExit();
-	virtual int update();
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine;
-};
+class Xfer;
+#include "../../Include/Common/StateMachine.h"
+// The rowed virtuals of AIInternalMoveToState's retail table 0x00C10DE8 that have a provider;
+// slots 2 and 7 stay State's until their bodies are named (LINK-513).
 class AIInternalMoveToState : public State
 {
 public:
 	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
 	virtual ~AIInternalMoveToState();
-	virtual void xfer();
-	virtual int onEnter();
-	virtual void onExit();
-	virtual int update();
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
-	unsigned char m_pad1C[0x20 - 0x1C];
+	virtual void xfer(Xfer *xfer);
+	virtual bool computePath();
 	Coord3D m_goalPosition;
 	unsigned char m_pad2C[0x48 - (0x20 + sizeof(Coord3D))];
 	bool m_adjustsDestination;
