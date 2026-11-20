@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD /ICode/Libraries/Include
+// cl: /DNDEBUG /MD /ICode/Libraries/Include
 // Retail 0x006BE9A0 (47 B, RET12, no caller left in retail): constructor of
 // a 0x34-byte entry holding the 36-byte shape record whose out-of-line copy
 // is 0x00063BE4, then a position (+0x24) and one word (+0x30). The position

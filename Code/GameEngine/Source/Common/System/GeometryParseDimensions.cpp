@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX- /Ob2
+// cl: /DNDEBUG /MD /GX-
 // stlport
 // Adapted from BFME1 GeometryParseHeightAndMajorRadius.cpp.
 // PC FieldParse C0EC00 identifies GeometryMajorRadius -> ABEA60.

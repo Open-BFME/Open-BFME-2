@@ -1,4 +1,4 @@
-// cl: /O2 /Ob0 /G6
+// cl: /O2 /G6
 
 struct BfmeCoordEB
 {

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2 /G6
+// cl: /O2 /G6 /DNDEBUG /MD /EHsc
 // stlport
 // Open-BFME: const method at retail 0x0087E370, 734 bytes; callers pass Coord3D const&, an angle and Region2D&.
 // Its owner and name are not proven, so it keeps its address.

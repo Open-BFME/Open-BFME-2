@@ -1,3 +1,4 @@
+// cl: /O2 /G6
 // Ported from BFME1; retain only after independent BFME2 placement.
 #include "../../Include/Common/ScalarTypes.h"
 

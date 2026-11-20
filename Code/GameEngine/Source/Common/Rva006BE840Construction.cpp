@@ -10,7 +10,7 @@
 // passing a fourth empty tag argument. The copy loop follows that source.
 // BfmeTailBE is a one-pointer ABI view of the existing StringBase copy
 // operation; its linker alias binds to the byte-verified private constructor.
-// cl: /O2 /Ob1 /G6 /GX-
+// cl: /GX-
 
 #include <new.h>
 

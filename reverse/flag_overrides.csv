@@ -125,8 +125,8 @@ Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,,72,1,region default lose
 Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,,4,3,region default loses rows
 Code/GameEngine/Source/Common/Disp8MaskedDwordFieldGetters.cpp,,7,1,region default loses rows
 Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,,5,1,region default loses rows
-Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightAbovePosition.cpp,,2,2,region default loses rows
+Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp,-O2 -G6,1,1,region default loses rows
+Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightAbovePosition.cpp,-O2 -G6,2,2,region default loses rows
 Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightBelowPosition.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/Common/INI/INI.cpp,-O1 -arch:SSE,53,2,region default loses rows
 Code/GameEngine/Source/Common/INI/INIAudioEventInfoRangeParsers.cpp,-O1 -arch:SSE,3,2,region default loses rows
@@ -208,7 +208,7 @@ Code/GameEngine/Source/Common/Rva0082C360Pop.cpp,-Od,1,1,region default loses ro
 Code/GameEngine/Source/Common/Rva0082C6E0VectorErase.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0082C740Find.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0082D9D0Add.cpp,-Od,1,1,region default loses rows
-Code/GameEngine/Source/Common/Rva0087EB30EffectParam.cpp,-O2,1,1,region default loses rows
+Code/GameEngine/Source/Common/Rva0087EB30EffectParam.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0087EBB0Max.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0087F9C0Flag.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0087FA50UpdateFlags.cpp,-O2 -G6,1,1,region default loses rows
@@ -233,11 +233,11 @@ Code/GameEngine/Source/Common/SmallLeaves02TargetViews.cpp,-O1,4,2,region defaul
 Code/GameEngine/Source/Common/StaticTagInitializerC6D010.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/StaticTagInitializers.cpp,-O2,63,63,region default loses rows
 Code/GameEngine/Source/Common/System/GeometryInfoCalcBoundingStuff.cpp,-O2 -G6,4,4,region default loses rows
-Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp,-O2 -G6,1,1,region default loses rows
-Code/GameEngine/Source/Common/System/GeometryInfoExpandFootprint.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp,-Ox -G6,1,1,region default loses rows
+Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp,-O2 -G6,3,3,region default loses rows
+Code/GameEngine/Source/Common/System/GeometryInfoExpandFootprint.cpp,-O2 -G6,1,1,region default loses rows
+Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/System/GeometryInfoRva0087E370.cpp,-O2 -G6,1,1,region default loses rows
-Code/GameEngine/Source/Common/System/GeometryInfoSet.cpp,-O2,1,1,region default loses rows
+Code/GameEngine/Source/Common/System/GeometryInfoSet.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/System/GeometryParseType.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/System/GeometryPointLineDistSquared.cpp,,4,4,region default loses rows
 Code/GameEngine/Source/Common/System/GlobalChainCleanup.cpp,-O2,10,5,region default loses rows

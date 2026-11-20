@@ -1,4 +1,4 @@
-// cl: /O2 /MD
+// cl: /O2 /G6 /MD
 // Transferred from Open-BFME-1 09f941a50d
 // game/GameEngine/Source/Common/Rva0087EB30EffectParam.cpp (BFME1 0x0087EB30,
 // 75 B), adapted: game.dat's copy at 0x006BE400 (79 B) follows the transferred
