@@ -6349,3 +6349,4 @@ __ehhandler$??1Rva002E0427@@UAE@XZ,0x00778673,"Renamed to __ehhandler$??1Rva0022
 ?xfer@Rva00494A97@@MAEXPAVXfer@@@Z,0x00494BBA,"Renamed to ?xfer@WeaponModeSpecialPowerUpdate@@MAEXPAVXfer@@@Z by tools/rename.py (fold: retail vftable 0x00C4EA54)"
 ?rva00589414@Rva00494A97@@UBE?AVAsciiString@@XZ,0x00589414,"Renamed to ?rva00589414@WeaponModeSpecialPowerUpdate@@UBE?AVAsciiString@@XZ by tools/rename.py (fold: retail vftable 0x00C4EA54)"
 ?rva00589560@Rva00494A97@@UBE?AVRva002390CB@@XZ,0x00589560,"Renamed to ?rva00589560@WeaponModeSpecialPowerUpdate@@UBE?AVRva002390CB@@XZ by tools/rename.py (fold: retail vftable 0x00C4EA54)"
+?rva007AED61@Rva007AB7F0HalfRateInits@@SAXXZ,0x007AED61,Retracted for readmission as a compiler-emitted _$E<n> in GlowMaterial.cpp: retail 0x007AED61 is that unit's Drawable.h copy initializer (LINK-236)

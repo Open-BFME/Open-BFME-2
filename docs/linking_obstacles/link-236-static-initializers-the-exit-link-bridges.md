@@ -1551,3 +1551,20 @@ slot of image `a9c23ee`'s table name) plus the round.
   copy claims. `tu_map` over-merges some module families (four copies claim ElvenWoodSpecialPower.cpp, two claim
   ImmortalBody.cpp, SiegeEngineContain's rows are approved to HordeSiegeEngineContain.cpp), so a TU that
   several copies claim proves a `tu_map` error, not an owner.
+
+**Round init-2 (halilkkaya-init2, 2026-11-20, bridged 468 -> 467).** Base: the CI real link of `c91e52d054`
+(10:41 UTC, no `/FORCE`, 0 unresolved), `initializers_bridged` 468. Each entry below was retracted
+(`reverse/deleted_rows.csv`) and readmitted as the `_$E<n>` its unit's rebuilt object registers;
+`image_report.initializer_report` over that object credits the RVA, with no credit conflict or double. Every
+other section of the object keeps its digest against the CI snapshot of the same source (local `$L`/`_$E`
+labels normalized). Scripts (untracked, `build/init2/` of the seat's worktree): `slotless_rates.py` (the
+image's unrowed half-rate copies and their sources), `rate_units.py` (each bridged copy's `.bss` neighbours,
+their readers' approved TUs and the layout rule that applies), `nbhd.py` (one entry's run and `.bss`
+neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`.
+- *Taken (468 -> 467): GlowMaterial.cpp's copy.* Retail's run is the copy 0x007AED61, then the map initializer
+  0x007AED71, closed by the marker 0x007AED87. The `.bss` holds g_Va00E01E74 (read by 0x00362702 and 0x003628D3,
+  approved to GlowMaterial.cpp), the copy 0x00E01E78, then the 12-byte map 0x00E01E7C that 0x007AED71 builds
+  (read by 0x00362BD2 and 0x00362C9F, approved to GlowMaterial.cpp): plain global, copy, dynamic static, one
+  unit. Round bridge-1 had rejected the entry while those readers sat unapproved in SnapshotXfersBfme.cpp; the
+  map approves them now. GlowMaterial.cpp already compiled the copy as its only registration (`_$E1`), so only
+  the rows change. The map 0x007AED71 stays bridged (its object needs the map type, round lk63).
