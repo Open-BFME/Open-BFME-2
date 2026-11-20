@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -17,23 +17,30 @@
 // reuse ProductionPrerequisite::PrereqUnitRec's distinct weak destructor
 // instances used by the existing vector callers.
 
-#include "PreRTS.h"
+#include <vector>
 
-#include "Common/ProductionPrerequisite.h"
-#include "Common/Player.h"
-#include "Common/ThingTemplate.h"
-#include "GameLogic/Object.h"
-#include "GameClient/Drawable.h"
-#include "GameClient/GameText.h"
+#include "../../../Include/Common/ThingFactory.h"
 
-// The template lookup is the rowed ThingFactory::findTemplate (0x002D06CA); BFME 2
-// takes the name only, so this unit declares the factory instead of ZH ThingFactory.h.
-class ThingFactory
+enum ScienceType;
+
+// The first vector has 12-byte records, with the name at +0x08.
+class ProductionPrerequisite
 {
 public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
+    void resolveNames();
+
+private:
+    struct PrereqUnitRec
+    {
+        const ThingTemplate *unit;
+        int flags;
+        AsciiString name;
+    };
+
+    _STL::vector<PrereqUnitRec> m_prereqUnits;
+    _STL::vector<ScienceType> m_prereqSciences;
+    _STL::vector<unsigned int> m_prereqUpgrades;
 };
-extern ThingFactory *TheThingFactory;
 
 class BFMERetailAsciiString
 {
@@ -43,7 +50,7 @@ public:
 
 void ProductionPrerequisite::resolveNames()
 {
-	for (Int i = 0; i < m_prereqUnits.size(); i++)
+	for (int i = 0; i < m_prereqUnits.size(); i++)
 	{
 		m_prereqUnits[i].unit =
 			TheThingFactory->findTemplate(m_prereqUnits[i].name);
