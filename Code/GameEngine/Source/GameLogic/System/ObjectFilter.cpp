@@ -15,6 +15,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 #include "ascii_string.h"
+// Retail 0x007AED1A: this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH, the first entry of its initializer run
+// (before g_validityBegin's initializer 0x007AED2A); its static (VA 0x00E01E64) directly precedes g_validityBegin
+// (0x00E01E68). The unit is built on private views, so it takes the constant's own header.
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
 #pragma comment(linker, "/alternatename:?Rva003614F4Copy@@YAPAVRva0036105B@@PAV1@00ABUrandom_access_iterator_tag@_STL@@PAH@Z=?Rva003614F4Copy@@YAPAVRva0036105B@@PAV1@00Urandom_access_iterator_tag@_STL@@PAH@Z")
 // ?rva00360E64@Rva00360F55@@QAE_NABV1@@Z, retail 0x00360E64, 241 bytes.
 // Equality for the 0x94-byte ObjectFilter science-cluster record (ctor 0x00360F55).
