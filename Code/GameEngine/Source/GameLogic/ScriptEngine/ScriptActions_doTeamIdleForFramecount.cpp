@@ -11,8 +11,8 @@ extern int BfmeLogicFramesPerSecond;
 
 #include "ascii_string.h"
 #include "../../../Include/Common/ScalarTypes.h"
-class Object;
-class AIUpdateInterface;
+
+
 template<class OBJCLASS> class DLINK_ITERATOR
 {
 private:

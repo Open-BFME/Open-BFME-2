@@ -25,7 +25,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "../../../Include/Common/ScalarTypes.h"
 
-typedef unsigned short DataChunkVersionType;
+
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 
 #include <windows.h>

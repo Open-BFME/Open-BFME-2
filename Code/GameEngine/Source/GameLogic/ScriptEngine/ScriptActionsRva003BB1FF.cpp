@@ -6,7 +6,7 @@
 // Evidence: leaf lane; callees getUnitNamed getAttackInfo; caller 0x003CB30C.
 class Parameter;
 class AsciiString;
-class AttackPriorityInfo;
+
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"

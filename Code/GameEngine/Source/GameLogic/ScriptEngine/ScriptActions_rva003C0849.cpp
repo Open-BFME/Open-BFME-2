@@ -8,7 +8,7 @@
 // groupDoCommandButtonAtPosition 0x0036DCB8; neighbours ScriptActions 0x003C062D
 // 0x003C0983; same shape as Rva003BF813Do precedent.
 #include "ascii_string.h"
-typedef bool Bool;
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/GameLogic/Waypoint.h"

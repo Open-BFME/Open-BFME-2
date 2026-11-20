@@ -11,7 +11,7 @@ class Parameter;
 
 #include "../Object/object.h"
 
-class Drawable;
+
 #include "../../Common/Thing/thing.h"
 
 #include "../../../Include/Common/Rva0055A88BDwordField.h"

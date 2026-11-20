@@ -14,7 +14,7 @@
 #include "ascii_string.h"
 
 class Parameter;
-class Drawable;
+
 #include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

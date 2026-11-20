@@ -11,7 +11,7 @@ struct Coord3D
 	float x, y, z;
 };
 
-struct TargetCoord;
+
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
 Coord3D::Coord3D(WeaponTemplate *weaponTemplate, const Object *source,

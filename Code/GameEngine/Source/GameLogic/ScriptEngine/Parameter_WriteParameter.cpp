@@ -10,8 +10,8 @@
 // (see KindOfGetNameFromSingleBit.cpp) and the float/string writers are
 // out-of-line here.
 
-typedef int Int;
-typedef float Real;
+
+
 
 enum { COORD3D = 0x10, KIND_OF_PARAM = 0x1B };
 

@@ -8,7 +8,7 @@
 // Evidence: rowed getTeamNamed createGroup getTeamAsAIGroup groupHarvest,
 // externs g_Va009FE16C TheTerrainLogic g_Va009FF0F8, caller 0x003CB797.
 #include "ascii_string.h"
-typedef bool Bool;
+
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Team;

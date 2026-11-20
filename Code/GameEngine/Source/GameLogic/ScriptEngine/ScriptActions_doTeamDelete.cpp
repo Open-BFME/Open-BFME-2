@@ -9,7 +9,7 @@
 // 0x003A10FE (int) member when non-null.
 #include "ascii_string.h"
 
-typedef bool Bool;
+
 
 class Team
 {

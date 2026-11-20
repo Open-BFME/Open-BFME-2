@@ -8,14 +8,14 @@
 // evidence: unlock callers 0x002F6F06 plus 0x002FEB41 via AI plus 0x10; rowed Pathfinder 0x002F40E7 plus 0x002F370D; Path dtor 0x00364A89; layer reset 0x00366DEC 16 layers; zone reset 0x005335D3
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-struct IRegion2D;
-class Xfer;
+
+
 class PathfindCell;
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 
-struct _Rva002EADB4Node;
+
 #include "../../../Include/GameLogic/Rva002EE9B7.h"
 
 #include <new>

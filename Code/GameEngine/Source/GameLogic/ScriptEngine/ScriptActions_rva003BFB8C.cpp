@@ -8,7 +8,7 @@
 // 0x00205263 with false, rowed releaseBuffer 0x00036410.
 // Evidence: TheScriptEngine 0x009FE16C; caller 0x003CB987; string at
 // 0x0081FED0 Team priority increased; precedent Rva003BFC27Do 152B decrease.
-typedef bool Bool;
+
 #include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 #include "../../../Include/Common/Team.h"

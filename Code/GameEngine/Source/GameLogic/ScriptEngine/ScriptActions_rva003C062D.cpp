@@ -8,7 +8,7 @@
 // chain and conditionally stores float at +0x3c gated by global float.
 // Donor facts: none; layout from target bytes only.
 
-typedef bool Bool;
+
 
 #include "ascii_string.h"
 

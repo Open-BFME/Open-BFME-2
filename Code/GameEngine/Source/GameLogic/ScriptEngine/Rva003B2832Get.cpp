@@ -3,7 +3,7 @@
 // Evidence: pushes member at +4 into rowed ScriptEngine::getActionTemplate
 // 0x00203926 through the engine pointer at 0x00DFE16C, returns the template's
 // first dword; twin of rva003B275A; callers 0x0020C83F/0x0020C5C7.
-typedef int Int;
+
 typedef unsigned char Byte;
 
 class ActionTemplate

@@ -11,7 +11,7 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class Waypoint;
-struct RvaWeaponSlot;
+
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

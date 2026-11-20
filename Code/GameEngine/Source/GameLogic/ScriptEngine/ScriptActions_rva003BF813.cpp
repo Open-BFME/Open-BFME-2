@@ -11,7 +11,7 @@
 // TheAI 0x009FF0F8; callers 0x003CB61F 0x003CB654; precedents Rva003C2A29
 // team/group plus doTeamAttackArea trigger sequence.
 #include "ascii_string.h"
-typedef bool Bool;
+
 
 class PolygonTrigger;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

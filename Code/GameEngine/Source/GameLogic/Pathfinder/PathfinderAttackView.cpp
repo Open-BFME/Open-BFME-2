@@ -37,7 +37,7 @@ public:
     const Weapon *getCurrentWeapon(WeaponSlotType *) const;
     int rva0028B511() const;
 };
-class Rva002C9400ByteField;
+
 #include "../../../Include/GameLogic/Weapon.h"
 struct AttackAiData { char pad[0x67]; unsigned char useLOS; };
 class AI;

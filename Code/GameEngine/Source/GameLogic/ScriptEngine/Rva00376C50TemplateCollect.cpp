@@ -27,7 +27,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 class Drawable;
 class ModuleData;
-class ThingTemplate;
+
 
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;

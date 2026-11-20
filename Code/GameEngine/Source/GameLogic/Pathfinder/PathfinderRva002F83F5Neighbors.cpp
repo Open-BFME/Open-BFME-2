@@ -78,7 +78,7 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 extern GlobalData *TheWritableGlobalData;
 #include <math.h>
 #include "../../../Include/Common/PathfinderCostCellInfo.h"
-class Waypoint;
+
 #include "../../../Include/GameLogic/PathfinderGroundInfo.h"
 #include "../../../Include/Common/In002E6BA1.h"
 class MixFileInfoBuffer;
@@ -92,7 +92,7 @@ struct Rva002E8BCFSrc;
 class Rva002E8BCF { public: Rva002E8BCF(){} Rva002E8BCF(const Rva002E8BCFSrc *,Bool,Int,Bool); Int surfaces;Bool field4,field5;Int maxLayer;Bool fieldC; };
 #include "../../../Include/Common/Rva002E6DC4.h"
 
-void ji_00629952();
+
 #include "../../../Include/GameLogic/PathfindCell.h"
 // The cell's info at +0 holds the cell coordinates, cost and waypoint words.
 static __forceinline PathfinderGroundInfo *cellInfo(const PathfindCell *cell) { return (PathfinderGroundInfo *)cell->m_info; }
@@ -134,7 +134,7 @@ template<> class PathfinderNativeSlots<0> {};
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-void Rva002EBCA7Split(void *obj, Int *radius, unsigned char *center);
+
 struct Rva002F600CInfo;
 
 static __forceinline void zeroCoord3D(Coord3D *dst)
@@ -251,8 +251,8 @@ char m_pad[0x14];
 
 #include "../../../Include/Common/Rva0036666B.h"
 
-struct IRegion2D;
-class Xfer;
+
+
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
@@ -310,9 +310,9 @@ union PathfinderCheckCoordinates {
 Coord3D point;
 struct IntegerLayout { int reserved; ICoord2DBase position,size; } cells;
 };
-struct PathfinderLogFile;
+
 #include <stdio.h>
-extern unsigned char g_00E03745;
+
 extern "C" void *theLogicRandomLogFile;
 
 #include "Lib/ICoord2D.h"
@@ -461,7 +461,7 @@ return cost;
 }
 
 struct PathfinderDebugColor { float red,green,blue; };
-void Rva000B3FD0PathDebug(const Coord3D *,float,Int,PathfinderDebugColor);
+
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

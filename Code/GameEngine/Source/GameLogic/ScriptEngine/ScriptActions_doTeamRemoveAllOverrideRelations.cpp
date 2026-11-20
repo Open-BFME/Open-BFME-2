@@ -3,7 +3,7 @@
 // Evidence: ScriptActions neighbour 0x003C09DA plus getTeamNamed row 0x003584E9 plus StringBase copy row 0x000365F0 plus Rva003A2897 row 0x003A2897 plus Rva003A28ED row 0x003A28ED. Caller at 0x003CC988.
 #include "ascii_string.h"
 
-typedef bool Bool;
+
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 

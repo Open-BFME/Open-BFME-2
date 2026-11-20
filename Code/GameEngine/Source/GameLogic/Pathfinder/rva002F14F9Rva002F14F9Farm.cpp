@@ -105,11 +105,11 @@ class Object
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2DBase.h"
 #include "../../Common/Thing/thing.h"
-struct Rva002E7ED6Info;
+
 class Pathfinder;
 // Native aircraft-path node ABI agrees with the rowed ctor and prepend provider.
 #include "../../../Include/GameLogic/PathNode.h"
-struct Rva002EDEABArg;
+
 #include "../../../Include/Common/Rva002E93A7Info.h"
 #include "../../../Include/GameLogic/Waypoint.h"
 #include "../../../Include/GameLogic/LocomotorSet.h"
@@ -144,12 +144,12 @@ ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 #include "../../../Include/Common/In002E6BA1.h"
 class MixFileInfoBuffer;
 extern Int TheMixFileInfoPool;
-void Rva0052DBCDInit();
+
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,Int,In002E6BA1 *);
-class Rva002E6C79;
+
 struct Rva002E8BCFSrc;
 #include "../../../Include/Common/Rva002E6DC4.h"
-void ji_00629952();
+
 struct Rva002F35AFCell;
 #include "../../../Include/Common/Rva002E6C79.h"
 #include "../../../Include/GameLogic/PathfindCell.h"
@@ -158,7 +158,7 @@ struct Rva002F35AFCell;
 #include "../../../Include/GameLogic/LocomotorClass.h"
 // The surfaces each cell type allows, indexed by type (VA 0x00DBD33C,
 // defined in Rva002E6DC4Check.cpp).
-extern unsigned int g_00DBD33C[16];
+
 float Sin(float x);
 float Cos(float x);
 // REAL_TO_INT_FLOOR: the IAT floor then an x87 round-to-integer store.
@@ -173,7 +173,7 @@ static __forceinline Int realToIntFloor(float f)
  }
  return i;
 }
-struct Rva002E7B29Info;
+
 template<int N> class PathfinderNativeSlots : public PathfinderNativeSlots<N-1>
 {
  public: virtual void unusedSlot(PathfinderNativeSlots<N> *);
@@ -184,8 +184,8 @@ template<> class PathfinderNativeSlots<0>
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 // The per-object radius/centre split (rowed 0x002EBCA7).
-void Rva002EBCA7Split(void *obj, Int *radius, unsigned char *center);
-struct Rva002F600CInfo;
+
+
 // Coord3D::set(const Coord3D *) as Zero Hour's header defines it inline.
 static __forceinline void zeroCoord3D(Coord3D *dst)
 {
@@ -309,7 +309,7 @@ class Rva002C9B80Owner
 // The 0x24-byte cell-query functor (rowed constructor 0x002E9ACC); the line
 // walk 0x002F6C22 calls its 0x002F4D8B callback, which sets +0x1C on a hit.
 
-struct Rva002F4D8BInfo;
+
 class Rva002E9ACC
 {
  public:
@@ -348,8 +348,8 @@ class Rva005348AD
  char m_pad[0x14];
 };
 #include "../../../Include/Common/Rva0036666B.h"
-struct IRegion2D;
-class Xfer;
+
+
 #include "../../../Include/GameLogic/PathfindLayer.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 #include "../../../Include/Common/Rva002EBC7FPair.h"
@@ -410,7 +410,7 @@ private:
 	unsigned char m_15[3]; // +0x15
 	int m_18; // +0x18
 };
-void rva002E79A8(int,unsigned char,int,int,int);
+
 // Native 0x002F01B6 addresses this 12-byte floating scratch first. Later
 // 0x002F0369 stores integer position at scratch+4 and diameter at scratch+12.
 // The two phases do not overlap; this local union preserves that 20-byte reuse.
@@ -424,7 +424,7 @@ union PathfinderCheckCoordinates
  }
  cells;
 };
-extern unsigned char g_00E03745;
+
 extern "C" void *theLogicRandomLogFile;
 #include "../../../Include/GameLogic/Rva002F336AOwner.h"
 struct PathfinderOpenQueue

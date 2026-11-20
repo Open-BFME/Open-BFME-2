@@ -7,7 +7,7 @@
 
 class Parameter;
 class Object;
-class Player;
+
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/GameLogic/Waypoint.h"
 

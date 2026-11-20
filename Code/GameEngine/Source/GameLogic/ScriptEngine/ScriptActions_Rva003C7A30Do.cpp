@@ -14,7 +14,7 @@
 class Parameter;
 class Object;
 class Waypoint;
-class AICommandInterface;
+
 
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 

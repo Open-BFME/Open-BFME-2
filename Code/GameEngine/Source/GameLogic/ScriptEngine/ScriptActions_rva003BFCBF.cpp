@@ -7,7 +7,7 @@
 // 0x00038150 Team priority decreased, rowed AppendDebugMessage 0x00205263.
 // Evidence: TheScriptEngine 0x009FE16C; caller 0x003CB9C3; string at
 // 0x0081FF24 Team priority decreased; precedent Rva003BFB8CDo 155B increase.
-typedef bool Bool;
+
 #include "../../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 #include "../../../Include/Common/Team.h"

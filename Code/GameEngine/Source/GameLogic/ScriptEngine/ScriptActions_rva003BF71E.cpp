@@ -10,7 +10,7 @@
 // TheAI 0x009FF0F8; caller 0x003CB5C2; precedents Rva003C2A29Script.cpp
 // team/group plus doUnitGuardPosition movss x y z order.
 #include "ascii_string.h"
-typedef bool Bool;
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/GameLogic/Waypoint.h"

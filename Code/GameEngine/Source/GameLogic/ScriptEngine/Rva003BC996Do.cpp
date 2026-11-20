@@ -15,7 +15,7 @@
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class AIGroup;
+
 
 extern int BfmeLogicFramesPerSecond;
 

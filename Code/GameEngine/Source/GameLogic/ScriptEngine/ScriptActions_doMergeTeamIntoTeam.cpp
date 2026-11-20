@@ -24,7 +24,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class Player;
+
 class Team;
 
 struct Rva003C01E2ContainerTemplate

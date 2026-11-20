@@ -26,7 +26,7 @@
 #include "../../../Include/Common/ScalarTypes.h"
 
 
-class AsciiString;
+
 class ThingTemplate;
 class ExperienceTracker;
 class Object;

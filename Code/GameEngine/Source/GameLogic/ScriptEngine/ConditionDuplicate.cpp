@@ -8,7 +8,7 @@ enum { MAX_PARMS = 12 };
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class MemoryPool;
+
 
 #include "../../../Include/GameLogic/Rva0034FE00.h"
 

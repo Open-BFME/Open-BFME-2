@@ -24,7 +24,7 @@ private:
 };
 
 class AIGroup;
-class Object;
+
 
 #include "../../../Include/Common/TeamBFME2.h"
 

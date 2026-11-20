@@ -24,7 +24,7 @@ enum NameKeyType
 	NK_NONE = 0
 };
 
-class AsciiString;
+
 
 #include "../../../Include/Common/DataChunkOutput.h"
 

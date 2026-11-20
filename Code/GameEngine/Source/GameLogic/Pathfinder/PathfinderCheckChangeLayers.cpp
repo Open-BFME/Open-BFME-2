@@ -83,7 +83,7 @@ class PathfindCell;
 #include "../../../Include/GameLogic/PathfindPath.h"
 
 #include "../../../Include/Common/PathfinderCostCellInfo.h"
-void ji_00629952();
+
 #include "../../../Include/GameLogic/PathfindCell.h"
 
 // A locomotor's legal surfaces live in its template (+0x04) at +0x14.
@@ -93,7 +93,7 @@ void ji_00629952();
 
 // The surfaces each cell type allows, indexed by type (VA 0x00DBD33C,
 // defined in Rva002E6DC4Check.cpp).
-extern unsigned int g_00DBD33C[16];
+
 
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 float Sin(float x);
@@ -119,7 +119,7 @@ template<> class PathfinderNativeSlots<0> {};
 extern TerrainLogic *TheTerrainLogic;
 
 // The per-object radius/centre split (rowed 0x002EBCA7).
-void Rva002EBCA7Split(void *obj, Int *radius, unsigned char *center);
+
 struct Rva002F600CInfo;
 
 // Coord3D::set(const Coord3D *) as Zero Hour's header defines it inline.
@@ -257,8 +257,8 @@ private:
 
 #include "../../../Include/Common/Rva0036666B.h"
 
-struct IRegion2D;
-class Xfer;
+
+
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
@@ -283,7 +283,7 @@ struct Rva002ED236Pos {
 int Rva002E6E8AGet(int layer);
 #include "ascii_string.h"
 #include "../../../Include/Common/ICoord2DBase.h"
-class Rva002E6DC4;
+
 #include "../../../Include/GameLogic/Rva002E9D09.h"
 class Rva002E7C99
 {
@@ -300,7 +300,7 @@ private:
 	unsigned char m_15[3]; // +0x15
 	int m_18; // +0x18
 };
-void rva002E79A8(int,unsigned char,int,int,int);
+
 // Native 0x002F01B6 addresses this 12-byte floating scratch first. Later
 // 0x002F0369 stores integer position at scratch+4 and diameter at scratch+12.
 // The two phases do not overlap; this local union preserves that 20-byte reuse.
@@ -313,7 +313,7 @@ union PathfinderCheckCoordinates {
 #define _CRTIMP
 #include <stdio.h>
 #undef _CRTIMP
-extern unsigned char g_00E03745;
+
 extern "C" void *theLogicRandomLogFile;
 
 #include "../../../Include/Common/In002E6BA1.h"
