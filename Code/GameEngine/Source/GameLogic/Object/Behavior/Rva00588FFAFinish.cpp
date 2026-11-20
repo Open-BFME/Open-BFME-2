@@ -38,7 +38,7 @@ extern const void *const g_008700C4[12] = {
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 10 0x000D43D0
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 11 0x000D43D0
 };
-extern "C" const void *const __identifier("??_7Rva00484F5D@@6BMiBase1@@@")[];
+extern "C" const void *const __identifier("??_7Rva00484F5D@@6BBehaviorModuleInterface@@@")[];
 extern "C" const void *const __identifier("??_7Rva00484EF4@@6B@")[];
 // The +0x10 base is an abstract two-method interface: its constructor installs
 // the interface's own table (RVA 0x0086FFFC, two __purecall slots) before the
@@ -69,7 +69,7 @@ Rva00588FFA::Rva00588FFA(Thing *thing, const ModuleData *data)
 	_ReadWriteBarrier();
 	m_14 = 0;
 	*(const void **)this = g_008700C4;
-	*(const void **)((char *)this + 0x0C) = __identifier("??_7Rva00484F5D@@6BMiBase1@@@");
+	*(const void **)((char *)this + 0x0C) = __identifier("??_7Rva00484F5D@@6BBehaviorModuleInterface@@@");
 	*(const void **)((char *)this + 0x10) = __identifier("??_7Rva00484EF4@@6B@");
 }
 

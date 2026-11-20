@@ -37,6 +37,27 @@ public:
 	~PrimaryP() {}
 };
 
+// BodyModule (ZH BodyModule.h: BehaviorModule plus BodyModuleInterface at
+// +0x10). Target evidence: the BodyModule constructor 0x004BD7FD stores the
+// vftable whose slot 0 is the deleting dtor 0x004BD841 (calls this dtor), and
+// the InactiveBody constructor 0x004BD8BD's unwind map destroys its BodyModule
+// base through 0x004BD763. Defining ~BehaviorModule inline reproduces retail's
+// (+0x10, +0, +0x0C) store order and tail-jump to ~ObjectModule (0x0049B47C),
+// and gives Rva004BD78F (InactiveBody) and Rva00484F5D (PillageModule) their
+// full 47-slot BehaviorModuleInterface vtables (0x0085AD78 and 0x00870008).
+// The deleting dtor is emitted and rowed in BodyModuleCtor.cpp (slot 0 of its
+// vftable).
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
+#include "../../Include/GameLogic/Module/BodyModuleClass.h"
+
+inline BehaviorModule::~BehaviorModule()
+{
+}
+
+BodyModule::~BodyModule()
+{
+}
+
 class Rva00484EF4_B2
 {
 public:
@@ -47,11 +68,12 @@ protected:
 	int m_14;
 };
 
-class Rva00484EF4 : public PrimaryP, public Rva00484EF4_B2
+class Rva00484EF4 : public BehaviorModule, public Rva00484EF4_B2
 {
 public:
-	Rva00484EF4() {}
+	Rva00484EF4(Thing *thing, const ModuleData *data) : BehaviorModule(thing, data) {}
 	virtual ~Rva00484EF4();
+	virtual void *slot05() { return (Rva00484EF4_B2 *)this; }
 };
 
 Rva00484EF4::~Rva00484EF4()
@@ -62,29 +84,9 @@ Rva00484EF4::~Rva00484EF4()
 // which references the primary vtable and forces emission of the ??_G COMDAT.
 #include <new>
 
-void Rva00484EF4_Anchor(Rva00484EF4 *p)
+void Rva00484EF4_Anchor(Rva00484EF4 *p, Thing *thing, const ModuleData *data)
 {
-	p->Rva00484EF4::Rva00484EF4();
-}
-
-// BodyModule (ZH BodyModule.h: BehaviorModule plus BodyModuleInterface at
-// +0x10). Target evidence: the BodyModule constructor 0x004BD7FD stores the
-// vftable whose slot 0 is the deleting dtor 0x004BD841 (calls this dtor), and
-// the InactiveBody constructor 0x004BD8BD's unwind map destroys its BodyModule
-// base through 0x004BD763. Defining ~BehaviorModule inline reproduces retail's
-// (+0x10, +0, +0x0C) store order and tail-jump to ~ObjectModule (0x0049B47C),
-// and gives Rva004BD78F (InactiveBody) its full 47-slot BehaviorModuleInterface
-// vtable (0x0085AD78). The deleting dtor is emitted and rowed in
-// BodyModuleCtor.cpp (slot 0 of its vftable).
-#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
-#include "../../Include/GameLogic/Module/BodyModuleClass.h"
-
-inline BehaviorModule::~BehaviorModule()
-{
-}
-
-BodyModule::~BodyModule()
-{
+	p->Rva00484EF4::Rva00484EF4(thing, data);
 }
 
 #include "../../Include/GameLogic/Module/DamageModuleInterface.h"

@@ -11,8 +11,8 @@
 // supersedes the ctor pin.
 
 extern "C" const void *const __identifier("??_7Rva00484F5D@@6B@")[];  // vftable 0x00C4A514
-extern "C" const void *const __identifier("??_7Rva00484F5D@@6BRva0049B47C@@@")[];  // vftable 0x00C4A51C
-extern "C" const void *const __identifier("??_7Rva00484F5D@@6BMiBase1@@@")[];  // vftable 0x00C70008
+extern "C" const void *const __identifier("??_7Rva00484F5D@@6BObjectModule@@@")[];  // vftable 0x00C4A51C
+extern "C" const void *const __identifier("??_7Rva00484F5D@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C70008
 
 class Thing;
 class ModuleData;
@@ -39,8 +39,8 @@ private:
 PillageModule::PillageModule(Thing *thing, const ModuleData *data)
 	: Rva00588FFA(thing, data)
 {
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva00484F5D@@6BRva0049B47C@@@"));
-	*(unsigned int *)((char *)this + 0x0C) = ((unsigned int)__identifier("??_7Rva00484F5D@@6BMiBase1@@@"));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva00484F5D@@6BObjectModule@@@"));
+	*(unsigned int *)((char *)this + 0x0C) = ((unsigned int)__identifier("??_7Rva00484F5D@@6BBehaviorModuleInterface@@@"));
 	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva00484F5D@@6B@"));
 	m_bfme18 = 0;
 }
