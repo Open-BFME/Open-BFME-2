@@ -58,6 +58,10 @@ change to make, and the refresh alone would trade InGameUI's tables for the subs
 2. **TheFXParticleSystemManager** (#123, createParticleSystemManager -> `??0Rva004CE36`): kept
    `??_7Rva004CE36@@6BRva001F9D98Primary@@@` has 1 of 20 slots (Rva004CE36Dtor.cpp); init is slot 1. rl4: unindexed;
    fresh: bridged(20). FXParticleSystem cluster: other owners.
+   On 2026-11-20, run 388 still bridged the primary and Snapshot tables.
+   The derived lifetime now uses typed sort-list vectors and places the ready flag at +0xA8.
+   The base class fold refuses the inherited slot 19 shared with the derived table.
+   [Native layout, slot evidence and remaining owner work](../../reverse/attempt_support/particle-manager-derived-tables-20261120-root20.md).
 3. **TheLocomotorStore** (#139, `??0Rva001E72B4`): kept `??_7Rva001E72B4@@6B@` 1/14 (OpaqueScalarDeletingDtorsB03.cpp).
    rl4: unindexed; fresh: bridged(14). Source fix: give the placeholder its class (`reset@LocomotorStore` is slot 9).
 4. **TheLivingWorldAutoResolveHandicapStore** (#183, `??0Rva004134AE`): kept 1/14. Unindexed; fresh: bridged(14). (2026-11-09: `??1Rva004134AE` / `??_GRva004134AE` respelled to virtual `UAE` across ctor/dtor/deleting-dtor units; bounded simulation shows 14/14 slots `already_correct`; next real link confirms bridge retirement.)

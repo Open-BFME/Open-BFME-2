@@ -25,8 +25,6 @@ protected:
 	unsigned char m_pad04[0x5C - 0x0C - 4];
 	int m_5C;	// +0x5C
 	unsigned char m_pad60[0xA8 - 0x60];
-	bool m_A8;	// +0xA8
-	unsigned char m_padA9[3];
 };
 
 class Rva001F9D98 : public Rva001F9D98Primary, public Rva001F9D98Secondary
@@ -49,8 +47,12 @@ public:
 	Rva004CE36();
 	virtual ~Rva004CE36();
 private:
+	bool m_A8;	// +0xA8
 	_STL::vector<RvaSmartPtr12> m_sortLists[2];	// +0xAC
 };
+
+typedef char Rva001F9D98SizeCheck[sizeof(Rva001F9D98) == 0xA8 ? 1 : -1];
+typedef char Rva004CE36SizeCheck[sizeof(Rva004CE36) == 0xC4 ? 1 : -1];
 
 Rva004CE36::~Rva004CE36()
 {
