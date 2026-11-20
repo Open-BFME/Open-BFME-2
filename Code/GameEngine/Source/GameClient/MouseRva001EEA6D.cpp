@@ -7,16 +7,13 @@
 // Flags at +0x12E0/+0x12E1/+0x12E2 are useText/useBack/adjust. BFME2 drops
 // the Display width and isEmpty logic so width is unused. Callers at
 // 0x1EB5FC 0x2125C5 0x2227C0 and 8 newly ready bodies.
+#include <string.h>
+// Keep the default-color block copies inline.
+#pragma intrinsic(memcpy)
+
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
-struct RGBAColorInt
-{
-public:
-	unsigned int red; // +0x00
-	unsigned int green; // +0x04
-	unsigned int blue; // +0x08
-	unsigned int alpha; // +0x0C
-};
+#include "../../Include/Common/RGBAColorInt.h"
 class Mouse {
 	char _pad0[0x128C];
 	RGBAColorInt m_128C;
@@ -69,7 +66,7 @@ void Mouse::rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color,
 			m_4FEC.alpha = m_12BC.alpha;
 		}
 	} else {
-		m_4FDC = m_128C;
-		m_4FEC = m_12BC;
+		memcpy(&m_4FDC, &m_128C, sizeof(m_4FDC));
+		memcpy(&m_4FEC, &m_12BC, sizeof(m_4FEC));
 	}
 }
