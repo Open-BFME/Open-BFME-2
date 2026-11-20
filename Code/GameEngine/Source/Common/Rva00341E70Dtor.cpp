@@ -35,6 +35,12 @@ public:
 	virtual ~AIGuardRetaliateState();
 private:
 	Rva00341E70Member *m_20;
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 #include <new>
 AIGuardRetaliateState::~AIGuardRetaliateState()

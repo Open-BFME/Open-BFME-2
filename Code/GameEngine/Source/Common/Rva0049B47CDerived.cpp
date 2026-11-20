@@ -53,6 +53,9 @@ public:
 protected:
 	// retail slot 3: the rowed xfer 0x00341E2D
 	virtual void xfer(Xfer *xfer);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
 };
 
 AIGoingIdleState::~AIGoingIdleState()

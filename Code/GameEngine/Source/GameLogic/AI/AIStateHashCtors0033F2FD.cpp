@@ -59,6 +59,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
 };
 
 AIAttackMeleeHordeWaitState::AIAttackMeleeHordeWaitState(StateMachine *machine)
@@ -213,6 +216,12 @@ protected:
 private:
 	int m_20; // +0x20
 	bool m_24; // +0x24
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 
 AIAttackSquadState::AIAttackSquadState(StateMachine *machine, int)
@@ -275,6 +284,12 @@ public:
 private:
 	int m_20; // +0x20
 	bool m_24; // +0x24
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AIHarvestState::AIHarvestState(StateMachine *machine)
@@ -358,6 +373,9 @@ public:
 protected:
 	// retail slot 3: the rowed ?xfer@AIGoingIdleState@@MAEXPAVXfer@@@Z 0x00341E2D
 	virtual void xfer(Xfer *xfer);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
 };
 
 AIGoingIdleState::AIGoingIdleState(StateMachine *machine)
@@ -376,6 +394,12 @@ public:
 
 private:
 	int m_20; // +0x20
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AIGuardRetaliateState::AIGuardRetaliateState(StateMachine *machine)
@@ -395,6 +419,15 @@ public:
 
 private:
 	int m_20; // +0x20
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AITunnelNetworkGuardState::AITunnelNetworkGuardState(StateMachine *machine)
@@ -415,6 +448,12 @@ public:
 private:
 	int m_20; // +0x20
 	int m_24; // +0x24
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 
 AIHuntState::AIHuntState(StateMachine *machine)
@@ -440,6 +479,15 @@ protected:
 private:
 	int m_20; // +0x20
 	int m_24; // +0x24
+public:
+	// retail vftable slot: the rowed override
+	virtual bool isAttack() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 
 AIAttackAreaState::AIAttackAreaState(StateMachine *machine)

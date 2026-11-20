@@ -33,3 +33,60 @@ A single authorized diagnostic rerun at local d921a21df82 saved the actual faile
 Native call RVA **0x00350332** in AIStateMachine::updateStateMachine resumes the active State through slot7 after temporary-state exit and saved goal restoration. Two independent name_lane votes agree to **onResume** at the State slot key, record **nl-ac8209bc374c** (inferred readable name; original EA spelling unproved). Zero Hour's Boolean isIdle at ordinal7 and BFME1's absence of this callback are not canonical naming proof. The current structural spelling cannot receive a slot vote by design.
 
 A shared State-hook rename must preserve the virtual position and update the derived override and explicit bindings together. Read-only plan: `~/bfme2-ops/swarm/sweeps/slotnames/packets/state-slot7-plan.md`; hook654 dependents, conservative whole-repair verification union659. Owner decision required before a512+ full-gate batch. No gate/header/full-gate change started. This defect note and pending votes must ride with the first substantive landing, never as a standalone records push.
+
+### 2026-11-20: State-family vtable census and the view-declaration recipe (seat halilkkaya-st)
+
+Base `68ba4a0f55e` (branch seat-vt-1120); measured with the local bridge snapshot (tools/vtable_bridge.py plan over
+build/match, no link). Family: 50 retail tables whose slot-0 deleting destructor reaches 0x0033FF2B (`imt`) and 84
+other State-shaped tables (17-24 slots, slot 1 0x000B3FD0, slots 9-15 mostly 0x0047A699; `state`). 100 of them are
+bridged under 105 names (41 imt, 59 state), 3 are correct, with 862 mismatching slots, emitted by 32 units.
+
+Mismatching slots by the documented route that would fix them:
+- **identity, 228 slots in 68 tables (no tool route).** The table's class is a placeholder (`Rva0033F5B9`, its
+  constructor's row) while retail's slot bodies are rowed as methods of a real class (`?xfer@AIHordeExitState`,
+  ...), which the slot-2 getter's own string names ("AIHordeExitState" at 0x0033F5DD). `rename.py class --fold`
+  refuses (NEW is not named on the table), `class --name` refuses (NEW already spelled in code) and
+  `--merge-existing` refuses (NEW owns rows). The largest single blocker; it needs a fold mode tied by the slot
+  bodies, a verifier change.
+- **State default, 287 slots.** Missing slots 7-16 where a unit's State view is a private 7-slot copy or a stand-in
+  base (TurretStateMachineCtor.cpp's `Rva004D7B70`). The canonical header fixes them, see below.
+- **getter-to-class, 70 slots (approval needed).** Free getters `?RvaNNNNNNNNGet@@YAHXZ` in slot 2. `rename.py
+  function --to-class C --new ?GetSnapshotName@C@@MBEPBDXZ` now reads a name_lane slot approval for the getter
+  move too (`to_class_name_problem`); for an unregistered C it refuses "register it first". The lk106 moves predate
+  that.
+- **placeholder-body, 68**: overrides rowed under placeholder classes or functions; their to-class moves need slot
+  approvals.
+- **shared default body, 66** (0x0050B5C6, 0x0047A69C and similar ICF bodies) and **slot-0 ICF deleting destructor,
+  39** (`??_GX` at 0x00346CFB, shared by 49 tables, with `??1X` at 0x00368793): twin rows, not started.
+- **declare-override, 85**: retail's body already rowed under the table's own class with the canonical spelling.
+  Only the unit's view lacks the declaration. Done below.
+
+Canonical AIInternalMoveToState.h, `header_adopt_lane.py adopt` trial over the 14 imt emitting units: 8 byte-match
+(AIInternalMoveToStateOnExit_AIInternalMoveToState, Rva00342826Ctor, AIStateMoveTightenCtors, Rva003429B9Ctor,
+Rva00342B87Ctor, AIStateEvacLeafCtors, Rva00342EACCtor, AIGuardRetaliate). AIStateRva0034005DCtor and
+Rva00367518Ctor fail on the field rename `m_30 -> m_goalLayer` colliding with the view's own `m_goalLayer` (+0x40).
+AIStatesSmallUpdates and AIGuardStates fail with C2011 (own StateReturnType/StateExitType enums), Rva0036804FCtor
+with C2555 (int onEnter), and Rva0033FF2BDtor has no private view. Measured blast radius of the 8 trial objects
+left in build/match: mismatching slots -110, but two new names undefined anywhere,
+`?GetSnapshotName@AIInternalMoveToState@@MBEPBDXZ` and `?_bfme_state_slot7@AIInternalMoveToState@@EAEXXZ`, so the
+judge rejects it. Slot 2 has an agreed approval (nl-fd1a7bdbd840); slot 7 does not (the State key's `onResume`,
+above, is unapplied). Trap: `adopt` without `--apply` leaves its trial objects in build/match. Rebuild the units
+with `./build.sh` before any snapshot.
+
+Landed (commits by subject):
+- "Declare AIInternalMoveToState's computePath slot in two State views": AIStateRva0034005DCtor.cpp's private view
+  gains slot 17 and the protected xfer, and the eight overriding classes declare their rowed computePath.
+  Rva00340BDCDtor.cpp's view follows, so the two `??_7Rva00340BDC@@6B@` copies stay identical. Mismatching slots
+  32,895 -> 32,872; bridged, correct and refusals unchanged; both units LINK.
+- "Declare rowed State overrides in ten State-family units": 21 overrides in 12 tables (AIAttackSquadState,
+  AIHarvestState, AIGuardRetaliateState, AITunnelNetworkGuardState, AIHuntState, AIAttackAreaState,
+  AIGoingIdleState, AIAttackFollowWaypointPathState, AIAttackMoveToState, AIFollowPathAsTeamState,
+  GiantBirdAttackMoveToState, AIAttackMeleeHordeWaitState). AIStateHashCtors0033F2FD.cpp emits seven of those
+  tables too and declares the same overrides.
+
+Not taken: overrides whose rows carry a non-canonical spelling (`?onEnter@AIHuntState@@UAEHXZ`,
+`?onExit@AIHarvestState@@UAEXH@Z`, `?update@AIGoingIdleState@@QAEHXZ`, ...) need a signature respell first. The
+Turret tables need TurretStateMachineCtor.cpp's stand-in base re-based on State: its states are created with
+`new`, so every pure slot must be declared, and TurretAIIdleState's xfer is the ICF body 0x00544AB3.
+Scratch: build/st/census.py (census), overrides.py and declare.py (the recipe), getter_move.py (the refused
+getter batch).

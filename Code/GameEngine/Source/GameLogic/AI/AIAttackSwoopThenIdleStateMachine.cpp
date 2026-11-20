@@ -141,6 +141,9 @@ protected:
 	virtual void xfer(class Xfer *);
 public:
 	virtual enum StateReturnType update();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp

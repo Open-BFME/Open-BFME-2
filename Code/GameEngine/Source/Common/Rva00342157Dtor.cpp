@@ -45,6 +45,12 @@ public:
 
 private:
 	Rva00342157Member *m_ptr20;
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 
 AIHuntState::~AIHuntState()
