@@ -88,15 +88,12 @@ BodyModule::~BodyModule()
 {
 }
 
-class Rva004B96CC_B2
-{
-public:
-  virtual void f2() {}
-};
+#include "../../Include/GameLogic/Module/DamageModuleInterface.h"
 
-class Rva004B96CC : public PrimaryP, public Rva004B96CC_B2
+class Rva004B96CC : public PrimaryP, public DamageModuleInterface
 {
 public:
+	Rva004B96CC() {}
 	virtual ~Rva004B96CC();
 };
 
@@ -104,11 +101,11 @@ Rva004B96CC::~Rva004B96CC()
 {
 }
 
-// Anchor: new/delete devirtualizes to a direct ??_G call (see above).
-void Rva004B96CC_Anchor()
+// Anchor: abstract class cannot be new'd directly, so call the inline ctor
+// which references the primary vtable and forces emission of the ??_G COMDAT.
+void Rva004B96CC_Anchor(Rva004B96CC *p)
 {
-	Rva004B96CC *p = new Rva004B96CC;
-	delete p;
+	p->Rva004B96CC::Rva004B96CC();
 }
 
 class Rva004BB68E_B2
