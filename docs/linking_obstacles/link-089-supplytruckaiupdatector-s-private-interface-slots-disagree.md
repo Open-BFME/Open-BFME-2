@@ -23,3 +23,7 @@ of them getWarehouseScanDistance only by ZH analogy). The ctor's 13-slot
 declaration is therefore wrong in count as well as order; reconciling it needs
 names for the BFME 2-only slots and fold admissions for the ICF-shared slot
 bodies (0, 4, 12, 15, 17, 18). No source or ledger change made.
+
+## 2026-11-20 Data retirement recheck
+
+The main SupplyTruck source passes 38/38 rows and three exact EH graphs. Its remaining ownership findings are the separate dock guard at `0x00A03C5C` and the two condition table sections for `0x00853330`. The callback split still needs the main and constructor views reconciled. [Current object evidence and remaining prerequisites](../../reverse/attempt_support/supply-truck-dock-callback-20261102/README.md#2026-11-20-data-retirement-recheck).
