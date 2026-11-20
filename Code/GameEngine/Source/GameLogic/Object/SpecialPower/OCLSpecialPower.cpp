@@ -28,9 +28,8 @@ inline __declspec(noinline) float Coord3D::GetLengthEstimate2D() const {
 class Player;
 class Upgrade;
 enum UpgradeStatusType { UPGRADE_COMPLETE=2 };
-class UpgradeTemplate { public: char pad[4]; int type; };
+#include "../../../../Include/Common/Upgrade.h"
 #include "../../../../Include/Common/Player.h"
-class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../../Include/GameLogic/ObjectFilter.h"
 #include "../../../../Include/GameLogic/PartitionFilter.h"
@@ -354,7 +353,7 @@ void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned 
  for(unsigned i=0;i<upgrades.size();++i) {
   const UpgradeTemplate *up=TheUpgradeCenter->findUpgrade(upgrades[i]);
   if(!up)return;
-  if(up->type==0){Player *player=getObject()->getControllingPlayer();player->addUpgrade(up,UPGRADE_COMPLETE,0);}
+  if(up->m_type==0){Player *player=getObject()->getControllingPlayer();player->addUpgrade(up,UPGRADE_COMPLETE,0);}
  }
 }
 
