@@ -260,6 +260,9 @@ def main(argv=None, *, root=ROOT):
                         help="link the verified reference objects as an isolated local baseline")
     action.add_argument("--link-modern", nargs="+", metavar="BASE_OR_SOURCE",
                         help="baseline directory followed by explicit modern replacement sources")
+    action.add_argument("--blob", action="store_true",
+                        help="link the changed modern code into a loader blob for the 1.06 baseline "
+                             "and build the loader DLL (build/modern/blob); not a verification result")
     args = parser.parse_args(argv)
     try:
         paths = variant_paths(root, "modern")
@@ -267,6 +270,19 @@ def main(argv=None, *, root=ROOT):
             if Path(root).resolve() != ROOT or len(args.link_modern) < 2:
                 raise ValueError("modern link needs the repository root, baseline and source(s)")
             return link_modern(args.link_modern[0], args.link_modern[1:])
+        if args.blob:
+            import modern_blob
+            if Path(root).resolve() != ROOT:
+                raise ValueError("the blob needs the repository root")
+            out = paths["reports"].parent / "blob"
+            blob, report = modern_blob.build_blob(out)
+            dll = modern_blob.build_loader(out)
+            print(json.dumps({"variant": "modern", "action": "blob", "authoritative": False,
+                              "blob": str(blob.relative_to(ROOT)), "loader": str(dll.relative_to(ROOT)),
+                              "hooks": len(report["hooks"]), "size": report["size"],
+                              "relocation_sites_checked": report["relocation_sites_checked"],
+                              "warnings": report["warnings"]}, indent=2))
+            return 0
         if args.link_base:
             import exit_link
             if Path(root).resolve() != exit_link.ROOT.resolve():
