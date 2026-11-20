@@ -1,47 +1,43 @@
 // cl: /DNDEBUG /MD
 //
 // ??1CaveContain@@MAE@XZ, retail 0x004663B2, 77 bytes.
-// CaveContain behavior dtor over the pinned OpenContain base (0xFC).
-// Restores the primary vtable slot and eight secondary slots at
-// +0x0C/+0x10/+0x20/+0x24/+0x28/+0x2C/+0x30/+0x34 plus the derived slot at
-// +0xFC, then tail-jumps to the pinned base dtor at 0x00464692
-// (??1Rva00039D6AFlatBase@@UAE@XZ). The rowed pool key at 0x4663FF and the
-// rowed instance factory 0x24B797 (news 0x10C) prove the class. Shape follows
-// the landed PoisonedBehaviorDtor TU (vptr stores plus base tail-jmp); the
-// ten vtable immediates resolve through DIR32. Donor is ZH CaveContain.
+// CaveContain behavior dtor over the canonical OpenContain base (0xFC).
+// Restores the nine OpenContain-path tables at
+// +0/+0x0C/+0x10/+0x20/+0x24/+0x28/+0x2C/+0x30/+0x34 plus the derived table at
+// +0xFC, then tail-jumps to OpenContain's destructor at 0x00464692. The rowed
+// pool key at 0x4663FF and the rowed instance factory 0x24B797 (news 0x10C)
+// prove the class. The ten vtable immediates resolve through DIR32. Donor is
+// ZH CaveContain.
 
-class Thing;
-class ModuleData;
+#include "../../../../Include/GameLogic/Module/OpenContain.h"
 
-class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
-#include "../../../../Include/Common/B1.h"
-#include "../../../../Include/GameLogic/Module/B2.h"
-class B3 { public: virtual void b3(); };
-#include "../../../../Include/Common/B4.h"
-class DamageInfo;
-// The DieModuleInterface position (+0x28): retail's table 0x00C43A6C holds CaveContain::onDie.
-#include "../../../../Include/Common/B5.h"
-enum BodyDamageType;
-// The +0x2C interface (GarrisonContain overrides slot 2 as onBodyDamageStateChange):
-// retail's table 0x00C58790 holds its three empty defaults (ret 4, ret 4, ret 0Ch).
-#include "../../../../Include/Common/B6.h"
-#include "../../../../Include/Common/B7.h"
-#include "../../../../Include/Common/B8.h"
 
-class Rva00039D6AFlatBase : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
+// The +0xFC interface: retail's table 0x00C43A54 holds CaveContain's
+// tryToSetCaveIndex (0x004667D1) in slot 0.
+class CaveExtra { public: virtual void tryToSetCaveIndex(int newIndex) = 0; };
+
+class CaveContain : public OpenContain, public CaveExtra
 {
 public:
-	virtual ~Rva00039D6AFlatBase();
-};
-
-class CaveExtra { public: virtual void caveExtra(); };
-
-class CaveContain : public Rva00039D6AFlatBase, public CaveExtra
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo);	// the rowed 0x00466724
+	// Retail CaveContain tables 0x00C43CB8 (primary), 0x00C43A70 (+0x20),
+	// 0x00C43A6C (+0x28), 0x00C43A5C (+0x34) and 0x00C43A54 (+0xFC): the
+	// overrides the ledger rows under CaveContain's name.
+	virtual NameKeyType getModuleNameKey() const;			// 0x004663FF
+	virtual void recalcApparentControllingPlayer();			// 0x00466977
+	virtual void onContaining(Object *obj, bool wasSelected);	// 0x004664BB
+	virtual void onRemoving(Object *obj);				// 0x004668DC
+	virtual int getContainMax() const;				// 0x0046651C
+	virtual bool isValidContainerFor(Object *obj, bool checkCapacity, bool flag);	// 0x004664E1
+	virtual void addToContainList(Object *obj);			// 0x0046646E
+	virtual void removeFromContain(Object *obj, bool exposeStealthUnits = false);	// 0x004666C9
+	virtual void removeAllContained(bool exposeStealthUnits = false);	// 0x00466A50
+	virtual void onDie(const DamageInfo *damageInfo);		// 0x00466724
+	virtual void onCreate();					// 0x00466780
+	virtual void onBuildComplete();					// 0x00466790
+	virtual void tryToSetCaveIndex(int newIndex);			// 0x004667D1
 protected:
 	virtual ~CaveContain();
+	virtual void xfer(Xfer *xfer);					// 0x00466577
 
 private:
 	unsigned char m_100; // +0x100
@@ -54,17 +50,7 @@ CaveContain::~CaveContain()
 {
 }
 
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder names this unit's own object settles.  In retail each one holds
-// what the unit's matched code references or installs: the rowed function of
-// the vftable slot it occupies, or the function or datum the instruction
-// reaches, so bind the placeholder to that row's name.
+// This unit no longer references the flat-base placeholder destructor, but
+// HealContain.cpp's Rva00220240FlatDtor still calls it and links through this
+// directive.
 #pragma comment(linker, "/alternatename:??1Rva00039D6AFlatBase@@UAE@XZ=??1OpenContain@@UAE@XZ")
-#pragma comment(linker, "/alternatename:?caveExtra@CaveExtra@@UAEXXZ=?tryToSetCaveIndex@CaveContain@@UAEXH@Z")

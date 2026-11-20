@@ -69,7 +69,7 @@ extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface28@@@")[]
 
 extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface2C@@@")[];
 
-extern "C" const void *const __identifier("??_7CaveContain@@6BB7@@@")[];
+extern "C" const void *const __identifier("??_7CaveContain@@6BExitInterface@@@")[];
 
 extern "C" const void *const __identifier("??_7GarrisonContain@@6BB8@@@")[];
 
@@ -313,7 +313,7 @@ HealContain::HealContain(Thing *thing, const ModuleData *moduleData)
 	m_p24 = __identifier("??_7HordeSiegeEngineContain@@6BIface24@@@");
 	m_p28 = __identifier("??_7AODHordeContain@@6BIface28@@@");
 	m_p2C = __identifier("??_7AODHordeContain@@6BIface2C@@@");
-	m_p30 = __identifier("??_7CaveContain@@6BB7@@@");
+	m_p30 = __identifier("??_7CaveContain@@6BExitInterface@@@");
 	m_p34 = __identifier("??_7GarrisonContain@@6BB8@@@");
 }
 
