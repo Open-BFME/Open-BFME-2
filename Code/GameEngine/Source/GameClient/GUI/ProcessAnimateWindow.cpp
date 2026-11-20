@@ -314,22 +314,8 @@ ProcessAnimateWindowSlideFromLeft::ProcessAnimateWindowSlideFromLeft( void )
 
 ProcessAnimateWindowSlideFromLeft::~ProcessAnimateWindowSlideFromLeft( void ) { }
 
-// ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@ present-unmatched
-void ProcessAnimateWindowSlideFromLeft::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
-{
-	if(!animWin)
-	{
-		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into initAnimateWindow as a NULL Pointer... bad bad bad!"));
-		return;
-	}
-	if(animWin->getDelay() > 0)
-		animWin->setStartTime(timeGetTime() + (maxDelay - animWin->getDelay()));
-	Coord2D vel = animWin->getVel();
-	vel.x *= -1;
-	vel.y *= -1;
-	animWin->setVel( vel );	
-
-}
+// ProcessAnimateWindowSlideFromLeft::initReverseAnimateWindow (retail 0x005C5FC4, folded onto TopFast's) is defined in
+// ProcessAnimateWindowRightFastInitReverse.cpp, whose Coord2D view the body needs.
 
 // ProcessAnimateWindowSlideFromLeft::initAnimateWindow is recovered in
 // ProcessAnimateWindowRightFastInitReverse.cpp.
@@ -357,22 +343,8 @@ ProcessAnimateWindowSlideFromTop::ProcessAnimateWindowSlideFromTop( void )
 
 ProcessAnimateWindowSlideFromTop::~ProcessAnimateWindowSlideFromTop( void ) { }
 
-// ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@ present-unmatched
-void ProcessAnimateWindowSlideFromTop::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
-{
-	if(!animWin)
-	{
-		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into initAnimateWindow as a NULL Pointer... bad bad bad!"));
-		return;
-	}
-	if(animWin->getDelay() > 0)
-		animWin->setStartTime(timeGetTime() + (maxDelay - animWin->getDelay()));
-	Coord2D vel = animWin->getVel();
-	vel.x *= -1;
-	vel.y *= -1;
-	animWin->setVel( vel );	
-
-}
+// ProcessAnimateWindowSlideFromTop::initReverseAnimateWindow (retail 0x005C5FC4, folded onto TopFast's) is defined in
+// ProcessAnimateWindowRightFastInitReverse.cpp, whose Coord2D view the body needs.
 
 // ProcessAnimateWindowSlideFromTop::initAnimateWindow is recovered in
 // ProcessAnimateWindowRightFastInitReverse.cpp.
@@ -444,22 +416,8 @@ ProcessAnimateWindowSlideFromBottom::ProcessAnimateWindowSlideFromBottom( void )
 
 ProcessAnimateWindowSlideFromBottom::~ProcessAnimateWindowSlideFromBottom( void ) { }
 
-// ?initReverseAnimateWindow@ProcessAnimateWindowSlideFromBottom@@ present-unmatched
-void ProcessAnimateWindowSlideFromBottom::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
-{
-	if(!animWin)
-	{
-		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into initAnimateWindow as a NULL Pointer... bad bad bad!"));
-		return;
-	}
-	if(animWin->getDelay() > 0)
-		animWin->setStartTime(timeGetTime() + (maxDelay - animWin->getDelay()));
-	Coord2D vel = animWin->getVel();
-	vel.x *= -1;
-	vel.y *= -1;
-	animWin->setVel( vel );	
-
-}
+// ProcessAnimateWindowSlideFromBottom::initReverseAnimateWindow (retail 0x005C5FC4, folded onto TopFast's) is defined in
+// ProcessAnimateWindowRightFastInitReverse.cpp, whose Coord2D view the body needs.
 
 // ProcessAnimateWindowSlideFromBottom::initAnimateWindow is recovered in
 // ProcessAnimateWindowRightFastInitReverse.cpp.

@@ -105,9 +105,70 @@ void ProcessAnimateWindowSlideFromRight::initReverseAnimateWindow( AnimateWindow
 }
 
 // TopFast ctor RVA 0x005C5F85 installs VA 0x00C748B4, slot 2 at
-// RVA 0x005C5FC4 (102 bytes). Left/Top/Bottom vtables share this body;
-// the ledger records one proven method at this address, without alias rows.
+// RVA 0x005C5FC4 (102 bytes). Left/Top/Bottom vtables share this body:
+// retail folded their identical members onto it, and the three twins below
+// are rowed at the same address (ICF twins of this row).
 void ProcessAnimateWindowSlideFromTopFast::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
+{
+	if(!animWin)
+	{
+		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into initAnimateWindow as a NULL Pointer... bad bad bad!"));
+		return;
+	}
+	if(animWin->getDelay() > 0)
+		animWin->setStartTime(timeGetTime() + (maxDelay - animWin->getDelay()));
+	Coord2D flipped;
+	{
+		const Coord2D& vel = animWin->getVel();
+		flipped.x = vel.x * -1;
+		flipped.y = vel.y * -1;
+	}
+	animWin->setVel(flipped);
+
+}
+
+// SlideFromLeft: retail slot 2 of its table is 0x005C5FC4 too (folded onto TopFast's body).
+void ProcessAnimateWindowSlideFromLeft::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
+{
+	if(!animWin)
+	{
+		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into initAnimateWindow as a NULL Pointer... bad bad bad!"));
+		return;
+	}
+	if(animWin->getDelay() > 0)
+		animWin->setStartTime(timeGetTime() + (maxDelay - animWin->getDelay()));
+	Coord2D flipped;
+	{
+		const Coord2D& vel = animWin->getVel();
+		flipped.x = vel.x * -1;
+		flipped.y = vel.y * -1;
+	}
+	animWin->setVel(flipped);
+
+}
+
+// SlideFromTop: retail slot 2 of its table is 0x005C5FC4 too (folded onto TopFast's body).
+void ProcessAnimateWindowSlideFromTop::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
+{
+	if(!animWin)
+	{
+		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into initAnimateWindow as a NULL Pointer... bad bad bad!"));
+		return;
+	}
+	if(animWin->getDelay() > 0)
+		animWin->setStartTime(timeGetTime() + (maxDelay - animWin->getDelay()));
+	Coord2D flipped;
+	{
+		const Coord2D& vel = animWin->getVel();
+		flipped.x = vel.x * -1;
+		flipped.y = vel.y * -1;
+	}
+	animWin->setVel(flipped);
+
+}
+
+// SlideFromBottom: retail slot 2 of its table is 0x005C5FC4 too (folded onto TopFast's body).
+void ProcessAnimateWindowSlideFromBottom::initReverseAnimateWindow( AnimateWindow *animWin, UnsignedInt maxDelay )
 {
 	if(!animWin)
 	{
