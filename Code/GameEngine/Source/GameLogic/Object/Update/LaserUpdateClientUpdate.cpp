@@ -35,7 +35,7 @@ public:
 #include "../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ParticleSystemID.h"
-struct Rva001F3899Arg { float x,y,z; };
+#include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class ParticleSystem
 {

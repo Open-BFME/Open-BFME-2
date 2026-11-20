@@ -202,7 +202,7 @@ class BfmeParticleSystemHandle{public:__forceinline ~BfmeParticleSystemHandle(){
 
 extern ParticleSystemManager *TheParticleSystemManager;
 
-struct Rva001F3899Arg{float x,y,z;};
+#include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 

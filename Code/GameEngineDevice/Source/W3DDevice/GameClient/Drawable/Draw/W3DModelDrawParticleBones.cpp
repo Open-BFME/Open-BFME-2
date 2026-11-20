@@ -118,7 +118,7 @@ public:
 	Vector4 Row[3];
 };
 
-struct Rva001F3899Arg { float x, y, z; };
+#include "../../../../../../GameEngine/Include/GameLogic/Module/Rva001F3899Arg.h"
 struct Rva001F38C1Arg { float v[12]; };
 class Rva0055A88BDwordField;
 

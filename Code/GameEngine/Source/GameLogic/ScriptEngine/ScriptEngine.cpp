@@ -557,10 +557,7 @@ public:
 	Rva000427195 m_templateMap;	// +0x88
 };
 extern ParticleSystemManager *TheParticleSystemManager;
-struct Rva001F3899Arg
-{
-	float x, y, z;
-};
+#include "../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -2432,14 +2429,14 @@ void Rva00204C78::rva00204C78(const char *name)
 		ParticleSystem *created = (ParticleSystem *)handle.ptr;
 		m_systemID = created->m_id;
 		m_flag = created->m_1A2;
-		Rva001F3899Arg pos;
+		Coord3D pos;
 		pos.y = 200.0f;
 		pos.x = 200.0f;
 		pos.z = TheTerrainLogic->getGroundHeight(200.0f, 200.0f, 0) + 100.0f;
 		ParticleSystem *system = (ParticleSystem *)handle.ptr;
 		if (!system)
 			system = Make001FCBD7();
-		((Rva001F3899Slot *)system)->set(pos);
+		((Rva001F3899Slot *)system)->set(*(const Rva001F3899Arg *)&pos);
 	}
 }
 

@@ -42,7 +42,7 @@ extern "C" const void *const __identifier("??_7Rva00362EC7@@6B@")[];
 
 
 
-struct Rva001F3899Arg { float x,y,z; };
+#include "../../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 
 #include "../../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 

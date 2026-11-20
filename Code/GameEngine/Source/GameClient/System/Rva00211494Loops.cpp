@@ -169,7 +169,7 @@ struct Vec3 {
  float x,y,z;
 };
 #include "../../../Include/Common/Rva003F936EHost.h"
-struct Rva001F3899Arg {int x,y,z;};
+#include "../../../Include/GameLogic/Module/Rva001F3899Arg.h"
 #include "../../../Include/GameLogic/Module/Rva001F3899Slot.h"
 class Rva003FD9FA {public:void rva003FD9FA(const RvaSmartPtr12 *,Vec3);};
 class Rva002D3627Host;

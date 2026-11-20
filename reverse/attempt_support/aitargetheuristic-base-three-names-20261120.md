@@ -2,6 +2,11 @@
 
 Date 2026-11-20, at origin/master 5d0e3edab8. Blocked; nothing applied.
 
+**Update (b796529e5b):** the tool now covers this. `rename.py class --fold` merges one body
+rowed under both names and admits an alias-only third name with `--with`. See docs/naming.md
+for the two fold commands. Still to do: fix the Rva005CB22A contract (inline dtor, 1 slot;
+retail has 3), then run the folds and the steps under "What would unblock".
+
 ## Goal
 
 Retire the bridge on `??_7AITargetHeuristicExpansionBase@@6B@` (0x0086E0B8). Its only
