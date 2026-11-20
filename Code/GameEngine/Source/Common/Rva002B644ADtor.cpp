@@ -25,7 +25,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 
-class Rva0021294A;
+
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 #include "../../Include/Common/Rva00DFE1C8Host.h"
