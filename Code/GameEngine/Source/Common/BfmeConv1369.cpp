@@ -7,10 +7,10 @@ public:
 	char m_bfmePad[8];
 };
 
+#include "../../Include/GameNetwork/Rva008003C0Owner.h"
 class BfmeSubBVHW
 {
 public:
-	void bfmeClearBVHW();
 	char m_bfmePad[12];
 };
 
@@ -74,8 +74,8 @@ void BfmeThingVHW::bfmeClearVHW()
 	m_bfme6c = 0;
 	m_bfme78 = 0;
 	((Rva00801570 *)&m_bfme3c)->clear();
-	m_bfme1c.bfmeClearBVHW();
-	m_bfme10.bfmeClearBVHW();
+	((Rva008003C0Owner *)&m_bfme1c)->clear();
+	((Rva008003C0Owner *)&m_bfme10)->clear();
 	m_bfmeVfptr = __identifier("??_7Rva0066D950@@6B@");
 }
 

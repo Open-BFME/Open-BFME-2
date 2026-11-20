@@ -26,10 +26,10 @@
 
 #include "../../Include/Common/Rva007FBC30GameKey.h"
 
+#include "../../Include/Common/Rva007FBEF0GameRecord.h"
 class Rva007F5010Player : public Rva007FBC30GameKey
 {
 public:
-	bool rva007FBFB0( const char *key, char *dest, unsigned int destSize );
 
 	void *m_msg;
 	int m_pid;
@@ -173,7 +173,7 @@ void BfmeSlot1173::measure( Rva007F5010Player *record )
 	{
 		slot = m_host->rva007F76D0( vector, i );
 		buf[ 0 ] = 0;
-		if( record->rva007FBFB0( (const char *)slot, buf, 0x40 ) )
+		if( ((Rva007FBEF0GameRecord *)record)->Rva007FBFB0( (const char *)slot, buf, 0x40 ) )
 			( (Rva00800290Buffer *)&m_arena )->addString( buf );
 	}
 }
@@ -201,7 +201,7 @@ void BfmeSlot1173::bfmeStore1173( void *recordValue, int hostValue )
 	{
 		key = (char *)m_host->rva007F76D0( vector, i );
 		buf[ 0 ] = 0;
-		if( !record->rva007FBFB0( key, buf, 0x40 ) )
+		if( !((Rva007FBEF0GameRecord *)record)->Rva007FBFB0( key, buf, 0x40 ) )
 			m_keys[ i ] = 0;
 		else
 			m_keys[ i ] = m_arena.append( buf );

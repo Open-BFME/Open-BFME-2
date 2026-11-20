@@ -100,7 +100,6 @@ bool Rva007FBEF0GameRecord::Rva007FBFB0( const char *key, char *dest,
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?rva007FBFB0@Rva007F5010Player@@QAE_NPBDPADI@Z=?Rva007FBFB0@Rva007FBEF0GameRecord@@QAE_NPBDPADI@Z")
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

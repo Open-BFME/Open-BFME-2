@@ -224,7 +224,6 @@ struct InvisibilityTreeNode {
 class Rva00439CF7 {
 public:
  void rva00439CF7(Object*,int,const void*);
- bool rva0043979D(Object*,Rva004393D6*);
  void *m_vtable; InvisibilityRecordMap m_records;
 };
 void Rva00439CF7::rva00439CF7(Object *object,int duration,const void *data) {
@@ -249,11 +248,10 @@ void Rva00439CF7::rva00439CF7(Object *object,int duration,const void *data) {
  }
  Rva004382FC entry(nugget,duration);
  ((_STL::list<Rva004390F7Element>*)record)->push_back(*(const Rva004390F7Element*)&entry);
- rva0043979D(object,record);
+ ((Rva00439E0C *)this)->rva0043979D(object,record);
 }
 
 // 0x00438FA7's body is now rowed under the name this TU spells
 // (??0Rva004393D6@@QAE@XZ), so its /alternatename binding is retired. The
 // remaining binding below still needs one:
 //   0x0043979D -> ?rva0043979D@Rva00439E0C@@QAE_NPAVObject@@PAURva004393D6@@@Z
-#pragma comment(linker, "/alternatename:?rva0043979D@Rva00439CF7@@QAE_NPAVObject@@PAURva004393D6@@@Z=?rva0043979D@Rva00439E0C@@QAE_NPAVObject@@PAURva004393D6@@@Z")

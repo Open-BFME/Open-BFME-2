@@ -88,11 +88,15 @@ struct BfmeOwnerUNC
 
 int bfmeNextIdUNC(void);
 
+class Gen_00808B80
+{
+public:
+	void bfmeReset(void);
+};
 class BfmeThingUNC
 {
 public:
 	BfmeThingUNC(int a, BfmeOwnerUNC *o);
-	void bfmeBaseUNC(void);
 	void *m_bfmeVft;
 	int m_bfmeA;
 	BfmeOwnerUNC *m_bfmeOwner;
@@ -104,7 +108,7 @@ public:
 BfmeThingUNC::BfmeThingUNC(int a, BfmeOwnerUNC *o)
 {
 	m_bfmeVft = __identifier("??_7Gen0080ACD0@@6B@");
-	bfmeBaseUNC();
+	((Gen_00808B80 *)this)->bfmeReset();
 	m_bfmeOwner = o;
 	m_bfmeA = a;
 	m_bfmeId = bfmeNextIdUNC();

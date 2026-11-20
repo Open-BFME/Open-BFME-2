@@ -48,7 +48,6 @@ void Rva007B7600()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeBegin@BfmeSetupRecord@@QAEXXZ=?run@Rva007E8AC0@@QAEXXZ")
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

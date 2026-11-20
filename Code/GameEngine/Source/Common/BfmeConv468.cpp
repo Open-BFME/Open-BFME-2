@@ -11,10 +11,14 @@ public:
 	virtual void bfmeRunBJA();
 };
 
+class Rva00128780GateBehaviorOwner
+{
+public:
+	bool resolveGateBehavior();
+};
 class BfmeThingBJA
 {
 public:
-	bool bfmeAskBJA();
 	void bfmeGoBJA();
 	unsigned char m_bfmeHead[0x4c];
 	BfmeSubBJA *m_bfmeSub;
@@ -22,6 +26,6 @@ public:
 
 void BfmeThingBJA::bfmeGoBJA()
 {
-	if (bfmeAskBJA())
+	if (((Rva00128780GateBehaviorOwner *)this)->resolveGateBehavior())
 		m_bfmeSub->bfmeRunBJA();
 }

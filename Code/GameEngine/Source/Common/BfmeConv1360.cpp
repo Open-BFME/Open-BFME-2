@@ -1,7 +1,7 @@
+#include "../../Include/GameNetwork/BfmeThingRF.h"
 class BfmeMsgVHC
 {
 public:
-	void *bfmeGetVHC(void *key, void *def);
 	char bfmeGetStrVHC(void *key, char *buf, int size);
 };
 
@@ -27,8 +27,8 @@ public:
 BfmeThingVHC *BfmeThingVHC::bfmeInitVHC(BfmeMsgVHC *msg)
 {
 	bfmeBaseVHC(msg);
-	m_bfme08 = msg->bfmeGetVHC(&g_bfmeKeyAVHC, 0);
-	m_bfme0c = msg->bfmeGetVHC(&g_bfmeKeyBVHC, 0);
+	m_bfme08 = ((BfmeThingRF *)msg)->bfmeGoRF(&g_bfmeKeyAVHC, 0);
+	m_bfme0c = ((BfmeThingRF *)msg)->bfmeGoRF(&g_bfmeKeyBVHC, 0);
 	return this;
 }
 
@@ -47,7 +47,7 @@ public:
 BfmeThingVHD *BfmeThingVHD::bfmeInitVHD(BfmeMsgVHC *msg)
 {
 	bfmeBaseVHD(msg);
-	m_bfme08 = msg->bfmeGetVHC((int *)"TYPE", 0);
+	m_bfme08 = ((BfmeThingRF *)msg)->bfmeGoRF((int *)"TYPE", 0);
 	msg->bfmeGetStrVHC((int *)"REASON", m_bfme0c, 0x100);
 	return this;
 }

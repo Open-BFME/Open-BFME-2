@@ -2,9 +2,9 @@
 // Bfme5SetupPairs.cpp: only the 007E9860 stub is carried; sibling stubs stay
 // with the donor until rows land.
 
+#include "../../Include/GameNetwork/Rva007E8AC0.h"
 struct BfmeSetupRecord
 {
-	void bfmeBegin(void);					// retail 0x00655B50
 	void bfmeWrite(const char *text, int value);		// retail 0x00655AA0
 	void bfmeWriteAlt(const char *text, int value);		// retail 0x00655960
 
@@ -24,7 +24,7 @@ void __stdcall bfmeSetupPair_007E9860(BfmeSetupRecord *record, int accountNameVa
 {
 	int transactionValue = TheBfmeSetupGlobal007E9860;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
@@ -37,7 +37,7 @@ void __stdcall bfmeSetupPair_007F26A0(BfmeSetupRecord *record, int reporterCount
 {
 	int transactionValue = TheBfmeSetupGlobal007F26A0;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x72616E6B;					// 'rank'
 
@@ -58,7 +58,7 @@ void __stdcall bfmeSetupPair_00656490(BfmeSetupRecord *record, int accountNameVa
 {
 	int transactionValue = TheBfmeSetupGlobal00656490;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
@@ -74,7 +74,7 @@ void __stdcall bfmeSetupPair_006564D0(BfmeSetupRecord *record, int accountNameVa
 {
 	int transactionValue = TheBfmeSetupGlobal006564D0;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
@@ -90,7 +90,7 @@ void __stdcall bfmeSetupPair_00656550(BfmeSetupRecord *record, int accountNameVa
 {
 	int transactionValue = TheBfmeSetupGlobal00656550;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
@@ -109,7 +109,7 @@ void __stdcall bfmeSetupPair_00656510(BfmeSetupRecord *record, int emailValue)
 {
 	int transactionValue = TheBfmeSetupGlobal00656510;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x61636374;					// 'acct'
 
@@ -125,7 +125,7 @@ void __stdcall bfmeSetupPair_0065F1D0(BfmeSetupRecord *record, int sessionID)
 {
 	int transactionValue = TheBfmeSetupGlobal0065F1D0;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x72616E6B;					// 'rank'
 
@@ -141,7 +141,7 @@ void __stdcall bfmeSetupPair_0065F210(BfmeSetupRecord *record, int sessionID)
 {
 	int transactionValue = TheBfmeSetupGlobal0065F210;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 
 	record->m_bfmeTag = 0x72616E6B;					// 'rank'
 

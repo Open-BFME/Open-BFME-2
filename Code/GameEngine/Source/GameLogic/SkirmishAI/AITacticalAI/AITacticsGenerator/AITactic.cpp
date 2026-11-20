@@ -191,11 +191,15 @@ extern int g_00E044AC;
 // except markApproachHazard 0x002C590F, rowed under AITarget.
 #include "../../../../../Include/GameLogic/AITarget.h"
 
+class Bfme939Helper
+{
+public:
+	int get() const;
+};
 class Rva002C589B
 {
 public:
 	void rva002C5843(bool flag);				// 0x002C5843
-	int rva0030F2C7() const;
     void removeTactic() { --m_numTactics; }
 
 	unsigned char m_pad00[4];
@@ -699,7 +703,7 @@ bool AITactic::start(Rva00506909Request *request, void *owner)
     // exactly this same target into +0x20 and accesses its established fields.
     Rva002C589B *target = (Rva002C589B *)request;
     int limit = target->m_tacticLimit;
-    if (target->rva0030F2C7() < limit) {
+    if (((Bfme939Helper *)target)->get() < limit) {
         m_20 = target;
         m_24 = owner;
         unsigned int created = 0;

@@ -4625,7 +4625,6 @@ name,address,notes
 ?bfmeAppendFN@BfmeBufFN@@QAEXPBD@Z,0x0066C760
 ?bfmeAppendV36@BfmeStrV36@@QAEXPAD00@Z,0x0001B3E0
 ?bfmeAppendVME@BfmeStrVME@@QAEXID@Z,0x00029380
-?bfmeAskBJA@BfmeThingBJA@@QAE_NXZ,0x00256996
 ?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ,0x00256996
 ?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ,0x00256996
 ?bfmeAskEME@BfmeObjEME@@QAE_NPAX@Z,0x0061FF70
@@ -4635,11 +4634,9 @@ name,address,notes
 ?bfmeBaseF1050@BfmeF1050@@QAEXHHH@Z,0x00184350,callee of bfmeGo1050F (0x0013C740) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeBaseInitZQ@BfmeOwnerZQ@@QAEXPAX000HH@Z,0x00131B57,callee read from the retail REL32 in placed BFME1-donor body ?bfmeInitZQ@BfmeOwnerZQ@@QAEPAV1@PAX000@Z (0x000EF272)
 ?bfmeBaseSJ@BfmeThingSJ@@QAEXH@Z,0x001320D0,callee read from the retail REL32 in placed BFME1-donor body ??0BfmeThingTKB@@QAE@XZ (0x000EF7A1)
-?bfmeBaseUNC@BfmeThingUNC@@QAEXXZ,0x00674AD0
 ?bfmeBaseUpdate@Gen009D6330@@QAEXPAXPBXI@Z,0x0060C935,callee of bfmeUpdate (0x0060D4FA) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeBaseVHC@BfmeThingVHC@@QAEXPAVBfmeMsgVHC@@@Z,0x00668130
 ?bfmeBaseVHD@BfmeThingVHD@@QAEXPAVBfmeMsgVHC@@@Z,0x00668130
-?bfmeBegin@BfmeSetupRecord@@QAEXXZ,0x00655B50
 ?bfmeCalc919G@BfmeCalc919G@@QAEHXZ,0x0027628E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeCalcEFC@@YGMH@Z,0x0039B145
 ?bfmeCall939E@BfmeSub939E@@QAEXPAHPAD@Z,0x0002DE78,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -4654,7 +4651,6 @@ name,address,notes
 ?bfmeCallVMC@@YAXHHH@Z,0x000179B0
 ?bfmeClear987@BfmeDrop987@@QAEXHH@Z,0x002984D4,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeClear@BfmeWindowManager@@QAEXPAH@Z,0x00758240,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?bfmeClearBVHW@BfmeSubBVHW@@QAEXXZ,0x0066CA50
 ?bfmeClearVHX@Rva0055011A@@AAEXXZ,0x0054FC14,callee of ??1Rva006609D0@@UAE@XZ at retail 0x0054FFA5 read from its REL32 displacement; ICF alias onto the matched ?rva0054FC14@Rva0054FC14@@QAEXXZ body at this address
 ?bfmeClearYK@BfmeStringYK@@QAEXXZ,0x00036410,callee of 0Rva0034C5E0 (0x00356FDC) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeCloseCN@BfmeInnerCN@@QAEXPAX@Z,0x00306D7B,callee of ?bfmeGuardedCN@BfmeOwnCN@@QAEDPAVBfmeTargetCN@@PAX@Z at retail 0x0030D95E read from its REL32 displacement; donor-named alias of the rowed body at 0x00306D7B
@@ -4785,7 +4781,6 @@ name,address,notes
 ?bfmeGetTVC@@YAPAVBfmeSinkTVC@@XZ,0x0065CEA0
 ?bfmeGetTWC@@YAPAVBfmeSinkTWC@@XZ,0x0065CEA0
 ?bfmeGetVCC@@YAPAVBfmeSinkVCC@@XZ,0x0065CEA0
-?bfmeGetVHC@BfmeMsgVHC@@QAEPAXPAX0@Z,0x00655990
 ?bfmeGetVHE@BfmeMsgVHE@@QAEHPAXH@Z,0x00655990
 ?bfmeGetVJI@BfmeMsgVJI@@QAEHPBDH@Z,0x00655990
 ?bfmeGlobalCGD@@YAXXZ,0x00759600
@@ -4861,7 +4856,6 @@ name,address,notes
 ?bfmeOwner1001@BfmeX1001@@QAEPAXXZ,0x0028AFA9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z,0x00247378
 ?bfmePrep911E@BfmeSub911E@@QAEXXZ,0x0013331A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?bfmePrep986C@BfmeC986@@QAEXXZ,0x0036D6B4,callee of ?bfmeGo986C@BfmeC986@@QAEXHHHH@Z at retail 0x0037254F read from its REL32 displacement; body unrowed
 ?bfmePushHeap00473D60@@YAXPAURva004748F0Element@@HHU1@URva004748F0Compare@@@Z,0x0021773C,"callee of ?bfmeAdjustHeap00474330@@YAXPAURva004748F0Element@@HHU1@URva004748F0Compare@@@Z at retail 0x002179B6 read from its REL32 displacement; donor records this pushHeap helper at BFME 1 0x00473D60; Ghidra FUN_0061773c 116B, real body not a jmp thunk; body unrowed"
 ?bfmeQueryNS@BfmeHolderNS@@QAEHXZ,0x0028B511,callee of ?bfmeFireAAE@BfmeAimAAE@@QAEXPAVWeapon@@PAVBfmeHolderNS@@@Z at retail 0x00509307 read from its REL32 displacement; ICF alias onto ?rva0028B511@Object@@QBEHXZ (matched)
 ?bfmeRangeErrorQX@BfmeThingQX@@QAEXXZ,0x00023A40
@@ -4960,7 +4954,6 @@ name,address,notes
 ?bfmeThrowV53@BfmeStrV53@@QAEXXZ,0x00023A40
 ?bfmeThrowV56@BfmeStrV56@@QAEXXZ,0x00023A40
 ?bfmeTry1033@BfmeSub1033@@QAEHPAVBfmeF1033@@@Z,0x000069D6
-?bfmeTwoEBK@BfmeObjEBK@@QAEXPAX0@Z,0x00655960
 ?bfmeTwoEFF@@YAXHPAX@Z,0x003336AD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeTwoEFFb@@YAXHPAX@Z,0x003336AD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeTwoRF@@YAPAXPAX0@Z,0x0065B650
@@ -6031,7 +6024,6 @@ name,address,notes
 ?rva0023DAA5@Rva0023DAA5Target@@QAEXXZ,0x0023DAA5,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
 ?rva00240D0F@Rva00240D0F@@QAEPAXPBX@Z,0x00240D0F,"auto-pin (permute --pins): REL32 call target read from retail in 0x00242f1a, whose banked body is byte-exact once this call resolves"
 ?rva00246F8E@GameLogic@@QAE_NABVAsciiString@@HPAPBVCommandButton@@@Z,0x00246F8E,thiscall on TheGameLogic from CommandSet::getCommandButton 0x00409EE8 (call at 0x00409F05) with the set name (+0x10) the slot index and an out pointer; body builds a key from name and slot looks it up in the map at GameLogic +0x24 and writes the mapped +0x18 value then returns true (ret 0xC); name not established
-?rva0025F30DCallView@BfmeThingBFG@@QAEXXZ,0x0025F30D,"Address-qualified no-argument thiscall ABI view used by25F3F3; native preserved ECX forwards to rowed CameraMarkerList::clear53; linker alias binds its verified definition, no original BFG member identity claim"
 ?rva00262176@Rva003638BA@@QAE_NXZ,0x00262176,pinned for AIUpdateInterface
 ?rva00262FEB@AIUpdateInterface@@QAEXH@Z,0x00262FEB,out-of-line AIUpdateInterface setter of +0x164 (mov [ecx+0x164] arg; body ICF-shared with the ParticleEmitterDefClass::Set_Burst_Size alias row); REL32 with 0 from AIFollowPathState::onExit 0x00349DBA with ECX the owner AI
 ?rva0026EF50@UpgradeTemplate@@QBEIPAVPlayer@@PAVObject@@@Z,0x0026EF50,"UpgradeTemplate cost for a player and an object (the same body the ZH calcCostToBuild spelling pins); REL32 in AIWall.cpp 0x004EBA27 with ecx the button +0x24 upgrade"
@@ -6078,7 +6070,6 @@ name,address,notes
 ?rva0030B232@Rva0030B232@@QAEXH@Z,0x0030B232,address-derived callee of matched slot 0x00330BA3; retail REL32 targets 0x0030B232; Ghidra FUN bounds 132 bytes; thiscall on the +0x08 member one arg ret 4; callee body remains unclaimed; no named identity inferred
 ?rva0030B3D1@Rva0030B719Shape@@QAEXXZ,0x0030B3D1,refresh called by the byte-verified Rva0030B719Shape::getRadius 0x0030B719 while its +0x24 flag is set read from its REL32 displacement; name unknown
 ?rva0030D377@SlaveWatcherBehavior@@QBE?AW4ObjectID@@XZ,0x0030D377,"the +0x20 ObjectID getter run on the module UnleashSpecialPower finds by the SlaveWatcherBehavior key (slot 17 0x004CE18A at 0x004CE1E8, slot 8 0x004CE0D9); ICF alias onto the matched ?getDataLength@NetWrapperCommandMsg@@QAEIXZ (mov eax,[ecx+0x20])"
-?rva0030F2C7@Rva002C589B@@QBEHXZ,0x0030F2C7,entry count getter (folded disp8 dword getter); REL32s at 0x005053BE and 0x005053EC
 ?rva00328A83@Rva00328A83@@QBEPAVRva0042D697PtrChaseField@@XZ,0x00328A83,alias pin: same 7B getter already rowed as ?get@Rva00328A83PtrChaseField@@QBEHXZ (mov eax [ecx+4]; mov eax [eax+0x20]); the matched slot 0x00576FFE uses its result as the this of the rowed getter 0x0042D697 so the pointer-typed spelling binds the same bytes; no new identity inferred
 ?rva003294D6@Rva003294D6Target@@QAEXHH@Z,0x003294D6,"method a vtable-slot forwarder tail-jumps to (ret 8); opaque address name"
 ?rva003295B4@Rva003295B4Target@@QAEXHH@Z,0x003295B4,"method a vtable-slot forwarder tail-jumps to (ret 8); opaque address name"
@@ -6273,7 +6264,6 @@ name,address,notes
 ?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z,0x00663DC0
 ?rva007F76D0@Rva00802550Host@@QAEPAHPAVBfmeVecCZ@@H@Z,0x00663DC0
 ?rva007FBE80@Rva007FBC60Game@@QAE_NPBDPADI@Z,0x00668380
-?rva007FBFB0@Rva007F5010Player@@QAE_NPBDPADI@Z,0x006684B0
 ?rva0082ADB0Fill@@YAXPAD0ABD@Z,0x000237C0
 ?rva0082C6E0CopyValues@@YAPAURva0082C6E0Value@@PAU1@00@Z,0x000179B0
 ?rva008AF650Implementation@@YAXHHH@Z,0x006EE6C0
@@ -6315,7 +6305,6 @@ name,address,notes
 ?set@Rva00802040Buf@@QAEXPAX@Z,0x006645D0
 ?set@UnicodeString@@QAEXABV1@@Z,0x00037150,TU spelling alias of the StringBase<wchar_t>::set(const StringBase &) pin at 0x00037150; REL32 at 0x005E093D in the DownloadManager ctor 0x005E08AB
 ?setAsciiString@Dict@@QAEPAVAsciiString@@V2@@Z,0x00148F5E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?setAt1C4@Rva002E2903Player@@QAEXH@Z,0x002E062E,Target REL32 from verified-shape RVA 002BA8F1; address-qualified TU view; Ghidra boundary and direct call target checked; semantics provisional
 ?setButtonImage@BFMERetailCommandButton@@QAEXPBVImage@@@Z,0x0035B750,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?setChunkNumber@NetWrapperCommandMsg@@QAEXI@Z,0x002B2210,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?setColor@Rva002E2903Player@@QAEXH@Z,0x002E0F91,Target REL32 from verified-shape RVA 002BA8F1; address-qualified TU view; Ghidra boundary and direct call target checked; semantics provisional
@@ -8357,7 +8346,6 @@ _D3DXCheckTextureRequirements@28,0x0062AF86,Named d3dx9_27.dll PE import thunk F
 ??0?$map@IPAXU?$less@I@_STL@@V?$Rva0039CAE1Allocator@U?$pair@$$CBIPAX@_STL@@@@@_STL@@QAE@XZ,0x0033C432,ScoreKeeper count-map native24-byte header family distinct from old unsigned-base pin; fold-proof=Code/GameEngine/Source/Common/RTS/ScoreKeeperDtor.cpp
 ??0?$map@IV?$vector@IV?$allocator@I@_STL@@@_STL@@U?$less@I@2@V?$allocator@U?$pair@$$CBIV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ,0x00413727,Horde manager constructor7A498 initializes map00 and list0C of12B slot vectors; full template bodies and all owner recursive relocations proven; fold-proof=Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 ??0?$_List_base@V?$vector@IV?$allocator@I@_STL@@@_STL@@V?$allocator@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@V?$vector@IV?$allocator@I@_STL@@@_STL@@@1@@Z,0x00280A8D,Horde manager constructor7A498 initializes map00 and list0C of12B slot vectors; full template bodies and all owner recursive relocations proven; fold-proof=Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
-?rva0043979D@Rva00439CF7@@QAE_NPAVObject@@PAURva004393D6@@@Z,0x0043979D,Native439CF7 call at439DEB passes Object and record list; native43979D independent192B RET8 returns AL. WB1281C30 manager helper. Neutral owner role; no donor identity claimed.
 ??0Vector3@@QAE@MMM@Z,0x000423A0,Vector3 float ctor folded by /OPT:ICF onto the export-proven 37B movss body: the retail export table names 0x423A0 three times (Coord3D(MMM) ord 223; RGBColor(MMM) ord 314; Coord3D::Set(MMM) ord 1389); /O1 /arch:SSE units compile Vector3(MMM) to exactly these bytes with no relocations; the only other Vector3-shaped bodies (0x6CD510 integer and 0x6160B0) are 16-byte-aligned O2 bodies that ICF keeps apart (253 of 259 duplicate retail bodies differ in alignment class); every object before 0x40EDB is Lib/STLport/debug/CRT so the first emitter in link order is an O1 SSE game TU; formerly rowed at 0x6CD510 by masked byte-scan only; fold-proof=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp
 ?erase@?$_Rb_tree@HU?$pair@$$CBHUSBServer@@@_STL@@U?$_Select1st@U?$pair@$$CBHUSBServer@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUSBServer@@@_STL@@@2@@_STL@@QAEIABH@Z,0x005E46A8,Whole73B key erase and recursive42/33/37/37B helper proofs with all owner relocations; existing provisional four-byte refcounted value view; fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPanel.cpp
 ?equal_range@?$_Rb_tree@HU?$pair@$$CBHUSBServer@@@_STL@@U?$_Select1st@U?$pair@$$CBHUSBServer@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUSBServer@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUSBServer@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUSBServer@@@_STL@@@2@@_STL@@U12@@2@ABH@Z,0x002F1C89,Whole emitted STLport body and every owner relocation proven; helper of admitted army-panel key erase; fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPanel.cpp

@@ -68,6 +68,5 @@ bool Rva00128780GateBehaviorOwner::resolveGateBehavior()
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?bfmeAskBJA@BfmeThingBJA@@QAE_NXZ=?resolveGateBehavior@Rva00128780GateBehaviorOwner@@QAE_NXZ")
 #pragma comment(linker, "/alternatename:?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ=?resolveGateBehavior@Rva00128780GateBehaviorOwner@@QAE_NXZ")
 #pragma comment(linker, "/alternatename:?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ=?resolveGateBehavior@Rva00128780GateBehaviorOwner@@QAE_NXZ")

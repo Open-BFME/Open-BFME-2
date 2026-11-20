@@ -1322,7 +1322,6 @@ alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva0
 alternatename	Code/GameEngine/Source/Common/BfmeAllocRva.cpp	?bfmeSmallAllocPS@@YAPAXI@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1149	1
 alternatename	Code/GameEngine/Source/Common/BfmeBigNewDeleteForwarders.cpp	_bfmeMalloc1150	1
-alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?bfmePrep986C@BfmeC986@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?bfmeReady986C@BfmeC986@@QAEDXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?bfmeSend986C@BfmeC986@@QAEXHHHHH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeC986.cpp	?rva0036D3A3@BfmeC986@@QAEDHH@Z	1
@@ -1378,7 +1377,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv606.cpp	?bfmeSet3VJF@BfmeMsg
 alternatename	Code/GameEngine/Source/Common/BfmeConv606.cpp	?bfmeSet3VJH@BfmeMsgVJH@@QAEXPBDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv606.cpp	?bfmeSet3VJI@BfmeMsgVJI@@QAEXPBDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv606.cpp	?bfmeSetVHE@BfmeMsgVHE@@QAEXPAXH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv606.cpp	?bfmeTwoEBK@BfmeObjEBK@@QAEXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv606.cpp	?bfmeWriteAlt@BfmeSetupRecord@@QAEXPBDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv607.cpp	?bfmeSetVIR@BfmeMsgVIR@@QAEXPBDPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv607.cpp	?bfmeSetVJA@BfmeMsgVJA@@QAEXPBDPAX@Z	1
@@ -1400,7 +1398,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeFind1052@BfmeI1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeFindVNC@BfmeKeyVNC@@QAEPAXPBDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeGetESI@BfmeDictESI@@QAEPAXPBDPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeGetSA@BfmeThingSA@@QAEHPBDH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeGetVHC@BfmeMsgVHC@@QAEPAXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeGetVHE@BfmeMsgVHE@@QAEHPAXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeGetVJI@BfmeMsgVJI@@QAEHPBDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv908.cpp	?bfmeMakeDFC@BfmeOtherDFC@@QAEPAXPAXH@Z	1
@@ -1419,7 +1416,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeLexEAN.cpp	?bfmeExpandEAN@BfmeLe
 alternatename	Code/GameEngine/Source/Common/BfmeMakeBZA.cpp	?bfme5MakeObj70@@YAPAUBfme5Obj70@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeNodeValueEBDDestructor.cpp	??1CountUpBuffer@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeObject476Copy.cpp	?_M_copy_from@?$hashtable@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@@2@@_STL@@AAEXABV12@@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeOneHundredEleven.cpp	?bfmeBaseUNC@BfmeThingUNC@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeOneHundredSeventyOne.cpp	_piStartedEnteringRoom	1
 alternatename	Code/GameEngine/Source/Common/BfmeOneHundredTwentyFive.cpp	?Gen008A3EE0@@YAHPBDI@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeOneHundredTwentyFive.cpp	?Gen008B5050@@YAHPBDI@Z	1
@@ -1436,7 +1432,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v24@Display@@UAE
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v25@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v37@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v67@Display@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	?rva0025F30DCallView@BfmeThingBFG@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp	?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingRE.cpp	?bfmeRunRE@BfmeThingRE@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingSVA.cpp	?bfmeEraseV17@BfmeVecV17@@QAEXPAH0@Z	1
@@ -1489,7 +1484,6 @@ alternatename	Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp	?IsRelea
 alternatename	Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp	?bfmeFindDEA@BfmeThingDEA@@QAEPAUBfmeSubDEA@@XZ	1
 alternatename	Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp	?bfmeFindDEB@BfmeThingDEB@@QAEPAUBfmeSubDEB@@XZ	1
 alternatename	Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp	?bfmeFindDEC@BfmeThingDEC@@QAEPAUBfmeSubDEC@@XZ	1
-alternatename	Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp	?setAt1C4@Rva002E2903Player@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp	?setTimeOfDay@W3DGameClientWaterShim@@QAEXW4TimeOfDay@@@Z	1
 alternatename	Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp	?get@Rva007EA660FieldAddress@@QAEPADXZ	1
 alternatename	Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp	?getAt80@Rva007EA6B0Accessor@@QAEPAXXZ	1
@@ -1597,7 +1591,6 @@ alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva
 alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva007F40F0Object@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva007FBB20Object@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp	?primary@Rva007FCF80Object@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeBegin@BfmeSetupRecord@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeRunVIR@BfmeMsgVIR@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeRunVJA@BfmeMsgVJA@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp	?bfmeRunVJC@BfmeMsgVJC@@QAEXXZ	1
@@ -2287,7 +2280,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBe
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp	?unused@BehaviorModuleBase@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp	?update@UpdateModule@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp	?g_bfmePropagandaHeal@@3MA	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskBJA@BfmeThingBJA@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskBJB@BfmeThingBJB@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00128780GateBehaviorResolver.cpp	?bfmeAskDSK@BfmeThingDSK@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
@@ -2420,7 +2412,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdateFriendNew.cpp	??0HeroModeSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdateModuleDataFriendNew.cpp	_vtbl_00BF36C0	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateDtor.cpp	?f1@DBaseM1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp	?rva0043979D@Rva00439CF7@@QAE_NPAVObject@@PAURva004393D6@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateFriendNew.cpp	??0ModelConditionSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp	?f1@Rva0058A0F4_M1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp	?unusedA@FireWeaponBaseA@@EAEXXZ	1
@@ -2474,7 +2465,6 @@ alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITactics
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	??1Rva005A9562@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva002A8F24@Rva002A8F24@@QAEPAPAURva0050535AStore@@PAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva002A8F24Record@Rva002A8F24@@QAEPAURva002A8F24Record@@PAX@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva0030F2C7@Rva002C589B@@QBEHXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva005055DE@AITargetChooser@@AAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva005A910E@Rva005A9562@@QAEPAURva0050542BTarget@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	?rva005A9693@Rva005A9562@@QAEXXZ	1
@@ -2627,14 +2617,12 @@ alternatename	Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp	?bfmeSe
 alternatename	Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp	?bfmeSendVIS@BfmeThingVIS@@QAEXPAVBfmeMsgVIR@@PBUBfmeOwnerVIR@@PBQBDHHH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	??1Gen_dtor_007f6d20@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeAppendFN@BfmeBufFN@@QAEXPBD@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeClearBVHW@BfmeSubBVHW@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeResetVJO@BfmeCVJO@@QAEXPAVBfmeXVJO@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeSet1251@BfmeSub1251@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeSetESI@BfmeStateESI@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHC@BfmeThingVHC@@QAEXPAVBfmeMsgVHC@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHD@BfmeThingVHD@@QAEXPAVBfmeMsgVHC@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?rva007FBE80@Rva007FBC60Game@@QAE_NPBDPADI@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?rva007FBFB0@Rva007F5010Player@@QAE_NPBDPADI@Z	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown01@GameEngine@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown02@GameEngine@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown03@GameEngine@@UAEXXZ	1
@@ -5190,7 +5178,7 @@ pin	reverse/symbols.csv	0x00256641	1
 pin	reverse/symbols.csv	0x00256646	2
 pin	reverse/symbols.csv	0x00256653	1
 pin	reverse/symbols.csv	0x002567B9	1
-pin	reverse/symbols.csv	0x00256996	3
+pin	reverse/symbols.csv	0x00256996	2
 pin	reverse/symbols.csv	0x00256B94	1
 pin	reverse/symbols.csv	0x00256CB0	1
 pin	reverse/symbols.csv	0x00256E19	1
@@ -5208,7 +5196,7 @@ pin	reverse/symbols.csv	0x0025C010	1
 pin	reverse/symbols.csv	0x0025C4F3	1
 pin	reverse/symbols.csv	0x0025DB46	1
 pin	reverse/symbols.csv	0x0025EF18	1
-pin	reverse/symbols.csv	0x0025F30D	2
+pin	reverse/symbols.csv	0x0025F30D	1
 pin	reverse/symbols.csv	0x0026061A	3
 pin	reverse/symbols.csv	0x00260647	1
 pin	reverse/symbols.csv	0x00260664	1
@@ -5643,7 +5631,6 @@ pin	reverse/symbols.csv	0x002DFCF6	31
 pin	reverse/symbols.csv	0x002E01C6	8
 pin	reverse/symbols.csv	0x002E0273	1
 pin	reverse/symbols.csv	0x002E037F	1
-pin	reverse/symbols.csv	0x002E062E	1
 pin	reverse/symbols.csv	0x002E0648	1
 pin	reverse/symbols.csv	0x002E0668	1
 pin	reverse/symbols.csv	0x002E066D	1
@@ -5791,7 +5778,7 @@ pin	reverse/symbols.csv	0x0030D808	1
 pin	reverse/symbols.csv	0x0030D849	1
 pin	reverse/symbols.csv	0x0030DC85	1
 pin	reverse/symbols.csv	0x0030E961	1
-pin	reverse/symbols.csv	0x0030F2C7	4
+pin	reverse/symbols.csv	0x0030F2C7	3
 pin	reverse/symbols.csv	0x0030F45F	1
 pin	reverse/symbols.csv	0x0030F47A	1
 pin	reverse/symbols.csv	0x0030F4EA	1
@@ -6116,7 +6103,7 @@ pin	reverse/symbols.csv	0x00368793	1
 pin	reverse/symbols.csv	0x0036B8E6	1
 pin	reverse/symbols.csv	0x0036CBF9	1
 pin	reverse/symbols.csv	0x0036D3A3	1
-pin	reverse/symbols.csv	0x0036D6B4	2
+pin	reverse/symbols.csv	0x0036D6B4	1
 pin	reverse/symbols.csv	0x0036E30E	1
 pin	reverse/symbols.csv	0x0036E357	1
 pin	reverse/symbols.csv	0x00371166	1
@@ -6788,7 +6775,6 @@ pin	reverse/symbols.csv	0x004390A2	1
 pin	reverse/symbols.csv	0x00439325	1
 pin	reverse/symbols.csv	0x004395EC	1
 pin	reverse/symbols.csv	0x00439609	1
-pin	reverse/symbols.csv	0x0043979D	1
 pin	reverse/symbols.csv	0x00439862	1
 pin	reverse/symbols.csv	0x004398AB	1
 pin	reverse/symbols.csv	0x00439C56	1
@@ -8635,12 +8621,12 @@ pin	reverse/symbols.csv	0x00655820	1
 pin	reverse/symbols.csv	0x006558C0	2
 pin	reverse/symbols.csv	0x00655900	12
 pin	reverse/symbols.csv	0x00655950	2
-pin	reverse/symbols.csv	0x00655960	15
-pin	reverse/symbols.csv	0x00655990	14
+pin	reverse/symbols.csv	0x00655960	14
+pin	reverse/symbols.csv	0x00655990	13
 pin	reverse/symbols.csv	0x00655A50	1
 pin	reverse/symbols.csv	0x00655AA0	10
 pin	reverse/symbols.csv	0x00655B10	4
-pin	reverse/symbols.csv	0x00655B50	5
+pin	reverse/symbols.csv	0x00655B50	4
 pin	reverse/symbols.csv	0x00655F00	1
 pin	reverse/symbols.csv	0x00655F90	1
 pin	reverse/symbols.csv	0x00656B30	1
@@ -8702,7 +8688,6 @@ pin	reverse/symbols.csv	0x00666BA0	2
 pin	reverse/symbols.csv	0x00668100	1
 pin	reverse/symbols.csv	0x00668130	2
 pin	reverse/symbols.csv	0x00668380	1
-pin	reverse/symbols.csv	0x006684B0	1
 pin	reverse/symbols.csv	0x00669530	1
 pin	reverse/symbols.csv	0x006697A0	1
 pin	reverse/symbols.csv	0x006698C0	1
@@ -8724,7 +8709,6 @@ pin	reverse/symbols.csv	0x0066C0E0	1
 pin	reverse/symbols.csv	0x0066C730	2
 pin	reverse/symbols.csv	0x0066C760	2
 pin	reverse/symbols.csv	0x0066C970	1
-pin	reverse/symbols.csv	0x0066CA50	1
 pin	reverse/symbols.csv	0x0066CA80	2
 pin	reverse/symbols.csv	0x0066CB90	1
 pin	reverse/symbols.csv	0x0066CFB0	1
@@ -8748,7 +8732,6 @@ pin	reverse/symbols.csv	0x006725B0	1
 pin	reverse/symbols.csv	0x006728E0	1
 pin	reverse/symbols.csv	0x006733A0	1
 pin	reverse/symbols.csv	0x00673AE0	1
-pin	reverse/symbols.csv	0x00674AD0	1
 pin	reverse/symbols.csv	0x00674B40	1
 pin	reverse/symbols.csv	0x00674F10	1
 pin	reverse/symbols.csv	0x006755F0	1

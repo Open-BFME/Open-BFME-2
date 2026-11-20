@@ -7,12 +7,12 @@ extern float g_Va00BBB8D8;
 extern float g_00BC4DD8;
 extern float g_Va00BC74F0;
 
+#include "../../Include/GameClient/CameraMarkerList.h"
 class BfmeThingBFG
 {
 public:
 	void bfmeTailBFG();
     void rva0025F3F3();
-    void rva0025F30DCallView();
     char m_unmodelled0[0x74];
     char m_flag74;
 };
@@ -74,9 +74,8 @@ void BfmeThingBFG::bfmeTailBFG()
 // The existing BFG view models only this observed byte; owner identity and full
 // layout remain unknown. An address-qualified call alias binds the same
 // receiver to the existing clear body without a private CameraMarkerList view.
-#pragma comment(linker, "/alternatename:?rva0025F30DCallView@BfmeThingBFG@@QAEXXZ=?clear@CameraMarkerList@@QAEXXZ")
 void BfmeThingBFG::rva0025F3F3() {
     bfmeTailBFG();
-    rva0025F30DCallView();
+    ((CameraMarkerList *)this)->clear();
     m_flag74=0;
 }

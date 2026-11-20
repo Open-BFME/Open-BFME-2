@@ -58,7 +58,6 @@ const char * g_Rva0130A50CTxn;
 
 struct BfmeSetupRecord
 {
-	void bfmeBegin(void);				// retail 0x00655B50
 	void bfmeWrite(const char *text, int value);	// retail 0x00655AA0
 
 	char m_bfmeHead[0x1C];
@@ -698,7 +697,7 @@ void __stdcall Rva00656590(BfmeSetupRecord *record)
 {
 	int value = TheBfmeSetupGlobal00656590;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 	record->m_bfmeTag = 0x61636374;			// 'acct'
 	record->bfmeWrite("TXN", value);
 }
@@ -707,7 +706,7 @@ void __stdcall Rva006565C0(BfmeSetupRecord *record)
 {
 	int value = TheBfmeSetupGlobal006565C0;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 	record->m_bfmeTag = 0x61636374;			// 'acct'
 	record->bfmeWrite("TXN", value);
 }
@@ -716,7 +715,7 @@ void __stdcall Rva00656890(BfmeSetupRecord *record)
 {
 	int value = TheBfmeSetupGlobal00656890;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 	record->m_bfmeTag = 0x61636374;			// 'acct'
 	record->bfmeWrite("TXN", value);
 }
@@ -725,7 +724,7 @@ void __stdcall Rva006568C0(BfmeSetupRecord *record)
 {
 	int value = TheBfmeSetupGlobal006568C0;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 	record->m_bfmeTag = 0x61636374;			// 'acct'
 	record->bfmeWrite("TXN", value);
 }
@@ -734,7 +733,7 @@ void __stdcall Rva00656980(BfmeSetupRecord *record)
 {
 	int value = TheBfmeSetupGlobal00656980;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 	record->m_bfmeTag = 0x61636374;			// 'acct'
 	record->bfmeWrite("TXN", value);
 }
@@ -743,7 +742,7 @@ void __stdcall Rva006569B0(BfmeSetupRecord *record)
 {
 	int value = TheBfmeSetupGlobal006569B0;
 
-	record->bfmeBegin();
+	((Rva007E8AC0 *)record)->run();
 	record->m_bfmeTag = 0x61636374;			// 'acct'
 	record->bfmeWrite("TXN", value);
 }

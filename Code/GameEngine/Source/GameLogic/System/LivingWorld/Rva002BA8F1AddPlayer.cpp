@@ -43,9 +43,13 @@ extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Slot { char at00[0x4c]; int at4C; };
 struct Rva002BA8F1Listener { char opaque[4]; };
 #include "../../../../Include/Common/Rva005A0B4CList.h"
+class Rva002E062EDwordSlot
+{
+public:
+	void set(int);
+};
 class Rva002E2903Player {
 public:
-    void setAt1C4(int);
     void state0(); void state1(); void state2();
     // append's push_back 0x004DFCB0 uses the list's first 12 bytes; its header declares none.
     char at00[4]; Rva005A0B4CList listeners; char listenersRest[0x0C - sizeof(Rva005A0B4CList)];
@@ -80,7 +84,7 @@ void LivingWorldLogic::AddPlayer(Rva002BA8F1Input *input, bool local, int kind, 
     Rva002E2903Player *player = (Rva002E2903Player *)new Rva002E2AAE(input, first);
     if (slot) slot->at4C = player->at14;
     Rva002000D7Config *config = (*(Rva002000D7Store **)&TheRankInfoStore)->get(1);
-    if (config) player->setAt1C4(config->at34);
+    if (config) ((Rva002E062EDwordSlot *)player)->set(config->at34);
     ((LivingWorldPlayer *)player)->SetColorIndex(input->at18);
     ((_STL::vector<Rva002E2903Player *> *)&logic->field8C)->push_back(player);
     if (local) logic->setLocal(player);

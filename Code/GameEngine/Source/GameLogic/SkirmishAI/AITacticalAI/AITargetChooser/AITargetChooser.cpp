@@ -29,7 +29,6 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../../Include/Common/BfmeXfer.h"
-#pragma comment(linker, "/alternatename:?rva0030F2C7@Rva002C589B@@QBEHXZ=?get@Bfme939Helper@@QBEHXZ")
 #pragma comment(linker, "/alternatename:??1Rva005A9562@@QAE@XZ=??1?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?rva002A8F24@Rva002A8F24@@QAEPAPAURva0050535AStore@@PAX@Z=?rva002A8F24@Rva002A8F24@@QAEPAXPAVPlayer@@@Z")
 #pragma comment(linker, "/alternatename:?rva002A8F24Record@Rva002A8F24@@QAEPAURva002A8F24Record@@PAX@Z=?rva002A8F24@Rva002A8F24@@QAEPAXPAVPlayer@@@Z")
@@ -107,6 +106,11 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 
 class Object;
 
+class Bfme939Helper
+{
+public:
+	int get() const;
+};
 class Rva002C589B
 {
 public:
@@ -114,7 +118,6 @@ public:
 	~Rva002C589B();
 	Object *rva002C5DA6();
 	void DoXfer(Xfer *xfer);
-	int rva0030F2C7() const;
 	float getEnemyThreat();
 	char m_pad00[4];
 	int m_04;		// +0x04
@@ -271,14 +274,14 @@ Rva002C589B *AITargetChooser::getBestTarget()
 	Rva002C589B **it;
 	for (it = m_08.begin(); it != m_08.end(); ++it) {
 		Rva002C589B *entry = *it;
-		if (isAchievableTarget(entry) && entry->rva0030F2C7() == 0)
+		if (isAchievableTarget(entry) && ((Bfme939Helper *)entry)->get() == 0)
 			return entry;
 	}
 	for (it = m_08.begin(); it != m_08.end(); ++it) {
 		Rva002C589B *entry = *it;
 		if (isAchievableTarget(entry)) {
 			int limit = entry->m_limit;
-			if (entry->rva0030F2C7() < limit)
+			if (((Bfme939Helper *)entry)->get() < limit)
 				return entry;
 		}
 	}
@@ -350,7 +353,7 @@ void AITargetChooser::updateTargets()
 		Rva002C589B *entry = *it;
 		if (!rva005052AE(entry))
 			continue;
-		if (entry->rva0030F2C7() > 0) {
+		if (((Bfme939Helper *)entry)->get() > 0) {
 			entry->m_19 = true;
 			continue;
 		}

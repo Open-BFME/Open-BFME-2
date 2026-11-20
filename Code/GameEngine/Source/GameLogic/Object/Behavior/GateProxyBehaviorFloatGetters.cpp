@@ -6,16 +6,20 @@
 // primary vtable 0x00BEF338 (RVA 0x007EF338, installed at +0 by the rowed
 // ctor 0x24E2CC). Each overrides the base GateOpenAndCloseBehavior float
 // getters at 0x4987FA/0x4987FE: when the pinned ask at 0x256996
-// (?bfmeAskBJA@BfmeThingBJA@@QAE_NXZ, also pinned as DSK/BJB) succeeds it
+// (?resolveGateBehavior@Rva00128780GateBehaviorOwner@@QAE_NXZ, also pinned as DSK/BJB) succeeds it
 // returns the sub-object at +0x4C through that slot, otherwise 0.0f.
 // No callers. Recipe: float temp via if/else assignment to one local plus
 // single return (early returns give tail-jmp plus flds); /arch:SSE gives
 // the retail xorps plus movss pair.
 
+class Rva00128780GateBehaviorOwner
+{
+public:
+	bool resolveGateBehavior() throw();
+};
 class BfmeThingBJA
 {
 public:
-	bool bfmeAskBJA() throw();
 };
 
 class GateProxySub
@@ -60,7 +64,7 @@ private:
 float GateProxyBehavior::rva00256A7C() const throw()
 {
 	float f;
-	if (((BfmeThingBJA *)(void *)this)->bfmeAskBJA())
+	if (((Rva00128780GateBehaviorOwner *)(void *)this)->resolveGateBehavior())
 		f = m_sub->get11();
 	else
 		f = 0.0f;
@@ -70,7 +74,7 @@ float GateProxyBehavior::rva00256A7C() const throw()
 float GateProxyBehavior::rva00256AA4() const throw()
 {
 	float f;
-	if (((BfmeThingBJA *)(void *)this)->bfmeAskBJA())
+	if (((Rva00128780GateBehaviorOwner *)(void *)this)->resolveGateBehavior())
 		f = m_sub->get12();
 	else
 		f = 0.0f;

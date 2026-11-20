@@ -7,11 +7,11 @@ public:
 	void bfmeCallEBJ(void *b, const char *s);
 };
 
+#include "../../Include/GameNetwork/BfmeThingCIB.h"
 class BfmeObjEBK
 {
 public:
 	void bfmeOneEBK(void *x, int n);
-	void bfmeTwoEBK(void *x, void *b);
 };
 
 // Provides the storage its two bodies reference; no other TU defines it. Retail's
@@ -66,7 +66,7 @@ char bfmeGoEBNb(BfmeObjEBN *o)
 // ?bfmeGoEBKb@@YGXPAVBfmeObjEBK@@PAX@Z
 void __stdcall bfmeGoEBKb(BfmeObjEBK *o, void *b)
 {
-	o->bfmeTwoEBK(g_bfmeXEBK, b);
+	((BfmeThingCIB *)o)->bfmeGoCIB(g_bfmeXEBK, b);
 }
 
 // ?bfmeGoEBKa@@YGXPAVBfmeObjEBK@@@Z, retail 0x006694E0 (20B).
