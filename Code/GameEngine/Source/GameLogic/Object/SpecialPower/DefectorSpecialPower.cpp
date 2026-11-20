@@ -166,7 +166,8 @@ void DefectorSpecialPower::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?DefectorSpecialPower::loadPostProcess present-unmatched
+// Retail 0x004C8A2F: the five-byte tail jump to SpecialPowerModule::loadPostProcess (0x00493B1E) that slot 1 of
+// the class's primary table holds; retail folds CashHackSpecialPower's and DefectorSpecialPower's copies.
 void DefectorSpecialPower::loadPostProcess( void )
 {
 
