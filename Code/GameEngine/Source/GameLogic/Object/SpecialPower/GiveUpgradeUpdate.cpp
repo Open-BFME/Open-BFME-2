@@ -5,7 +5,7 @@
 // 0x42 on it and on the object it links to (Object 0x002931F5, rowed under a
 // placeholder name), then forgets the target id at +0x40.
 
-typedef bool Bool;
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 enum ObjectStatusTypes { OBJECT_STATUS_GIVE_UPGRADE_TARGET = 0x42 };

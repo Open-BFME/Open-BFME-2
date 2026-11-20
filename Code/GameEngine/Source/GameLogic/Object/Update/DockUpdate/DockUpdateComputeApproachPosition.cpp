@@ -17,7 +17,7 @@
 // Coord3D: retail user ctors, opt-in view (Lib/Coord3DCtorView.h); no private copy.
 #include "../../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-class Matrix3D;
+
 class Object;
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"

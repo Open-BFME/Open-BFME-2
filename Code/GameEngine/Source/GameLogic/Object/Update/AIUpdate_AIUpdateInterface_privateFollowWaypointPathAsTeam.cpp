@@ -87,11 +87,11 @@
 
 #define SLEEPY_AI
 
-extern unsigned char g_012F0239;
+
 extern void *g_012ED4FC;
-extern void j_0003a17a( void );
-extern void j_00008a9e( void );
-extern void j_00049413( void );
+
+
+
 extern void j_000022bb( void );
 extern const Real BfmeZeroRange;
 extern Real g_bfmeDefaultBU;
@@ -235,7 +235,7 @@ extern void j_0001f253(void);
 extern void j_00020824(void);
 extern void j_000209fa(void);
 extern void j_0002253e(void);
-extern void j_00026cf6(void);
+
 extern void j_000296a9(void);
 extern void j_0002e85c(void);
 extern void j_0002fe0f(void);
@@ -268,11 +268,11 @@ typedef void (__fastcall *BFMEWakeCall)( AIUpdateInterface * );
 
 // The computePath implementation remains a dump. Preserve its proven ILT
 // identity and use a single-inheritance PMF to express the two-argument ABI.
-extern void j_00023209( void );
-extern void j_00005637( void );
-extern void j_00011252( void );
-extern void j_000294e2( void );
-extern void j_0003611a( void );
+
+
+
+
+
 
 __forceinline BFMEPathAIRoot *bfmePathAI()
 {
@@ -846,7 +846,7 @@ enum {WAYPOINT_PATH_LIMIT=1024};
 
 #endif
 
- 
+
 
   // end isPathAvailable
 
@@ -857,7 +857,7 @@ enum {WAYPOINT_PATH_LIMIT=1024};
 Others, like missles, should stack destinations.  AdjustDestination in pathfinder unstacks
 destinations, and this routine identifies non-ground units that should unstack. */
 
- 
+
 
   // end joinTeam
 

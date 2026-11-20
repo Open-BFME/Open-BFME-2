@@ -6,7 +6,7 @@
 // AIUpdate.cpp:4231): INVALID_OBJECT_ID-guarded TheGameLogic->findObjectByID lookup.
 // m_currentVictimID lives at +0x40.
 
-typedef bool Bool;
+
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

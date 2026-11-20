@@ -54,7 +54,7 @@ enum BattlePlanStatus
 	PLANSTATUS_NONE = 0, NONE=0, BOMBARDMENT, HOLDTHELINE, SEARCHANDDESTROY
 };
 
-class Rva002AA14DBonuses;
+
 #include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/Common/PlayerList.h"

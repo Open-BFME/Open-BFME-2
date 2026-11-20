@@ -37,13 +37,13 @@ enum ObjectStatusTypes
 
 {
  STATUS_46 = 0x46
- 
+
 }
 ;
 class Object;
-class AttributeModifierPoolUpdate;
+
 class AIUpdateInterface;
-class Player;
+
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
@@ -121,7 +121,7 @@ class Rva0028C197Provider
  virtual void v66();
  virtual void v67();
  virtual Object *v68();
- 
+
 }
 ;
 #include "../object.h"
@@ -130,7 +130,7 @@ struct Rva004DD018Inner
 {
  char m_pad00[0x5D8];
  unsigned short m_5D8;
- 
+
 }
 ;
 struct Rva004DD018Arg
@@ -140,7 +140,7 @@ struct Rva004DD018Arg
  Rva004DD018Inner *m_04;
  char m_pad08[0x74 - 0x08];
  int m_id;
- 
+
 }
 ;
 class EmotionEntry
@@ -169,7 +169,7 @@ class EmotionEntry
  char m_pad45[3];
  int m_48;
  int m_4C;
- 
+
 }
 ;
 class EmotionNugget
@@ -188,7 +188,7 @@ class EmotionNugget
  _STL::map<unsigned short, int, _STL::less<unsigned short> > m_map20x;
  int m_2C;
  int m_start30;
- 
+
 }
 ;
 bool EmotionNugget::CanBeActivatedFor(int a, int b, Rva004DD018Arg *arg)

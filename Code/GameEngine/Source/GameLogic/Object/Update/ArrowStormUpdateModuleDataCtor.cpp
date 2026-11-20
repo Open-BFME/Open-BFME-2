@@ -11,7 +11,7 @@
 // factory 0x24D601 (news 0xE0, sole caller) proves the class size.
 
 class MultiIniFieldParse;
-struct FieldParse;
+
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 

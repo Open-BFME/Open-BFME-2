@@ -18,7 +18,7 @@
 
 class ModuleData;
 class INI;
-class MultiIniFieldParse;
+
 
 #include "../../../../Include/Common/INI/INI.h"
 

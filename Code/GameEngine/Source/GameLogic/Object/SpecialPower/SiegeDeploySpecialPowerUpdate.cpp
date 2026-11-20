@@ -89,7 +89,7 @@ public:
 	virtual int slot143() = 0;
 };
 
-class Drawable;
+
 #include "../../../Common/Thing/thing.h"
 #include "../object.h"
 

@@ -7,7 +7,7 @@
 #include "../../../../Include/Common/ScalarTypes.h"
 
 class Object;
-class Player;
+
 class Weapon;
 
 #include "../../../../Include/Common/Rva002C9400ByteField.h"

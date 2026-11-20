@@ -64,14 +64,14 @@ extern TerrainLogic *TheTerrainLogic;
 
 extern GameLogic *TheGameLogic;
 
-class LocomotorSet;
+
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/TAiData.h"
 #include "../../../../Include/GameLogic/AI.h"
 
-class Path;
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

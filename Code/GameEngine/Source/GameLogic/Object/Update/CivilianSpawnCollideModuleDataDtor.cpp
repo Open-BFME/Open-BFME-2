@@ -13,7 +13,7 @@
 // Donor: BFME1 CivilianSpawnCollideModuleDataCtorThunk.cpp virtual dtor.
 
 
-class Xfer;
+
 
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 

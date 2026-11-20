@@ -11,7 +11,7 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../object.h"
 extern GameLogic *TheGameLogic;
-class ModuleData;
+
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"

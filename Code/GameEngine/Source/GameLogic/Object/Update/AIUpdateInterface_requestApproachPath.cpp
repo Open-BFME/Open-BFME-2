@@ -13,10 +13,10 @@
 // CritterDesync requestApproachPath1 string plus rowed callees 0x002CEC42
 // 0x0026282A 0x00262A8A 0x002EBD31 plus callers 0x0034CA43 0x00350651.
 
-typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
-typedef bool Bool;
+
+
+
+
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -42,7 +42,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/AI.h"
 extern class AI *TheAI;
 
-class Path;
+
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

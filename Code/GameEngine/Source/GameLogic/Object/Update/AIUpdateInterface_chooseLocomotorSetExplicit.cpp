@@ -47,7 +47,7 @@ private:
 // an address-named owner).
 #include "../../../../Include/GameLogic/Module/Rva001E7E25.h"
 
-class Locomotor;
+
 
 
 Bool AIUpdateInterface::chooseLocomotorSetExplicit(Int wst)

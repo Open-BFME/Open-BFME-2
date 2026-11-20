@@ -27,7 +27,7 @@ class Object;
 	virtual void P##9()
 #include "../object.h"
 extern GameLogic *TheGameLogic;
-class ModuleData;
+
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class EvacuateGarrisonSpecialPower : public SpecialAbilityUpdate
 {

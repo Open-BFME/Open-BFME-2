@@ -5,7 +5,7 @@
 // independently linking predicate unit. No vtable or owning object is emitted.
 #include "Lib/Coord3DCtorView.h"
 
-struct Rva003642DFNode;
+
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Common/Thing/thing.h"

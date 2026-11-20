@@ -16,8 +16,8 @@
 
 
 
-class Thing;
-class ModuleData;
+
+
 class ThingTemplate;
 class Object;
 class Player;

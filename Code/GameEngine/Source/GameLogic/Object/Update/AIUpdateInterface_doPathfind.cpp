@@ -120,7 +120,7 @@ public:
 	AsciiString m_name; // +0x18
 };
 
-struct Rva003642DFNode;
+
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 class Rva0008BB38FloatField;
 #include "../../../../Include/GameLogic/PathNode.h"

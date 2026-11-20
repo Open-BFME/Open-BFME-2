@@ -7,7 +7,7 @@
 // (single turret, MAX_TURRETS is 1). TurretAI::recenterTurret is a direct
 // (non-virtual) call, resolved by pin.
 
-typedef int Bool;
+
 
 enum WhichTurretType
 {

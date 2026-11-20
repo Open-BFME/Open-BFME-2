@@ -8,8 +8,8 @@
 // virtual with the base subobject's this and folds the adjustment into the
 // member accesses, which is why retail reads the module data pointer (+4) as
 // [ecx-0xC]. Returns by value (hidden pointer, Rva002390CB copy ctor 0x002390CB) the Rva002390CB at +0x10 of the module data.
-class Thing;
-class ModuleData;
+
+
 class Object;
 #include "../../../../Include/Common/Rva002390CB.h"
 

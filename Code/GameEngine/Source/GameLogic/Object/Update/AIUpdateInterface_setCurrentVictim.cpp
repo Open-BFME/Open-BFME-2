@@ -23,7 +23,7 @@ class BfmeVirtualSlots<0>
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-typedef bool Bool;
+
 
 class AIUpdateInterface;
 
