@@ -242,24 +242,27 @@ public:
 	virtual void dynamicPortalExtraA();
 };
 
-class DynamicPortalExtraB
-{
-public:
-	virtual void dynamicPortalExtraB() { }
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 class DynamicPortalBehaviourModuleData;
 
 // LINK: the owner call binds the rowed 0x0046094C (DynamicPortalBehaviour::rva0046094C, defined below).
 class DynamicPortalBehaviour : public UpgradeModule,
 	public DynamicPortalExtraA,
-	public DynamicPortalExtraB
+	public CreateModuleInterface
 {
 public:
 	void rva0046094C();
 	bool IsEndPortalAboveWall(Coord3D *out);
 	const DynamicPortalBehaviourModuleData *getDynamicPortalBehaviourModuleData() const { return (const DynamicPortalBehaviourModuleData *)m_moduleData; }
 	virtual NameKeyType getModuleNameKey() const;
+
+	virtual CreateModuleInterface *getCreate() { return this; }
+	virtual void onCreate() { }
+	virtual void onBuildComplete();
+	virtual void slot02() { }
+	virtual bool shouldDoOnBuildComplete() const { return true; }
+
 protected:
 	virtual ~DynamicPortalBehaviour();
 	// Slot 1 of 0x00C428C4: the rowed override 0x00461274
