@@ -3,7 +3,7 @@
 // Chain on just-landed 0x00298E6A: -0xFC slot-70 fill plus list chase calling it then +0x54 RB map via TheGameLogic findObjectByID calling it plus -0x114 pool EraseRange clear.
 // Evidence: callees rowed 0x00298E6A 0x00049DC5 0x00024250 0x0028BDD7 0x002983DA; TheGameLogic extern in use 72 TUs; prev HordeContainModuleDataParse next HorseHordeContainCtor.
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Object;
+
 #include "../../../../Include/Common/Rva00298E6A.h"
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva00297360Element.h"
 #include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"

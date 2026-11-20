@@ -16,7 +16,7 @@
 // AI pointer and both list walks in EDI). The correction is formed as BFME 1's
 // HordeContain release movement does (copy position, subtract the original).
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class Object;
+
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/AIPathfind.h"
 class Object

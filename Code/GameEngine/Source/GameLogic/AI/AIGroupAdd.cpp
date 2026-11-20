@@ -31,7 +31,7 @@ public:
 #include "../Object/object.h"
 #include "../../Common/Thing/thing.h"
 
-class AIGroup;
+
 
 
 class AIGroup

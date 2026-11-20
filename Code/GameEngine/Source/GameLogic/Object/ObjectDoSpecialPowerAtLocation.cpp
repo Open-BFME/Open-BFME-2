@@ -13,7 +13,7 @@
 // the module call takes (location, options) without an angle, after the
 // rowed Object::rva0028C4B6.
 class SpecialPowerTemplate;
-class Object;
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

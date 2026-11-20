@@ -14,7 +14,7 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class Matrix3D;
-class Object;
+
 class Thing;
 float normalizeAngle(float);
 float Cos(float);float Sin(float);

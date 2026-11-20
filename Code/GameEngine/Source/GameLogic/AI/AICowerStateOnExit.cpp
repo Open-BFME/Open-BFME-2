@@ -21,7 +21,7 @@ template <> class VSlots<0>
 };
 
 
-class Object;
+
 class ContainInterface : public VSlots<31>
 {
 public:

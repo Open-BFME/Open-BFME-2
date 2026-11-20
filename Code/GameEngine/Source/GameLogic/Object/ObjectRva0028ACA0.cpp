@@ -11,7 +11,7 @@ template <>
 class BfmeVirtualSlots<0>
 {
 };
-class Object;
+
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {

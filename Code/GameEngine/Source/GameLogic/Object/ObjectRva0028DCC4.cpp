@@ -9,7 +9,7 @@
 // Reference lead: ZH Object.cpp registration and kind-of exclusion semantics;
 // the split ShroudManager/CollisionManager and Lua registrations are BFME2.
 // cl: /O1 /G7 /arch:SSE /MD
-class Object;
+
 class Rva00739750 {public: void rva00739750(void*);};
 #include "../../../Include/GameLogic/PartitionData.h"
 #include "../../Common/PartitionRangeQueryCallView.h"

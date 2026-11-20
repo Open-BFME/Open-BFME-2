@@ -21,7 +21,7 @@
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 enum GuardTargetType { GUARDTARGET_LOCATION = 0, GUARDTARGET_OBJECT };
-class Object;
+
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:

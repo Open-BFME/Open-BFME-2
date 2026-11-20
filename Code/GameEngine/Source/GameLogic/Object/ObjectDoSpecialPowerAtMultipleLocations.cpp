@@ -17,7 +17,7 @@
 #include "../../../Include/Common/BitFlagsTemplate.h"
 
 class SpecialPowerTemplate;
-class Object;
+
 
 class SpecialPowerModuleInterface
 {

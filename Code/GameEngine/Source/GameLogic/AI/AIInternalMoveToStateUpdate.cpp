@@ -316,7 +316,7 @@ private:
 #include "../../../Include/Common/ThingTemplate.h"
 #include "../../../Include/Common/Geometry.h"
 #include "../../Common/Thing/thing.h"
-class Object;
+
 #include "../../../Include/GameLogic/Module/StealthUpdate.h"
 class Rva00373EC6
 {

@@ -41,7 +41,7 @@ enum WeaponSetType
 {
  WEAPONSET_7 = 7,
  WEAPONSET_8 = 8
- 
+
 }
 ;
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
@@ -53,7 +53,7 @@ enum WeaponSetType
 
 class Thing;
 class ModuleData;
-class Object;
+
 class UpgradeTemplate;
 class AsciiString;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -74,7 +74,7 @@ class RampageBehaviorModuleDataView
  Int m_resetTimer;
  float m_enemyCheckRange;
  Int m_enemyThreshold;
- 
+
 }
 ;
 class BodyModuleFloatInterface
@@ -88,7 +88,7 @@ class BodyModuleFloatInterface
  virtual float rva0048F64EGetA();
  virtual void slot14();
  virtual float rva0048F64EGetB();
- 
+
 }
 ;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
@@ -100,9 +100,9 @@ class AIUpdateInterfaceView
  __forceinline AICommandInterface *commands() 
  {
   return (AICommandInterface *)((char *)this + 0x20);
-  
+
  }
- 
+
 }
 ;
 #include "../../../../Include/Common/Rva0028B7AELeaGetter.h"
@@ -114,7 +114,7 @@ class Rva0028BD3AInterface
  virtual void slot00();
  virtual void slot04();
  virtual void set(Bool enabled);
- 
+
 }
 ;
 class Object : public Thing
@@ -128,53 +128,53 @@ class Object : public Thing
  void setWeaponSetFlag(WeaponSetType type);
  void *rva0028BD3A() const;
  const UnsignedInt *getWeaponSetFlags() const
- 
+
  {
   return (const UnsignedInt *)((const Rva0028B7AELeaGetter *)this)->get();
-  
+
  }
  const Coord3D *getPosition() const 
  {
   return &m_cachedPos;
-  
+
  }
  __forceinline void clearConditionWord5Bit2()
- 
+
  {
   if (*((volatile unsigned char *)this+0x120) & 4) 
   {
    UnsignedInt *words = m_conditionWords;
    words[5] &= ~4U;
    rva0028AE6D();
-   
+
   }
-  
+
  }
  __forceinline void setConditionWord5Bit2()
- 
+
  {
   if (!(m_conditionWords[5] & 4)) 
   {
    UnsignedInt *words = m_conditionWords;
    words[5] |= 4U;
    rva0028AE6D();
-   
+
   }
-  
+
  }
  __forceinline void clearConditionWord5Bit0()
- 
+
  {
   if (((const unsigned char *)&m_conditionWords[5])[0] & 1) 
   {
    m_conditionWords[5] &= ~1U;
    rva0028AE6D();
-   
+
   }
-  
+
  }
  __forceinline void clearConditionWord5Byte1Bits()
- 
+
  {
   const volatile unsigned char *testBytes = (const volatile unsigned char *)&m_conditionWords[5];
   unsigned char *bytes = (unsigned char *)&m_conditionWords[5];
@@ -182,39 +182,39 @@ class Object : public Thing
   {
    bytes[1] &= (unsigned char)0xEF;
    rva0028AE6D();
-   
+
   }
   if (testBytes[1] & 0x20) 
   {
    bytes[1] &= (unsigned char)0xDF;
    rva0028AE6D();
-   
+
   }
   if (testBytes[1] & 0x40) 
   {
    bytes[1] &= (unsigned char)0xBF;
    rva0028AE6D();
-   
+
   }
   if (testBytes[1] & 0x80) 
   {
    bytes[1] &= (unsigned char)0x7F;
    rva0028AE6D();
-   
+
   }
-  
+
  }
  __forceinline Bool hasStatusBit1() const 
  {
   return (m_status438 & 1) != 0;
-  
+
  }
  __forceinline Bool hasWeaponSet(WeaponSetType type) const
- 
+
  {
   unsigned char flags = (unsigned char)(*getWeaponSetFlags() >> type);
   return (flags & 1) != 0;
-  
+
  }
  private:
  unsigned char m_pad60[0x10C - 0x60];
@@ -226,7 +226,7 @@ class Object : public Thing
  private:
  unsigned char m_pad25C[0x438 - 0x25C];
  unsigned char m_status438;
- 
+
 }
 ;
 #include "../../../../Include/Common/Upgrade.h"
@@ -234,7 +234,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 __forceinline const float &rampageMax(const float &a, const float &b) 
 {
  return a > b ? a : b;
- 
+
 }
 struct Rva00458BE1Sub;
 class Rva00458BE1
@@ -256,7 +256,7 @@ class RampageBehavior
  float m_10;
  Int m_14;
  Int m_18;
- 
+
 }
 ;
 UpdateSleepTime RampageBehavior::update()
@@ -277,7 +277,7 @@ UpdateSleepTime RampageBehavior::update()
   *(const AsciiString *)upgrade);
   if (!owner->hasUpgrade(required))
   return UPDATE_SLEEP_NONE;
-  
+
  }
  float health = body->rva0048F64EGetA();
  float maxHealth = body->rva0048F64EGetB();
@@ -299,7 +299,7 @@ UpdateSleepTime RampageBehavior::update()
   owner->clearConditionWord5Bit2();
   drawable->rva00274176(false);
   goto updateResetTimer;
-  
+
  }
  if (!(data->m_healthThreshold > healthRatio)
  || owner->hasStatusBit1()
@@ -314,14 +314,14 @@ UpdateSleepTime RampageBehavior::update()
   ai->commands()->aiAttackPosition(owner->getPosition(), 0x0FFFFFFE,
   CMD_FROM_AI);
   m_14 = data->m_lifeTimer;
-  
+
  }
  else 
  {
   owner->setConditionWord5Bit2();
   ai->commands()->rva0045003E(0, CMD_FROM_AI);
   m_14 = data->m_angryLifeTimer;
-  
+
  }
  owner->clearConditionWord5Bit0();
  owner->clearConditionWord5Byte1Bits();
@@ -335,8 +335,8 @@ UpdateSleepTime RampageBehavior::update()
   --m_18;
   if (m_18 <= 0)
   m_10 = health;
-  
+
  }
  return UPDATE_SLEEP_NONE;
- 
+
 }

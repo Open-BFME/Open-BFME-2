@@ -17,7 +17,7 @@
 enum Relationship {};
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/ObjectStatusTypes.h"
 #include "../../../Include/Common/StateMachineClass.h"
-class Object; class Team; class Player;
+ class Team; class Player;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct AttackThingTemplateView { char pad[0x108]; unsigned char kinds[0x20]; };
 #include "../../../Include/GameLogic/WeaponTemplate.h"

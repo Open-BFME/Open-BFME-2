@@ -66,7 +66,7 @@ enum DamageType
 
 
 
-class Object;
+
 class Team;
 
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"

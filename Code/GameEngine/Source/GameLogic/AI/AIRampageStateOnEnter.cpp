@@ -21,7 +21,7 @@ enum WeaponSetType
 	WEAPONSET_8 = 8
 };
 
-class Object;
+
 
 template <int N> class AISlots : public AISlots<N - 1>
 {

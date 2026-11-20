@@ -17,7 +17,7 @@
 
 
 
-class Object;
+
 
 enum ObjectStatusTypes
 {

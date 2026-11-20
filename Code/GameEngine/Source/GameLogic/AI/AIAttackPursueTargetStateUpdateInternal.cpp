@@ -26,7 +26,7 @@ enum ObjectStatusTypes
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object;
+
 class Player;
 class Weapon;
 class Pathfinder;

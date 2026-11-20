@@ -6,7 +6,7 @@
 // BBB8D8 global into the block, then fires rowed Object::attemptDamage on
 // the slot self. This stays transient; the slot self homes in esi.
 class DamageInfo;
-class Object;
+
 
 template <int N>
 class VSlots : public VSlots<N - 1>

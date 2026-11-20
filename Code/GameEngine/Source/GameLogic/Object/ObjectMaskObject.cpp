@@ -16,7 +16,7 @@
 
 #include "../../../Include/Common/Player.h"
 
-class Object;
+
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

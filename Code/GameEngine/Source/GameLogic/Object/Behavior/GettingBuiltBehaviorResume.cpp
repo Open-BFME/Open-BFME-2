@@ -7,7 +7,7 @@
 #include <string.h>
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object;
+
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"

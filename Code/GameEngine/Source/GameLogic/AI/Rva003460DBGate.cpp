@@ -6,7 +6,7 @@
 // or when status 0xF is set without status 0x11; true otherwise. Status
 // values are the raw indices passed to the rowed testStatus; their names are
 // not established.
-class Object;
+
 
 enum ObjectStatusTypes
 {

@@ -65,7 +65,7 @@ template <> class AIHuntSlots<0>
 
 #include "../../../Include/GameLogic/AttackPriorityInfo.h"
 
-class AIHuntState;
+
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

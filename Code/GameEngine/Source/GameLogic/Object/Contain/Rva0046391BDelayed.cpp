@@ -3,7 +3,7 @@
 // stlport
 #include <list>
 #include <algorithm>
-class Object;
+
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameClient/Drawable.h"

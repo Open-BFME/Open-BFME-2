@@ -10,7 +10,7 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 typedef unsigned UnsignedInt;
 #include "../../../Include/Common/StateMachineClass.h"
-class Object;
+
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/GameLogic/Module/HordeContainInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"

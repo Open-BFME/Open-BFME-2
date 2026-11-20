@@ -20,7 +20,7 @@ template<class T> inline volatile T &__vref(T &x) { return *(volatile T *)&x; }
 
 #include "../../../Common/Thing/thing.h"
 
-class Object;
+
 
 template <int N> class Rva00469626Slots : public Rva00469626Slots<N - 1>
 {

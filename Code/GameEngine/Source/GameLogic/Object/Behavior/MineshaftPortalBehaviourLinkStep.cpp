@@ -32,7 +32,7 @@ extern AI *TheAI;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 struct Rva00373158Group : public _STL::vector<ObjectID> { bool changed; };
 struct Rva00373158Node { char pad[0x14]; Rva00373158Group *group; };
-class MineshaftPortalNetworkManager;
+
 // The player-keyed map's lookup is the rowed STLport map<int,int> _M_find<int> 0x00388F63.
 typedef _STL::pair<const int, int> IntIntPair;
 typedef _STL::_Rb_tree<int, IntIntPair, _STL::_Select1st<IntIntPair>, _STL::less<int>, _STL::allocator<IntIntPair> > MapIntIntTree;

@@ -19,7 +19,7 @@ class BfmeTab1026
 {
 };
 
-class Player;
+
 class Object;
 
 class UpgradeTemplate

@@ -11,7 +11,7 @@
 // rowed isSignificantlyAboveTerrain) into the 0x3430A3 check, and finishes
 // with the doubled rowed 0x2C95F0 guard plus isWithinAttackRange. The vslot
 // call rides the established VSlots<137> template spelling.
-class Object;
+
 class Weapon;
 enum WeaponSlotType
 {

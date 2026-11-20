@@ -12,7 +12,7 @@ enum WeaponSlotType
 	PRIMARY_WEAPON = 0,
 	WEAPONSLOT_COUNT = 6
 };
-class Object;
+
 #include "../../../Include/GameLogic/Weapon.h"
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 class Object

@@ -45,7 +45,7 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-class Object; class Drawable;
+ class Drawable;
 enum ObjectStatusTypes {RvaStatus38=38};
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"

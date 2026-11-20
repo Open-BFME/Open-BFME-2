@@ -17,7 +17,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/Rva002710EC.h"
 
-class Object;
+
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

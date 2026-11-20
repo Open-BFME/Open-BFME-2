@@ -36,7 +36,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 
 
 
-class Object;
+
 
 #include "../../../../Include/Common/SlavedUpdateInterface.h"
 

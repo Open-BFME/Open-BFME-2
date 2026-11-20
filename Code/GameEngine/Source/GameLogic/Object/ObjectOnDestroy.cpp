@@ -12,7 +12,7 @@
 
 
 
-class Object;
+
 
 class ContainModuleInterfaceSlots
 {

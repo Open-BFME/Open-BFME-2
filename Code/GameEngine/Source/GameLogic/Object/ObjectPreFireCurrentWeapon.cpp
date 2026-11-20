@@ -39,7 +39,7 @@ enum ObjectPrivateStatusBits
 	UNDETECTED_DEFECTOR = 0x02
 };
 
-class Object;
+
 
 extern GameLogic *TheGameLogic;
 

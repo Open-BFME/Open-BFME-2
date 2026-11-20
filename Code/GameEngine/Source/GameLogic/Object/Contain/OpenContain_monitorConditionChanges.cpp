@@ -15,7 +15,7 @@
 #include <string.h>
 bool Rva00045473Equal(const void *a, const void *b);
 
-class Drawable;
+
 #include "../../../Common/Thing/thing.h"
 
 struct Store84

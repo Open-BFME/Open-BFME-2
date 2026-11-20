@@ -31,7 +31,7 @@ enum ObjectStatusTypes
 	STATUS_33 = 0x33
 };
 
-class Object;
+
 class Player;
 
 #include "../../../Include/GameLogic/AIPathfind.h"

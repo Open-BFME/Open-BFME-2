@@ -56,7 +56,7 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-class Object;
+
 
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 

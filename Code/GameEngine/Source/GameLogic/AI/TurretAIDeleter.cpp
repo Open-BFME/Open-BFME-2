@@ -32,7 +32,7 @@ class Object;
 class Xfer;
 
 
-class TurretAI;
+
 struct Coord3D;
 struct EmitVtableTag;
 
