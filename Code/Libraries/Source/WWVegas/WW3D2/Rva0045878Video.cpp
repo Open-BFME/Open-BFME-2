@@ -13,6 +13,80 @@ struct Rva0045878Mode
 	int m_pad;
 };
 
+#if defined(BFME2_MODERN)
+// The reference list offers 4:3 modes only, so a wide resolution (or one set
+// by hand in Options.ini) has no entry and the options combo shows nothing.
+// The modern variant lists every mode of at least 24 bits and 800 pixels wide,
+// and appends the current device resolution when the adapter does not list it.
+static const Rva0045878Mode *modernModes(int &count)
+{
+	const char *desc = (const char *)&WW3D::Get_Render_Device_Desc(0) + 0x5A0;
+	count = *(const int *)(desc + 0x10);
+	return *(Rva0045878Mode *const *)(desc + 4);
+}
+
+static bool modernModeListed(const Rva0045878Mode &mode)
+{
+	return mode.m_bits >= 24 && mode.m_width >= 800;
+}
+
+static bool modernUnlistedCurrentMode(int &w, int &h, int &bits)
+{
+	bool windowed;
+	WW3D::Get_Device_Resolution(w, h, bits, windowed);
+	if (w < 800 || h <= 0)
+		return false;
+	int count;
+	const Rva0045878Mode *modes = modernModes(count);
+	for (int i = 0; i < count; i++)
+		if (modernModeListed(modes[i]) && modes[i].m_width == w && modes[i].m_height == h)
+			return false;
+	if (bits < 24)
+		bits = 32;
+	return true;
+}
+
+int Rva0045878Count()
+{
+	int count;
+	const Rva0045878Mode *modes = modernModes(count);
+	int n = 0;
+	for (int i = 0; i < count; i++)
+		if (modernModeListed(modes[i]))
+			n++;
+	int w, h, bits;
+	if (modernUnlistedCurrentMode(w, h, bits))
+		n++;
+	return n;
+}
+
+void __stdcall Rva00458E2Get(int index, int *w, int *h, int *bits)
+{
+	int count;
+	const Rva0045878Mode *modes = modernModes(count);
+	int found = 0;
+	for (int i = 0; i < count; i++)
+	{
+		if (!modernModeListed(modes[i]))
+			continue;
+		if (found == index)
+		{
+			*w = modes[i].m_width;
+			*h = modes[i].m_height;
+			*bits = modes[i].m_bits;
+			return;
+		}
+		found++;
+	}
+	int cw, ch, cbits;
+	if (found == index && modernUnlistedCurrentMode(cw, ch, cbits))
+	{
+		*w = cw;
+		*h = ch;
+		*bits = cbits;
+	}
+}
+#else
 int Rva0045878Count()
 {
 	int i = 0;
@@ -54,3 +128,4 @@ void __stdcall Rva00458E2Get(int index, int *w, int *h, int *bits)
 		}
 	}
 }
+#endif
