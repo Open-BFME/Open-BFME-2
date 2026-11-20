@@ -1681,7 +1681,7 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
 
-**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 440).** Same base, method and per-entry checks as round
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 439).** Same base, method and per-entry checks as round
 init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
 `own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
 evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
@@ -1775,3 +1775,12 @@ defines it, checked against link order, plus a Drawable.h fact), `survey.py` (th
   change. *Left:* 0x007B2C5C is ModelConditionSoundSelectorClientBehavior's by the same order, but the map approves that
   unit's rows to two files (`Object/Behavior/` and `Object/Update/ModelConditionSoundSelectorClientBehavior.cpp`), so the
   copy waits for one TU.
+- *Taken (440 -> 439): W3DTerrainTracks.cpp's copy.* 0x007AC0D0 is alone in its run, the only run between W3DView.cpp's
+  rowed run and W3DGameFont.cpp's. Its static 0x00DE2080 directly follows g_trackDirty 0x00DE207C, read only by the
+  TerrainTracks and StatusCircle code at 0x0008E1F2..0x0008E7A4 (proposed to W3DTerrainTracks.cpp and W3DStatusCircle.cpp,
+  whose rows interleave, so one object), right after W3DView.cpp's code: the unit's plain global, then its copy. Zero
+  Hour's W3DTerrainTracks.cpp includes GameClient/Drawable.h, as ours does (donor fact). W3DTerrainTracks.cpp (an
+  approved TU) takes `reference/shims/bfme2_drawable_flash` first on its include path and registers the copy as `_$E19`.
+  One unrowed static of the file, Zero Hour's `computeTrackSpacing(RenderObjClass *)` (not retail's 0x00084B18), changes
+  its stack-slot order; every rowed body and every other section keep their bytes. *Not this unit's:* 0x007AC052 after
+  TheTerrainTracksRenderObjClassSystem, whose `.bss` lies before W3DView's while this unit's code follows W3DView's.
