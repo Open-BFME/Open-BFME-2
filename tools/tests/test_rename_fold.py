@@ -1955,3 +1955,118 @@ def test_a_registered_restore_needs_a_destructor_family(tmp_path, monkeypatch):
     s_retail(monkeypatch)
     with pytest.raises(Refusal, match="not that class|nothing ties"):
         d_plan(root)
+
+
+# ------------------------------------------------------------ one body under both names; a third name
+
+GDTOR_OLD_ROW = f"??_G{OLD}@@UAEPAXI@Z,,0x00402010,29,Code/Game/BaseCtor.cpp,matched,deleting dtor\n"
+THIRD = "Rva00402010"
+
+
+def alias_new_row(tree, proof="Code/Game/BaseCtor.cpp"):
+    """NEW's deleting destructor as the ICF alias of OLD's (fold-proof to OLD's unit)."""
+    text = (tree / "reverse/functions.csv").read_text().replace(
+        f"??_G{NEW}@@UAEPAXI@Z,,0x00402010,29,Code/Game/Inline.cpp,matched,deleting dtor",
+        f"??_G{NEW}@@UAEPAXI@Z,,0x00402010,29,Code/Game/Inline.cpp,matched,ICF alias; fold-proof={proof}")
+    write(tree, "reverse/functions.csv", text)
+
+
+def test_one_body_under_both_names_merges_into_news_row(tree, monkeypatch):
+    """OLD and NEW each row the one deleting destructor at one address: the fold
+    keeps NEW's row, drops OLD's (tombstoned as merged), and NEW's row, the alias
+    OLD's unit proved, becomes the body's primary row."""
+    append(tree, "reverse/functions.csv", GDTOR_OLD_ROW)
+    alias_new_row(tree)
+    retail(monkeypatch)
+    p = plan(tree)
+    assert p.merged_rows == [(f"??_G{OLD}@@UAEPAXI@Z", f"??_G{NEW}@@UAEPAXI@Z", 0x00402010)]
+    assert "one body under both names: merged" in p.evidence
+    assert "Code/Game/BaseCtor.cpp" in p.verify and "Code/Game/Inline.cpp" in p.verify
+    rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    fns = (tree / "reverse/functions.csv").read_text()
+    rows = [line for line in fns.splitlines() if line.startswith(f"??_G{NEW}@@UAEPAXI@Z,")]
+    assert len(rows) == 1 and "Code/Game/Inline.cpp" in rows[0]
+    assert "fold-proof=" not in rows[0] and "primary since the fold merged the row Code/Game/BaseCtor.cpp" in rows[0]
+    assert OLD not in fns
+    deleted = (tree / "reverse/deleted_rows.csv").read_text()
+    assert f'??_G{OLD}@@UAEPAXI@Z,0x00402010,"Merged into ??_G{NEW}@@UAEPAXI@Z (one body, one class)' in deleted
+
+
+def test_a_merge_keeps_a_fold_proof_to_a_third_unit(tree, monkeypatch):
+    # both rows are aliases of a body a third unit owns: NEW's proof stays
+    append(tree, "reverse/functions.csv", GDTOR_OLD_ROW.replace("deleting dtor", "alias; fold-proof=Code/Game/X.cpp"))
+    alias_new_row(tree, proof="Code/Game/X.cpp")
+    retail(monkeypatch)
+    rename.apply_rename(plan(tree), ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    fns = (tree / "reverse/functions.csv").read_text()
+    assert f"??_G{NEW}@@UAEPAXI@Z,,0x00402010,29,Code/Game/Inline.cpp,matched,ICF alias; fold-proof=Code/Game/X.cpp" in fns
+
+
+def test_two_bodies_of_one_kind_still_refuse(tree, monkeypatch):
+    # same kind, another size: two bodies, not one under two names
+    append(tree, "reverse/functions.csv", GDTOR_OLD_ROW.replace(",29,", ",28,"))
+    retail(monkeypatch)
+    with pytest.raises(Refusal, match="one class has one"):
+        plan(tree)
+
+
+def with_third(tree, rows=True):
+    write(tree, "reverse/data_ledger.csv", ledger(NEW).replace(
+        f"??_7{NEW}@@6B@;?g_00C00000", f"??_7{NEW}@@6B@;??_7{THIRD}@@6B@;?g_00C00000"))
+    if rows:
+        append(tree, "reverse/functions.csv",
+               f"??_G{THIRD}@@UAEPAXI@Z,,0x00402010,29,Code/Game/Third.cpp,matched,deleting dtor\n")
+
+
+def test_a_third_name_still_refuses_without_with(tree, monkeypatch):
+    with_third(tree)
+    retail(monkeypatch)
+    with pytest.raises(Refusal, match="a third name for the table"):
+        plan(tree)
+
+
+def test_with_admits_a_third_name_rowing_only_the_one_body(tree, monkeypatch):
+    with_third(tree)
+    retail(monkeypatch)
+    p = plan(tree, aliases=(THIRD,))
+    assert f"also named for {THIRD}" in p.evidence and f"fold {THIRD} into {NEW} next" in p.evidence
+    assert THIRD in (tree / "reverse/functions.csv").read_text()     # planned, nothing written
+
+
+def test_with_refuses_a_third_name_with_a_constructor(tree, monkeypatch):
+    with_third(tree)
+    append(tree, "reverse/functions.csv", f"??0{THIRD}@@QAE@XZ,,0x00405000,20,Code/Game/Third.cpp,matched,ctor\n")
+    retail(monkeypatch)
+    with pytest.raises(Refusal, match="second owner of the table"):
+        plan(tree, aliases=(THIRD,))
+
+
+def test_with_refuses_a_third_name_on_another_body(tree, monkeypatch):
+    with_third(tree, rows=False)
+    append(tree, "reverse/functions.csv",
+           f"??_G{THIRD}@@UAEPAXI@Z,,0x00402030,29,Code/Game/Third.cpp,matched,deleting dtor\n")
+    retail(monkeypatch)
+    with pytest.raises(Refusal, match="no deleting destructor of the two folded names"):
+        plan(tree, aliases=(THIRD,))
+
+
+def test_with_admits_a_rowless_name_only_once_folded(tree, monkeypatch):
+    with_third(tree, rows=False)
+    retail(monkeypatch)
+    with pytest.raises(Refusal, match="rows no constructor"):
+        plan(tree, aliases=(THIRD,))
+    append(tree, "reverse/deleted_rows.csv",
+           f'??_G{THIRD}@@UAEPAXI@Z,0x00402010,"Merged into ??_G{NEW}@@UAEPAXI@Z (one body, one class) by '
+           'tools/rename.py (fold: retail vftable 0x00C00000)"\n')
+    plan(tree, aliases=(THIRD,))
+
+
+def test_with_refuses_a_readable_or_registered_name(tree, monkeypatch):
+    with_third(tree)
+    retail(monkeypatch)
+    with pytest.raises(Refusal, match="names no third class"):
+        plan(tree, aliases=(NEW,))
+    (tree / "reverse/class_contracts").mkdir()
+    write(tree, f"reverse/class_contracts/{THIRD}.json", "{}")
+    with pytest.raises(Refusal, match="registered class is never a third name"):
+        plan(tree, aliases=(THIRD,))

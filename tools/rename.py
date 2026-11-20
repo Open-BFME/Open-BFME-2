@@ -225,7 +225,10 @@ slots, and OLD and NEW never both row one special-member kind (see
 plan_fold's section), or when retail's only initializer of a global typed NEW
 runs OLD's constructor (initializer_tie). It invents no name: no name_basis.csv record, tombstones
 `(fold: retail vftable 0x...)`, and a pin the respelling makes a row's own name
-is dropped. A readable OLD is refused.
+is dropped. A readable OLD is refused. One body rowed under both names (one
+row of a kind each, one address, one size) merges into NEW's row (OLD's is
+tombstoned `Merged into`), and `--with X` admits a third placeholder on the
+table whose only rows are that body (folded next; see docs/naming.md).
 
 `function --rva R --to-class C --new WORD [--prepared REL=FILE ...]` moves a
 placeholder-class member (`?rva00550B4C@Rva00550B4C@@QAEXXZ`) into the real
@@ -1505,6 +1508,7 @@ class Plan:
     fold_tie: dict = None                             # class --fold by retail's initializer: what the build must prove
     fold_layouts: dict = None                         # class --fold, prepared unregistered NEW: each unit's layout
     dropped_pins: list = field(default_factory=list)  # class --fold: (old pin, its respelling, address) removed
+    merged_rows: list = field(default_factory=list)   # class --fold: (old row, NEW's row it merged into, rva)
     to_class: dict = None                             # function --to-class: the slot the rebuilt vftable must name
     retype: dict = None                               # global --retype: what the rebuilt objects must prove
     registered: dict = None                           # class on a canonical_classes.csv key: what moves with it
@@ -1614,6 +1618,10 @@ class Plan:
         if self.renamed_pins:
             lines.append(f"  symbols.csv pins renamed in place ({len(self.renamed_pins)}):")
             lines += [f"    {address} {old} -> {new}" for old, new, address in self.renamed_pins]
+        if self.merged_rows:
+            lines.append(f"  functions.csv rows merged into NEW's row at the same address ({len(self.merged_rows)}), "
+                         "each tombstoned:")
+            lines += [f"    0x{rva:08X} {old} -> {new}" for old, new, rva in self.merged_rows]
         if self.dropped_pins:
             lines.append(f"  symbols.csv pins dropped (now the row's own name) ({len(self.dropped_pins)}):")
             lines += [f"    {address} {old} (would read {new})" for old, new, address in self.dropped_pins]
@@ -10786,7 +10794,7 @@ def registered_object_problems(ctx, plan):
 
 
 def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=False, prepared=None,
-               access=None, merge=False):
+               access=None, merge=False, aliases=()):
     """Plan respelling one class/struct/union/enum type token everywhere: every
     mangled name it scopes or types (functions.csv names and notes, pins, data
     rows), every source, header and shim view that spells it, and the units
@@ -10801,7 +10809,7 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
         if basis is not None:
             raise Refusal("class --fold invents no name and takes no --basis: retail's vftable is the evidence")
         return plan_fold(ctx, name, new, evidence=evidence or "", max_files=max_files, prepared=prepared,
-                         access=access)
+                         access=access, aliases=tuple(aliases or ()))
     if prepared and not merge:
         raise Refusal("--prepared goes with class --fold into a nested class, or with --merge-existing")
     if access is not None:
@@ -12484,13 +12492,18 @@ def fold_tie_problems(ctx, tie):
     return problems
 
 
-def fold_evidence(ctx, old, new, tie=None, pinned=True):
+def fold_evidence(ctx, old, new, tie=None, pinned=True, aliases=()):
     """(table rva, [evidence]) proving the class names `old` and `new` one
     retail class (see the section comment); raises Refusal. `tie` (a dict) receives
-    what the initializer route must prove after the build, when that route decided."""
+    what the initializer route must prove after the build, when that route decided.
+    `aliases` are further placeholder names T carries that row nothing of their
+    own: every row of theirs is a deleting destructor at the address of OLD's or
+    NEW's of the same kind (alias_only_problems); they stand on T, are folded
+    next, and refuse otherwise."""
     tables = retail_vtables(ctx)
     spans = _row_spans(ctx)[1]
-    members = {old: [], new: []}
+    aliases = tuple(a for a in aliases if a not in (old, new))
+    members = {old: [], new: [], **{a: [] for a in aliases}}
     for _start, _end, row in spans:
         found = special_member(row["name"])
         if found and found[1] in members:
@@ -12581,7 +12594,15 @@ def fold_evidence(ctx, old, new, tie=None, pinned=True):
     # The destructor-only route lets a third class that installs T as its own
     # stand (see the section comment); it is named in the evidence, not folded.
     co_owners = third_owners(ctx, table, (old, new), tables) if via_slot else {}
-    others = sorted(set(classes) - {old, new} - set(co_owners))
+    for alias in aliases:
+        why = alias_only_problems(alias, members[alias], members[old] + members[new], classes,
+                                  folded=folded_into(ctx, alias, new))
+        if why:
+            raise Refusal(f"--with {alias}: {why}")
+        evidence.append(f"{va} is also named for {alias}, whose only rows (" +
+                        ", ".join(at(r) for r in members[alias]) + f") are {old}'s or {new}'s deleting "
+                        f"destructor body under a third name; fold {alias} into {new} next")
+    others = sorted(set(classes) - {old, new} - set(co_owners) - set(aliases))
     if others:
         raise Refusal(f"retail vftable {va} is also named for {', '.join(others)} "
                       f"({'; '.join(w for o in others for w in classes[o])}): a third name for the table")
@@ -12629,7 +12650,7 @@ def fold_evidence(ctx, old, new, tie=None, pinned=True):
         for store, at_disp in sorted(installs.items()):
             for row in owner_rows_at(ctx, store):
                 found = special_member(row["name"])
-                if not found or found[1] in (old, new):
+                if not found or found[1] in (old, new) + aliases:
                     continue
                 if disp == 0 and at_disp == 0 and found[1] in co_owners:
                     continue                    # the destructor-only route's co-owner (evidence below)
@@ -12641,7 +12662,7 @@ def fold_evidence(ctx, old, new, tie=None, pinned=True):
         for index, target in enumerate(slots):
             for row in starting.get(target, []):
                 found = special_member(row["name"])
-                if found and found[0] in ("_G", "_E") and found[1] not in (old, new):
+                if found and found[0] in ("_G", "_E") and found[1] not in (old, new) + aliases:
                     raise Refusal(f"{what} slot {index} holds {found[1]}'s deleting destructor "
                                   f"({at(row)}): the table is not one class's of {old} and {new}")
     for cls in (old, new):
@@ -12708,10 +12729,107 @@ def fold_evidence(ctx, old, new, tie=None, pinned=True):
         mine = [r for r in members[old] if kind(r) == key]
         theirs = [r for r in members[new] if kind(r) == key]
         thunk = f" (adjustor thunk, this -= 0x{key[1]:X})" if key[1] else ""
+        if same_body_pair(mine, theirs):
+            # One body under both names (two units rowed the class's one member
+            # at one address): the respelling makes them one row (plan_fold).
+            evidence.append(f"{at(mine[0])} and {at(theirs[0])} are one body under both names: merged")
+            continue
         raise Refusal(f"both names have a {SPECIAL_ROLE[key[0]]}{thunk} row ({at(mine[0])}; {at(theirs[0])}): one "
                       f"class has one (a folded vftable of two classes, or overloads or an ICF alias pair this mode "
                       "does not merge)")
     return table, evidence
+
+
+FOLD_PROOF_TOKEN = re.compile(r"(?:;\s*)?\bfold-proof=(\S+?)(?=[;\s]|$)")
+
+
+def merge_fold_rows(ctx, plan, merges, rows):
+    """Drop each merged OLD row from the planned functions.csv: NEW's row at the
+    same address keeps the body. When the dropped row was the body's primary
+    row (no fold-proof of its own) and NEW's row was its ICF alias proven by the
+    dropped row's unit, NEW's row is the primary now: its `fold-proof=` to that
+    unit goes (the unit still compiles the body under NEW's name)."""
+    raw = plan.after[FUNCTIONS]
+    by_name = {r["name"]: r for r in rows}
+    out, dropped = [], set()
+    for index, (payload, term) in enumerate(ledger_io.split_records(ctx.read(FUNCTIONS))):
+        if index and ledger_io.fields(payload)[0] in merges:
+            dropped.add(index)
+    primary_of = {}                                     # NEW's row name -> dropped primary's source
+    for name, kept in merges.items():
+        gone = by_name[name]
+        if not FOLD_PROOF_TOKEN.search(gone.get("notes") or ""):
+            primary_of[kept["name"]] = gone["source"]
+    for index, (payload, term) in enumerate(ledger_io.split_records(raw)):
+        if index in dropped:
+            continue
+        flds = ledger_io.fields(payload)
+        if index and flds[0] in primary_of and len(flds) >= 7:
+            notes = flds[6]
+            proofs = FOLD_PROOF_TOKEN.findall(notes)
+            if proofs == [primary_of[flds[0]]]:
+                flds[6] = FOLD_PROOF_TOKEN.sub("", notes).strip().rstrip(";").strip() + \
+                    f"; primary since the fold merged the row {primary_of[flds[0]]} owned"
+                out.append(csv_line(flds).rstrip(b"\n") + term)
+                continue
+        out.append(payload + term)
+    if len(out) != len(ledger_io.split_records(raw)) - len(dropped):
+        raise Refusal("functions.csv: the merged rows could not be dropped one for one")
+    plan.edit(ctx, FUNCTIONS, b"".join(out))
+
+
+def same_body_pair(mine, theirs):
+    """True when OLD's and NEW's rows of one special-member kind are one row each
+    at one address with one size: a single body two units rowed under the two
+    names, which the fold merges into NEW's row (plan_fold's merge)."""
+    if len(mine) != 1 or len(theirs) != 1:
+        return False
+    a, b = mine[0], theirs[0]
+    return (_rva(a.get("target_rva")) == _rva(b.get("target_rva"))
+            and str(a.get("target_size")) == str(b.get("target_size")))
+
+
+def folded_into(ctx, old, new):
+    """True when deleted_rows.csv tombstones a special member of `old` as renamed
+    or merged into one of `new` by a fold: a name the tool-written data_ledger.csv
+    still binds on the table only because it lags the fold."""
+    for row in ctx.dicts(DELETED):
+        found = special_member(row.get("name", ""))
+        reason = row.get("reason", "")
+        target = re.match(r"(?:Renamed to|Merged into) (\S+)", reason)
+        if (found and found[1] == old and target and "(fold: retail vftable" in reason
+                and (special_member(target.group(1)) or (None, None))[1] == new):
+            return True
+    return False
+
+
+def alias_only_problems(alias, rows, owners, classes, folded=False):
+    """Why placeholder class `alias` is more than a third name for OLD's/NEW's
+    deleting destructor on T, or None. It must be a placeholder T names, row at
+    least one special member, and every special-member row of it must be a
+    deleting destructor (no constructor or destructor: a class with one would be
+    a second owner of T, an ICF fold of distinct classes) at the address and size
+    of an OLD or NEW row of the same kind and adjustor."""
+    if not is_placeholder(alias, "class"):
+        return f"{alias} is a readable name, never folded"
+    if alias not in classes:
+        return f"retail vftable names no ??_7{class_scope(alias)}@@6B@: {alias} is not on the table"
+    if not rows:
+        if folded:
+            return None                     # folded already: the cached ledger lags (see folded_into)
+        return f"{alias} rows no constructor, destructor or deleting destructor"
+    key = lambda r: (special_member(r["name"])[0].replace("_E", "_G"), adjustor_of(r["name"]) or 0,
+                     _rva(r.get("target_rva")), str(r.get("target_size")))
+    have = {key(r) for r in owners}
+    for row in rows:
+        role = special_member(row["name"])[0]
+        if role not in ("_G", "_E"):
+            return (f"{row['name']} is a {SPECIAL_ROLE[role]}: {alias} would be a second owner of the table "
+                    "(an ICF fold of distinct classes), not a third name for one body")
+        if key(row) not in have:
+            return (f"{row['name']} at 0x{_rva(row['target_rva']):08X} is no deleting destructor of the two "
+                    "folded names at that address and size")
+    return None
 
 
 def fold_access_respell(mangled_new, access):
@@ -12865,7 +12983,7 @@ def fold_layout_problems(ctx, baseline):
     return problems
 
 
-def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access=None):
+def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access=None, aliases=()):
     """Plan `class --fold`: respell placeholder class `old` as `new`, the class
     retail's vftable already names (fold_evidence); see the section comment.
     `new` may be a nested class (`A::B::C`); its units then come as
@@ -12901,8 +13019,13 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
     if old in registered or ctx.path(f"{CLASS_CONTRACTS}/{old}.json").exists():
         raise Refusal(f"{old} is registered in {CANONICAL_CLASSES} / {CLASS_CONTRACTS}; its key, contract "
                       "and class_gate allowances move in a class-reconciliation commit, not here")
+    for alias in aliases:
+        if alias in (old, new) or not IDENT.fullmatch(alias or ""):
+            raise Refusal(f"--with {alias!r} names no third class")
+        if alias in registered or ctx.path(f"{CLASS_CONTRACTS}/{alias}.json").exists():
+            raise Refusal(f"--with {alias}: a registered class is never a third name")
     tie = {}
-    table, proof = fold_evidence(ctx, old, new, tie)
+    table, proof = fold_evidence(ctx, old, new, tie, aliases=tuple(aliases))
     # A registered NEW has one shared header: a token rewrite would turn each
     # unit's OLD view into a private copy of it, so its units come prepared.
     # An unregistered global NEW is a token rewrite, unless its units come
@@ -12980,11 +13103,18 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
     # row (or pin) at its own address is that alias made redundant: dropped.
     renamed_row = {r["name"]: frag.sub(mangled_new, r["name"]) for r in rows if frag.search(r["name"])}
     created = set(renamed_row.values())
-    taken = {r["name"] for r in rows}
+    taken = collections.defaultdict(list)
+    for r in rows:
+        taken[r["name"]].append(r)
+    merges = {}                                         # OLD row name -> NEW's row it merges into
     for name, respelled in renamed_row.items():
         if respelled in taken:
-            raise Refusal(f"{name} would become {respelled}, which already names a row: this mode does not merge "
-                          "two rows (an ICF alias pair keeps its two names)")
+            mine = [r for r in rows if r["name"] == name]
+            if not same_body_pair(mine, taken[respelled]) or special_member(name) is None:
+                raise Refusal(f"{name} would become {respelled}, which already names a row: only one class's "
+                              "single special member at one address and size merges (an ICF alias pair of two "
+                              "classes keeps its two names)")
+            merges[name] = taken[respelled][0]
     rows_after = collections.defaultdict(set)           # row name after the fold -> addresses
     for row in rows:
         rows_after[renamed_row.get(row["name"], row["name"])].add(_rva(row.get("target_rva")))
@@ -13030,11 +13160,18 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
             plan.edit(ctx, SYMBOLS, after)
     for before, after in rewrite_ledger(ctx, plan, FUNCTIONS, "functions.csv", frag, mangled_new):
         at = _rva(before[2])
-        if before[0] != after[0]:
+        if before[0] in merges:
+            plan.merged_rows.append((before[0], after[0], at))
+        elif before[0] != after[0]:
             plan.renamed_rows.append((before[0], after[0], at))
         else:
             plan.notes_rows.append((before[0], at))
+    if merges:
+        merge_fold_rows(ctx, plan, merges, rows)
     for before, _after in rewrite_ledger(ctx, plan, BODY_OWNERS, "body_owners.csv", frag, mangled_new):
+        if before[1] in merges:
+            raise Refusal(f"body_owners.csv owns {before[1]}, which the fold merges into NEW's row: "
+                          "retire that ownership record first")
         plan.owner_rows.append((before[1], _rva(before[0])))
     data_index = {d.get("name"): data_rva(d) for d in datas}
     for before, after in rewrite_ledger(ctx, plan, DATA_ROWS, "data_rows.csv", frag, mangled_new):
@@ -13049,6 +13186,9 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
     lines = [tombstone_line(o, at, f"Renamed to {n} by tools/rename.py (fold: retail vftable {va})")
              for o, n, at in plan.renamed_rows + plan.renamed_data
              if at is not None and (o, at) not in tombstoned]
+    lines += [tombstone_line(o, at, f"Merged into {n} (one body, one class) by tools/rename.py "
+                                    f"(fold: retail vftable {va})")
+              for o, n, at in plan.merged_rows if (o, at) not in tombstoned]
     if lines:
         plan.edit(ctx, DELETED, appended(ctx.read(DELETED), lines, header="name,target_rva,reason"))
 
@@ -13125,8 +13265,9 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
     verify = {rel for rel in plan.source_counts if rel in ctx.ledger_sources()}
     if tie:
         verify.add(tie["owner"])
-    renamed = {o for o, _, _ in plan.renamed_rows}
+    renamed = {o for o, _, _ in plan.renamed_rows + plan.merged_rows}
     verify |= {r["source"] for r in rows if r["name"] in renamed}
+    verify |= {r["source"] for r in merges.values()}
     verify |= {r["source"] for r in rows if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
     renamed_data = {o for o, _, _ in plan.renamed_data}
     verify |= {d.get("source", "") for d in datas if d.get("name") in renamed_data}
@@ -13142,7 +13283,7 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
     if prose:
         plan.warnings.append(f"functions.csv notes still spell {old} {prose} time(s) in prose (left as written)")
     dropped = {_rva(address) for _o, _n, address in plan.dropped_pins}
-    plan.claims = sorted({at for _, _, at in plan.renamed_rows if at is not None} |
+    plan.claims = sorted({at for _, _, at in plan.renamed_rows + plan.merged_rows if at is not None} |
                          {at for _, at in plan.notes_rows if at is not None} |
                          {at for at in dropped if at is not None}) + [f"class:{old}", f"class:{new}"] + \
         sorted(f"file:{rel}" for rel in (prepared or {}))
@@ -17210,6 +17351,10 @@ def main(argv=None):
     klass.add_argument("--access", choices=sorted(VIRTUAL_CODE_OF),
                        help="with --fold and --prepared: the access the folded virtual destructor family takes "
                             "(the registered NEW header's declaration), instead of the placeholder rows'")
+    klass.add_argument("--with", dest="aliases", action="append", default=[], metavar="CLASS",
+                       help="with --fold: a third placeholder name the retail vftable carries whose only rows "
+                            "are OLD's or NEW's deleting destructor body (repeatable); it stays and is folded "
+                            "into NEW next (see docs/naming.md)")
     klass.add_argument("--merge-existing", action="store_true",
                        help="with --name on a registered placeholder: NEW is already spelled as a type (forward "
                             "declarations, views, parameter types) and owns no row, pin or definition; a "
@@ -17370,6 +17515,8 @@ def main(argv=None):
         parser.error("--access goes with --virtual")
     if args.kind == "class" and args.access and not fold:
         parser.error("--access goes with --fold")
+    if args.kind == "class" and getattr(args, "aliases", None) and not fold:
+        parser.error("--with goes with --fold")
     if virtual and (args.new or args.basis):
         parser.error("function --virtual keeps the identifier and takes its evidence from retail: "
                      "pass neither --new nor --basis")
@@ -17425,6 +17572,8 @@ def main(argv=None):
                       max_files=args.max_files, prepared=prepared or None)
         if args.access:
             kwargs["access"] = args.access
+        if args.aliases:
+            kwargs["aliases"] = tuple(args.aliases)
     elif args.kind == "function":
         try:
             kwargs.update(rva=int(args.rva, 16), old=args.old)

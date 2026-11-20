@@ -893,7 +893,25 @@ refuses unless all of these hold:
   third class's deleting destructor, OLD's and NEW's deleting destructors sit
   in T's slots, and OLD and NEW do not both row one special-member kind (one
   class has one destructor; two constructor rows stay refused in this narrow
-  mode).
+  mode). The one exception is a single row of a kind under each name at one
+  address and one size: one body two units rowed under the two names (often
+  an ICF alias row and its primary). The fold merges them. NEW's row stays,
+  OLD's is dropped and tombstoned `Merged into ... (fold: ...)`. When the
+  dropped row was the body's primary and NEW's row was its alias proven by the
+  dropped row's unit, NEW's row loses that `fold-proof=` and becomes the
+  primary. Every other same-name collision still refuses.
+- `--with X` (repeatable) admits a third placeholder name on T that rows
+  nothing of its own: X is named on T, is not registered, and its rows are
+  only deleting destructors at the address and size of OLD's or NEW's of the
+  same kind (no constructor or destructor: a class with one would be a second
+  owner of T, an ICF fold of distinct classes). X stays and is folded into NEW
+  next, as an ordinary two-name fold. A rowless X is admitted only when
+  `deleted_rows.csv` shows it already folded into NEW (the tool-written
+  `data_ledger.csv` still lists it until it is regenerated). The
+  AITargetHeuristic base (T `0x00C74CA4`) is three names:
+
+      python3 tools/rename.py class --fold Rva005CB23C --into Rva005CB22A --with Rva005CB243 --prepared ...
+      python3 tools/rename.py class --fold Rva005CB243 --into Rva005CB22A --with Rva005CB23C --prepared ...
 - A NEW with no row naming T and no virtual method may instead be tied by retail's
   initializer (`initializer_tie`, P36). Retail must build a global rowed as NEW with
   OLD's constructor, in exactly `mov ecx,&G; call ctor` then `ret` or an atexit
