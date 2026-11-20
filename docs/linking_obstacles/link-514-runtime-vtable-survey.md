@@ -3951,3 +3951,11 @@ extent. The 11-source scope verifies 150 function rows and maintains
 17,825 bytes in the ordinary link preview. The next authoritative link
 that includes the change must confirm bridge retirement.
 [Native evidence](../../reverse/attempt_support/line-of-sight-filter-slot3-20261120-root20.md).
+## 2026-11-20: UpdateModule stand-in bases (seat halilkkaya-um)
+The UpdateModule / BehaviorModule header adoption the two largest families wait on fails because 40 of
+the 75 emitting units model UpdateModule (or its intermediate) as a padded root plus one-slot sibling
+stand-ins (`MiBase1`/`*_M1`, `*_B2`, `*_E1`), which the lane's same-name swap cannot replace. Eight commits
+re-base 39 classes in ten emitter units by hand on the canonical chain (UpdateModule.h, ObjectHelper.h,
+SpecialAbilityUpdate.h, the DockUpdate view), rebinding the constructor units that store their tables by
+name: bridge plan 3,084 -> 3,017 bridged, 2,420 -> 2,459 correct, 33,299 -> 30,877 mismatching source
+slots. Census, method, per-commit figures and the remaining families: [LINK-694](link-694-updatemodule-stand-in-bases-block-header-adoption-in-the-bridge.md).
