@@ -6,7 +6,7 @@
 // then loops with test [ecx] esi over 0x13 dwords. Callers include 0x0026545E
 // and 0x00265B5D which pass 76-byte mask objects and test al.
 
-typedef bool Bool;
+
 
 class Rva00263546
 {

@@ -27,7 +27,7 @@ void *&vector<void*>::operator[](size_t __n)
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class Rva0021294A;
+
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 #include "../../Include/Common/Rva00DFE1C8Host.h"
