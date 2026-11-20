@@ -1,5 +1,5 @@
 // cl: /O1 /MD /EHsc /Ireference/shims/bfme2_ascii /DNDEBUG
-// ??1Rva005B5CF4@@UAE@XZ, retail 0x005B5CF4..0x005B5E03 (271 bytes, EH):
+// ??1Rva005B6B93@@UAE@XZ, retail 0x005B5CF4..0x005B5E03 (271 bytes, EH):
 // by its literals the Create-a-Hero manager screen's destructor (opaque pin
 // of its scalar deleting destructor 0x005B6166; table 0x00C735C0). It closes
 // the "CahManager::InitGadgets" Apt screen; when its +0x16 flag is set it
@@ -47,17 +47,17 @@ public:
 	virtual ~Rva005B253F() {}
 };
 
-class Rva005B5CF4 : public Rva005B253F
+class Rva005B6B93 : public Rva005B253F
 {
 public:
-	virtual ~Rva005B5CF4();
+	virtual ~Rva005B6B93();
 private:
 	Rva005B5CF4Setup *m_setup;		// +0x04
 	char m_pad08[0x16 - 8];
 	bool m_startOnExit;			// +0x16
 };
 
-Rva005B5CF4::~Rva005B5CF4()
+Rva005B6B93::~Rva005B6B93()
 {
 	_bfme_closeAptScreen(AsciiString("CahManager::InitGadgets"));
 	if (m_startOnExit)

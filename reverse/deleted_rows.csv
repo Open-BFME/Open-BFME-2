@@ -6394,3 +6394,6 @@ _$E10,0x007AE908,"Respelled to _$E1 by tools/rename.py initializers (^code_^game
 __ehhandler$??0Rva005CE804@@QAE@PAXHHHHPAUFwdArg@@@Z,0x007A1714,"Renamed to __ehhandler$??0Rva005CE874@@QAE@PAXHHHHPAUFwdArg@@@Z by tools/rename.py (fold: retail vftable 0x00C75184)"
 ??1Rva005CE804@@UAE@XZ,0x005CE874,"Merged into ??1Rva005CE874@@UAE@XZ (one body, one class) by tools/rename.py (fold: retail vftable 0x00C75184)"
 ??_GRva005CE804@@UAEPAXI@Z,0x005CE8C0,"Merged into ??_GRva005CE874@@UAEPAXI@Z (one body, one class) by tools/rename.py (fold: retail vftable 0x00C75184)"
+??1Rva005B5CF4@@UAE@XZ,0x005B5CF4,"Renamed to ??1Rva005B6B93@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C735C0)"
+__ehhandler$??1Rva005B5CF4@@UAE@XZ,0x0079F51E,"Renamed to __ehhandler$??1Rva005B6B93@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C735C0)"
+??_GRva005B5CF4@@UAEPAXI@Z,0x005B6166,"Renamed to ??_GRva005B6B93@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C735C0)"

@@ -119,6 +119,3 @@ Rva005B6B93::Rva005B6B93(AptCreateAHero *owner)
 	BIND_COMMAND(&Rva005B5B92::rva005B5B92, "AptCreateAHero::OnMyPowerRollOut")
 	{ AsciiString name("CahManager::InitGadgets"); _bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(MakeDelegate(this, &AptCreateAHero::Manager::InitGadgets))); }
 }
-
-// ?Rva005B6B93::~Rva005B6B93 present-unmatched
-Rva005B6B93::~Rva005B6B93() {}

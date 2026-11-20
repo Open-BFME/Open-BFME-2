@@ -120,16 +120,16 @@ Rva005B5420::Rva005B5420(EmitVtableTag *)
 {
 }
 
-class Rva005B5CF4
+class Rva005B6B93
 {
 public:
-	Rva005B5CF4(EmitVtableTag *);
+	Rva005B6B93(EmitVtableTag *);
 public:
-	virtual ~Rva005B5CF4();
+	virtual ~Rva005B6B93();
 };
 
-// ?<Rva005B5CF4::Rva005B5CF4> absent-from-retail
-Rva005B5CF4::Rva005B5CF4(EmitVtableTag *)
+// ?<Rva005B6B93::Rva005B6B93> absent-from-retail
+Rva005B6B93::Rva005B6B93(EmitVtableTag *)
 {
 }
 
