@@ -4435,7 +4435,6 @@ name,address,notes
 ?bfmeGo929C@@YAPAXXZ,0x0065CEA0
 ?bfmeGo996B@BfmeB996@@QAEDHHPAD@Z,0x001068D1,callee read from the retail REL32 in placed BFME1-donor body ?update@Rva007E4AD0Vp6Stream@@QAEXXZ (0x00091189)
 ?bfmeGoD540@BfmeObjD540@@QAEXVAsciiString@@@Z,0x005B7E02,"callee of ?bfmeParseD780@@YAXPAVINI@@PAX1PBX@Z at retail 0x005B7F8C read from its REL32 displacement; donor-reconstruction name for the function at that address (Ghidra FUN_009b7e02, 343B); body unrowed"
-?bfmeGoVJH@BfmeOwner803BF0@@QAEXH@Z,0x0066F9B0
 ?bfmeGrowV21@BfmeStrV21@@QAEXXZ,0x00023A40
 ?bfmeGrowV22@BfmeStrV22@@QAEXXZ,0x00023A40
 ?bfmeGrowV23@BfmeStrV23@@QAEXXZ,0x00023A40
@@ -4547,7 +4546,6 @@ name,address,notes
 ?bfmeSetDYF@BfmeGlobDYF@@QAEX_N@Z,0x001EE5BE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeSetESI@BfmeStateESI@@QAEXH@Z,0x0066D830
 ?bfmeSetGM@BfmeDerivedGM@@QAEXPAX@Z,0x00665600
-?bfmeSetSizeVLR@Rva007EB8B0Log@@QAEXH@Z,0x00658730
 ?bfmeSetTexture@Image@@QAEXABVBfmeMapPictureTexture@@@Z,0x002D905E,recovered texture setter allocates a separate 4-byte holder at Image+0x2C and retains/replaces its pointer via 0x000424D0
 ?bfmeSetVHE@BfmeMsgVHE@@QAEXPAXH@Z,0x00655960
 ?bfmeSetVIR@BfmeMsgVIR@@QAEXPBDPAX@Z,0x00655AA0
@@ -4681,8 +4679,6 @@ name,address,notes
 ?clear@SubTree005C6B83@@QAEXXZ,0x005C6B83,SubTree005C6B83 clear method called by Rva005C6C7B::reset
 ?clear@TeamRelationHashMap@@QAEXXZ,0x001DBCDC,TU view of the +4 relation hash map cleared by ~TeamRelationMap 0x003A2563 (Zero Hour m_map.clear()) read from its REL32 displacement; ICF-folded hashtable clear rowed under another instantiation name
 ?clear@W3DRoadBufferRef18@@QAEXXZ,0x0004D75B,W3DRoadBuffer+0x18 holder cleared in freeRoadBuffers (call at 0x000D778F); folded generic Release-then-zero holder clear
-?clearItems@Rva003FA26F@@QAEXXZ,0x00402C4E,address read from the REL32 displacement at byte-matched bodies 0x003FA14B..0x003FA30C; folds with Rva00403055 clearItems
-?clearItems@Rva00402D7E@@QAEXXZ,0x00402C4E,address read from the REL32 displacement at byte-matched bodies 0x00402C8A..0x00402DEB; folds with Rva00403055 clearItems
 ?clearSlot@Rva007FA2C0@@QAEXPAX@Z,0x00666030
 ?clearStorage@Rva003F5254Vector104@@QAEXXZ,0x003B90BD,"Native003F5254 calls existing verified ledger provider003B90BD; call ABI and stride104 independently read from target; linker alias to exact existing provider. Address-view route only; no application class inferred."
 ?clearWaypointQueue@AIUpdateInterface@@QAEXXZ,0x0026295E,BFME2 NAMED_FACE_NAMED body at 0x3C99C1 calls this on the target unit AIUpdateInterface before leaveGroup and aiFaceObject; BFME1 donor identifies clearWaypointQueue
@@ -5321,7 +5317,6 @@ name,address,notes
 ?notifyOther@BfmeLinkedObjBE@@QAEXPAV1@PAX@Z,0x002ADF9C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?okToPlayRadarEdgeSound@Player@@QAE_NXZ,0x002AA04C,Reference Player radar-edge predicate inferred from native notification callers and matching five-clause chain; bool-interface66B trial exact; linker alias binds rowed address-derived normalized0/1 provider
 ?onBusy@Rva007FA2C0@@QAEXPAX@Z,0x00665F20
-?onConnectReply@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z,0x0066CB90
 ?onEnterReached@DockUpdate@@UAEXPAVObject@@@Z,0x00589DDD,"DockUpdateInterface slot 9 in every dock +0x20 vtable: docking model conditions on both Objects, docker-inside byte +0x64 set, approach slot of the docker freed via 0x00589AFF, the Zero Hour onEnterReached"
 ?onExit@State@@UAEXW4StateExitType@@@Z,0x0047A69C,"base State::onExit, empty: slot 5 of 39 state vftables (e.g. 0x00C10E48 0x00C110D0 0x00C11DB0) is the shared 3-byte ret 4 at 0x0047A69C; REL32 base call from AIHordeEnterState::onExit 0x003462D8 and AICowerState slot 5 0x00340303"
 ?opaqueCall@Rva00507552@@SAPAXXZ,0x00507552,opaque static table getter (6B mov eax,0xC63FD0 + ret: RequiredUpgradeNames/ForbiddenUpgradeNames/SpecialObjectFilter table); called once from dup_0050B107 with ignored pushed 0 (that push is add() index arg); host opaque, identity unproven

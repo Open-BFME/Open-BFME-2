@@ -110,7 +110,7 @@ void Rva003FA26F::copyItems(const Rva003FA26F &other)
 		m_items.push_back(new Rva003FA118(**it));
 }
 
-// clearItems is retail's shared 0x00402C4E (pinned; Rva00403055::clearItems
-// folds there) and lives in another unit. Defining it here let cl prove the
+// clearItems is retail's shared 0x00402C4E (rowed as Rva00403055::clearItems)
+// and lives in another unit. Defining it here let cl prove the
 // erase chain nothrow once __copy_trivial is declared throw(), dropping the
 // dtor's EH state around the call that retail keeps.

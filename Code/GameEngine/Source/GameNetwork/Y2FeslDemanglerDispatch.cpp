@@ -49,11 +49,13 @@ struct Rva00800E50Stamp
 
 void __cdecl Rva007F91D0( Rva00800E50Header *hdr, const char *dir );
 
+// The ECHO handler 0x0066CB90 is rowed as Rva00800780Owner::onConnectReply (gamebrowserdemangler.cpp); call it by that name.
+class Rva00800780Owner { public: void onConnectReply( Rva007E8810Message *msg ); };
+
 class Rva00800E50Owner
 {
 public:
 	void onDispatch( Rva00800E50Header *hdr );
-	void onConnectReply( Rva007E8810Message *msg );                    // 0x00800780
 	void bfmeDo1052( int a, Rva00800E50Stamp *p, int r );              // 0x00800BD0
 	void bfmeFreeVNC( Rva007E8810Message *msg );                       // 0x00800CD0
 };
@@ -110,7 +112,7 @@ void Rva00800E50Owner::onDispatch( Rva00800E50Header *hdr )
 		}
 		else
 		{
-			onConnectReply( &msg );
+			((Rva00800780Owner *)this)->onConnectReply( &msg );
 		}
 	}
 }

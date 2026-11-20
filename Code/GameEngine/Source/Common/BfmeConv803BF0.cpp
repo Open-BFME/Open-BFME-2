@@ -1,6 +1,6 @@
 // cl: /GX- /GS
 // FESL LLST builder @ 0x00803BF0 (157B).
-// NUM-LOBBIES=1, optional TID, submit, then bfmeGoVJH(TID).
+// NUM-LOBBIES=1, optional TID, submit, then BfmeThingVJH::bfmeGoVJH(TID) (0x0066F9B0, BfmeConv1385.cpp).
 
 class BfmeMsg803BF0
 {
@@ -20,11 +20,16 @@ public:
 	int getInt(const char *k, int d) throw();
 };
 
+class BfmeThingVJH
+{
+public:
+	void bfmeGoVJH(int messageTid);
+};
+
 class BfmeOwner803BF0
 {
 public:
 	void go(BfmeSrc803BF0 *src);
-	void bfmeGoVJH(int a) throw();
 };
 
 // Ledger row at 0x0066F930 owns the send body (?send@Rva008038F0Sender); call it by that name.
@@ -41,5 +46,5 @@ void BfmeOwner803BF0::go(BfmeSrc803BF0 *src)
 	if (tid != -1)
 		msg.addInt((char *)"TID", tid);
 	((Rva008038F0Sender *)this)->send((BfmeC994 *)&msg);
-	bfmeGoVJH(src->getInt((char *)"TID", 0));
+	((BfmeThingVJH *)this)->bfmeGoVJH(src->getInt((char *)"TID", 0));
 }

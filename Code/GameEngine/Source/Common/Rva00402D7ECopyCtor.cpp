@@ -49,13 +49,16 @@ private:
 	char m_bytes[0x64];
 };
 
+// clearItems is retail's shared 0x00402C4E, rowed as Rva00403055::clearItems
+// (Rva00403055CopyCtor.cpp); call it by that name.
+class Rva00403055 { public: void clearItems(); };
+
 class Rva00402D7E
 {
 public:
 	Rva00402D7E(const Rva00402D7E &other);
 	~Rva00402D7E();
 	Rva00402D7E &operator=(const Rva00402D7E &other);
-	void clearItems();
 	void copyItems(const Rva00402D7E &other);
 
 private:
@@ -74,7 +77,7 @@ Rva00402D7E::Rva00402D7E(const Rva00402D7E &other)
 
 Rva00402D7E::~Rva00402D7E()
 {
-	clearItems();
+	((Rva00403055 *)this)->clearItems();
 }
 
 Rva00402D7E &Rva00402D7E::operator=(const Rva00402D7E &other)
@@ -92,7 +95,7 @@ Rva00402D7E &Rva00402D7E::operator=(const Rva00402D7E &other)
 
 void Rva00402D7E::copyItems(const Rva00402D7E &other)
 {
-	clearItems();
+	((Rva00403055 *)this)->clearItems();
 	m_items.reserve(other.m_items.size());
 	_STL::vector<Rva00402C0F *>::const_iterator it = other.m_items.begin();
 	_STL::vector<Rva00402C0F *>::const_iterator end = other.m_items.end();
