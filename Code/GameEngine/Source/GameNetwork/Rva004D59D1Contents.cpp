@@ -7,16 +7,16 @@
 // Push order is base then +0x20 then +0x1c (retail pushes +0x1c first).
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef int Int;
+
+
+
 
 enum NetCommandType
 {
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
 
-class MemoryPool;
+
 
 
 __forceinline const char *GetStr004D634E(const AsciiString &asciiString)

@@ -36,7 +36,7 @@ struct Rva007FA170Slot
 	void *m_10;
 };
 
-struct BfmeSlotRecord;
+
 
 #include "../../Include/GameNetwork/BfmeSlotPool.h"
 

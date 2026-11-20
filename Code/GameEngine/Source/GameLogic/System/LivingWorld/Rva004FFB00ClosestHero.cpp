@@ -48,7 +48,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 extern unsigned int g_Va00E04544;
 
-class Rva002E2903Player;
+
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 

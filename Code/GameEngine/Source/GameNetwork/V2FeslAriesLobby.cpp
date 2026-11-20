@@ -4,7 +4,7 @@
 // literal (push 0x112b500 vs 0xce2d1c) the patcher fills, so the body below
 // is the donor verbatim.
 
-typedef __int64 FeslInt64;
+
 
 #include "../../Include/GameNetwork/Rva007E8810Message.h"
 

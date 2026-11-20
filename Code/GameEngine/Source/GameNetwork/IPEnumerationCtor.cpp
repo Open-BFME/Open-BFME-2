@@ -4,7 +4,7 @@
 // nulls the address-list head and clears the winsock flag (8-byte object, no
 // vtable; the dtor at 0x50C283 reads the same two slots).
 
-class EnumeratedIP;
+
 
 #include "../../Include/Common/IPEnumeration.h"
 

@@ -3,16 +3,16 @@
 // Target evidence: vtable 0x008601E4 slot 3, members +4/+8/+0xC/+0x10 word +0x24 from retail pushes, format "<session=%d,frame=%d, player=%d, id=%d>, %s" at 0x00860330, callees getCommandTypeAsAsciiString 0x0030FA44 plus format 0x00038150 plus releaseBuffer 0x00036410 plus StringBase copy 0x000365F0, empty fallback g_Rva0107301CEmptyString; donor BFME1 NetCommandMsg_getContentsAsAsciiString.cpp plus NetGameCommandMsgCtor.cpp layout.
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef int Int;
+
+
+
 
 enum NetCommandType
 {
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
 
-class MemoryPool;
+
 
 
 __forceinline const char *GetStr004D5D55(const AsciiString &asciiString)

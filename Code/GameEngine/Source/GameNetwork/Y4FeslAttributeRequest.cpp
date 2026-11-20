@@ -7,7 +7,7 @@
 // b1 0x007FC810 214B; b2 0x00668D10. Immediate-only drift is a DIR32 string
 // literal the patcher fills, so the body below is the donor verbatim.
 
-typedef __int64 FeslInt64;
+
 
 #include "../../Include/GameNetwork/Rva007E8810Message.h"
 

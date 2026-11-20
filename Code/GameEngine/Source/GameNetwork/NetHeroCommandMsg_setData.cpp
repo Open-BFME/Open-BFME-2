@@ -8,9 +8,9 @@
 #include <new>
 void __cdecl ji_006291a8();
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef int Int;
+
+
+
 enum NetCommandType
 {
 	NETCOMMANDTYPE_UNKNOWN = -1

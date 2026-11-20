@@ -16,7 +16,7 @@
 #include "Lib/Coord3DCtorView.h"
 class Rva005A9562 { public: float rva005A92DE(void *); private: void *m_ptr; };
 #include "wwmath.h"
-struct Rva002A8AB1Record;
+
 #include "../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 #include "../../../../../Include/Common/Rva004EBF4B.h"

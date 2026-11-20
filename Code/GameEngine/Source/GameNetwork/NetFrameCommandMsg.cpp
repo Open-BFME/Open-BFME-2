@@ -7,7 +7,7 @@
 // NETCOMMANDTYPE_FRAMEINFO, set by NetFrameCommandMsg's ctor, and a BFME 1 donor
 // body compiled /O1 places its NetFrameCommandMsg ctor call at this address.
 // Formerly rowed as Rva004CEEC3.
-class AsciiString;
+
 
 // NetCommandMsg as NetCommandMsgCtor.cpp declares it (retail vtable 0x860130:
 // deleting dtor, getSortNumber, the folded bool slot, getContentsAsAsciiString).

@@ -91,7 +91,7 @@ public:
 
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldPendingBattle;
+
 #include "../../../Include/GameLogic/LivingWorldRegionManager.h"
 struct Rva0040F87ELivingWorldLogic { char pad00[0xb0]; LivingWorldRegionManager *m_regionManager; };
 

@@ -18,7 +18,7 @@ struct LivingWorldScriptCampaigns
     int selected;
     LivingWorldScriptCampaign **campaigns;
 };
-class LivingWorldCampaignManager;
+
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
 extern GameLogic *TheGameLogic;

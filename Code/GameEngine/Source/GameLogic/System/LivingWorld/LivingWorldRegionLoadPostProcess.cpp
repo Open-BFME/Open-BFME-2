@@ -14,7 +14,7 @@
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/Rva003EFDF5Host.h"
 
-class Xfer;
+
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 
 typedef void (Rva003EFDF5Host::*Rva003EFDF5ByteSetter)(bool);

@@ -58,7 +58,7 @@ __forceinline long FloatToLong(float floatValue)
 #include "../../../Include/GameLogic/Rva00065964ObjectPool.h"
 extern Rva00065964ObjectPool g_pool00286136;
 extern Rva00065964ObjectPool g_pool00286116;
-void Rva00286116Free(void *node);
+
 
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -133,8 +133,8 @@ struct Rva00286297
 // through 0x0020DFFB and the last
 // one out removes it through 0x0020DAE0; only these two bodies touch it.
 class ModuleData;
-void __cdecl Rva0020DFFBRegister(const ModuleData *);
-void __cdecl Rva0020DAE0(void *);
+
+
 #include "../Map/FireLogicSystemParseRegistration.h"
 
 
@@ -201,7 +201,7 @@ private:
 	Int m_9C;
 };
 
-void Rva00286136Free(void *node);
+
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 
@@ -219,7 +219,7 @@ namespace _STL
 	};
 }
 #include "../../../Include/GameLogic/Rva00286214Node.h"
-struct Rva002E6EFFPosition;
+
 #include <new>
 
 // m_cellsOnFire's clear (0x0028662D).

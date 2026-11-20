@@ -64,7 +64,7 @@ private:
 	void *m_data;
 };
 
-void b_00042a50( void );
+
 static void raiseOverlays( void );
 
 // BFME WindowLayout vtable order (see game/.../window_layout.h):

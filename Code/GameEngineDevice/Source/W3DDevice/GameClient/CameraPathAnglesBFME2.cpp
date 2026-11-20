@@ -37,7 +37,7 @@ class Rva00089510 : public Rva000869CF
 public:
 	void rva00089510(bool,float,int);
 };
-class Rva0089971;
+
 struct BfmePathWaypoint20 { Coord3D position; void *nameStorage; int lastWord; };
 struct BfmePathAnglesFields {
  unsigned char pad00[0x2C]; BfmePathWaypoint20 waypoints[255], extra[4];

@@ -41,7 +41,7 @@ public:
 #include "../../../../Include/Common/Rva002E0BEB.h"
 
 class Rva002E2285;
-class Rva002E2903Player;
+
 
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 

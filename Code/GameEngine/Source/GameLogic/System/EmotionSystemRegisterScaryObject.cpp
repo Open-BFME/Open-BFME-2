@@ -29,7 +29,7 @@ private:
 	ObjectID m_id;
 };
 
-class EmotionNugget;
+
 
 class EmotionSystem
 {

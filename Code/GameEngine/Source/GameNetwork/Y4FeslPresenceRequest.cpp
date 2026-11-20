@@ -18,7 +18,7 @@
 // The scratch has no frame of its own: MSVC reuses the incoming argument home
 // area for it, which is why there is no `sub esp` in the prologue.
 
-typedef __int64 FeslInt64;
+
 
 #include "../../Include/GameNetwork/Rva007E8AC0.h"
 

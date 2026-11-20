@@ -22,7 +22,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-typedef int Bool;
+
 #include "subsystem_interface.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
@@ -47,7 +47,7 @@ public:Rva002A8F24();virtual ~Rva002A8F24();virtual void init(){}virtual void re
 
 namespace _STL {template<> vector<ObjectID>::iterator vector<ObjectID>::erase(iterator);}
 class Rva004DF95DOwner {public:void rva004DF95D();};
-class Object;
+
 extern GameLogic*TheGameLogic;
 #include "../../../Include/Common/AIGameTeam.h"
 void Rva002A8F24::update(){

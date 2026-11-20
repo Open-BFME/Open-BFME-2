@@ -10,7 +10,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
+
 
 class Rva002E2903Player
 {

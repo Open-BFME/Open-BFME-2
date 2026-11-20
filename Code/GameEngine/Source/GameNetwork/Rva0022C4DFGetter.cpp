@@ -8,7 +8,7 @@
 // of it at 0x00046929 0x0023F7B2 0x002B846E 0x00383979 0x004FE2F4 0x004FEF3E
 // 0x005A0E75 0x005A2CBB 0x005A2D24. Unlock lane unblocks 7 functions.
 // Owner unproven so honest-address class Rva0022C4DF. No new pins.
-typedef unsigned short WideChar;
+
 
 #include "unicode_string.h"
 

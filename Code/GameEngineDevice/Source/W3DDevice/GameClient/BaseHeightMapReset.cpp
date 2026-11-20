@@ -82,7 +82,7 @@ public:
 #include "../../../Include/W3DDevice/GameClient/Rva000731AE.h"
 class Rva000729CC { public: void rva000729CC(bool level); };
 #include "../../../Include/W3DDevice/GameClient/Rva00073C7A.h"
-struct BfmeResetResource;
+
 #include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 class GlobalData

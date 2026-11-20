@@ -41,7 +41,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 
 struct Rva002B3740Item;
-class Rva0020E89C;
+
 #include "../../../Include/GameLogic/Rva0020EAF6View.h"
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 

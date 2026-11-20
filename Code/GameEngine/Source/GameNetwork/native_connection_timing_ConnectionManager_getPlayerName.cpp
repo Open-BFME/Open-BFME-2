@@ -92,8 +92,8 @@ enum NetCommandType
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h
-class GameMessage;
-class GameMessageArgument;
+
+
 
 // The constructor at RVA 0x00674A40 copies a GameMessage's type and arguments.
 // Its 0x30-byte allocation and field stores agree with the upstream layout.
@@ -210,9 +210,9 @@ extern GameClient *TheGameClient;
 #include "../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
-extern unsigned int g_dword010EAD50;
-extern unsigned int g_lastPacketRouterStallFrame;
-extern int FRAMES_TO_KEEP;
+
+
+
 
 template <class T> const T &frameMaximum(const T &lhs, const T &rhs)
 {
@@ -275,8 +275,8 @@ public:
 	virtual const char *getAuthSecretText();
 };
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
-extern "C" char *goastrdup(const char *text) throw();
-extern "C" char *GenerateAuthA(char *challenge, char *password, char *response);
+
+
 
 class NetChatCommandMsg : public NetCommandMsg
 {

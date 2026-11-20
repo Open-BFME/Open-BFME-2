@@ -7,16 +7,16 @@
 // callee base 0x004D5B4C, format 0x00038150, empty fallback g_Rva0107301CEmptyString.
 #include "ascii_string.h"
 
-typedef unsigned int UnsignedInt;
-typedef unsigned short UnsignedShort;
-typedef int Int;
+
+
+
 
 enum NetCommandType
 {
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
 
-class MemoryPool;
+
 
 
 __forceinline const char *GetStr004D6661(const AsciiString &asciiString)

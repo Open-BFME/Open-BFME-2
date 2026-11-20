@@ -8,7 +8,7 @@
 // 0x002408E1 0x00240981 0x00240A11 0x00240AB2 0x00240B0D 0x00240B9C in
 // 0x00240866 plus 0x00590FB0 0x00591335 0x00591AE3 0x005938BF.
 // Unlocks 5 functions of which 3 become ready. No new pins.
-typedef unsigned short WideChar;
+
 
 #include "unicode_string.h"
 

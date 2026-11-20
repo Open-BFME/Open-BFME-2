@@ -14,7 +14,7 @@
 
 
 class ModuleData;
-class ArmySummary;
+
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 

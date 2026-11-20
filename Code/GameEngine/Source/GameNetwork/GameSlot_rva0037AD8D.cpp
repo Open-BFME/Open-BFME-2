@@ -8,7 +8,7 @@
 // callers. No reference source names it; the layout is the matched
 // GameSlot's (GameSlotCtor.cpp).
 
-class Xfer;
+
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
