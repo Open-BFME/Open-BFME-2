@@ -83,10 +83,38 @@ Landed (commits by subject):
   AIGoingIdleState, AIAttackFollowWaypointPathState, AIAttackMoveToState, AIFollowPathAsTeamState,
   GiantBirdAttackMoveToState, AIAttackMeleeHordeWaitState). AIStateHashCtors0033F2FD.cpp emits seven of those
   tables too and declares the same overrides.
+- "Complete three private AIInternalMoveToState views with its rowed virtuals": AIAttackMoveStateMachine.cpp,
+  AIGuardRetaliate.cpp and Rva00367518Ctor.cpp. AIGuardRetaliate.cpp builds State with the capitalized Snapshot
+  slots (slot 3 DoXfer), so xfer is not declared there; check slot positions in the compiled table.
+- "Re-base two AIInternalMoveToState ctor units on the canonical State header" and "Re-base three more ...":
+  AIStateEvacLeafCtors, Rva003429B9Ctor, AIStateMoveTightenCtors, Rva00342843Ctor and Rva00342EACCtor. Each
+  drops its private 7-slot State view for Common/StateMachine.h and keeps an AIInternalMoveToState view of only
+  the rowed virtuals with providers (no slot 2 or 7 override), so ten tables go from 7 to 18 slots. Rva00342843Ctor's
+  and Rva00342EACCtor's eight `/alternatename` directives now alias spellings their objects no longer reference
+  (the xfer one no unit references); removing them needs a Verifier-Change commit (hatch_baseline.tsv).
+- "Re-base Rva00342826Ctor and Rva00342B87Ctor on the canonical State header": the same, two tables.
 
-Not taken: overrides whose rows carry a non-canonical spelling (`?onEnter@AIHuntState@@UAEHXZ`,
-`?onExit@AIHarvestState@@UAEXH@Z`, `?update@AIGoingIdleState@@QAEHXZ`, ...) need a signature respell first. The
-Turret tables need TurretStateMachineCtor.cpp's stand-in base re-based on State: its states are created with
-`new`, so every pure slot must be declared, and TurretAIIdleState's xfer is the ICF body 0x00544AB3.
-Scratch: build/st/census.py (census), overrides.py and declare.py (the recipe), getter_move.py (the refused
-getter batch).
+Measure over the six commits: mismatching source slots 32,895 -> 32,737 (family 862 -> 704), bridged 3,020 ->
+3,020, correct 2,496 -> 2,496, refusals identical, undefined-without-definer 2,806 -> 2,804, every judge ACCEPT,
+every touched unit LINK in link_check. No table turned fully correct: every imt table still waits on slot 0 (the
+`??_GX` twin at 0x00346CFB), slot 2 (GetSnapshotName) and slot 7, and most also on identity.
+
+Slot 0 (39 imt tables): `add_match.py --icf-owner` refuses the first step, `??1X` as the twin of 0x00368793:
+`unresolved call(s): ??1AIInternalMoveToState@@UAE@XZ (add to reverse/symbols.csv)`. Retail's 0x00368793 jumps to
+0x0033FF2B, rowed `??1Rva0033FF2B@@UAE@XZ`, and no row or pin binds the class's own destructor name there. It waits
+on the Rva0033FF2B -> AIInternalMoveToState fold (LINK-618) or an admitted pin. 0x00368793 was also claimed by
+another worker that day.
+
+Not taken:
+- overrides whose rows carry a non-canonical spelling (`?onEnter@AIHuntState@@UAEHXZ`,
+  `?onExit@AIHarvestState@@UAEXH@Z`, `?update@AIGoingIdleState@@QAEHXZ`, ...): `--respell` refuses a return type
+  or an enum parameter.
+- the Turret tables: TurretStateMachineCtor.cpp's stand-in base would need re-basing on State. Its states are
+  created with `new`, so every pure slot must be declared, slot 2 is a getter move (approval) and
+  TurretAIIdleState's xfer is the ICF body 0x00544AB3.
+- Rva0033FC42Dtor.cpp: re-basing on State turns its non-virtual `int update()` (`?update@Rva0033FC42@@QAEHXZ`)
+  into a C2555 override.
+- AIStatesSmallUpdates, AIGuardStates, AIStates, Rva0036804FCtor: private StateMachine views or their own enums.
+
+Scratch: build/st/census.py (census), overrides.py and declare.py (declarations), imt_complete.py and
+state_rebase.py (the view recipes), getter_move.py (the refused getter batch).
