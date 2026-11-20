@@ -533,10 +533,12 @@ public:
 class WeaponModeSpecialPowerUpdate : public Rva00589079, public Rva00494A97_S1, public Rva00494A97_S2, public Rva00494A97_S3, public Rva00494A97_S4
 {
 public:
-	virtual ~WeaponModeSpecialPowerUpdate()
-	{
-	}
+	virtual ~WeaponModeSpecialPowerUpdate();
 };
+
+inline WeaponModeSpecialPowerUpdate::~WeaponModeSpecialPowerUpdate()
+{
+}
 
 // Anchor: forces out-of-line emission of the in-class destructor COMDAT,
 // including the scalar deleting destructor.
