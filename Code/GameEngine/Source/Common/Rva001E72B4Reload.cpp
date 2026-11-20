@@ -147,13 +147,20 @@ public:
 	int m_compare; // +0x08
 };
 struct LocomotorParserView { void *vtable; Overridable *next; bool overrideFlag; char pad9[3]; int retired; };
-class LocomotorStore {
-public:
- LocomotorTemplate *findLocomotorTemplate(int);
- LocomotorTemplate *newOverride(LocomotorTemplate *);
- static void parseLocomotorTemplateDefinition(INI *);
- char pad[0xC]; _STL::map<int,int> templates; _STL::vector<LocomotorTemplate *> retired;
+#include "../../Include/GameLogic/LocomotorStore.h"
+
+// The reload parser accesses the map at +0x0C and retired vector at +0x18.
+struct LocomotorStoreStorage
+{
+    unsigned char beforeTemplates[0x0C];
+    _STL::map<int, int> templates;
+    _STL::vector<LocomotorTemplate *> retired;
 };
+
+static __forceinline LocomotorStoreStorage &locomotorStoreStorage(LocomotorStore *store)
+{
+    return *reinterpret_cast<LocomotorStoreStorage *>(store);
+}
 extern LocomotorStore *TheLocomotorStore;
 
 // User data of the 0x007DE2F8 table: retail's .data name arrays at
@@ -272,18 +279,18 @@ void LocomotorStore::parseLocomotorTemplateDefinition(INI *ini) {
    loco=store->newOverride(final);
   } else if(ini->m_loadType==5) {
    ((LocomotorParserView *)loco)->retired=1;
-   Rva001E6731 *map=(Rva001E6731 *)&TheLocomotorStore->templates;
+   Rva001E6731 *map=(Rva001E6731 *)&locomotorStoreStorage(TheLocomotorStore).templates;
    map->eraseKey(key);
-   reinterpret_cast<_STL::vector<const ModuleData*> *>(&TheLocomotorStore->retired)->push_back(reinterpret_cast<const ModuleData* const&>(original));
+   reinterpret_cast<_STL::vector<const ModuleData*> *>(&locomotorStoreStorage(TheLocomotorStore).retired)->push_back(reinterpret_cast<const ModuleData* const&>(original));
    if(((LocomotorParserView *)loco)->overrideFlag) g_Va00DFDC61=true;
    loco=new LocomotorTemplate;
    ((LocomotorParserView *)loco)->retired=0;
-   TheLocomotorStore->templates[key]=(int)loco;
+   locomotorStoreStorage(TheLocomotorStore).templates[key]=(int)loco;
   } else return;
  } else {
   loco=new LocomotorTemplate;
   if(ini->m_loadType==2) ((LocomotorParserView *)loco)->overrideFlag=true;
-  TheLocomotorStore->templates[key]=(int)loco;
+  locomotorStoreStorage(TheLocomotorStore).templates[key]=(int)loco;
  }
  }
  if(loco) {
