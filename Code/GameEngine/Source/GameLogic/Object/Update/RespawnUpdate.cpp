@@ -187,15 +187,24 @@ public:
 // No user-declared destructor: retail's ??1 (0x004AFBFF) stores no derived
 // vptr on entry while the ctor installs vtable 0xC556F8, which is the
 // compiler-generated destructor's shape.
-class RespawnUpdateModuleData : public Snapshot
+// Retail's table for RespawnUpdateModuleData is ModuleData's 31 slots: the canonical base supplies them, its
+// module tag at +4 standing where this view kept an unnamed int.
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class RespawnUpdateModuleData : public ModuleData
 {
+public:
+	// Retail slot 13 (0x0050B5C6) is the shared `mov al,1; ret` stub.
+	virtual bool slot13() const { return true; }
+	// Retail slot 28 (0x0047A6A9) is the shared `mov eax,ecx; ret` stub.
+	virtual const void *slot28() const { return this; }
+
 public:
     RespawnUpdateModuleData();
     static void buildFieldParse(MultiIniFieldParse &parse);
     int calcCostToBuild(int value);
     int calcTimeToBuild(unsigned int value);
 
-    unsigned m_field04; // +0x04
     Rva00360D26Member m_filter; // +0x08
     Rva0042526Member conditions0C; // +0x0C
     Rva0042526Member conditions58; // +0x58
