@@ -4,19 +4,10 @@
 // Evidence: rowed callees StringBase isEmpty 0x00001E2F Create_Render_Obj 0x00136175 and g_Rva0107301CEmptyString; sibling Rva003FC780 pattern.
 #include "ascii_string.h"
 
-class RenderObjClass;
+#include "../../Include/GameClient/LivingWorldVisual.h"
 
 RenderObjClass *Create_Render_Obj(const char *name);
 
-
-class LivingWorldVisual
-{
-public:
-    RenderObjClass *createPickboxObject(const AsciiString *name);
-private:
-    char m_pad00[20];
-    RenderObjClass *m_obj;
-};
 RenderObjClass *LivingWorldVisual::createPickboxObject(const AsciiString *name)
 {
     if (!((const StringBase<char> *)name)->isEmpty())
@@ -24,7 +15,7 @@ RenderObjClass *LivingWorldVisual::createPickboxObject(const AsciiString *name)
         const char *t = *(const char * const *)name;
         const char *s = t ? t + 8 : "";
         RenderObjClass *obj = Create_Render_Obj(s);
-        m_obj = obj;
+        m_robj14 = obj;
         return obj;
     }
     return 0;
