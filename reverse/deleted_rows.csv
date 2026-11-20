@@ -6408,3 +6408,5 @@ __ehhandler$??0Rva005D06CB@@QAE@PAURva005D06CBOwner@@PAX1@Z,0x007A1C35,"Renamed 
 __ehhandler$??1Rva005D06CB@@UAE@XZ,0x007A1B09,"Renamed to __ehhandler$??1Rva005CFACB@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C75554)"
 ??_GRva005D06CB@@UAEPAXI@Z,0x005D0A67,"Renamed to ??_GRva005CFACB@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C75554)"
 ??_ERva005D06CB@@WM@AEPAXI@Z,0x005D0732,"Renamed to ??_ERva005CFACB@@WM@AEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C75554)"
+??0Rva004BDC1C@@QAE@XZ,0x004BDC1C,"Renamed to ??0Rva004BDA0C@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C5AEB0)"
+??_GRva004BDC1C@@UAEPAXI@Z,0x004BDA0C,"Merged into ??_GRva004BDA0C@@UAEPAXI@Z (one body, one class) by tools/rename.py (fold: retail vftable 0x00C5AEB0)"

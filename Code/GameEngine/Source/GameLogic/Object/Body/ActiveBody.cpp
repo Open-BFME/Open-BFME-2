@@ -2567,7 +2567,8 @@ void ActiveBody::setMaxHealth( Real maxHealth, MaxHealthChangeType healthChangeT
 	}
 }
 
-// tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+// ??0Rva004BDA0C@@QAE@XZ, retail 0x004BDC1C (9 B): BodyParticleSystem's implicit constructor,
+// which this unit emits as a select-any copy beside the entries it news; that copy is the row.
 
 // tu-skeleton: 0x004BDC6D 54B ?getSingleBitFromName@?$BitFlags@$0BF@@@SAHPBD@Z -- matched in Code/GameEngine/Source/Common/BitFlags21VeterancyLevelGetSingleBitFromName.cpp (not merged yet)
 

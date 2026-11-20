@@ -2421,18 +2421,6 @@ Rva004BD75A::Rva004BD75A()
 {
 }
 
-// ??0Rva004BDC1C@@QAE@XZ @0x004BDC1C 9B, vtable VA 0x00c5aeb0
-class Rva004BDC1C
-{
-public:
-	Rva004BDC1C();
-	virtual ~Rva004BDC1C() {}
-};
-
-Rva004BDC1C::Rva004BDC1C()
-{
-}
-
 // ??0Rva004BDCA3@@QAE@XZ @0x004BDCA3 9B, vtable VA 0x00c5aeb8
 class Rva004BDCA3
 {
