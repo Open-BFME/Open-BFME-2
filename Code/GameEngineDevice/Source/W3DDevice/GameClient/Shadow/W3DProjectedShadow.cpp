@@ -31,14 +31,8 @@ inline RefCountClass::~RefCountClass() {}
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 #include "hash.h"
 #include "../../../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
-// Scalar types needed by the shadow interfaces. The donor BaseType.h also
-// defines coordinate classes that conflict with the canonical render headers.
 #include "../../../../../GameEngine/Include/Common/ScalarTypes.h"
-
-
-
 typedef int Color;
-
 enum TimeOfDay;
 long fast_float2long_round(float);
 float fast_float_trunc(float);
@@ -190,6 +184,7 @@ class W3DShadowManager;
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 
 
 
@@ -529,7 +524,9 @@ TextureClass *snow=NULL;
 
 
 
+
 TextureClass *grass=NULL;
+
 
 
 
@@ -554,6 +551,7 @@ enum BlendDirection
 	B_TR,	//visible on top/right 
 	B_BL	//visilbe on bottom/left
 };
+
 
 
 
@@ -588,7 +586,9 @@ DWORD BDToVA[9][4]=
 
 
 
+
 //Debug code used to draw some dummy polygons.
+
 
 
 
@@ -1228,7 +1228,6 @@ void Rva00108E33EmissionPattern(float a, float b, float c, float d, Rva00108E33P
     out[0] = minMax4Rva00108E33(a, b, c, d);
     out[1] = minMax4Rva00108E33(b, c, d, a);
 }
-
 __forceinline long fast_float2long_round(float f)
 {
 	long i;
@@ -1633,8 +1632,6 @@ class GameClient;
 
 extern GameClient *TheGameClient;
 
-
-
 class Rva007AE5E0Referenced;
 
 // The rowed owner binding 0x00108538.
@@ -1710,6 +1707,11 @@ class GlobalData;
 struct ShadowGlobalView10DF33 {char pad9a7[0x9a7];bool flag9a7;};
 
 // tu-skeleton: 0x0010713A 24B ?rva0010713A@W3DProjectedShadowManager@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
+
+// Scalar types needed by the shadow interfaces. The donor BaseType.h also
+// defines coordinate classes that conflict with the canonical render headers.
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 
@@ -2734,16 +2736,6 @@ int W3DProjectedShadowManager::rva0010DA71(RenderInfoClass &rinfo) {
  return 0;
 }
 
-// tu-skeleton: 0x0010716D 127B ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x001072C9 125B ?rva001072C9@W3DProjectedShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x001085FB 8B ?setBoundingBox@W3DShadowTexture@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x0010863C 20B ??0HAnimManagerIterator@@QAE@AAVHAnimManagerClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp (not merged yet)
-
-// tu-skeleton: 0x00108650 7B ??1Rva000EFA0E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp
 
 // BFME 1 W3DProjectedShadowDecalHelpers.cpp, donor revision
@@ -3242,6 +3234,16 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 	m_nShadowDecalIndicesInBuf += numIndex;
 }
 
+// tu-skeleton: 0x0010716D 127B ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
+
+// tu-skeleton: 0x001072C9 125B ?rva001072C9@W3DProjectedShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
+
+// tu-skeleton: 0x001085FB 8B ?setBoundingBox@W3DShadowTexture@@QAEXAAURegion3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp (not merged yet)
+
+// tu-skeleton: 0x0010863C 20B ??0HAnimManagerIterator@@QAE@AAVHAnimManagerClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp (not merged yet)
+
+// tu-skeleton: 0x00108650 7B ??1Rva000EFA0E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
+
 // tu-skeleton: 0x001087BB 66B ?rva001087BB@Rva00108660ResourceManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
 
 // tu-skeleton: 0x001087FD 69B ?rva001087FD@Rva00108660ResourceManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
@@ -3268,7 +3270,90 @@ void W3DProjectedShadowManager::rva0010C841(ShadowRenderEntry10DF33 *shadow, Int
 
 // tu-skeleton: 0x00109643 5B ?rva00109643@Rva00109643@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
-// tu-skeleton: 0x00109648 1443B ?updateBounds@W3DShadowTexture@@QAEXAAVVector3@@PAVRenderObjClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp
+
+//
+// ?updateBounds@W3DShadowTexture@@QAEXAAVVector3@@PAVRenderObjClass@@@Z
+// retail 0x00109648..0x00109BEB (1443 bytes) thiscall RET 8.
+// BFME 1 W3DProjectedShadow.cpp W3DShadowTexture::updateBounds (Zero Hour
+// lineage): the render object's bounding box is projected from the light
+// onto the ground below the object, rebounded and recentred in object
+// space. The WWMath Vector3/AABoxClass/SphereClass inlines and WWMath::Sqrt
+// are the real Zero Hour headers. Target facts: box +0x64, sphere +0x7C,
+// RenderObjClass::Get_Position 0x0013B8A0 and Get_Bounding_Box vtable slot
+// +0x108. The box assignment reaches the 24-byte copy body 0x0009AC04 (ICF
+// group of the rowed Region3D copy constructor); the ledger's AABoxClass
+// operator= name is already the unfolded library copy 0x001492E0, so this
+// unit spells that copy through the Region3D owner.
+
+void W3DShadowTexture::updateBounds(Vector3 &lightPos, RenderObjClass *robj)
+{
+		AABoxClass	&box=m_areaEffectBox;	///@todo: fix for multiple lights
+		Vector3			objPos;
+		Vector3 Corners[8];
+		Vector3 lightRay;
+		Real floorZ;
+		Real vectorScale,vectorScaleTemp, vectorScaleMax,length;
+
+		//calculate local bounding box of shadow projection
+		objPos=robj->Get_Position();
+		((Region3D *)&box)->Region3D::Region3D(*(const Region3D *)&robj->Get_Bounding_Box());
+		floorZ = objPos.Z - 2.0f;	//lower slightly so shadows go under ground.
+
+		//project each box corner to base of object to determine rough extent of shadow
+		//Get vertices of top of bounding box
+		Corners[0]=box.Center+box.Extent;	//top right corner
+		Corners[1]=Corners[0];
+		Corners[1].X -= 2.0f*box.Extent.X;		//top left corner
+		Corners[2]=Corners[1];
+		Corners[2].Y -= 2.0f*box.Extent.Y;		//bottom left corner
+		Corners[3]=Corners[2];
+		Corners[3].X += 2.0f*box.Extent.X;		//bottom right corner
+
+		//Project top volume corners onto ground plane
+		lightRay = Corners[0] - lightPos;	//vector light to corner
+		length= 1.0f/lightRay.Length();
+		lightRay *= length;
+		vectorScaleMax=vectorScale=(Real)fabs((Corners[0].Z-floorZ)/lightRay.Z);	//length of vector from top corner to ground.
+		Corners[4]=Corners[0]+lightRay*vectorScale;
+		vectorScaleMax *= length;
+
+		lightRay = Corners[1] - lightPos;	//vector light to corner
+		length= 1.0f/lightRay.Length();
+		lightRay *= length;
+		vectorScaleTemp=(Real)fabs((Corners[1].Z-floorZ)/lightRay.Z);	//length of vector from top corner to ground.
+		Corners[5]=Corners[1]+lightRay*vectorScaleTemp;
+		vectorScaleTemp *= length;
+
+		if (vectorScaleTemp > vectorScaleMax)
+			vectorScaleMax=vectorScaleTemp;	//keep track of maximum required extrusion length.
+
+		lightRay = Corners[2] - lightPos;	//vector light to corner
+		length= 1.0f/lightRay.Length();
+		lightRay *= length;
+		vectorScale=(Real)fabs((Corners[2].Z-floorZ)/lightRay.Z);	//length of vector from top corner to ground.
+		Corners[6]=Corners[2]+lightRay*vectorScale;
+		vectorScale *= length;
+
+		if (vectorScale > vectorScaleMax)
+			vectorScaleMax=vectorScale;	//keep track of maximum required extrusion length.
+
+		lightRay = Corners[3] - lightPos;	//vector light to corner
+		length= 1.0f/lightRay.Length();
+		lightRay *= length;
+		vectorScaleTemp=(Real)fabs((Corners[3].Z-floorZ)/lightRay.Z);	//length of vector from top corner to ground.
+		Corners[7]=Corners[3]+lightRay*vectorScaleTemp;
+		vectorScaleTemp *= length;
+
+		if (vectorScaleTemp > vectorScaleMax)
+			vectorScaleMax=vectorScaleTemp;	//keep track of maximum required extrusion length.
+
+		box.Init(Corners, 8);	//generate a new bounding box to fit the shadow projection
+		m_areaEffectSphere.Init(box.Center,box.Extent.Length());
+
+		m_areaEffectSphere.Center -= objPos;	//translate sphere to object space.
+		box.Translate(-objPos);	//translate box to object space.
+}
 
 // tu-skeleton: 0x00109E11 2341B ?flushDecals@W3DProjectedShadowManager@@QAEXW4ShadowType@@PAVW3DShadowTexture@@1H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp (not merged yet)
 

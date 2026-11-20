@@ -68693,7 +68693,7 @@ _$E1,,0x007ACFB0,11,Code/Libraries/Source/WWVegas/WW3D2/Rva007ACFB0EncodingFilte
 ?rva0042CC7B@Rva0042CBB6@@QAEHPAVGameMessage@@@Z,,0x0042CC7B,1005,Code/GameEngine/Source/Common/Rva0042CB81.cpp,matched,
 ?rva0028FCD9@Object@@QAEXHH@Z,,0x0028FCD9,380,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FCD9.cpp,matched,
 ?addFactionBib@W3DTerrainVisual@@UAEXPAVObject@@_NM@Z,,0x00092DD8,717,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp,matched,
-?updateBounds@W3DShadowTexture@@QAEXAAVVector3@@PAVRenderObjClass@@@Z,,0x00109648,1443,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp,matched,
+?updateBounds@W3DShadowTexture@@QAEXAAVVector3@@PAVRenderObjClass@@@Z,,0x00109648,1443,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,matched,
 ?rva00365B8A@Path@@QAEXPAVObject@@PAVPathNode@@1PBUCoord3D@@M@Z,,0x00365B8A,614,Code/GameEngine/Source/GameLogic/Pathfinder/PathRva00365B8A.cpp,matched,
 ?IsValidHordeMemberRegularMovement@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@11@Z,,0x002F06A3,338,Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderIsValidHordeMemberRegularMovement.cpp,matched,
 ?rva00177EC7@@YAXPAURva00177EC7Pair@@AAU1@@Z,,0x00177EC7,70,Code/Libraries/Source/WWVegas/WW3D2/Rva00177E95Fill.cpp,matched,
