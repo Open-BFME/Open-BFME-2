@@ -38,3 +38,20 @@ Controls: native CLI logs and planner snapshot are retained in the diagnostic
 package. build/up-to-eighteen-each-20261103-1212/experience-merge-dry.json is a
 parsed CLI copy; build/consolidation/up-to-eighteen-each-20261103-1212 records
 the input hashes and source-layout evidence. Original source SHA256: 25be66871756244fdc7de0ae55caa3e384669935b14a24097a3b2e8da04424d7.
+
+## 2026-11-20 probe at 179f73d302
+
+The picker now lists eleven donors. Prior attempts were read before the
+current survey and merge trial. The supported dry run did not finish:
+two composed-source compiler invocations reported C2143 syntax errors and
+fatal C1004 (unexpected end of file), then remained CPU-bound instead of
+exiting. Their scratch stems were `796696d0d3752214` and `c6655088bd360763`.
+The first child was terminated; after the second repeated the failure,
+the parent was interrupted and its compiler child terminated.
+
+No accepted-donor count or new merge verdict is claimed for this interrupted
+run. No tracked source or ledger edit remained. The unchanged seed passed
+53/53 function rows and four data rows through the normal build afterward.
+The existing view/provider reconciliation remains the prerequisite; no
+emission suppression or composition workaround was added. Scope claims
+were released rather than retaining a blocked reservation.
