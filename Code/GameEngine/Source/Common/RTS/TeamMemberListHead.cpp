@@ -14,7 +14,7 @@
 // out-of-line copy (0x0028A74F) is in TeamIsInTeamMemberList.cpp; the
 // canonical Team header declares it out of line, so the bodies spell the
 // macro's inline test themselves.
-typedef bool Bool;
+
 
 #include "../../../Include/Common/TeamBFME2.h"
 

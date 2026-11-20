@@ -15,7 +15,7 @@ class GeometryInfo;
 // 0x000E9D18); 0x000EE04A takes a const Coord3D * on W3DPropBuffer.
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
-class AsciiString;
+
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 
 class Rva00068073Host
