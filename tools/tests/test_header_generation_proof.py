@@ -552,3 +552,142 @@ def test_native_vc71_generated_declaration_components():
         "normal_object_sha256": hashlib.sha256(original).hexdigest(),
         "exclusive": sorted(facts[0]), "defined": sorted(facts[1]), "layout": layouts[name],
         "diagnostic_paths": [str(path) for path in paths], "header_bound": True}, indent=2), encoding="utf-8")
+
+
+# An owning generator can carry allocation methods and literal gap padding;
+# neither grants array-data, operator-expression or changed-storage admission.
+def allocation_gap_case(gap=True, member="static void *operator new(unsigned int size);"):
+    import header_adopt_lane as lane
+    contract = {"class": "AllocationRoundtrip", "key": "class", "key_by": "bytes",
+                "size": 12 if gap else 4, "size_by": "bytes", "bases": [], "vslots": {},
+                "fields": [{"offset": 0, "name": "value", "kind": "i4", "size": 4, "type": "uint"}]}
+    carried, problems = lane.special_declarations("AllocationRoundtrip", ["unit.cpp"],
+        read=lambda _: "class AllocationRoundtrip { public: unsigned int value; " + member + " };", index={})
+    assert not problems
+    header = lane.generate(contract, "data+methods", {}, "Code/AllocationRoundtrip.h", special=carried, owners={})
+    return contract, header
+
+
+@pytest.mark.parametrize("gap", [False, True])
+@pytest.mark.parametrize("member", ["static void *operator new(unsigned int size);",
+                                    "static void *operator new[](unsigned size);",
+                                    "static void operator delete(void *block);",
+                                    "static void operator delete[](void *block);"])
+def test_owning_generator_allocation_method_roundtrip(gap, member):
+    contract, header = allocation_gap_case(gap, member)
+    parsed, tokens, words, guard = P._elide_header(header.encode(), "AllocationRoundtrip", contract)
+    assert "operator" in words and member in parsed
+    fields = [[0, "value", "uint", 4]] + ([[4, "m_pad4", "char[8]", 8]] if gap else [])
+    native = {"fwd": False, "key": "class", "size": contract["size"], "bases": [],
+              "fields": fields, "vfptr": False, "vslots": {}}
+    assert P._layout("AllocationRoundtrip", contract, native) is native
+
+
+@pytest.mark.parametrize("member", [
+    "static int operator new(unsigned int size);", "static void *operator new(SizeAlias size);",
+    "static void *operator new(unsigned int size=4);", "static void *operator new(unsigned int size, void *where);",
+    "static void *operator new(unsigned int size) { return 0; }", "operator void *() const;",
+    "bool operator<(const AllocationRoundtrip &) const;", "static void operator delete(void *p, unsigned int n);",
+    "friend void operator delete(void *p);", "static void (*operator new)(unsigned int);",
+])
+def test_allocation_role_does_not_admit_unrelated_or_unsupported_declarations(member):
+    contract, header = allocation_gap_case(False)
+    header = header.replace("static void *operator new(unsigned int size);", member)
+    with pytest.raises(P.InputRefused):
+        P._elide_header(header.encode(), "AllocationRoundtrip", contract)
+
+
+@pytest.mark.parametrize("replacement", ["char m_pad4[7];", "char m_pad4[9];", "unsigned char m_pad4[8];",
+                                         "char other[8];", "char m_pad4[sizeof(int)*2];", "char m_pad4[0x8];",
+                                         "char m_pad4[8] = {};", "static char m_pad4[8];", "char m_pad4[8][1];"])
+def test_only_exact_owning_generator_gap_declaration_is_admitted(replacement):
+    contract, header = allocation_gap_case()
+    with pytest.raises(P.InputRefused):
+        P._elide_header(header.replace("char m_pad4[8];", replacement).encode(), "AllocationRoundtrip", contract)
+
+
+@pytest.mark.parametrize("mutation", ["offset", "width", "element", "missing", "extra", "overlap"])
+def test_native_gap_extent_and_type_are_not_guessed(mutation):
+    contract, header = allocation_gap_case()
+    native = {"fwd": False, "key": "class", "size": 12, "bases": [], "vfptr": False, "vslots": {},
+              "fields": [[0, "value", "uint", 4], [4, "m_pad4", "char[8]", 8]]}
+    if mutation == "offset": native["fields"][1][0] = 3
+    elif mutation == "width": native["fields"][1][3] = 7
+    elif mutation == "element": native["fields"][1][2] = "int[2]"
+    elif mutation == "missing": native["fields"].pop()
+    elif mutation == "extra": native["fields"].append([8, "hidden", "int", 4])
+    else: native["fields"].append([3, "overlap", "char", 1])
+    with pytest.raises(P.InputRefused): P._layout("AllocationRoundtrip", contract, native)
+
+
+def test_gap_does_not_accept_changed_contract_or_missing_owning_assertions():
+    contract, header = allocation_gap_case()
+    updated = deepcopy(contract)
+    updated["fields"].append({"offset":4,"name":"invented","kind":"i4","size":4,"type":"uint"})
+    with pytest.raises(P.InputRefused): P._elide_header(header.encode(), "AllocationRoundtrip", updated)
+    plain = header[:header.index("typedef char canonical_")]
+    plain += "\n#endif\n"
+    with pytest.raises(P.InputRefused): P._elide_header(plain.encode(), "AllocationRoundtrip", contract)
+    bad = deepcopy(contract);bad["fields"][0]["offset"] = 1
+    with pytest.raises(P.InputRefused): P._elide_header(header.encode(), "AllocationRoundtrip", bad)
+
+
+@pytest.mark.skipif(os.environ.get("BFME_NATIVE_HEADER_PROOF") != "1", reason="explicit isolated VC71 allocation/gap roundtrip")
+def test_native_allocation_gap_roundtrip_preserves_storage_and_alignment(monkeypatch):
+    import build, class_layouts
+    import header_adopt_lane as lane
+    root = P.ROOT
+    scratch = root / "build" / "codex-thing-agent-20261120" / "roundtrip-native"
+    scratch.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(class_layouts, "CACHE", scratch / "cv")
+    contract, header = allocation_gap_case()
+    name = contract["class"]
+    h = scratch / "allocation.h";h.write_text(header, encoding="ascii", newline="\n")
+    source = scratch / "allocation.cpp"
+    source.write_text('#include "allocation.h"\nvoid *' + name + '::operator new(unsigned int) { return 0; }\n'
+        + 'struct NativeGapAlignment { char lead; ' + name + ' value; };\n'
+        + 'NativeGapAlignment alignmentWitness;\n'
+        + 'unsigned alignment() { return (unsigned)&((NativeGapAlignment *)0)->value; }\n'
+        + 'unsigned width() { return sizeof(' + name + '); }\n', encoding="ascii", newline="\n")
+    output = scratch / "ordinary.obj"
+    command, env = build.compiler_command(source, output)
+    with (scratch / "compile.log").open("w+", encoding="latin-1") as log:
+        done = build._run_compile(command, env, log, timeout=60);log.seek(0);diagnostic=log.read()
+    assert done.returncode == 0, diagnostic
+    ordinary = output.read_bytes()
+    facts, _ = P._object_evidence(ordinary)
+    assert "??2" + name + "@@SAPAXI@Z" in facts[0]
+    layouts, paths = P._diagnostic_layouts(root, source.relative_to(root).as_posix())
+    P._layout(name, contract, layouts[name])
+    assert layouts["NativeGapAlignment"]["fields"][1][0] == 4
+    pp = [a for a in command if not a.startswith(("-Fo", "/Fo"))];pp[pp.index("-c")]="-E"
+    expanded=P._preprocess(pp+["-showIncludes"],env)
+    assert expanded.returncode == 0
+    parsed, expected, words, guard=P._elide_header(h.read_bytes(),name,contract)
+    assert P._bound_span(P._expanded_tokens(expanded.stdout,root),name,h.relative_to(root).as_posix(),expected,True)
+    assert output.read_bytes() == ordinary
+
+    # Valid native C++ with unchanged allocation/record size is still not
+    # admitted when a method role, padding type or declared storage differs.
+    ordinary_source = source.read_text(encoding="ascii")
+    negative_source = ordinary_source.replace("void *" + name + "::operator new(unsigned int) { return 0; }\n", "")
+    for label, changed in [
+        ("body", header.replace("static void *operator new(unsigned int size);", "static void *operator new(unsigned int size) { return 0; }")),
+        ("alias", header.replace("static void *operator new(unsigned int size);", "typedef unsigned int SizeAlias; static void *operator new(SizeAlias size);")),
+        ("padding-type", header.replace("char m_pad4[8];", "unsigned char m_pad4[8];")),
+        ("hidden-data", header.replace("char m_pad4[8];", "char m_pad4[4]; int hidden;")),
+    ]:
+        h.write_text(changed, encoding="ascii", newline="\n")
+        candidate = scratch / ("negative-" + label + ".cpp")
+        candidate.write_text(negative_source, encoding="ascii", newline="\n")
+        bad_output = scratch / ("negative-" + label + ".obj")
+        bad_command, bad_env = build.compiler_command(candidate, bad_output)
+        with (scratch / ("negative-" + label + ".log")).open("w+", encoding="latin-1") as log:
+            result = build._run_compile(bad_command, bad_env, log, timeout=60);log.seek(0);diagnostic=log.read()
+        assert result.returncode == 0, (label, diagnostic)
+        with pytest.raises(P.InputRefused): P._elide_header(h.read_bytes(), name, contract)
+        if label in {"padding-type", "hidden-data"}:
+            bad_layouts, _ = P._diagnostic_layouts(root, candidate.relative_to(root).as_posix())
+            with pytest.raises(P.InputRefused): P._layout(name, contract, bad_layouts[name])
+    h.write_text(header, encoding="ascii", newline="\n")
+    assert output.read_bytes() == ordinary
