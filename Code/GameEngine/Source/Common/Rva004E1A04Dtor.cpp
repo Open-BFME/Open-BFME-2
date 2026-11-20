@@ -15,12 +15,13 @@
 class Rva004E1A04
 {
 public:
+	Rva004E1A04() : m_00(), m_f1(0.0f), m_f2(0.0f), m_f3(0.0f) {}
 	~Rva004E1A04();
 private:
 	AsciiString m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
+	float m_f1;
+	float m_f2;
+	float m_f3;
 };
 
 Rva004E1A04::~Rva004E1A04()

@@ -426,10 +426,10 @@ extern const struct FieldParse g_00C61D84[] =
 class Rva004E1A04
 {
 public:
-	Rva004E1A04() : m_ptr(0), m_f1(0.0f), m_f2(0.0f), m_f3(0.0f) {}
+	Rva004E1A04() : m_00(), m_f1(0.0f), m_f2(0.0f), m_f3(0.0f) {}
 	~Rva004E1A04();
 private:
-	void *m_ptr;
+	AsciiString m_00;
 	float m_f1;
 	float m_f2;
 	float m_f3;
