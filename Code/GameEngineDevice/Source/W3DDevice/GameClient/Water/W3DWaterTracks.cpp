@@ -169,7 +169,7 @@ class Rva000B28F2LeaGetter {public:void *get()const;};
 
 struct Rva0007E394Element {char unknown00[0x38];Vector2 *begin,*end,*capacity;};
 
-struct TrackCollection;
+
 
 // Native cursor storage is an owner pointer followed by a record ordinal.
 // Retail's two-dword cursor equality at 0x7E394, defined here so the caller sees it keeps no cursor address.

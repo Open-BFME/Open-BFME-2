@@ -29,7 +29,7 @@
 #include <math.h>
 extern PartitionManager *ThePartitionManager;
 class Object;
-class Player;
+
 class AttackPriorityInfo;
 class PartitionFilter;
 

@@ -113,7 +113,7 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "Coord3D.h"
 
-class ObjectCreationList;
+
 
 enum ScienceType { SCIENCE_INVALID = -1 };
 

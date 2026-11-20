@@ -88,7 +88,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Thing;
 class ModuleData;
-class Object;
+
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
 #include "../../../../Include/Common/ObjectModule.h"

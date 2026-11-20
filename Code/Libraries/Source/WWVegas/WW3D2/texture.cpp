@@ -145,7 +145,7 @@ static const TextureRecolorGUID TextureRecolorIID=
 
 };
 
-struct TextureRecolorCOM;
+
 
 class SurfaceResource;
 
