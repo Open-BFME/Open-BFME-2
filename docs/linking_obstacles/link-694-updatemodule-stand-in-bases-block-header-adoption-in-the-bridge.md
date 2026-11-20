@@ -88,3 +88,30 @@ undefined with no definer 3,155 -> 3,127. Dead hatches left in the sources (regi
   (loadPostProcess fold 0x00497805, the name getter, getModuleNameKey, update): class identity work for
   the address-named classes (folds into the real classes need equal virtual lists, which the views now
   share with UpdateModule).
+
+**Automated re-base (seat halilkkaya-rb, 2026-11-20).** `build/rb/rebase.py` (scratch, not a tool under
+`tools/`) applies the recipe above from retail facts: for a bridged primary table whose direct base is certain
+in the retail hierarchy (`build/rb/hier.py`: destructor and constructor table stores agree, or one source plus
+consistent slots) and registered in `reverse/canonical_classes.csv`, it re-bases every view of the class whose
+unit emits one of its tables, removes stand-ins and hand table stores, respells stand-in fields as the
+canonical class's fields at the same offset, declares overrides rowed under the class's own name (or carried
+by a co-emitter's copy), rebinds `__identifier` table stores in other units, and keeps a stand-in only as a
+thin `class X : public A` when it spells a base-constructor call the ledger rows under X's name
+(`??0Rva0044EF5E` at 0x0044EF5E is SpecialAbilityUpdate's constructor). Each family is verified (layouts,
+`./build.sh`, tabdump, COMDAT copies, bridge judge, link_check) and reverted on any failure. Base (objects
+refreshed for the touched units): 2,976 bridged / 2,519 correct / 31,078 mismatching slots. Four commits:
+three SpecialAbilityUpdate families (ModuleUpdateDtors.cpp's 14 views with their constructor units,
+TeleportToCasterSpecialPower in OCLUpdateCtor.cpp, DominateEnemySpecialPower) and Rva000A882D on Rva0040EDB in
+RvaSmallVtableCtors.cpp: bridged 2,976 -> 2,976, correct 2,519 -> 2,561, mismatching slots 31,078 -> 30,803,
+no table newly bridged, link_check unchanged.
+
+Of 2,976 bridged names, 1,088 have a certain chain, 761 a canonical ancestor on it, 129 a canonical direct
+base with a stand-in or no base in the emitting unit (94 families). Refusals by cause (latest per family):
+emitter-stub views smaller than the ancestor (24); stand-in bases ending before or after sizeof(A) (19,
+usually a missing intermediate such as CollideModule, W3DModelDraw, OpenContain); own fields below sizeof(A)
+(11); byte mismatches (7); generated canonical headers that need prerequisites the unit lacks
+(GameMessageTranslator, Xfer, Base: 6); no measured gain (6, the SubsystemInterface subsystems); claims held
+elsewhere (2); excluded ancestors (5). Stub views retried with the size check relaxed (no field, no
+constructor other than an EmitVtableTag emitter, only destructor rows for the class): none taken; their table
+or inline copies differ from the class's other emitters (6), the emitter constructor needs a default
+constructor the canonical class lacks (3), or the bytes move (2).

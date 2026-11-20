@@ -11,6 +11,7 @@
 // recovered, so each keeps its address.
 
 #include <new.h>
+#include "../../Include/Common/Rva00041004Lock.h"
 
 struct RvaSmallVtableZeroBase
 {
@@ -526,7 +527,7 @@ Rva00567960BaseMid::~Rva00567960BaseMid()
 }
 
 // ??0Rva000A882D@@QAE@XZ @0x000A882D 13B, vtable VA 0xbc93a0
-class Rva000A882D : public RvaSmallVtableZeroBase
+class Rva000A882D : public Rva0040EDB
 {
 public:
 	Rva000A882D();
