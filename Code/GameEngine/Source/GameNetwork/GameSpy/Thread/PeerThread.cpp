@@ -82,6 +82,11 @@ namespace _STL { void __cdecl free(void *block); }
 #include "../../../../Include/Common/GameModePreferences.h"
 #include "Common/Version.h"
 #include "GameNetwork/IPEnumeration.h"
+// Retail 0x007AF160: this unit's 16-byte half-rate copy (the DRAWABLE_FRAMES_PER_FLASH shape), alone in its initializer
+// run; its static (VA 0x00E0269C) lies between the unit's plain globals (localIP, matchbotProfileID) and
+// checkQR2Queries' function-local buffer. Which header gave the unit the constant is not known; it takes the
+// constant's own header.
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 // The GameSpy SDK is C: under /EHsc its callees are nothrow, which is what
 // lets Thread_Function batch its stack pops inside the try. BFME 2's SDK
 // header maps the string-taking calls to their ANSI entry points when

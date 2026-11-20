@@ -1680,3 +1680,15 @@ neighbourhood), `retract_rate.py`, `addshim.py`, `comdat_diff.py`, `credited.py`
   g_fakeDesync, outside GameLogic.cpp's `.bss`), MapUtil.cpp's 0x007AE595 (the unit rows `object-symbol=` initializers
   that a new first ordinal would renumber), StrategicInGameUI's 0x007B5333 (its button globals and initializers sit in
   Rva007B52E6Global.cpp around the copy and must move with it).
+
+**Round init-3 (halilkkaya-init2, 2026-11-20, bridged 454 -> 453).** Same base, method and per-entry checks as round
+init-2, on top of it; `link_check` against the 11:48 census index (`b796529e5b`). New scripts under `build/init2/`:
+`own_copies.py` (copies an approved TU's own file already compiles, crossed with each bridged copy's `.bss` and run
+evidence), `singletons.py` (a copy after a plain global: the global's unit by its readers or the Zero Hour file that
+defines it, checked against link order, plus a Drawable.h fact), `survey.py` (the other grab-bags by shape).
+- *Taken (454 -> 453): PeerThread.cpp's copy.* 0x007AF160 is alone in its run (markers 0x007AF146 and 0x007AF170). The
+  `.bss` holds the unit's s_wantStateChangedHeartbeat, s_valueBuffers, localIP and matchbotProfileID (read only by code
+  approved to PeerThread.cpp), this copy 0x00E0269C, then `checkQR2Queries`' 256-byte function-local buffer and
+  s_lastExtendedInfoFrame (PeerThread.cpp's), then PhysicsUpdate's pool key: a sandwich. Which header gave the
+  GameSpy thread unit the constant is not known. PeerThread.cpp takes GameClient/DrawableFramesPerFlash.h after its
+  first includes and registers the copy as `_$E13`.
