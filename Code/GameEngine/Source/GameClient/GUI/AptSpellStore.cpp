@@ -86,7 +86,6 @@ class Rva005CB260;
 // whether one is up; the byte at +0x16 lets mode 6 use the store.
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
-extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
 // Rva0050E9D3Enable.cpp's 0x0043C96F.
 void Rva0043C96FEnable(void);
 // A spell button's entry: its science list at +0xA4.

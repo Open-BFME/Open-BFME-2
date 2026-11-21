@@ -1,0 +1,21 @@
+{
+  "all_98_sections_identical": true,
+  "all_symbol_addresses_types_storage_indices_identical": true,
+  "exact_changed_static_name_indices": [
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255,
+    257,
+    306,
+    307
+  ],
+  "full_reconstructed_blob_equals_new": true,
+  "original_raw_comparison_retained_false": true
+}

@@ -1,0 +1,206 @@
+{
+  "schema": 1,
+  "item": "015 Microsoft-header migration",
+  "head_observed": "4c3ccf6f37e556b07d17e6dce2b7dd605d0cc89b",
+  "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+  "source_sha256": "796ca02ee9649e5ac2963efbb634f21f30552fc691b6e9727a77e095104987a8",
+  "candidate_sha256": "0f19945c8ec6296b6276f94cda4770b82ec33579ecd4c0f660395299d8df6e92",
+  "rvas": [
+    "0x0043D3A8",
+    "0x0043D3DA",
+    "0x0043C7C9",
+    "0x0043D5CB",
+    "0x0043D686",
+    "0x0078880E",
+    "0x007887AA",
+    "0x007887B2",
+    "0x007887CE",
+    "0x007887D6",
+    "0x007887DE",
+    "0x007887E6",
+    "0x007887EE",
+    "0x007887F6",
+    "0x007887FE",
+    "0x00788806"
+  ],
+  "files": [
+    "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+  ],
+  "classes": [],
+  "claim_scope": [
+    "0x0043D3A8",
+    "0x0043D3DA",
+    "0x0043C7C9",
+    "0x0043D5CB",
+    "0x0043D686",
+    "0x0078880E",
+    "0x007887AA",
+    "0x007887B2",
+    "0x007887CE",
+    "0x007887D6",
+    "0x007887DE",
+    "0x007887E6",
+    "0x007887EE",
+    "0x007887F6",
+    "0x007887FE",
+    "0x00788806",
+    "file:Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp"
+  ],
+  "class_reason": "No class, layout, method, header or global contract changes; deletion of one unused C prototype only.",
+  "provider_scopes_required": [],
+  "provider_reason": "Existing current source/object has no CRT or parser symbol or relocation; no emitted use of _mbscpy/atoi/strncmp to redirect.",
+  "readonly_header_sha256": {
+    "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stdlib.h": "64ff5e0893b39638f7f8e510b7992f8f9c9bb09c046c9747072c44b3348cf946",
+    "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\string.h": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37",
+    "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\mbstring.h": "bf0175418af1a4e623e9ed04b2a7e5c85175e4261b8e9672d154441b16305703"
+  },
+  "all_current_rows": [
+    {
+      "name": "?rva0043D3A8@Rva0043D3A8@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0043D3A8",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "caller 0x0043D3DA passes outer+0x288 as this rowed Science erase"
+    },
+    {
+      "name": "?rva0043D3DA@Rva0043D3DA@@QAEXH@Z",
+      "export_rva": "",
+      "target_rva": "0x0043D3DA",
+      "target_size": "68",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "caller 0x0043D452 gated by globals 0x009FE78C 0x009FEDF0"
+    },
+    {
+      "name": "?rva0043C7C9@Rva0043D3DA@@QAEXH@Z",
+      "export_rva": "",
+      "target_rva": "0x0043C7C9",
+      "target_size": "105",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "same gating and flag as sibling 0x0043D3DA via invoke Close"
+    },
+    {
+      "name": "?rva0043D5CB@Rva0043D3A8@@QAEXW4ScienceType@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0043D5CB",
+      "target_size": "42",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "unlock TheScienceStore cost push_back at 0x08 add at 0x14 caller 0x0043D67A"
+    },
+    {
+      "name": "??0AptSpellStore@@QAE@PAX@Z",
+      "export_rva": "",
+      "target_rva": "0x0043D686",
+      "target_size": "917",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "AptSpellStore constructor called by the 0x0043DA1B factory; binds the seven command maps and the InputEnabled extern handler by name; STLport-shaped empty vector member folds to 0x00211E58; EH map 11 states with m_chosen 1 and m_sciences 2"
+    },
+    {
+      "name": "__ehhandler$??0AptSpellStore@@QAE@PAX@Z",
+      "export_rva": "",
+      "target_rva": "0x0078880E",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0043D686; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "$L3560",
+      "export_rva": "",
+      "target_rva": "0x007887AA",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L3560 to retail Unwind@00b887aa 0x7887AA; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "Unwind@00b887b2",
+      "export_rva": "",
+      "target_rva": "0x007887B2",
+      "target_size": "14",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2933; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2933 to retail Unwind@00b887b2 (was gen_uw scaffold uw_007887b2)"
+    },
+    {
+      "name": "Unwind@00b887ce",
+      "export_rva": "",
+      "target_rva": "0x007887CE",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2935; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2935 to retail Unwind@00b887ce (was gen_uw scaffold uw_007887ce)"
+    },
+    {
+      "name": "Unwind@00b887d6",
+      "export_rva": "",
+      "target_rva": "0x007887D6",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2937; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2937 to retail Unwind@00b887d6 (was gen_uw scaffold uw_007887d6)"
+    },
+    {
+      "name": "Unwind@00b887de",
+      "export_rva": "",
+      "target_rva": "0x007887DE",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2939; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2939 to retail Unwind@00b887de (was gen_uw scaffold uw_007887de)"
+    },
+    {
+      "name": "Unwind@00b887e6",
+      "export_rva": "",
+      "target_rva": "0x007887E6",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2941; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2941 to retail Unwind@00b887e6 (was gen_uw scaffold uw_007887e6)"
+    },
+    {
+      "name": "Unwind@00b887ee",
+      "export_rva": "",
+      "target_rva": "0x007887EE",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2943; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2943 to retail Unwind@00b887ee (was gen_uw scaffold uw_007887ee)"
+    },
+    {
+      "name": "Unwind@00b887f6",
+      "export_rva": "",
+      "target_rva": "0x007887F6",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2945; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2945 to retail Unwind@00b887f6 (was gen_uw scaffold uw_007887f6)"
+    },
+    {
+      "name": "Unwind@00b887fe",
+      "export_rva": "",
+      "target_rva": "0x007887FE",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2947; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2947 to retail Unwind@00b887fe (was gen_uw scaffold uw_007887fe)"
+    },
+    {
+      "name": "Unwind@00b88806",
+      "export_rva": "",
+      "target_rva": "0x00788806",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AptSpellStore@@QAE@PAX@Z;object-symbol=$L2949; Matched parent 0x0043D686's EH graph is EXACT (eh_verify) and binds compiler label $L2949 to retail Unwind@00b88806 (was gen_uw scaffold uw_00788806)"
+    }
+  ],
+  "proposed_edit": "Remove only unused local extern C char* _mbscpy(char*,const char*) declaration; keep existing stdlib/string headers, do not add mbstring, change CRTIMP, import qualifiers, casts or functions.",
+  "native_static_result": "Current native scan1 local _mbscpy ABI occurrence; candidate0. Queue3 count is stale; atoi/strncmp already supplied by real headers.",
+  "not_yet_run": "No compiler or native queue-refresh/write operation."
+}
