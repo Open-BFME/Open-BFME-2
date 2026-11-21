@@ -346,8 +346,6 @@ void AITeamBuilder::recruitUnDefined(Team* teamToBuild,int* curNumUnits) {
 }
 #include <hash_map>
 #include <stdlib.h>
-#define free Rva00030830FreeAllocation
-#undef free
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 #include "../../../../Include/Common/ThingTemplate.h"
