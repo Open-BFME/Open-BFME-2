@@ -49,12 +49,12 @@ void AptAnimationPoolData::setValidFocusButton()
  if(m_current)m_current->Release();
  m_current=0;
  int seen=0;
- for(int i=0;i<m_cihCapacity;++i) {
-  if(seen==m_cihCount)break;
-  AptCIH *item=m_cihEntries[i];
+ for(int i=0;i<buttonSet.GetSize();++i) {
+  if(seen==buttonSet.mnCount)break;
+  AptCIH *item=buttonSet.maElements[i];
   if(item) {
-   if(!cihName(item)->IsEmpty() && rva006F97F0Parse(cihName(m_cihEntries[i]),&first,&second)) {
-    m_current=m_cihEntries[i];m_current->AddRef();break;
+   if(!cihName(item)->IsEmpty() && rva006F97F0Parse(cihName(buttonSet.maElements[i]),&first,&second)) {
+    m_current=buttonSet.maElements[i];m_current->AddRef();break;
    }
    ++seen;
   }

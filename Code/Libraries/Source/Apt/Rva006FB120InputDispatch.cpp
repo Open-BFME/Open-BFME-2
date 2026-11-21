@@ -69,31 +69,7 @@ extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 extern AptValue *gpUndefinedValue;
 extern int g_00E17704;
 
-class Rva006E1E30;
-struct AptInputInstSet
-{
-    unsigned short mnCount;
-    unsigned short mnSize;
-    AptCIH **maElements;
-    int GetSize() const { return mnSize; }
-};
-
-class AptAnimationPoolData
-{
-public:
-    char pad0[8];
-    AptInputInstSet buttonSet;      // +0x08
-    char pad10[0x28 - 0x10];
-    AptInputInstSet inputSet;       // +0x28
-    char pad30[0x68 - 0x30];
-    AptValue *m68;                  // +0x68
-    char pad6C[0xA0 - 0x6C];
-    AptActionQueueC *mpActionQueue; // +0xA0
-    void rva006FA7E0(bool first, bool enabled, int value);
-    void ProcessButtonState();
-    void rva006FB120(int eType, int state, int value, int device, char isFirst);
-    bool rva006F9FC0(Rva006E1E30 *object, int value); // 0x006F9FC0
-};
+#include "AptAnimationPoolData.h"
 
 void AptAnimationPoolData::rva006FB120(int eType, int state, int value, int device, char isFirst)
 {
