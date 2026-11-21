@@ -1,4 +1,4 @@
-// cl: /O1 /GX-
+// cl: /O1 /EHsc
 // platformsdk
 // Microsoft Platform SDK GDI+ 1.0 GdiPlusBitmap.h inlines, emitted out of line
 // by the ATL 7.1 CImage translation unit that carries the Gdiplus::Image and
@@ -32,7 +32,9 @@ namespace DllExports
 // Keep the selected bitmap inlines below: the SDK's complete class declarations
 // and flat API declarations above supply their types without local copies.
 
-inline __declspec(noinline) Image::~Image()
+// Not noinline: Image's scalar deleting destructor at 0x00001E43 folds this in
+// whole, while /EHsc keeps Bitmap's (0x00002111) calling the out-of-line ~Bitmap.
+inline Image::~Image()
 {
     DllExports::GdipDisposeImage(nativeImage);
 }
@@ -107,7 +109,29 @@ inline void Image::SetNativeImage(GpImage *nativeImage)
     this->nativeImage = nativeImage;
 }
 
-// Bitmap constructors and their deleting destructor live in gdiplusbitmap_dtor.cpp.
+inline Bitmap::Bitmap(const WCHAR *filename, BOOL useEmbeddedColorManagement)
+{
+    GpBitmap *bitmap = NULL;
+
+    if (useEmbeddedColorManagement)
+    {
+        lastResult = DllExports::GdipCreateBitmapFromFileICM(filename, &bitmap);
+    }
+    else
+    {
+        lastResult = DllExports::GdipCreateBitmapFromFile(filename, &bitmap);
+    }
+
+    SetNativeImage(bitmap);
+}
+
+// Emits Bitmap's vtable here, and with it Bitmap's scalar deleting destructor
+// and the implicit ~Bitmap it calls.
+// ?bfmeAnchorGdiplusBitmapVtable absent-from-retail
+Bitmap *bfmeAnchorGdiplusBitmapVtable(const WCHAR *filename, BOOL useEmbeddedColorManagement)
+{
+    return new Bitmap(filename, useEmbeddedColorManagement);
+}
 
 Status Bitmap::LockBits(const Rect *rect, UINT flags, PixelFormat format, BitmapData *lockedBitmapData)
 {
