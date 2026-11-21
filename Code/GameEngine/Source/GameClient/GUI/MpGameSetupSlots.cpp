@@ -556,14 +556,6 @@ class AptExternHandler;
 // rowed): each registers with the Apt player and remembers the name.
 #include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
 
 // 0x00411458 stores the reference under the name in the screen table at
 // 0x00E02FD0 (operator[] 0x0041112B, assignment 0x002174A4), releasing it
@@ -575,170 +567,32 @@ void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets>
 
 void _bfme_closeAptScreen(const AsciiString &name);
 
-class AptMpGameSetup
-{
-public:
-	static void PlayerTooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);
-	int GetDisplayedPlayerTemplateIndex(int slot);
-	void rva0043DC0F();
-	void rva0043E49C(const UnicodeString &text);
-	void OnKickPlayer(const char *slotText);
-	void rva0043DB6E();
-	bool handlePlayerTemplateSelection(int index);
-	bool HandleHeroSelection(int index);
-	void rva0043E3E2(int index, int team);
-
-	bool SetSlotHeroData(GameSlot *slot, int hero);
-
-	void UpdateHeroToFaction(GameSlot *slot, int index, bool flag);
-
-	void ChangePlayerSelection(int slot, int value);
-	void rva0043E253(int slot);
-	void ExternFunc(int query, char *result, bool skip);
-	const Image *rva0043E512(int value);
-	void rva0043E5C1(int slot, int kind, int value);
-	void OnSortName(const char *unused);
-	void OnSortPlayers(const char *unused);
-	void OnSortIcons(const char *unused);
-	void OnTabSelect(const char *tab);
-	void OnReadyPress(const char *slotText);
-	bool rva0043E1CC(int which);
-	bool rva0043ECC1(int index);
-	bool Init(GameInfo *game, int value);
-	bool InitGameInfoFromSaveGame(GameInfo *game);
-	bool WaitStartGame();
-	void UpdatePlayerTemplateDisplay(int slot);
-
 	// Unrowed 0x0043DF22 (the number of accepted seated humans; banked) and
 	// 0x00440BDF (1693 bytes; ret 4), pinned by address.
-	unsigned int rva0043DF22();
-	bool OnHostStartGame(bool value);
-
 	// Unrowed 0x0044009D (1039 bytes; ret 4, the slot; returns al), pinned
 	// by address.
-	bool rva0044009D(int slot);
-
 	// Unrowed 0x0043DC40 (53 bytes; picks the games list sort column, the
 	// same column again toggling to the next value), pinned by address.
-	void rva0043DC40(int column);
-
-	bool rva00442C9C();
-	void rva004427C5(int slot);
-	void rva004427FA();
-	void rva00442A19();
-	void rva0043FFCF();
-	void rva0043FFD7();
-	void rva00441685(bool flag);
-	void rva004422B4(int mode);
-	void rva00440017(const AsciiString &map);
-
 	// Unrowed per-slot refreshers called by 0x004427C5, pinned by address:
 	// 0x0043F483 (1072 bytes), 0x004424E7 (734 bytes) and 0x004406BA (792
 	// bytes).
-	void PopulatePlayerCombo(int slot);
-	void rva0043F244(int slot, bool reset);
-	void PopulatePlayerTemplateCombo(int slot);
-	void PopulateHeroCombo(int slot);
-
 	// Unrowed 0x004422DD (522 bytes), called by 0x00442A19, pinned by
 	// address.
-	void rva004422DD();
-	void UpdateSlot(int slot);
-
 	// Unrowed 0x00442BCC (208 bytes; walks the slots through the encoded
 	// handle iterator of S5HandleHashCompares.cpp, true when every one has
 	// all six widget arrays), pinned by address.
-	bool rva00442BCC();
-
-	void rva0043FA68(GameInfo *game);
-	void InitGadgets();
-	int rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2);
-	bool rva0043DCFA(int value);
-
-	void rva004404AC(bool enable, int slot);
-
-	void UpdateHeroDisplay(int slot);
-
-	void InitAvailableColors();
-
-	void rva004415D5(const AsciiString &map);
-	void UpdateReadyIcon(int index);
-	bool rva0043FC1F(int kind, bool reset);
-	bool HandleClanChange();
-	bool rva00442A68(int index);
-	bool OnUpdate();
-	void rva0043EDB4();
-
-	void UpdateClans();
-	void rva00443BF3();
-
 	// Unrowed 0x00443538 (1723 bytes; ret 4, its argument a flag mask),
 	// pinned by address.
-	void rva00443538(int flags);
+#include "../../../Include/GameClient/AptMpGameSetup.h"
 
-	void rva0044303D();
-	void InitGadgets(const char *name, void *data, GameWindow *window);
-
-private:
-	unsigned char m_pad000[0x04];
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-	unsigned char m_pad01c[0x58 - 0x1C];
-	MpGameSetupOwner *m_owner; // +0x58
-	Rva0043DA65 *m_game; // +0x5C
-	Rva0057E3DB m_60; // +0x60
-	Rva0057EE5C m_d0; // +0xD0
-	unsigned char m_pad0d1[0x15C - 0xD1];
-	MpGameSetupRules m_rules; // +0x15C
-	unsigned char m_pad184[0x190 - 0x184];
-	Rva0057F2DE m_190; // +0x190
-	unsigned char m_pad191[0x244 - 0x191];
-	Rva0057FD6E m_244; // +0x244
-	unsigned char m_pad245[0x2B0 - 0x245];
-	TreeHintOpaque0043671B *m_saved; // +0x2B0
-	int m_pendingHero; // +0x2B4 (-3 for none)
-	bool m_2b8; // +0x2B8
-	bool m_2b9; // +0x2B9
-	bool m_2ba; // +0x2BA
-	bool m_2bb; // +0x2BB
-	bool m_2bc; // +0x2BC
-	bool m_2bd; // +0x2BD
-	bool m_2be; // +0x2BE
-	bool m_2bf; // +0x2BF
-	bool m_2c0; // +0x2C0
-	bool m_2c1; // +0x2C1
-	bool m_refreshing; // +0x2C2 (guards the all-slot refreshes)
-	bool m_pending; // +0x2C3
-	bool m_2c4; // +0x2C4 (the start countdown is running)
-	unsigned char m_pad2c5[0x2C8 - 0x2C5];
-	int m_startTime; // +0x2C8
-	int m_shownSeconds; // +0x2CC
-	int m_2d0; // +0x2D0
-	GameWindow *m_player[8]; // +0x2D4
-	MpGameSetupComboRef m_colorCombo[8]; // +0x2F4
-	GameWindow *m_team[8]; // +0x314
-	GameWindow *m_playerTemplate[8]; // +0x334
-	GameWindow *m_handicap[8]; // +0x354
-	GameWindow *m_hero[8]; // +0x374
-	GameWindow *m_mapList; // +0x394 (a list box)
-	// +0x398: a vector<AsciiString> (Rva004421E1Dtor.cpp), one map per list
-	// box row.
-	_STL::vector<AsciiString> m_maps;
-	int m_flags; // +0x3A4
-	int m_3a8; // +0x3A8
-	int m_sortColumn; // +0x3AC (games list sort column)
-	int m_previousSortColumn; // +0x3B0
-	unsigned char m_pad3b4[0x3C4 - 0x3B4];
-	_STL::vector<bool> m_colorsAvailable; // +0x3C4
-	int m_numColors; // +0x3D8
-	bool m_3dc; // +0x3DC
-};
+static inline MpGameSetupRules *setupRules(AptMpGameSetup *setup)
+{ return (MpGameSetupRules *)((char *)setup->fieldd0 + (0x15C - 0xD0)); }
 
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
 // template, or -1 without a combo box.
 int AptMpGameSetup::GetDisplayedPlayerTemplateIndex(int slot)
 {
-	GameWindow *comboBox = m_playerTemplate[slot];
+	GameWindow *comboBox = field334[slot];
 	if (!comboBox)
 		return -1;
 	int selected;
@@ -749,12 +603,12 @@ int AptMpGameSetup::GetDisplayedPlayerTemplateIndex(int slot)
 // Retail 0x0043DC0F, 49 bytes.
 void AptMpGameSetup::rva0043DC0F()
 {
-	if (m_2c4)
+	if (field2c4)
 	{
-		m_2c4 = false;
-		m_owner->v16(false);
-		if (m_owner->v01())
-			m_owner->v15();
+		field2c4 = false;
+		field58->v16(false);
+		if (field58->v01())
+			field58->v15();
 	}
 }
 
@@ -763,7 +617,7 @@ void AptMpGameSetup::rva0043DC0F()
 void AptMpGameSetup::rva0043E49C(const UnicodeString &text)
 {
 	rva0043DC0F();
-	m_owner->v17(text, 1);
+	field58->v17(text, 1);
 }
 
 // Retail 0x0043DDF8, 33 bytes: the larger of 8 - count and 4, through
@@ -803,7 +657,7 @@ int Rva0043F1A4(Rva00222A8BTarget *target, void *owner, const char *name, const 
 // number (1..7) that is neither open nor closed goes to 0x0043E30F.
 void AptMpGameSetup::OnKickPlayer(const char *slotText)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (game && game->amIHost())
 	{
 		int slot = atoi(slotText);
@@ -820,9 +674,9 @@ void AptMpGameSetup::OnKickPlayer(const char *slotText)
 // 0x40 set, tells the owner's Apt movie "OnClansFlagChange".
 void AptMpGameSetup::rva0043DB6E()
 {
-	m_d0.rva0057EA0F();
-	if (m_flags & 0x40)
-		Rva0043DB23(((Rva00222A8BTarget *)g_bfmeAptWindowManager), m_owner->v21(), "OnClansFlagChange");
+	((Rva0057EE5C *)fieldd0)->rva0057EA0F();
+	if (field3a4 & 0x40)
+		Rva0043DB23(((Rva00222A8BTarget *)g_bfmeAptWindowManager), field58->v21(), "OnClansFlagChange");
 }
 
 // Retail 0x00441AAA, 107 bytes. Donor Open-BFME-1 AptMpGameSetup.cpp
@@ -832,18 +686,18 @@ void AptMpGameSetup::rva0043DB6E()
 // refreshes the slot (0x0044149C).
 bool AptMpGameSetup::handlePlayerTemplateSelection(int index)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return false;
 
-	m_pending = false;
+	field2c3 = false;
 	int playerTemplate = GetDisplayedPlayerTemplateIndex(index);
 	if (playerTemplate < -2)
 		return false;
 	GameSlot *slot = game->getSlot(index);
 	if (!slot)
 		return false;
-	if (playerTemplate != slot->m_playerTemplate && !m_owner->applySlotPlayerTemplate(slot, playerTemplate))
+	if (playerTemplate != slot->m_playerTemplate && !field58->applySlotPlayerTemplate(slot, playerTemplate))
 		return false;
 	UpdateHeroToFaction(slot, index, true);
 	return true;
@@ -857,20 +711,20 @@ bool AptMpGameSetup::HandleHeroSelection(int index)
 {
 	if (!TheCreateAHeroManager)
 		return false;
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return false;
 
 	GameSlot *slot = game->getSlot(index);
 	if (!slot)
 		return false;
-	m_pending = false;
-	GameWindow *comboBox = m_hero[index];
+	field2c3 = false;
+	GameWindow *comboBox = field374[index];
 	int selected;
 	GadgetComboBoxGetSelectedPos(comboBox, &selected);
 	if (!SetSlotHeroData(slot, (int)GadgetComboBoxGetItemData(comboBox, selected)))
 		return false;
-	return m_owner->applySlotHero(slot);
+	return field58->applySlotHero(slot);
 }
 
 // Retail 0x0043E3E2, 186 bytes. Name unknown. Shows a slot's team in its
@@ -879,14 +733,14 @@ bool AptMpGameSetup::HandleHeroSelection(int index)
 // applies it through the owner's applySlotTeam (vslot 12).
 void AptMpGameSetup::rva0043E3E2(int index, int team)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return;
-	GameWindow *comboBox = m_team[index];
+	GameWindow *comboBox = field314[index];
 	if (!comboBox)
 		return;
 
-	int mode = m_60.m_mode;
+	int mode = field7c;
 	GameSlot *slot = game->getSlot(index);
 	if (mode == 1 && team == -1 && slot->m_state != 1)
 	{
@@ -895,7 +749,7 @@ void AptMpGameSetup::rva0043E3E2(int index, int team)
 		{
 			slot = game->getSlot(index);
 			if (slot)
-				m_owner->applySlotTeam(slot, team);
+				field58->applySlotTeam(slot, team);
 		}
 	}
 
@@ -916,10 +770,10 @@ void AptMpGameSetup::rva0043E3E2(int index, int team)
 // slot-state setter (vslot 9, BfmeAptScreenLanLobby::rva00444B90 for LAN).
 void AptMpGameSetup::ChangePlayerSelection(int index, int state)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return;
-	GameWindow *comboBox = m_player[index];
+	GameWindow *comboBox = field2d4[index];
 	if (!comboBox)
 		return;
 
@@ -936,7 +790,7 @@ void AptMpGameSetup::ChangePlayerSelection(int index, int state)
 				if (slot)
 				{
 					UnicodeString name = GadgetComboBoxGetText(comboBox);
-					m_owner->setSlotState(slot, state, name);
+					field58->setSlotState(slot, state, name);
 				}
 			}
 			return;
@@ -955,7 +809,7 @@ void AptMpGameSetup::ExternFunc(int query, char *result, bool skip)
 	{
 	case 0:
 		if (!skip)
-			_mbscpy((unsigned char *)result, (const unsigned char *)(m_owner->v01() ? "1" : "0"));
+			_mbscpy((unsigned char *)result, (const unsigned char *)(field58->v01() ? "1" : "0"));
 		break;
 	case 1:
 		if (!skip)
@@ -963,11 +817,11 @@ void AptMpGameSetup::ExternFunc(int query, char *result, bool skip)
 		break;
 	case 2:
 		if (!skip)
-			_mbscpy((unsigned char *)result, (const unsigned char *)(m_rules.m_04 == 1 && m_game->rva0043DA65() ? "1" : "0"));
+			_mbscpy((unsigned char *)result, (const unsigned char *)(setupRules(this)->m_04 == 1 && field5c->rva0043DA65() ? "1" : "0"));
 		break;
 	case 3:
 		if (!skip)
-			_mbscpy((unsigned char *)result, (const unsigned char *)(m_flags & 0x80 ? "1" : "0"));
+			_mbscpy((unsigned char *)result, (const unsigned char *)(field3a4 & 0x80 ? "1" : "0"));
 		break;
 	}
 }
@@ -1043,9 +897,9 @@ void AptMpGameSetup::OnSortIcons(const char *)
 void AptMpGameSetup::OnTabSelect(const char *tab)
 {
 	if (strcmp(tab, "ChatTab") == 0)
-		m_244.rva0057FD94();
+		((Rva0057FD6E *)field244)->rva0057FD94();
 	else if (strcmp(tab, "RulesTab") == 0)
-		m_d0.rva0057E6D8();
+		((Rva0057EE5C *)fieldd0)->rva0057E6D8();
 	else if (strcmp(tab, "ClansTab") == 0)
 	{
 	}
@@ -1060,7 +914,7 @@ void AptMpGameSetup::OnTabSelect(const char *tab)
 // 0x004467C7 and 0x005216AF.
 bool AptMpGameSetup::rva00442C9C()
 {
-	if (m_60.m_mode == 0 && m_mapList == 0)
+	if (field7c == 0 && field394 == 0)
 		return false;
 	return rva00442BCC();
 }
@@ -1082,13 +936,13 @@ void AptMpGameSetup::rva0043FFCF()
 // g_Va00A0335C and the current game, then 0x0043FA68 without a game.
 void AptMpGameSetup::rva0043FFD7()
 {
-	m_244.rva0057FD6E();
-	m_60.m_61 = false;
+	((Rva0057FD6E *)field244)->rva0057FD6E();
+	((Rva0057E3DB *)field60)->m_61 = false;
 	Rva00446A67Set(0);
-	m_game->m_current = 0;
+	field5c->m_current = 0;
 	rva0043FA68(0);
-	m_3a8 = 0;
-	m_saved = 0;
+	field3a8 = 0;
+	field2b0 = 0;
 }
 
 
@@ -1097,8 +951,8 @@ void AptMpGameSetup::rva0043FFD7()
 // from 0x00522BD5 and 0x005A5CF6.
 void AptMpGameSetup::rva004422B4(int mode)
 {
-	m_60.rva0057C7BA(mode);
-	m_d0.rva0057F002(mode);
+	((Rva0057E3DB *)field60)->rva0057C7BA(mode);
+	((Rva0057EE5C *)fieldd0)->rva0057F002(mode);
 	InitAvailableColors();
 }
 
@@ -1108,20 +962,20 @@ void AptMpGameSetup::rva004422B4(int mode)
 // 0x00442E62, 0x00442E7F and 0x00443E3E.
 void AptMpGameSetup::rva00440017(const AsciiString &map)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (game)
 	{
 		if (map != game->getMap())
 		{
 			game->setMap(map);
-			m_owner->bfmeMapChanged(&map);
+			field58->bfmeMapChanged(&map);
 		}
 	}
-	m_2c0 = true;
-	m_2bf = true;
-	m_2b9 = true;
-	m_2bd = true;
-	m_2be = true;
+	field2c0 = true;
+	field2bf = true;
+	field2b9 = true;
+	field2bd = true;
+	field2be = true;
 }
 
 // Retail 0x004415D5, 176 bytes. Name unknown. Selects the map list box
@@ -1131,14 +985,14 @@ void AptMpGameSetup::rva00440017(const AsciiString &map)
 // 0x00443E28.
 void AptMpGameSetup::rva004415D5(const AsciiString &map)
 {
-	if (!m_mapList)
+	if (!field394)
 		return;
 
-	int count = GadgetListBoxGetNumEntries(m_mapList);
+	int count = GadgetListBoxGetNumEntries(field394);
 	int index = -1;
 	for (int i = 0; i < count; ++i)
 	{
-		if (map.compareNoCase(m_maps[i]) == 0)
+		if (map.compareNoCase((*(_STL::vector<AsciiString> *)field398)[i]) == 0)
 		{
 			index = i;
 			break;
@@ -1147,17 +1001,17 @@ void AptMpGameSetup::rva004415D5(const AsciiString &map)
 
 	if (index >= 0)
 	{
-		GadgetListBoxSetSelected(m_mapList, index);
+		GadgetListBoxSetSelected(field394, index);
 	}
-	else if (GadgetListBoxGetNumEntries(m_mapList) == 0)
+	else if (GadgetListBoxGetNumEntries(field394) == 0)
 	{
-		GadgetListBoxSetSelected(m_mapList, &index, -1);
+		GadgetListBoxSetSelected(field394, &index, -1);
 		rva00440017(AsciiString::TheEmptyString);
 	}
 	else
 	{
-		GadgetListBoxSetSelected(m_mapList, 0);
-		rva00440017(m_maps[0]);
+		GadgetListBoxSetSelected(field394, 0);
+		rva00440017((*(_STL::vector<AsciiString> *)field398)[0]);
 	}
 }
 
@@ -1167,15 +1021,15 @@ void AptMpGameSetup::rva004415D5(const AsciiString &map)
 // tooltip. Callers 0x00443E20 and 0x00443EED.
 void AptMpGameSetup::rva00443BF3()
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return;
 
 	rva00443538(0x1B);
 	rva004415D5(game->getMap());
-	m_2bd = true;
-	if (m_mapList && (m_flags & 1))
-		m_mapList->winSetTooltipFunc(Rva0043E8F1Tooltip);
+	field2bd = true;
+	if (field394 && (field3a4 & 1))
+		field394->winSetTooltipFunc(Rva0043E8F1Tooltip);
 }
 
 
@@ -1186,7 +1040,7 @@ void AptMpGameSetup::rva00443BF3()
 // slot (game vslot 13). Callers 0x0043FCAE and 0x00441B55.
 void AptMpGameSetup::UpdateReadyIcon(int index)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return;
 	GameSlot *slot = game->getSlot(index);
@@ -1194,7 +1048,7 @@ void AptMpGameSetup::UpdateReadyIcon(int index)
 		return;
 
 	const char *state = "_none";
-	if (m_flags & 0x20)
+	if (field3a4 & 0x20)
 	{
 		if (index == 0)
 			state = "_disabledChecked";
@@ -1212,7 +1066,7 @@ void AptMpGameSetup::UpdateReadyIcon(int index)
 				state = "_disabledChecked";
 		}
 	}
-	Rva0043F1A4(((Rva00222A8BTarget *)g_bfmeAptWindowManager), m_owner->v21(), "SetReadyState", index, state);
+	Rva0043F1A4(((Rva00222A8BTarget *)g_bfmeAptWindowManager), field58->v21(), "SetReadyState", index, state);
 }
 
 // Retail 0x00442B72, 29 bytes: the encoded index's postfix increment
@@ -1246,18 +1100,18 @@ bool AptMpGameSetup::rva00442BCC()
 		if (!slot.bfmeDiffers(end))
 			break;
 		unsigned int key = slot.m_value;
-		if (!m_player[(short)Rva003F1E2EHook((int)key, (int)key)])
+		if (!field2d4[(short)Rva003F1E2EHook((int)key, (int)key)])
 			return false;
-		MpGameSetupComboRef *color = &m_colorCombo[(short)Rva003F1E2EHook((int)key, (int)key)];
+		MpGameSetupComboRef *color = &((MpGameSetupComboRef *)field2f4)[(short)Rva003F1E2EHook((int)key, (int)key)];
 		if (!color->m_window)
 			return false;
-		if (!m_team[(short)Rva003F1E2EHook((int)key, (int)key)])
+		if (!field314[(short)Rva003F1E2EHook((int)key, (int)key)])
 			return false;
-		if (!m_playerTemplate[(short)Rva003F1E2EHook((int)key, (int)key)])
+		if (!field334[(short)Rva003F1E2EHook((int)key, (int)key)])
 			return false;
-		if (!m_handicap[(short)Rva003F1E2EHook((int)key, (int)key)])
+		if (!field354[(short)Rva003F1E2EHook((int)key, (int)key)])
 			return false;
-		if (!m_hero[(short)Rva003F1E2EHook((int)key, (int)key)])
+		if (!field374[(short)Rva003F1E2EHook((int)key, (int)key)])
 			return false;
 		slot.rva003F3133();
 	}
@@ -1314,14 +1168,14 @@ bool AptMpGameSetup::SetSlotHeroData(GameSlot *slot, int hero)
 // through 0x00440AA0 below.
 bool AptMpGameSetup::HandleClanChange()
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return false;
 	GameSlot *slot = game->getSlot(game->getLocalSlotNum());
 	if (!slot)
 		return false;
 
-	UnicodeString text = m_190.rva0057F3A9();
+	UnicodeString text = ((Rva0057F2DE *)field190)->rva0057F3A9();
 	UnicodeString name;
 	name.translate(((Rva003821B9AsciiField *)slot)->get());
 	bool result;
@@ -1329,8 +1183,8 @@ bool AptMpGameSetup::HandleClanChange()
 		result = false;
 	else
 	{
-		m_2bb = true;
-		result = m_owner->v13(slot, text);
+		field2bb = true;
+		result = field58->v13(slot, text);
 	}
 	return result;
 }
@@ -1361,14 +1215,14 @@ void Rva0043DAE0::rva00440AA0()
 // 0x0043F483. Called from 0x00442DFF.
 bool AptMpGameSetup::rva00442A68(int index)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return false;
-	m_pending = false;
+	field2c3 = false;
 	if (index == game->getLocalSlotNum())
 		return false;
 
-	GameWindow *comboBox = m_player[index];
+	GameWindow *comboBox = field2d4[index];
 	int selected;
 	GadgetComboBoxGetSelectedPos(comboBox, &selected);
 	if (selected < 0)
@@ -1385,12 +1239,12 @@ bool AptMpGameSetup::rva00442A68(int index)
 
 	UnicodeString name = GadgetComboBoxGetText(comboBox);
 	bool result;
-	if (m_owner->setSlotState(slot, state, name))
+	if (field58->setSlotState(slot, state, name))
 	{
 		PopulatePlayerTemplateCombo(index);
 		result = true;
-		m_2b9 = true;
-		bool mode1 = m_60.m_mode == 1;
+		field2b9 = true;
+		bool mode1 = field7c == 1;
 		if (mode1 && (state == 0 || oldState == 0))
 		{
 			for (int i = 1; i < 8; ++i)
@@ -1426,7 +1280,7 @@ void AptMpGameSetup::UpdateHeroToFaction(GameSlot *slot, int index, bool flag)
 	if (playerTemplate == -2)
 	{
 		if (SetSlotHeroData(slot, -1))
-			m_owner->applySlotHero(slot);
+			field58->applySlotHero(slot);
 	}
 	else
 	{
@@ -1450,7 +1304,7 @@ void AptMpGameSetup::UpdateHeroToFaction(GameSlot *slot, int index, bool flag)
 			{
 				CreateAHeroData *data = TheCreateAHeroManager->GetDefaultHero(side);
 				if (data && SetSlotHeroData(slot, heroes->findIndex(data)))
-					m_owner->applySlotHero(slot);
+					field58->applySlotHero(slot);
 			}
 		}
 	}
@@ -1469,21 +1323,21 @@ void AptMpGameSetup::InitAvailableColors()
 	if (!TheMultiplayerSettings)
 		return;
 
-	bool mode1 = m_60.m_mode == 1;
-	m_3dc = !mode1;
-	m_numColors = TheMultiplayerSettings->getNumColors();
-	m_colorsAvailable.clear();
-	m_colorsAvailable.resize(m_numColors, true);
+	bool mode1 = field7c == 1;
+	field3dc = !mode1;
+	field3d8 = TheMultiplayerSettings->getNumColors();
+	(*(_STL::vector<bool> *)field3c4).clear();
+	(*(_STL::vector<bool> *)field3c4).resize(field3d8, true);
 	if (mode1)
 	{
-		int count = m_numColors;
+		int count = field3d8;
 		for (int i = 0; i < count; ++i)
 		{
 			MultiplayerColorDefinition *def = TheMultiplayerSettings->getColor(i);
 			if (!def || !def->m_extraFlag)
 			{
-				m_colorsAvailable[i] = false;
-				--m_numColors;
+				(*(_STL::vector<bool> *)field3c4)[i] = false;
+				--field3d8;
 			}
 		}
 	}
@@ -1501,17 +1355,17 @@ void AptMpGameSetup::InitAvailableColors()
 // Called from the LAN screen (0x00446874, 0x004468E0).
 bool AptMpGameSetup::InitGameInfoFromSaveGame(GameInfo *game)
 {
-	if (m_owner->v01())
+	if (field58->v01())
 	{
-		if (!m_saved || !game)
+		if (!field2b0 || !game)
 			return false;
-		((Rva00401FAF *)game)->rva00401FAF(m_saved);
+		((Rva00401FAF *)game)->rva00401FAF(field2b0);
 		for (int i = 0; i < 8; ++i)
 		{
 			GameSlot *slot = game->getSlot(i);
 			if (!slot)
 				continue;
-			GameSlot *saved = &m_saved->m_slots[i];
+			GameSlot *saved = &field2b0->m_slots[i];
 			if (i != 0)
 			{
 				if (i > 0 && saved->m_state == SLOT_PLAYER)
@@ -1541,19 +1395,19 @@ bool AptMpGameSetup::InitGameInfoFromSaveGame(GameInfo *game)
 			((Rva003FF0E7DwordSlot *)slot)->set(saved->m_field5C);
 			slot->m_field40 = 1;
 		}
-		((Rva00381CED *)game)->rva00381CED(m_saved->m_rules);
-		((Rva00381D02 *)game)->rva00381D02(m_saved->m_digest);
-		game->m_field58 = m_saved->m_de8;
-		m_2ba = true;
-		m_2bd = true;
+		((Rva00381CED *)game)->rva00381CED(field2b0->m_rules);
+		((Rva00381D02 *)game)->rva00381D02(field2b0->m_digest);
+		game->m_field58 = field2b0->m_de8;
+		field2ba = true;
+		field2bd = true;
 	}
 	else
 	{
 		unsigned char digest[16];
 		memcpy(digest, game->m_fieldCC, 16);
-		m_saved = Rva004361B3(digest);
-		if (m_saved)
-			((Rva00401FAF *)game)->rva00401FAF(m_saved);
+		field2b0 = Rva004361B3(digest);
+		if (field2b0)
+			((Rva00401FAF *)game)->rva00401FAF(field2b0);
 		else
 			return false;
 	}
@@ -1568,21 +1422,21 @@ bool AptMpGameSetup::InitGameInfoFromSaveGame(GameInfo *game)
 // pending (+0x2B0). Callers 0x004405CD, 0x004409AA, 0x00441D5E.
 void AptMpGameSetup::UpdateHeroDisplay(int slot)
 {
-	if (m_saved)
+	if (field2b0)
 		return;
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return;
 	GameSlot *gameSlot = game->getSlot(slot);
 	if (!gameSlot)
 		return;
-	GameWindow *heroBox = m_hero[slot];
+	GameWindow *heroBox = field374[slot];
 	if (!heroBox)
 		return;
 
 	UnicodeString text(L"-");
 	bool local = slot == game->getLocalSlotNum();
-	bool hostAI = gameSlot->isAI() && m_owner->v01();
+	bool hostAI = gameSlot->isAI() && field58->v01();
 	if (!local && !hostAI)
 	{
 		switch (gameSlot->m_field50)
@@ -1625,7 +1479,7 @@ void AptMpGameSetup::UpdateHeroDisplay(int slot)
 // Callers 0x004411BD, the LAN screen's update 0x004465A8 and 0x005A6542.
 bool AptMpGameSetup::WaitStartGame()
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return false;
 
@@ -1636,56 +1490,56 @@ bool AptMpGameSetup::WaitStartGame()
 		if (slot && slot->isOccupied() && !slot->isObserver() && slot->isHuman())
 			++humans;
 	}
-	if (humans < m_3a8)
+	if (humans < field3a8)
 	{
-		m_owner->v17(TheGameText->fetch("LAN:HostCanceledGameBecausePlayerLeave"), 2);
-		m_pending = false;
-		m_startTime = 0;
+		field58->v17(TheGameText->fetch("LAN:HostCanceledGameBecausePlayerLeave"), 2);
+		field2c3 = false;
+		field2c8 = 0;
 	}
-	else if (rva0043DF22() < (unsigned int)m_3a8)
+	else if (rva0043DF22() < (unsigned int)field3a8)
 	{
-		m_owner->v17(TheGameText->fetch("LAN:CountdownStoppedGeneric"), 2);
-		m_pending = false;
-		m_startTime = 0;
+		field58->v17(TheGameText->fetch("LAN:CountdownStoppedGeneric"), 2);
+		field2c3 = false;
+		field2c8 = 0;
 	}
 
-	if (!m_pending)
+	if (!field2c3)
 	{
-		if (m_startTime)
-			m_owner->v17(TheGameText->fetch("LAN:HostCanceledGame"), 2);
-		if (m_2c4)
+		if (field2c8)
+			field58->v17(TheGameText->fetch("LAN:HostCanceledGame"), 2);
+		if (field2c4)
 			rva0043DC0F();
-		m_shownSeconds = 0;
-		m_startTime = 0;
+		field2cc = 0;
+		field2c8 = 0;
 		return false;
 	}
 
-	int remaining = m_startTime - timeGetTime();
+	int remaining = field2c8 - timeGetTime();
 	if (remaining > 0)
 	{
-		if (m_2c4)
+		if (field2c4)
 			return true;
 		int seconds = remaining / 1000;
-		if (seconds >= m_shownSeconds)
+		if (seconds >= field2cc)
 			return true;
 		if (seconds > 0)
 		{
 			UnicodeString message;
 			message.format(TheGameText->fetchPtr(seconds == 1 ? "LAN:GameStartTimerSingular" : "LAN:GameStartTimerPlural", 0), seconds);
-			m_owner->v17(message, 2);
+			field58->v17(message, 2);
 		}
-		m_shownSeconds = seconds;
+		field2cc = seconds;
 		return true;
 	}
-	if (!m_2c4)
+	if (!field2c4)
 	{
 		Rva00511730(0);
-		m_owner->v16(true);
-		m_2c4 = true;
-		m_startTime = timeGetTime() + 5000;
+		field58->v16(true);
+		field2c4 = true;
+		field2c8 = timeGetTime() + 5000;
 		return true;
 	}
-	m_pending = false;
+	field2c3 = false;
 	return OnHostStartGame(0);
 }
 
@@ -1698,19 +1552,19 @@ bool AptMpGameSetup::WaitStartGame()
 // -3 for none) and re-checks its hero (0x0044149C). Called from 0x00441D56.
 void AptMpGameSetup::UpdatePlayerTemplateDisplay(int slot)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return;
 	GameSlot *gameSlot = game->getSlot(slot);
 	if (!gameSlot)
 		return;
 	int playerTemplate = gameSlot->m_playerTemplate;
-	GameWindow *comboBox = m_playerTemplate[slot];
+	GameWindow *comboBox = field334[slot];
 	if (!comboBox)
 		return;
 
 	bool local = slot == game->getLocalSlotNum();
-	bool hostAI = gameSlot->isAI() && m_owner->v01();
+	bool hostAI = gameSlot->isAI() && field58->v01();
 	if (!local && !hostAI)
 	{
 		UnicodeString text(AsciiString("-"));
@@ -1752,18 +1606,18 @@ void AptMpGameSetup::UpdatePlayerTemplateDisplay(int slot)
 			if ((int)GadgetListBoxGetItemData(listBox, i, 0) == playerTemplate)
 			{
 				GadgetComboBoxSetSelectedPos(comboBox, i, false);
-				if (local && m_pendingHero == -3)
+				if (local && field2b4 == -3)
 					UpdateHeroToFaction(gameSlot, slot, false);
 				break;
 			}
 		}
 	}
-	if (local && m_pendingHero != -3 && playerTemplate >= -1)
+	if (local && field2b4 != -3 && playerTemplate >= -1)
 	{
-		SetSlotHeroData(gameSlot, m_pendingHero);
-		if (m_pendingHero == gameSlot->m_field5C)
+		SetSlotHeroData(gameSlot, field2b4);
+		if (field2b4 == gameSlot->m_field5C)
 		{
-			m_pendingHero = -3;
+			field2b4 = -3;
 			UpdateHeroToFaction(gameSlot, slot, false);
 		}
 	}
@@ -1776,9 +1630,9 @@ void AptMpGameSetup::UpdatePlayerTemplateDisplay(int slot)
 // game), else "APT:JoinGame".
 void AptMpGameSetup::rva0043FA68(GameInfo *game)
 {
-	((Rva0043DA65 *)((Rva0043F103 *)m_owner)->rva0043F103(1))->m_current = game;
-	((AptMapPreview *)&m_60)->rva0057E058();
-	m_d0.rva0057EA0F();
+	((Rva0043DA65 *)((Rva0043F103 *)field58)->rva0043F103(1))->m_current = game;
+	((AptMapPreview *)field60)->rva0057E058();
+	((Rva0057EE5C *)fieldd0)->rva0057EA0F();
 	if (game && ((const Rva003FF1C2 *)game)->rva003FF1C2())
 	{
 		AsciiString key("APT:JoinGame");
@@ -1878,15 +1732,15 @@ void AptMpGameSetup::PlayerTooltip(GameWindow *window, WinInstanceData *, unsign
  if (!g_Va00E0333C) return;
  int selected=-1;
  for(int i=0;i<8;++i) {
-  if(window && window==GadgetComboBoxGetListBox(((AptMpGameSetup *)g_Va00E0333C)->m_player[i])) {
+  if(window && window==GadgetComboBoxGetListBox(((AptMpGameSetup *)g_Va00E0333C)->field2d4[i])) {
    selected=i;break;
   }
  }
  if(selected!=-1) {
-  GameInfo *game=(GameInfo *)((AptMpGameSetup *)g_Va00E0333C)->m_game->rva0043DA65();
+  GameInfo *game=(GameInfo *)((AptMpGameSetup *)g_Va00E0333C)->field5c->rva0043DA65();
   if(game) {
    GameSlot *slot=game->getSlot(selected);
-   if(slot) ((AptMpGameSetup *)g_Va00E0333C)->m_owner->v19(slot);
+   if(slot) ((AptMpGameSetup *)g_Va00E0333C)->field58->v19(slot);
   }
  }
 }
@@ -1896,7 +1750,7 @@ void AptMpGameSetup::PlayerTooltip(GameWindow *window, WinInstanceData *, unsign
 // compared against the observer result register rather than immediate zero.
 unsigned int AptMpGameSetup::rva0043DF22()
 {
-	Rva0043DA65 *mgr = m_game;
+	Rva0043DA65 *mgr = field5c;
 	GameInfo *game = (GameInfo *)mgr->rva0043DA65();
 	if (!game)
 		return 0;
@@ -1920,27 +1774,27 @@ unsigned int AptMpGameSetup::rva0043DF22()
 
 void AptMpGameSetup::rva0043F244(int slot, bool reset)
 {
-	int mode = m_60.m_mode;
+	int mode = field7c;
 	bool mode1 = mode == 1;
 	int count = 2 + 2 * !mode1;
 	UnicodeString text;
 	int startTeam = -1;
-	if (Rva0057C71FEntry *entry = (Rva0057C71FEntry *)((AptMapPreview *)&m_60)->GetStartPositionInfoForSlot(slot))
+	if (Rva0057C71FEntry *entry = (Rva0057C71FEntry *)((AptMapPreview *)field60)->GetStartPositionInfoForSlot(slot))
 		startTeam = entry->m_team;
 	int selected;
 	int selectedData = -1;
-	GadgetComboBoxGetSelectedPos(m_team[slot], &selected);
+	GadgetComboBoxGetSelectedPos(field314[slot], &selected);
 	if (selected >= 0)
-		selectedData = (int)GadgetComboBoxGetItemData(m_team[slot], selected);
-	GadgetComboBoxReset(m_team[slot]);
+		selectedData = (int)GadgetComboBoxGetItemData(field314[slot], selected);
+	GadgetComboBoxReset(field314[slot]);
 	MultiplayerColorDefinition *color = TheMultiplayerSettings->getColor(-1);
 	if (!mode1 && (reset || startTeam < 0))
 	{
-		selected = GadgetComboBoxAddEntry(m_team[slot], TheGameText->fetch("Team:0"), color->m_color);
-		GadgetComboBoxSetItemData(m_team[slot], selected, (void *)-1);
+		selected = GadgetComboBoxAddEntry(field314[slot], TheGameText->fetch("Team:0"), color->m_color);
+		GadgetComboBoxSetItemData(field314[slot], selected, (void *)-1);
 		if (reset)
 		{
-			GadgetComboBoxSetSelectedPos(m_team[slot], 0, false);
+			GadgetComboBoxSetSelectedPos(field314[slot], 0, false);
 			return;
 		}
 	}
@@ -1952,28 +1806,28 @@ void AptMpGameSetup::rva0043F244(int slot, bool reset)
 		AsciiString num;
 		num.format("Team:%d", team + 1);
 		text = TheGameText->fetch(num.str());
-		selected = GadgetComboBoxAddEntry(m_team[slot], text, color->m_color);
-		GadgetComboBoxSetItemData(m_team[slot], selected, (void *)team);
+		selected = GadgetComboBoxAddEntry(field314[slot], text, color->m_color);
+		GadgetComboBoxSetItemData(field314[slot], selected, (void *)team);
 		if (team == selectedData)
 			selectPos = selected;
 	}
 	if (selectPos == -1)
 	{
 		selectPos = 0;
-		if (mode1 && slot == 1 && GadgetComboBoxGetLength(m_team[1]) >= 2)
+		if (mode1 && slot == 1 && GadgetComboBoxGetLength(field314[1]) >= 2)
 			selectPos = 1;
 	}
-	GadgetComboBoxSetSelectedPos(m_team[slot], selectPos, false);
+	GadgetComboBoxSetSelectedPos(field314[slot], selectPos, false);
 	// A locked game keeps the slot's own team selected (the guard is the
 	// early-return form: with the body nested under the lock test instead cl
 	// lays the block out differently).
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!(game && game->m_field8C))
 		return;
 	GameSlot *gameSlot = game->getSlot(slot);
 	if (gameSlot)
 	{
 		int team = gameSlot->m_teamNumber;
-		GadgetComboBoxSetSelectedPos(m_team[slot], team, false);
+		GadgetComboBoxSetSelectedPos(field314[slot], team, false);
 	}
 }
