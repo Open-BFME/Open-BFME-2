@@ -1,0 +1,28 @@
+{
+  "base": "87f381ace75cae5c12583abe2e25a7a76825dd20",
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+  "normal_code_rows": 432,
+  "normal_data_rows": 3,
+  "source_count": 17,
+  "before_runtime_nodes": 79,
+  "after_runtime_nodes": 78,
+  "before_private_runtime_checks": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "after_private_runtime_checks": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "strict_copy_provider": "Code/Libraries/Source/WWVegas/WWLib/Object260Copy.cpp",
+  "removed_duplicate_copy_bytes": 27,
+  "default_size_before": 12,
+  "default_size_after": 3,
+  "explicit_padding_still_present": true,
+  "new_unique_bytes": 0,
+  "completed_credit": 0
+}

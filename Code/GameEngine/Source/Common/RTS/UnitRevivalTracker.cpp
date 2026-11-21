@@ -66,16 +66,10 @@ public:
 
 #include "unicode_string.h"
 
-#include "FixedStorage128.h"
+#include "../../../Include/Common/BfmeFixedStorage128.h"
 
 #include "../../../Include/Common/Rva001EAE6FHelper.h"
-// The established storage copy remains a direct member-constructor call.
-// Its default is inlined into the template constructor and calls the
-// independently rowed clear80 helper; no standalone default body is emitted.
-// ?BfmeFixedStorage128::BfmeFixedStorage128 absent-from-retail
-__forceinline BfmeFixedStorage128::BfmeFixedStorage128() {
-    reinterpret_cast<Rva001EAE6FHelper*>(this)->clear80();
-}
+// This constructor clears only its own real mask; the canonical mask default remains empty.
 #include "../../../Include/Common/Rva001EB15A.h"
 
 struct RevivalLevelValue
@@ -545,7 +539,8 @@ struct RevivalTemplateInitView {
 UnitRevivalEntry::UnitRevivalEntry(const ThingTemplate *thingTemplate)
     : m_reviveImage(0),m_cachedImage(0),m_experience(0.0f),m_rank(1),m_level(1)
     , m_upgrades()
-    , m_94(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->cost)
+    , m_94((reinterpret_cast<Rva001EAE6FHelper*>(&m_upgrades)->clear80(),
+            reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->cost))
     , m_reviveStartFrame(-1)
     , m_9c(static_cast<unsigned int>(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->time))
     , m_a0(false),m_a1(false),m_productionID(0),m_a8(0),m_ac(0)

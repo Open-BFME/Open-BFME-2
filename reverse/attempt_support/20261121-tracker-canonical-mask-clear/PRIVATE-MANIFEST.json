@@ -1,0 +1,187 @@
+{
+  "head": "87f381ace75cae5c12583abe2e25a7a76825dd20",
+  "source_sha256": "312560702ed83afb04c5dd64198a5882854e09dd000059368dd169675fc84351",
+  "candidate_sha256": "d1864edc87094558b5d07b589a6185824685460a0722f6cc5e5532665691d125",
+  "matched_calls": 2,
+  "additional_compiler_calls": 0,
+  "new_bodies": 0,
+  "new_bytes": 0,
+  "new_tasks": 0,
+  "files": [
+    {
+      "path": "COPY27-PROVIDER-IDENTITY.json",
+      "size": 270,
+      "sha256": "51eea83ca6aba3bfe757ca6faabe769334336cbb1025a35ddd96bba3445f6d3a"
+    },
+    {
+      "path": "DTOR-ADDRESS-CANDIDATES.json",
+      "size": 253,
+      "sha256": "f776cc8fc67cb2151110543a1b1fb05dd93077bcce716285170c29719a27af74"
+    },
+    {
+      "path": "FIELD-API-MAPPING.json",
+      "size": 9710,
+      "sha256": "5b80676b4f839d53cb41a6346e66e41c34c0f6ba504b8b21c26bd8e5a81d354f"
+    },
+    {
+      "path": "FINAL-FENCE.json",
+      "size": 563,
+      "sha256": "def73751b91141634ddb2cc5f19ddf32a514d06da294f02c7e01c3a3753cd300"
+    },
+    {
+      "path": "FULL-RUNTIME-candidate.json",
+      "size": 124465,
+      "sha256": "8fc33b049108b563a54990abf5a3551671fe14a0e47ff1b70f9c98ae2a531e0c"
+    },
+    {
+      "path": "FULL-RUNTIME-original.json",
+      "size": 125511,
+      "sha256": "338431bc123441f1fa0c4399743bd027e37173427ccd760babff6205ebfc08c8"
+    },
+    {
+      "path": "GadgetEmptyDefault.normal.deps.json",
+      "size": 2492,
+      "sha256": "3f3b58726b5e4c6b98df84de1b628eff4a900ed65de551bfc258e33b43494bca"
+    },
+    {
+      "path": "GadgetEmptyDefault.normal.obj",
+      "size": 3790,
+      "sha256": "3ed17b6bdf39e5358edf69ef4af772c47077cc8b2de177c0f333b2cb72c89f27"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 6173,
+      "sha256": "dfb356638c4a39a2a849d69e80119036697d214a4ab96b8bf095a881d5b19288"
+    },
+    {
+      "path": "INPUTS-BEFORE.json",
+      "size": 29035,
+      "sha256": "3d810823007e2f5bc38c823a67e7fafa4f14fe0935b8f6a2a3918f86d5f7551d"
+    },
+    {
+      "path": "INPUTS-FINAL.json",
+      "size": 29192,
+      "sha256": "31d6eb1c0ea6b45fef2d44bc92d6d2e39a6c59d8fa3072524065ac16f654ba38"
+    },
+    {
+      "path": "Object260Copy.normal.deps.json",
+      "size": 5713,
+      "sha256": "4f0899c1ac6fd5fb90d66dc5a2a9b1fa5cb89a2495dc559b396c458eb4af7927"
+    },
+    {
+      "path": "Object260Copy.normal.obj",
+      "size": 1891,
+      "sha256": "e658c4e2fb38af5c3bf8fae4dae87f8ae95004be45e469c3085feedf18bd79dc"
+    },
+    {
+      "path": "PROPOSED-SCOPE-17-432.json",
+      "size": 23063,
+      "sha256": "b3765d32fd1180c58d82405efe012935050618e66f3dbdfae362c7de304df2f3"
+    },
+    {
+      "path": "ROOT_COMMANDS.md",
+      "size": 2197,
+      "sha256": "bd06edb3aaa7e0e15a5301120fb1427794cecdc3743f4f59c64991463755a0bf"
+    },
+    {
+      "path": "ROWS.json",
+      "size": 22753,
+      "sha256": "21f2a9d5be12be9277d73b5fa9b69df62b7080b9eba6fd6cca5417973b221a08"
+    },
+    {
+      "path": "RUN-RESULT.json",
+      "size": 168286,
+      "sha256": "9d977a35f8b98f13b5b3b8cac08c40e36185461237c1d3a8d072b0df1c72b8fa"
+    },
+    {
+      "path": "RUN-STARTED.json",
+      "size": 1045,
+      "sha256": "8e5d7ef5066df4200d2eeb8c636fd0e55eee530dfd3181be8fd08c10b99fe6c8"
+    },
+    {
+      "path": "RUNTIME-DELTAS.json",
+      "size": 159588,
+      "sha256": "0030713e6d4098c4340cb6042bbb9323d99f4e7a8c43afeee1c30434bf7d7a8c"
+    },
+    {
+      "path": "UnitRevivalTracker-candidate-ARGS.json",
+      "size": 4987,
+      "sha256": "4d9c02e1146767e41fcbee3546958a9e64f5e11ee63aa47984c4686efba976f0"
+    },
+    {
+      "path": "UnitRevivalTracker-candidate-effective.cpp",
+      "size": 23775,
+      "sha256": "9da2a5a37801b17d01010d3f95a5704cf88f7b63f766f0fb0c1a5c1fb5695421"
+    },
+    {
+      "path": "UnitRevivalTracker-candidate.deps.json",
+      "size": 15564,
+      "sha256": "6df1398413278eb830dff639b0c4bf01df4294f05aa34ae968accdbecd99be1c"
+    },
+    {
+      "path": "UnitRevivalTracker-candidate.obj",
+      "size": 26055,
+      "sha256": "7fc0347e78d0eef010c3884990ad4a09da9577f06f570c68c119439bedf2edec"
+    },
+    {
+      "path": "UnitRevivalTracker-original-ARGS.json",
+      "size": 4987,
+      "sha256": "62ac9158c0818ef5361e75703ec144195d01d1a6f56da4f5b851c2396e57c258"
+    },
+    {
+      "path": "UnitRevivalTracker-original-effective.cpp",
+      "size": 23984,
+      "sha256": "06192f3dd5fcf60c39893b54759f2c7eb90710d4bf9177680fc8abd639a2bb71"
+    },
+    {
+      "path": "UnitRevivalTracker-original.deps.json",
+      "size": 15566,
+      "sha256": "b905fdd4e4d8627fdb3af45fef57ded6637459d6b2dfb1867876a2599339aa2d"
+    },
+    {
+      "path": "UnitRevivalTracker-original.obj",
+      "size": 26307,
+      "sha256": "26ea76a5fe22f63a105de87c2d76add16c48d03d1de98f0f787345d09ccf9954"
+    },
+    {
+      "path": "UnitRevivalTracker.candidate.cpp.txt",
+      "size": 23775,
+      "sha256": "d1864edc87094558b5d07b589a6185824685460a0722f6cc5e5532665691d125"
+    },
+    {
+      "path": "UnitRevivalTracker.original.cpp.txt",
+      "size": 23984,
+      "sha256": "312560702ed83afb04c5dd64198a5882854e09dd000059368dd169675fc84351"
+    },
+    {
+      "path": "UnitRevivalTracker.patch",
+      "size": 1551,
+      "sha256": "40195a9e6d7ed03f49f1cff95aec378551cf17693e4663deb97499017a96fccc"
+    },
+    {
+      "path": "audit_runtime.py",
+      "size": 11794,
+      "sha256": "66fd886686b6ca6baed6398edbe36d3eebed81e41452146ad227b5d6d72732d8"
+    },
+    {
+      "path": "private_facts.py",
+      "size": 2446,
+      "sha256": "ba7f7c02700f8b37edade06884e5cbf616887e08ae744e6c05bc1550c9e36da9"
+    },
+    {
+      "path": "private_graph.py",
+      "size": 3965,
+      "sha256": "282a89626a7116cddb160537b7d92810946cd2423ac3e654b4144f4a9557d381"
+    },
+    {
+      "path": "probe_support.py",
+      "size": 6312,
+      "sha256": "bfea6d3220bc3480eb2f725bb14a6cf7ea7a522c5393cebb43afd69e4fe3bad4"
+    },
+    {
+      "path": "run_native_matched.py",
+      "size": 11773,
+      "sha256": "212962558d2e1aaa797671255e39a908bba7646340d54d1fb6a66f590ca2b8b6"
+    }
+  ]
+}
