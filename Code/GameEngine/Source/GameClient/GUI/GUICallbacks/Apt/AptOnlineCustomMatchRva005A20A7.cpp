@@ -164,12 +164,7 @@ extern int BfmeOnlineLadderRank2v2;
 
 #include "../../../../../Include/Common/GameModePreferences.h"
 
-class AptMpGameSetup
-{
-public:
-	bool InitGameInfoFromSaveGame(GameInfo *game);
-	bool Init(GameInfo *game, int mode);
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 // The NAT negotiator at 0x00A063F8 and the connection grid, both deleted
 // through vslot 0 and a separate operator delete.
@@ -214,12 +209,8 @@ public:
 	void rva0059EE96(unsigned char a, unsigned char b);
 
 private:
-	AptMpGameSetup m_setup; // +0x70
-	unsigned char m_pad071[0xEC - 0x71];
-	int m_gameMode; // +0xEC
-	unsigned char m_pad0f0[0x324 - 0xF0];
-	int m_heroSlotValue; // +0x324
-	unsigned char m_pad328[0x46C - 0x328];
+	AptMpGameSetup m_setup; // +0x70; its +0x7C is the game mode (+0xEC), its +0x2B4 the hero slot value (+0x324)
+	unsigned char m_pad450[0x46C - 0x450];
 	GameModePreferences m_prefs; // +0x46C
 	int m_state; // +0x488
 	unsigned char m_pad48c[0x4A4 - 0x48C];
@@ -279,7 +270,7 @@ void AptOnlineCustomMatch::rva005A20A7()
 				GameSpyGameSlot *slot = game->getGameSpySlot(i);
 				slot->setState(SLOT_OPEN, UnicodeString::TheEmptyString, &GameSlotConnectInfo());
 			}
-			if (m_gameMode == 1)
+			if (m_setup.field7c == 1)
 				game->m_field58 = m_prefs.getStrategicScenario();
 			int rules[10];
 			m_prefs.rva0044DB54(rules);
@@ -287,7 +278,7 @@ void AptOnlineCustomMatch::rva005A20A7()
 		}
 
 		AsciiString mapName;
-		if (m_gameMode == 1)
+		if (m_setup.field7c == 1)
 			mapName = "maps\\map wor mirkwood\\map wor mirkwood.map";
 		else
 			mapName = m_prefs.rva0044D986();
@@ -332,7 +323,7 @@ void AptOnlineCustomMatch::rva005A20A7()
 			options.format("Hero=%d", heroSlot.encodeHero());
 			req.options = options.str();
 			TheGameSpyPeerMessageQueue->addRequest(req);
-			m_heroSlotValue = heroSlot.m_field5C;
+			m_setup.field2b4 = heroSlot.m_field5C;
 		}
 		options.format("NAT=%d", natPref.getFirewallBehavior());
 		req.options = options.str();
