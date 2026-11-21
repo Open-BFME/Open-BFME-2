@@ -1,0 +1,59 @@
+{
+  "preparation_head": "64b343fb4109505cdb9073ebc21796b5c02d9500",
+  "normal_probe_head": "64b343fb4109505cdb9073ebc21796b5c02d9500",
+  "final_input_recheck_head": "57b5fd6c7583173a890fe10a64141cb7bc7147a2",
+  "head_changes_since_preparation": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/COMPOSITION-METADATA-SUMMARY.json",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/COMPOSITION-SUMMARY.json",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/FINAL-CURRENCY.json",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/HANDOFF.md",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/MANIFEST.json",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/ORIGINAL-PAIR-LIFETIME.json",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/POSTPROOF-SUMMARY.json",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/ROOT-REPLAY.md",
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/canonical-TreeKey-prerequisite.patch",
+    "reverse/header_queue.tsv"
+  ],
+  "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+  "source_sha256": "1d1c030af14ae42e6e450bb7a0c90dd72d19280a8d3433dfbcb961e4e3c07c3a",
+  "candidate_sha256": "1b785c93771d91ef35eaa8d8b19ea3a782783a9ed7c7414f510eb6b286907a10",
+  "patch_sha256": "720c4d186b43f2254ac4a75c0468463295d1dc309b2ccc595d004c1dc272d2fb",
+  "normal_compiles": 2,
+  "diagnostic_compiles": 2,
+  "preprocessor_runs": 4,
+  "max_concurrent_compilers": 2,
+  "source_variants": 1,
+  "native_row_pass_counts": [
+    85,
+    85
+  ],
+  "eh_exact_parent_counts": [
+    7,
+    7
+  ],
+  "retained_function_row_bytes": 5376,
+  "retained_data_bytes": 128,
+  "data_relocations_proven": 14,
+  "whole_runtime_difference": "Only identical27B ANY2 copy-provider definition removed; all other runtime/reloc/COMDAT/weak/directive/definition facts exact after removal.",
+  "only_intended_type_changes": [
+    "class:UnitRevivalEntry",
+    "struct:BfmeFixedStorage128"
+  ],
+  "type_records_parsed": [
+    4003,
+    4016
+  ],
+  "non_target_full_definitions_equal": true,
+  "non_target_semantic_graph_equal": true,
+  "all_opened_inputs_current_at_finalization": true,
+  "production_source_and_headers_unchanged": true,
+  "native_owner_acceptance_pending": true,
+  "strict_current_existing_provider_refresh_pending": true,
+  "private_deps_limit": "Private compile include inventories refused stability; no strict-current proof claimed or cache object reused.",
+  "no_full_pp_cross_source_identity_claim": true,
+  "full_image_or_runtime_claim": false,
+  "new_bodies": 0,
+  "new_bytes": 0,
+  "three_other_served_providers": "Blocked on real owned B0 record lifetime; no char-storage workaround attempted."
+}

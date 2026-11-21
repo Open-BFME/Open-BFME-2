@@ -1,0 +1,159 @@
+--- a/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp
++++ b/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp
+@@ -24,7 +24,7 @@
+ #include <stdlib.h>
+ #include <vector>
+ #include <algorithm>
+-#include "FixedStorage128.h"
++#include "../../../../Include/Common/BfmeFixedStorage128.h"
+ #include "ascii_string.h"
+ #include "unicode_string.h"
+ #include "../../../../Include/Common/INI/FieldParse.h"
+@@ -45,33 +45,7 @@
+ // ?CalcRevivalCostsForEntry@@YAXAAVUnitRevivalEntry@@@Z and the matched
+ // UnitRevivalEntry ctor/copy/dtor rows name the record class.
+ class Xfer;
+-class UnitRevivalEntry
+-{
+-public:
+-	UnitRevivalEntry();
+-	UnitRevivalEntry(const UnitRevivalEntry &);
+-	~UnitRevivalEntry();
+-	void *getThingTemplate();
+-	void rva0037E473(Xfer*);
+-	char m_pad00[0x8];
+-	float experience; // +0x08
+-	int rank; // +0x0C
+-	int level; // +0x10
+-	BfmeFixedStorage128 upgrades; // +0x14
+-	unsigned int cost; // +0x94
+-	int startFrame; // +0x98
+-	unsigned int time; // +0x9C
+-	bool revival; // +0xA0
+-	bool flagA1; // +0xA1
+-	char m_padA2[0x2];
+-	int productionID; // +0xA4
+-	int armyID; // +0xA8
+-	int key; // +0xAC
+-	char record[0x18]; // +0xB0
+-	int valueC8; // +0xC8
+-	float factor; // +0xCC
+-	char textD0[8]; // +0xD0
+-};
++#include "../../../../Include/GameLogic/UnitRevivalEntry.h"
+ struct LivingWorldArmy
+ {
+ public:
+@@ -86,7 +60,7 @@
+ extern "C" __declspec(nothrow) void *__cdecl memset(void*,int,unsigned int);
+ void Rva00030830FreeAllocation(void*);
+ #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+-#include "../../../../../Libraries/Source/WWVegas/WWLib/FixedStorage128.h"
++
+ class AsciiString;
+  class UnicodeString;
+  class PooledString;
+@@ -607,7 +581,7 @@
+ {
+ 	for (unsigned int i = 0; i < m_records.size(); ++i)
+ 	{
+-		if (m_records[i].key == key)
++		if (m_records[i].m_fieldAC == key)
+ 			return true;
+ 	}
+ 	return false;
+@@ -619,7 +593,7 @@
+ {
+     if (key == 0) return;
+     for (unsigned int i = 0; i < m_records.size(); ++i) {
+-        if (m_records[i].key == key) {
++        if (m_records[i].m_fieldAC == key) {
+             reinterpret_cast<Rva002E204D *>(&m_records)->rva002E204D(
+                 reinterpret_cast<Rva002E0D93 *>(&m_records[i]));
+             break;
+@@ -634,12 +608,12 @@
+     if (key == 0) return;
+     for (unsigned int i = 0; i < m_records.size(); ++i) {
+         const UnitRevivalEntry &entry = m_records[i];
+-        if (entry.key == key) {
+-            out->rank = entry.rank;
+-            out->experience = entry.experience;
+-            out->upgrades = entry.upgrades;
++        if (entry.m_fieldAC == key) {
++            out->rank = entry.m_field0C;
++            out->experience = entry.m_field08;
++            out->upgrades = entry.m_field14;
+             *reinterpret_cast<Rva001EAFC1 *>(out->record94) =
+-                *reinterpret_cast<const Rva001EAFC1 *>(entry.record);
++                *reinterpret_cast<const Rva001EAFC1 *>(entry.m_fieldB0);
+             break;
+         }
+     }
+@@ -715,7 +689,7 @@
+         const UnitRevivalEntry &record=m_records[i];
+         const StringBase<char> &name=*(const StringBase<char> *)((const char *)&record+0xD4);
+         const StringBase<char> &wanted=*(const StringBase<char> *)((const char *)thing+0x64);
+-        if (name.compare(wanted)==0) return record.key;
++        if (name.compare(wanted)==0) return record.m_fieldAC;
+     }
+     return 0;
+ }
+@@ -867,10 +841,10 @@
+ 			break;
+ 		if (!livingWorldUpgradeTemplateView->m_78 || livingWorldUpgradeTemplateView->m_04 != 0) {
+ 			unsigned int bit = static_cast<unsigned int>(livingWorldUpgradeTemplateView->m_38);
+-			reinterpret_cast<unsigned int *>(accepted.bytes)[bit >> 5] &= ~(1u << (bit & 31));
++			reinterpret_cast<unsigned int *>(accepted.m_bits)[bit >> 5] &= ~(1u << (bit & 31));
+ 		}
+ 		unsigned int bit = static_cast<unsigned int>(livingWorldUpgradeTemplateView->m_38);
+-		reinterpret_cast<unsigned int *>(unchecked.bytes)[bit >> 5] &= ~(1u << (bit & 31));
++		reinterpret_cast<unsigned int *>(unchecked.m_bits)[bit >> 5] &= ~(1u << (bit & 31));
+ 	}
+ 	*reinterpret_cast<BfmeFixedStorage128 *>(m_upgradeBits) = accepted;
+ }
+@@ -1017,7 +991,7 @@
+ 
+ // ?CalcRevivalCostsForEntry@@YAXAAVUnitRevivalEntry@@@Z
+ static __declspec(noinline) void CalcRevivalCostsForEntry(UnitRevivalEntry &entry) {
+- if(!entry.revival) return;
++ if(!entry.m_fieldA0) return;
+  RevivalThingView *thing=(RevivalThingView*)entry.getThingTemplate();
+  if(!thing) return;
+  const ModuleInfo &info=thing->modules;
+@@ -1029,8 +1003,8 @@
+   if(!data) continue;
+   if(data->isRevival()) {
+    const RespawnUpdateModuleData *rules=data->getRespawnData();
+-   entry.cost=const_cast<RespawnUpdateModuleData*>(rules)->calcCostToBuild(entry.rank);
+-   entry.time=const_cast<RespawnUpdateModuleData*>(rules)->calcTimeToBuild(entry.rank);
++   entry.m_field94=const_cast<RespawnUpdateModuleData*>(rules)->calcCostToBuild(entry.m_field0C);
++   entry.m_field9C=const_cast<RespawnUpdateModuleData*>(rules)->calcTimeToBuild(entry.m_field0C);
+    break;
+   }
+  }
+@@ -1050,19 +1024,19 @@
+  }
+  for(int i=revivalEntries.size()-1;i>=0;--i) {
+   UnitRevivalEntry entry=revivalEntries[i];
+-  if(!HasArmyQueuedInAnyBuilding(reinterpret_cast<void*>(entry.key),0,0)) {
+-   entry.productionID=0; entry.startFrame=-1; entry.factor=1.0f;
+-   if(entry.revival) {
++  if(!HasArmyQueuedInAnyBuilding(reinterpret_cast<void*>(entry.m_fieldAC),0,0)) {
++   entry.m_fieldA4=0; entry.m_field98=-1; entry.m_fieldCC=1.0f;
++   if(entry.m_fieldA0) {
+     CalcRevivalCostsForEntry(entry);
+     Rva00E02D6C *manager=TheCampaignManager;
+     RevivalCampaignView **array=manager->campaigns;
+     RevivalCampaignView *campaign=array[manager->current];
+     float costFactor=campaign->costMultiplier;
+-    entry.cost=(unsigned int)(entry.cost*costFactor);
++    entry.m_field94=(unsigned int)(entry.m_field94*costFactor);
+     float timeFactor=campaign->timeMultiplier;
+-    entry.time=(unsigned int)(entry.time*timeFactor);
++    entry.m_field9C=(unsigned int)(entry.m_field9C*timeFactor);
+    }
+-   entry.armyID=garrisonArmyID;
++   entry.m_fieldA8=garrisonArmyID;
+    reinterpret_cast<std::vector<Rva002E26E1Record>*>(out)->reserve(revivalEntries.size());
+    reinterpret_cast<std::vector<Rva002E2D10Record>*>(out)->push_back(reinterpret_cast<const Rva002E2D10Record&>(entry));
+    reinterpret_cast<Rva002E204D*>(&revivalEntries)->rva002E204D(reinterpret_cast<Rva002E0D93*>(&revivalEntries[i]));
