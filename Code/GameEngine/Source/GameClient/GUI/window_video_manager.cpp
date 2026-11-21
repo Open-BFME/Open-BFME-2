@@ -112,7 +112,9 @@ void *&vector<void*>::operator[](size_t __n)
 //-----------------------------------------------------------------------------
 #include "prerts.h"
 #include "ascii_string.h"
-#include "subsystem_interface.h"	// This must go first in EVERY cpp file int the GameEngine
+// The canonical 14-slot SubsystemInterface (retail table 0x008694A4: reset 9, update 10).
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"	// This must go first in EVERY cpp file int the GameEngine
 
 // Expose the nested hash type for the local STL specializations below, as in
 // Rva0041EC10Clear.cpp; this changes access only, not the shared header.
