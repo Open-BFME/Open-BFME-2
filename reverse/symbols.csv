@@ -3002,8 +3002,6 @@ name,address,notes
 ??1RvaVec002B80CE@@QAE@XZ,0x002B80CE,legacy address view of recovered tree destructor; calls clear 0x2B70B3 then frees header; native definition and link alias in stlport_int_ascii_tree_dtor.cpp
 ??1RvaVecAscii@@QAE@XZ,0x0002CC70,opaque 12B vector-member dtor (range-destroy via AsciiString _Destroy 0x2CB64); serves GenericObjectCreationNugget members +0x04/+0x114/+0x120; true element type unproven (AsciiString per destroyee)
 ??1S4Base009A1A40@@UAE@XZ,0x006D6470
-??1S4Mem005864A0@@QAE@XZ,0x006D3010
-??1S4Mem005879C0@@QAE@XZ,0x006D3010
 ??1S4SortElem20@@QAE@XZ,0x003372B7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1ScriptListBase@@QAE@XZ,0x003B4071,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1ScriptListElementName@@QAE@XZ,0x00577998,shared 8B string tail teardown of ScriptList subrecord elements AsciiString at +8 via rowed 0x36410; called per element from the 0x3B678A and 0x3B713E destroy loops
