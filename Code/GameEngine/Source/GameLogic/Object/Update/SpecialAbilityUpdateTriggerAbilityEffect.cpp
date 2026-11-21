@@ -406,10 +406,7 @@ class Rva00045411BitSet {
     Rva00045411BitSet(int, int);
     unsigned words[7];
 };
-class BfmeFixedStorage0004543D {
-  public:
-    unsigned words[7];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
