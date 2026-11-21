@@ -99,22 +99,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ProneUpdate : public UpdateModule
-{
-public:
-	ProneUpdate(Thing *thing, const ModuleData *moduleData);
-	void goProne(const DamageInfo *damageInfo);
-	virtual UpdateSleepTime update();
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	const ProneUpdateModuleData *getProneUpdateModuleData() const
-	{
-		return (const ProneUpdateModuleData *)getModuleData();
-	}
-	void startProneEffects();
-	void stopProneEffects();
-	Int m_proneFrames; // +0x20
-};
+#include "../../../../Include/GameLogic/Module/ProneUpdate.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp
 
