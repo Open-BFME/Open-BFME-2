@@ -1,0 +1,355 @@
+{
+  "control": {
+    "tables": 1,
+    "retail_tables": 1,
+    "slots": 6,
+    "twin_target_slots": 0,
+    "thunk_forwarded_slots": 0,
+    "refused_tables": 0,
+    "refusal_reasons": {},
+    "already_correct": 1,
+    "entries": [
+      {
+        "rva": 8803612,
+        "name": "??_7Rva0050EA74@@6B@",
+        "names": [
+          "??_7Rva0050EA74@@6B@"
+        ],
+        "slots": [
+          {
+            "name": "??_GRva0050EA74@@UAEPAXI@Z",
+            "rva": 5302872,
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj"
+          },
+          {
+            "name": "?show@Rva0050EA74@@UAEXXZ",
+            "rva": 5302203,
+            "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Disp8ByteOneSetters\\20a4f1dda89b2d01.obj"
+          },
+          {
+            "name": "?hide@Rva0050EA74@@UAEXXZ",
+            "rva": 5302208,
+            "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Disp8ByteOneSetters\\20a4f1dda89b2d01.obj"
+          },
+          {
+            "name": "?v03@Rva0050EA74@@UAEHHHH@Z",
+            "rva": 5720237,
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj"
+          },
+          {
+            "name": "?v03@Rva0050EA74@@UAEHHHH@Z",
+            "rva": 5720237,
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj"
+          },
+          {
+            "name": "??1Coord2D@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\coord2d\\560678c73591812a.obj"
+          }
+        ],
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "referenced_by": [],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 5302900,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+            "names": [
+              "??_7Rva0050EA74@@6B@"
+            ],
+            "offset": 36,
+            "name": "??_7Rva0050EA74@@6B@",
+            "rva": 8803612
+          },
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 5302818,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+            "names": [
+              "??_7Rva0050EA74@@6B@",
+              "??_7Rva0050EA74Base@@6B@"
+            ],
+            "offset": 19,
+            "name": "??_7Rva0050EA74@@6B@",
+            "rva": 8803612
+          }
+        ],
+        "previous_object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+        "previous_extent": 20,
+        "source_slot_mismatches": [
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          }
+        ]
+      }
+    ],
+    "refusals": [],
+    "correct": [
+      {
+        "rva": 8154912,
+        "name": "??_7Rva0050EA74Base@@6B@",
+        "names": [
+          "??_7Rva0050EA74Base@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 5302818,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+            "names": [
+              "??_7Rva0050EA74@@6B@",
+              "??_7Rva0050EA74Base@@6B@"
+            ],
+            "offset": 40,
+            "name": "??_7Rva0050EA74Base@@6B@",
+            "rva": 8154912
+          },
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 517614,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+            "names": [
+              "??_7Rva0050EA74Base@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva0050EA74Base@@6B@",
+            "rva": 8154912
+          }
+        ],
+        "name_addresses": {
+          "??_7Rva0050EA74Base@@6B@": [
+            8154912
+          ]
+        },
+        "slots": 1,
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "previous_object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [],
+        "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj"
+      }
+    ],
+    "name_discovery": {
+      "bindings": [
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 5302900,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+          "names": [
+            "??_7Rva0050EA74@@6B@"
+          ],
+          "offset": 36,
+          "name": "??_7Rva0050EA74@@6B@",
+          "rva": 8803612
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 5302818,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+          "names": [
+            "??_7Rva0050EA74@@6B@",
+            "??_7Rva0050EA74Base@@6B@"
+          ],
+          "offset": 19,
+          "name": "??_7Rva0050EA74@@6B@",
+          "rva": 8803612
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 5302818,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+          "names": [
+            "??_7Rva0050EA74@@6B@",
+            "??_7Rva0050EA74Base@@6B@"
+          ],
+          "offset": 40,
+          "name": "??_7Rva0050EA74Base@@6B@",
+          "rva": 8154912
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 517614,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\e98038be8c542424.obj",
+          "names": [
+            "??_7Rva0050EA74Base@@6B@"
+          ],
+          "offset": 10,
+          "name": "??_7Rva0050EA74Base@@6B@",
+          "rva": 8154912
+        }
+      ],
+      "rejected": [],
+      "names": 2,
+      "unindexed": [],
+      "native_names_without_address_binding": [],
+      "new_name_bindings": []
+    },
+    "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+  },
+  "candidate": {
+    "tables": 0,
+    "retail_tables": 0,
+    "slots": 0,
+    "twin_target_slots": 0,
+    "thunk_forwarded_slots": 0,
+    "refused_tables": 0,
+    "refusal_reasons": {},
+    "already_correct": 2,
+    "entries": [],
+    "refusals": [],
+    "correct": [
+      {
+        "rva": 8154912,
+        "name": "??_7Rva0050EA74Base@@6B@",
+        "names": [
+          "??_7Rva0050EA74Base@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 5302818,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+            "names": [
+              "??_7Rva0050EA74@@6B@",
+              "??_7Rva0050EA74Base@@6B@"
+            ],
+            "offset": 40,
+            "name": "??_7Rva0050EA74Base@@6B@",
+            "rva": 8154912
+          },
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 517614,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+            "names": [
+              "??_7Rva0050EA74Base@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7Rva0050EA74Base@@6B@",
+            "rva": 8154912
+          }
+        ],
+        "name_addresses": {
+          "??_7Rva0050EA74Base@@6B@": [
+            8154912
+          ]
+        },
+        "slots": 1,
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "previous_object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [],
+        "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj"
+      },
+      {
+        "rva": 8803612,
+        "name": "??_7Rva0050EA74@@6B@",
+        "names": [
+          "??_7Rva0050EA74@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 5302900,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+            "names": [
+              "??_7Rva0050EA74@@6B@"
+            ],
+            "offset": 36,
+            "name": "??_7Rva0050EA74@@6B@",
+            "rva": 8803612
+          },
+          {
+            "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+            "row_rva": 5302818,
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+            "names": [
+              "??_7Rva0050EA74@@6B@",
+              "??_7Rva0050EA74Base@@6B@"
+            ],
+            "offset": 19,
+            "name": "??_7Rva0050EA74@@6B@",
+            "rva": 8803612
+          }
+        ],
+        "name_addresses": {
+          "??_7Rva0050EA74@@6B@": [
+            8803612
+          ]
+        },
+        "slots": 6,
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "previous_object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+        "previous_extent": 24,
+        "source_slot_mismatches": [],
+        "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj"
+      }
+    ],
+    "name_discovery": {
+      "bindings": [
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 5302900,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+          "names": [
+            "??_7Rva0050EA74@@6B@"
+          ],
+          "offset": 36,
+          "name": "??_7Rva0050EA74@@6B@",
+          "rva": 8803612
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 5302818,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+          "names": [
+            "??_7Rva0050EA74@@6B@",
+            "??_7Rva0050EA74Base@@6B@"
+          ],
+          "offset": 19,
+          "name": "??_7Rva0050EA74@@6B@",
+          "rva": 8803612
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 5302818,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+          "names": [
+            "??_7Rva0050EA74@@6B@",
+            "??_7Rva0050EA74Base@@6B@"
+          ],
+          "offset": 40,
+          "name": "??_7Rva0050EA74Base@@6B@",
+          "rva": 8154912
+        },
+        {
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "row_rva": 517614,
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\page009\\objects\\Rva0050EA74Ctor\\9f94991158e6100c.obj",
+          "names": [
+            "??_7Rva0050EA74Base@@6B@"
+          ],
+          "offset": 10,
+          "name": "??_7Rva0050EA74Base@@6B@",
+          "rva": 8154912
+        }
+      ],
+      "rejected": [],
+      "names": 2,
+      "unindexed": [],
+      "native_names_without_address_binding": [],
+      "new_name_bindings": []
+    },
+    "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+  }
+}

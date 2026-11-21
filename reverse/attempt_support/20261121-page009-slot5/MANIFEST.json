@@ -1,0 +1,61 @@
+{
+  "head": "bfa69a6bb49d7a1e8e4ef29477ebeee071785da0",
+  "inputs_sha256": {
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp": "23773da224e2b4ac261308fd744437ea48675c120a23283eec5779b52ca7429f",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp": "0db2cf3c340f00539d45eae228a25ff4da8176095dd2495f2300627606621f94",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp": "e59854ed83fbb40c20ab49eec9ed503e34511e67983cbc54f922fce2e9978142",
+    "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp": "37fad14e7c3c425763e6a343f48b239dac4ed2f9d190b55d78a7a97bec519006",
+    "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp": "152bb2aeb33857ce58d06f0ff12fe8ce3725a33a86173521db312cc4b7067ff0",
+    "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp": "1d9571d6a00ebe5f96814d7e5e69ff2be392ba931a7f47b238a8e5c13133eb09",
+    "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp": "92031ad3450cb1afe062c3681efa569e082edff81348d5ee828b271dc352faa1",
+    "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp": "e138d2af687d44ccc1f95bebece470f5bbe53bc11e8e4b0c853ca7d07ac2c9a8",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp": "2ba242284275a7e6abc5cd84db5a7301415bad814bb91ca34b9dfe2bf5f14134",
+    "Code/GameEngine/Include/Common/Rva0050EA74.h": "2ffd53bae4be5550364253c210a50268dc70e58178c8c248acff078f6ecfe6e9",
+    "AGENTS.md": "8aa79d1736730ba48195bb913d2402596d7b2887e6e3270073d9bf371e9e1eae",
+    "tools/build.py": "6e0281d7a7d5196da0a19a73dbb5e69bf3409987fc6447f5d74555f7bbaf69ad",
+    "tools/add_match.py": "3e68c4024fc7b9e9db9169c96d51633f77bbb8e103a163b2babd6dee06312925",
+    "tools/tu_skeleton.py": "05a807f431834f7ac74fd1c1c05a28be9567f63fdeef2a737f490a7fc8f73291",
+    "tools/vtable_bridge.py": "03645dfc0246d33c7e092c0f78e59df1a4fca3c2178c3512e70c4647abdb410f",
+    "tools/class_layouts.py": "7b02a0f493b9bf81935ce66d4c9fb583f69eef7567ad8076ed17d725cc929dc1",
+    "tools/link_check.py": "33c6bdc1c25b334e1b7843ff73f3fec3741b48e859139053fc4df6234179bc54",
+    "tools/link_census.py": "742081217ffca566c3d47fecd711ea213a2a3ec03b4b2a4b7db352442cc65a84",
+    "tools/link_cycle.py": "cf13cc812a48572626558cfff005dbb550ba1f2276748572af9ad64a1538fa9a",
+    "tools/image_report.py": "9a07d0cc94ebf3295d4c982904508c400d5ca9c47f82a8c61b16fad497afcdec",
+    "reverse/functions.csv": "ec9723bd2bf43fb51832064b36d9e4a6b1b5b4836651d16e9eb41917aff73fa4",
+    "reverse/symbols.csv": "5139d1ab238f19004ffa66ba8fce174791bf32f85839c2de83d3ee6dada86a02",
+    "reverse/data_ledger.csv": "75ae3d972c86e503685cea63cd312df25b39065e880a0999cc6fbb7ab4d35cf2",
+    "reverse/flag_overrides.csv": "a09d22a9223efbb3f99f5f5855a6f7c8c3071ff840b88f687c16b54d69c83521"
+  },
+  "artifacts_sha256": {
+    "Rva0050EA74.h.txt": "0746ff6591470e6156f8db3ae1cdfb7df359a30b89529b7dcea1dbb2c29db22d",
+    "page-slot5-header.patch": "fa841c652b102fab8bd1cc7e0c8336086282c4f91b719a4de706ab369066636c",
+    "probe.json": "9cec7f4293d60b93b4b1dc251a5bad02471d28529f4e2db03d1e75c8d7761569",
+    "ROW-SUMMARY.json": "18e58b2bcf6f7e509428e014ad0b9ace14722d46e3aa6c69d8c96db044c684bf",
+    "retail-facts.json": "05393fc14aeccd037fec910777444556471e9f54bc3ea3943a0d441aa1dbe31e",
+    "native-layouts.json": "703b40d7075e48e81c556b0a04a9c0ffefc5b16091b08ca90492cc2316fe1ddc",
+    "coff-audit.json": "c5f2abef739614d167b3a14cae0b43ff9e4b48c9a7cd7cd01e6b8a63b66ca529",
+    "native-vtable-plans.json": "6bec7fce5f3018233a337050cc61d5169ca567f7098938d5044f77fc0011e71a",
+    "native-vtable-no-admission-control.json": "e21a8687e6eb86a8af926c7f1e3865a63389638eb02d7fdc502d8fe22bd5131c",
+    "provider-currency.json": "42a5180c19b9182f3b45def28b7037a74a355d6e8f662b675b1c6a833a303de1",
+    "HANDOFF.md": "73e7ff0638ad504f4f27eb91aad4f09543838f3369bdd2f6aa899c88b6aeb816",
+    "independent-review/REVIEW.md": "e06fcbdc34ef7f12c3d65deb2131bebe512c295c7ebf6f36b0f950b851569600",
+    "independent-review/NATIVE-READ.json": "2fd59d58306fe39ab01d47e0a716fc8bcfaf8b57aeda2f50ba8c86b99a016d25",
+    "independent-review/CHAIN-AND-SCOPE.json": "81d33b90a82de896d59efe00941357d60d5fbddc4e3835ce7184188b078342d8"
+  },
+  "existing_header_line_endings": {
+    "crlf": 0,
+    "lf": 32
+  },
+  "candidate_header_line_endings": {
+    "crlf": 0,
+    "lf": 33
+  },
+  "provider_index_meta": {
+    "date": "2026-11-21 01:46",
+    "commit": "b146a56624",
+    "clean_tree": true,
+    "census_date": "2026-11-18 13:34",
+    "census_commit": "8e4a365b86"
+  },
+  "provider_index_sha256": "8919f498b7b12c2cf1e504fd8ce3bd1ff127919c1c5c51b06ed8222d6fe11ebd"
+}

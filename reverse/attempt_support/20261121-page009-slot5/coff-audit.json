@@ -1,0 +1,232 @@
+{
+  "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp": {
+    "old_nodes": 26,
+    "new_nodes": 28,
+    "mapped_original_nodes": 26,
+    "expected_vtable_change": {
+      "symbol": "??_7Rva0050EA74@@6B@",
+      "before_section": 16,
+      "after_section": 16,
+      "before": {
+        "base": {
+          "name": ".rdata",
+          "size": 20,
+          "characteristics": 1076891712,
+          "hex": "0000000000000000000000000000000000000000",
+          "symbols": [
+            [
+              "??_7Rva0050EA74@@6B@",
+              0,
+              0,
+              2
+            ]
+          ],
+          "selection": 2
+        },
+        "relocs": [
+          {
+            "offset": 0,
+            "kind": 6,
+            "name": "??_ERva0050EA74@@UAEPAXI@Z",
+            "storage": 105,
+            "value": 0,
+            "target_section": 0,
+            "external": true
+          },
+          {
+            "offset": 4,
+            "kind": 6,
+            "name": "?show@Rva0050EA74@@UAEXXZ",
+            "storage": 2,
+            "value": 0,
+            "target_section": 0,
+            "external": true
+          },
+          {
+            "offset": 8,
+            "kind": 6,
+            "name": "?hide@Rva0050EA74@@UAEXXZ",
+            "storage": 2,
+            "value": 0,
+            "target_section": 0,
+            "external": true
+          },
+          {
+            "offset": 12,
+            "kind": 6,
+            "name": "?v03@Rva0050EA74@@UAEHHHH@Z",
+            "storage": 2,
+            "value": 0,
+            "target_section": 19,
+            "external": true
+          },
+          {
+            "offset": 16,
+            "kind": 6,
+            "name": "?v04@Rva0050EA74@@UAEHHHH@Z",
+            "storage": 2,
+            "value": 0,
+            "target_section": 21,
+            "external": true
+          }
+        ],
+        "associated_section": 0,
+        "raw_hex": "0000000000000000000000000000000000000000",
+        "sxdata": [],
+        "actual_compiler_labels": []
+      },
+      "after": {
+        "base": {
+          "name": ".rdata",
+          "size": 24,
+          "characteristics": 1076891712,
+          "hex": "000000000000000000000000000000000000000000000000",
+          "symbols": [
+            [
+              "??_7Rva0050EA74@@6B@",
+              0,
+              0,
+              2
+            ]
+          ],
+          "selection": 2
+        },
+        "relocs": [
+          {
+            "offset": 0,
+            "kind": 6,
+            "name": "??_ERva0050EA74@@UAEPAXI@Z",
+            "storage": 105,
+            "value": 0,
+            "target_section": 0,
+            "external": true
+          },
+          {
+            "offset": 4,
+            "kind": 6,
+            "name": "?show@Rva0050EA74@@UAEXXZ",
+            "storage": 2,
+            "value": 0,
+            "target_section": 0,
+            "external": true
+          },
+          {
+            "offset": 8,
+            "kind": 6,
+            "name": "?hide@Rva0050EA74@@UAEXXZ",
+            "storage": 2,
+            "value": 0,
+            "target_section": 0,
+            "external": true
+          },
+          {
+            "offset": 12,
+            "kind": 6,
+            "name": "?v03@Rva0050EA74@@UAEHHHH@Z",
+            "storage": 2,
+            "value": 0,
+            "target_section": 19,
+            "external": true
+          },
+          {
+            "offset": 16,
+            "kind": 6,
+            "name": "?v04@Rva0050EA74@@UAEHHHH@Z",
+            "storage": 2,
+            "value": 0,
+            "target_section": 21,
+            "external": true
+          },
+          {
+            "offset": 20,
+            "kind": 6,
+            "name": "?v05@Rva0050EA74@@UAEXXZ",
+            "storage": 2,
+            "value": 0,
+            "target_section": 23,
+            "external": true
+          }
+        ],
+        "associated_section": 0,
+        "raw_hex": "000000000000000000000000000000000000000000000000",
+        "sxdata": [],
+        "actual_compiler_labels": []
+      },
+      "reason": "Exact expected extension from five to six source virtual slots"
+    },
+    "missing_nodes": [],
+    "changed_edges": [],
+    "lost_external": [],
+    "added_external": [
+      {
+        "name": "?v05@Rva0050EA74@@UAEXXZ",
+        "section": 23,
+        "storage": 2,
+        "type": 32,
+        "value": 0
+      }
+    ],
+    "added_nodes": {
+      "23": {
+        "base": {
+          "name": ".text",
+          "size": 1,
+          "characteristics": 1611665440,
+          "hex": "c3",
+          "symbols": [
+            [
+              "?v05@Rva0050EA74@@UAEXXZ",
+              0,
+              32,
+              2
+            ]
+          ],
+          "selection": 2
+        },
+        "relocs": [],
+        "associated_section": 0,
+        "raw_hex": "c3",
+        "sxdata": [],
+        "actual_compiler_labels": []
+      },
+      "24": {
+        "base": {
+          "name": ".debug$F",
+          "size": 16,
+          "characteristics": 1108348992,
+          "hex": "00000000010000000000000000000000",
+          "symbols": [],
+          "selection": 5
+        },
+        "relocs": [
+          {
+            "offset": 0,
+            "kind": 7,
+            "name": "?v05@Rva0050EA74@@UAEXXZ",
+            "storage": 2,
+            "value": 0,
+            "target_section": 23,
+            "external": true
+          }
+        ],
+        "associated_section": 23,
+        "raw_hex": "00000000010000000000000000000000",
+        "sxdata": [],
+        "actual_compiler_labels": []
+      }
+    },
+    "preserved_except_proven_vtable_extension": true
+  },
+  "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp": {
+    "old_nodes": 73,
+    "new_nodes": 73,
+    "mapped_original_nodes": 73,
+    "expected_vtable_change": null,
+    "missing_nodes": [],
+    "changed_edges": [],
+    "lost_external": [],
+    "added_external": [],
+    "added_nodes": {},
+    "preserved_except_proven_vtable_extension": true
+  }
+}

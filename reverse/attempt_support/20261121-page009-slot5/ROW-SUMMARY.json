@@ -1,0 +1,93 @@
+{
+  "head": "bfa69a6bb49d7a1e8e4ef29477ebeee071785da0",
+  "existing_control_rows": 147,
+  "actual_header_consumer_existing_rows": 43,
+  "proposed_fold_row_count": 1,
+  "new_physical_coverage_bytes": 0,
+  "source_details": {
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp": {
+      "control": {
+        "rows": 14,
+        "all_exact": true,
+        "row_extent_sum": 938,
+        "source_sha256": "23773da224e2b4ac261308fd744437ea48675c120a23283eec5779b52ca7429f"
+      }
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp": {
+      "control": {
+        "rows": 10,
+        "all_exact": true,
+        "row_extent_sum": 618,
+        "source_sha256": "0db2cf3c340f00539d45eae228a25ff4da8176095dd2495f2300627606621f94"
+      }
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp": {
+      "control": {
+        "rows": 12,
+        "all_exact": true,
+        "row_extent_sum": 684,
+        "source_sha256": "e59854ed83fbb40c20ab49eec9ed503e34511e67983cbc54f922fce2e9978142"
+      }
+    },
+    "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp": {
+      "control": {
+        "rows": 36,
+        "all_exact": true,
+        "row_extent_sum": 180,
+        "source_sha256": "37fad14e7c3c425763e6a343f48b239dac4ed2f9d190b55d78a7a97bec519006"
+      },
+      "candidate": {
+        "rows": 36,
+        "all_exact": true,
+        "row_extent_sum": 180,
+        "source_sha256": "37fad14e7c3c425763e6a343f48b239dac4ed2f9d190b55d78a7a97bec519006"
+      }
+    },
+    "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp": {
+      "control": {
+        "rows": 8,
+        "all_exact": true,
+        "row_extent_sum": 390,
+        "source_sha256": "152bb2aeb33857ce58d06f0ff12fe8ce3725a33a86173521db312cc4b7067ff0"
+      }
+    },
+    "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp": {
+      "control": {
+        "rows": 7,
+        "all_exact": true,
+        "row_extent_sum": 200,
+        "source_sha256": "1d9571d6a00ebe5f96814d7e5e69ff2be392ba931a7f47b238a8e5c13133eb09"
+      },
+      "candidate": {
+        "rows": 7,
+        "all_exact": true,
+        "row_extent_sum": 200,
+        "source_sha256": "1d9571d6a00ebe5f96814d7e5e69ff2be392ba931a7f47b238a8e5c13133eb09"
+      }
+    },
+    "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp": {
+      "control": {
+        "rows": 5,
+        "all_exact": true,
+        "row_extent_sum": 108,
+        "source_sha256": "92031ad3450cb1afe062c3681efa569e082edff81348d5ee828b271dc352faa1"
+      }
+    },
+    "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp": {
+      "control": {
+        "rows": 44,
+        "all_exact": true,
+        "row_extent_sum": 1600,
+        "source_sha256": "e138d2af687d44ccc1f95bebece470f5bbe53bc11e8e4b0c853ca7d07ac2c9a8"
+      }
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp": {
+      "control": {
+        "rows": 11,
+        "all_exact": true,
+        "row_extent_sum": 664,
+        "source_sha256": "2ba242284275a7e6abc5cd84db5a7301415bad814bb91ca34b9dfe2bf5f14134"
+      }
+    }
+  }
+}

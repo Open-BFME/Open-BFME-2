@@ -1,0 +1,364 @@
+{
+  "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp": {
+    "control": {
+      "Rva0050EA74": {
+        "fwd": false,
+        "key": "class",
+        "size": 20,
+        "bases": [
+          [
+            "Rva0050EA74Base",
+            0
+          ]
+        ],
+        "fields": [
+          [
+            8,
+            "m_08",
+            "int",
+            4
+          ],
+          [
+            12,
+            "m_0c",
+            "AsciiString",
+            4
+          ],
+          [
+            16,
+            "m_10",
+            "uchar",
+            1
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74",
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "~Rva0050EA74"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "~Rva0050EA74"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)",
+          "1": "show()",
+          "2": "hide()",
+          "3": "v03(int,int,int)",
+          "4": "v04(int,int,int)"
+        },
+        "vfptr": false
+      },
+      "Rva0050EA74Base": {
+        "fwd": false,
+        "key": "class",
+        "size": 8,
+        "bases": [],
+        "fields": [
+          [
+            4,
+            "m_04",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74Base",
+          "__local_vftable_ctor_closure",
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)"
+        },
+        "vfptr": true
+      }
+    },
+    "candidate": {
+      "Rva0050EA74": {
+        "fwd": false,
+        "key": "class",
+        "size": 20,
+        "bases": [
+          [
+            "Rva0050EA74Base",
+            0
+          ]
+        ],
+        "fields": [
+          [
+            8,
+            "m_08",
+            "int",
+            4
+          ],
+          [
+            12,
+            "m_0c",
+            "AsciiString",
+            4
+          ],
+          [
+            16,
+            "m_10",
+            "uchar",
+            1
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74",
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "v05",
+          "~Rva0050EA74"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "v05",
+          "~Rva0050EA74"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)",
+          "1": "show()",
+          "2": "hide()",
+          "3": "v03(int,int,int)",
+          "4": "v04(int,int,int)",
+          "5": "v05()"
+        },
+        "vfptr": false
+      },
+      "Rva0050EA74Base": {
+        "fwd": false,
+        "key": "class",
+        "size": 8,
+        "bases": [],
+        "fields": [
+          [
+            4,
+            "m_04",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74Base",
+          "__local_vftable_ctor_closure",
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)"
+        },
+        "vfptr": true
+      }
+    }
+  },
+  "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp": {
+    "control": {
+      "Rva0050EA74": {
+        "fwd": false,
+        "key": "class",
+        "size": 20,
+        "bases": [
+          [
+            "Rva0050EA74Base",
+            0
+          ]
+        ],
+        "fields": [
+          [
+            8,
+            "m_08",
+            "int",
+            4
+          ],
+          [
+            12,
+            "m_0c",
+            "AsciiString",
+            4
+          ],
+          [
+            16,
+            "m_10",
+            "uchar",
+            1
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74",
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "~Rva0050EA74"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "~Rva0050EA74"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)",
+          "1": "show()",
+          "2": "hide()",
+          "3": "v03(int,int,int)",
+          "4": "v04(int,int,int)"
+        },
+        "vfptr": false
+      },
+      "Rva0050EA74Base": {
+        "fwd": false,
+        "key": "class",
+        "size": 8,
+        "bases": [],
+        "fields": [
+          [
+            4,
+            "m_04",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74Base",
+          "__local_vftable_ctor_closure",
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)"
+        },
+        "vfptr": true
+      }
+    },
+    "candidate": {
+      "Rva0050EA74": {
+        "fwd": false,
+        "key": "class",
+        "size": 20,
+        "bases": [
+          [
+            "Rva0050EA74Base",
+            0
+          ]
+        ],
+        "fields": [
+          [
+            8,
+            "m_08",
+            "int",
+            4
+          ],
+          [
+            12,
+            "m_0c",
+            "AsciiString",
+            4
+          ],
+          [
+            16,
+            "m_10",
+            "uchar",
+            1
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74",
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "v05",
+          "~Rva0050EA74"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "hide",
+          "show",
+          "v03",
+          "v04",
+          "v05",
+          "~Rva0050EA74"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)",
+          "1": "show()",
+          "2": "hide()",
+          "3": "v03(int,int,int)",
+          "4": "v04(int,int,int)",
+          "5": "v05()"
+        },
+        "vfptr": false
+      },
+      "Rva0050EA74Base": {
+        "fwd": false,
+        "key": "class",
+        "size": 8,
+        "bases": [],
+        "fields": [
+          [
+            4,
+            "m_04",
+            "int",
+            4
+          ]
+        ],
+        "statics": [],
+        "methods": [
+          "Rva0050EA74Base",
+          "__local_vftable_ctor_closure",
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "virtual": [
+          "__vecDelDtor",
+          "~Rva0050EA74Base"
+        ],
+        "vslots": {
+          "0": "__vecDelDtor(uint)"
+        },
+        "vfptr": true
+      }
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "head": "bfa69a6bb49d7a1e8e4ef29477ebeee071785da0",
+  "owner_currency": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+      "source_sha256": "23773da224e2b4ac261308fd744437ea48675c120a23283eec5779b52ca7429f",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^row^list^callbacks.obj",
+      "object_sha256": "9bcd2b41d256f14cacae2d2effd335edfca0236be3c63ff41e7858853ba33fea",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+      "source_sha256": "0db2cf3c340f00539d45eae228a25ff4da8176095dd2495f2300627606621f94",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^tribute^page^callbacks.obj",
+      "object_sha256": "36009d54d4d6d8e319eeba58a1da59a16f0a05d99988462732ac5ee6bdc36dda",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+      "source_sha256": "e59854ed83fbb40c20ab49eec9ed503e34511e67983cbc54f922fce2e9978142",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^row^list^constructor.obj",
+      "object_sha256": "1dc134eb874594a1237f0306d0b2e328c60decec1e3da679a1b6ac57f606237b",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+      "source_sha256": "37fad14e7c3c425763e6a343f48b239dac4ed2f9d190b55d78a7a97bec519006",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^disp8^byte^one^setters.obj",
+      "object_sha256": "6ce53df6e51793ed685fe309e4e5ae23e4f490b729842c7f1503b5a050e4abaa",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+      "source_sha256": "152bb2aeb33857ce58d06f0ff12fe8ce3725a33a86173521db312cc4b7067ff0",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva00510^c^c3^constructor.obj",
+      "object_sha256": "1315fabc1aebbdacff7294e217a52d119e09321cde0dc7f6e4c105ffa26914ca",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "source_sha256": "1d9571d6a00ebe5f96814d7e5e69ff2be392ba931a7f47b238a8e5c13133eb09",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+      "object_sha256": "d222260d5e1c11eab19ff971fcacc07e4a073f6eb4fa8b68fcb2c75c763c85f5",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp",
+      "source_sha256": "92031ad3450cb1afe062c3681efa569e082edff81348d5ee828b271dc352faa1",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva00510^c^c3^dtor.obj",
+      "object_sha256": "e930c4a945fd83340554337f9fc6a62b78f6b241cb7e9175529cb431369b1dee",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+      "source_sha256": "e138d2af687d44ccc1f95bebece470f5bbe53bc11e8e4b0c853ca7d07ac2c9a8",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^math_coord2d.obj",
+      "object_sha256": "6d736b5bd513f00b579610fa11c88557f71bc2e4e2da3b67fd86d8d2c360a5c5",
+      "native_compile_is_current": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+      "source_sha256": "2ba242284275a7e6abc5cd84db5a7301415bad814bb91ca34b9dfe2bf5f14134",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^tribute^page^loaded.obj",
+      "object_sha256": "bb566b4d867535d061e8a7710b306a7850254f4b461054c7664fad90b1ab6b84",
+      "native_compile_is_current": true
+    }
+  ],
+  "index_meta": {
+    "date": "2026-11-21 01:46",
+    "commit": "b146a56624",
+    "clean_tree": true,
+    "census_date": "2026-11-18 13:34",
+    "census_commit": "8e4a365b86"
+  },
+  "index_sha256": "8919f498b7b12c2cf1e504fd8ce3bd1ff127919c1c5c51b06ed8222d6fe11ebd",
+  "index_code_ledger_tool_differences": [],
+  "findings": [
+    [
+      "bytes",
+      "??_7Rva0050EA74@@6B@",
+      "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp's definition differs from Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp's"
+    ],
+    [
+      "retail order",
+      "??_7Rva0050EA74@@6B@",
+      "the link keeps ^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj's copy 00f01ca6e7a0 today and ^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj's d0b466dd5117 after"
+    ],
+    [
+      "path order",
+      "??_7Rva0050EA74@@6B@",
+      "the link keeps ^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj's copy 00f01ca6e7a0 today and ^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj's d0b466dd5117 after"
+    ]
+  ],
+  "report": {
+    "bytes": [
+      "??_7Rva0050EA74@@6B@"
+    ],
+    "retail order": [
+      "??_7Rva0050EA74@@6B@"
+    ],
+    "path order": [
+      "??_7Rva0050EA74@@6B@"
+    ]
+  },
+  "selections": {
+    "??_7Rva0050EA74@@6B@": {
+      "retail order": {
+        "before": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "00f01ca6e7a0"
+        ],
+        "after": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "d0b466dd5117"
+        ]
+      },
+      "path order": {
+        "before": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "00f01ca6e7a0"
+        ],
+        "after": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "d0b466dd5117"
+        ]
+      }
+    },
+    "??_7Rva0050EA74Base@@6B@": {
+      "retail order": {
+        "before": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "740ab5d72710"
+        ],
+        "after": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "740ab5d72710"
+        ]
+      },
+      "path order": {
+        "before": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "740ab5d72710"
+        ],
+        "after": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "740ab5d72710"
+        ]
+      }
+    },
+    "?v05@Rva0050EA74@@UAEXXZ": {
+      "retail order": {
+        "before": null,
+        "after": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "8bf7b464aaa2"
+        ]
+      },
+      "path order": {
+        "before": null,
+        "after": [
+          "^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+          "8bf7b464aaa2"
+        ]
+      }
+    }
+  },
+  "complete_native_reference_walk": true,
+  "selected_original_owner": {
+    "name": "??1Coord2D@@QAE@XZ",
+    "export_rva": "0x000B3FD0",
+    "target_rva": "0x000B3FD0",
+    "target_size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+    "status": "matched",
+    "notes": ""
+  },
+  "owner_whole_code_hex": "c3",
+  "owner_whole_relocs": [],
+  "proposed_member_code_hex": "c3",
+  "proposed_member_relocs": [],
+  "limitations": "Proposed row is private, not admitted; table-definition digest changes intentionally repair the last slot. No link/run performed."
+}

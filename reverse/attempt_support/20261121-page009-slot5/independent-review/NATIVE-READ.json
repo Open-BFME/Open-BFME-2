@@ -1,0 +1,324 @@
+{
+  "scope": "Read-only independent native receiver/call/slot review; no compilation or production mutation",
+  "image": "W:\\OpenBFME\\Open-BFME-2\\baselines\\bfme2\\workshop-vanilla-1.06\\files\\game.dat",
+  "image_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "original_selected_functions": {
+    "0050F65B": {
+      "extent": 47,
+      "hex": "53568bd9578bbb7c0200008b7708eb118b4e148b01ff501456e8d74bb1ff598bf03bf775eb5f5e8bcb5be9711ab8ff",
+      "disassembly": [
+        {
+          "rva": "0x50f65b",
+          "insn": "push ebx"
+        },
+        {
+          "rva": "0x50f65c",
+          "insn": "push esi"
+        },
+        {
+          "rva": "0x50f65d",
+          "insn": "mov ebx, ecx"
+        },
+        {
+          "rva": "0x50f65f",
+          "insn": "push edi"
+        },
+        {
+          "rva": "0x50f660",
+          "insn": "mov edi, dword ptr [ebx + 0x27c]"
+        },
+        {
+          "rva": "0x50f666",
+          "insn": "mov esi, dword ptr [edi + 8]"
+        },
+        {
+          "rva": "0x50f669",
+          "insn": "jmp 0x50f67c"
+        },
+        {
+          "rva": "0x50f66b",
+          "insn": "mov ecx, dword ptr [esi + 0x14]"
+        },
+        {
+          "rva": "0x50f66e",
+          "insn": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x50f670",
+          "insn": "call dword ptr [eax + 0x14]"
+        },
+        {
+          "rva": "0x50f673",
+          "insn": "push esi"
+        },
+        {
+          "rva": "0x50f674",
+          "insn": "call 0x24250"
+        },
+        {
+          "rva": "0x50f679",
+          "insn": "pop ecx"
+        },
+        {
+          "rva": "0x50f67a",
+          "insn": "mov esi, eax"
+        },
+        {
+          "rva": "0x50f67c",
+          "insn": "cmp esi, edi"
+        },
+        {
+          "rva": "0x50f67e",
+          "insn": "jne 0x50f66b"
+        },
+        {
+          "rva": "0x50f680",
+          "insn": "pop edi"
+        },
+        {
+          "rva": "0x50f681",
+          "insn": "pop esi"
+        },
+        {
+          "rva": "0x50f682",
+          "insn": "mov ecx, ebx"
+        },
+        {
+          "rva": "0x50f684",
+          "insn": "pop ebx"
+        },
+        {
+          "rva": "0x50f685",
+          "insn": "jmp 0x910fb"
+        }
+      ]
+    },
+    "005101E2": {
+      "extent": 81,
+      "hex": "568bf1807e2000753ae849d1d2ff84c074318b460c85c0740583c008eb05b81cacbb0068cc55c6006804c7c30050ff7608ff35cce4df00e8c8b30e0083c414c64620018b4e2485c95e7405e98efdffffc3",
+      "disassembly": [
+        {
+          "rva": "0x5101e2",
+          "insn": "push esi"
+        },
+        {
+          "rva": "0x5101e3",
+          "insn": "mov esi, ecx"
+        },
+        {
+          "rva": "0x5101e5",
+          "insn": "cmp byte ptr [esi + 0x20], 0"
+        },
+        {
+          "rva": "0x5101e9",
+          "insn": "jne 0x510225"
+        },
+        {
+          "rva": "0x5101eb",
+          "insn": "call 0x23d339"
+        },
+        {
+          "rva": "0x5101f0",
+          "insn": "test al, al"
+        },
+        {
+          "rva": "0x5101f2",
+          "insn": "je 0x510225"
+        },
+        {
+          "rva": "0x5101f4",
+          "insn": "mov eax, dword ptr [esi + 0xc]"
+        },
+        {
+          "rva": "0x5101f7",
+          "insn": "test eax, eax"
+        },
+        {
+          "rva": "0x5101f9",
+          "insn": "je 0x510200"
+        },
+        {
+          "rva": "0x5101fb",
+          "insn": "add eax, 8"
+        },
+        {
+          "rva": "0x5101fe",
+          "insn": "jmp 0x510205"
+        },
+        {
+          "rva": "0x510200",
+          "insn": "mov eax, 0xbbac1c"
+        },
+        {
+          "rva": "0x510205",
+          "insn": "push 0xc655cc"
+        },
+        {
+          "rva": "0x51020a",
+          "insn": "push 0xc3c704"
+        },
+        {
+          "rva": "0x51020f",
+          "insn": "push eax"
+        },
+        {
+          "rva": "0x510210",
+          "insn": "push dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x510213",
+          "insn": "push dword ptr [0xdfe4cc]"
+        },
+        {
+          "rva": "0x510219",
+          "insn": "call 0x5fb5e6"
+        },
+        {
+          "rva": "0x51021e",
+          "insn": "add esp, 0x14"
+        },
+        {
+          "rva": "0x510221",
+          "insn": "mov byte ptr [esi + 0x20], 1"
+        },
+        {
+          "rva": "0x510225",
+          "insn": "mov ecx, dword ptr [esi + 0x24]"
+        },
+        {
+          "rva": "0x510228",
+          "insn": "test ecx, ecx"
+        },
+        {
+          "rva": "0x51022a",
+          "insn": "pop esi"
+        },
+        {
+          "rva": "0x51022b",
+          "insn": "je 0x510232"
+        },
+        {
+          "rva": "0x51022d",
+          "insn": "jmp 0x50ffc0"
+        },
+        {
+          "rva": "0x510232",
+          "insn": "ret "
+        }
+      ]
+    },
+    "0050EA74": {
+      "extent": 69,
+      "hex": "b8e747b900e80aa7110051568bf1836604008975f08b4508ff750c8365fc008d4e0cc7061c55c600894608e84c7bb2ff8b4df4c64610008bc65e64890d00000000c9c20800",
+      "disassembly": [
+        {
+          "rva": "0x50ea74",
+          "insn": "mov eax, 0xb947e7"
+        },
+        {
+          "rva": "0x50ea79",
+          "insn": "call 0x629188"
+        },
+        {
+          "rva": "0x50ea7e",
+          "insn": "push ecx"
+        },
+        {
+          "rva": "0x50ea7f",
+          "insn": "push esi"
+        },
+        {
+          "rva": "0x50ea80",
+          "insn": "mov esi, ecx"
+        },
+        {
+          "rva": "0x50ea82",
+          "insn": "and dword ptr [esi + 4], 0"
+        },
+        {
+          "rva": "0x50ea86",
+          "insn": "mov dword ptr [ebp - 0x10], esi"
+        },
+        {
+          "rva": "0x50ea89",
+          "insn": "mov eax, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": "0x50ea8c",
+          "insn": "push dword ptr [ebp + 0xc]"
+        },
+        {
+          "rva": "0x50ea8f",
+          "insn": "and dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x50ea93",
+          "insn": "lea ecx, [esi + 0xc]"
+        },
+        {
+          "rva": "0x50ea96",
+          "insn": "mov dword ptr [esi], 0xc6551c"
+        },
+        {
+          "rva": "0x50ea9c",
+          "insn": "mov dword ptr [esi + 8], eax"
+        },
+        {
+          "rva": "0x50ea9f",
+          "insn": "call 0x365f0"
+        },
+        {
+          "rva": "0x50eaa4",
+          "insn": "mov ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x50eaa7",
+          "insn": "mov byte ptr [esi + 0x10], 0"
+        },
+        {
+          "rva": "0x50eaab",
+          "insn": "mov eax, esi"
+        },
+        {
+          "rva": "0x50eaad",
+          "insn": "pop esi"
+        },
+        {
+          "rva": "0x50eaae",
+          "insn": "mov dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x50eab5",
+          "insn": "leave "
+        },
+        {
+          "rva": "0x50eab6",
+          "insn": "ret 8"
+        }
+      ]
+    }
+  },
+  "six_raw_table_targets_RVAs": {
+    "0x86551c": [
+      "0x50ea58",
+      "0x50e7bb",
+      "0x50e7c0",
+      "0x5748ad",
+      "0x5748ad",
+      "0xb3fd0"
+    ],
+    "0x865670": [
+      "0x510ca7",
+      "0x50e7bb",
+      "0x50e7c0",
+      "0x5748ad",
+      "0x5101c0",
+      "0x5101e2"
+    ]
+  },
+  "packet_hashes": {
+    "retail-facts.json": "05393fc14aeccd037fec910777444556471e9f54bc3ea3943a0d441aa1dbe31e",
+    "probe.json": "9cec7f4293d60b93b4b1dc251a5bad02471d28529f4e2db03d1e75c8d7761569"
+  },
+  "probe_head": "bfa69a6bb49d7a1e8e4ef29477ebeee071785da0"
+}
