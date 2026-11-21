@@ -328,11 +328,8 @@ struct TerrainMapObject
         return (const Coord3D *)((Rva0030D631 *)this)->rva0030D631();
     }
 };
-class BfmeMapObjectListHolder
-{
-  public:
-    TerrainMapObject *head;
-};
+class MapObject;
+#include "../../../Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
 class Rva002DAAF2
 {
@@ -387,7 +384,7 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
     m_logicHeightMap = new WorldHeightMap(stream);
     if (m_waterRenderObject)
         m_waterRenderObject->rva00083A7A(standing, rivers, waves);
-    TerrainMapObject *node = BfmeTheMapObjectListHolder->head;
+    TerrainMapObject *node = reinterpret_cast<TerrainMapObject *>(BfmeTheMapObjectListHolder->m_head);
     while (node)
     {
         Dict *dict = &node->props;
@@ -431,7 +428,7 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
         W3DDisplay::m_3DScene->Add_Render_Object(&((TerrainWaterRenderView *)m_waterRenderObject)->render);
         m_waterRenderObject->rva000B3FD0();
     }
-    node = BfmeTheMapObjectListHolder->head;
+    node = reinterpret_cast<TerrainMapObject *>(BfmeTheMapObjectListHolder->m_head);
     while (node)
     {
         Dict *dict = &node->props;
