@@ -161,6 +161,26 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+// CrushDie::xfer calls Xfer::Version1; keep its operand types beside the include.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 
 
 class CrushDie : public DieModule
@@ -173,6 +193,8 @@ public:
 
 protected:
 	const CrushDieModuleData *getCrushDieModuleData() const { return (const CrushDieModuleData *)getModuleData(); }
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/CrushDie.cpp
@@ -203,6 +225,23 @@ CrushDie::CrushDie( Thing *thing, const ModuleData *moduleData )
 // body.
 CrushDie::~CrushDie()
 {
+}
+
+// Slot 1 of retail table 0x0084AC34: 0x00497805 (`jmp 0x0058B03E`), the
+// DieModule base call every module-family override without work of its own
+// shares (ICF).
+void CrushDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
+}
+
+// Slot 3 of retail table 0x0084AC34: 0x0045CE8C, version 1 then
+// DieModule::xfer 0x004CE56D; retail folds it with the other module xfers
+// whose base call lands on the same body.
+void CrushDie::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DieModule::xfer( xfer );
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/CrushDieOnDie.cpp
