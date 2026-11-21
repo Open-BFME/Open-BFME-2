@@ -83,8 +83,13 @@ def case(tmp_path, monkeypatch):
     put(tmp_path, HEADER, DECL)
     case = Case(tmp_path)
     monkeypatch.setattr(I, "_compiler_inputs", lambda root, source, output, cache=None: case.units[source]["state"])
-    monkeypatch.setattr(P, "_normal_command", lambda root, source, output:
-                        (case.units[source]["command"], case.units[source]["env"]))
+    def normal_command(root, source, output):
+        command = list(case.units[source]["command"])
+        positions = [i for i, arg in enumerate(command) if arg.startswith(("-Fo", "/Fo"))]
+        if len(positions) == 1:
+            command[positions[0]] = command[positions[0]][:3] + str(output)
+        return command, case.units[source]["env"]
+    monkeypatch.setattr(P, "_normal_command", normal_command)
     monkeypatch.setattr(P, "_command_fingerprint", lambda *a: "command")
     def preprocess(command, env):
         source = next(arg for arg in command if arg.endswith(".cpp"))
@@ -1400,4 +1405,142 @@ def test_owner_native_untracked_case_equivalent_control_still_observed(raw_owner
         with pytest.raises(P.InputRefused): current.plan_text()
     else:
         assert path.resolve() not in observed
+
+
+@pytest.fixture
+def ordered_owner_world(raw_owner_world):
+    """Native region-vs-unrowed ordering, at the existing ordinary-command boundary."""
+    w = raw_owner_world
+    original = w.case.units[w.source]['command']
+    w.case.units[w.source]['command'] = [original[0], '-nologo', '-c',
+        '-O2', '-GR-', '-EHsc-', '-O1', '-arch:SSE', '-G7', '-Ireference/context',
+        '-Ob1', '-EHsc', '-DNDEBUG', '-MD', *original[-2:]]
+    current = w.current()
+    path = w.prospective(current)
+    physical = w.case.units[path]['command']
+    w.case.units[path]['command'] = [physical[0], '-nologo', '-c',
+        '-O2', '-GR-', '-EHsc-', '-Ireference/context', '-O1', '-Ob1', '-EHsc',
+        '-DNDEBUG', '-MD', '-arch:SSE', '-G7', *physical[-2:]]
+    w.current_witness, w.prospective_path = current, path
+    return w
+
+
+def test_owner_context_preserves_exact_origin_order_in_both_pp_and_layout(ordered_owner_world):
+    w = ordered_owner_world
+    before = (w.root/w.source).read_bytes()
+    pair = P.capture_owner_pair(w.current_witness, w.prospective_path)
+    origin = w.current_witness._state.profiles[0][2]
+    expected_pp = [arg for arg in origin if not arg.startswith(('-Fo', '/Fo'))]
+    expected_pp[expected_pp.index('-c')] = '-E'
+    expected_pp[-1] = pair.prospective
+    expected_pp.append('-showIncludes')
+    assert w.calls[2:] == [tuple(expected_pp), tuple(expected_pp)]
+    output = w.root/'build/context-layout.obj'
+    original, original_env = P._normal_command(w.root, w.source, output)
+    expected = list(original); expected[-1] = pair.prospective
+    command, env = P._owner_layout_builder(pair).compiler_command(w.root/pair.prospective, output)
+    assert command == expected and env == original_env
+    assert (w.root/w.source).read_bytes() == before
+    assert (w.root/pair.prospective).read_bytes() == w.current_witness.plan_text().encode()
+    assert len(w.calls) == 4
+
+
+@pytest.mark.parametrize('change', ['new', 'missing', 'duplicate', 'define', 'forced-include',
+                                   'include', 'compiler', 'env', 'source-missing', 'source-duplicate',
+                                   'source-wrong', 'source-not-final', 'fo-missing', 'fo-duplicate'])
+def test_owner_context_refuses_any_nonpermutation_or_operand_drift(ordered_owner_world, change):
+    w = ordered_owner_world; unit = w.case.units[w.prospective_path]
+    command = unit['command']
+    if change == 'new': command.insert(-2, '-G6')
+    elif change == 'missing': command.remove('-G7')
+    elif change == 'duplicate': command.insert(-2, '-G7')
+    elif change == 'define': command.insert(-2, '-DOTHER')
+    elif change == 'forced-include': command.insert(-2, '-FIunobserved.h')
+    elif change == 'include': command[command.index('-Ireference/context')] = '-Ireference/other'
+    elif change == 'compiler': command[0] = str(w.root/'another-cl.exe')
+    elif change == 'env': unit['env'] = {'INCLUDE':'other-root'}
+    elif change == 'source-missing': command.pop()
+    elif change == 'source-duplicate': command.insert(-2, w.prospective_path)
+    elif change == 'source-wrong': command[-1] = 'Code/Foreign.cpp'
+    elif change == 'source-not-final': command.append('-DNDEBUG')
+    elif change == 'fo-missing': command[:] = [a for a in command if not a.startswith('-Fo')]
+    else: command.insert(-2, '-Foanother.obj')
+    with pytest.raises(P.InputRefused): P.capture_owner_pair(w.current_witness, w.prospective_path)
+    assert len(w.calls) == 2
+
+
+@pytest.mark.parametrize('change', ['origin-profile', 'probe-profile', 'origin-env', 'probe-env',
+                                   'inventory', 'source', 'header'])
+def test_owner_context_revalidation_refuses_drift_after_pair(ordered_owner_world, monkeypatch, change):
+    w = ordered_owner_world; pair = P.capture_owner_pair(w.current_witness, w.prospective_path)
+    if change in ('origin-profile', 'probe-profile'):
+        path = w.source if change.startswith('origin') else pair.prospective
+        w.case.units[path]['command'].insert(-2, '-DOTHER')
+    elif change in ('origin-env', 'probe-env'):
+        path = w.source if change.startswith('origin') else pair.prospective
+        w.case.units[path]['env'] = {'INCLUDE':'different'}
+    elif change == 'inventory':
+        import build
+        monkeypatch.setattr(build, 'search_inventory', lambda *a, **kw:'different')
+    else:
+        path = w.root/(pair.prospective if change == 'source' else w.header)
+        path.write_bytes(path.read_bytes()+b'\nchanged\n')
+    with pytest.raises(P.InputRefused):
+        P._owner_layout_builder(pair).compiler_command(w.root/pair.prospective, w.root/'build/context-layout.obj')
+    assert len(w.calls) == 4
+
+
+def test_owner_context_revalidates_between_actual_paired_pp_calls(ordered_owner_world):
+    w = ordered_owner_world
+    w.callback = lambda n:w.case.units[w.source]['command'].insert(-2, '-DOTHER') if n == 3 else None
+    with pytest.raises(P.InputRefused): P.capture_owner_pair(w.current_witness, w.prospective_path)
+    assert len(w.calls) == 3
+
+
+@pytest.mark.parametrize('change', ['missing', 'duplicate', 'wrong', 'not-final', 'wrong-output'])
+def test_owner_layout_context_rechecks_fresh_native_operand_shape(ordered_owner_world, monkeypatch, change):
+    w = ordered_owner_world; pair = P.capture_owner_pair(w.current_witness, w.prospective_path)
+    output = w.root/'build/context-layout.obj'; native = P._normal_command
+    def corrupt(root, source, target):
+        command, env = native(root, source, target)
+        if Path(target) == output and source == w.source:
+            if change == 'missing': command.pop()
+            elif change == 'duplicate': command.insert(-2, source)
+            elif change == 'wrong': command[-1] = 'Code/Other.cpp'
+            elif change == 'not-final': command.append('-DNDEBUG')
+            else: command[-2] = '-Fobuild/wrong-layout.obj'
+        return command, env
+    monkeypatch.setattr(P, '_normal_command', corrupt)
+    with pytest.raises(P.InputRefused): P._owner_layout_builder(pair).compiler_command(w.root/pair.prospective, output)
+    assert len(w.calls) == 4
+
+
+def test_owner_layout_context_has_no_current_only_foreign_or_free_builder_rights(ordered_owner_world):
+    w = ordered_owner_world; pair = P.capture_owner_pair(w.current_witness, w.prospective_path)
+    with pytest.raises(P.InputRefused): P._owner_layout_builder(w.current_witness)
+    with pytest.raises(P.InputRefused): P._OwnerLayoutBuilder(pair)
+    with pytest.raises(P.InputRefused): P._OwnerSourceContext(w.current_witness, pair.prospective)
+    with pytest.raises(P.InputRefused): replace(pair, current=replace(pair.current))
+    with pytest.raises(P.InputRefused):
+        P._owner_layout_builder(pair).compiler_command(w.root/w.source, w.root/'build/context-layout.obj')
+    with pytest.raises(P.InputRefused):
+        P._owner_profile(w.root, pair.prospective, w.root/'build/context-layout.obj', object())
+    assert len(w.calls) == 4
+
+
+@pytest.mark.parametrize('stage', ['during-gate', 'after-pass'])
+@pytest.mark.parametrize('part', ['origin-profile', 'probe-profile', 'origin-env', 'probe-env'])
+def test_owner_context_cannot_reuse_changed_profile_through_gate_restore_apply(owner_gate_world, stage, part):
+    w = owner_gate_world
+    def drift():
+        source = w.source if part.startswith('origin') else w.pair.prospective
+        if part.endswith('profile'): w.case.units[source]['command'].insert(-2, '-DOTHER')
+        else: w.case.units[source]['env'] = {'INCLUDE':'different'}
+    if stage == 'during-gate':
+        w.after_gate = lambda meta, unit:drift()
+        with pytest.raises(P.InputRefused): P.verify_owner_trial(w.pair)
+    else:
+        token = P.verify_owner_trial(w.pair); drift()
+        with pytest.raises(P.InputRefused): token.apply()
+    assert (w.root/w.source).read_text() == w.text
 

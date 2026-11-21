@@ -1894,7 +1894,9 @@ def field_renames(source, text, strip, include, compile=None, header=None, owner
             elif proposed == probe_text(text, strip, include):
                 # Use the complete already-real bound candidate; never write a
                 # truncated layout probe over the captured original source.
-                result = class_layouts.compile_layouts(owner_witness.prospective, use_cache=False)
+                import header_generation_proof as proof
+                result = class_layouts.compile_layouts(owner_witness.prospective,
+                    builder=proof._owner_layout_builder(owner_witness), use_cache=False)
             else:
                 raise RuntimeError("paired owner route has no proof for this additional layout probe")
             why = owner_witness_problem(owner_witness, source, text,

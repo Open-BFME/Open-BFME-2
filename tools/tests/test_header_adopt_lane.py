@@ -11,6 +11,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import header_adopt_lane as lane  # noqa: E402
+from test_header_generation_proof import case, raw_owner_world, ordered_owner_world  # noqa: F401,E402
 
 
 @pytest.fixture(autouse=True)
@@ -3744,3 +3745,33 @@ def test_raw_owner_reader_rejects_ignore_booleans_json_and_duck_witnesses(witnes
     fields,why=lane.field_renames("u.cpp",text,["C"],"C.h",compile=forbidden,
                                   header="C.h",owner_witness=witness)
     assert fields is None and "paired" in why
+def test_owner_full_prospective_layout_uses_only_internal_pair_bound_builder(
+        ordered_owner_world, monkeypatch):
+    import header_generation_proof as proof
+    w = ordered_owner_world
+    pair = proof.capture_owner_pair(w.current_witness, w.prospective_path)
+    before = (w.root/w.source).read_bytes()
+    old = {'fwd':False,'key':'class','size':4,'bases':[], 'fields':[[0,'old','int',4]],
+           'statics':[], 'methods':['C','f'], 'virtual':[], 'vslots':{}, 'vfptr':False}
+    new = {**old, 'fields':[[0,'canonical','int',4]]}
+    seen = []
+    def layouts(source, builder=None, use_cache=True, **kwargs):
+        assert (w.root/w.source).read_bytes() == before
+        if source == w.source:
+            assert builder is None
+            seen.append((source, None)); return {'C':old}
+        assert source == pair.prospective and use_cache is False
+        assert type(builder) is proof._OwnerLayoutBuilder and builder.pair is pair
+        output = w.root/'build/full-prospective-layout.obj'
+        command, env = builder.compiler_command(w.root/source, output)
+        expected, expected_env = proof._normal_command(w.root, w.source, output)
+        expected[-1] = source
+        assert command == expected and env == expected_env
+        assert (w.root/source).read_bytes() == w.current_witness.plan_text().encode()
+        seen.append((source, tuple(command))); return {'C':new}
+    monkeypatch.setattr(lane.class_layouts, 'compile_layouts', layouts)
+    result = lane.prepare_unit(w.source, [w.name], w.header, 'class', owner_witness=pair)
+    assert result[1] is None and result[2] == w.current_witness.plan_text()
+    assert [entry[0] for entry in seen] == [w.source, pair.prospective]
+    assert (w.root/w.source).read_bytes() == before and len(w.calls) == 4
+

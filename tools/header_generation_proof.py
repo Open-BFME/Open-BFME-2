@@ -621,16 +621,40 @@ def _owner_read(path):
     return (str(path.resolve()), digest, tuple(after)), md5, raw
 
 
-def _owner_profile(root, source, output):
+def _owner_profile(root, source, output, context=None):
     import build
     import header_adopt_lane as lane
-    command, env = _normal_command(root, source, output)
+    if context is None:
+        command, env = _normal_command(root, source, output)
+    elif type(context) is _OwnerSourceContext:
+        command, env = context.command(root, source, output)
+    else:
+        raise InputRefused("raw owner command context was not issued from a sealed Current")
     if not command or any(lane.unproven_pp_whitespace(arg) or "\n" in arg or "\r" in arg for arg in command):
         raise InputRefused("raw owner command has unsupported preprocessing whitespace")
     inventory = build.search_inventory(root / source, command, env)
     if inventory is None:
         raise InputRefused("raw owner compiler search inventory is unknown")
     return tuple(command), tuple(sorted(env.items())), inventory, env
+
+
+def _owner_command_parts(root, source, output, command):
+    """Validate native operand positions; return compiler prefix and all options."""
+    command = tuple(command)
+    if (not command or not all(isinstance(arg, str) for arg in command)
+            or command[-1] != source or command.count(source) != 1
+            or command.count("-c") != 1):
+        raise InputRefused("raw owner profile command has no single final bound Source operand")
+    outputs = [i for i, arg in enumerate(command) if arg.startswith(("-Fo", "/Fo"))]
+    if len(outputs) != 1 or len(command[outputs[0]]) <= 3:
+        raise InputRefused("raw owner profile command has no single joined Fo operand")
+    emitted = Path(command[outputs[0]][3:])
+    emitted = emitted if emitted.is_absolute() else Path(root) / emitted
+    if emitted.absolute() != Path(output).absolute():
+        raise InputRefused("raw owner profile command Fo operand differs from its requested output")
+    before_c = command[:command.index("-c")]
+    options = tuple(arg for i, arg in enumerate(command[:-1]) if i != outputs[0])
+    return before_c, options
 
 
 def _owner_project_git(root):
@@ -849,6 +873,49 @@ def _owner_spans(text, stream, name, source, declaration, declaration_source, wo
 
 
 @dataclass(frozen=True)
+class _OwnerSourceContext:
+    """One real adjacent source compiled as the sealed Current's logical TU."""
+    current: "CurrentOwnerWitness" = field(repr=False)
+    source: str
+    _seal: object = field(default=None, repr=False)
+
+    def __post_init__(self):
+        if (self._seal is not _OWNER_SEAL or type(self.current) is not CurrentOwnerWitness
+                or self.source == self.current.source
+                or I._relative(self.source) != self.source or not self.source.endswith(".cpp")
+                or Path(self.source).parent != Path(self.current.source).parent):
+            raise InputRefused("raw owner probe context was not issued for this sealed Current and adjacent source")
+
+    def command(self, root, source, output):
+        import build
+        from collections import Counter
+        state = self.current._state
+        if (self._seal is not _OWNER_SEAL or Path(root).resolve() != state.root or source != self.source
+                or state.source_state[0] != self.current.source):
+            raise InputRefused("raw owner context belongs to another root/source")
+        expected = state.profiles[0]
+        command, env = _normal_command(root, self.current.source, output)
+        prefix, options = _owner_command_parts(root, self.current.source, output, command)
+        old_prefix, old_options = _owner_command_parts(root, self.current.source, Path(expected[1]), expected[2])
+        if ((prefix, options) != (old_prefix, old_options)
+                or tuple(sorted(env.items())) != expected[3]
+                or build.search_inventory(Path(root) / self.current.source, command, env) != expected[4]):
+            raise InputRefused("raw owner original ordinary context/profile/search inventory changed")
+        # Observe the actual standalone probe too, but never execute its flag
+        # order. A literal multiset detects missing/new/duplicate options; this
+        # asserts no semantic equivalence of differently ordered compiler flags.
+        physical = _owner_profile(root, source, output)
+        probe_prefix, probe_options = _owner_command_parts(root, source, output, physical[0])
+        if (probe_prefix != prefix or Counter(probe_options) != Counter(options)
+                or physical[1:3] != (expected[3], expected[4])):
+            raise InputRefused("raw owner standalone profile changed compiler/options/environment/search inputs")
+        result = list(command)
+        result[-1] = source                      # the only command mutation
+        _owner_command_parts(root, source, output, result)
+        return result, env
+
+
+@dataclass(frozen=True)
 class _OwnerState:
     root: Path
     identity: tuple
@@ -860,6 +927,7 @@ class _OwnerState:
     opened: tuple
     normal_deps: tuple
     project: _OwnerProjectInputs
+    context: _OwnerSourceContext | None = field(default=None, repr=False)
 
     def anchor_paths(self):
         return {str(Path(self.source_state[1]).resolve()),
@@ -884,7 +952,7 @@ class _OwnerState:
         if any(modes.get(path) != mode for path, mode in self.tracked):
             raise InputRefused("raw owner tracked source/header mode changed")
         for source, output, command, env, inventory in self.profiles:
-            now = _owner_profile(self.root, source, Path(output))
+            now = _owner_profile(self.root, source, Path(output), self.context)
             if now[:3] != (command, env, inventory):
                 raise InputRefused("raw owner command/profile/search inventory changed")
         return True
@@ -910,7 +978,8 @@ class CurrentOwnerWitness:
     _seal: object = field(default=None, repr=False)
 
     def __post_init__(self):
-        if self._seal is not _OWNER_SEAL or self._state.identity != (self.name, self.source, self.header, self.mapping):
+        if (self._seal is not _OWNER_SEAL or self._state.context is not None
+                or self._state.identity != (self.name, self.source, self.header, self.mapping)):
             raise InputRefused("raw owner witness was not issued for this source/mapping")
 
     def validate(self):
@@ -943,7 +1012,10 @@ class PairedOwnerWitness:
     def __post_init__(self):
         if (type(self.current) is not CurrentOwnerWitness or self._seal is not _OWNER_SEAL
                 or self._state.identity != (self.current.name, self.current.source, self.current.header,
-                                            self.current.mapping, self.prospective)):
+                                            self.current.mapping, self.prospective)
+                or type(self._state.context) is not _OwnerSourceContext
+                or self._state.context.current is not self.current
+                or self._state.context.source != self.prospective):
             raise InputRefused("raw owner pair was not issued for these actual contexts")
 
     def validate_for(self, source, text, mappings, root, seeds):
@@ -959,8 +1031,39 @@ class PairedOwnerWitness:
         return True
 
 
+@dataclass(frozen=True)
+class _OwnerLayoutBuilder:
+    """Internal Pair-bound use of class_layouts' ordinary builder interface."""
+    pair: PairedOwnerWitness = field(repr=False)
+    _seal: object = field(default=None, repr=False)
+
+    def __post_init__(self):
+        if self._seal is not _OWNER_SEAL or type(self.pair) is not PairedOwnerWitness:
+            raise InputRefused("raw owner layout builder requires an issued Pair")
+
+    def compiler_command(self, source, output):
+        pair = self.pair
+        current, state = pair.current, pair._state
+        if (self._seal is not _OWNER_SEAL
+                or Path(source).resolve() != (state.root / pair.prospective).resolve()):
+            raise InputRefused("raw owner layout builder cannot serve another source")
+        text = (state.root / current.source).read_bytes().decode("latin-1")
+        pair.validate_for(current.source, text, {current.name: dict(current.mapping)}, state.root, (current.header,))
+        profile = _owner_profile(state.root, pair.prospective, Path(output), state.context)
+        expected = state.profiles[0]
+        if (_owner_command_parts(state.root, pair.prospective, Path(output), profile[0]) !=
+                _owner_command_parts(state.root, pair.prospective, Path(expected[1]), expected[2])
+                or profile[1:3] != expected[3:5]):
+            raise InputRefused("raw owner full prospective layout context changed")
+        return list(profile[0]), profile[3]
+
+
+def _owner_layout_builder(pair):
+    return _OwnerLayoutBuilder(pair, _OWNER_SEAL)
+
+
 def _capture_owner_context(root, name, source, header, mapping, known, source_state, identity,
-                           declaration_source, source_profile, normal_deps, project):
+                           declaration_source, source_profile, normal_deps, project, context=None):
     import census_receipts
     import header_adopt_lane as lane
     command, env_keys, inventory, env = source_profile
@@ -979,7 +1082,7 @@ def _capture_owner_context(root, name, source, header, mapping, known, source_st
             if _owner_read(path)[0] != expected:
                 raise InputRefused(f"raw owner input changed during capture: {path}")
         output = source_state[1] if source == source_state[0] else str(root / source) + ".command-only.obj"
-        if _owner_profile(root, source, Path(output))[:3] != (command, env_keys, inventory):
+        if _owner_profile(root, source, Path(output), context)[:3] != (command, env_keys, inventory):
             raise InputRefused("raw owner profile/search inputs changed during capture")
         if I._compiler_inputs(root, source_state[0], Path(source_state[1])) != source_state[2]:
             raise InputRefused("raw owner current normal object lost currency during capture")
@@ -1035,7 +1138,7 @@ def _capture_owner_context(root, name, source, header, mapping, known, source_st
     state = _OwnerState(root, identity, tuple(sorted(frozen.values())),
              ((source, output, command, env_keys, inventory),),
              tuple((p, tracked[p]) for p in required), source_state, coverage,
-             outputs[0][2], normal_deps, project)
+             outputs[0][2], normal_deps, project, context)
     state.validate()
     return state
 
@@ -1105,7 +1208,8 @@ def capture_owner_pair(current, prospective):
     record, _md5, raw = _owner_read(root / prospective)
     if raw != current.plan_text().encode("latin-1"):
         raise InputRefused("raw owner prospective source differs from the exact pure proposal")
-    profile = _owner_profile(root, prospective, Path(str(root / prospective) + ".command-only.obj"))
+    context = _OwnerSourceContext(current, prospective, _OWNER_SEAL)
+    profile = _owner_profile(root, prospective, Path(str(root / prospective) + ".command-only.obj"), context)
     original = current._state.profiles[0]
     def normalized(command, source):
         return tuple(a for a in command if not a.startswith(("-Fo", "/Fo")) and a != source)
@@ -1117,7 +1221,7 @@ def capture_owner_pair(current, prospective):
     identity = (current.name, current.source, current.header, current.mapping, prospective)
     state = _capture_owner_context(root, current.name, prospective, current.header, current.mapping,
         files, current._state.source_state, identity, current.header, profile,
-        current._state.normal_deps, current._state.project)
+        current._state.normal_deps, current._state.project, context)
     current.validate()
     return PairedOwnerWitness(current, prospective, state, _OWNER_SEAL)
 
