@@ -33,6 +33,9 @@ public:
     virtual NameKeyType getModuleNameKey() const;
 
 protected:
+    virtual void loadPostProcess();
+    virtual void xfer(Xfer *xfer);
+
     const ProneUpdateModuleData *getProneUpdateModuleData() const
     {
         return (const ProneUpdateModuleData *)getModuleData();

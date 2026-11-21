@@ -99,6 +99,15 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class Region2D;
+class RealRange;
+class RGBAColorReal;
+class RGBAColorInt;
+#include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/GameLogic/Module/ProneUpdate.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp
@@ -108,6 +117,22 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // 1 loadPostProcess (0x0058B03E in UpdateModule's), 2 GetSnapshotName
 // (0x002533CD), 3 xfer (0x0044DF9F), 4 getModuleNameKey (__purecall in
 // UpdateModule's, 0x0049FE9A in ProneUpdate's).
+
+// Slots 1 and 3 of 0x00C5191C are bodies the linker folded with other
+// modules': loadPostProcess 0x00497805 tail-jumps to UpdateModule's and xfer
+// 0x0049508D (also AutoFindHealingUpdate's) writes Version1, the base and
+// m_proneFrames.
+void ProneUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
+
+void ProneUpdate::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpdateModule::xfer(xfer);
+	*xfer == m_proneFrames;
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdatePoolKey.cpp
 
