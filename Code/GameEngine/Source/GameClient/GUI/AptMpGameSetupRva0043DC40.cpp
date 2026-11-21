@@ -459,19 +459,6 @@ template <class T> class AptRef : public Rva0057BC63FunctorHolder
 ;
 
 class AptExternHandler;
-// The panel's two adders at +0x04 and +0x10 (AptCallbackAdders.cpp, both
-// rowed): each registers with the Apt player and remembers the name.
-#include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
-class AptExternHandlerAdder
-
-{
- public:
- void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
- private:
- _STL::vector<AsciiString> m_names;
-
-}
-;
 // 0x00411458 stores the reference under the name in the screen table at
 // 0x00E02FD0 (operator[] 0x0041112B, assignment 0x002174A4), releasing it
 // through 0x0007DEEF as above; BFME1's _bfme_setAptScreenRef
@@ -480,207 +467,42 @@ class AptExternHandlerAdder
 class AptScreenInitGadgets;
 
 
-class AptMpGameSetup
-
-{
- public:
- static void PlayerTooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);
- int GetDisplayedPlayerTemplateIndex(int slot);
- void rva0043DC0F();
- void rva0043E49C(const UnicodeString &text);
- void OnKickPlayer(const char *slotText);
- void rva0043DB6E();
- bool handlePlayerTemplateSelection(int index);
- bool HandleHeroSelection(int index);
- void rva0043E3E2(int index, int team);
- bool SetSlotHeroData(GameSlot *slot, int hero);
- void UpdateHeroToFaction(GameSlot *slot, int index, bool flag);
- void ChangePlayerSelection(int slot, int value);
- void rva0043E253(int slot);
- void ExternFunc(int query, char *result, bool skip);
- const Image *rva0043E512(int value);
- void rva0043E5C1(int slot, int kind, int value);
- void OnSortName(const char *unused);
- void OnSortPlayers(const char *unused);
- void OnSortIcons(const char *unused);
- void OnTabSelect(const char *tab);
- void OnReadyPress(const char *slotText);
- bool rva0043E1CC(int which);
- bool rva0043ECC1(int index);
- bool Init(GameInfo *game, int value);
- bool InitGameInfoFromSaveGame(GameInfo *game);
- bool WaitStartGame();
- void UpdatePlayerTemplateDisplay(int slot);
 // Unrowed 0x0043DF22 (the number of accepted seated humans; banked) and
 // 0x00440BDF (1693 bytes; ret 4), pinned by address.
- unsigned int rva0043DF22();
- bool rva00440BDF(int value);
 // Unrowed 0x0044009D (1039 bytes; ret 4, the slot; returns al), pinned
 // by address.
- bool rva0044009D(int slot);
 // Unrowed 0x0043DC40 (53 bytes; picks the games list sort column, the
 // same column again toggling to the next value), pinned by address.
- void rva0043DC40(int column);
- bool rva00442C9C();
- void rva004427C5(int slot);
- void rva004427FA();
- void rva00442A19();
- void rva0043FFCF();
- void rva0043FFD7();
- void rva00441685(bool flag);
- void rva004422B4(int mode);
- void rva00440017(const AsciiString &map);
 // Unrowed per-slot refreshers called by 0x004427C5, pinned by address:
 // 0x0043F483 (1072 bytes), 0x004424E7 (734 bytes) and 0x004406BA (792
 // bytes).
- void rva0043F483(int slot);
- void rva0043F244(int slot, bool reset);
- void rva004424E7(int slot);
- void rva004406BA(int slot);
 // Unrowed 0x004422DD (522 bytes), called by 0x00442A19, pinned by
 // address.
- void rva004422DD();
- void UpdateSlot(int slot);
 // Unrowed 0x00442BCC (208 bytes; walks the slots through the encoded
 // handle iterator of S5HandleHashCompares.cpp, true when every one has
 // all six widget arrays), pinned by address.
- bool rva00442BCC();
- void rva0043FA68(GameInfo *game);
- void InitGadgets();
- int rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2);
- bool rva0043DCFA(int value);
- void rva004404AC(bool enable, int slot);
- void UpdateHeroDisplay(int slot);
- void InitAvailableColors();
- void rva004415D5(const AsciiString &map);
- void UpdateReadyIcon(int index);
- bool rva0043FC1F(int kind, bool reset);
- bool HandleClanChange();
- bool rva00442A68(int index);
- bool OnUpdate();
- void rva0043EDB4();
- void UpdateClans();
- void rva00443BF3();
 // Unrowed 0x00443538 (1723 bytes; ret 4, its argument a flag mask),
 // pinned by address.
- void rva00443538(int flags);
- void rva0044303D();
- void InitGadgets(const char *name, void *data, GameWindow *window);
- private:
- unsigned char m_pad000[0x04];
- AptCommandMapAdder m_commandMaps;
-// +0x04
- AptExternHandlerAdder m_externHandlers;
-// +0x10
- unsigned char m_pad01c[0x58 - 0x1C];
- MpGameSetupOwner *m_owner;
-// +0x58
- Rva0043DA65 *m_game;
-// +0x5C
- Rva0057E3DB m_60;
-// +0x60
- Rva0057EE5C m_d0;
-// +0xD0
- unsigned char m_pad0d1[0x15C - 0xD1];
- MpGameSetupRules m_rules;
-// +0x15C
- unsigned char m_pad184[0x190 - 0x184];
- Rva0057F2DE m_190;
-// +0x190
- unsigned char m_pad191[0x244 - 0x191];
- Rva0057FD6E m_244;
-// +0x244
- unsigned char m_pad245[0x2B0 - 0x245];
- TreeHintOpaque0043671B *m_saved;
-// +0x2B0
- int m_pendingHero;
-// +0x2B4 (-3 for none)
- bool m_2b8;
-// +0x2B8
- bool m_2b9;
-// +0x2B9
- bool m_2ba;
-// +0x2BA
- bool m_2bb;
-// +0x2BB
- bool m_2bc;
-// +0x2BC
- bool m_2bd;
-// +0x2BD
- bool m_2be;
-// +0x2BE
- bool m_2bf;
-// +0x2BF
- bool m_2c0;
-// +0x2C0
- bool m_2c1;
-// +0x2C1
- bool m_refreshing;
-// +0x2C2 (guards the all-slot refreshes)
- bool m_pending;
-// +0x2C3
- bool m_2c4;
-// +0x2C4 (the start countdown is running)
- unsigned char m_pad2c5[0x2C8 - 0x2C5];
- int m_startTime;
-// +0x2C8
- int m_shownSeconds;
-// +0x2CC
- int m_2d0;
-// +0x2D0
- GameWindow *m_player[8];
-// +0x2D4
- MpGameSetupComboRef m_colorCombo[8];
-// +0x2F4
- GameWindow *m_team[8];
-// +0x314
- GameWindow *m_playerTemplate[8];
-// +0x334
- GameWindow *m_handicap[8];
-// +0x354
- GameWindow *m_hero[8];
-// +0x374
- GameWindow *m_mapList;
-// +0x394 (a list box)
-// +0x398: a vector<AsciiString> (Rva004421E1Dtor.cpp), one map per list
 // box row.
- _STL::vector<AsciiString> m_maps;
- int m_flags;
-// +0x3A4
- int m_3a8;
-// +0x3A8
- int m_sortColumn;
-// +0x3AC (games list sort column)
- int m_previousSortColumn;
-// +0x3B0
- unsigned char m_pad3b4[0x3C4 - 0x3B4];
- _STL::vector<bool> m_colorsAvailable;
-// +0x3C4
- int m_numColors;
-// +0x3D8
- bool m_3dc;
-// +0x3DC
-
-}
-;
+#include "../../../Include/GameClient/AptMpGameSetup.h"
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
 // template, or -1 without a combo box.
 void AptMpGameSetup::rva0043DC40(int column)
 
 {
  int c = column;
- int old = (m_2bc ? m_sortColumn : m_sortColumn);
+ int old = (field2bc ? field3ac : field3ac);
  int next = (old ? (c + 1) : (c + 1));
  if (old == c)
- m_sortColumn = next;
+ field3ac = next;
  else
 
  {
-  m_sortColumn = c;
+  field3ac = c;
   if (old != next)
-  m_previousSortColumn = old;
+  field3b0 = old;
 
  }
- m_2bc = true;
+ field2bc = true;
 
 }
