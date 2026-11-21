@@ -73,7 +73,6 @@ struct Rva003EF6A0Entry {int key;char pad04[24];float f1c,f20,f24;Rva003EF6A0Ent
 struct Rva003EF6A0Span;struct Rva003EF9DCNode;struct Rva003EF634Node;
 class Rva003C5890Item;
 class LivingWorldSearchCallback {public:virtual void slot00();virtual void slot04();virtual void slot08(Rva003EF6A0Entry*);virtual bool slot0c(Rva003EF6A0Entry*,Rva003EF6A0Entry*);};
-class BfmeVecAG {public:void bfmeErase(int*);};
 class Rva003EF8E1{public:
  void Rva003EF9DCFill(Rva003EF9DCNode*,_STL::vector<ObjectID>*);
  int Rva003EF634Count(Rva003EF634Node*);
@@ -119,6 +118,8 @@ namespace _STL { template <> ScienceType *vector<ScienceType,allocator<ScienceTy
 // The range erase these views call is vector<void *>::erase (0x0031BD55);
 // declared only so the call binds to that kept body.
 namespace _STL { template <> void **vector<void *,allocator<void *> >::erase(void **,void **); }
+// Both single-element erase calls use the retained STLport specialization at 0x001FF51F.
+namespace _STL { template <> void **vector<void *,allocator<void *> >::erase(void **); }
 class BfmeSlotVecG { public: __forceinline void bfmeErase(void **first,void **last) { ((_STL::vector<void *> *)this)->erase(first,last); } void **begin,*end,*limit; };
 class Rva003EFC1CHost:public Rva003EF8E1 { public: void rva003EFC1C(int,void*); };
 // ?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z
@@ -163,7 +164,7 @@ int Rva003EF8E1::FindShortestPath(LivingWorldSearchCallback *cb,int opaque,int f
   open.push_back((Rva003C5890Item *const &)start);
   while(open.size()) {
    Rva003EF6A0Entry *current=(Rva003EF6A0Entry *)open[0];
-   ((BfmeVecAG *)&open)->bfmeErase((int *)open.begin());
+   reinterpret_cast<_STL::vector<void *> &>(open).erase(reinterpret_cast<void **>(open.begin()));
    ((LivingWorldSearchCallback*)metric)->slot08(current);
    if(((LivingWorldSearchCallback*)metric)->slot0c(current,(Rva003EF6A0Entry*)goal)) {
     if(out) { Rva003EF9DCFill((Rva003EF9DCNode *)current,out); return out->size()-1; }
@@ -196,7 +197,7 @@ bool Rva003EF8E1::Pathfind(LivingWorldSearchCallback *cb,int from,_STL::vector<O
  open.push_back((Rva003C5890Item *const &)start);
  while(open.size()) {
   Rva003EF6A0Entry *current=(Rva003EF6A0Entry *)open[0];
-  ((BfmeVecAG *)&open)->bfmeErase((int *)open.begin());
+  reinterpret_cast<_STL::vector<void *> &>(open).erase(reinterpret_cast<void **>(open.begin()));
   ((LivingWorldSearchCallback*)metric)->slot08(current);
   if(((LivingWorldSearchCallback*)metric)->slot0c(current,(Rva003EF6A0Entry*)goal)) {
    if(out) { Rva003EF9DCFill((Rva003EF9DCNode *)current,out); *length=out->size()-1; }
