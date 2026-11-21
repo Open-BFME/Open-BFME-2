@@ -3958,4 +3958,4 @@ stand-ins (`MiBase1`/`*_M1`, `*_B2`, `*_E1`), which the lane's same-name swap ca
 re-base 39 classes in ten emitter units by hand on the canonical chain (UpdateModule.h, ObjectHelper.h,
 SpecialAbilityUpdate.h, the DockUpdate view), rebinding the constructor units that store their tables by
 name: bridge plan 3,084 -> 3,017 bridged, 2,420 -> 2,459 correct, 33,299 -> 30,877 mismatching source
-slots. Census, method, per-commit figures and the remaining families: [LINK-694](link-694-updatemodule-stand-in-bases-block-header-adoption-in-the-bridge.md).
+slots. Census, method, per-commit figures and the remaining families: [LINK-696](link-696-updatemodule-stand-in-bases-block-header-adoption-in-the-bridge.md).

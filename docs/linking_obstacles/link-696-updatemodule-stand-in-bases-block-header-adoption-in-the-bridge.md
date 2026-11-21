@@ -1,4 +1,4 @@
-### LINK-694: UpdateModule stand-in bases block header adoption in the bridged-table emitters
+### LINK-696: UpdateModule stand-in bases block header adoption in the bridged-table emitters
 
 Status: Open (partly repaired). Updated: 2026-11-20; inspected revision: `5b1cc1a3150` plus the seat's eight
 commits below (seat halilkkaya-um, not yet on master).
