@@ -178,11 +178,11 @@ private:
 	int m_fieldA4;
 	int m_fieldA8;
 	int m_fieldAC;
-	Rva001EB15A m_B0;			// +0xB0, real24B owned record
+	Rva001EB15A m_fieldB0;			// +0xB0, real24B owned record
 	int m_fieldC8;			// +0xC8
 	float m_fieldCC;			// +0xCC
-	AsciiString m_D0;			// +0xD0
-	AsciiString m_D4;			// +0xD4
+	AsciiString m_fieldD0;			// +0xD0
+	AsciiString m_fieldD4;			// +0xD4
 };
 
 

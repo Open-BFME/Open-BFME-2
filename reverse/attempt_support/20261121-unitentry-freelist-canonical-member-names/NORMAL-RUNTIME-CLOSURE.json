@@ -1,0 +1,21 @@
+{
+  "base": "81a035fcaf24e7a3fe92ae143232a08fe207792e",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+  "mapping": {
+    "m_B0": "m_fieldB0",
+    "m_D0": "m_fieldD0",
+    "m_D4": "m_fieldD4"
+  },
+  "declaration_occurrences_each": 1,
+  "other_source_uses": 0,
+  "runtime_nodes": 37,
+  "checks": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "before_object_sha256": "5b5fbb10ab97819bde4678388ea9df38dfe5ec9cfbb38bf88eb7b385360d6d4c",
+  "after_object_sha256": "5df9d0f2f371b29848198c35ee9195c515a67e51b0ae79118e599cd5c3fde09a",
+  "completed_credit": 0
+}
