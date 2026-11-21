@@ -2701,12 +2701,13 @@ Rva005CC93A::Rva005CC93A()
 }
 
 // ??0Rva005CFB8A@@QAE@XZ @0x005CFB8A 9B, vtable VA 0x00c75284
+// Retail slot 1 is the shared empty `ret 14h` 0x0025EF04: five dword arguments.
 class Rva005CFB8A
 {
 public:
 	Rva005CFB8A();
 	virtual void slot00(int) {}
-	virtual void slot04() = 0;
+	virtual void slot04(int, int, int, int, int) {}
 };
 
 Rva005CFB8A::Rva005CFB8A()

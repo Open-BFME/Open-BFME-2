@@ -45,15 +45,15 @@ public:
 	virtual int read(void *buffer, int bytes) = 0;
 	virtual int write(const void *buffer, int bytes) = 0;
 	virtual int seek(int bytes, seekMode mode) = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
+	virtual void nextLine(char *buffer, int bytes) = 0;
+	virtual bool scanInt(int &value) = 0;
+	virtual bool scanReal(float &value) = 0;
+	virtual bool scanString(AsciiString &value) = 0;
 	virtual bool print(const char *format, ...);
 	virtual int size();
 	virtual int position();
 	virtual char *readEntireAndClose() = 0;
-	virtual void slot14() = 0;
+	virtual File *convertToRAMFile() = 0;
 	virtual void lock();
 	virtual void unlock();
 
@@ -236,9 +236,18 @@ class MemoryReadFile : public File
 {
 public:
 	MemoryReadFile(char *data, int size);
+	virtual bool open(const char *filename, int access);
 	virtual int read(void *buffer, int bytes);
+	virtual int write(const void *buffer, int bytes);
 	virtual int seek(int bytes, seekMode mode);
+	virtual void nextLine(char *buffer, int bytes);
+	virtual bool scanInt(int &value);
+	virtual bool scanReal(float &value);
+	virtual bool scanString(AsciiString &value);
+	virtual int size();
+	virtual int position();
 	virtual char *readEntireAndClose();
+	virtual File *convertToRAMFile();
 
 private:
 	char *m_data;
@@ -250,8 +259,19 @@ class MemoryWriteFile : public File
 {
 public:
 	MemoryWriteFile(const char *name);
+	virtual ~MemoryWriteFile();
+	virtual bool open(const char *filename, int access);
+	virtual int read(void *buffer, int bytes);
 	virtual int write(const void *buffer, int bytes);
 	virtual int seek(int bytes, seekMode mode);
+	virtual void nextLine(char *buffer, int bytes);
+	virtual bool scanInt(int &value);
+	virtual bool scanReal(float &value);
+	virtual bool scanString(AsciiString &value);
+	virtual int size();
+	virtual int position();
+	virtual char *readEntireAndClose();
+	virtual File *convertToRAMFile();
 
 private:
 	char *m_data;
@@ -411,6 +431,65 @@ MemoryWriteFile::MemoryWriteFile(const char *name)
 		setName(name);
 	else
 		setName("<MemoryWriteFile>");
+}
+
+// MemoryWriteFile's remaining slots of 0x0087A7B8 are the BFME1 donor's stubs; each
+// body is an identical-code fold shared with other tables' entries.
+// Slot 1, 0x0050B5F1: a memory file is never opened by name.
+bool MemoryWriteFile::open(const char *filename, int access)
+{
+	return false;
+}
+
+// Slot 3, 0x00574473: write-only, so reading always fails.
+int MemoryWriteFile::read(void *buffer, int bytes)
+{
+	return -1;
+}
+
+// Slot 6, 0x0050B238.
+void MemoryWriteFile::nextLine(char *buffer, int bytes)
+{
+}
+
+// Slots 7-9, 0x005CB9FF.
+bool MemoryWriteFile::scanInt(int &value)
+{
+	return false;
+}
+
+bool MemoryWriteFile::scanReal(float &value)
+{
+	return false;
+}
+
+bool MemoryWriteFile::scanString(AsciiString &value)
+{
+	return false;
+}
+
+// Slot 11, 0x002A79A1.
+int MemoryWriteFile::size()
+{
+	return m_size;
+}
+
+// Slot 12, 0x0030F2C7.
+int MemoryWriteFile::position()
+{
+	return m_pos;
+}
+
+// Slot 13, 0x000D43D0: nothing to hand back from a file that exists to be written.
+char *MemoryWriteFile::readEntireAndClose()
+{
+	return 0;
+}
+
+// Slot 14, 0x0047A6A9.
+File *MemoryWriteFile::convertToRAMFile()
+{
+	return this;
 }
 
 // Native6022CA tail JMP6025CE forwards unchanged thiscall receiver to

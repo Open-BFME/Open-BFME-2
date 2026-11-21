@@ -70,9 +70,11 @@ public:
 	virtual void update(int index);
 	virtual void Rva0035DD9C();
 	virtual void draw();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
+	// Retail vftable 0x00C16574 slots 5-7: the shared empty body 0x000B3FD0, the
+	// shared update(+0x14) body 0x0035D1E7 and the base's zero-returning 0x000D43D0.
+	virtual void slot5() {}
+	virtual void slot6() { update(m_14); }
+	virtual int slot7() { return 0; }
 private:
 	int m_10;
 	int m_14;
@@ -283,8 +285,6 @@ void famgenDelete(Rva0035FF76 *transition) { delete transition; }
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?slot5@MainMenuMediumScaleUpTransition@@UAEXXZ=??1Coord2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?slot7@MainMenuMediumScaleUpTransition@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?slot1@Rva0035E00F@@UAEXXZ=?init@MainMenuScaleUpTransition@@UAEXPAVGameWindow@@@Z")
 #pragma comment(linker, "/alternatename:?slot5@Rva0035E00F@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?slot7@Rva0035E00F@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
@@ -295,5 +295,4 @@ void famgenDelete(Rva0035FF76 *transition) { delete transition; }
 // reaches, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?slot3@Rva0035E00F@@UAEXXZ=?rva0035D1BD@Rva0035D1BD@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?slot4@Rva0035E00F@@UAEXXZ=?draw@MainMenuScaleUpTransition@@UAEXXZ")
-#pragma comment(linker, "/alternatename:?slot6@MainMenuMediumScaleUpTransition@@UAEXXZ=?rva0035D1E7@Rva0035D1E7@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?slot6@Rva0035E00F@@UAEXXZ=?rva0035D1E7@Rva0035D1E7@@QAEXXZ")

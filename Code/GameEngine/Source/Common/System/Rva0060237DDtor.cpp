@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
-// ??1Rva0060237D@@UAE@XZ @0x0060237D 68B evidence: vtable VA 0x0087A7B8 at +0; delete[] at +0x14 via 0x0002FD80; StringBase char releaseBuffer at +0x24 via 0x00036410; base File dtor via 0x006025CE row; unblocks deleting dtor 0x006023F6
+// ??1MemoryWriteFile@@UAE@XZ @0x0060237D 68B evidence: vtable VA 0x0087A7B8 at +0; delete[] at +0x14 via 0x0002FD80; StringBase char releaseBuffer at +0x24 via 0x00036410; base File dtor via 0x006025CE row; unblocks deleting dtor 0x006023F6
 
 #include <new>
 
@@ -10,19 +10,33 @@ typedef void *FileHandle;
 
 #include "../../../Include/Common/File.h"
 
-class Rva0060237D : public File
+class MemoryWriteFile : public File
 {
 public:
-	virtual ~Rva0060237D();
+	virtual ~MemoryWriteFile();
+	virtual bool open(const char *filename, int access);
+	virtual int read(void *buffer, int bytes);
+	virtual int write(const void *buffer, int bytes);
+	virtual int seek(int bytes, seekMode mode);
+	virtual void nextLine(char *buffer, int bytes);
+	virtual bool scanInt(int &value);
+	virtual bool scanReal(float &value);
+	virtual bool scanString(AsciiString &value);
+	virtual int size();
+	virtual int position();
+	virtual char *readEntireAndClose();
+	virtual File *convertToRAMFile();
 private:
-	char *m_14;
-	char m_pad18[0x0C];
-	AsciiString m_24;
+	char *m_data;
+	int m_size;
+	int m_pos;
+	int m_capacity;
+	AsciiString m_name;
 };
 
-Rva0060237D::~Rva0060237D()
+MemoryWriteFile::~MemoryWriteFile()
 {
-	delete[] m_14;
+	delete[] m_data;
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds

@@ -36,6 +36,12 @@ public:
 	// Rva0056AC26 slot 1 (retail table 0x00C6D3A8 / 0x00C6D40C slot 1): 0x00232E8F,
 	// `mov al,[ecx+20h]; ret`, the flag at +0x20 (a body retail folds).
 	virtual bool ac26Slot1();
+	// LivingWorldBattleListener at +0x14 (retail table 0x00C6D3BC) slots 0 and 1.
+	virtual void onArmyRemoved(void *army);
+	virtual void slot1(int a, int b);
+	// Rva0056AC26Base2 at +8 (retail table 0x00C6D3D0) slots 1 and 3.
+	virtual bool slot1(Rva002B4BC9Arg *candidate);
+	virtual bool slot3(int first, int second);
 private:
 	Parent0056B218 *m_parent18;
 	Parent0056B218 *m_parent1C;
@@ -53,4 +59,23 @@ Rva0056B218::Rva0056B218(Rva0056AC26Owner *owner, Parent0056B218 *first, Parent0
 bool Rva0056B218::ac26Slot1()
 {
 	return m_20;
+}
+
+// Slot 1 of retail table 0x00C6D3BC: both parents seen in swapped order set +0x20.
+void Rva0056B218::slot1(int a, int b)
+{
+	if (m_parent18 == (Parent0056B218 *)b && m_parent1C == (Parent0056B218 *)a)
+		m_20 = true;
+}
+
+// Slot 1 of retail table 0x00C6D3D0: whether the candidate is the first parent.
+bool Rva0056B218::slot1(Rva002B4BC9Arg *candidate)
+{
+	return m_parent18 == reinterpret_cast<Parent0056B218 *>(candidate);
+}
+
+// Slot 3 of retail table 0x00C6D3D0: whether the pair is the two parents.
+bool Rva0056B218::slot3(int first, int second)
+{
+	return m_parent18 == (Parent0056B218 *)first && m_parent1C == (Parent0056B218 *)second;
 }

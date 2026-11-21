@@ -84,9 +84,18 @@ class MemoryReadFile : public File
 {
 public:
 	MemoryReadFile(char *data, int size);
+	virtual bool open(const char *filename, int access);
 	virtual int read(void *buffer, int bytes);
+	virtual int write(const void *buffer, int bytes);
 	virtual int seek(int bytes, seekMode mode);
+	virtual void nextLine(char *buffer, int bytes);
+	virtual bool scanInt(int &value);
+	virtual bool scanReal(float &value);
+	virtual bool scanString(AsciiString &value);
+	virtual int size();
+	virtual int position();
 	virtual char *readEntireAndClose();
+	virtual File *convertToRAMFile();
 
 private:
 	char *m_data; // +0x14
@@ -134,6 +143,59 @@ MemoryReadFile::MemoryReadFile(char *data, int size)
 	m_open = true;
 	m_access = 0x41;
 	((StringBase<char> *)&m_nameStorage)->set("<MemoryReadFile>");
+}
+
+// MemoryReadFile's remaining slots of 0x0087A748 are the BFME1 donor's stubs; each
+// body is an identical-code fold shared with other tables' entries.
+// Slot 1, 0x0050B5F1: a memory file is never opened by name.
+bool MemoryReadFile::open(const char *filename, int access)
+{
+	return false;
+}
+
+// Slot 4, 0x00574473: read-only, so writing always fails.
+int MemoryReadFile::write(const void *buffer, int bytes)
+{
+	return -1;
+}
+
+// Slot 6, 0x0050B238.
+void MemoryReadFile::nextLine(char *buffer, int bytes)
+{
+}
+
+// Slots 7-9, 0x005CB9FF.
+bool MemoryReadFile::scanInt(int &value)
+{
+	return false;
+}
+
+bool MemoryReadFile::scanReal(float &value)
+{
+	return false;
+}
+
+bool MemoryReadFile::scanString(AsciiString &value)
+{
+	return false;
+}
+
+// Slot 11, 0x002A79A1.
+int MemoryReadFile::size()
+{
+	return m_size;
+}
+
+// Slot 12, 0x0030F2C7.
+int MemoryReadFile::position()
+{
+	return m_pos;
+}
+
+// Slot 14, 0x0047A6A9: already in memory, so it is its own RAM file.
+File *MemoryReadFile::convertToRAMFile()
+{
+	return this;
 }
 
 // tu-skeleton: 0x006022AE 28B ??_GRva006022CA@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)

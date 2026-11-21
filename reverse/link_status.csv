@@ -4714,7 +4714,7 @@ Code/GameEngine/Source/Common/Rva00587479Deleting.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00589051Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva00589079Derived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005890A6Pause.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/Common/Rva0058A0F4Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva0058AD7ABase.cpp,no,0,0,0,0,1
 Code/GameEngine/Source/Common/Rva0058AD7ACtor.cpp,no,0,0,0,0,1
@@ -8708,7 +8708,7 @@ Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachStateOnEnter.cpp,yes,0,
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachStateUpdateInternal.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitState.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitStateUpdate.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp,no,0,1,1,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStatesXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIAttackPursueTargetStateUpdateInternal.cpp,yes,0,0,0,0,0
@@ -8824,7 +8824,7 @@ Code/GameEngine/Source/GameLogic/AI/AIStateMachineSetGoalWaypoint.cpp,yes,0,0,0,
 Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStateRva0034005DCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/AI/AIStates.cpp,no,0,1,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeMoveOnEnters.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp,yes,0,0,0,0,0
@@ -11205,7 +11205,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp,yes,0,
 Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdateGetAllPoints.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdateXfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateCtor.cpp,yes,0,0,0,0,0

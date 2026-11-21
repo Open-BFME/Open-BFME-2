@@ -6,19 +6,7 @@
 // "ReflectDamage" literal ModuleFactory registers alongside this stub.
 // Recipe: RainOfFireUpdateFriendNew.cpp.
 
-class Thing;
-class ModuleData;
-class Module;
-
-class ReflectDamage
-{
-public:
-	ReflectDamage(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x14];
-};
+#include "../../../../Include/GameLogic/Module/ReflectDamage.h"
 
 // ?friend_newModuleInstance@ReflectDamage@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *ReflectDamage::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

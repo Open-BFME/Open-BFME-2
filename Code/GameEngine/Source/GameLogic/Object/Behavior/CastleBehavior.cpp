@@ -48,45 +48,15 @@ template <> inline void vector<Rva00395D77>::clear()
 struct BfmeStringRecord004071F7 { AsciiString m_templateName; unsigned m_count1, m_count2; };
 class Rva00397C94 : public _STL::map<int, BfmeStringRecord004071F7>
 { public: ~Rva00397C94(); void rva00398257(); };
-#include "Common/Snapshot.h"
-class __declspec(novtable) Rva0039A027Base : public Snapshot
+#include "../../../../Include/Common/ModuleData.h"
+inline ModuleData::~ModuleData() {}
+class __declspec(novtable) Rva0039A027Base : public ModuleData
 {
 public:
     __forceinline Rva0039A027Base() : m_f08(0.0f), m_n0c(0)
     {}
     virtual ~Rva0039A027Base() {}
-    virtual void loadPostProcess() {}
-    virtual const char *GetSnapshotName() const { return "ModuleData"; }
-    virtual void xfer(Xfer *) {}
-    virtual bool slot04() const { return false; }
-    virtual bool slot05() const { return false; }
-    virtual bool slot06() const { return false; }
-    virtual bool slot07() const { return false; }
-    virtual bool slot08() const { return false; }
-    virtual bool slot09() const { return false; }
-    virtual bool slot10() const { return false; }
-    virtual bool slot11() const { return false; }
-    virtual bool slot12() const { return false; }
-    virtual bool slot13() const { return false; }
-    virtual AsciiString slot14(int) const { return AsciiString::TheEmptyString; }
-    virtual bool slot15() const { return false; }
-    virtual const void *slot16() const { return 0; }
-    virtual const void *slot17() const { return 0; }
-    virtual const void *slot18() const { return 0; }
-    virtual const void *slot19() const { return 0; }
-    virtual const void *slot20() const { return 0; }
-    virtual const void *slot21() const { return 0; }
-    virtual const void *slot22() const { return 0; }
-    virtual const void *slot23() const { return 0; }
-    virtual const void *slot24() const { return 0; }
-    virtual const void *slot25() const { return 0; }
-    virtual const void *slot26() const { return 0; }
-    virtual const void *slot27() const { return 0; }
-    virtual const void *slot28() const { return 0; }
-    virtual const void *slot29() const { return 0; }
-    virtual bool slot30() const { return true; }
 private:
-    unsigned m_unknown04;
     float m_f08;
     unsigned m_n0c;
 };
