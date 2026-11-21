@@ -6460,3 +6460,6 @@ __ehhandler$?update@BannerUI@@QAEXXZ,0x0076E2AC,"Renamed to __ehhandler$?update@
 ??1Rva00216BF5@@UAE@XZ,0x00216BF5,"Renamed to ??1BannerUI@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE59E4)"
 __ehhandler$??1Rva00216BF5@@UAE@XZ,0x0076E2EC,"Renamed to __ehhandler$??1BannerUI@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE59E4)"
 ??_GRva00216BF5@@UAEPAXI@Z,0x00216DA0,"Renamed to ??_GBannerUI@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE59E4)"
+?rva0050B745@Made002CCBCA@@UAE_NPBURva0050B7D2Arg@@PAVObject@@@Z,0x0050B745,"Respelled to ?rva005075D6@Made002CCBCA@@UAEEPBXPAVObject@@@Z: the body is slot 1 of retail table 0x00864DFC, overriding the Rva00507823 base slot (Rva00507823.h) so the ctor unit's table names it"
+?rva0050B7D2@Made002CCBCA@@UAEXPBURva0050B7D2Arg@@H@Z,0x0050B7D2,"Respelled to ?vslot05@Made002CCBCA@@UAEXPBXPAX@Z: the body is slot 5 of retail table 0x00864DFC, overriding the Rva00507823 base slot (Rva00507823.h) so the ctor unit's table names it"
+?rva0050B843@Made002CCBCA@@UAEXPBURva0050B7D2Arg@@H@Z,0x0050B843,"Respelled to ?vslot06@Made002CCBCA@@UAEXPBXPAX@Z: the body is slot 6 of retail table 0x00864DFC, overriding the Rva00507823 base slot (Rva00507823.h) so the ctor unit's table names it"
