@@ -68,6 +68,11 @@ public:
 	}
 
 protected:
+	// Primary ObjectModule table slots 1 and 2: the shared UpdateModule base
+	// forward (retail 0x00497805, `jmp 0x0058B03E`, ICF-folded with the other
+	// module-family overrides) and this class's snapshot name (retail 0x004A2BEA).
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 };
 
@@ -88,4 +93,20 @@ StealthDetectorUpdate::StealthDetectorUpdate(Thing *thing, const ModuleData *mod
 // 0x004A2D2D (formerly the placeholder Rva004A2BD1 in Rva0024A797Derived.cpp).
 StealthDetectorUpdate::~StealthDetectorUpdate()
 {
+}
+
+// Primary ObjectModule table slot 1, retail 0x00497805 (`jmp 0x0058B03E`):
+// the UpdateModule base call every module-family override without work of its
+// own shares (ICF-folded with the other classes' loadPostProcess thunks).
+void StealthDetectorUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
+
+// Primary ObjectModule table slot 2, retail 0x004A2BEA: the snapshot name
+// (same body as the rowed non-virtual ?name@StealthDetectorUpdate@@QBEPBDXZ,
+// so the two fold to one address).
+const char *StealthDetectorUpdate::GetSnapshotName() const
+{
+	return "StealthDetectorUpdate";
 }
