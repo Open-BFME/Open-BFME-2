@@ -199,18 +199,7 @@ public:
 	char m_pad1E9[0x218 - 0x1E9];
 	Int m_maxInstances;			// +0x218
 };
-class Team
-{
-public:
-	virtual ~Team();
-	TeamPrototype *getPrototype() const { return m_proto; }
-	Object *tryToRecruit(const ThingTemplate *thing, const Coord3D *pos, Real maxDist, Int a, Int b, Int c);
-	Bool hasAnyObjects(Bool ignoreBuilding);
-	__forceinline void deleteInstance() { ::delete this; }
-private:
-	char m_pad004[0x30 - 0x04];
-	TeamPrototype *m_proto;			// +0x30
-};
+#include "../../../Include/Common/TeamBFME2.h"
 #include "TeamInQueue.h"
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 /*
@@ -999,7 +988,7 @@ void AISkirmishPlayer::recruitSpecificAITeam(TeamPrototype *teamProto, Real recr
 		{
 			if (!theTeam->getPrototype()->getIsSingleton())
 			{
-				theTeam->deleteInstance();
+				::delete (Snapshot *)theTeam;
 				theTeam = NULL;
 			}
 			teamName = teamProto->getName();
