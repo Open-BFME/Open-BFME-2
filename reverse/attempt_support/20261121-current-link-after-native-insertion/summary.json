@@ -1,0 +1,40 @@
+{
+  "source_commit": "423e9fba37c7ac26790a3c6dbad42b0474df2d27",
+  "execution": {
+    "local_opt_in": true,
+    "platform": "win32",
+    "host": "Michael-PC",
+    "github_actions": false
+  },
+  "authoritative": true,
+  "unresolved": 0,
+  "duplicates": 0,
+  "vtables_bridged": 2896,
+  "vtable_slots_bridged": 41698,
+  "refused_tables": 27,
+  "initializers_bridged": 431,
+  "image_sha256": "e225a42049ae991492e7e0fec8f8be29d30969c2b434a8dca166fb61eabc1585",
+  "map_sha256": "699b4b9007dc8117af8f32e05e71d5c598c65cdae72ecd2788070e50f6979df1",
+  "image_executed": false,
+  "github_actions": false,
+  "miles_snapshot_still_correct": true,
+  "evidence": "bfme2/local-real-link-423e9fba37",
+  "credit": "Actual local link only; canonical declarations retain existing code, and upstream bridge changes are not new bodies or runtime proof.",
+  "kept_objects": 17478,
+  "placement_only_omitted": 17,
+  "funclets_exact_parent_covered": 835,
+  "uncovered_funclets": 0,
+  "page009_source_table": [
+    {
+      "status": "correct",
+      "name": "??_7Rva0050EA74@@6B@",
+      "rva": 8803612,
+      "slots": 6,
+      "source_slot_mismatches": [],
+      "reason": null
+    }
+  ],
+  "full_gate_rows": 102399,
+  "full_gate_every_check_green": true,
+  "prior_warning_multiset_exactly_preserved": true
+}

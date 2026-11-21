@@ -1,0 +1,71 @@
+{
+  "head": "423e9fba37c7ac26790a3c6dbad42b0474df2d27",
+  "closed_utc": "2026-11-21T08:13:28.302010+00:00",
+  "artifacts": [
+    {
+      "path": "BOUNDED-NORMAL-OBJECT-RECEIPTS.json",
+      "sha256": "a3adc3949cc0de0ced2871f6fc1820e526805af62a562da8092165db41fc8f47",
+      "bytes": 6104
+    },
+    {
+      "path": "BOUNDED-RECEIPT-CURRENCY-CHECKS.json",
+      "sha256": "b7e53a23602dd2de5cc6467a818c35b77011c1d5ca49e9a39dcefc2e66c14b76",
+      "bytes": 3728
+    },
+    {
+      "path": "FACTORY-MERGE-HISTORY.json",
+      "sha256": "da50cc59f3df3f38ad1679d077920050f1b29825c87c2997c7071aed4d7227bc",
+      "bytes": 2920
+    },
+    {
+      "path": "HANDOFF.md",
+      "sha256": "3891cba44e26776744c78709ff52b62a39c7f5f8b17c07a4e93d1f3580b10b74",
+      "bytes": 7367
+    },
+    {
+      "path": "HEADER-AND-CONTEXT-HASHES.json",
+      "sha256": "7354d04a4de628723a9ab397bd34f26833e6fcaa42879e0c790799179a17610a",
+      "bytes": 5089
+    },
+    {
+      "path": "NATIVE-PLAN.txt",
+      "sha256": "a72e94e3c6318094ee2c87e6f8b0b0d9a6e37aa7c8aecf555d7a5713072c4258",
+      "bytes": 20194
+    },
+    {
+      "path": "SEED-NEXT-ROW-NATIVE.json",
+      "sha256": "2d84792dd0863d558a93d23e7450bb31a347cd20479b1f36c26b5274afb671f2",
+      "bytes": 342
+    },
+    {
+      "path": "SEED-SIZE-ROW-NATIVE.json",
+      "sha256": "98d33a1acf9074e29f3d15028a3fd3f462f25623ec8b5532c51b39c36ac0e6f3",
+      "bytes": 1380
+    },
+    {
+      "path": "SERVED-CURRENT-ROWS.json",
+      "sha256": "1ef44b6d14f16b4d6b6db199e1502255b8f172d414c0b1c9da7653fd4d2ba5b5",
+      "bytes": 54100
+    },
+    {
+      "path": "SERVED-DATA-ROWS.json",
+      "sha256": "cfa78d25e39816259965c76bbeba959773266cc2cab7d4ae2dda9e8b84742ab5",
+      "bytes": 1020
+    },
+    {
+      "path": "SERVED-SOURCE-INPUTS.json",
+      "sha256": "9139d7deb6ed811dd631829a4634e5054509a53fbcc7d246f177a8e57f0f4a71",
+      "bytes": 38277
+    },
+    {
+      "path": "SINCE-LAST-FACTORY-MERGE.json",
+      "sha256": "b1adf83a2b96b3a2c50ee4e4e9b83e2f3100c2e493070773d13a01a9e7584f53",
+      "bytes": 2846
+    },
+    {
+      "path": "SUMMARY.json",
+      "sha256": "c4dad515c18a236d7c8812be308c7024bcbf95e123d92f51ebda5dcb1871cb36",
+      "bytes": 524
+    }
+  ]
+}
