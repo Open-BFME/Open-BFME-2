@@ -88,6 +88,9 @@ public:
 	virtual ~AIAttackSwoopThenIdleStateMachine();
 	virtual Bool isInAttackState() const;
 
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 
 struct Rva0036890ETarget
@@ -138,12 +141,16 @@ private:
 	Rva0036783FMember *m_28;
 	int m_2C;
 protected:
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(class Xfer *);
 public:
 	virtual enum StateReturnType update();
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+
+private:
+	virtual bool _bfme_state_slot9() const;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp
@@ -209,6 +216,35 @@ AIAttackSwoopThenIdleStateMachine::~AIAttackSwoopThenIdleStateMachine()
 {
 }
 
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+struct RGBAColorReal;
+struct RGBAColorInt;
+struct XferUnknown11;
+#include "../../../Include/Common/BfmeXfer.h"
+
+const char *AIAttackSwoopThenIdleStateMachine::GetSnapshotName() const
+{
+	return "AIAttackSwoopThenIdleStateMachine";
+}
+
+void AIAttackSwoopThenIdleStateMachine::xfer(Xfer *xfer)
+{
+	StateMachine::xfer(xfer);
+	xfer->Version1();
+}
+
 Bool AIAttackSwoopThenIdleStateMachine::isInAttackState() const
 {
 	const Rva0036890EMachine *machine = (const Rva0036890EMachine *)this;
@@ -237,6 +273,17 @@ GiantBirdAttackMoveToState::~GiantBirdAttackMoveToState()
 {
 	::operator delete(m_28 ? m_28->slot00(0) : 0);
 	m_28 = 0;
+}
+
+const char *GiantBirdAttackMoveToState::GetSnapshotName() const
+{
+	return "GiantBirdAttackMoveToState";
+}
+
+bool GiantBirdAttackMoveToState::_bfme_state_slot9() const
+{
+	const StateMachine *machine = reinterpret_cast<const StateMachine *>(m_28);
+	return !(machine->m_currentState ? machine->m_currentState->isAttack() : true);
 }
 
 // tu-skeleton: 0x0077E435 8B $L1019 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp (not merged yet)
