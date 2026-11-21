@@ -172,7 +172,7 @@ struct Rva001EB15A
 	int m_08;
 	UnicodeString m_wstr0C;
 	AsciiString m_str10;
-	unsigned char m_14;
+	bool m_14;
 	Rva001EB15A();
 	Rva001EB15A(const Rva001EB15A &other);
 };
