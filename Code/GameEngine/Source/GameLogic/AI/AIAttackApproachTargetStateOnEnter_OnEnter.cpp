@@ -93,6 +93,7 @@
 // failures are separate statements in retail.
 
 #include <vector>
+#include <math.h>
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
@@ -161,7 +162,6 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-extern "C" float __cdecl fabs(double); // CRT fabs (the /O1 call); x87 result compared as float
 Real normalizeAngle(Real angle);
 
 #define PATHFIND_CELL_SIZE_F 10.0f
