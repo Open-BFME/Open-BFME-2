@@ -9,7 +9,9 @@
 // (CursorParticleSystemFXNuggetConstructor: type 12 burst 10 name clear plus
 // four GameClientRandomVariables). Base 0x001DFEAA is a shared
 // FXNugget-family base ctor; pinned opaquely. Vtable 0x00BDD91C. News 0x180
-// builder 0x001DFD36.
+// builder 0x001DFD36. Its five slots: deleting dtor 0x001E1152, doFXPos
+// 0x001E0D2D and doFXObj 0x001E0D73 (CursorParticleSystemFXNuggetDoFX.cpp),
+// slot 3 = the shared `ret 8` 0x0050B238, and the base's 0x001DFF5D.
 
 #include "../../Include/GameClient/Rva001DFEAABase.h"
 
@@ -34,6 +36,8 @@ private:
 	GameClientRandomVariable m_driftVelY; // +0x174
 public:
 	virtual void doFXPos(const struct Coord3D *, const class Matrix3D *, float, const struct Coord3D *) const;
+	virtual void doFXObj(const Object *primary, const Object *secondary) const;
+	virtual void slot03(AssetList &, int) const {}
 };
 
 CursorParticleSystemFXNugget::CursorParticleSystemFXNugget()
