@@ -327,34 +327,7 @@ class Rva0043D3A8;
 #include "../../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 // ?rva0031AFDE@Rva0031AFDE@@QAEHXZ @0x0031AFDE 83B: toggle int at +0x29c between 0 and 1 then MSG 0x3ec bool true then InGameUI slot 0x110 then return field. Evidence: packet disasm with rowed appendBoolean 0x0030F963 and globals MessageStreamSubsystem TheInGameUI.
-class GameMessage
-{
-public:
-	void appendBooleanArgument(bool arg);
-};
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
+#include "../../../../Include/Common/MessageStream.h"
 class Drawable;
 class UnicodeString;
 typedef std::list<Drawable *> DrawableList;
@@ -1507,7 +1480,7 @@ int Rva0031AFDE::rva0031AFDE()
 		m_flag = 0;
 		break;
 	}
-	GameMessage *msg = TheMessageStream->appendType(0x3EC);
+	GameMessage *msg = TheMessageStream->appendMessage(0x3EC);
 	msg->appendBooleanArgument(true);
 	TheInGameUI->deselectAllDrawables();
 	return m_flag;
