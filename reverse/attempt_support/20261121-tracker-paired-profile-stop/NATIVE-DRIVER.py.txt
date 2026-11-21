@@ -1,0 +1,198 @@
+from pathlib import Path
+import argparse
+import ast
+import contextlib
+import hashlib
+import json
+import os
+import re
+import shutil
+import struct
+import subprocess
+import sys
+import time
+import traceback
+
+R = Path(__file__).resolve().parent
+ROOT = Path('W:/OpenBFME/Open-BFME-2')
+D = R / 'bfme2/final-tracker-owner-adoption'
+S = 'Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp'
+H = 'Code/GameEngine/Include/GameLogic/UnitRevivalEntry.h'
+P = 'Code/GameEngine/Source/Common/RTS/.UnitRevivalTracker.final-paired-20261121.cpp'
+E = Path('reverse/attempt_support/20261121-tracker-current-paired-header-adoption')
+p = argparse.ArgumentParser()
+p.add_argument('--tool-head', required=True)
+a = p.parse_args()
+os.chdir(ROOT)
+sys.path.insert(0, str(ROOT / 'tools'))
+import claims
+import build
+import header_adopt_lane as lane
+import header_generation_proof as proof
+import reloc_ledger
+import rename
+
+def load(path): return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def git(*args): return subprocess.check_output(['git', *args], text=True).strip()
+def run(args, name):
+    print('RUN', *args, flush=True)
+    log = D / name
+    with log.open('w', encoding='utf-8') as handle:
+        result = subprocess.run(args, stdout=handle, stderr=subprocess.STDOUT)
+    print(log.read_text(encoding='utf-8', errors='replace')[-9000:], flush=True)
+    assert result.returncode == 0, (name, result.returncode)
+
+assert git('rev-parse', 'HEAD') == a.tool_head
+assert not git('status', '--porcelain'), 'preserve unrelated live work'
+assert not Path(P).exists(), 'preserve existing prospective path'
+assert sha(S) == '5b481f63663772a541ad01154800ef5c685eb4ac3a5b72af56c121267c96631d'
+assert claims.fetch()
+remote = claims._read_local()
+who = claims.owner()
+for name in ['claims-defaultrecord19.json', 'claims-ctor-scope-tools.json',
+             'claims-ctor-scope-header-tools.json', 'claims-raw-owner-proof-tools.json']:
+    for key, lease in load(R / 'bfme2' / name)['leases'].items():
+        item = remote[key]
+        assert item[1].get('owner') == who and (item[1].get('lease') or item[0]) == lease and item[1].get('expires', 0) > time.time(), ('claim changed', key)
+scope = load(R / 'bfme2/claims-defaultrecord19.json')
+sources = scope['sources']
+assert len(sources) == 19 and S in sources
+guard_paths = [H, 'reverse/functions.csv', 'reverse/symbols.csv',
+               'reverse/header_queue.tsv', 'reverse/canonical_classes.csv',
+               'reverse/class_contracts/UnitRevivalEntry.json', 'reverse/re_attempts.log']
+guards = {rel: sha(rel) for rel in guard_paths}
+others = {rel: sha(rel) for rel in sources if rel != S}
+original = Path(S).read_bytes()
+queue_before = Path('reverse/header_queue.tsv').read_bytes().splitlines(keepends=True)
+assert len(load('reverse/class_contracts/UnitRevivalEntry.json')['queue']) == 27
+D.mkdir(exist_ok=False)
+(D / 'BEFORE.cpp.txt').write_bytes(original)
+report = dict(base=a.tool_head, source=S, header=H, guards=guards,
+              source_cohort=sources, complete=False, task_credit=0, published=False)
+def save(): (D / 'RESULT.json').write_text(json.dumps(report, indent=2) + '\n')
+save()
+run([sys.executable, 'tools/find_declared_unmatched.py', S], 'unmatched-before.log')
+run(['bash', 'build.sh', *sources], 'normal-before-build.log')
+deps, why = lane._rekey_unit_receipt(ROOT, S)
+assert why is None, ('current normal receipt is not strict', why)
+obj = Path(build.obj_path(ROOT / S))
+assert build.compile_is_current(ROOT / S, obj, strict=True)
+shutil.copy2(obj, D / 'before.obj')
+shutil.copy2(obj.with_suffix('.deps.json'), D / 'before.deps.json')
+audit = R / 'agents/melee/bfme2-record-stagea-native-private-dcbd8314-20261121/section_graph_audit.py'
+functions = [n for n in ast.parse(audit.read_text()).body if isinstance(n, ast.FunctionDef) and n.name in {'graph', 'encode'}]
+ns = dict(Path=Path, hashlib=hashlib, struct=struct, R=reloc_ledger, rename=rename,
+          numeric=re.compile(r'\$[A-Za-z]+\d+$'))
+exec(compile(ast.Module(body=functions, type_ignores=[]), str(audit), 'exec'), ns)
+before_graph = ns['graph'](obj)
+mapping = {'m_reviveImage':'m_field00','m_cachedImage':'m_field04',
+ 'm_experience':'m_field08','m_rank':'m_field0C','m_level':'m_field10',
+ 'm_upgrades':'m_field14','m_94':'m_field94','m_reviveStartFrame':'m_field98',
+ 'm_9c':'m_field9C','m_a0':'m_fieldA0','m_a1':'m_fieldA1',
+ 'm_productionID':'m_fieldA4','m_a8':'m_fieldA8','m_ac':'m_fieldAC',
+ 'm_record':'m_fieldB0','m_c8':'m_fieldC8','m_factor':'m_fieldCC',
+ 'm_displayName':'m_fieldD0','m_templateName':'m_fieldD4'}
+owned_prospective = None
+try:
+    print('Capturing actual current owner context twice', flush=True)
+    current = proof.capture_owner_current('UnitRevivalEntry', S, H, mapping)
+    report.update(current_owner_issued=True, current_opened_inputs=len(current._state.opened),
+                  current_bound_files=len(current._state.files))
+    save()
+    planned = current.plan_text().encode('latin-1')
+    (D / 'PROSPECTIVE.cpp.txt').write_bytes(planned)
+    with Path(P).open('xb') as handle:
+        handle.write(planned)
+    owned_prospective = proof._owner_read(ROOT / P)[0]
+    print('Capturing actual adjacent prospective owner context twice', flush=True)
+    pair = proof.capture_owner_pair(current, P)
+    report.update(paired_owner_issued=True, actual_native_preprocess_calls=4)
+    save()
+    print('Running unchanged normal layout, owned source trial, native byte gate and exact final apply', flush=True)
+    with (D / 'native-adopt.log').open('w', encoding='utf-8') as log:
+        with contextlib.redirect_stdout(log), contextlib.redirect_stderr(log):
+            failed = lane.adopt('UnitRevivalEntry', H, [S], apply=True, jobs=1, owner_witness=pair)
+    print((D / 'native-adopt.log').read_text(encoding='utf-8', errors='replace'), flush=True)
+    report['native_adopt_failures'] = failed
+    if failed:
+        assert Path(S).read_bytes() == original
+        for rel, digest in guards.items(): assert sha(rel) == digest, rel
+        report.update(source_and_guarded_metadata_preserved=True, status='native adoption refused; no queue retirement')
+        save()
+        raise RuntimeError('native Tracker adoption refused; preserve the exact recorded blocker')
+    assert Path(S).read_bytes() == planned
+except BaseException as exc:
+    report.update(status='blocked', error=str(exc), traceback=traceback.format_exc())
+    save()
+    raise
+finally:
+    if owned_prospective is not None and Path(P).exists():
+        if proof._owner_read(ROOT / P)[0] == owned_prospective:
+            Path(P).unlink()
+            report['own_prospective_cleaned'] = True
+        else:
+            report['foreign_changed_prospective_preserved'] = True
+        save()
+
+for rel, digest in guards.items(): assert sha(rel) == digest, rel
+for rel, digest in others.items(): assert sha(rel) == digest, rel
+assert build.compile_is_current(ROOT / S, obj, strict=True)
+shutil.copy2(obj, D / 'adopted.obj')
+shutil.copy2(obj.with_suffix('.deps.json'), D / 'adopted.deps.json')
+after_graph = ns['graph'](obj)
+checks = {key: before_graph[key] == after_graph[key] for key in ['nodes', 'definitions', 'comdats', 'safeseh']}
+report.update(runtime_node_count=len(before_graph['nodes']), actual_normal_object_graph_checks=checks)
+save()
+assert all(checks.values()), ('native object graph changed', checks)
+run(['bash', 'build.sh', *sources], 'normal-after-build.log')
+providers = [source for source in sources if source != S]
+command = [sys.executable, 'tools/header_adopt_lane.py', 'accept', '--class', 'UnitRevivalEntry', '--header', H]
+for provider in providers: command += ['--provider', provider]
+command += [S]
+run(command, 'native-provider-accept.log')
+after = Path('reverse/header_queue.tsv').read_bytes().splitlines(keepends=True)
+removed = [line for line in queue_before if line not in after]
+added = [line for line in after if line not in queue_before]
+assert len(removed) == 1 and not added and S.encode() in removed[0] and b'UnitRevivalEntry' in removed[0]
+for rel, digest in guards.items():
+    if rel != 'reverse/header_queue.tsv': assert sha(rel) == digest, rel
+for rel, digest in others.items(): assert sha(rel) == digest, rel
+assert len(load('reverse/class_contracts/UnitRevivalEntry.json')['queue']) == 27
+run([sys.executable, 'tools/link_check.py', *sources], 'normal-cohort-link.log')
+run([sys.executable, 'tools/hatch_counters.py', '--update'], 'native-hatch-update.log')
+run([sys.executable, 'tools/check_csv.py'], 'check-csv.log')
+report.update(native_accept=True, retired_queue_keys=1, undecided_contract_attributes_unchanged=27,
+              actual_code_rows=scope['code_rows'], actual_data_rows=scope['data_rows'],
+              completed_credit_pending_publication=1, new_unique_bytes=0, new_body_credit=0)
+E.mkdir(exist_ok=False)
+for name in ['native-adopt.log', 'native-provider-accept.log', 'normal-after-build.log', 'normal-cohort-link.log']:
+    shutil.copy2(D / name, E / name)
+(E / 'NORMAL-RESULT.json').write_text(json.dumps(report, indent=2) + '\n')
+(E / 'HANDOFF.md').write_text('''# Current paired-owner Tracker header adoption
+
+The actual normal current source/object receipt anchors two current preprocessing
+captures and two actual adjacent prospective captures. Only their sealed paired
+ownership evidence permits the existing layout, field, native byte and exact
+source-generation gate/apply transaction. Historical preprocessing is not reused.
+The adopted current normal runtime section graph, external definitions, COMDAT
+choices and SafeSEH sequence equal the immediately preceding normal object.
+
+Native provider-aware acceptance and the whole nineteen-source code/data cohort
+retire exactly the Tracker consumer queue key. All twenty-seven undecided outer
+contract attributes and every other source, header, identity and binding remain
+unchanged. No generator, registry, contract decision or escape hatch is added.
+One native task earns credit only after normal commit, publication and remote
+head verification. No new machine-code coverage, game-start or runtime claim.
+''', encoding='utf-8')
+paths = [S, 'reverse/header_queue.tsv', 'reverse/header_acceptance_context.json']
+if 'reverse/hatch_baseline.tsv' in git('diff', '--name-only').splitlines(): paths.append('reverse/hatch_baseline.tsv')
+assert all(rel in paths or rel.startswith(E.as_posix() + '/') for rel in git('diff', '--name-only').splitlines())
+subprocess.run(['git', 'add', '--', *paths, str(E)], check=True)
+message = D / 'commit-message.txt'
+message.write_text('Adopt the canonical revival entry in its Tracker through current paired ownership\n\nNormal current object/dependency input, two current and two actual prospective preprocessing captures, native class layout, exact owned source byte gate/apply and provider-aware acceptance pass. Retire exactly one Tracker header consumer; keep the complete nineteen-source code/data cohort and actual normal runtime object graph verified. All 27 undecided contract attributes remain. No new body or runtime claim.\n\nVerifier-Change: retire one header queue key solely through normal current paired-owner adoption and native provider-aware acceptance; no new allowance or checker relaxation\n', encoding='utf-8')
+run(['git', '-c', 'core.hooksPath=.githooks', 'commit', '--file', str(message)], 'normal-commit.log')
+assert not git('status', '--porcelain')
+report.update(commit=git('rev-parse', 'HEAD'), complete=True, normal_commit_hook=True)
+save()
+print(json.dumps(dict(commit=report['commit'], retired_queue_keys=1, credit_pending_publication=1)), flush=True)

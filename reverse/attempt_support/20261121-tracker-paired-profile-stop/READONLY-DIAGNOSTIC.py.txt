@@ -1,0 +1,65 @@
+from pathlib import Path
+import difflib
+import hashlib
+import json
+import os
+import sys
+import time
+
+R = Path(__file__).resolve().parent
+ROOT = Path('W:/OpenBFME/Open-BFME-2')
+D = R / 'bfme2/final-tracker-owner-adoption'
+S = 'Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp'
+P = 'Code/GameEngine/Source/Common/RTS/.UnitRevivalTracker.final-paired-20261121.cpp'
+os.chdir(ROOT)
+sys.path.insert(0, str(ROOT / 'tools'))
+import build
+import claims
+import header_generation_proof as proof
+
+def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+result = json.loads((D / 'RESULT.json').read_text())
+assert result['status'] == 'blocked' and result['own_prospective_cleaned']
+assert Path(S).read_bytes() == (D / 'BEFORE.cpp.txt').read_bytes()
+for rel, expected in result['guards'].items(): assert sha(rel) == expected, rel
+assert claims.fetch()
+current = claims._read_local()
+snapshot = json.loads((R / 'bfme2/claims-defaultrecord19.json').read_text())
+for key, lease in snapshot['leases'].items():
+    item = current[key]
+    assert item[1].get('owner') == claims.owner() and (item[1].get('lease') or item[0]) == lease and item[1].get('expires', 0) > time.time()
+assert not Path(P).exists()
+owned = None
+try:
+    with Path(P).open('xb') as handle: handle.write((D / 'PROSPECTIVE.cpp.txt').read_bytes())
+    owned = proof._owner_read(ROOT / P)[0]
+    a, ae = proof._normal_command(ROOT, S, Path(build.obj_path(ROOT / S)))
+    b, be = proof._normal_command(ROOT, P, Path(str(ROOT / P) + '.command-only.obj'))
+    def normalized(command, source):
+        return tuple(x for x in command if not x.startswith(('-Fo', '/Fo')) and x != source)
+    ac, bc = normalized(a, S), normalized(b, P)
+    deltas = [dict(operation=tag, current=list(ac[i:j]), prospective=list(bc[k:l]))
+              for tag, i, j, k, l in difflib.SequenceMatcher(None, ac, bc).get_opcodes() if tag != 'equal']
+    changed_env = sorted(key for key in ae.keys() | be.keys() if ae.get(key) != be.get(key))
+    ai = build.search_inventory(ROOT / S, a, ae)
+    bi = build.search_inventory(ROOT / P, b, be)
+    report = dict(current_normalized_command=list(ac), prospective_normalized_command=list(bc),
+                  normalized_commands_equal=ac == bc, command_deltas=deltas,
+                  changed_environment_keys=changed_env, environments_equal=ae == be,
+                  current_search_inventory=ai, prospective_search_inventory=bi,
+                  inventories_equal=ai == bi, actual_cpp_pp_link_calls=0,
+                  source_and_guarded_inputs_unchanged=True, proof_or_guard_modified=False)
+    (D / 'PROFILE-REFUSAL-DIAGNOSTIC.json').write_text(json.dumps(report, indent=2) + '\n')
+    print(json.dumps({key: report[key] for key in ['normalized_commands_equal', 'command_deltas',
+          'changed_environment_keys', 'environments_equal', 'inventories_equal', 'actual_cpp_pp_link_calls']}), flush=True)
+finally:
+    if owned is not None:
+        assert proof._owner_read(ROOT / P)[0] == owned, 'preserve foreign prospective generation'
+        Path(P).unlink()
+assert Path(S).read_bytes() == (D / 'BEFORE.cpp.txt').read_bytes()
+for rel, expected in result['guards'].items(): assert sha(rel) == expected, rel
+result.update(actual_current_native_preprocess_calls=2, actual_paired_native_preprocess_calls=0,
+              native_adopt_called=False, native_accept_called=False,
+              source_and_guarded_metadata_unchanged=True, native_task_credit=0,
+              diagnostic_cpp_pp_link_calls=0)
+(D / 'RESULT.json').write_text(json.dumps(result, indent=2) + '\n')
