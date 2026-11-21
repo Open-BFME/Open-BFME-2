@@ -24304,3 +24304,7 @@ Code/GameEngine/Include/GameClient/TerrainVisualClass.h|slot|TerrainVisual@0x00C
 Code/GameEngine/Include/GameClient/TerrainVisualClass.h|slot|TerrainVisual@0x00C03910|4,430d1c309158e4d97332ad18,claude-opus-5.5,tvfix2,w-871fa4d4f8d7,2026-11-18
 Code/GameEngine/Include/GameClient/TerrainVisualClass.h|slot|TerrainVisual@0x00C03910|2,10b42126184a97883bbe4c52,claude-fable-5-2,tv-review2-fable,w-cfe0f0dcc5e2,2026-11-18
 Code/GameEngine/Include/GameClient/TerrainVisualClass.h|slot|TerrainVisual@0x00C03910|4,430d1c309158e4d97332ad18,claude-fable-5-2,tv-review2-fable,w-cfe0f0dcc5e2,2026-11-18
+Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialPowerModule@0x00C5E080|0,46f4fb8a222eae27a4ee6235,claude-opus-5.5,spm-slots2,w-3a8c5530b63e,2026-11-21
+Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialPowerModule@0x00C5E080|16,8a90edae45933131d18368f9,claude-opus-5.5,spm-slots2,w-3a8c5530b63e,2026-11-21
+Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialPowerModule@0x00C5E080|8,02f2153531340eac2d992907,claude-opus-5.5,spm-slots2,w-3a8c5530b63e,2026-11-21
+Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialPowerModule@0x00C5E080|4,ef0ad0cbaa3050541b9acf5e,claude-opus-5.5,spm-slots2,w-3a8c5530b63e,2026-11-21
