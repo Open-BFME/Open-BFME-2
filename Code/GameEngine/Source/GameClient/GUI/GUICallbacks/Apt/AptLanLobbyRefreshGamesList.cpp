@@ -116,11 +116,7 @@ private:
 
 extern Version *TheVersion;
 
-class AptMpGameSetup
-{
-public:
-	void rva0043FA68(GameInfo *game);
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 class AptLanLobby
 {
@@ -130,12 +126,7 @@ public:
 
 private:
 	unsigned char m_pad000[0x288];
-	AptMpGameSetup m_panel; // +0x288
-	unsigned char m_pad289[0x2E8 - 0x289];
-	AptMapPreview m_panelMaps; // +0x2E8 (the panel's +0x60)
-	unsigned char m_pad2e9[0x304 - 0x2E9];
-	int m_304; // +0x304
-	unsigned char m_pad308[0x668 - 0x308];
+	AptMpGameSetup m_panel; // +0x288; the lobby's game mode is its +0x7C (+0x304)
 	Rva0058113D m_668; // +0x668 (0x18 bytes: first/last pointers plus
 	// the +0x15 sorted flag; the rest to +0x6A8 is padding)
 	unsigned char m_pad680[0x6A8 - 0x680];
@@ -158,7 +149,7 @@ void AptLanLobby::rva004457BC()
 	GadgetListBoxReset(m_customGamesList);
 
 	int widths[6];
-	switch (m_304)
+	switch (m_panel.field7c)
 	{
 	case 0:
 		widths[3] = 0x23;
@@ -197,11 +188,11 @@ void AptLanLobby::rva004457BC()
 		const Image *icon2 = game->rva00401015(2);
 
 		UnicodeString mapName;
-		switch (m_304)
+		switch (m_panel.field7c)
 		{
 		case 0:
 		{
-			MapMetaData *map = m_panelMaps.rva0057D922(game->getMap());
+			MapMetaData *map = ((AptMapPreview *)m_panel.field60)->rva0057D922(game->getMap());
 			mapName = map->bfme_getBaseDisplayName();
 			break;
 		}
