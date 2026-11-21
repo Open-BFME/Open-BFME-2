@@ -53,7 +53,7 @@ public:
 // The 0x18-byte record at +0x94 (UnitRevivalEntry holds the same record at
 // +0xB0): its zeroing ctor 0x004E04FD and its out-of-line dtor 0x001EB05E
 // are both rowed under Rva001EB15A.
-class Rva001EB15A{public:Rva001EB15A();~Rva001EB15A();private:int m_00;int m_04;int m_08;UnicodeString m_wstr0C;AsciiString m_str10;bool m_14;};
+#include "../../Include/Common/Rva001EB15A.h"
 
 // The 0x80-byte block at +0x10; its inline ctor clears it through 0x001EAE6F.
 class Rva001EAE6FHelper{public:Rva001EAE6FHelper(){clear80();}Rva001EAE6FHelper*clear80();private:char m_pad[0x80];};

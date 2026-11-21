@@ -1,0 +1,21 @@
+{
+ "class": "Rva001EB15A",
+ "header": "Code/GameEngine/Include/Common/Rva001EB15A.h",
+ "units": 5,
+ "winner": "data+includes",
+ "variants": {
+  "data+includes": 5
+ },
+ "seconds": {
+  "data+includes": 13.5
+ },
+ "passed": [
+  "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+  "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+  "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp",
+  "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+  "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp"
+ ],
+ "failed": {},
+ "reasons": {}
+}

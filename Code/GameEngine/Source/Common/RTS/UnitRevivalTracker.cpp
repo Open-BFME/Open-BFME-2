@@ -76,16 +76,7 @@ public:
 __forceinline BfmeFixedStorage128::BfmeFixedStorage128() {
     reinterpret_cast<Rva001EAE6FHelper*>(this)->clear80();
 }
-struct Rva001EB15A
-{
-	int m_00, m_04, m_08;
-	UnicodeString m_wstr0C;
-	AsciiString m_str10;
-	bool m_14;
-	__declspec(noinline) Rva001EB15A();
-	Rva001EB15A(const Rva001EB15A &);
-	~Rva001EB15A();
-};
+#include "../../../Include/Common/Rva001EB15A.h"
 
 struct RevivalLevelValue
 {

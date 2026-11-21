@@ -1,0 +1,115 @@
+{
+  "base": "9a39def1d3bc41048f8a2b1f555f8e436ea31124",
+  "review_passed": true,
+  "header": "Code/GameEngine/Include/Common/Rva001EB15A.h",
+  "header_sha256": "e3235cda746c74fcb4111b1e3ee23c7ff90cabbec5a56dd1d860efa048f469cf",
+  "contract": "reverse/class_contracts/Rva001EB15A.json",
+  "contract_sha256": "b8f8ac879d69288fd82b1909733d531d39609176600555b55fcaaa2d66ae342a",
+  "source_count": 5,
+  "native_apply_passed": 5,
+  "native_apply_queued": 0,
+  "normal_rows": 145,
+  "normal_source_link_passed": 5,
+  "link_predicted_before": 8036,
+  "link_predicted_after": 8052,
+  "link_plus16_preexisted_header_adoption": true,
+  "sources": [
+    {
+      "label": "Carryover",
+      "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+      "baseline_source_sha256": "dfe29060b2aac0eec1b38a21dae5a9f80622c098f955a7bf5510a9f19d4cef5d",
+      "applied_source_sha256": "2d6d28b2dc401b31954f032f4487a7fc0019979167dac937b3f88e46bda8910b",
+      "current_object_sha256": "3888877feb6750fd7390049c6f956fdb9d3271b3c39b2e0c1267fe67c57aa924",
+      "runtime_nodes": [
+        29,
+        29
+      ],
+      "safeseh_handlers": [
+        2,
+        2
+      ],
+      "overall_complete_runtime_graph_equal": true
+    },
+    {
+      "label": "Tracker",
+      "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+      "baseline_source_sha256": "3c7711b37302cb47e2fd6dd4b0063165ba9044a889f72c39dd920c76555e034a",
+      "applied_source_sha256": "312560702ed83afb04c5dd64198a5882854e09dd000059368dd169675fc84351",
+      "current_object_sha256": "5e2ae8d1f238855954ff655ef102ec00e3f961becd29f1376d072f7f0465f9b1",
+      "runtime_nodes": [
+        79,
+        79
+      ],
+      "safeseh_handlers": [
+        8,
+        8
+      ],
+      "overall_complete_runtime_graph_equal": true
+    },
+    {
+      "label": "CarryoverCopy",
+      "source": "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp",
+      "baseline_source_sha256": "2edd2d544378da38062a26e71bcf2a7924f261c3e9526594f42199454c07c5c2",
+      "applied_source_sha256": "6d8242ede54df35d3f456093c1cb2b8835eb30da9e3c8fbe08b0552fff73ce11",
+      "current_object_sha256": "71833c0be78638a23c0e5daf7a61814c782733cdc9e2dd9234a703906189e356",
+      "runtime_nodes": [
+        8,
+        8
+      ],
+      "safeseh_handlers": [
+        1,
+        1
+      ],
+      "overall_complete_runtime_graph_equal": true
+    },
+    {
+      "label": "ObjectConstructor",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+      "baseline_source_sha256": "b91ef478da0ec3620e96d9a6359079dabf7a0f06f190e3abef40d7c0462cff62",
+      "applied_source_sha256": "b18af88632d914be99ab59b2af4df2e78be32668ec85d468a5bff4ab0f547c8c",
+      "current_object_sha256": "545df69817d352abd11b061143bc268f15be29e6e92cbcd4d192178518f6c6b1",
+      "runtime_nodes": [
+        226,
+        226
+      ],
+      "safeseh_handlers": [
+        1,
+        1
+      ],
+      "overall_complete_runtime_graph_equal": true
+    },
+    {
+      "label": "FreelistPool",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+      "baseline_source_sha256": "1a96f40228f97c7d1ad9c6a38b0cb472c2ac43bb27f5b928eb7ab4e3540a04ea",
+      "applied_source_sha256": "9a50da117fef8997580ae3fbecafdcc4dec0557d5eae21d69a9946c0eb4149f6",
+      "current_object_sha256": "55d8dad5f4b7874b7e1be391642090fc3e619895ead755bbee974850cf0fe64b",
+      "runtime_nodes": [
+        37,
+        37
+      ],
+      "safeseh_handlers": [
+        3,
+        3
+      ],
+      "overall_complete_runtime_graph_equal": true
+    }
+  ],
+  "graph_comparison_all_five_current_native_objects": true,
+  "new_cpp_compiler_calls": 0,
+  "known_dtor_ANY2_to_NODUP_not_new_in_this_diff": true,
+  "production_changes_by_reviewer": false,
+  "new_body_credit": 0,
+  "new_cpp_bytes": 0,
+  "uncommitted": true,
+  "unpublished": true,
+  "artifacts": {
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\record-shared-header-apply-state.json": "ad43e1917546483288c6f3c71227eaf01130fb4acc99a39bc5a1224538bccd60",
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\record-shared-header-apply.log": "1b9ee59f645b8fb39a503be12f369841fd37c78d6cb786b2d6ea2be590d0a059",
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\record-fields-normal-link-before.log": "e44a6cf9a78153a7fe5dae21801ad38f04d7f5dccc554a02ff5c6411b3b2e955",
+    "W:\\OpenBFME\\Open-BFME-2\\build\\header_lane\\Rva001EB15A.json": "6a1314d01cc811eff01acb8e0d146e7071bde6937499c2cd715e2ac6eac08013",
+    "W:\\OpenBFME\\Open-BFME-2\\reverse\\canonical_classes.csv": "26aa191c857b3f4454bfd9b9f5471a918c369d9df98a5205643d98f8c8d82824",
+    "W:\\OpenBFME\\Open-BFME-2\\AGENTS.md": "8aa79d1736730ba48195bb913d2402596d7b2887e6e3270073d9bf371e9e1eae",
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-record-stagea-native-private-dcbd8314-20261121\\section_graph_audit.py": "45a831dc4cc05dbc14120581a05f4da94be48141903b7cf203d50f193a586ab0"
+  }
+}

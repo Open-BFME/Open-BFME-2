@@ -165,17 +165,7 @@ private:
 	AsciiString m_D4;			// +0xD4
 };
 
-struct Rva001EB15A
-{
-	int m_00;
-	int m_04;
-	int m_08;
-	UnicodeString m_wstr0C;
-	AsciiString m_str10;
-	bool m_14;
-	Rva001EB15A();
-	Rva001EB15A(const Rva001EB15A &other);
-};
+#include "../../../../Include/Common/Rva001EB15A.h"
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva001EB10CImulAddField, 0x24)
 
