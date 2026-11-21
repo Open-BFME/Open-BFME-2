@@ -56,3 +56,29 @@ Scoped link_check predicts LINKS for both files: 109 -> 846 and 73 -> 73
 bytes. Its index is stale (8b06c04cd2, 2026-11-17 18:16), so this is a preview,
 not an updated headline or a real-image result. No real link or game run is
 claimed. Release all body and scope claims after publication.
+
+## 2026-11-21 follow-up (Copilot, claude-opus-5.5)
+
+Retail 0x003AE270 (`??_G`, 28 bytes) calls the out-of-line destructor 0x003ADFB2,
+which restores only the base tables (00BBB554 at +0x0C, 00C1C780 at +8, 00C1B320
+at +0). An implicit destructor of the colour module class compiles to exactly
+that in the EH unit Rva0055BCF1ColorModuleCtor.cpp (its ICF-alias rows prove it).
+In Rva005EA590CopyCtor.cpp (`/EHs-c-`, which the 108-byte copy ctor 0x003ADD31
+needs), the same implicit destructor is inlined into `??_G` (47 bytes). An
+explicit out-of-line destructor stores the class's own three tables before the
+base ones, so neither form reproduces 0x003ADFB2/0x003AE270 from this unit.
+Tried, built: base Snapshot lifetime in `Rva005E95C0` (slot 0 a destructor
+ending in `Snapshot::~Snapshot`), inline `~Rva0055BCD2` as in the colour unit;
+10/10 rows stayed matched, but `??_G` was 47 bytes (implicit) or the dtor
+32 bytes with own-table stores (explicit). Reverted.
+
+The two placeholders are one retail class (same tables 0081D17C/0081D194/
+0081C780; `GetSnapshotName` literal DefaultParticleModule<CAT_COLOR>). The fix
+is the fold, so the copy unit's tables name `??_GRva0055BCF1`, which the colour
+unit already rows. `rename.py class --fold` refuses both directions:
+"Rva0055BCF1's rows install different own vftables (0x00C1B320 by
+??1Rva0055BCF1@@UAE@XZ at 0x003ADFB2; 0x00C1D17C by ??0Rva0055BCF1 at
+0x0055BCF1)". The destructor's +0 store is the base's table after the derived
+store was elided, not a second class. That is a false reject, recorded as such.
+A tooling seat should let the fold ignore a destructor's base-table restores.
+The slot04 to loadPostProcess rename is still needed for a Snapshot-derived base.

@@ -163,7 +163,9 @@ private:
 
 	typedef std::hash_map< ConstGameWindowPtr, WindowVideo *, hashConstGameWindowPtr, std::equal_to<ConstGameWindowPtr> > WindowVideoMap;
 
+#ifndef CANONICAL_SUBSYSTEMINTERFACE_H
 	UnsignedInt m_bfme2Gap;	///< BFME2 retail reaches m_playingVideos at +0xC (ctor/dtor/pause/resume/stop); four bytes sit between the SubsystemInterface base and the map
+#endif	// the canonical SubsystemInterface supplies that word as m_flag
 	WindowVideoMap m_playingVideos;								///< List of currently playin Videos
 	//WindowVideoMap m_pausedVideos;									///< List of currently paused Videos
 	Bool m_stopAllMovies;														///< Maintains is we're in a stop all Movies State
