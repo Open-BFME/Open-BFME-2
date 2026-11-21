@@ -2825,8 +2825,6 @@ alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00817210Op	1
 alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva008173C0Op	1
 alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00818D90Op	1
 alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00819300Op	1
-alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005864A0@@QAE@XZ	1
-alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005879C0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/StringPoolInitialize.cpp	?rva006CD4A0@EAStringC@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?BfmeGameBrowserVJQCallback@@YGXXZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?BfmeGameBrowserVJRCallback@@YGXXZ	1
@@ -8263,7 +8261,7 @@ pin	reverse/symbols.csv	0x006CFF40	1
 pin	reverse/symbols.csv	0x006D0440	1
 pin	reverse/symbols.csv	0x006D1090	1
 pin	reverse/symbols.csv	0x006D2F90	1
-pin	reverse/symbols.csv	0x006D3010	5
+pin	reverse/symbols.csv	0x006D3010	3
 pin	reverse/symbols.csv	0x006D36C0	1
 pin	reverse/symbols.csv	0x006D52A0	1
 pin	reverse/symbols.csv	0x006D59F0	1

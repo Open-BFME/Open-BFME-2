@@ -498,7 +498,7 @@ AptValue *AptValue::findChild(const EAStringC *name,AptValue *context)
 // five-byte call boundary. The assertion path and literal are target evidence.
 AptValue::~AptValue()
 {
-    unsigned int f = mnValueData;
+    unsigned int f = field04;
     bool destroyed = ((f >> 3) & 1) != 0;
     if (!destroyed) {
         g_bfmeAptAssertAtE17734("IsDestroyedGC() == true", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptValue/AptValue.inl", 0x91);

@@ -1155,14 +1155,15 @@ AptObject *AptActionInterpreter::_createObject(AptValue *context, AptValue *with
         }
         else if (name->rva006D3510("Date"))
         {
+            const int useCurrentComponent = -1;
             Rva006FBF90 *d = new Rva006FBF90(
-                (nParams > 0) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(0))->toInteger() : -1,
-                (nParams > 1) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(1))->toInteger() : -1,
-                (nParams > 2) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(2))->toInteger() : -1,
-                (nParams > 3) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(3))->toInteger() : -1,
-                (nParams > 4) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(4))->toInteger() : -1,
-                (nParams > 5) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(5))->toInteger() : -1,
-                (nParams > 6) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(6))->toInteger() : -1);
+                (nParams > 0) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(0))->toInteger() : useCurrentComponent,
+                (nParams > 1) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(1))->toInteger() : useCurrentComponent,
+                (nParams > 2) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(2))->toInteger() : useCurrentComponent,
+                (nParams > 3) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(3))->toInteger() : useCurrentComponent,
+                (nParams > 4) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(4))->toInteger() : useCurrentComponent,
+                (nParams > 5) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(5))->toInteger() : useCurrentComponent,
+                (nParams > 6) ? ((BfmeAptValue006DCD20 *)stack.rva006FE580(6))->toInteger() : useCurrentComponent);
             created = (AptValue *)d;
         }
         else if (name->rva006D3510("TextFormat"))

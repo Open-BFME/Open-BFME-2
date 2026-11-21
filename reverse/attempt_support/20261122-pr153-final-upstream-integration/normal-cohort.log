@@ -1,0 +1,14 @@
+Source claims: OK (27 sources, scoped byte-verified)
+Data rows: OK (8 row(s) byte-verified)
+Compile: 3 of 27 TU(s) (deps-cache: 24 current)
+Funclet pins: 293 row(s) verified past a renumbered $L label
+    Unwind@00ba93ec (Code/Libraries/Source/Apt/AptMiscObjects.cpp): $L802 was renumbered; verified parent EH data places $L2554 at 0x007A93EC
+    Unwind@00ba93fb (Code/Libraries/Source/Apt/AptMiscObjects.cpp): $L803 was renumbered; verified parent EH data places $L2555 at 0x007A93FB
+    Unwind@00ba940a (Code/Libraries/Source/Apt/AptMiscObjects.cpp): $L804 was renumbered; verified parent EH data places $L2556 at 0x007A940A
+    Unwind@00ba9419 (Code/Libraries/Source/Apt/AptMiscObjects.cpp): $L805 was renumbered; verified parent EH data places $L2557 at 0x007A9419
+    Unwind@00ba9428 (Code/Libraries/Source/Apt/AptMiscObjects.cpp): $L806 was renumbered; verified parent EH data places $L2558 at 0x007A9428
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 777/777 matched across 27 source file(s)
+String-ref verify: OK (397 literals + 11 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (39 compiler literals verified)
+Import-ref verify: OK (73 named imports verified)
