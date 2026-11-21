@@ -1,5 +1,28 @@
 ### LINK-197: AptScriptFunction GC donor needs compatible AptValue and receiver views
 
+**2026-11-21 shared-root repair.** `AptScriptFunction.h` uses the registered
+`AptValue.h` declaration. Its two consumers of the storage word now use `field04`.
+Giving the Date factory's existing `-1` default a local name preserved the retail
+register allocation that had blocked the previous header trial. All 386 function
+rows and eight data rows match across 18 dependents, with 66 exact unwind graphs.
+The 18-object link preview preserves 40,328 bytes at index `76a04dbe10`.
+
+The commit hook's shadow warning for the deleting destructor at `0x006DE320`
+also describes the prior object. Both objects emit the same 35 bytes, with the
+same `+0x4` REL32 to `??1Rva006DE320@@UAE@XZ`. That implicit destructor and the
+rowed `??1Rva006DE350@@UAE@XZ` emit identical 51-byte bodies and five identical
+relocations in both versions, including the same base vtable. The existing
+pin's identity classification remains open. The GC donor still needs its receiver
+and base views reconciled before a donor merge can pass.
+
+Integration also reports divergent `??0Rva006DE350@@QAE@XZ` definitions in
+shadow. The integrated and trial `AptValue` objects are byte-identical. The
+receipt-bound parent object emits the same nine-byte constructor, vtable,
+and complete and deleting destructor graph with identical relocations. An older
+cached cohort already contains the three-byte definitions from other units.
+The scoped preview records the divergence without a live reference or loss
+of linked bytes.
+
 2026-11-17 recheck: AptValue.cpp passes 35/35 baseline rows; all seven
 intermediate defaults in the November 16 handoff are now landed, and both
 root headers already name slots 12/13 consistently. The shared-header
