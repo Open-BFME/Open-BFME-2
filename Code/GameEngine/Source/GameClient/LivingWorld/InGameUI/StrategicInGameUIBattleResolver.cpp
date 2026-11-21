@@ -160,9 +160,7 @@ class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class GameInfo;extern GameInfo*TheGameInfo;
 struct ResolveGameInfoView{char unknown[0x84];int field84;bool isEmpty()const{return field84==0;}};
-class GameMessage{public:void appendIntegerArgument(int);};
-class MessageStream{public:virtual ~MessageStream();
- virtual void v01();virtual void v02();virtual void v03();virtual void v04();virtual void v05();virtual void v06();virtual void v07();virtual void v08();virtual void v09();virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void v15();virtual void v16();virtual void v17();virtual GameMessage*CreateMessage(int);};
+#include "../../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 struct Rva005D06CBOwner;
 // LivingWorldAutoResolveEventObserver: definition as Code/GameEngine/Include/Common/LivingWorldScoreKeeper.h holds it
@@ -183,7 +181,7 @@ void Rva005CF9FF::Update(){
   Object*next=(Object*)new Rva005CFACB((Rva005D06CBOwner*)m_04,(void*)value,(void*)m_08);
   ((ResolvePlanView*)m_04)->state.rva00575674(next);
  }else{
-  GameMessage*message=TheMessageStream->CreateMessage(0x6be);
+  GameMessage*message=TheMessageStream->appendMessage(0x6be);
   message->appendIntegerArgument(((ResolvePlanView*)m_04)->battle->id);
   Object*next=(Object*)new Rva005D073A(m_04);
   ((ResolvePlanView*)m_04)->state.rva00575674(next);

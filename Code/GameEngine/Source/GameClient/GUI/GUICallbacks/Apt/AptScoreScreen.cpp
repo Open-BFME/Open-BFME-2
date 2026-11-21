@@ -299,29 +299,7 @@ template class _STL::set<Rva0051C04AElement>;
 
 // ?rva0051C139@Rva0051CBC6@@QAEHXZ @0x0051C139 69B
 // evidence: chain from 0x0051BF47 you landed, vtable slot 5 of 0x00866FAC class Rva0051CBC6, caller none, callees rowed showCampaignReview plus enable target plus vslots
-class MessageStream
-{
-public:
-    virtual void v00();
-    virtual void v01();
-    virtual void v02();
-    virtual void v03();
-    virtual void v04();
-    virtual void v05();
-    virtual void v06();
-    virtual void v07();
-    virtual void v08();
-    virtual void v09();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18(int v);
-};
+#include "../../../../../Include/Common/MessageStream.h"
 
 extern class MessageStream *TheMessageStream;
 
@@ -482,7 +460,7 @@ int Rva0051CBC6::rva0051C139()
             m--;
             if (m != 0)
                 return 1;
-            TheMessageStream->v18(0x1d);
+            TheMessageStream->appendMessage(GameMessage::MSG_CLEAR_GAME_DATA);
             AptCampaignReview::OpenScreen();
         }
         else
