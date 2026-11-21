@@ -1,0 +1,20 @@
+[
+  {
+    "name": "??1Rva001EB05E@@QAE@XZ",
+    "export_rva": "",
+    "target_rva": "0x001EB05E",
+    "target_size": "54",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+    "status": "matched",
+    "notes": "out-of-line dtor of the UnitRevivalEntry +0xB0 member: AsciiString +0x10 then UnicodeString +0x0C; empty body"
+  },
+  {
+    "name": "??1Rva001EB15A@@QAE@XZ",
+    "export_rva": "",
+    "target_rva": "0x001EB05E",
+    "target_size": "54",
+    "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+    "status": "matched",
+    "notes": "gen-alias;Complete54B same-object record destructor and full EH graph exact; native three UnitRevivalEntry constructor unwind maps independently destroy member+B0 through1EB05E; matched copy1EB15A and default4E04FD prove 24B record with AsciiString+10 and UnicodeString+C; exact owner relocations and member teardown; original record name unknown; zero unique-byte gain"
+  }
+]

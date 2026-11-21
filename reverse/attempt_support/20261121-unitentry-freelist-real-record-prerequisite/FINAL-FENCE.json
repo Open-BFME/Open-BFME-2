@@ -1,0 +1,13 @@
+{
+  "time_utc": "2026-11-21T14:27:28.978202+00:00",
+  "head": "0e57ad0395f52d3fe3c5fd36c25cef7e31bc0f08",
+  "git_status": "",
+  "frozen_inputs_checked": 86,
+  "changed_frozen_inputs": [],
+  "own_temporary_sources_removed": true,
+  "native_private_scratch_objects_preserved": [
+    "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\b9770e73e82afdfa.obj",
+    "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\8700bcceff7cb232.obj"
+  ],
+  "no_new_compiler_calls_after_two_matched_calls": true
+}

@@ -153,6 +153,8 @@ private:
 	unsigned char m_pad14[0x20 - 0x14];
 };
 
+#include "../../../../Include/Common/Rva001EB15A.h"
+
 class UnitRevivalEntry
 {
 public:
@@ -160,12 +162,13 @@ public:
 
 private:
 	unsigned char m_pad00[0xB0];
-	Rva001EB05E m_B0;			// +0xB0
+	Rva001EB15A m_B0;			// +0xB0, real24B owned record
+	int m_fieldC8;			// +0xC8
+	float m_fieldCC;			// +0xCC
 	AsciiString m_D0;			// +0xD0
 	AsciiString m_D4;			// +0xD4
 };
 
-#include "../../../../Include/Common/Rva001EB15A.h"
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva001EB10CImulAddField, 0x24)
 
