@@ -21,11 +21,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ReflectDamage
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../../Include/GameLogic/Module/ReflectDamage.h"
 
 //
 // ??0ReflectDamageModuleData@@QAE@XZ, retail 0x004BAB9A, 26 bytes.

@@ -413,7 +413,7 @@ class RandomSoundSelectorClientBehaviorModuleData { public: static ModuleData *f
 class RebuildHoleBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RebuildHoleExposeDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class RebuildHoleExposeDieModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class ReflectDamage { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/ReflectDamage.h"
 class ReflectDamageModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RefundDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class RefundDieModuleData { public: static ModuleData *friend_newModuleData(INI *); };

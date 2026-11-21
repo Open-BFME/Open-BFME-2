@@ -63,15 +63,7 @@ struct ReflectDamageModuleData
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
-class ReflectDamage : public DamageModule
-{
-public:
-	virtual void onDamage(DamageInfo *damageInfo);
-	const ReflectDamageModuleData *getReflectDamageModuleData() const
-	{
-		return (const ReflectDamageModuleData *)m_moduleData;
-	}
-};
+#include "../../../../Include/GameLogic/Module/ReflectDamage.h"
 
 void ReflectDamage::onDamage(DamageInfo *damageInfo)
 {
