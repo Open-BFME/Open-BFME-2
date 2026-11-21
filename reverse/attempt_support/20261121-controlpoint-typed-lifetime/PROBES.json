@@ -1,0 +1,1918 @@
+{
+  "head": "40496f82be14ec699d35ea9c0100c0e3d366a7c1",
+  "sources": {
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp": {
+      "source_sha256": "227aeedb19fe3bfe74fe7d58bc71c4cc661b540b983b46d3991e7f292468c165",
+      "candidate_sha256": "4bb7909fbd69a0e078fc8fc57e007169e0768c556aeccc861c2a3ec3e974bf41",
+      "rows": [
+        {
+          "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "export_rva": "",
+          "target_rva": "0x003A299C",
+          "target_size": "165",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "STLport tree copy ctor under bfmealloc; byte-identical (relocs masked); unowned retail caller of this tree's matched _M_copy row; ICF get_allocator and the _Rb_tree_base header-node ctor pinned to bodies this TU reproduces byte for byte"
+        },
+        {
+          "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "export_rva": "",
+          "target_rva": "0x00418066",
+          "target_size": "165",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "STLport tree copy ctor under bfmealloc; byte-identical (relocs masked); unowned retail caller of this tree's matched _M_copy row; ICF get_allocator and the _Rb_tree_base header-node ctor pinned to bodies this TU reproduces byte for byte"
+        },
+        {
+          "name": "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z",
+          "export_rva": "",
+          "target_rva": "0x00417B55",
+          "target_size": "36",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "STLport _Rb_tree_base header-node ctor emitted by this TU; placed by masked search (callee agreement) at an address its placed callers reach; byte-identical (relocs masked); callees are rows or pins to bodies reproduced byte for byte"
+        },
+        {
+          "name": "??0?$map@HUBfmePod24@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@3@@_STL@@QAE@ABV01@@Z",
+          "export_rva": "",
+          "target_rva": "0x0041810B",
+          "target_size": "18",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "STLport outer map copy constructor out of line: push the source; call the rowed _Rb_tree member of this unit; return this (RET4); set vs multiset and owner unproven beyond the tree type"
+        },
+        {
+          "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "export_rva": "",
+          "target_rva": "0x00781825",
+          "target_size": "10",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x003A299C; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+        },
+        {
+          "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "export_rva": "",
+          "target_rva": "0x007865AD",
+          "target_size": "10",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x00418066; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+        },
+        {
+          "name": "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z",
+          "export_rva": "",
+          "target_rva": "0x00417B35",
+          "target_size": "32",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "placed by masked whole-.text search of the compiled body - single hit; row moved home from stlport_pod_hash_bodies.cpp; existing complete retail-exact provider"
+        },
+        {
+          "name": "??0?$pair@$$CBHUBfmePod24@@@_STL@@QAE@ABU01@@Z",
+          "export_rva": "",
+          "target_rva": "0x00417B19",
+          "target_size": "28",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "placed by masked whole-.text search of the compiled body - single hit; row moved home from stlport_pod_hash_bodies.cpp; existing complete retail-exact provider"
+        },
+        {
+          "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@XZ",
+          "export_rva": "",
+          "target_rva": "0x0007FAB3",
+          "target_size": "14",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp; compiler-emitted destructor that retail ICF-folded with ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ at 0x0007FAB3: this unit compiles it to the same whole body; its unwind funclets call 0x0007FAB3"
+        },
+        {
+          "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ",
+          "export_rva": "",
+          "target_rva": "0x0007FAB3",
+          "target_size": "14",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp; compiler-emitted destructor that retail ICF-folded with ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ at 0x0007FAB3: this unit compiles it to the same whole body; its unwind funclets call 0x0007FAB3"
+        },
+        {
+          "name": "$L5521",
+          "export_rva": "",
+          "target_rva": "0x0078181D",
+          "target_size": "8",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z; Matched parent 0x003A299C's EH graph is EXACT (eh_verify) and binds compiler label $L5521 to retail 0x0078181D; its callee ??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@XZ is rowed at its ICF fold 0x0007FAB3; replaces generated uw_0078181d"
+        },
+        {
+          "name": "$L5617",
+          "export_rva": "",
+          "target_rva": "0x007865A5",
+          "target_size": "8",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z; Matched parent 0x00418066's EH graph is EXACT (eh_verify) and binds compiler label $L5617 to retail 0x007865A5; its callee ??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ is rowed at its ICF fold 0x0007FAB3; replaces generated uw_007865a5"
+        },
+        {
+          "name": "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z",
+          "export_rva": "",
+          "target_rva": "0x002CA82C",
+          "target_size": "29",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+          "status": "matched",
+          "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp;compiler-emitted body the identity-key caller reaches at this retail address: this unit's complete 29B body equals retail and the rowed owner here (code-identity kept-copy scan: the caller's kept copy called it unrowed)"
+        }
+      ],
+      "original_cl": "// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc",
+      "cases": {
+        "control": {
+          "matched": [
+            "0x0007FAB3",
+            "0x002CA82C",
+            "0x003A299C",
+            "0x00417B19",
+            "0x00417B35",
+            "0x00417B55",
+            "0x00418066",
+            "0x0041810B",
+            "0x0078181D",
+            "0x00781825",
+            "0x007865A5",
+            "0x007865AD"
+          ],
+          "errors": [],
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\a403ebe9bb0397f2.obj",
+          "strict_rows": [
+            {
+              "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x003A299C",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x00418066",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z",
+              "rva": "0x00417B55",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$map@HUBfmePod24@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@3@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x0041810B",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x00781825",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x007865AD",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z",
+              "rva": "0x00417B35",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$pair@$$CBHUBfmePod24@@@_STL@@QAE@ABU01@@Z",
+              "rva": "0x00417B19",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@XZ",
+              "rva": "0x0007FAB3",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ",
+              "rva": "0x0007FAB3",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "$L5521",
+              "rva": "0x0078181D",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "$L5617",
+              "rva": "0x007865A5",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z",
+              "rva": "0x002CA82C",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            }
+          ],
+          "public_code": {
+            "??2@YAPAXIPAX@Z": {
+              "size": 5,
+              "hex": "8b442408c3",
+              "relocs": []
+            },
+            "??3@YAXPAX0@Z": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "?_M_root@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c004c3",
+              "relocs": []
+            },
+            "?_M_leftmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c008c3",
+              "relocs": []
+            },
+            "?_M_rightmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c00cc3",
+              "relocs": []
+            },
+            "?_S_color@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAAA_NPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "?_S_minimum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480885c975f7c3",
+              "relocs": []
+            },
+            "?_S_maximum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480c85c975f7c3",
+              "relocs": []
+            },
+            "?_M_empty_initialize@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEXXZ": {
+              "size": 22,
+              "hex": "8b01c600008b01836004008b018940088b0989490cc3",
+              "relocs": []
+            },
+            "?_M_root@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c004c3",
+              "relocs": []
+            },
+            "?_M_leftmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c008c3",
+              "relocs": []
+            },
+            "?_M_rightmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c00cc3",
+              "relocs": []
+            },
+            "?_S_color@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAAA_NPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "?_S_minimum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480885c975f7c3",
+              "relocs": []
+            },
+            "?_S_maximum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480c85c975f7c3",
+              "relocs": []
+            },
+            "?_M_empty_initialize@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXXZ": {
+              "size": 22,
+              "hex": "8b01c600008b01836004008b018940088b0989490cc3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??0?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QAE@ABV01@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@IPBX@Z": {
+              "size": 28,
+              "hex": "8b44240485c0740f6bc01c6a0050e8000000005959eb0233c0c20800",
+              "relocs": [
+                [
+                  15,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??0?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QAE@ABV01@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@IPBX@Z": {
+              "size": 28,
+              "hex": "8b44240485c0740f6bc02c6a0050e8000000005959eb0233c0c20800",
+              "relocs": [
+                [
+                  15,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??$?0U?$pair@$$CBHUBfmePod8@@@_STL@@@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$?0U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$?0U?$pair@$$CBHUBfmePod24@@@_STL@@@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$?0U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$__stl_alloc_rebind@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@0@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "??$__stl_alloc_rebind@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@0@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "?_S_left@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c008c3",
+              "relocs": []
+            },
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c00cc3",
+              "relocs": []
+            },
+            "?_S_left@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c008c3",
+              "relocs": []
+            },
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c00cc3",
+              "relocs": []
+            },
+            "??$_Destroy@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@@Z": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??0?$pair@$$CBHUBfmePod8@@@_STL@@QAE@ABU01@@Z": {
+              "size": 25,
+              "hex": "8bc18b4c24048b1189108b51048950048b4908894808c20400",
+              "relocs": []
+            },
+            "??0?$pair@$$CBHUBfmePod24@@@_STL@@QAE@ABU01@@Z": {
+              "size": 28,
+              "hex": "56578bc18b4c240c8b116a068d7104598d78048910f3a55f5ec20400",
+              "relocs": []
+            },
+            "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 7,
+              "hex": "8b442404c20400",
+              "relocs": []
+            },
+            "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 7,
+              "hex": "8b442404c20400",
+              "relocs": []
+            },
+            "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z": {
+              "size": 11,
+              "hex": "8bc18b4c24088908c20800",
+              "relocs": []
+            },
+            "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@I@Z": {
+              "size": 14,
+              "hex": "6a00ff742408e800000000c20400",
+              "relocs": [
+                [
+                  7,
+                  20,
+                  "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@IPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z": {
+              "size": 11,
+              "hex": "8bc18b4c24088908c20800",
+              "relocs": []
+            },
+            "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@I@Z": {
+              "size": 14,
+              "hex": "6a00ff742408e800000000c20400",
+              "relocs": [
+                [
+                  7,
+                  20,
+                  "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@IPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "?_M_erase@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z": {
+              "size": 45,
+              "hex": "53568b74240c85f68bd9741c57ff760c8bcbe8000000008b7e0856e80000000085ff598bf775e65f5e5bc20400",
+              "relocs": [
+                [
+                  19,
+                  20,
+                  "?_M_erase@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z"
+                ],
+                [
+                  28,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z": {
+              "size": 29,
+              "hex": "8b44240485c074148b4c24088b1189108b51048950048b4908894808c3",
+              "relocs": []
+            },
+            "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z": {
+              "size": 32,
+              "hex": "8b44240485c074178b4c24088b1156576a068d7104598d78048910f3a55f5ec3",
+              "relocs": []
+            },
+            "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z": {
+              "size": 36,
+              "hex": "51566a008d44240b508bf1e8000000006a006a1ce800000000598906598bc65e59c20400",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 14,
+              "hex": "8b0185c0740750e80000000059c3",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z": {
+              "size": 36,
+              "hex": "51566a008d44240b508bf1e8000000006a006a2ce800000000598906598bc65e59c20400",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 14,
+              "hex": "8b0185c0740750e80000000059c3",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "?clear@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAEXXZ": {
+              "size": 41,
+              "hex": "568bf1837e0400741e8b06ff7004e8000000008b068940088b06836004008b0689400c836604005ec3",
+              "relocs": [
+                [
+                  15,
+                  20,
+                  "?_M_erase@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z"
+                ]
+              ]
+            },
+            "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod8@@@2@@Z": {
+              "size": 34,
+              "hex": "566a006a1ce800000000ff7424108bf08d461050e80000000083c4108bc65ec20400",
+              "relocs": [
+                [
+                  6,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z"
+                ]
+              ]
+            },
+            "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod24@@@2@@Z": {
+              "size": 34,
+              "hex": "566a006a2ce800000000ff7424108bf08d461050e80000000083c4108bc65ec20400",
+              "relocs": [
+                [
+                  6,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 52,
+              "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b3685f6740756e800000000598b4df45e64890d00000000c9c3",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  22,
+                  20,
+                  "?clear@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAEXXZ"
+                ],
+                [
+                  34,
+                  20,
+                  "_free"
+                ],
+                [
+                  46,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            },
+            "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 30,
+              "hex": "568b7424088d461050e8000000008a0e8360080083600c0088085ec20400",
+              "relocs": [
+                [
+                  10,
+                  20,
+                  "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod8@@@2@@Z"
+                ]
+              ]
+            },
+            "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 30,
+              "hex": "568b7424088d461050e8000000008a0e8360080083600c0088085ec20400",
+              "relocs": [
+                [
+                  10,
+                  20,
+                  "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod24@@@2@@Z"
+                ]
+              ]
+            },
+            "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z": {
+              "size": 115,
+              "hex": "558bec5153568b750856894dfce8000000008bd88b450c8943048b460c85c0895d08740d8b4dfc5350e80000000089430c8b760885f67433578b4dfc56e8000000008bf8897b08895f048b460c85c0740d8b4dfc5750e80000000089470c8b760885f68bdf75d28b5d085f5e8bc35bc9c20800",
+              "relocs": [
+                [
+                  14,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  42,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  62,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  87,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z"
+                ]
+              ]
+            },
+            "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z": {
+              "size": 115,
+              "hex": "558bec5153568b750856894dfce8000000008bd88b450c8943048b460c85c0895d08740d8b4dfc5350e80000000089430c8b760885f67433578b4dfc56e8000000008bf8897b08895f048b460c85c0740d8b4dfc5750e80000000089470c8b760885f68bdf75d28b5d085f5e8bc35bc9c20800",
+              "relocs": [
+                [
+                  14,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  42,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  62,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  87,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z"
+                ]
+              ]
+            },
+            "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z": {
+              "size": 165,
+              "hex": "b800000000e80000000051515356578b7d088bf18d45f3508bcf8975ece800000000508bcee80000000033db895e048b073958048b06895dfc881875118b068958048b068940088b0689400ceb3e8b3e8b45088b0057ff70048bcee8000000008947048b0e8b4104eb028bc28b50083bd375f78941088b0e8b4104eb028bc28b500c3bd375f78b7d0889410c8b47048b4df48946045f8bc65e5b64890d00000000c9c20400",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  30,
+                  20,
+                  "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ"
+                ],
+                [
+                  38,
+                  20,
+                  "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z"
+                ],
+                [
+                  92,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  157,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            },
+            "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z": {
+              "size": 165,
+              "hex": "b800000000e80000000051515356578b7d088bf18d45f3508bcf8975ece800000000508bcee80000000033db895e048b073958048b06895dfc881875118b068958048b068940088b0689400ceb3e8b3e8b45088b0057ff70048bcee8000000008947048b0e8b4104eb028bc28b50083bd375f78941088b0e8b4104eb028bc28b500c3bd375f78b7d0889410c8b47048b4df48946045f8bc65e5b64890d00000000c9c20400",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  30,
+                  20,
+                  "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ"
+                ],
+                [
+                  38,
+                  20,
+                  "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z"
+                ],
+                [
+                  92,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  157,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            },
+            "??0?$map@HUBfmePod24@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@3@@_STL@@QAE@ABV01@@Z": {
+              "size": 18,
+              "hex": "56ff7424088bf1e8000000008bc65ec20400",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z"
+                ]
+              ]
+            }
+          },
+          "undefined": [
+            "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+            "__EH_prolog",
+            "___CxxFrameHandler",
+            "__except_list",
+            "_free"
+          ],
+          "production_profile_command": [
+            "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+            "-nologo",
+            "-c",
+            "-O2",
+            "-GR-",
+            "-EHsc-",
+            "-O1",
+            "-arch:SSE",
+            "-G7",
+            "-EHsc",
+            "-MD",
+            "-D_STLP_USE_STATIC_LIB",
+            "-D_STLP_USE_MALLOC",
+            "-D_CRTIMP=",
+            "-D_STLP_NO_EXCEPTIONS",
+            "-Ireference/shims/bfmealloc",
+            "-Fobuild/agent-thing-bfme2-20261120/controlpoint-provider-contexts/objects/base/a403ebe9bb0397f2.obj",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp"
+          ],
+          "effective_private_cl": "// cl: /O1 /arch:SSE /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc"
+        },
+        "candidate": {
+          "matched": [
+            "0x0007FAB3",
+            "0x002CA82C",
+            "0x003A299C",
+            "0x00417B19",
+            "0x00417B35",
+            "0x00417B55",
+            "0x00418066",
+            "0x0041810B",
+            "0x0078181D",
+            "0x00781825",
+            "0x007865A5",
+            "0x007865AD"
+          ],
+          "errors": [],
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\df545d197596ed55.obj",
+          "strict_rows": [
+            {
+              "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x003A299C",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x00418066",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z",
+              "rva": "0x00417B55",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$map@HUBfmePod24@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@3@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x0041810B",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x00781825",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+              "rva": "0x007865AD",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z",
+              "rva": "0x00417B35",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??0?$pair@$$CBHUBfmePod24@@@_STL@@QAE@ABU01@@Z",
+              "rva": "0x00417B19",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@XZ",
+              "rva": "0x0007FAB3",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ",
+              "rva": "0x0007FAB3",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "$L5521",
+              "rva": "0x0078181D",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "$L5617",
+              "rva": "0x007865A5",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            },
+            {
+              "name": "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z",
+              "rva": "0x002CA82C",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            }
+          ],
+          "public_code": {
+            "??2@YAPAXIPAX@Z": {
+              "size": 5,
+              "hex": "8b442408c3",
+              "relocs": []
+            },
+            "??3@YAXPAX0@Z": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "?_M_root@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c004c3",
+              "relocs": []
+            },
+            "?_M_leftmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c008c3",
+              "relocs": []
+            },
+            "?_M_rightmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c00cc3",
+              "relocs": []
+            },
+            "?_S_color@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAAA_NPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "?_S_minimum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480885c975f7c3",
+              "relocs": []
+            },
+            "?_S_maximum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480c85c975f7c3",
+              "relocs": []
+            },
+            "?_M_empty_initialize@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEXXZ": {
+              "size": 22,
+              "hex": "8b01c600008b01836004008b018940088b0989490cc3",
+              "relocs": []
+            },
+            "?_M_root@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c004c3",
+              "relocs": []
+            },
+            "?_M_leftmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c008c3",
+              "relocs": []
+            },
+            "?_M_rightmost@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 6,
+              "hex": "8b0183c00cc3",
+              "relocs": []
+            },
+            "?_S_color@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAAA_NPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "?_S_minimum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480885c975f7c3",
+              "relocs": []
+            },
+            "?_S_maximum@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 16,
+              "hex": "8b442404eb028bc18b480c85c975f7c3",
+              "relocs": []
+            },
+            "?_M_empty_initialize@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXXZ": {
+              "size": 22,
+              "hex": "8b01c600008b01836004008b018940088b0989490cc3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??0?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV01@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z": {
+              "size": 28,
+              "hex": "8b44240485c0740f6bc02c6a0050e8000000005959eb0233c0c20800",
+              "relocs": [
+                [
+                  15,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "??0?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QAE@ABV01@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@IPBX@Z": {
+              "size": 28,
+              "hex": "8b44240485c0740f6bc01c6a0050e8000000005959eb0233c0c20800",
+              "relocs": [
+                [
+                  15,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??0?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QAE@ABV01@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@IPBX@Z": {
+              "size": 28,
+              "hex": "8b44240485c0740f6bc02c6a0050e8000000005959eb0233c0c20800",
+              "relocs": [
+                [
+                  15,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??$?0VRva00064640Record@@@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$?0U?$pair@$$CBHUBfmePod8@@@_STL@@@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$?0U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$?0U?$pair@$$CBHUBfmePod24@@@_STL@@@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$?0U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@1@@Z": {
+              "size": 5,
+              "hex": "8bc1c20400",
+              "relocs": []
+            },
+            "??$__stl_alloc_rebind@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@VRva00064640Record@@@0@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "??$__stl_alloc_rebind@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@0@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "??$__stl_alloc_rebind@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@0@@Z": {
+              "size": 5,
+              "hex": "8b442404c3",
+              "relocs": []
+            },
+            "?_S_left@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c008c3",
+              "relocs": []
+            },
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c00cc3",
+              "relocs": []
+            },
+            "?_S_left@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c008c3",
+              "relocs": []
+            },
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 8,
+              "hex": "8b44240483c00cc3",
+              "relocs": []
+            },
+            "??$_Destroy@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@@Z": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??0?$pair@$$CBHUBfmePod8@@@_STL@@QAE@ABU01@@Z": {
+              "size": 25,
+              "hex": "8bc18b4c24048b1189108b51048950048b4908894808c20400",
+              "relocs": []
+            },
+            "??0?$pair@$$CBHUBfmePod24@@@_STL@@QAE@ABU01@@Z": {
+              "size": 28,
+              "hex": "56578bc18b4c240c8b116a068d7104598d78048910f3a55f5ec20400",
+              "relocs": []
+            },
+            "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ": {
+              "size": 7,
+              "hex": "8b442404c20400",
+              "relocs": []
+            },
+            "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ": {
+              "size": 7,
+              "hex": "8b442404c20400",
+              "relocs": []
+            },
+            "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z": {
+              "size": 11,
+              "hex": "8bc18b4c24088908c20800",
+              "relocs": []
+            },
+            "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@I@Z": {
+              "size": 14,
+              "hex": "6a00ff742408e800000000c20400",
+              "relocs": [
+                [
+                  7,
+                  20,
+                  "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z"
+                ]
+              ]
+            },
+            "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 1,
+              "hex": "c3",
+              "relocs": []
+            },
+            "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z": {
+              "size": 11,
+              "hex": "8bc18b4c24088908c20800",
+              "relocs": []
+            },
+            "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@I@Z": {
+              "size": 14,
+              "hex": "6a00ff742408e800000000c20400",
+              "relocs": [
+                [
+                  7,
+                  20,
+                  "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@IPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z": {
+              "size": 11,
+              "hex": "8bc18b4c24088908c20800",
+              "relocs": []
+            },
+            "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@I@Z": {
+              "size": 14,
+              "hex": "6a00ff742408e800000000c20400",
+              "relocs": [
+                [
+                  7,
+                  20,
+                  "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@IPBX@Z"
+                ]
+              ]
+            },
+            "?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@I@Z": {
+              "size": 20,
+              "hex": "837c240400740aff742404e80000000059c20800",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "?_M_erase@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z": {
+              "size": 45,
+              "hex": "53568b74240c85f68bd9741c57ff760c8bcbe8000000008b7e0856e80000000085ff598bf775e65f5e5bc20400",
+              "relocs": [
+                [
+                  19,
+                  20,
+                  "?_M_erase@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z"
+                ],
+                [
+                  28,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z": {
+              "size": 29,
+              "hex": "8b44240485c074148b4c24088b1189108b51048950048b4908894808c3",
+              "relocs": []
+            },
+            "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z": {
+              "size": 32,
+              "hex": "8b44240485c074178b4c24088b1156576a068d7104598d78048910f3a55f5ec3",
+              "relocs": []
+            },
+            "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z": {
+              "size": 36,
+              "hex": "51566a008d44240b508bf1e8000000006a006a2ce800000000598906598bc65e59c20400",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z": {
+              "size": 36,
+              "hex": "51566a008d44240b508bf1e8000000006a006a1ce800000000598906598bc65e59c20400",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 14,
+              "hex": "8b0185c0740750e80000000059c3",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z": {
+              "size": 36,
+              "hex": "51566a008d44240b508bf1e8000000006a006a2ce800000000598906598bc65e59c20400",
+              "relocs": [
+                [
+                  12,
+                  20,
+                  "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 14,
+              "hex": "8b0185c0740750e80000000059c3",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "?clear@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAEXXZ": {
+              "size": 41,
+              "hex": "568bf1837e0400741e8b06ff7004e8000000008b068940088b06836004008b0689400c836604005ec3",
+              "relocs": [
+                [
+                  15,
+                  20,
+                  "?_M_erase@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@Z"
+                ]
+              ]
+            },
+            "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod8@@@2@@Z": {
+              "size": 34,
+              "hex": "566a006a1ce800000000ff7424108bf08d461050e80000000083c4108bc65ec20400",
+              "relocs": [
+                [
+                  6,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z"
+                ]
+              ]
+            },
+            "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod24@@@2@@Z": {
+              "size": 34,
+              "hex": "566a006a2ce800000000ff7424108bf08d461050e80000000083c4108bc65ec20400",
+              "relocs": [
+                [
+                  6,
+                  20,
+                  "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+                ],
+                [
+                  21,
+                  20,
+                  "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 52,
+              "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b3685f6740756e800000000598b4df45e64890d00000000c9c3",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  22,
+                  20,
+                  "?clear@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAEXXZ"
+                ],
+                [
+                  34,
+                  20,
+                  "_free"
+                ],
+                [
+                  46,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            },
+            "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z": {
+              "size": 30,
+              "hex": "568b7424088d461050e8000000008a0e8360080083600c0088085ec20400",
+              "relocs": [
+                [
+                  10,
+                  20,
+                  "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod8@@@2@@Z"
+                ]
+              ]
+            },
+            "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z": {
+              "size": 30,
+              "hex": "568b7424088d461050e8000000008a0e8360080083600c0088085ec20400",
+              "relocs": [
+                [
+                  10,
+                  20,
+                  "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@ABU?$pair@$$CBHUBfmePod24@@@2@@Z"
+                ]
+              ]
+            },
+            "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z": {
+              "size": 115,
+              "hex": "558bec5153568b750856894dfce8000000008bd88b450c8943048b460c85c0895d08740d8b4dfc5350e80000000089430c8b760885f67433578b4dfc56e8000000008bf8897b08895f048b460c85c0740d8b4dfc5750e80000000089470c8b760885f68bdf75d28b5d085f5e8bc35bc9c20800",
+              "relocs": [
+                [
+                  14,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  42,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  62,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  87,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z"
+                ]
+              ]
+            },
+            "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z": {
+              "size": 115,
+              "hex": "558bec5153568b750856894dfce8000000008bd88b450c8943048b460c85c0895d08740d8b4dfc5350e80000000089430c8b760885f67433578b4dfc56e8000000008bf8897b08895f048b460c85c0740d8b4dfc5750e80000000089470c8b760885f68bdf75d28b5d085f5e8bc35bc9c20800",
+              "relocs": [
+                [
+                  14,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  42,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  62,
+                  20,
+                  "?_M_clone_node@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@@Z"
+                ],
+                [
+                  87,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z"
+                ]
+              ]
+            },
+            "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z": {
+              "size": 165,
+              "hex": "b800000000e80000000051515356578b7d088bf18d45f3508bcf8975ece800000000508bcee80000000033db895e048b073958048b06895dfc881875118b068958048b068940088b0689400ceb3e8b3e8b45088b0057ff70048bcee8000000008947048b0e8b4104eb028bc28b50083bd375f78941088b0e8b4104eb028bc28b500c3bd375f78b7d0889410c8b47048b4df48946045f8bc65e5b64890d00000000c9c20400",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  30,
+                  20,
+                  "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@XZ"
+                ],
+                [
+                  38,
+                  20,
+                  "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@1@@Z"
+                ],
+                [
+                  92,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  157,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            },
+            "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z": {
+              "size": 165,
+              "hex": "b800000000e80000000051515356578b7d088bf18d45f3508bcf8975ece800000000508bcee80000000033db895e048b073958048b06895dfc881875118b068958048b068940088b0689400ceb3e8b3e8b45088b0057ff70048bcee8000000008947048b0e8b4104eb028bc28b50083bd375f78941088b0e8b4104eb028bc28b500c3bd375f78b7d0889410c8b47048b4df48946045f8bc65e5b64890d00000000c9c20400",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  30,
+                  20,
+                  "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@XZ"
+                ],
+                [
+                  38,
+                  20,
+                  "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z"
+                ],
+                [
+                  92,
+                  20,
+                  "?_M_copy@?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@PAU32@0@Z"
+                ],
+                [
+                  157,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            },
+            "??0?$map@HUBfmePod24@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@3@@_STL@@QAE@ABV01@@Z": {
+              "size": 18,
+              "hex": "56ff7424088bf1e8000000008bc65ec20400",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z"
+                ]
+              ]
+            }
+          },
+          "undefined": [
+            "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+            "__EH_prolog",
+            "___CxxFrameHandler",
+            "__except_list",
+            "_free"
+          ],
+          "production_profile_command": [
+            "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+            "-nologo",
+            "-c",
+            "-O2",
+            "-GR-",
+            "-EHsc-",
+            "-O1",
+            "-arch:SSE",
+            "-G7",
+            "-EHsc",
+            "-MD",
+            "-D_STLP_USE_STATIC_LIB",
+            "-D_STLP_USE_MALLOC",
+            "-D_CRTIMP=",
+            "-D_STLP_NO_EXCEPTIONS",
+            "-Ireference/shims/bfmealloc",
+            "-Fobuild/agent-thing-bfme2-20261120/controlpoint-provider-contexts/objects/base/df545d197596ed55.obj",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp"
+          ],
+          "effective_private_cl": "// cl: /O1 /arch:SSE /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc"
+        }
+      }
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp": {
+      "source_sha256": "b1a3ca7ca80613d3eae3efd15fc09cc78e2b71f20fa0b787accf7f3628a1ae21",
+      "candidate_sha256": "ab5134adb3ee2e86408f62ea17e936f99c642c65f872ea18b8ebfd5fa1174c4e",
+      "rows": [
+        {
+          "name": "??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+          "export_rva": "",
+          "target_rva": "0x002B80CE",
+          "target_size": "56",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp",
+          "status": "matched",
+          "notes": "STLport4.5.3 tree destructor; native clear2B70B3 and guarded free30830 with EH state; same source shape as verified PeerStat tree; legacy RvaVec link alias"
+        }
+      ],
+      "original_cl": "// cl: /O1 /EHs /MD /D_CRTIMP=",
+      "cases": {
+        "control": {
+          "matched": [
+            "0x002B80CE"
+          ],
+          "errors": [],
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\dtor\\97a3be4bb02e5af6.obj",
+          "strict_rows": [
+            {
+              "name": "??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+              "rva": "0x002B80CE",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            }
+          ],
+          "public_code": {
+            "??1?$_Rb_tree_base@U?$pair@$$CBHVAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 14,
+              "hex": "8b0185c0740750e80000000059c3",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 56,
+              "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b36834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  22,
+                  20,
+                  "?clear@?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEXXZ"
+                ],
+                [
+                  38,
+                  20,
+                  "_free"
+                ],
+                [
+                  50,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            }
+          },
+          "undefined": [
+            "?clear@?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEXXZ",
+            "__EH_prolog",
+            "___CxxFrameHandler",
+            "__except_list",
+            "_free"
+          ],
+          "production_profile_command": [
+            "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+            "-nologo",
+            "-c",
+            "-O2",
+            "-GR-",
+            "-EHsc-",
+            "-O1",
+            "-arch:SSE",
+            "-G7",
+            "-EHs",
+            "-MD",
+            "-D_CRTIMP=",
+            "-Fobuild/agent-thing-bfme2-20261120/controlpoint-provider-contexts/objects/dtor/97a3be4bb02e5af6.obj",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp"
+          ],
+          "effective_private_cl": "// cl: /O1 /arch:SSE /G7 /EHs /MD /D_CRTIMP="
+        },
+        "candidate": {
+          "matched": [
+            "0x002B80CE"
+          ],
+          "errors": [],
+          "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\dtor\\e543ffbdd206f629.obj",
+          "strict_rows": [
+            {
+              "name": "??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+              "rva": "0x002B80CE",
+              "exact": true,
+              "masked": false,
+              "unresolved": []
+            }
+          ],
+          "public_code": {
+            "??1?$_Rb_tree_base@U?$pair@$$CBHVAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 14,
+              "hex": "8b0185c0740750e80000000059c3",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ": {
+              "size": 14,
+              "hex": "8b0185c0740750e80000000059c3",
+              "relocs": [
+                [
+                  8,
+                  20,
+                  "_free"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ": {
+              "size": 56,
+              "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b36834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  22,
+                  20,
+                  "?clear@?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEXXZ"
+                ],
+                [
+                  38,
+                  20,
+                  "_free"
+                ],
+                [
+                  50,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            },
+            "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ": {
+              "size": 56,
+              "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b36834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+              "relocs": [
+                [
+                  1,
+                  6,
+                  "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+                ],
+                [
+                  6,
+                  20,
+                  "__EH_prolog"
+                ],
+                [
+                  22,
+                  20,
+                  "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ"
+                ],
+                [
+                  38,
+                  20,
+                  "_free"
+                ],
+                [
+                  50,
+                  6,
+                  "__except_list"
+                ]
+              ]
+            }
+          },
+          "undefined": [
+            "?clear@?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEXXZ",
+            "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ",
+            "__EH_prolog",
+            "___CxxFrameHandler",
+            "__except_list",
+            "_free"
+          ],
+          "production_profile_command": [
+            "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+            "-nologo",
+            "-c",
+            "-O2",
+            "-GR-",
+            "-EHsc-",
+            "-O1",
+            "-arch:SSE",
+            "-G7",
+            "-EHs",
+            "-MD",
+            "-D_CRTIMP=",
+            "-Fobuild/agent-thing-bfme2-20261120/controlpoint-provider-contexts/objects/dtor/e543ffbdd206f629.obj",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp"
+          ],
+          "effective_private_cl": "// cl: /O1 /arch:SSE /G7 /EHs /MD /D_CRTIMP="
+        }
+      }
+    }
+  }
+}

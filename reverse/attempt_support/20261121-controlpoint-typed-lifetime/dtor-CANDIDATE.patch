@@ -1,0 +1,19 @@
+--- a/Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp
+@@ -49,3 +49,16 @@
+ 
+ // Preserve the existing callers' address-derived spelling as a link alias.
+ #pragma comment(linker, "/alternatename:??1RvaVec002B80CE@@QAE@XZ=??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ")
++
++// Record-set cleanup uses the established genuine clear and owned header.
++// This is the existing nontrivial destructor-only view, not a trivial map.
++#include "../../../../GameEngine/Include/Common/Rva00064640Record.h"
++namespace _STL {
++template<class T> struct _Identity;
++typedef _Rb_tree<Rva00064640Record, Rva00064640Record,
++    _Identity<Rva00064640Record>, less<Rva00064640Record>,
++    allocator<Rva00064640Record> > ControlPointTree;
++template<> ControlPointTree::~_Rb_tree() {
++    clear();
++}
++}

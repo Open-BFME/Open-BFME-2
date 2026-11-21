@@ -1,0 +1,1281 @@
+{
+  "head": "40496f82be14ec699d35ea9c0100c0e3d366a7c1",
+  "helpers": {
+    "proxy": {
+      "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\df545d197596ed55.obj",
+      "object_sha256": "235d614d8919cc859d9d6c2acf34461db349f883643f2b2501d11c5e5ab319c2",
+      "rva": "0x0014F3C4",
+      "size": 11,
+      "actual_size": 11,
+      "hex": "8bc18b4c24088908c20800",
+      "relocs": [],
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": null,
+      "verified_folds": [],
+      "dependency_view": "Independently exact provider added only to an in-memory dependency view; no production alias/pin/row/cache."
+    },
+    "base": {
+      "name": "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\df545d197596ed55.obj",
+      "object_sha256": "235d614d8919cc859d9d6c2acf34461db349f883643f2b2501d11c5e5ab319c2",
+      "rva": "0x00417B55",
+      "size": 36,
+      "actual_size": 36,
+      "hex": "51566a008d44240b508bf1e8000000006a006a2ce800000000598906598bc65e59c20400",
+      "relocs": [
+        [
+          12,
+          20,
+          "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z"
+        ],
+        [
+          21,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ]
+      ],
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": null,
+      "verified_folds": [],
+      "dependency_view": "Independently exact provider added only to an in-memory dependency view; no production alias/pin/row/cache."
+    },
+    "dtor": {
+      "name": "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\dtor\\e543ffbdd206f629.obj",
+      "object_sha256": "e8cd356b76dc77a44761c21c8d16eaefdf13a044a9734dbae861203f9de085a0",
+      "rva": "0x002B80CE",
+      "size": 56,
+      "actual_size": 56,
+      "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b36834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+      "relocs": [
+        [
+          1,
+          6,
+          "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          22,
+          20,
+          "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ"
+        ],
+        [
+          38,
+          20,
+          "_free"
+        ],
+        [
+          50,
+          6,
+          "__except_list"
+        ]
+      ],
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ],
+      "verified_folds": [],
+      "eh_rel32_closure": [
+        {
+          "site_rva": "0x007768C1",
+          "name": "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+          "target_rva": "0x0007FAB3",
+          "defined_callback": {
+            "size": 14,
+            "hex": "8b0185c0740750e80000000059c3",
+            "relocs": [
+              [
+                8,
+                20,
+                "_free"
+              ]
+            ],
+            "exact": true,
+            "masked": false,
+            "unresolved": []
+          }
+        },
+        {
+          "site_rva": "0x007768CB",
+          "name": "___CxxFrameHandler",
+          "target_rva": "0x00629182",
+          "existing_named_binding": true,
+          "candidate_count": 8195,
+          "verified_named_target": "0x00629182"
+        }
+      ],
+      "dependency_view": "Independently exact provider added only to an in-memory dependency view; no production alias/pin/row/cache."
+    }
+  },
+  "sources": {
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp": {
+      "source_sha256": "227aeedb19fe3bfe74fe7d58bc71c4cc661b540b983b46d3991e7f292468c165",
+      "candidate_sha256": "4bb7909fbd69a0e078fc8fc57e007169e0768c556aeccc861c2a3ec3e974bf41",
+      "before_nodes": 137,
+      "after_nodes": 155,
+      "matched_old_nodes": 137,
+      "missing_old_nodes": [],
+      "changed_old_edges": [],
+      "lost_old_externals": [],
+      "added_externals": [
+        {
+          "name": "??1?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+          "section": 35,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "??0?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV01@@Z",
+          "section": 45,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z",
+          "section": 47,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "??$?0VRva00064640Record@@@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+          "section": 61,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "??$__stl_alloc_rebind@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@VRva00064640Record@@@0@@Z",
+          "section": 71,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@XZ",
+          "section": 91,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+          "section": 97,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@I@Z",
+          "section": 99,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+          "section": 123,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        }
+      ],
+      "added_nodes": {
+        "35": {
+          "base": {
+            "name": ".text",
+            "size": 1,
+            "characteristics": 1611665440,
+            "hex": "c3",
+            "symbols": [
+              [
+                "??1?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [],
+          "associated_section": 0,
+          "raw_hex": "c3",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "36": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "00000000010000000000000000000000",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??1?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+              "storage": 2,
+              "value": 0,
+              "target_section": 35,
+              "external": true
+            }
+          ],
+          "associated_section": 35,
+          "raw_hex": "00000000010000000000000000000000",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "45": {
+          "base": {
+            "name": ".text",
+            "size": 5,
+            "characteristics": 1611665440,
+            "hex": "8bc1c20400",
+            "symbols": [
+              [
+                "??0?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV01@@Z",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [],
+          "associated_section": 0,
+          "raw_hex": "8bc1c20400",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "46": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "00000000050000000000000001000200",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??0?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV01@@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 45,
+              "external": true
+            }
+          ],
+          "associated_section": 45,
+          "raw_hex": "00000000050000000000000001000200",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "47": {
+          "base": {
+            "name": ".text",
+            "size": 28,
+            "characteristics": 1611665440,
+            "hex": "8b44240485c0740f6bc02c6a0050e8000000005959eb0233c0c20800",
+            "symbols": [
+              [
+                "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [
+            {
+              "offset": 15,
+              "kind": 20,
+              "name": "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            }
+          ],
+          "associated_section": 0,
+          "raw_hex": "8b44240485c0740f6bc02c6a0050e8000000005959eb0233c0c20800",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "48": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "000000001c0000000000000002000000",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 47,
+              "external": true
+            }
+          ],
+          "associated_section": 47,
+          "raw_hex": "000000001c0000000000000002000000",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "61": {
+          "base": {
+            "name": ".text",
+            "size": 5,
+            "characteristics": 1611665440,
+            "hex": "8bc1c20400",
+            "symbols": [
+              [
+                "??$?0VRva00064640Record@@@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [],
+          "associated_section": 0,
+          "raw_hex": "8bc1c20400",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "62": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "00000000050000000000000001000200",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??$?0VRva00064640Record@@@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 61,
+              "external": true
+            }
+          ],
+          "associated_section": 61,
+          "raw_hex": "00000000050000000000000001000200",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "71": {
+          "base": {
+            "name": ".text",
+            "size": 5,
+            "characteristics": 1611665440,
+            "hex": "8b442404c3",
+            "symbols": [
+              [
+                "??$__stl_alloc_rebind@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@VRva00064640Record@@@0@@Z",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [],
+          "associated_section": 0,
+          "raw_hex": "8b442404c3",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "72": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "00000000050000000000000002000000",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??$__stl_alloc_rebind@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@VRva00064640Record@@@0@@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 71,
+              "external": true
+            }
+          ],
+          "associated_section": 71,
+          "raw_hex": "00000000050000000000000002000000",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "91": {
+          "base": {
+            "name": ".text",
+            "size": 1,
+            "characteristics": 1611665440,
+            "hex": "c3",
+            "symbols": [
+              [
+                "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@XZ",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [],
+          "associated_section": 0,
+          "raw_hex": "c3",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "92": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "00000000010000000000000000000000",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@XZ",
+              "storage": 2,
+              "value": 0,
+              "target_section": 91,
+              "external": true
+            }
+          ],
+          "associated_section": 91,
+          "raw_hex": "00000000010000000000000000000000",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "97": {
+          "base": {
+            "name": ".text",
+            "size": 11,
+            "characteristics": 1611665440,
+            "hex": "8bc18b4c24088908c20800",
+            "symbols": [
+              [
+                "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [],
+          "associated_section": 0,
+          "raw_hex": "8bc18b4c24088908c20800",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "98": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "000000000b0000000000000002000200",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 97,
+              "external": true
+            }
+          ],
+          "associated_section": 97,
+          "raw_hex": "000000000b0000000000000002000200",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "99": {
+          "base": {
+            "name": ".text",
+            "size": 14,
+            "characteristics": 1611665440,
+            "hex": "6a00ff742408e800000000c20400",
+            "symbols": [
+              [
+                "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@I@Z",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [
+            {
+              "offset": 7,
+              "kind": 20,
+              "name": "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 47,
+              "external": true
+            }
+          ],
+          "associated_section": 0,
+          "raw_hex": "6a00ff742408e800000000c20400",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "100": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "000000000e0000000000000001000000",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@I@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 99,
+              "external": true
+            }
+          ],
+          "associated_section": 99,
+          "raw_hex": "000000000e0000000000000001000000",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "123": {
+          "base": {
+            "name": ".text",
+            "size": 36,
+            "characteristics": 1611665440,
+            "hex": "51566a008d44240b508bf1e8000000006a006a2ce800000000598906598bc65e59c20400",
+            "symbols": [
+              [
+                "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [
+            {
+              "offset": 12,
+              "kind": 20,
+              "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 97,
+              "external": true
+            },
+            {
+              "offset": 21,
+              "kind": 20,
+              "name": "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            }
+          ],
+          "associated_section": 0,
+          "raw_hex": "51566a008d44240b508bf1e8000000006a006a2ce800000000598906598bc65e59c20400",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "124": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "00000000240000000100000001000b00",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 123,
+              "external": true
+            }
+          ],
+          "associated_section": 123,
+          "raw_hex": "00000000240000000100000001000b00",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        }
+      },
+      "before_public_code": 67,
+      "after_public_code": 76,
+      "changed_existing_code": {},
+      "extra_code": {
+        "??1?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ": {
+          "size": 1,
+          "hex": "c3",
+          "relocs": []
+        },
+        "??0?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV01@@Z": {
+          "size": 5,
+          "hex": "8bc1c20400",
+          "relocs": []
+        },
+        "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z": {
+          "size": 28,
+          "hex": "8b44240485c0740f6bc02c6a0050e8000000005959eb0233c0c20800",
+          "relocs": [
+            [
+              15,
+              20,
+              "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+            ]
+          ]
+        },
+        "??$?0VRva00064640Record@@@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z": {
+          "size": 5,
+          "hex": "8bc1c20400",
+          "relocs": []
+        },
+        "??$__stl_alloc_rebind@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@VRva00064640Record@@@0@@Z": {
+          "size": 5,
+          "hex": "8b442404c3",
+          "relocs": []
+        },
+        "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@XZ": {
+          "size": 1,
+          "hex": "c3",
+          "relocs": []
+        },
+        "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z": {
+          "size": 11,
+          "hex": "8bc18b4c24088908c20800",
+          "relocs": []
+        },
+        "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@I@Z": {
+          "size": 14,
+          "hex": "6a00ff742408e800000000c20400",
+          "relocs": [
+            [
+              7,
+              20,
+              "?allocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@VRva00064640Record@@@2@IPBX@Z"
+            ]
+          ]
+        },
+        "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z": {
+          "size": 36,
+          "hex": "51566a008d44240b508bf1e8000000006a006a2ce800000000598906598bc65e59c20400",
+          "relocs": [
+            [
+              12,
+              20,
+              "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z"
+            ],
+            [
+              21,
+              20,
+              "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+            ]
+          ]
+        }
+      },
+      "all_old_graph_preserved": true,
+      "all_old_code_preserved": true,
+      "new_crt_initializers": [],
+      "sxdata_additive_changes": [],
+      "strict_rows": [
+        {
+          "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "rva": "0x003A299C",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "rva": "0x00418066",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z",
+          "rva": "0x00417B55",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??0?$map@HUBfmePod24@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@3@@_STL@@QAE@ABV01@@Z",
+          "rva": "0x0041810B",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "rva": "0x00781825",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "__ehhandler$??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+          "rva": "0x007865AD",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??$_Construct@U?$pair@$$CBHUBfmePod24@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod24@@@0@ABU10@@Z",
+          "rva": "0x00417B35",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??0?$pair@$$CBHUBfmePod24@@@_STL@@QAE@ABU01@@Z",
+          "rva": "0x00417B19",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod8@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE@XZ",
+          "rva": "0x0007FAB3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??1?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@XZ",
+          "rva": "0x0007FAB3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "$L5521",
+          "rva": "0x0078181D",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "$L5617",
+          "rva": "0x007865A5",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z",
+          "rva": "0x002CA82C",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        }
+      ],
+      "source_current": true
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp": {
+      "source_sha256": "b1a3ca7ca80613d3eae3efd15fc09cc78e2b71f20fa0b787accf7f3628a1ae21",
+      "candidate_sha256": "ab5134adb3ee2e86408f62ea17e936f99c642c65f872ea18b8ebfd5fa1174c4e",
+      "before_nodes": 7,
+      "after_nodes": 12,
+      "matched_old_nodes": 6,
+      "missing_old_nodes": [
+        {
+          "section": 8,
+          "node": {
+            "base": {
+              "name": ".sxdata",
+              "size": 4,
+              "characteristics": 3146240,
+              "hex": null,
+              "symbols": [],
+              "selection": 0,
+              "sxdata_handlers": [
+                [
+                  "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+                  8
+                ]
+              ]
+            },
+            "relocs": [],
+            "associated_section": 0,
+            "raw_hex": "1c000000",
+            "sxdata": [
+              {
+                "name": "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+                "value": 8,
+                "section": 6,
+                "index": 28
+              }
+            ],
+            "actual_compiler_labels": []
+          }
+        }
+      ],
+      "changed_old_edges": [],
+      "lost_old_externals": [],
+      "added_externals": [
+        {
+          "name": "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+          "section": 5,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+          "section": 11,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        },
+        {
+          "name": "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ",
+          "section": 0,
+          "storage": 2,
+          "type": 32,
+          "value": 0
+        }
+      ],
+      "added_nodes": {
+        "5": {
+          "base": {
+            "name": ".text",
+            "size": 14,
+            "characteristics": 1611665440,
+            "hex": "8b0185c0740750e80000000059c3",
+            "symbols": [
+              [
+                "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 2
+          },
+          "relocs": [
+            {
+              "offset": 8,
+              "kind": 20,
+              "name": "_free",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            }
+          ],
+          "associated_section": 0,
+          "raw_hex": "8b0185c0740750e80000000059c3",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "6": {
+          "base": {
+            "name": ".debug$F",
+            "size": 16,
+            "characteristics": 1108348992,
+            "hex": "000000000e0000000000000000000000",
+            "symbols": [],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+              "storage": 2,
+              "value": 0,
+              "target_section": 5,
+              "external": true
+            }
+          ],
+          "associated_section": 5,
+          "raw_hex": "000000000e0000000000000000000000",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "10": {
+          "base": {
+            "name": ".sxdata",
+            "size": 8,
+            "characteristics": 3146240,
+            "hex": null,
+            "symbols": [],
+            "selection": 0,
+            "sxdata_handlers": [
+              [
+                "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+                8
+              ],
+              [
+                "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+                8
+              ]
+            ]
+          },
+          "relocs": [],
+          "associated_section": 0,
+          "raw_hex": "2100000032000000",
+          "sxdata": [
+            {
+              "name": "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+              "value": 8,
+              "section": 8,
+              "index": 33
+            },
+            {
+              "name": "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+              "value": 8,
+              "section": 12,
+              "index": 50
+            }
+          ],
+          "actual_compiler_labels": []
+        },
+        "11": {
+          "base": {
+            "name": ".text",
+            "size": 56,
+            "characteristics": 1611665440,
+            "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b36834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+            "symbols": [
+              [
+                "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+                0,
+                32,
+                2
+              ]
+            ],
+            "selection": 1
+          },
+          "relocs": [
+            {
+              "offset": 1,
+              "kind": 6,
+              "name": "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+              "storage": 3,
+              "value": 8,
+              "target_section": 12,
+              "external": false
+            },
+            {
+              "offset": 6,
+              "kind": 20,
+              "name": "__EH_prolog",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            },
+            {
+              "offset": 22,
+              "kind": 20,
+              "name": "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            },
+            {
+              "offset": 38,
+              "kind": 20,
+              "name": "_free",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            },
+            {
+              "offset": 50,
+              "kind": 6,
+              "name": "__except_list",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            }
+          ],
+          "associated_section": 0,
+          "raw_hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b36834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+          "sxdata": [],
+          "actual_compiler_labels": []
+        },
+        "12": {
+          "base": {
+            "name": ".text$x",
+            "size": 18,
+            "characteristics": 1611665440,
+            "hex": "8b4df0e900000000b800000000e900000000",
+            "symbols": [
+              [
+                "$compiler-label",
+                0,
+                32,
+                3
+              ],
+              [
+                "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+                8,
+                32,
+                3
+              ]
+            ],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 4,
+              "kind": 20,
+              "name": "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+              "storage": 2,
+              "value": 0,
+              "target_section": 5,
+              "external": true
+            },
+            {
+              "offset": 9,
+              "kind": 6,
+              "name": "$compiler-label",
+              "storage": 3,
+              "value": 8,
+              "target_section": 13,
+              "external": false
+            },
+            {
+              "offset": 14,
+              "kind": 20,
+              "name": "___CxxFrameHandler",
+              "storage": 2,
+              "value": 0,
+              "target_section": 0,
+              "external": true
+            }
+          ],
+          "associated_section": 11,
+          "raw_hex": "8b4df0e900000000b800000000e900000000",
+          "sxdata": [],
+          "actual_compiler_labels": [
+            [
+              "$L861",
+              0,
+              32
+            ]
+          ]
+        },
+        "13": {
+          "base": {
+            "name": ".xdata$x",
+            "size": 36,
+            "characteristics": 1076891712,
+            "hex": "ffffffff0000000020059319010000000000000000000000000000000000000000000000",
+            "symbols": [
+              [
+                "$compiler-label",
+                0,
+                0,
+                3
+              ],
+              [
+                "$compiler-label",
+                8,
+                0,
+                3
+              ]
+            ],
+            "selection": 5
+          },
+          "relocs": [
+            {
+              "offset": 4,
+              "kind": 6,
+              "name": "$compiler-label",
+              "storage": 3,
+              "value": 0,
+              "target_section": 12,
+              "external": false
+            },
+            {
+              "offset": 16,
+              "kind": 6,
+              "name": "$compiler-label",
+              "storage": 3,
+              "value": 0,
+              "target_section": 13,
+              "external": false
+            }
+          ],
+          "associated_section": 11,
+          "raw_hex": "ffffffff0000000020059319010000000000000000000000000000000000000000000000",
+          "sxdata": [],
+          "actual_compiler_labels": [
+            [
+              "$T867",
+              8,
+              0
+            ],
+            [
+              "$T869",
+              0,
+              0
+            ]
+          ]
+        }
+      },
+      "before_public_code": 2,
+      "after_public_code": 4,
+      "changed_existing_code": {},
+      "extra_code": {
+        "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ": {
+          "size": 14,
+          "hex": "8b0185c0740750e80000000059c3",
+          "relocs": [
+            [
+              8,
+              20,
+              "_free"
+            ]
+          ]
+        },
+        "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ": {
+          "size": 56,
+          "hex": "b800000000e80000000051568bf18975f08365fc00e8000000008b36834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+          "relocs": [
+            [
+              1,
+              6,
+              "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              22,
+              20,
+              "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ"
+            ],
+            [
+              38,
+              20,
+              "_free"
+            ],
+            [
+              50,
+              6,
+              "__except_list"
+            ]
+          ]
+        }
+      },
+      "all_old_graph_preserved": false,
+      "all_old_code_preserved": true,
+      "new_crt_initializers": [],
+      "sxdata_additive_changes": [
+        {
+          "old_section": 8,
+          "new_section": 10,
+          "old_size": 4,
+          "new_size": 8,
+          "old_raw_hex": "1c000000",
+          "new_raw_hex": "2100000032000000",
+          "old_handlers": [
+            {
+              "name": "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+              "value": 8,
+              "section": 6,
+              "index": 28
+            }
+          ],
+          "new_handlers": [
+            {
+              "name": "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+              "value": 8,
+              "section": 8,
+              "index": 33
+            },
+            {
+              "name": "__ehhandler$??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+              "value": 8,
+              "section": 12,
+              "index": 50
+            }
+          ],
+          "all_old_handlers_preserved_with_same_proven_code": true,
+          "same_flags": true
+        }
+      ],
+      "strict_rows": [
+        {
+          "name": "??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+          "rva": "0x002B80CE",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        }
+      ],
+      "source_current": true
+    }
+  }
+}

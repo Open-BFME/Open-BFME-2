@@ -27,3 +27,11 @@ template _STL::_Rb_tree<int, _STL::pair<const int, BfmePod24>, _STL::_Select1st<
 // The outer map copy constructor at retail 0x0041810B (18 bytes): forwards to the tree
 // member instantiated above and returns this.
 template _STL::map<int, BfmePod24, _STL::less<int >, _STL::allocator<_STL::pair<const int, BfmePod24> > >::map(const _STL::map<int, BfmePod24, _STL::less<int >, _STL::allocator<_STL::pair<const int, BfmePod24> > > &);
+
+// The native record-set tree uses the same real 44-byte header-node
+// allocator constructor; preserve this TU's existing allocator context.
+#include "../../../../GameEngine/Include/Common/Rva00064640Record.h"
+typedef _STL::_Rb_tree_base<Rva00064640Record,
+    _STL::allocator<Rva00064640Record> > ControlPointTreeBase;
+template ControlPointTreeBase::_Rb_tree_base(
+    const _STL::allocator<Rva00064640Record>&);
