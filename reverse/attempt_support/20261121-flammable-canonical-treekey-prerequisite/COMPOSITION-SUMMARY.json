@@ -1,0 +1,218 @@
+{
+  "comparisons": {
+    "seed": {
+      "original_nodes": 829,
+      "considered_runtime_nodes": 705,
+      "identical_mapped_nodes": 705,
+      "changed_edges": [],
+      "missing_node_count": 0,
+      "missing_node_names": []
+    },
+    "donor": {
+      "original_nodes": 770,
+      "considered_runtime_nodes": 672,
+      "identical_mapped_nodes": 663,
+      "changed_edges": [
+        {
+          "section": 732,
+          "kind": "association"
+        },
+        {
+          "section": 732,
+          "kind": "local-relocation"
+        },
+        {
+          "section": 732,
+          "kind": "local-relocation"
+        },
+        {
+          "section": 740,
+          "kind": "association"
+        },
+        {
+          "section": 740,
+          "kind": "local-relocation"
+        },
+        {
+          "section": 762,
+          "kind": "association"
+        },
+        {
+          "section": 762,
+          "kind": "local-relocation"
+        },
+        {
+          "section": 762,
+          "kind": "local-relocation"
+        },
+        {
+          "section": 762,
+          "kind": "local-relocation"
+        }
+      ],
+      "missing_node_count": 9,
+      "missing_node_names": [
+        [
+          [
+            "?rva0048C8F9@FlammableUpdate@@QAEXXZ",
+            0,
+            32,
+            2
+          ]
+        ],
+        [
+          [
+            "$compiler-label",
+            0,
+            32,
+            3
+          ],
+          [
+            "$compiler-label",
+            13,
+            32,
+            3
+          ],
+          [
+            "__ehhandler$?rva0048C8F9@FlammableUpdate@@QAEXXZ",
+            21,
+            32,
+            3
+          ]
+        ],
+        [
+          [
+            "?$S14@?4??rva0048C8F9@FlammableUpdate@@QAEXXZ@4IA",
+            0,
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            "?update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+            0,
+            32,
+            2
+          ]
+        ],
+        [
+          [
+            "$compiler-label",
+            0,
+            32,
+            3
+          ],
+          [
+            "__ehhandler$?update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+            13,
+            32,
+            3
+          ]
+        ],
+        [
+          [
+            "?$S16@?BH@??update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ@4IA",
+            0,
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            "?tryToIgnite@FlammableUpdate@@QAEXXZ",
+            0,
+            32,
+            2
+          ]
+        ],
+        [
+          [
+            "$compiler-label",
+            0,
+            32,
+            3
+          ],
+          [
+            "$compiler-label",
+            13,
+            32,
+            3
+          ],
+          [
+            "$compiler-label",
+            24,
+            32,
+            3
+          ],
+          [
+            "__ehhandler$?tryToIgnite@FlammableUpdate@@QAEXXZ",
+            32,
+            32,
+            3
+          ]
+        ],
+        [
+          [
+            "?$S15@?4??tryToIgnite@FlammableUpdate@@QAEXXZ@4IA",
+            0,
+            0,
+            3
+          ]
+        ]
+      ]
+    }
+  },
+  "delta": {
+    "lost_definitions": [
+      "?$S14@?4??rva0048C8F9@FlammableUpdate@@QAEXXZ@4IA",
+      "?$S15@?4??tryToIgnite@FlammableUpdate@@QAEXXZ@4IA",
+      "?$S16@?BH@??update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ@4IA"
+    ],
+    "added_definitions": [
+      "?$S17@?4??rva0048C8F9@FlammableUpdate@@QAEXXZ@4IA",
+      "?$S18@?4??tryToIgnite@FlammableUpdate@@QAEXXZ@4IA",
+      "?$S19@?BH@??update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ@4IA"
+    ],
+    "removed_undefined": [
+      "??1FlammableUpdate@@UAE@XZ",
+      "?calcSleepTime@FlammableUpdate@@IAE?AW4UpdateSleepTime@@XZ",
+      "?doAflameDamage@FlammableUpdate@@QAEXXZ",
+      "?getModuleNameKey@FlammableUpdate@@UBE?AW4NameKeyType@@XZ",
+      "?loadPostProcess@FlammableUpdate@@MAEXXZ",
+      "?onDamage@FlammableUpdate@@UAEXPAVDamageInfo@@@Z",
+      "?rva0048C7BF@FlammableUpdate@@QAEXXZ",
+      "?rva0048C8F9@FlammableUpdate@@QAEXXZ",
+      "?stopBurningSound@FlammableUpdate@@IAEXXZ",
+      "?update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+      "?xfer@FlammableUpdate@@MAEXPAVXfer@@@Z"
+    ],
+    "added_undefined": []
+  },
+  "strict_rows": {
+    "donor": 18,
+    "seed": 35,
+    "merged": 53
+  },
+  "all_rows_strict": true,
+  "eh": {
+    "donor": {
+      "count": 5,
+      "statuses": {
+        "EXACT": 5
+      }
+    },
+    "seed": {
+      "count": 6,
+      "statuses": {
+        "EXACT": 6
+      }
+    },
+    "merged": {
+      "count": 11,
+      "statuses": {
+        "EXACT": 11
+      }
+    }
+  }
+}

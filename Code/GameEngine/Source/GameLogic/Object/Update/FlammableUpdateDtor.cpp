@@ -442,12 +442,7 @@ public:
 // name is unknown.
 // Spelled as the rowed twin TreeKey00242F5E (stlport_rb_tree_hint_00242f5e.cpp)
 // so the copy binds to that row.
-struct TreeKey00242F5E
-{
-	const FXList *fx;
-	AsciiString boneName;
-	TreeKey00242F5E(const TreeKey00242F5E &that);
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
 typedef TreeKey00242F5E Rva000CF475FireFX;
 
 // BFME2 reads the GameLogic frame at +0x40, four past the reference header's
@@ -593,19 +588,19 @@ void FlammableUpdate::tryToIgnite()
 		for (_STL::vector<Rva000CF475FireFX>::const_iterator it = fireFXList(data).begin(); it != fireFXList(data).end(); )
 		{
 			Rva000CF475FireFX info = *it;
-			if (!info.boneName.isEmpty() && getObject()->getDrawable())
+			if (!info.field04.isEmpty() && getObject()->getDrawable())
 			{
 				Matrix3D mtx(true);
-				getObject()->getDrawable()->rva00272835((Int)info.boneName.str(), (Int)&mtx);
+				getObject()->getDrawable()->rva00272835((Int)info.field04.str(), (Int)&mtx);
 				Coord3D pos;
 				pos.x = mtx[0][3];
 				pos.y = mtx[1][3];
 				pos.z = mtx[2][3];
-				FXList::doFXPos(info.fx, &pos, &mtx);
+				FXList::doFXPos(reinterpret_cast<const FXList *>(info.field00), &pos, &mtx);
 			}
 			else
 			{
-				FXList::doFXObj(info.fx, getObject());
+				FXList::doFXObj(reinterpret_cast<const FXList *>(info.field00), getObject());
 			}
 			++it;
 		}

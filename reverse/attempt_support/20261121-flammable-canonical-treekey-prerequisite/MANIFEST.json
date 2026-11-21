@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "scope": "One canonical TreeKey donor prerequisite + native private53-row composition; no production writes",
+  "basis_head": "64b343fb4109505cdb9073ebc21796b5c02d9500",
+  "files": [
+    {
+      "path": "canonical-TreeKey-prerequisite.patch",
+      "size": 1564,
+      "sha256": "c61d48239619ab4c3803f97542aaf72c52f92384444c05cadd437023fd4803c1"
+    },
+    {
+      "path": "COMPOSITION-EH-GRAPHS.json",
+      "size": 3592,
+      "sha256": "d387e270897cd137c9f8d2980af72b34d56ebea276226187639b2f82886f6b52"
+    },
+    {
+      "path": "COMPOSITION-FULL-COFF-GRAPHS.json",
+      "size": 2731245,
+      "sha256": "164517a0b0dad27813a022ade37e34ba07fd22246d91f5ac1447ddcc102f5690"
+    },
+    {
+      "path": "COMPOSITION-METADATA-SUMMARY.json",
+      "size": 1497,
+      "sha256": "908c0b945d9e0a13e2165247aa810d4eaa487ee54ea935b4377fa5102841ddfc"
+    },
+    {
+      "path": "COMPOSITION-STRICT-RAW-ROWS.json",
+      "size": 114338,
+      "sha256": "621f330024867a0a04fb2c7ccaa8a945b7da45c2e9edbcbe2396c11eaa2a8085"
+    },
+    {
+      "path": "COMPOSITION-SUMMARY.json",
+      "size": 4925,
+      "sha256": "da67e8c40434e879fea484863b82c5077c0f8803e6e94c5ea25c170ae6043f83"
+    },
+    {
+      "path": "COMPOSITION.json",
+      "size": 38863,
+      "sha256": "36d8912c0fa4c0c1a2ed8fa8f557dbcb6356dfc1ac8be2b28fce6ddb44fc3c7e"
+    },
+    {
+      "path": "composition_metadata.py",
+      "size": 5983,
+      "sha256": "1b77a70ad0a1e70753bf522a93669e5bb583c9e16bd58c41b8fd54d24005fa85"
+    },
+    {
+      "path": "composition_postproof.py",
+      "size": 7343,
+      "sha256": "9f8e4a95b5d29fd161177f1f5a3ddccc78c71bca7c13b41505f3202bce5c3eb7"
+    },
+    {
+      "path": "EH-GRAPHS.json",
+      "size": 1653,
+      "sha256": "773fafa599644600fcd8400968e9997ebebed8db2e26186531f3b41e3d5c6a5c"
+    },
+    {
+      "path": "FINAL-CURRENCY.json",
+      "size": 1469,
+      "sha256": "0bbda1c8d0dd25f15ed649e0e978b4cd4f2e10442bc9b20143d855096d7e3442"
+    },
+    {
+      "path": "FlammableUpdate.composed.cpp.txt",
+      "size": 62323,
+      "sha256": "b227cc9055f964d7b919177d2ebd45a3a9fcad60c2099af27df1770cb8b81d9e"
+    },
+    {
+      "path": "FlammableUpdateDtor.candidate.cpp.txt",
+      "size": 32345,
+      "sha256": "d8b3d6580e9b7865645ea5407fc4c3e9a9e5664ea58dc9f8e1607e00b0ddcd93"
+    },
+    {
+      "path": "FlammableUpdateDtor.control.cpp.txt",
+      "size": 32316,
+      "sha256": "862a85159c8e595881ed5151aae8f9b811439e7a3b4968096c0745ddc9344a24"
+    },
+    {
+      "path": "FULL-COFF-GRAPHS.json",
+      "size": 1842716,
+      "sha256": "892ea34cfbc45fdf811eb585931901e55a056cdd8dc53f6a194a86414b896dd0"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 7215,
+      "sha256": "9484e771d9f6f8f91ebf8415ce0a2817c3a42ad055647d07d0101a2c9d810150"
+    },
+    {
+      "path": "ORIGINAL-PAIR-LIFETIME.json",
+      "size": 71477,
+      "sha256": "76c520123486b3c9ad21a6125e3817ff6370f15a12e6f52ac42cc6b3aa38463c"
+    },
+    {
+      "path": "POSTPROOF-SUMMARY.json",
+      "size": 674,
+      "sha256": "deb7fa7ffad655d37fb1f4c4c9019155caa7974ba58111fc27f77a6ce7b8e537"
+    },
+    {
+      "path": "postproof.py",
+      "size": 7086,
+      "sha256": "d1b1580ab4a22792d90fbc6d887186823a6b64e2f2423908f83142ad46c167f6"
+    },
+    {
+      "path": "private_composition.py",
+      "size": 5767,
+      "sha256": "978358ad10fc24d09fd923e44edfdacce8671ec35116e1012aa8af76d4d7e4bc"
+    },
+    {
+      "path": "private_probe.py",
+      "size": 5887,
+      "sha256": "d884685918e9879095feb9453d1e0f96f19b18cef1312cb193a5a30efe125564"
+    },
+    {
+      "path": "PROBE.json",
+      "size": 90476,
+      "sha256": "47e47c8762a55b02a319e4b2cd0f8c1b3d90ac554a3c69a5a09d20625b644605"
+    },
+    {
+      "path": "REVIEW-SUMMARY.json",
+      "size": 20033,
+      "sha256": "c0ef2c03be1a2d86414cd4d054d02adb0bc6896667d03346446eaa77f06f0945"
+    },
+    {
+      "path": "ROOT-NORMAL-RECIPE.md",
+      "size": 1797,
+      "sha256": "d99cef13373f97ca7726cc16580c719a01c58ccf1abd7c16fef3fe23313fd63b"
+    },
+    {
+      "path": "STRICT-RAW-ROWS.json",
+      "size": 59995,
+      "sha256": "a9ad94b4b8a3efdb24522dc0e8f00ca638252b2625f85b7f711c109cfd38f710"
+    }
+  ]
+}
