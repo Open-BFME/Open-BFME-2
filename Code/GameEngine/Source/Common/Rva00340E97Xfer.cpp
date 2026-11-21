@@ -1,5 +1,5 @@
 // cl: /MD
-// ?xfer@Rva00345CAB@@MAEXPAVXfer@@@Z @ 0x00340E97 142B: slot 3 xfer of vtable 0x00813548.
+// ?xfer@AIAttackMoveToState@@MAEXPAVXfer@@@Z @ 0x00340E97 142B: slot 3 xfer of vtable 0x00813548.
 // Version(1,2) via Xfer slot 0x28 then base AIInternalMoveToState xfer via rowed 0x0033FF76,
 // IsLightCRC via slot 0x10, uint at +0x58 via slot 0x78, int at +0x5C via slot
 // 0x7C, Snapshot ptr at +0x54 via slot 0x30, Coord at +0x60 via slot 0x60,
@@ -43,7 +43,7 @@ void XferCommandSourceType(Xfer *xfer, int *value);
 
 #include "../../Include/GameLogic/AIInternalMoveToState.h"
 
-class Rva00345CAB : public AIInternalMoveToState
+class AIAttackMoveToState : public AIInternalMoveToState
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -58,7 +58,7 @@ private:
 	ObjectID m_6C;
 };
 
-void Rva00345CAB::xfer(Xfer *xfer)
+void AIAttackMoveToState::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 2);
 	*xfer == version;

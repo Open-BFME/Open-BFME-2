@@ -966,10 +966,10 @@ public:
     virtual void *scalarDeletingDestructor(unsigned int flags);
 };
 
-class Rva00345CAB : public Rva0033FF2B
+class AIAttackMoveToState : public Rva0033FF2B
 {
 public:
-    virtual ~Rva00345CAB();
+    virtual ~AIAttackMoveToState();
 
 private:
     char m_pad44[0x54 - 0x44];
@@ -1511,7 +1511,7 @@ void Rva0033FCC8::rva0033FCC8()
 
 // tu-skeleton: 0x00340E70 39B ?xfer@AIMoveAndEvacuateState@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStatesXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00340E97 142B ?xfer@Rva00345CAB@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00340E97Xfer.cpp (not merged yet)
+// tu-skeleton: 0x00340E97 142B ?xfer@AIAttackMoveToState@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00340E97Xfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00340F25 29B ?rva00340F25@AIAttackMoveToState@@UBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp (not merged yet)
 
@@ -1721,14 +1721,14 @@ void AIAttackAreaState::xfer(Xfer *xfer)
 // ---- from Code/GameEngine/Source/Common/Rva00345CABDtor.cpp
 
 //
-// ??1Rva00345CAB@@UAE@XZ, retail 0x00345CAB, 79 bytes.
+// ??1AIAttackMoveToState@@UAE@XZ, retail 0x00345CAB, 79 bytes.
 // Derived dtor restoring vtable 0x00813548, deleting the +0x54 pointer via
 // slot-0 scalarDeletingDestructor(0) plus operator delete (vf0(0)+free shape
 // with null->0 path, precedent DX8MeshRendererClass_Invalidate_Thunk and
 // landed 0x00345F21) then nulling it (state 0), then calling the rowed base
 // ??1Rva0033FF2B at 0x0033FF2B. Caller is 0x00349FF8.
 
-Rva00345CAB::~Rva00345CAB()
+AIAttackMoveToState::~AIAttackMoveToState()
 {
     ::operator delete(m_ptr54 != 0 ? m_ptr54->scalarDeletingDestructor(0) : 0);
     m_ptr54 = 0;
