@@ -180,7 +180,7 @@ class Rva006003FC
 {
 public:
 	virtual ~Rva006003FC();
-	void rva006003AD();
+	virtual void rva006003AD();
 	void rva006003A5(Object *value);
 };
 
@@ -561,7 +561,7 @@ struct Rva005FA9FCTarget
 // ?rva005FAA90@Rva005FB1AD@@QAEXXZ @0x005FAA90 17B, slot 1.
 void Rva005FB1AD::rva005FAA90()
 {
-	rva006003AD();
+	Rva006003FC::rva006003AD();
 	reinterpret_cast<Rva005FAA4D *>(m_member.m_value)->rva005FAA4D();
 }
 

@@ -26557,7 +26557,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?rva005FFB32@Rva005FFB32@@QAEXXZ,,0x005FFB32,51,Code/GameEngine/Source/Common/Rva005FFB32Method.cpp,matched,Reset notifier and entries via ecx-this callback
 ?rva005FFB81@Rva005FFB81@@QAEXXZ,,0x005FFB81,8,Code/GameEngine/Source/Common/Rva005FFB81Thunk.cpp,matched,Forward to inner reset via pointer at plus 4
 ??1Rva005FFB89@@QAE@XZ,,0x005FFB89,61,Code/GameEngine/Source/Common/Rva005FFB89Release.cpp,matched,Dtor of two hint-ref holders via forceinline Release
-?rva006003AD@Rva006003FC@@QAEXXZ,,0x006003AD,8,Code/GameEngine/Source/Common/Rva006003AD.cpp,matched,vslot tail-forward via member at +8 to rowed callee
+?rva006003AD@Rva006003FC@@UAEXXZ,,0x006003AD,8,Code/GameEngine/Source/Common/Rva006003AD.cpp,matched,vslot tail-forward via member at +8 to rowed callee
 ?rva0049D526@Rva0049D526@@QAEXPAX@Z,,0x0049D526,89,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D526.cpp,matched,copy ctor row 0x00045455 list link plus flag bits
 ?rva0049D67F@Rva0049D67F@@QAE_NPBDPA_N1@Z,,0x0049D67F,308,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D67F.cpp,matched,Disability bitstring worker via Veterancy sibling transfer
 ?rva0049D3BC@ProductionUpdate@@QAEXXZ,,0x0049D3BC,362,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,matched,TheGameLogic frame plus entry timeouts and bit tables
