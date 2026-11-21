@@ -1,5 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// platformsdk
 // BF1 NAT_update f98983a7d supplies stats-wait semantics; WB14DA930 and
 // native5A8F57..5A90F9 RET0 supply BF2 schema/transport flow and returned state.
 // Native zero bytes at A02D8C (one byte) and A06400 (four bytes); these names
@@ -10,6 +11,8 @@
 // only the twelve-byte header is accessed through this storage view.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
+#define NOMINMAX
+#include <winsock2.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
@@ -51,7 +54,6 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
 #include "../../Include/GameNetwork/GameInfo.h"
 class GameSpyGameSlot:public GameSlot{public:int profile;};
 #include "../../Include/GameNetwork/GameSpyStagingRoom.h"
@@ -217,9 +219,6 @@ void NAT::notifyHostMyNATCreated(int hostIndex){
  AsciiString hostName;hostName.translate(*(UnicodeString*)((char*)natConnectionView->slots[natConnectionView->host]+0x30));request.unknown_04=hostName.str();request.unknown_40=options.str();TheGameSpyPeerMessageQueue->addRequest(request);
 }
 
-extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long);
-struct hostent { char *name; char **aliases; short addrtype,length; char **addr_list; };
-extern "C" __declspec(dllimport) hostent *__stdcall gethostbyname(const char *);
 struct UDPBindValues { unsigned long address; unsigned short port; };
 // BF1 NAT.cpp at9cbfb551 supplies the mangled-source-port semantic lead.
 // Target WB14DD120 names findMyMangledPort and retail5A8405..5A854C
@@ -251,7 +250,7 @@ void NAT::findMyMangledPort() {
   FirewallHelperClass::getManglerName(1,name);
   hostent *host=gethostbyname(name);
   if (!host) { rva005A7974((unsigned short)sourcePort,targetSlot); return; }
-  memcpy(&natConnectionView->manglerAddress,host->addr_list[0],4);
+  memcpy(&natConnectionView->manglerAddress,host->h_addr_list[0],4);
   natConnectionView->manglerAddress=htonl(natConnectionView->manglerAddress);
   natConnectionView->manglerRetryTime=timeGetTime()+g_00DD35BC;
   natConnectionView->manglerRetries=0;
