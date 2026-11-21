@@ -26,6 +26,11 @@ class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 class Rva0056B2DD : public Rva0056AC26, public Rva0056B2DDB2 {
 public:
     virtual ~Rva0056B2DD();
+    virtual bool ac26Slot1();
+    virtual void slot4(int army);
+    virtual bool slot1(Rva002B4BC9Arg *candidate);
+    virtual bool slot4(LivingWorldArmy *army, Rva00318C32Ret *value);
+    virtual bool slot5(int);
 private:
     Parent0056B2DD *m_parent18;
     int m_x1C;
