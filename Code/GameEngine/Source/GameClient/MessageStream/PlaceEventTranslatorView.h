@@ -6,11 +6,7 @@
 // This keeps the existing modeled virtual interface; it does not add slots.
 class GameMessage;
 
-struct Rva001EDD80Pair
-{
-	int x, y;
-};
-typedef Rva001EDD80Pair ICoord2D;
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
 enum GameMessageDisposition
 {
