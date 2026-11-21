@@ -8,9 +8,8 @@
 // is proven by the matched ProneUpdate ctor 0x0049FF06, pool key 0x0049FE9A and
 // name getter 0x0049FE94; goProne was pinned at 0x0049FFB9 from a placed caller;
 // update is slot 0 of the vtable 0x00C51910 at +0x10 (UpdateModuleInterface;
-// that vtable's matched dtor 0x0049FE7B keeps the placeholder row name
-// Rva0049FE7B) and calls stopProneEffects on the full object; goProne calls
-// startProneEffects.
+// the matched dtor 0x0049FE7B installs it) and calls stopProneEffects on the
+// full object; goProne calls startProneEffects.
 // BFME2 deltas: the model condition lives on the Object (word array at +0x10C,
 // MODELCONDITION_PRONE = word 2 bit 7) and is set or cleared through
 // masked-word accessors around the pinned notifier 0x0028AE6D; the no-attack
@@ -198,4 +197,4 @@ ProneUpdate::ProneUpdate(Thing *thing, const ModuleData *moduleData)
 	m_proneFrames = 0;
 }
 
-// tu-skeleton: 0x0049FF34 28B ??_GRva0049FE7B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x0049FF34 28B ??_GProneUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)

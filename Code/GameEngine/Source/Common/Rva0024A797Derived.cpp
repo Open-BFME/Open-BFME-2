@@ -341,13 +341,13 @@ public:
 	virtual void f2();
 };
 
-class Rva0049FE7B : public UpdateModule, public MiBase1, public Rva0049FE7B_B2
+class ProneUpdate : public UpdateModule, public MiBase1, public Rva0049FE7B_B2
 {
 public:
-	virtual ~Rva0049FE7B();
+	virtual ~ProneUpdate();
 };
 
-Rva0049FE7B::~Rva0049FE7B()
+ProneUpdate::~ProneUpdate()
 {
 }
 
