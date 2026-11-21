@@ -1,0 +1,28 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes": 190,
+    "safeseh_handlers": 8,
+    "before_sha256": "f710f513465c9038cca0c4ff34340532164d622417133e5bd226a0e8762ec2d6",
+    "after_sha256": "f4a5ed76e6b4d483cd0b8bc360f0931cb44ddfca841235debc32be480e9d27e4"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes": 39,
+    "safeseh_handlers": 4,
+    "before_sha256": "94983269a16763599a90f137c91601d91b94742bcc34d96440721e80576d16be",
+    "after_sha256": "e6cdbbcc0d469bb3fc33f172821db08583ce44b5bdcc037ed7146c582f5a6206"
+  }
+]

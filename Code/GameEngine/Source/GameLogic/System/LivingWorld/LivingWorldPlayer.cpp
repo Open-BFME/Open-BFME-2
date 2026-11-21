@@ -613,7 +613,7 @@ void LivingWorldPlayer::GetRevivalUnitData(int key, LivingWorldRevivalUnitDataVi
             out->experience = entry.m_field08;
             out->upgrades = entry.m_field14;
             *reinterpret_cast<Rva001EAFC1 *>(out->record94) =
-                *reinterpret_cast<const Rva001EAFC1 *>(entry.m_fieldB0);
+                *reinterpret_cast<const Rva001EAFC1 *>(&entry.m_fieldB0);
             break;
         }
     }
