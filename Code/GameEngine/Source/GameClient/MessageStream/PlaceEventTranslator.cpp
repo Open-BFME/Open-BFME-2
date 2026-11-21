@@ -9,10 +9,11 @@
 extern GameLogic *TheGameLogic;
 #include "PlaceEventTranslatorView.h"
 // Mouse::rva001EDD80 (0x001EDD80): the drag-distance test against the button-down position.
+struct Rva001EDD80Pair;
 class Mouse
 {
 public:
-	bool rva001EDD80(const ICoord2D *from, const ICoord2D *to);
+	bool rva001EDD80(const Rva001EDD80Pair *from, const Rva001EDD80Pair *to);
 	char m_pad[0x12F0];
 	unsigned int m_doubleClickTime;
 };
@@ -101,24 +102,7 @@ union GameMessageArgumentType
 	ICoord2D pixel;
 };
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_DOZER_CONSTRUCT = 0x41A,
-		MSG_PORT_CONSTRUCT = 0x463,
-		MSG_CANNOT_BUILD_VOICE = 0x7EB
-	};
-	const GameMessageArgumentType *getArgument(int index) const;
-	void appendIntegerArgument(int value);
-	void appendLocationArgument(const Coord3D &value);
-	void appendRealArgument(float value);
-	void appendObjectIDArgument(ObjectID value);
-	Type getType() const { return m_type; }
-	char m_pad[0x10];
-	Type m_type;
-};
+#include "../../../Include/Common/MessageStream.h"
 
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type msgType, PickAndPlayInfo *info);
 
@@ -327,30 +311,6 @@ extern BuildAssistant *TheBuildAssistant;
 
 extern GhostObjectManager *TheGhostObjectManager;
 
-class MessageStream
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual void slot8();
-	virtual void slot9();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual GameMessage *appendMessage(GameMessage::Type type); // 0x48
-};
-
 extern MessageStream *TheMessageStream;
 
 // MiscAudio's +0xE8 (canonical m_E8) is retail's INI token BadBuildingPlacementSound (the MiscAudio
@@ -398,7 +358,7 @@ PlaceEventTranslator::PlaceEventTranslator()
 // object), which is what places retail's frame (0x74, newWorld beside the
 // left-button world, newAngle in the message parameter slot).
 
-// ICoord2D; the rowed drag test below spells it with its address-derived name.
+// ICoord2D; the rowed drag test below spells its pair type with the address-derived name.
 
 // BFME 2's Coord3D shape for locals and by-value arguments: empty default
 // constructor and destructor, member-wise copy constructor (the WWMath owner
@@ -557,7 +517,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 				{
 					if (TheInGameUI->canPlacePort())
 					{
-						placeMsg = TheMessageStream->appendMessage(GameMessage::MSG_PORT_CONSTRUCT);
+						placeMsg = TheMessageStream->appendMessage(GameMessage::MSG_WALL_HUB_CONSTRUCT_SPAN);
 						placeMsg->appendIntegerArgument(pendingBuild->getTemplateID());
 						placeMsg->appendLocationArgument(*builderObj->getPosition());
 						placeMsg->appendLocationArgument(world);
@@ -602,7 +562,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 				list.push_back(builderObj->getDrawable());
 				PickAndPlayInfo info;
 				info.m_position = world;
-				pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_CANNOT_BUILD_VOICE, &info);
+				pickAndPlayUnitVoiceResponse(&list, (GameMessage::Type)0x7EB, &info);
 
 				// play a can't do that sound (UI beep type sound)
 				static BfmeAudioEventPrefix136 noCanDoSound(TheAudio->getMiscAudio()->m_E8, 0);
@@ -621,7 +581,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 	case 3: // raw mouse position
 	{
 		ICoord2D mouse = msg->getArgument(0)->pixel;
-		if (m_isDown && TheMouse->rva001EDD80(&m_downPos, &mouse))
+		if (m_isDown && TheMouse->rva001EDD80((const Rva001EDD80Pair *)&m_downPos, (const Rva001EDD80Pair *)&mouse))
 			m_isDragging = true;
 
 		// if a building placement is in progress update the destination position

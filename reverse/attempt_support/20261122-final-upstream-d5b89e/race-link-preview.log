@@ -1,0 +1,6 @@
+link_check: the index is 2026-11-21 13:19 at 9a39def1d3, and 2 source file(s) under Code/ have been added, deleted or renamed since. A unit the index still holds but the tree no longer has makes its rows look like duplicates, and a unit added since is missing as a provider -- both are artefacts of the index, not of your files. Bring it to HEAD with `python3 tools/link_check.py --update-index` before trusting a duplicate or a 'no longer defines'.
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp: LINKS  LINKED 11,188 -> 11,188 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 11,188)
+Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp: LINKS  LINKED 1,760 -> 1,760 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 1,760)
+link_check: 2 of 2 link cleanly; LINKED 12,948 -> 12,948 bytes (3.1s)

@@ -1,0 +1,10 @@
+{
+  "base": "0a3cb6fe08692e4894a0072860f8a143a63f32dc",
+  "upstream": "d5b89e4a6020a5f17fd11d5ee5927a08ddfb837c",
+  "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp"
+  ],
+  "new_task_credit": 0,
+  "purpose": "Close the newly observed publication race while retaining upstream authorship and native merges."
+}
