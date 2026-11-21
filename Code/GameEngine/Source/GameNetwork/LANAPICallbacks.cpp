@@ -256,14 +256,7 @@ class LivingWorld;
 #include "../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 extern Int g_Va00E0333C;
-class AptMpGameSetup
-{
-public:
-	Bool rva0043DCFA( Int startPos );
-
-	UnsignedByte m_pre2B4[0x2B4];
-	Int m_pendingHero;				// +0x2B4
-};
+#include "../../Include/GameClient/AptMpGameSetup.h"
 #include "../../Include/Common/GameModePreferences.h"
 class LANPreferences : public GameModePreferences
 {
@@ -507,7 +500,7 @@ void LANAPI::OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, 
 			options.format( "Hero=%d", slot.encodeHero() );
 			RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
 			if( g_Va00E0333C )
-				((AptMpGameSetup *)g_Va00E0333C)->m_pendingHero = slot.m_hero[3];
+				((AptMpGameSetup *)g_Va00E0333C)->field2b4 = slot.m_hero[3];
 		}
 		options.format( "User=%s", m_userName.str() );
 		RequestGameOptions( options, true, (UnsignedInt)NoAddress().self() );
