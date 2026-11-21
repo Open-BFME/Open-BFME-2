@@ -90,5 +90,5 @@ Rva0053805DBase::~Rva0053805DBase()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?rva0053805D@Rva0053805DBase@@UAEXXZ=?rva0053805D@Rva0053805DBase@@UAEXXZ")
-#pragma comment(linker, "/alternatename:?rva0053806C@Rva0053805DBase@@UAEXXZ=?rva0053806C@Rva0053805DBase@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?rva0053806C@Rva0053805DBase@@UAEXXZ=?rva0053806C@Rva0053805DBase@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot1@Rva0053805DBase@@UBE_NXZ=?IsCRC@Xfer@@UBE_NXZ")

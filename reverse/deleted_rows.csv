@@ -6419,3 +6419,4 @@ __ehhandler$??1Rva005D06CB@@UAE@XZ,0x007A1B09,"Renamed to __ehhandler$??1Rva005C
 ?rva00105FE4@Rva00105FE4@@QAEXMM@Z,0x00105FE4,"Moved to ?slot17@W3DDisplayString@@UAEXMM@Z in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp (W3DDisplayString vtable 0x00BCF900 slot 17; tu_map approved TU)."
 ?rva00106036@Rva00106036@@QAEXMM@Z,0x00106036,"Moved to ?slot18@W3DDisplayString@@UAEXMM@Z in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp (W3DDisplayString vtable 0x00BCF900 slot 18; tu_map approved TU)."
 ?rva0053805D@Rva0053805DBase@@QAEXXZ,0x0053805D,"Renamed to ?rva0053805D@Rva0053805DBase@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
+?rva0053806C@Rva0053805DBase@@QAEXXZ,0x0053806C,"Renamed to ?rva0053806C@Rva0053805DBase@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
