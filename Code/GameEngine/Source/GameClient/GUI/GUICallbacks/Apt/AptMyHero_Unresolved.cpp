@@ -62,11 +62,7 @@ public:
 };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../../Include/GameClient/Rva001DBB82OneSetter.h"
-class GameWindowManager {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
@@ -261,7 +257,7 @@ void AptMyHero::FrameUpdate() {
     if(!reinterpret_cast<const StringBase<char> &>(group).isEmpty()) {
      TheTransitionHandler->reverse(group);
      reinterpret_cast<Rva001DBB82OneSetter *>(TheTransitionHandler)->enable();
-     TheWindowManager->slot28();
+     TheWindowManager->update();
     }
     field14C=2;
    }
@@ -270,7 +266,7 @@ void AptMyHero::FrameUpdate() {
   break;
  case 2:
   if(TheTransitionHandler->isFinished()) {
-   TheTransitionHandler->slot24();TheWindowManager->slot28();field14C=0;((DisplayFlag141View *)TheDisplay)->field141=false;
+   TheTransitionHandler->slot24();TheWindowManager->update();field14C=0;((DisplayFlag141View *)TheDisplay)->field141=false;
   }
   break;
  }

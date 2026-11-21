@@ -58,11 +58,7 @@ public:
 };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../../Include/GameClient/Rva001DBB82OneSetter.h"
-class GameWindowManager {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
@@ -1198,7 +1194,7 @@ void AptMyHero::rva005B21DA(CreateAHeroData *hero,bool flag,int mode){
    TheTransitionHandler->slot24();
    TheTransitionHandler->setGroup(TheCreateAHeroManager->field1E8,false);
    reinterpret_cast<Rva001DBB82OneSetter *>(TheTransitionHandler)->enable();
-   TheWindowManager->slot28();
+   TheWindowManager->update();
    field14C=1;
    break;
  }
