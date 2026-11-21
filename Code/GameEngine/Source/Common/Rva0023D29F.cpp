@@ -2,34 +2,7 @@
 // ?sendEndSessionMsg@Rva0023D29F@@QAEXXZ, retail 0x0023D29F, 57 bytes.
 // If TheNetwork set and !isPacketRouter return; else emit GameMessage 0x6a5 with +0x38 and set +0x3c.
 // Evidence: leaf lane; caller 0x0023DA1E; slots 0xAC bool and 0x48 GameMessage*(int) per NetworkInterfaceFramePacing/Rva0051B09BEnable; rowed appendIntegerArgument 0x0030F936.
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *v18(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 class NetworkInterface
 {
@@ -93,7 +66,7 @@ void Rva0023D29F::sendEndSessionMsg()
 {
 	if (TheNetwork != 0 && !TheNetwork->isPacketRouter())
 		return;
-	GameMessage *msg = TheMessageStream->v18(0x6a5);
+	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_LW_DONE_SESSION);
 	msg->appendIntegerArgument(m_38);
 	m_3c = 1;
 }

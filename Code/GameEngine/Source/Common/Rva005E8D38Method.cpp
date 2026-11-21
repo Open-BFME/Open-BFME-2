@@ -4,35 +4,7 @@
 // neighbours are FUN_009e89dd and ?rva005E0D94. Same layout and appendIntegerArgument
 // row (0x0030F936) as ?rva005E92B1 (0x005E92B1); MessageStream slot 0x48 appendType.
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
-
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 
 extern MessageStream *TheMessageStream;
 
@@ -68,7 +40,7 @@ private:
 // ?rva005E8D38@Rva005E8D38@@QAEXXZ
 void Rva005E8D38::rva005E8D38()
 {
-	GameMessage *msg = TheMessageStream->appendType(0x6AB);
+	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_LW_DESTROY_BUILDING);
 	msg->appendIntegerArgument(m_mid->m_inner->m_first);
 	msg->appendIntegerArgument(m_mid->m_second);
 }

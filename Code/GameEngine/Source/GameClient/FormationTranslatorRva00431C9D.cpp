@@ -16,24 +16,7 @@
 #include "ICoord2D.h"
 #include "Coord3D.h"
 
-class GameMessage
-{
-public:
-	void appendPixelArgument(const ICoord2D &v);
-	void appendIntegerArgument(int v);
-};
-
-class MessageStream
-{
-public:
-	virtual void _d00(); virtual void _d01(); virtual void _d02(); virtual void _d03();
-	virtual void _d04(); virtual void _d05(); virtual void _d06(); virtual void _d07();
-	virtual void _d08(); virtual void _d09(); virtual void _d10(); virtual void _d11();
-	virtual void _d12(); virtual void _d13(); virtual void _d14(); virtual void _d15();
-	virtual void _d16(); virtual void _d17();
-	virtual GameMessage *createMessage(int type);
-	virtual GameMessage *v19(int a, int b);
-};
+#include "../../Include/Common/MessageStream.h"
 
 extern class MessageStream *TheMessageStream;
 extern "C" const void *const __identifier("??_7Rva004318FC@@6B@")[];
@@ -48,7 +31,7 @@ struct Rva00431C35Param
 {
 	int m_00;
 	int m_04;
-	int m_08;
+	GameMessage *m_08;
 };
 
 class Object;
@@ -59,7 +42,7 @@ class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	void *m_00;
 	void *m_04;
-	int m_08;
+	GameMessage::Type m_08;
 	ICoord2D m_0C;
 	int m_14;
 	int m_18;
@@ -73,8 +56,8 @@ public:
 void FormationTranslator::WaitForSecondButtonDownStateHandler::Restart(void *message)
 {
 	Rva00431C35Param *par = (Rva00431C35Param *)message;
-	int prevMessage = par->m_08;
-	GameMessage *msg = TheMessageStream->v19(m_08, prevMessage);
+	GameMessage *prevMessage = par->m_08;
+	GameMessage *msg = TheMessageStream->insertMessage(m_08, prevMessage);
 	msg->appendPixelArgument(m_0C);
 	msg->appendIntegerArgument(m_14);
 	msg->appendIntegerArgument(m_18);

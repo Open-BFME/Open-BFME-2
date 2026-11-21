@@ -21,34 +21,7 @@ struct _Rb_global
 };
 }
 #include "../../Include/Common/Rva0040CB3AIndexedField.h"
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
-class MessageStream
-{
-public:
-	virtual void d0();
-	virtual void d1();
-	virtual void d2();
-	virtual void d3();
-	virtual void d4();
-	virtual void d5();
-	virtual void d6();
-	virtual void d7();
-	virtual void d8();
-	virtual void d9();
-	virtual void d10();
-	virtual void d11();
-	virtual void d12();
-	virtual void d13();
-	virtual void d14();
-	virtual void d15();
-	virtual void d16();
-	virtual void d17();
-	virtual GameMessage *CreateMessage(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 struct Rva005F5B0FA
 {
@@ -73,7 +46,7 @@ void __cdecl SendCancelUpgradeMessages(Rva005F5B0FA *owner, Rva005F5B0FB *upgrad
 	{
 		if (*(int *)(field->get(*(int *)((char *)node + 16)) + 0xbc) != 0)
 		{
-			GameMessage *msg = TheMessageStream->CreateMessage(0x6c0);
+			GameMessage *msg = TheMessageStream->appendMessage(0x6c0);
 			msg->appendIntegerArgument(owner->m_objectID);
 			msg->appendIntegerArgument(*(int *)((char *)node + 16));
 		}

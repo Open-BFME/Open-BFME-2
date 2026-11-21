@@ -6,35 +6,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-	void appendLocationArgument(const Coord3D &arg);
-};
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 class Rva002BA8F1Logic;
 
 extern MessageStream *TheMessageStream;
@@ -103,7 +75,7 @@ int Rva005D1F45::rva005D1F45(IRegion2D *region, int unused)
 	cell.x = region->lo.x;
 	cell.y = region->lo.y;
 	m_04->conv(&cell, &pos);
-	GameMessage *msg = TheMessageStream->appendType(0x6A8);
+	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_LW_ARMY_MOVE_REQUEST);
 	msg->appendIntegerArgument(m_0C->m_20);
 	msg->appendIntegerArgument(sub->m_12C);
 	msg->appendLocationArgument(pos);
