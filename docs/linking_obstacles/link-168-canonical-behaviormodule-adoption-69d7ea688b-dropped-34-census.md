@@ -342,6 +342,13 @@ primary overrides (parity, not native table correctness). HordeMeleeSwarm.cpp (1
 `?erase@?$vector@UBfmePod28@@...`: a `link_check` artifact, since the 14:31 index still holds the
 object of Rva005842F7Finish.cpp, which `ab58bb88df` merged into HordeMeleeSwarm.cpp at 17:49 (after
 the index); the next census will not see that object.
+
+GettingBuiltBehavior follow-up (2026-11-21): the native six-byte getter at 0x004543A3
+returns the snapshot name. Its protected override lives in GettingBuiltBehavior.cpp, with
+the prior opaque getter kept as the verified fold owner. Both constructor and destructor
+now emit all 13 native primary slots at 0x008404FC. The three edited units match 42/42
+function rows and three exact EH graphs. The scoped link preview resolves all four
+providers, including the fold owner. Scheduled real linking must confirm bridge retirement.
 lk10's held-file recipes above, applied once the files became claimable (lk12, base `c871f897be`):
 BridgeScaffoldBehavior.cpp (1,021 B) binds `??_7Rva00458402@@6BObjectModule/BehaviorModuleInterface/UpdateModule@@@`
 and `6BRva00458402_E1@@@` for its old `6BRva0024A797_Root/_Mid/_B2@@@` and `6B@` (+0/+0x0C/+0x10/+0x20);

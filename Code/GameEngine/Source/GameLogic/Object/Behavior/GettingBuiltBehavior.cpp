@@ -382,6 +382,8 @@ private:
 	bool m_3D; // +0x3D
 	bool m_3E; // +0x3E
 	BfmePod20Node *m_40; // +0x40 (list head)
+protected:
+	virtual const char *GetSnapshotName() const;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp
@@ -1013,7 +1015,10 @@ void bfmeLegendEntryCountUsesDistance(std::list<SubsystemLegendEntry> *entries)
 
 // tu-skeleton: 0x004542FA 169B ??0GettingBuiltBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004543A3 6B ?Rva004543A3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+const char *GettingBuiltBehavior::GetSnapshotName() const
+{
+	return "GettingBuiltBehavior";
+}
 
 // tu-skeleton: 0x004543E3 8B ?get@Rva004543A9LeaNegSbbField@@WBE@BEHXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 

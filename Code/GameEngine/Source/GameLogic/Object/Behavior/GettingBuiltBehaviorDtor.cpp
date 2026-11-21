@@ -72,9 +72,13 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@GettingBuiltBehavior@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void onObjectCreated();
+	virtual void onDelete();
 protected:
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 };
 
 GettingBuiltBehavior::~GettingBuiltBehavior()

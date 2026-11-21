@@ -141,6 +141,7 @@ protected:
 	virtual void xfer(Xfer *);
 	// Primary table 0x00C404FC, slot 1: the rowed loadPostProcess 0x004542AD.
 	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 };
 
 // ??0GettingBuiltBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x004542FA
