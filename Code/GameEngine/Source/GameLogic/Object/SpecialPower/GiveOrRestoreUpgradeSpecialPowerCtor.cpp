@@ -16,7 +16,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BObjectModule@@@")[];  // vftable 0x00C5FA40
 extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C5F980
-extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BRva0044EF5E@@@")[];  // vftable 0x00C4DEE8
+extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BUpdateModule@@@")[];  // vftable 0x00C4DEE8
 extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@")[];  // vftable 0x00C552A4
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
@@ -53,7 +53,7 @@ GiveOrRestoreUpgradeSpecialPower::GiveOrRestoreUpgradeSpecialPower(Thing *thing,
 {
 	m_vtable = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BObjectModule@@@");
 	m_p0C = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BRva0044EF5E@@@");
+	m_p10 = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@");
 	m_88 = 0;
 	_ReadWriteBarrier();
