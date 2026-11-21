@@ -11,10 +11,10 @@
 // the event dtor thunk 0x000411BC. The banked 0.96 attempt held both as
 // plain pointers and had no EH states.
 // The 8-byte object's table 0x007C93A0 is the Rva00514E6B handle table
-// {0x00040EF8 wait; 0x0050B5C6 predicate; scalar destructor}; retail folds
-// that descendant table across the classes that share it. The class view
-// derives from that base instead of re-declaring its virtuals as unnamed
-// placeholders, so every slot binds to the rowed function retail holds.
+// {0x00040EF8 wait; 0x0050B5C6 predicate; scalar destructor 0x000A883A, which
+// calls ~Rva00514E6B directly}: the allocated object is an Rva00514E6B.
+// Rva0073F778 is the placeholder view its rowed thread members are spelled
+// under, so the call reaches createThread through that view.
 #include "../../Include/Common/Rva00041004Lock.h"
 
 class Rva0073F778 : public Rva00514E6B
@@ -26,11 +26,11 @@ public:
 class Rva000A880F
 {
 public:
-	Rva000A880F(Rva0073F778 *thread) : m_ptr(thread) {}
+	Rva000A880F(Rva00514E6B *thread) : m_ptr(thread) {}
 	~Rva000A880F();
-	Rva0073F778 *get() const { return m_ptr; }
+	Rva00514E6B *get() const { return m_ptr; }
 private:
-	Rva0073F778 *m_ptr;
+	Rva00514E6B *m_ptr;
 };
 
 class Rva0040F9D
@@ -55,9 +55,9 @@ private:
 };
 
 Rva0073F708::Rva0073F708(void *owner, int priority)
-	: m_a1(owner), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
+	: m_a1(owner), m_thread(new Rva00514E6B), m_event(1, 0, 0, 0)
 {
-	m_thread.get()->createThread(workerThreadProc, this, 1, 0, priority, 0);
+	static_cast<Rva0073F778 *>(m_thread.get())->createThread(workerThreadProc, this, 1, 0, priority, 0);
 }
 
 // ??0Rva000A8893Worker@@QAE@PAXH@Z @0x000A8893 112B: byte-identical to Rva0073F708's constructor
@@ -74,7 +74,7 @@ private:
 };
 
 Rva000A8893Worker::Rva000A8893Worker(void *owner, int priority)
-	: m_a1(owner), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
+	: m_a1(owner), m_thread(new Rva00514E6B), m_event(1, 0, 0, 0)
 {
-	m_thread.get()->createThread(workerThreadProc, this, 1, 0, priority, 0);
+	static_cast<Rva0073F778 *>(m_thread.get())->createThread(workerThreadProc, this, 1, 0, priority, 0);
 }
