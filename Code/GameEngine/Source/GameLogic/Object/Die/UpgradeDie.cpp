@@ -77,6 +77,26 @@ struct UpgradeDieModuleData
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+// UpgradeDie::xfer calls Xfer::Version1; keep its operand types beside the include.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 class UpgradeDie : public DieModule
 {
 public:
@@ -88,6 +108,10 @@ public:
 	{
 		return reinterpret_cast<const UpgradeDieModuleData *>(m_moduleData);
 	}
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDie.cpp
@@ -118,6 +142,23 @@ UpgradeDie::UpgradeDie( Thing *thing, const ModuleData *moduleData )
 // body.
 UpgradeDie::~UpgradeDie()
 {
+}
+
+// Slot 1 of UpgradeDie's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void UpgradeDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
+}
+
+// Slot 3 of UpgradeDie's retail primary table: 0x0045CE8C, version 1 then
+// DieModule::xfer 0x004CE56D; retail folds it with the other module xfers
+// whose base call lands on the same body.
+void UpgradeDie::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DieModule::xfer( xfer );
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDieOnDie.cpp
