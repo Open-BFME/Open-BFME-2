@@ -153,7 +153,7 @@ public:
 // KindOf masks: the accept / reject filters take two 28-byte masks.
 #include "../../../Include/Common/BitFlagsTemplate.h"
 extern BitFlags<116> KINDOFMASK_NONE;
-class BfmeFixedStorage0004543D { public: char bits[28]; };
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 struct Rva0006EE7A { Rva0006EE7A(int, int, int) throw(); char bits[28]; };
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva0004584D : public Rva000421C8
