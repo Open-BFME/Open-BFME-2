@@ -21,6 +21,8 @@ enum DeathType
 {
 	DEATH_02 = 2
 };
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 // The DamageInfo: input fields as the target body and Object::kill read and
