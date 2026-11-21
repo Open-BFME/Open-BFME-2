@@ -1,0 +1,11 @@
+{
+  "created_utc": "2026-11-21T05:38:46.366930+00:00",
+  "candidate_sha256": "e846713ec0456175e8365cfd9a9993581aa7a67addb03a612257e24f8e463a5f",
+  "source_sha256": "4ddc0cc82d2b16a9e2cd401feb42326018443cdd3159593a10dcfe2a6eb0337d",
+  "author_manifest_sha256": "206eb1f101ea9436168058ca9e2e345fa41596e5561502909e14ad451e8d953f",
+  "files": {
+    "REVIEW.md": "962c14b2ba11cd7d6b8ae4aa76ed5ec255e0f0dab8a063eacd69f94548c46325",
+    "HEADER-CURRENCY.json": "f90d73e6e8eae1ab220b9e504e1d2ef5aaa29d7d46700a02f38ecab41c843124",
+    "READ-ONLY-COFF-AUDIT.json": "886b9646c2adbff8098f33fb8ff0970ed14c57d6567234f47d5e145f38ee9fe1"
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "control": {
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\vni-consumer-lifetime\\objects\\8b7eaea0a3e292b1.obj",
+    "sha256": "140249569ef64f0bf3dbdb883eef40a1f4689f96c8b9e76631241716c3a1c4b2",
+    "directives": [
+      "/DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+    ],
+    "public_code_names": [
+      "??0BfmeRectVNI@@QAE@ID@Z",
+      "??1BfmeRectVNI@@UAE@XZ",
+      "??_GBfmeRectVNI@@UAEPAXI@Z",
+      "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z",
+      "?self@Rva005045DBTree@@QAEAAV1@XZ"
+    ],
+    "undefined_names": [
+      "??0BfmeBaseVNH@@QAE@ID@Z",
+      "??0BfmeVNITree@@QAE@XZ",
+      "??1BfmeBaseVNH@@UAE@XZ",
+      "??3@YAXPAX@Z",
+      "??4?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z",
+      "??_GBfmeRectVNI@@UAEPAXI@Z",
+      "__EH_prolog",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__purecall"
+    ],
+    "vtable_size": 8,
+    "vtable_hex": "0000000000000000",
+    "vtable_named_relocs": [
+      [
+        0,
+        6,
+        "??_EBfmeRectVNI@@UAEPAXI@Z"
+      ],
+      [
+        4,
+        6,
+        "__purecall"
+      ]
+    ],
+    "weak": [
+      {
+        "name": "??_EBfmeRectVNI@@UAEPAXI@Z",
+        "value": 0,
+        "section": 0,
+        "storage": 105,
+        "aux": 1,
+        "type": 32
+      }
+    ],
+    "complete_dtor_definitions": [
+      {
+        "name": "??1BfmeRectVNI@@UAE@XZ",
+        "value": 0,
+        "section": 14,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      }
+    ],
+    "scalar_dtor_symbols": [
+      {
+        "name": "??_GBfmeRectVNI@@UAEPAXI@Z",
+        "value": 0,
+        "section": 0,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      },
+      {
+        "name": "??_GBfmeRectVNI@@UAEPAXI@Z",
+        "value": 0,
+        "section": 12,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      }
+    ],
+    "crt_section_names": []
+  },
+  "candidate": {
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\vni-consumer-lifetime\\objects\\42b454deed9f1c84.obj",
+    "sha256": "a96b6e984cd9d1732bb23b0c5bcf9bd56311065ad7eababe151ad70a5d85e180",
+    "directives": [
+      "/DEFAULTLIB:\"stlport_vc7.lib\" /DEFAULTLIB:\"msvcprt\" /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+    ],
+    "public_code_names": [
+      "??0BfmeRectVNI@@QAE@ID@Z",
+      "??1?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "??1BfmeRectVNI@@UAE@XZ",
+      "??_GBfmeRectVNI@@UAEPAXI@Z",
+      "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z",
+      "?self@Rva005045DBTree@@QAEAAV1@XZ"
+    ],
+    "undefined_names": [
+      "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "??0BfmeBaseVNH@@QAE@ID@Z",
+      "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "??1BfmeBaseVNH@@UAE@XZ",
+      "??3@YAXPAX@Z",
+      "??4?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z",
+      "??_GBfmeRectVNI@@UAEPAXI@Z",
+      "__EH_prolog",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__purecall"
+    ],
+    "vtable_size": 8,
+    "vtable_hex": "0000000000000000",
+    "vtable_named_relocs": [
+      [
+        0,
+        6,
+        "??_EBfmeRectVNI@@UAEPAXI@Z"
+      ],
+      [
+        4,
+        6,
+        "__purecall"
+      ]
+    ],
+    "weak": [
+      {
+        "name": "??_EBfmeRectVNI@@UAEPAXI@Z",
+        "value": 0,
+        "section": 0,
+        "storage": 105,
+        "aux": 1,
+        "type": 32
+      }
+    ],
+    "complete_dtor_definitions": [
+      {
+        "name": "??1BfmeRectVNI@@UAE@XZ",
+        "value": 0,
+        "section": 16,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      }
+    ],
+    "scalar_dtor_symbols": [
+      {
+        "name": "??_GBfmeRectVNI@@UAEPAXI@Z",
+        "value": 0,
+        "section": 0,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      },
+      {
+        "name": "??_GBfmeRectVNI@@UAEPAXI@Z",
+        "value": 0,
+        "section": 14,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      }
+    ],
+    "crt_section_names": []
+  },
+  "delta": {
+    "new_undefined": [
+      "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+    ],
+    "removed_undefined": [
+      "??0BfmeVNITree@@QAE@XZ"
+    ],
+    "vtable_unchanged": true,
+    "added_public_code_definitions": [
+      "??1?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+    ],
+    "removed_public_code_definitions": []
+  }
+}

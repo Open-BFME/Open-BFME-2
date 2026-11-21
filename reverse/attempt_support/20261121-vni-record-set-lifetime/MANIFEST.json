@@ -1,0 +1,97 @@
+{
+  "created_utc": "2026-11-21T05:34:16.695103+00:00",
+  "fresh_native_provider_map_head": "83128ee0ebf3ad633d972ca4bb9bd3c909f4d1c6",
+  "target": "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp",
+  "original_sha256": "4ddc0cc82d2b16a9e2cd401feb42326018443cdd3159593a10dcfe2a6eb0337d",
+  "candidate_artifact": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\BfmeRectVNI_ctor.cpp.txt",
+  "candidate_sha256": "e846713ec0456175e8365cfd9a9993581aa7a67addb03a612257e24f8e463a5f",
+  "line_endings": "CRLF preserved",
+  "encoding": "UTF-8 without BOM",
+  "normal_admission_order": "53 then28; no in-memory production bindings",
+  "artifacts": {
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\HANDOFF.md": {
+      "sha256": "35949371f538a3af6275b20c4e1ae227cbc8d12924fbc8713093871abb31f4dc",
+      "bytes": 7156
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\BfmeRectVNI_ctor.cpp.txt": {
+      "sha256": "e846713ec0456175e8365cfd9a9993581aa7a67addb03a612257e24f8e463a5f",
+      "bytes": 3795
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\CANDIDATE.patch": {
+      "sha256": "eaf100c9c1ee9834a88ed915428ce70cfbde1599d4480af9d8451efa66cb9027",
+      "bytes": 3626
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\PROBE.json": {
+      "sha256": "df14ee97305b90c2c4b0fd9d83cba35c292b7643d1634372fe999a05dfb702f4",
+      "bytes": 15032
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\NATIVE-FRESH.json": {
+      "sha256": "31897abacbbad27331c4ccd1ae6ceda161bc6496aa2e781e198fdf30920d6bbe",
+      "bytes": 1537
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\FOOTPRINT-AND-ADMISSIONS.json": {
+      "sha256": "d5a7dcb8104fe1ff977776def567bc79a3b69a59c18752fe1bcfee59ab74101b",
+      "bytes": 48391
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\vni-consumer-lifetime\\ROOT-ONLY-ADMISSIONS.ps1.txt": {
+      "sha256": "c531c12f72e5b670799dd946ae044fd03758dd1cba9d717b998ddb9ba7107952",
+      "bytes": 1169
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\vni-consumer-lifetime\\objects\\8b7eaea0a3e292b1.obj": {
+      "sha256": "140249569ef64f0bf3dbdb883eef40a1f4689f96c8b9e76631241716c3a1c4b2",
+      "role": "control"
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\vni-consumer-lifetime\\objects\\42b454deed9f1c84.obj": {
+      "sha256": "a96b6e984cd9d1732bb23b0c5bcf9bd56311065ad7eababe151ad70a5d85e180",
+      "role": "candidate"
+    }
+  },
+  "root_only_admissions": [
+    {
+      "name": "??1BfmeRectVNI@@UAE@XZ",
+      "rva": "0x002BAEAB",
+      "size": 53,
+      "source": "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp",
+      "icf_owner": "??1Rva003C2F40Owner@@QAE@XZ",
+      "owner_row": {
+        "name": "??1Rva003C2F40Owner@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x002BAEAB",
+        "target_size": "53",
+        "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+        "status": "matched",
+        "notes": "unlock lane EH dtor via pinned 0x002B80CE plus rowed WindModuleInfo 0x0049B47C unblocks 0x002BAE8F"
+      },
+      "notes": "Native28B record-set event lifetime; exact complete body and real callee closure; observed native vtable-slot0 deleting role; no original EA class-name or full7-slot table claim."
+    },
+    {
+      "name": "??_GBfmeRectVNI@@UAEPAXI@Z",
+      "rva": "0x002BAE8F",
+      "size": 28,
+      "source": "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp",
+      "icf_owner": "??_GRva003C2F40Owner@@QAEPAXI@Z",
+      "owner_row": {
+        "name": "??_GRva003C2F40Owner@@QAEPAXI@Z",
+        "export_rva": "",
+        "target_rva": "0x002BAE8F",
+        "target_size": "28",
+        "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+        "status": "matched",
+        "notes": "chain lane scalar deleting via anchor new-delete calls rowed dtor plus delete"
+      },
+      "notes": "Native28B record-set event lifetime; exact complete body and real callee closure; observed native vtable-slot0 deleting role; no original EA class-name or full7-slot table claim."
+    }
+  ],
+  "no_production_mutation_by_worker": true,
+  "before_link_directives": [
+    "/DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+  ],
+  "after_link_directives": [
+    "/DEFAULTLIB:\"stlport_vc7.lib\" /DEFAULTLIB:\"msvcprt\" /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+  ],
+  "actual_added_defaultlibs": [
+    "stlport_vc7.lib",
+    "msvcprt"
+  ],
+  "alias_directives_in_final_object": 0
+}
