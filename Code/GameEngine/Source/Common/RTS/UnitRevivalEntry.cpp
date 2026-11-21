@@ -71,14 +71,8 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 extern PlayerList *ThePlayerList;
 
-class Rva001EAE6FHelper
-{
-	char m_data[0x80];
-public:
-	Rva001EAE6FHelper *clear80() throw();
-	// Keep the existing clear worker while constructing this member in order.
-	__forceinline Rva001EAE6FHelper() throw() { clear80(); }
-};
+#include "../../../Include/Common/BfmeFixedStorage128.h"
+#include "../../../Include/Common/Rva001EAE6FHelper.h"
 
 #include "../../../Include/Common/Rva001EB15A.h"
 
@@ -309,7 +303,7 @@ public:
 	float m_08;
 	int m_0C;
 	int m_10;
-	Rva001EAE6FHelper m_14;
+	BfmeFixedStorage128 m_14;
 	int m_94;
 	int m_98;
 	unsigned int m_9C; // build time, from the template's float via _ftol
@@ -396,7 +390,8 @@ void UnitRevivalEntry::setThingTemplateName(const AsciiString &asciiString)
 
 UnitRevivalEntry::UnitRevivalEntry()
     : m_00(0), m_04(0), m_08(0.0f), m_0C(1), m_10(1), m_14(),
-      m_94(0), m_98(-1), m_9C(0), m_A0(false), m_A1(false),
+      m_94((reinterpret_cast<Rva001EAE6FHelper *>(&m_14)->clear80(), 0)),
+      m_98(-1), m_9C(0), m_A0(false), m_A1(false),
       m_A4(0), m_A8(0), m_AC(0), m_B0(), m_C8(0), m_CC(1.0f),
       // Retail stores m_CC before initializing the final two words.
       m_D0(), m_str()

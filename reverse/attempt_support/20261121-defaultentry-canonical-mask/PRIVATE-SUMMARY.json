@@ -1,0 +1,145 @@
+{
+  "base": "84a9b47452d67d808ebfe56c9b936a4286f02c3f",
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+  "original_sha256": "e073a913982e46b46b09d24c29d507c455ef6c2a4ef1b1d87df1edc2135ca9b9",
+  "candidate_sha256": "aedae57adf7d1ae5b9813a2a4043d16c7a7754849d9a5445aab2cb9fc81640a5",
+  "native_compile_calls": 2,
+  "strict_rows": [
+    27,
+    27
+  ],
+  "all_EH_and_DIR32": true,
+  "primary_extent": [
+    135,
+    135
+  ],
+  "primary_full_raw_code_equal": true,
+  "primary_all_three_named_relocations_equal": true,
+  "primary_original_and_both_native_no_EH": true,
+  "runtime_nodes": [
+    48,
+    48
+  ],
+  "common_runtime_nodes": 47,
+  "common_nodes_bytes_data_relocations_equal": true,
+  "common_COMDAT_selections_equal": true,
+  "exact_default_provider_change": {
+    "Control": {
+      "symbol": "??0Rva001EAE6FHelper@@QAE@XZ",
+      "extent": 12,
+      "code": {
+        "bytes": 12,
+        "sha256": "6ed687312f2be790fb06a8e06164b72c5d7bd2d6a80d3a66cad7bd7b03fb6528",
+        "hex": "568bf1e8000000008bc65ec3"
+      },
+      "section_flags": 1611665440,
+      "selections": [
+        {
+          "parent": 0,
+          "selection": 2
+        }
+      ],
+      "relocations": [
+        [
+          4,
+          "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+          20
+        ]
+      ],
+      "disassembly": [
+        {
+          "offset": 0,
+          "raw": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "offset": 1,
+          "raw": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "offset": 3,
+          "raw": "e800000000",
+          "mnemonic": "call",
+          "operands": "8"
+        },
+        {
+          "offset": 8,
+          "raw": "8bc6",
+          "mnemonic": "mov",
+          "operands": "eax, esi"
+        },
+        {
+          "offset": 10,
+          "raw": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "offset": 11,
+          "raw": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ],
+      "runtime_incoming": [],
+      "no_same_object_runtime_incoming": true,
+      "limit": "Only same-object incoming references; no claim of global unreferencedness or selected link provider."
+    },
+    "Candidate": {
+      "symbol": "??0BfmeFixedStorage128@@QAE@XZ",
+      "extent": 3,
+      "code": {
+        "bytes": 3,
+        "sha256": "58367ffa2a0179375018fa0f5c26da24391e42ebe0ed8fdda35a21fc7bdc396f",
+        "hex": "8bc1c3"
+      },
+      "section_flags": 1611665440,
+      "selections": [
+        {
+          "parent": 0,
+          "selection": 2
+        }
+      ],
+      "relocations": [],
+      "disassembly": [
+        {
+          "offset": 0,
+          "raw": "8bc1",
+          "mnemonic": "mov",
+          "operands": "eax, ecx"
+        },
+        {
+          "offset": 2,
+          "raw": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ],
+      "runtime_incoming": [],
+      "no_same_object_runtime_incoming": true,
+      "limit": "Only same-object incoming references; no claim of global unreferencedness or selected link provider."
+    }
+  },
+  "external_definitions_equal": false,
+  "weak_equal": true,
+  "undefined_equal": true,
+  "CRT_equal": true,
+  "SafeSEH": [
+    1,
+    1
+  ],
+  "debug_metadata_equal": false,
+  "whole_runtime_graph_equal": false,
+  "all_production_inputs_unchanged": true,
+  "aux_tree_clean": true,
+  "original_three_tasks_credit": 0,
+  "new_bodies": 0,
+  "new_bytes": 0,
+  "PC_stays_on": true,
+  "normal_source_build_and_source_link_admission": "NOT RUN; root-only remaining checks",
+  "claim_snapshot": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\claims-defaultrecord19.json",
+  "claim_sha256": "c6ca7174b76f6c11919ff75efff0fcdfa6fe00d1540c1e10502116069b41aef1"
+}
