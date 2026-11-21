@@ -81,8 +81,6 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
-// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
-// its own views, so it takes only the header's constant (LINK-236).
 #include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Drawable
 {
@@ -116,7 +114,6 @@ public:
 #include "../../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
-// The rowed setter that stamps an audio event with its owning object.
 #include "../../../../Include/GameLogic/Module/Rva002D9531.h"
 // The rowed two-bit mask builder (0x001E4912) behind the pack conditions.
 class Rva001E4912
@@ -388,8 +385,6 @@ public:
 };
 // Same signed frame-count datum defined by Rva007ABC6FFrameRateInits.
 extern int g_00E033D0;
-// The rowed special-power-module lookup (0x0044E633), taking the update as
-// this.
 #include "../../../../Include/Common/Rva0044E633.h"
 // SpecialAbilityUpdate::rva00450AE9, retail 0x00450AE9 (689 bytes): the
 // approach step. A target that has not moved 5 units in two seconds of
@@ -520,21 +515,30 @@ protected:
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../../Include/GameLogic/AIPathfind.h"
 #include "../../../../Include/GameLogic/AI.h"
+#include "../../../../Include/Common/ScalarTypes.h"
+class Rva0044EDA6ModuleData;
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+#include "../../../../Include/Common/Rva0044E7A8.h"
+#pragma comment(linker, "/alternatename:??1Rva00451F45@@UAE@XZ=??1SpecialAbilityUpdate@@UAE@XZ")
+
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> _List_base<int, allocator<int> >::_List_base(const allocator<int> &);
 }
+
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> void _List_base<int, allocator<int> >::clear();
 }
+
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> _List_base<int, allocator<int> >::~_List_base();
 }
+
 // list<int> destruction otherwise instantiates per-TU deallocate
 // COMDATs (one byte shape per TU flags); explicit dllimport+forceinline
 // specializations take those calls inline so this TU emits no external copy.
@@ -549,69 +553,15 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
   allocator<_List_node<int> >().deallocate(__p, __n);
 }
 }
+
 class Thing;
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
 extern AI *TheAI;
-
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-	friend class Rva0044EF5E;	// its destructor twin runs onExit
-protected:
-	virtual void onExit(bool cleanup, bool b); // +0x34
-public:
-	SpecialPowerType getSpecialPowerType() const;
-	virtual bool rva00450AE9();
-	bool rva0044E85E(Coord3D *pos, float range);
-protected:
-	virtual bool handlePackingProcessing();
-public:
-	void rva0044EE07();
-	void rva0044EE80();
-	void killSpecialObjects();
-	virtual void v14();
-	virtual void startPreparation();
-	virtual void startPacking(bool success);
-protected:
-public:
-	Object *rva0044FEB6();
-protected:
-	bool initLaser(Object *specialObject, Object *target);
-public:
-	virtual void startUnpacking();
-	virtual void finishAbility();
-protected:
-	void endPreparation();
-private:
-	int m_24; // +0x24
-	unsigned int m_animFrames; // +0x28
-	unsigned char m_pad2C[0x30 - 0x2C];
-	int m_packingState; // +0x30
-	AudioHandle m_34; // +0x34
-	AudioHandle m_38; // +0x38
-	unsigned int m_prepFrames; // +0x3C
-	ObjectID m_targetID; // +0x40
-	Coord3D m_targetPos; // +0x44
-	Coord3D m_50; // +0x50
-	unsigned char m_pad5C[0x6C - 0x5C];
-	unsigned int m_6C; // +0x6C flag word (bit 18: command button argument)
-	unsigned char m_pad70[0x74 - 0x70];
-	bool m_active; // +0x74
-	unsigned char m_pad75[0x78 - 0x75];
-	unsigned int m_78; // +0x78
-	bool m_7C; // +0x7C
-	unsigned char m_pad7D[0x80 - 0x7D];
-	bool m_withinStartAbilityRange; // +0x80
-	bool m_81;
-	bool m_82; // +0x82
-	bool m_83; // +0x83
-	unsigned int m_84; // +0x84
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
 
 class Rva0044EAF3
 {
@@ -711,6 +661,57 @@ public:
 	// receiver converted to the +0x20 interface (the null-preserving cast retail folds).
 	virtual void *slot25();
 };
+
+class Rva0044EDA6Virt
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	virtual unsigned int s28();
+	virtual void s29(); virtual void s30(); virtual void s31(); virtual void s32();
+	virtual void s33(); virtual void s34(); virtual void s35(); virtual void s36();
+	virtual void s37(); virtual void s38(); virtual void s39(); virtual void s40();
+	virtual void s41(); virtual void s42(); virtual void s43(); virtual void s44();
+	virtual void s45(); virtual void s46(); virtual void s47(); virtual void s48();
+	virtual void s49(); virtual void s50(); virtual void s51(); virtual void s52();
+	virtual void s53(); virtual void s54(); virtual void s55(); virtual void s56();
+	virtual void s57(); virtual void s58(); virtual void s59(); virtual void s60();
+	virtual void s61(); virtual void s62(); virtual void s63(); virtual void s64();
+	virtual void s65(); virtual void s66(); virtual void s67(); virtual void s68();
+	virtual unsigned int s69(int v);
+};
+
+struct Rva0044EDA6Outer
+{
+	char m_pad00[0x38];
+	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x38
+};
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+// The +0x20 interface's slots 6 and 7 are bodies retail folded across SpecialAbilityUpdate's
+// subclasses (rows 0x0044EECA and 0x0044F09F own them).
+struct Rva0044F09FData
+{
+	char m_pad00[0x38];
+	int m_38; // +0x38
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp
+
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+
+// The rowed setter that stamps an audio event with its owning object.
+
+// The rowed special-power-module lookup (0x0044E633), taking the update as
+// this.
 
 void *Rva0044EF5E::slot25()
 {
@@ -1556,16 +1557,6 @@ void Rva00451EAC::rva00451EAC()
 		ai->aiFacePosition(&m_coord, 2);
 }
 
-// tu-skeleton: 0x0044EB54 378B ??0SpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateModuleData.cpp (not merged yet)
-
-// tu-skeleton: 0x0044ECCE 199B ??1Rva0044ECCE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0044ED95 17B ?buildFieldParse@SpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
-// tu-skeleton: 0x0044EDA6 97B ?vslot08@SpecialAbilityUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp (not merged yet)
-
-// tu-skeleton: 0x0044EF42 28B ??_GRva0044ECCE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EF5EFinish.cpp
 
 // ??0Rva0044EF5E@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -1620,6 +1611,73 @@ Rva0044EF5E::Rva0044EF5E(Thing *thing, const ModuleData *moduleData)
 	setWakeFrame((Object *)m_object, UPDATE_SLEEP_FOREVER);
 }
 
+// tu-skeleton: 0x0044EB54 378B ??0SpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateModuleData.cpp (not merged yet)
+
+// tu-skeleton: 0x0044ECCE 199B ??1Rva0044ECCE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0044ED95 17B ?buildFieldParse@SpecialAbilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp
+
+//
+// SpecialAbilityUpdate base slot 8 of the +0x20 interface table (retail
+// 0x0044EDA6, 97 bytes; the teleport, give-upgrade, weapon-fire and
+// toggle-deploy subclasses call it from their own slot-8 overrides, rowed
+// elsewhere). With a module data and a passing 0x0044E7A8 kind check, the
+// final override of the module data's +0x38 entry decides: values other than
+// 0x28/0x27 accept; those two additionally compare two object-interface
+// counts (+0x250 interface slots 69 and 28). The redundant m_moduleData
+// self-compare around the body (tautology carrier, zero bytes) keeps the
+// native block layout of the early null returns.
+
+Bool SpecialAbilityUpdate::vslot08(int targetPos)
+{
+if ((m_moduleData != 0 || m_moduleData == 0)) {
+ const Rva0044EDA6Outer *data=(const Rva0044EDA6Outer *)m_moduleData;
+ if (!data || !((Rva0044E7A8 *)this)->rva0044E7A8(targetPos)) return false;
+ int value=data->m_specialPowerTemplate->getFO()->m_type;
+ if(value!=0x28 && value!=0x27) {_ReadWriteBarrier(); return true;}
+ Rva0044EDA6Virt *virt=*(Rva0044EDA6Virt **)((char *)m_object+0x250);
+ if(!virt)return false;
+ unsigned containCount=virt->s69(0);unsigned m_containMax=virt->s28();
+ if(containCount>=m_containMax)return false;
+ _ReadWriteBarrier(); return true;
+}
+}
+
+Bool SpecialAbilityUpdate::vslot07(int value)
+{
+	return value == ((const Rva0044F09FData *)m_moduleData)->m_38;
+}
+
+Bool SpecialAbilityUpdate::isPowerCurrentlyInUse(const CommandButton *command) const
+{
+	const Rva0044EECAParam *p = (const Rva0044EECAParam *)command;
+	if (p != 0) {
+		const SpecialPowerTemplate *overridable = p->m_over44;
+		if (overridable != 0) {
+			const SpecialPowerTemplate *f = overridable->getFO();
+			if (f->m_type == 0x16 && (p->m_flags1D & 2) == 0)
+				return m_68 == 0;
+		}
+	}
+	int v = m_packingState;
+	if (v != 0) {
+		if (v == 1 || v == 3) {
+			if (p != 0) {
+				const SpecialPowerTemplate *f2 = p->m_over44->getFO();
+				if (f2->m_reloadTime == 0)
+					return false;
+			}
+		}
+		if (m_withinStartAbilityRange != 0)
+			return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x0044EF42 28B ??_GRva0044ECCE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0044F099 6B ?name@Rva0044F099Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0044F09F 20B ?rva0044F09F@Rva0044F09F@@UAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
@@ -1652,11 +1710,32 @@ Rva0044EF5E::Rva0044EF5E(Thing *thing, const ModuleData *moduleData)
 
 // tu-skeleton: 0x0045108D 2821B ?triggerAbilityEffect@SpecialAbilityUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp (not merged yet)
 
-// tu-skeleton: 0x00451F45 93B ??1SpecialAbilityUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp
+
+//
+// ??1SpecialAbilityUpdate@@UAE@XZ, retail 0x00451F45, 93 bytes.
+// Target evidence: the audited scalar deleting dtor 0x004522F0 (class-name
+// string "SpecialAbilityUpdate" via slot 4) calls this body; derived module
+// dtors (MissileLauncherBuildingUpdate 0x004CD9C0 and others) call it at the
+// base position. Body: compiler vptr restores (+0 +0x0C +0x10 +0x20), a
+// thiscall (1, 1) to 0x004502CE, destruction of the list<int> at +0x64
+// (0x004EC395), then the base dtor 0x0024A797 (UpdateModule).
+// Donor-carried: the BFME1 SpecialAbilityUpdateDestructor.cpp body
+// `onExit(true, true)` supplies the callee name; the BFME1 layout (inline
+// UpdateModule, AudioEventRTS member) does not apply here.
+
+SpecialAbilityUpdate::~SpecialAbilityUpdate()
+{
+	SpecialAbilityUpdate::onExit(true, true);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// The rowed constructor and its derived callers use this opaque base spelling.
+// Native calls and the shared vtable identify the same complete destructor.
 
 // tu-skeleton: 0x00451FA2 846B ?update@SpecialAbilityUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateRun.cpp (not merged yet)
-
-// tu-skeleton: 0x004522F0 28B ??_GSpecialAbilityUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00789A4F 8B $L1342 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateModuleData.cpp (not merged yet)
 
@@ -1713,9 +1792,3 @@ Rva0044EF5E::Rva0044EF5E(Thing *thing, const ModuleData *moduleData)
 // tu-skeleton: 0x00789BDA 13B $L3661 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp (not merged yet)
 
 // tu-skeleton: 0x00789BE7 10B __ehhandler$?triggerAbilityEffect@SpecialAbilityUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp (not merged yet)
-
-// tu-skeleton: 0x00789C0E 8B $L3628 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00789C16 11B $L3629 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00789C21 10B __ehhandler$??1SpecialAbilityUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp (not merged yet)

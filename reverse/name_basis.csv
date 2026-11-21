@@ -880,7 +880,7 @@ param,Rva003743CF::rva003743CF::p,Rva003743CF::rva003743CF::statusType,inferred,
 param,Rva003743CF::rva003743CF::b,Rva003743CF::rva003743CF::set,inferred,agree:nl-487efa1b6dad,Code/GameEngine/Source/GameLogic/Object/Update/Rva003743CFBehavior.cpp,0x003743CF
 member,Rva0049D526Node::m_48,Rva0049D526Node::m_next,inferred,agree:nl-8aecec2f0f68,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D526.cpp,
 member,Rva0049D526Node::m_4C,Rva0049D526Node::m_prev,inferred,agree:nl-a5e7ad35a669,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D526.cpp,
-member,Rva0044EDA6Outer::m_over38,Rva0044EDA6Outer::m_specialPowerTemplate,inferred,agree:nl-cc67f2f226f2,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp,
+member,Rva0044EDA6Outer::m_over38,Rva0044EDA6Outer::m_specialPowerTemplate,inferred,agree:nl-cc67f2f226f2,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp,
 local,Rva002EBD99::n,Rva002EBD99::node,inferred,agree:nl-8e03ca6f92a8,Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderTintHierarchy.cpp,0x002EBD99
 class,Rva002EBD99List,ContainedObjectList,inferred,agree:nl-e8a8439d5c04,Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderTintHierarchy.cpp,
 local,ScriptActions::doTeamFollowWaypointsExact::n,ScriptActions::doTeamFollowWaypointsExact::memberCount,inferred,agree:nl-11c813d0be64,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003BF5FE.cpp,0x003BF5FE
@@ -2506,7 +2506,7 @@ class,Rva0030C2CECollection,RiverAreaSet,inferred,agree:nl-79a7da074f85,Code/Gam
 carry,Rva0030C2CECollection::m_begin,RiverAreaSet::m_begin,inferred,scope renamed by Rename Rva0030C2CECollection to RiverAreaSet (inferred),Code/GameEngine/Source/GameLogic/Map/RiverAreasDataChunkParserSave.cpp,
 carry,Rva0030C2CECollection::m_end,RiverAreaSet::m_end,inferred,scope renamed by Rename Rva0030C2CECollection to RiverAreaSet (inferred),Code/GameEngine/Source/GameLogic/Map/RiverAreasDataChunkParserSave.cpp,
 carry,?saveRiverAreas@@YAXPAVRva0030C2CECollection@@PAVDataChunkOutput@@@Z,?saveRiverAreas@@YAXPAVRiverAreaSet@@PAVDataChunkOutput@@@Z,inferred,scope renamed by Rename Rva0030C2CECollection to RiverAreaSet (inferred),Code/GameEngine/Source/GameLogic/Map/RiverAreasDataChunkParserSave.cpp,0x0030C2CE
-param,SpecialAbilityUpdate::rva0044EDA6::arg,SpecialAbilityUpdate::rva0044EDA6::targetPos,inferred,agree:nl-2ed5cbd3121a,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp,0x0044EDA6
+param,SpecialAbilityUpdate::rva0044EDA6::arg,SpecialAbilityUpdate::rva0044EDA6::targetPos,inferred,agree:nl-2ed5cbd3121a,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp,0x0044EDA6
 param,Rva00136794::Rva00136794::v3,Rva00136794::Rva00136794::excludedSubObjects,inferred,agree:nl-90878bc4ed36,Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp,0x00136794
 class,Rva004E52DCNode,TerrainClaimNode,inferred,agree:nl-ddb697a1f686,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,
 class,Rva005E4E1BNode,ArmyIconMapNode,inferred,agree:nl-a53f1dd8e5af,Code/GameEngine/Source/Common/Rva005E4E1BIter.cpp,
@@ -2533,7 +2533,7 @@ local,Rva001F5496::rva001F5496::v,Rva001F5496::rva001F5496::m_slaveSystemID,infe
 local,Rva001F5496::rva001F5496::p,Rva001F5496::rva001F5496::m_slaveSystem,inferred,agree:nl-b0384f0dad2c,Code/GameEngine/Source/Common/Rva001F5496.cpp,0x001F5496
 param,Rva005F4C8ERef::p,Rva005F4C8ERef::pointer,inferred,agree:nl-10701ed01f20,Code/GameEngine/Source/Common/Rva005F4C8EFactory.cpp,
 param,Rva00509DF8::rva00509DF8::b,Rva00509DF8::rva00509DF8::m_targetObject,inferred,agree:nl-aea7080f560a,Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp,0x00509DF8
-local,SpecialAbilityUpdate::rva0044EDA6::b,SpecialAbilityUpdate::rva0044EDA6::m_containMax,inferred,agree:nl-2342fbb249c3,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp,0x0044EDA6
+local,SpecialAbilityUpdate::rva0044EDA6::b,SpecialAbilityUpdate::rva0044EDA6::m_containMax,inferred,agree:nl-2342fbb249c3,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp,0x0044EDA6
 param,famgenDelete#3::p,famgenDelete#3::autoResolveBattle,inferred,agree:nl-c9580739eead,Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp,
 param,famgenDelete#5::p,famgenDelete#5::helpBox,inferred,agree:nl-d99d4baf0ac4,Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp,
 param,famgenDelete#6::p,famgenDelete#6::planningModeUI,inferred,agree:nl-223c6744bf4f,Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp,
@@ -2794,7 +2794,7 @@ member,Rva0055F4CE::m_1C,Rva0055F4CE::m_angleZ,inferred,agree:nl-e32c934c4931,Co
 member,Rva0055F4CE::m_2C,Rva0055F4CE::m_angleXY,inferred,agree:nl-0a1765b4deb5,Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp,
 member,Record52::player30,Record52::m_playerID,inferred,agree:nl-ce5ff3a46515,Code/GameEngine/Source/GameClient/GUI/StrategicVeterancyAutoResolveCtor.cpp,
 local,StrategicVeterancy::Data::AutoResolve::AutoResolve::e,StrategicVeterancy::Data::AutoResolve::AutoResolve::unitIter,inferred,agree:nl-638e215e0bf0,Code/GameEngine/Source/GameClient/GUI/StrategicVeterancyAutoResolveCtor.cpp,0x005ECE81
-local,SpecialAbilityUpdate::rva0044EDA6::a,SpecialAbilityUpdate::rva0044EDA6::containCount,inferred,agree:nl-c90b8301c5ed,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp,0x0044EDA6
+local,SpecialAbilityUpdate::rva0044EDA6::a,SpecialAbilityUpdate::rva0044EDA6::containCount,inferred,agree:nl-c90b8301c5ed,Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp,0x0044EDA6
 class,BfmeBVJP,Transactor,inferred,agree:nl-6c5370549f54,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJP.cpp,
 function,?bfmeAssignVGO@BfmeRefVGO@@QAEAAV1@ABV1@@Z,?assign@BfmeRefVGO@@QAEAAV1@ABV1@@Z,inferred,agree:nl-caf779d6c46d,Code/GameEngine/Source/Common/BfmeConv1355.cpp,0x006CDB10
 class,Rva0010F42A,SetStreamPlaybackRateCommand,inferred,agree:nl-92898098d330,Code/GameEngine/Source/Common/Rva0010F42AFinish.cpp,

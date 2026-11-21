@@ -2376,7 +2376,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva00262176Activity
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/Rva004382FCWrapper.cpp	??0BfmePod196@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdateFriendNew.cpp	??0ScaleWallSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdateModuleDataFriendNew.cpp	_vtbl_00BF3740	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp	??1Rva00451F45@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp	??1Rva00451F45@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/StanceTemplateUpdateModuleDataFriendNew.cpp	??0StancesBehaviorModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdate.cpp	??0TeleportSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateCtor.cpp	_vtbl_00C40818	1

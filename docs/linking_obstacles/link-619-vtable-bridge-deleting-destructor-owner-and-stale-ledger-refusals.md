@@ -1094,3 +1094,10 @@ Survey with counts, per-table bodies and remedies:
 - Blocked on this pass (`re_attempts.log`): `_vtbl_00BD4688` and `_vtbl_00BC6F20`. A unit whose own view
   declares the class polymorphic cannot name that class's table through an extern (C2373). The other 19
   need the class behind the table or a rename; the survey lists them by reach.
+
+**2026-11-21, Team secondary table.** Four direct Team slot owners and the
+shared ObjectID membership type passed verification. A 17-slot constructor
+diagnostic preserved every existing row and its EH graph. Seven slots bind
+to their retail rows. Nine inherited symbols, the Coord3D return class key
+for getLocation and the shared lifetime remain open. The diagnostic was
+restored. [Team table evidence](../../reverse/attempt_support/team-secondary-20261121.md).

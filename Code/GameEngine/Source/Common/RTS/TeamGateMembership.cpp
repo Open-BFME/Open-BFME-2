@@ -86,8 +86,8 @@ public:
 
 void Team::rva003A23A5(int id, bool add)
 {
-	// The header's opaque +0x130 member, a set of ObjectIDs.
-	_STL::set<int> &members = *(_STL::set<int> *)m_opaque130;
+	// The set operations use the existing STLport view of the membership tree.
+	_STL::set<int> &members = *(_STL::set<int> *)&m_opaque130;
 	_STL::set<int>::iterator it = members.find(id);
 	if (add == (it != members.end()))
 		return;

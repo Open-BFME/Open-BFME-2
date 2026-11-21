@@ -195,6 +195,6 @@ void Team::xfer(Xfer *xfer)
 	*xfer == *(TeamRelationMap *)m_playerRelations;
 	*xfer == m_120;
 	*xfer == *(unsigned int *)&m_124;
-	Rva002F1CDDXfer(xfer, (_STL::set<int, _STL::less<int>, _STL::allocator<int> > *)m_opaque130);
+	Rva002F1CDDXfer(xfer, (_STL::set<int, _STL::less<int>, _STL::allocator<int> > *)&m_opaque130);
 	*xfer == m_128;
 }

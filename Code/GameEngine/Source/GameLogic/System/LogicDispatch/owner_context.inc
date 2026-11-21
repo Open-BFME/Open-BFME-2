@@ -600,7 +600,7 @@ class LogicDispatchActionManagerView { public:
 class Rva00377064 { public: void rva00377064(int,int,int); };
 class Rva002B254F { public: int rva002B254F(); };
 class Rva002BED10 { public: void rva002BED10(); };
-class Rva0023D2D8DwordClearer { public: void clear(); };
+#include "../../../../Include/Common/Rva0023D2D8DwordClearer.h"
 class Rva0023D26F { public: void rva0023D26F(bool); };
 class CopyProtect { public: static bool isVerified(); };
 struct LogicDispatchUi174 { char pad[0x174]; bool flag; };

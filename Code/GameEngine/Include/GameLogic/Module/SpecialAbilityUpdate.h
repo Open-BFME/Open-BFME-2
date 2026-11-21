@@ -60,6 +60,8 @@ enum ObjectID;
 
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
+    friend class Rva0044EF5E; // Its matched destructor twin calls onExit.
+
 public:
     SpecialAbilityUpdate(Thing *, const ModuleData *);
     virtual ~SpecialAbilityUpdate();
