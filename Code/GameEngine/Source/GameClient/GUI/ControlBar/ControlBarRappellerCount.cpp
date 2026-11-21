@@ -241,12 +241,7 @@ class Rva0028B7C1DwordField { public: Int get() const; };
 #include "../../../../Include/Common/Rva002A7DDE.h"
 #include "../../../../Include/GameClient/BfmeThingRV.h"
 
-class BfmeFixedStorage0004543D {
-public:
-	BfmeFixedStorage0004543D() { memset(m_bits, 0, sizeof(m_bits)); }
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &that);
-	UnsignedInt m_bits[7];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 struct CommandCastleKindFilter { BfmeFixedStorage0004543D mask; Bool matched; };
 Int __cdecl Rva0053B946(class Object *object, CommandCastleKindFilter *filter);
 void __cdecl Rva0053BA4D(class Object *object, void *userData);

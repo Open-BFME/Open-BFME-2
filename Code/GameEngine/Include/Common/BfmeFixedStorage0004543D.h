@@ -6,9 +6,12 @@
 #ifndef BFME2_BFMEFIXEDSTORAGE0004543D_H
 #define BFME2_BFMEFIXEDSTORAGE0004543D_H
 
+#include <string.h>
+
 class BfmeFixedStorage0004543D
 {
 public:
+    BfmeFixedStorage0004543D() { memset(m_bytes, 0, sizeof(m_bytes)); }
     BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
     BfmeFixedStorage0004543D(int unused, int bit);
 
