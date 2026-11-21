@@ -99,6 +99,7 @@ public:
 	virtual GhostObject *getNext() = 0;
 
 protected:
+	virtual const char *GetSnapshotName( void ) const;
 	virtual void xfer( Xfer *xfer );
 
 	Object *m_parentObject;																			///< 0x0C
@@ -282,4 +283,7 @@ void GhostObject::xfer(Xfer *xfer)
 	*xfer == asBase(m_parentPosition);
 }
 
-// tu-skeleton: 0x00305B30 6B ?name@GhostObject@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
+const char *GhostObject::GetSnapshotName( void ) const
+{
+	return "GhostObject";
+}

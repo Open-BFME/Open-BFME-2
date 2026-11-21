@@ -9,35 +9,36 @@
 // The erase itself is the move-down: copy the tail over the hole unless the
 // hole is the last element, then step the finish pointer back by one.
 
-#include <string.h>
+class ObjectTypes;
 
-class BfmeVecAG
+namespace _STL
+{
+template <class _Tp>
+class allocator
+{
+};
+
+template <class _Tp, class _Alloc = allocator<_Tp> >
+class vector
 {
 public:
-	void bfmeErase(int *position)
+	_Tp *erase(_Tp *__position);
+
+	_Tp *begin(void) const
 	{
-		int *next = position + 1;
-
-		if (m_bfmeFinish != next)
-			memmove(position, next, (char *)m_bfmeFinish - (char *)next);
-
-		--m_bfmeFinish;
+		return m_start;
 	}
 
-	int *bfmeBegin(void) const
+	_Tp *end(void) const
 	{
-		return m_bfmeStart;
+		return m_finish;
 	}
 
-	int *bfmeEnd(void) const
-	{
-		return m_bfmeFinish;
-	}
-
-	int *m_bfmeStart;					// +0x00
-	int *m_bfmeFinish;					// +0x04
-	int *m_bfmeEnd;						// +0x08
+	_Tp *m_start;						// +0x00
+	_Tp *m_finish;						// +0x04
+	_Tp *m_end;						// +0x08
 };
+}
 
 class Gen_0039BE00
 {
@@ -46,20 +47,20 @@ public:
 
 private:
 	int m_bfmeHead[2];					// +0x00
-	BfmeVecAG m_bfmeVector;					// +0x08
+	_STL::vector<ObjectTypes *> m_bfmeVector;		// +0x08
 };
 
 // ?bfmeRemove@Gen_0039BE00@@QAEXH@Z
 void Gen_0039BE00::bfmeRemove(int value)
 {
-	int *it = m_bfmeVector.bfmeBegin();
-	int *last = m_bfmeVector.bfmeEnd();
+	ObjectTypes **it = m_bfmeVector.begin();
+	ObjectTypes **last = m_bfmeVector.end();
 
 	while (it != last)
 	{
-		if (*it == value)
+		if ((int)*it == value)
 		{
-			m_bfmeVector.bfmeErase(it);
+			m_bfmeVector.erase(it);
 
 			return;
 		}

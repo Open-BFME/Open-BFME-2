@@ -180,48 +180,7 @@ struct BuffRenderSlots {
 
 struct BuffInfoView { unsigned char unknown[8]; AsciiString name; bool flag; };
 
-struct BuffTypeView { RenderObjClass *render; AsciiString name; bool flag; };
-
-struct BuffInfoView;
-
-class MeshClass;
-
-class RenderInfoClass;
-
-class DX8IndexBufferClass;
-
-namespace { class BuffVertexBufferView; }
-
-class TBuff;
-
-typedef _STL::set<TBuff *> TBuffSet;
-
-class W3DBuffBuffer
-{
-public:
-    enum
-    {
-        MAX_BUFF_VERTEX = 30000,
-        MAX_BUFF_INDEX = 60000
-    };
-    TBuff *addBuff(Drawable *, const BuffInfoView *);
-    int addBuffType(const AsciiString &, const BuffInfoView *);
-    void allocateBuffBuffers();
-    void rva000D2301(MeshClass *mesh, RenderObjClass *target, int type, TBuffSet::iterator *it);
-    void rva000D28FA(RenderInfoClass &rinfo, bool flag);
-
-private:
-    BuffVertexBufferView *m_vertexBuffer;
-    DX8IndexBufferClass *m_indexBuffer;
-    int m_curNumBuffVertices;
-    int m_curNumBuffIndices;
-    int m_vertexOffset;
-    int m_indexOffset;
-    BuffTypeView types[10];
-    int count;
-    TBuffSet buffs[10];
-    bool enabled;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DBuffBuffer.h"
 
 struct Rva000D3945Head
 {
@@ -279,15 +238,7 @@ private:
 
 #include "../../../../GameEngine/Include/Common/TriIndex.h"
 
-struct VertexFormatXYZDUV1
-{
-	float x;
-	float y;
-	float z;
-	unsigned int diffuse;
-	float u;
-	float v;
-};
+#include "../../../../GameEngine/Include/Common/VertexFormatXYZDUV1.h"
 
 struct IDirect3DVertexBuffer8
 {
@@ -362,25 +313,9 @@ private:
 	T *Array;
 };
 
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	~StringClass() { Free_String(); }
-private:
-	char *m_Buffer;
-	void Free_String();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/wwstring.h"
 
-class WW3D
-{
-public:
-	static bool Is_Snapshot_Activated() { return SnapshotActivated; }
-	static bool Is_Currently_Rendering_Shadow_Map() { return IsCurrentlyRenderingShadowMap; }
-private:
-	static bool SnapshotActivated;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
@@ -460,7 +395,7 @@ public:
 	static __forceinline void Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
 	{
 		if (RenderStates[state] == value) return;
-		if (WW3D::Is_Snapshot_Activated()) {
+		if (WW3D::SnapshotActivated) {
 			StringClass value_name(0, true);
 			Get_DX8_Render_State_Value_Name(value_name, state, value);
 		}
@@ -474,7 +409,7 @@ public:
 	static __declspec(dllimport) __forceinline void Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value)
 	{
 		if (TextureStageStates[stage][state] == value) return;
-		if (WW3D::Is_Snapshot_Activated()) {
+		if (WW3D::SnapshotActivated) {
 			StringClass value_name(0, true);
 			Get_DX8_Texture_Stage_State_Value_Name(value_name, state, value);
 		}
@@ -590,15 +525,7 @@ public:
 	virtual void Apply(int uv_array_index);
 };
 
-class VertexMaterialClass
-{
-public:
-	void Get_Emissive(Vector3 *set) const;
-	TextureMapperClass *Peek_Mapper(int stage) const { return Mapper[stage]; }
-private:
-	char m_pad00[0x20];
-	TextureMapperClass *Mapper[2];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 class MeshMatDescClass
 {
@@ -754,11 +681,7 @@ class CameraClass : public RenderObjClass
 {
 };
 
-class RenderInfoClass
-{
-public:
-	CameraClass &Camera;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 #include "../../../../GameEngine/Include/Common/Player.h"
 
@@ -1017,16 +940,16 @@ void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int typ
 
 	int numBuffVertices = buffs.size() * numVertices;
 	int vertexEnd = m_vertexOffset + numBuffVertices + 2;
-	int vertexSize = m_vertexBuffer->FVF_Info().Get_FVF_Size();
+	int vertexSize = static_cast<BuffVertexBufferView *>(m_vertexBuffer)->FVF_Info().Get_FVF_Size();
 	unsigned char *vertexData;
 	if (vertexEnd >= MAX_BUFF_VERTEX)
 	{
 		m_vertexOffset = 0;
-		m_vertexBuffer->Get_DX8_Vertex_Buffer()->Lock(0, numBuffVertices * vertexSize, &vertexData, 0x2000);
+		static_cast<BuffVertexBufferView *>(m_vertexBuffer)->Get_DX8_Vertex_Buffer()->Lock(0, numBuffVertices * vertexSize, &vertexData, 0x2000);
 	}
 	else
 	{
-		m_vertexBuffer->Get_DX8_Vertex_Buffer()->Lock(m_vertexOffset * vertexSize, numBuffVertices * vertexSize, &vertexData, 0x1000);
+		static_cast<BuffVertexBufferView *>(m_vertexBuffer)->Get_DX8_Vertex_Buffer()->Lock(m_vertexOffset * vertexSize, numBuffVertices * vertexSize, &vertexData, 0x1000);
 	}
 
 	int numBuffIndices = buffs.size() * numPolys * 3;
@@ -1099,8 +1022,8 @@ void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int typ
 
 			for (int i = 0; i < numVertices; i++)
 			{
-				vb->u = uvs[i].X;
-				vb->v = uvs[i].Y;
+				vb->u1 = uvs[i].X;
+				vb->v1 = uvs[i].Y;
 				BuffVertexValue vertex = vertices[i];
 				BuffVertexValue world = vertex;
 				world *= scale;
@@ -1144,7 +1067,7 @@ void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int typ
 		}
 		buff->UpdateFade();
 	}
-	m_vertexBuffer->Get_DX8_Vertex_Buffer()->Unlock();
+	static_cast<BuffVertexBufferView *>(m_vertexBuffer)->Get_DX8_Vertex_Buffer()->Unlock();
 	m_indexBuffer->Get_DX8_Index_Buffer()->Unlock();
 }
 
@@ -1217,7 +1140,7 @@ void W3DBuffBuffer::rva000D28FA(RenderInfoClass &rinfo, bool flag)
 						DX8Wrapper::Set_DX8_Sampler_State(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 						DX8Wrapper::Set_DX8_Sampler_State(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 					}
-					TextureMapperClass *mapper = material->Peek_Mapper(0);
+					TextureMapperClass *mapper = material->Mapper[0];
 					if (mapper && mapper->slot04()) {
 						mapper->Apply(0);
 					} else {
@@ -1242,7 +1165,7 @@ void W3DBuffBuffer::rva000D28FA(RenderInfoClass &rinfo, bool flag)
 						DX8Wrapper::Set_DX8_Sampler_State(1, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 						DX8Wrapper::Set_DX8_Sampler_State(1, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 					}
-					TextureMapperClass *mapper = material->Peek_Mapper(1);
+					TextureMapperClass *mapper = material->Mapper[1];
 					if (mapper && mapper->slot04()) {
 						mapper->Apply(0);
 					} else {

@@ -1,0 +1,9 @@
+# Strategic HUD translation-unit evidence
+
+A fresh in-memory rebuild on a5e2f438d82 left all 35 queue rows in 16 sources without a TU. One row was displaced, and the other 34 had no confidence. The structural evidence report found no signal for the selected run at 0x005F5EA6 through 0x005F6DB0.
+
+The lower neighbor at 0x005F5DEE has a provisional name-derived assignment to GameClient/StrategicInGameUI.cpp. The upper neighbor at 0x005F8C48 has a proposal under GameClient/LivingWorld/InGameUI/StrategicInGameUI.cpp. Neither qualifies as an independent retail text bracket. The current retail string xrefs report no C or C++ source paths in the run, and a direct check found no references into embedded source paths from the interval.
+
+The existing WorldBuilder archive points HeroArmyDetails rows at 0x005F618E, 0x005F61E4, 0x005F6220, 0x005F6287, 0x005F632A and 0x005F6439 to StrategicHUDHeroArmyDetailsMovieClip.cpp. It records a separate BuildQueueDetails donor path including 0x005F6BD4 and 0x005F6DB0. The game rows for the two format helpers carry the namespace-qualified name StrategicHUD, which produces a different name hint. The lower constructor and destructor share a class and vtable proven by 09fab621628. Their corresponding WorldBuilder leads supply no source path. The upper HeroArmy constructor twin also has no file annotation. Retail 0x005F68FE folds a BuildQueue callback with BattlePrompt OnClicked, whose WorldBuilder source is separate.
+
+The current mapper does not parse nested owner chains such as Impl@HeroArmyDetailsMovieClip@StrategicHUD@@ into a qualified name hint. The leaf Impl occurs in several owners. A future parser change would need independent validation and would still need a corroborating placement signal for these rows. No source move or map approval was made.

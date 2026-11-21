@@ -19,12 +19,29 @@ class ModuleData;
 
 #include "../../Include/GameLogic/Module/DamageModuleClass.h"
 
-class ReflectDamage : public DamageModule
-{
-public:
-	ReflectDamage( Thing *thing, const ModuleData *moduleData );
-	virtual ~ReflectDamage();
-};
+// Xfer::Version1 operand types, as BfmeXfer.h's other includers declare them.
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../Include/Common/BfmeXfer.h"
+
+// Retail's tables, stored by the constructor below: primary 0x00C59CBC,
+// BehaviorModuleInterface 0x00C597F8 (DamageModule's) and DamageModuleInterface
+// 0x00C59CB0 (onDamage 0x004BABFA, then the shared empty ret4 and ret12 bodies).
+#include "../../Include/GameLogic/Module/ReflectDamage.h"
 
 // tu-skeleton: 0x004BAB36 25B ??1ReflectDamage@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp (not merged yet)
 
@@ -40,6 +57,34 @@ public:
 
 ReflectDamage::ReflectDamage( Thing *thing, const ModuleData *moduleData )
 	: DamageModule( thing, moduleData )
+{
+}
+
+// Slot 1 of 0x00C59CBC: 0x00497805, identical-code fold with other modules' overrides.
+void ReflectDamage::loadPostProcess( void )
+{
+	DamageModule::loadPostProcess();
+}
+
+// Slot 2 of 0x00C59CBC: 0x004BAB4F returns the module's snapshot name.
+const char *ReflectDamage::GetSnapshotName() const
+{
+	return "ReflectDamage";
+}
+
+// Slot 3 of 0x00C59CBC: 0x0045CE8C, identical-code fold with other modules' overrides.
+void ReflectDamage::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DamageModule::xfer( xfer );
+}
+
+// Slots 1 and 2 of 0x00C59CB0: the shared empty bodies 0x0047A69C and 0x000D1407.
+void ReflectDamage::onHealing( DamageInfo *damageInfo )
+{
+}
+
+void ReflectDamage::onBodyDamageStateChange( const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState )
 {
 }
 

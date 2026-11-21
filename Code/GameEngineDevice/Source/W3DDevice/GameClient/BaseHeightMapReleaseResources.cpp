@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// stlport
 //
 // ?ReleaseResources@BaseHeightMapRenderObjClass@@UAEXXZ, retail 0x00066808
 // (292B): BaseHeightMapRenderObjClass::ReleaseResources. Body: Open-BFME-1
