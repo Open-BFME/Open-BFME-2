@@ -2137,14 +2137,7 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 // isLocationClearOfObjects' scan filters (target evidence: the ctors at 0x00391667 and
 // 0x0039161C store vftables 0x00C1A068 and 0x00C1A05C; Rva00261353Filter's allow is
 // rowed at 0x00261353).
-class Rva00391667 : public Rva000421C8
-{
-public:
-	Rva00391667(const void *pos);
-	virtual Bool allow(Object *obj);
-	Real m_range;				// +0x08
-	Coord3D m_pos;				// +0x0C
-};
+#include "../../../Include/GameLogic/Rva00391667.h"
 class Rva0039161C : public Rva000421C8
 {
 public:
