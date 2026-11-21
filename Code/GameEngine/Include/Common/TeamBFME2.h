@@ -26,14 +26,15 @@
 // and parameter types its decorated name states, plus the Zero Hour inline
 // accessors the views inline. rva0039D8D3 is declared throw(): retail
 // 0x003A2DBB calls it with its EH state already closed.
-// Data: the Zero Hour names for scalar members; the AsciiString, hash table,
-// list and set members stay opaque until their types have shared headers.
+// Data: the AsciiString, hash table and list remain opaque pending shared
+// lifetime types. The ObjectID membership tree uses its shared type.
 // Data access is not modeled (all public); it has no codegen effect.
 #ifndef CANONICAL_TEAM_H
 #define CANONICAL_TEAM_H
 
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../Source/Common/Rva0055B0CC.h"
+#include "../GameLogic/Rva002EE9B7.h"
 
 class AIGroup;
 class AsciiString;
@@ -225,7 +226,7 @@ public:
 	bool m_128;										// +0x128
 	unsigned char m_pad129[3];						// +0x129
 	unsigned char m_opaque12C[4];					// +0x12C list<int>
-	unsigned char m_opaque130[0xC];					// +0x130 set<AsciiString>
+	Rva002EE9B7 m_opaque130;					// +0x130 ObjectID set
 };													// sizeof 0x13C
 typedef char CanonicalTeamSizeCheck[sizeof(Team) == 0x13C ? 1 : -1];
 
