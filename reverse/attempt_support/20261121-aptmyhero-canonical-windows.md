@@ -142,3 +142,5 @@ and run the actual tu_skeleton whole-TU merge dry-run against the new inputs.
 No regenerated tu_map.csv, hand-moved row or intermediate completed-TU credit.
 
 Root admission: GameWindowManager passed the ordinary two-source build and native header-adoption acceptance. This is a retained-byte prerequisite, with zero completed whole-TU item credit.
+
+Root admission: GameWindowTransitionsHandler passed the ordinary two-source build and native header-adoption acceptance. This is a retained-byte prerequisite, with zero completed whole-TU item credit.

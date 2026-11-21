@@ -52,14 +52,8 @@ extern GameClient *TheGameClient;
 // Display keeps its +0x141 flag protected; this unit writes it through a view
 // of the real TheDisplay.
 struct DisplayFlag141View {char pad000[0x141];bool field141;};
-class GameWindowTransitionsHandler {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();
- bool isFinished();
- void reverse(AsciiString);
- void setGroup(AsciiString groupName,bool immediate);
-};
+#include "../../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../../Include/GameClient/Rva001DBB82OneSetter.h"
 #include "../../../../../Include/GameClient/GameWindowManager.h"
@@ -266,7 +260,7 @@ void AptMyHero::FrameUpdate() {
   break;
  case 2:
   if(TheTransitionHandler->isFinished()) {
-   TheTransitionHandler->slot24();TheWindowManager->update();field14C=0;((DisplayFlag141View *)TheDisplay)->field141=false;
+   reinterpret_cast<SubsystemInterface *>(TheTransitionHandler)->reset();TheWindowManager->update();field14C=0;((DisplayFlag141View *)TheDisplay)->field141=false;
   }
   break;
  }
