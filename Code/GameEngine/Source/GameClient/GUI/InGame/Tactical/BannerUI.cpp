@@ -233,7 +233,7 @@ class BannerUI : public SubsystemInterface
 public:
 	BannerUI();
 	static void ParseBannerTypeInfo(INI *ini);
- void init();
+ virtual void init();
  const AsciiString &GetBannerIconImageName(const AsciiString &key);
  int CreateBanner(int bannerID);
  void OnAptMovieInitialized(const char *path);
@@ -242,8 +242,8 @@ public:
  void SetBannerSlotXOffset(unsigned int index, float value);
  void RemoveBanner(int value);
  void Hide(bool on);
- void reset();
- void update();
+ virtual void reset();
+ virtual void update();
 
 	static __forceinline int bannerStateFor(int armyState)
 	{
@@ -1180,7 +1180,7 @@ BfmePod28 *Rva0021618AFind(BfmePod28 *first,BfmePod28 *last,int key) {
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
 
-// ?update@BannerUI@@QAEXXZ retail 0x002167A3..0x00216A2E (651B).
+// ?update@BannerUI@@UAEXXZ retail 0x002167A3..0x00216A2E (651B).
 // Same-TU callee lever: stateString's address goes to Rva00216332Call
 // (0x00216332) and progress's to Rva0021639AInvoke (0x0021639A); with both
 // rowed bodies owned here as select-any definitions cl proves the
@@ -1424,7 +1424,7 @@ void BannerUI::Hide(bool on)
 	}
 }
 
-// ?reset@BannerUI@@QAEXXZ, retail 0x00216D2D (47B, reached from a retail
+// ?reset@BannerUI@@UAEXXZ, retail 0x00216D2D (47B, reached from a retail
 // table): hide, empty the +0x28 records and zero the two +0x3C floats.
 void BannerUI::reset()
 {
