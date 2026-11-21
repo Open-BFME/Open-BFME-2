@@ -1,0 +1,39 @@
+{
+  "head": "56c8d42325165470cf7b73f16ddb473a755a9045",
+  "closed_at_utc": "2026-11-21T07:31:57.858841+00:00",
+  "no_compilation": true,
+  "no_production_mutations": true,
+  "zero_credit": true,
+  "artifacts": [
+    {
+      "path": "ACTUAL-SCOPE.json",
+      "sha256": "271713e709e4f9fdaaec36ea5b87ad1fb104f619abffa1da211ce9d802636845",
+      "bytes": 6568
+    },
+    {
+      "path": "CURRENT-ROWS.json",
+      "sha256": "73523f348ad7da94fd2dab4e4dac4b40d946b1b7c0229802c5d6af1cebcac975",
+      "bytes": 66949
+    },
+    {
+      "path": "HANDOFF.md",
+      "sha256": "d67e7749a69a7000a09447db4172cf1170fea39fa6908a307e402748123ec43f",
+      "bytes": 5673
+    },
+    {
+      "path": "INPUT-HASHES.json",
+      "sha256": "328ac7654574253ad7bb796f34a7a64e78318889173993ce126b3e8e6a15cc9f",
+      "bytes": 3259
+    },
+    {
+      "path": "MIGRATION-HISTORY.json",
+      "sha256": "523b6ffb4479a2ae0babe43b227134b394f7511a05e0607b84cab4ccd493b250",
+      "bytes": 2517
+    },
+    {
+      "path": "NATIVE-TRIAL-ROWS.json",
+      "sha256": "39cd4a9e0570a0fa5d348152ebe1040a5e92befbb33843b59e8d1f2afe4d0eb2",
+      "bytes": 1310
+    }
+  ]
+}

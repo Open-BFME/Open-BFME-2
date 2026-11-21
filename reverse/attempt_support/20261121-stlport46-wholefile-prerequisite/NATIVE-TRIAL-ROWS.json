@@ -1,0 +1,41 @@
+[
+  {
+    "kind": "library-copy",
+    "rva": "0x00307641",
+    "size": "63",
+    "name": "??0?$_Vector_base@DV?$allocator@D@_STL@@@_STL@@QAE@IABV?$allocator@D@1@@Z",
+    "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+    "header_46": "not-sampled",
+    "knob": "",
+    "library_46": "mismatch",
+    "library_variant": "GR-",
+    "library_src": "facets_byname.cpp",
+    "detail": "first diff +0x0/63: retail 5356578bf133 vs 8b4424085356"
+  },
+  {
+    "kind": "library-copy",
+    "rva": "0x00307C43",
+    "size": "51",
+    "name": "??0?$vector@DV?$allocator@D@_STL@@@_STL@@QAE@I@Z",
+    "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+    "header_46": "not-sampled",
+    "knob": "",
+    "library_46": "match",
+    "library_variant": "O1",
+    "library_src": "facets_byname.cpp",
+    "detail": ""
+  },
+  {
+    "kind": "library-copy",
+    "rva": "0x004598CC",
+    "size": "21",
+    "name": "??$__uninitialized_copy@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z",
+    "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+    "header_46": "not-sampled",
+    "knob": "",
+    "library_46": "match",
+    "library_variant": "O1",
+    "library_src": "facets_byname.cpp",
+    "detail": ""
+  }
+]

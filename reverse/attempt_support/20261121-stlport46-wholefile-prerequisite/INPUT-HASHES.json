@@ -1,0 +1,91 @@
+{
+  "observed_at": "2026-11-21T07:31:08.832616+00:00",
+  "head": "56c8d42325165470cf7b73f16ddb473a755a9045",
+  "files": [
+    {
+      "path": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+      "sha256": "63060a97329e7756a6b4d7f4d09eb7aa4bcaede05039d937042ff0d05a87a415",
+      "bytes": 81588
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "8aa79d1736730ba48195bb913d2402596d7b2887e6e3270073d9bf371e9e1eae",
+      "bytes": 10993
+    },
+    {
+      "path": "docs/matching.md",
+      "sha256": "9d82ef6f81ba5cdcc3eb3499707f399eed65ff0716f850e50b83c37d9ffa8359",
+      "bytes": 61794
+    },
+    {
+      "path": "tools/repair_queue.py",
+      "sha256": "7fbf2a7ff5cbf06585fc98e3f494212fd310a5602a0463ef8d12136bd57fb7ee",
+      "bytes": 192103
+    },
+    {
+      "path": "tools/stlport_trial.py",
+      "sha256": "3d72026f63231381e77c0ccb706e0858d2f1f133a11afd33a20fb49e7920bcec",
+      "bytes": 38630
+    },
+    {
+      "path": "tools/stlport_overlay.py",
+      "sha256": "868ebe5e679f2e087b5ef9bf7466857375f116cc8464c6629d0bd0bbed1fed53",
+      "bytes": 7082
+    },
+    {
+      "path": "Code/GameEngine/Include/GameLogic/CarryoverUnit.h",
+      "sha256": "89611c31b06ec49db4e49d1c8423a4d397a960e9edfcd57af2674e1bd2aeb933",
+      "bytes": 2207
+    },
+    {
+      "path": "Code/GameEngine/Include/GameLogic/CreateAHeroManager.h",
+      "sha256": "4dc99604792641feb7c964623372f002a866cace7e04c60bba594bcb7a55b9d1",
+      "bytes": 10802
+    },
+    {
+      "path": "reference/shims/bfmealloc/stl/_alloc.h",
+      "sha256": "ca68eb1e65e5135e0fbaeb911e54f8f3bd063d177bad1f8be4f3f22bc3755a1b",
+      "bytes": 21413
+    },
+    {
+      "path": "vendor/stlport-4.6/stlport/stl/_alloc.h",
+      "sha256": "fdd5d6d723571d4d7eb36b016d0dec339bff4c15afc015eb2f0c20e19c386dcc",
+      "bytes": 19394
+    },
+    {
+      "path": "vendor/stlport-4.6-bfme/bfmealloc/_alloc.h.patch",
+      "sha256": "f3c52808a2acc991a0b93f9fed4d4b15eca593a0d16a7e1f39277eb38d8ed641",
+      "bytes": 4315
+    },
+    {
+      "path": "vendor/stlport-4.6/PROVENANCE.md",
+      "sha256": "f5b860953c882e859a8ebc464edd7ed3817b0b5e45a6791e612493d674ef45b5",
+      "bytes": 5079
+    },
+    {
+      "path": "reverse/attempt_support/stlport-pod-migration-20261103/README.md",
+      "sha256": "991555fe95b9e8f069a7f39dc936063ca5f134e29d011bdd6c8173c10fff3e34",
+      "bytes": 4661
+    },
+    {
+      "path": "reverse/attempt_support/stlport-pod-migration-20261103/candidate.cpp.txt",
+      "sha256": "d298b196b1fcf2a490a96cba4fd923a0f5a4fdf04c4ee5a1612aebaa95389c85",
+      "bytes": 80412
+    },
+    {
+      "path": "reverse/attempt_support/stlport-pod-migration-20261103/provider-consumers.md",
+      "sha256": "8aa4585f4a628154c989c07270d5b18813e3fdd7828fe6e9701e653d5fafbcc7",
+      "bytes": 8010
+    },
+    {
+      "path": "reverse/attempt_support/stlport-pod-migration-20261103/provider-consumers.json",
+      "sha256": "f7538f015bb2bb4472c4645e6131efc24613ec0d1687aaba944c2146d2410099",
+      "bytes": 240558
+    },
+    {
+      "path": "reverse/stlport_trial.csv",
+      "sha256": "cfe62a1735a6bd6da360842e824adb1011f8c2a0acdd0afc267d3e20e3a11775",
+      "bytes": 587278
+    }
+  ]
+}
