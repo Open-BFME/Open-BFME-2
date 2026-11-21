@@ -228,7 +228,6 @@ public:
 	unsigned int m_9c;		// +0x9C: unsigned conversion emits retail x87/_ftol2
 	Bool m_a0;			// +0xA0
 	Bool m_a1;
-	unsigned char m_padA2[2];
 	Int m_productionID;		// +0xA4
 	int m_a8;
 	int m_ac;
