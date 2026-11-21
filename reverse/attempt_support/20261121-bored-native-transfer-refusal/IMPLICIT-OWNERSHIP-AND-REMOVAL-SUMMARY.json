@@ -1,0 +1,179 @@
+{
+  "native_comdat_selections": {
+    "seed-control": {
+      "??_7BoredUpdateModuleData@@6B@": {
+        "section": "126",
+        "selection": 2,
+        "size": 124,
+        "characteristics": 1077940288
+      },
+      "??_GBoredUpdateModuleData@@UAEPAXI@Z": {
+        "section": "184",
+        "selection": 2,
+        "size": 28,
+        "characteristics": 1611665440
+      }
+    },
+    "donor-control": {
+      "??_7BoredUpdateModuleData@@6B@": {
+        "section": "12",
+        "selection": 2,
+        "size": 124,
+        "characteristics": 1077940288
+      },
+      "??_GBoredUpdateModuleData@@UAEPAXI@Z": {
+        "section": "73",
+        "selection": 2,
+        "size": 28,
+        "characteristics": 1611665440
+      },
+      "??1BoredUpdateModuleData@@UAE@XZ": {
+        "section": "75",
+        "selection": 2,
+        "size": 48,
+        "characteristics": 1611665440
+      }
+    },
+    "implicit-seed-control": {
+      "??_7BoredUpdateModuleData@@6B@": {
+        "section": "126",
+        "selection": 2,
+        "size": 124,
+        "characteristics": 1077940288
+      },
+      "??_GBoredUpdateModuleData@@UAEPAXI@Z": {
+        "section": "193",
+        "selection": 2,
+        "size": 28,
+        "characteristics": 1611665440
+      },
+      "??1BoredUpdateModuleData@@UAE@XZ": {
+        "section": "195",
+        "selection": 2,
+        "size": 53,
+        "characteristics": 1611665440
+      }
+    },
+    "implicit-donor-control": {},
+    "implicit-whole-composed": {
+      "??_7BoredUpdateModuleData@@6B@": {
+        "section": "133",
+        "selection": 2,
+        "size": 124,
+        "characteristics": 1077940288
+      },
+      "??_GBoredUpdateModuleData@@UAEPAXI@Z": {
+        "section": "200",
+        "selection": 2,
+        "size": 28,
+        "characteristics": 1611665440
+      },
+      "??1BoredUpdateModuleData@@UAE@XZ": {
+        "section": "202",
+        "selection": 2,
+        "size": 48,
+        "characteristics": 1611665440
+      }
+    }
+  },
+  "weak_union_preserved": true,
+  "original_union_weak": [
+    [
+      "??_EBoredUpdate@@UAEPAXI@Z",
+      "??_GBoredUpdate@@UAEPAXI@Z"
+    ],
+    [
+      "??_EBoredUpdateModuleData@@UAEPAXI@Z",
+      "??_GBoredUpdateModuleData@@UAEPAXI@Z"
+    ],
+    [
+      "??_ESnapshot@@UAEPAXI@Z",
+      "??_GSnapshot@@UAEPAXI@Z"
+    ]
+  ],
+  "composed_weak": [
+    [
+      "??_EBoredUpdate@@UAEPAXI@Z",
+      "??_GBoredUpdate@@UAEPAXI@Z"
+    ],
+    [
+      "??_EBoredUpdateModuleData@@UAEPAXI@Z",
+      "??_GBoredUpdateModuleData@@UAEPAXI@Z"
+    ],
+    [
+      "??_ESnapshot@@UAEPAXI@Z",
+      "??_GSnapshot@@UAEPAXI@Z"
+    ]
+  ],
+  "original_sxdata_handlers": [
+    "__ehhandler$??0BoredUpdate@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "__ehhandler$??0BoredUpdateModuleData@@QAE@XZ",
+    "__ehhandler$?getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ",
+    "__ehhandler$??0BoredUpdateModuleData@@QAE@PAUEmitVtableTag@@@Z",
+    "__ehhandler$??1BoredUpdateModuleData@@UAE@XZ"
+  ],
+  "composed_sxdata_handlers": [
+    "__ehhandler$??0BoredUpdate@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "__ehhandler$??0BoredUpdateModuleData@@QAE@XZ",
+    "__ehhandler$?getModuleNameKey@BoredUpdate@@UBE?AW4NameKeyType@@XZ",
+    "__ehhandler$??1BoredUpdateModuleData@@UAE@XZ"
+  ],
+  "removed_handler_names": [
+    "__ehhandler$??0BoredUpdateModuleData@@QAE@PAUEmitVtableTag@@@Z"
+  ],
+  "added_handler_names": [],
+  "directives_original_seed_equal_to_composed": true,
+  "defaultlibs_original_donor": [
+    "/DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+  ],
+  "no_crt_sections": true,
+  "removed_runtime_anchor_nodes": [
+    10,
+    11,
+    13,
+    71
+  ],
+  "retained_dtor_node_with_explicit_relocation_name_difference": 75,
+  "composed_code_data_definition_delta": {
+    "removed_definitions": [
+      "??0BoredUpdateModuleData@@QAE@PAUEmitVtableTag@@@Z",
+      "?deleteBoredUpdateModuleData@@YAXPAVBoredUpdateModuleData@@@Z"
+    ],
+    "added_definitions": [],
+    "removed_undefined": [
+      "??0Rva003623E5Filter@@QAE@XZ",
+      "??1BoredUpdateModuleData@@UAE@XZ",
+      "??1ModuleData@@UAE@XZ",
+      "??1Rva003623E5Filter@@QAE@XZ"
+    ],
+    "added_undefined": []
+  },
+  "selection_proof": "Decoded original COFF section auxiliary selection;2=ANY. The raw native _comdat_selections inventory is section-keyed, not symbol-keyed.",
+  "fpo_exact_record_comparison_ignoring_only_parent_section_number": {
+    "seed-control": {
+      "matched": 87,
+      "missing": []
+    },
+    "donor-control": {
+      "matched": 32,
+      "missing": [
+        {
+          "section": "72",
+          "parent": 71,
+          "possible_after": [],
+          "symbolic_relocations": [
+            {
+              "offset": 0,
+              "kind": 7,
+              "name": "?deleteBoredUpdateModuleData@@YAXPAVBoredUpdateModuleData@@@Z",
+              "storage": 2,
+              "value": 0,
+              "target_section": 71,
+              "external": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

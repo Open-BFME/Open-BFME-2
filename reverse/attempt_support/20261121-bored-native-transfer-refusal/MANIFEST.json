@@ -1,0 +1,265 @@
+{
+  "stage": "prepared16of16; native Root transaction pending",
+  "head": "423e9fba37c7ac26790a3c6dbad42b0474df2d27",
+  "closed_utc": "2026-11-21T08:59:10.443841+00:00",
+  "prepared_sha256": "94a064f0a96889a2225e8372874ebe99977b2aac0be4ebcc0dd8f5ec559980d5",
+  "zero_landed_credit": true,
+  "production_changes": false,
+  "artifacts": [
+    {
+      "path": "ANCHOR-RECORDED-CENSUS-REFERENCES.json",
+      "sha256": "dc38a93e94797c7bc9c65cb083f9c8a31832ff18365deaf55208c3580ce204ec",
+      "bytes": 1679
+    },
+    {
+      "path": "BoredUpdate.implicit-seed.cpp.txt",
+      "sha256": "6f758c0c4976947ab64143156612d5a1f3a38c0f69e97d2bd792d06d6f0f839a",
+      "bytes": 7345
+    },
+    {
+      "path": "BoredUpdate.prepared.cpp.txt",
+      "sha256": "94a064f0a96889a2225e8372874ebe99977b2aac0be4ebcc0dd8f5ec559980d5",
+      "bytes": 7136
+    },
+    {
+      "path": "BoredUpdateModuleDataDtor.candidate.cpp.txt",
+      "sha256": "895f2e17d70bbcee61ff3d6b37df846f34e4cc797af172ff7ea61649035e54f4",
+      "bytes": 864
+    },
+    {
+      "path": "BoredUpdateModuleDataDtor.implicit.cpp.txt",
+      "sha256": "aa11f6ca4c5b8475e23aba504c6b0bf1c74d6238cb31e69fe474a777e252547c",
+      "bytes": 803
+    },
+    {
+      "path": "composed-union-first-0.cpp.txt",
+      "sha256": "c876173680a11ca8b74a77b0cd126febc7a92150eb78f90a205ed47246a9e71e",
+      "bytes": 8118
+    },
+    {
+      "path": "composed-union-first-0.effective.cpp.txt",
+      "sha256": "90475091226081a80e4ae7a60425fd8d1305936d7a13162b8cdbfa6cf4e354ca",
+      "bytes": 8201
+    },
+    {
+      "path": "COMPOSER-CONTROL.json",
+      "sha256": "0f8afe9c4ec1f5b3bd89160fb55cc029391ba1645c305a3c0cd6b80fcd6b1d4f",
+      "bytes": 17226
+    },
+    {
+      "path": "CURRENT-CONTROL-SUMMARY.json",
+      "sha256": "31df292fdfa77146a37f40b25e54086af39046f7699da08cb14f5ca0524e280f",
+      "bytes": 959
+    },
+    {
+      "path": "CURRENT-DATA-ROWS.json",
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "bytes": 4
+    },
+    {
+      "path": "CURRENT-ROWS.json",
+      "sha256": "ee684323428df8f1705305f6da832e1718d3ee1559032b2ab3052ec1bd1cb921",
+      "bytes": 6672
+    },
+    {
+      "path": "donor-control.cpp.txt",
+      "sha256": "1134deca477dc5acb3bba2ed9fa78a8a00b066ad98b0503829f5c2b5b1a5f25e",
+      "bytes": 1777
+    },
+    {
+      "path": "donor-control.effective.cpp.txt",
+      "sha256": "bfb99ee07501d9d0c61dc1d1db74e57a7391f31c33b21429cd8372a1810e0e3b",
+      "bytes": 1794
+    },
+    {
+      "path": "EXISTING-MEMBER-PROVIDER-HASHES.json",
+      "sha256": "c3eda53ac2f5bff354603272e0e217b01322259ee5c75bdd726f0e9b26fdeba6",
+      "bytes": 409
+    },
+    {
+      "path": "EXPLICIT-HYPOTHESIS-RESULT.json",
+      "sha256": "ccc9d77a12e36148c209c3a0143825f70816d8cdbc9f6509417275af71aac559",
+      "bytes": 995
+    },
+    {
+      "path": "HANDOFF.control-only.md",
+      "sha256": "90c463302b9339da9857c6b31381f291e739e1d5add836b4909d120505e01840",
+      "bytes": 6513
+    },
+    {
+      "path": "HANDOFF.explicit-hypothesis.md",
+      "sha256": "6a79bd2945e35b2b85494791addb9a929bbe6b8a0d04c81948acf54b79695188",
+      "bytes": 5475
+    },
+    {
+      "path": "HANDOFF.md",
+      "sha256": "1afc0056109a5474b8d1b64d9c70ac6c4b0a81b512d92cfa30cd6aa581590c68",
+      "bytes": 8286
+    },
+    {
+      "path": "HISTORICAL-BLOB-TEMPORAL-WITNESSES.json",
+      "sha256": "7ee671b0b9ff1dc327a5b91f625e8cccbbf77c1ff3c12dff1a940daaa30dd82d",
+      "bytes": 2274
+    },
+    {
+      "path": "implicit-donor-control.cpp.txt",
+      "sha256": "aa11f6ca4c5b8475e23aba504c6b0bf1c74d6238cb31e69fe474a777e252547c",
+      "bytes": 803
+    },
+    {
+      "path": "IMPLICIT-EH-GRAPHS.json",
+      "sha256": "cbefe067409727686ff1deb505202d44e12e528d28308a7429b8e2cefbd14e83",
+      "bytes": 1383
+    },
+    {
+      "path": "IMPLICIT-FULL-COFF-GRAPHS.json",
+      "sha256": "6dddc675931ddc0c2968539a300ab97d08ba0b2d9c8116cb272c6721e74d5f53",
+      "bytes": 839371
+    },
+    {
+      "path": "IMPLICIT-OWNERSHIP-AND-REMOVAL-SUMMARY.json",
+      "sha256": "90d176d2705b6220f749b8f61202c351cc8d3e222137676f2fb2001e34f3e15a",
+      "bytes": 5137
+    },
+    {
+      "path": "IMPLICIT-POSTPROOF-SUMMARY.json",
+      "sha256": "f9cf95e3a29cb5a895089fae6cd0473226b3b7f65708afc42d796a0483dfeba6",
+      "bytes": 1753
+    },
+    {
+      "path": "implicit-postproof.log",
+      "sha256": "f9cf95e3a29cb5a895089fae6cd0473226b3b7f65708afc42d796a0483dfeba6",
+      "bytes": 1753
+    },
+    {
+      "path": "IMPLICIT-RECONCILIATION.json",
+      "sha256": "2717492e18b574ff2eb83b0666c66e4fa48dfb77f6ff2350177c4fda0febcb38",
+      "bytes": 24022
+    },
+    {
+      "path": "implicit-reconciliation.log",
+      "sha256": "5f5f9c12b907cc8e09a18ad05d7e0e5e52a51a7e27d5d64309ed880b77671bbf",
+      "bytes": 956
+    },
+    {
+      "path": "implicit-seed-control.cpp.txt",
+      "sha256": "6f758c0c4976947ab64143156612d5a1f3a38c0f69e97d2bd792d06d6f0f839a",
+      "bytes": 7345
+    },
+    {
+      "path": "IMPLICIT-STRICT-RAW-16.json",
+      "sha256": "e3e3f94e3bbab2fc6dde83c158bc063607a1e3daaef69c9f9d5942921da0a479",
+      "bytes": 26290
+    },
+    {
+      "path": "implicit-whole-composed.cpp.txt",
+      "sha256": "94a064f0a96889a2225e8372874ebe99977b2aac0be4ebcc0dd8f5ec559980d5",
+      "bytes": 7136
+    },
+    {
+      "path": "implicit_postproof.py",
+      "sha256": "7001162e717025d5229a836fae190135ab850332df14222808060e75bd76834c",
+      "bytes": 8385
+    },
+    {
+      "path": "INPUTS.json",
+      "sha256": "d2361b2f1ca99e20239b3df2a06aa6ede2bc93054915c3b8f53072abf9015c93",
+      "bytes": 2388
+    },
+    {
+      "path": "NATIVE-CTOR-DTOR-ABI.json",
+      "sha256": "96e688d2adde8cb100f9cc43c15250fbd78bc6b4fd669e24bc86ce147ac57fa2",
+      "bytes": 14211
+    },
+    {
+      "path": "NATIVE-TABLE-ROLES.json",
+      "sha256": "c6607409910e2a505595389c1bfae141c5479e44ae2de7cbb96832658ab80f16",
+      "bytes": 4408
+    },
+    {
+      "path": "NORMAL-OBJECT-INPUT-RECEIPTS.json",
+      "sha256": "4e62d1f76af6cd3db9f60fbe500143fe6bd43e2d44f1f025a9918dbf905027f6",
+      "bytes": 4277
+    },
+    {
+      "path": "ORIGINAL-ANCHOR-SYMBOLS.json",
+      "sha256": "c484aa4600c90ac85d3e636f23afd0377632bd36159563f3ee68490fac9fd2e4",
+      "bytes": 523
+    },
+    {
+      "path": "PREFLIGHT.md",
+      "sha256": "983156bf298cf341850fb9a042be02fe696728638cc3a0360575f9746622fc0c",
+      "bytes": 4654
+    },
+    {
+      "path": "private-control.log",
+      "sha256": "81a22c7c4dffdd41ddd122987b42a2c10d27e4a1131b54435bcd7d56ea13d702",
+      "bytes": 1336
+    },
+    {
+      "path": "private_composer_control.py",
+      "sha256": "84d0d01748605ccb4bca2d76d0341d7b1513398745c162387cf72abd847153e7",
+      "bytes": 8381
+    },
+    {
+      "path": "private_implicit_reconciliation.py",
+      "sha256": "0b98b13142d92952e3b30aae650099baa6c6bca80557df04e13f60fcc64a93f5",
+      "bytes": 5712
+    },
+    {
+      "path": "private_source_reconciliation.py",
+      "sha256": "3930dafce8f81098dbf2894995b743d5d0eba1194b9cf18eb7fc8c96d5584fbb",
+      "bytes": 5307
+    },
+    {
+      "path": "PROPOSED-SCOPE.json",
+      "sha256": "3baff121552f3f494a7fe288b0d49391326ec26acec4aaf5683bd2a013609e3b",
+      "bytes": 2361
+    },
+    {
+      "path": "reconciled-donor-control.cpp.txt",
+      "sha256": "e11a6bd2aad4c22c9d8e95c793e01a2ceb24203a812012df129959c38347acce",
+      "bytes": 890
+    },
+    {
+      "path": "RECONCILED-DTOR-DIFF.json",
+      "sha256": "d96db1fbdc242b7c5ae55561bc0651c6bfa3273470775777591dbbd0fb904686",
+      "bytes": 5893
+    },
+    {
+      "path": "RECONCILED-DTOR-RAW-COFF.json",
+      "sha256": "6acea87b41698e2ed4afe5444d2c82e23d8accdedf0e13d48fb3ffa12d04016a",
+      "bytes": 7045
+    },
+    {
+      "path": "reconciled-whole-composed.cpp.txt",
+      "sha256": "02c65df1e64de1275c9a1b91aecddf0c4ce560545c8fb4889a6a1f8df98649b7",
+      "bytes": 7225
+    },
+    {
+      "path": "ROOT-NORMAL-RECIPE.md",
+      "sha256": "61c40e7543f7deed869f3ac484762e7127abaecb7d092adbb70de64b27ddd6c2",
+      "bytes": 1352
+    },
+    {
+      "path": "seed-control.cpp.txt",
+      "sha256": "1a50a2170d4e12d356a37a33190c79ee9ec41190bbe8968471ec21a955708dca",
+      "bytes": 7381
+    },
+    {
+      "path": "seed-control.effective.cpp.txt",
+      "sha256": "b683bc410285a61aeea22d07952a98ab5a976eba260289c4437eed1fc789efc5",
+      "bytes": 7464
+    },
+    {
+      "path": "SOURCE-RECONCILIATION.json",
+      "sha256": "84054e7ad7cb62d65e18e69ed1894d264347baf81ecefe1ce2a5f0c6e71b4543",
+      "bytes": 10555
+    },
+    {
+      "path": "source-reconciliation.log",
+      "sha256": "fb14744ff5acba6c3b136b23b9923a4da4d3a603f8d51a2cf3ad6621bbbf37f2",
+      "bytes": 657
+    }
+  ]
+}

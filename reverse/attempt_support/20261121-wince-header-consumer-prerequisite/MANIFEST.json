@@ -1,0 +1,17 @@
+[
+  {
+    "name": "HANDOFF.md",
+    "size": 5058,
+    "sha256": "1d215db6d6a77951155b3ea2a14ba63149472f1c7ce5722fa15b02367acf5d34"
+  },
+  {
+    "name": "inspect_readonly.py",
+    "size": 3625,
+    "sha256": "731941861cf36224727dcb35676a4031ac5bd6aa3da24b885cbb7723c8d28c97"
+  },
+  {
+    "name": "READONLY.json",
+    "size": 12778,
+    "sha256": "cd81a3e47942fffd6fb5854aa5fd744fa4871065f84c6067f9bc98e57f857d64"
+  }
+]

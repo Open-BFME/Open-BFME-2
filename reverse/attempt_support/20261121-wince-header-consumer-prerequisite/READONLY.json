@@ -1,0 +1,381 @@
+{
+  "head": "64b343fb4109505cdb9073ebc21796b5c02d9500",
+  "mode": "read-only source/history, cached Microsoft index and in-memory owning scan only; no load_index/rebuild/scan_files/CLI/compilers/shared-cache writes",
+  "inputs": [
+    {
+      "path": "vendor/stlport/config/stl_wince.h",
+      "sha256": "3577d3515021d114d1b297b52fa1553ceaa91326dcb27499d0d21af358078fa8",
+      "bytes": 5350
+    },
+    {
+      "path": "vendor/stlport/config/stl_msvc.h",
+      "sha256": "903ee17fc93674925d7334d3eec4301e831a83236128cdcf10700e645acb3f90",
+      "bytes": 7225
+    },
+    {
+      "path": "tools/ms_header_audit.py",
+      "sha256": "755cc35499ea69184595c4a86d98f26705e1d6b3e3171676934da9293f93d8bf",
+      "bytes": 167957
+    },
+    {
+      "path": "tools/header_dependents.py",
+      "sha256": "4638b72c6593af73f9d0cb7ae53109ac481253bb6f411adb2a506c26656eda48",
+      "bytes": 27254
+    }
+  ],
+  "expected_native_index_path": "W:\\OpenBFME\\Open-BFME-2\\build\\ms_header_audit\\index-490e5f72e45d00f4.pickle",
+  "native_index_present": true,
+  "native_roots": [
+    [
+      "Vc7/include",
+      "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include"
+    ],
+    [
+      "Vc7/PlatformSDK/Include",
+      "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\PlatformSDK\\Include"
+    ]
+  ],
+  "index_sha256": "9df782b6c9c6ab2102c76b34e28f7c2795071e534ddba6d5b8c6624dfb14272a",
+  "classification": "conflicting",
+  "worst": "abi",
+  "counts": {
+    "same": 10,
+    "config": 4,
+    "abi": 6,
+    "source": 2,
+    "unverified": 1
+  },
+  "occurrences": [
+    {
+      "line": 53,
+      "name": "size_t",
+      "kind": "typedef",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/string.h:61",
+      "real_header": "Vc7/include/string.h"
+    },
+    {
+      "line": 54,
+      "name": "_SIZE_T_DEFINED",
+      "kind": "macro",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/string.h:63",
+      "real_header": "Vc7/include/string.h"
+    },
+    {
+      "line": 59,
+      "name": "_WCHAR_T_DEFINED",
+      "kind": "macro",
+      "severity": "config",
+      "reason": "configuration macro: an input to the headers, never removable",
+      "real_site": "Vc7/include/ctype.h:51",
+      "real_header": "Vc7/include/ctype.h"
+    },
+    {
+      "line": 63,
+      "name": "time_t",
+      "kind": "typedef",
+      "severity": "abi",
+      "reason": "unsigned long vs long",
+      "real_site": "Vc7/include/time.h:77",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 64,
+      "name": "_TIME_T_DEFINED",
+      "kind": "macro",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/time.h:79",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 69,
+      "name": "ptrdiff_t",
+      "kind": "typedef",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/stddef.h:102",
+      "real_header": "Vc7/include/stddef.h"
+    },
+    {
+      "line": 70,
+      "name": "_PTRDIFF_T_DEFINED",
+      "kind": "macro",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/stddef.h:104",
+      "real_header": "Vc7/include/stddef.h"
+    },
+    {
+      "line": 75,
+      "name": "clock_t",
+      "kind": "typedef",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/time.h:90",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 76,
+      "name": "_CLOCK_T_DEFINED",
+      "kind": "macro",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/time.h:91",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 81,
+      "name": "tm",
+      "kind": "struct",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/time.h:116",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 92,
+      "name": "_TM_DEFINED",
+      "kind": "macro",
+      "severity": "same",
+      "reason": "identical",
+      "real_site": "Vc7/include/time.h:127",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 101,
+      "name": "getenv",
+      "kind": "function",
+      "severity": "abi",
+      "reason": "real header declares dllimport; do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)",
+      "real_site": "Vc7/include/stdlib.h:280",
+      "real_header": "Vc7/include/stdlib.h"
+    },
+    {
+      "line": 102,
+      "name": "gmtime",
+      "kind": "function",
+      "severity": "abi",
+      "reason": "real header declares dllimport; do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)",
+      "real_site": "Vc7/include/time.h:159",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 103,
+      "name": "remove",
+      "kind": "function",
+      "severity": "abi",
+      "reason": "real header declares dllimport; do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)",
+      "real_site": "Vc7/include/stdio.h:306",
+      "real_header": "Vc7/include/stdio.h"
+    },
+    {
+      "line": 104,
+      "name": "rename",
+      "kind": "function",
+      "severity": "abi",
+      "reason": "real header declares dllimport; do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)",
+      "real_site": "Vc7/include/stdio.h:307",
+      "real_header": "Vc7/include/stdio.h"
+    },
+    {
+      "line": 105,
+      "name": "time",
+      "kind": "function",
+      "severity": "abi",
+      "reason": "returns unsigned long vs long; real header declares dllimport; do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)",
+      "real_site": "Vc7/include/time.h:166",
+      "real_header": "Vc7/include/time.h"
+    },
+    {
+      "line": 108,
+      "name": "strrchr",
+      "kind": "function",
+      "severity": "source",
+      "reason": "parameter 1 spelled const char * vs char *",
+      "real_site": "Vc7/include/tchar.h:778",
+      "real_header": "Vc7/include/tchar.h"
+    },
+    {
+      "line": 115,
+      "name": "operator new",
+      "kind": "function",
+      "severity": "same",
+      "reason": "identical inline body",
+      "real_site": "Vc7/include/new.h:108",
+      "real_header": "Vc7/include/new.h"
+    },
+    {
+      "line": 116,
+      "name": "__PLACEMENT_NEW_INLINE",
+      "kind": "macro",
+      "severity": "config",
+      "reason": "configuration macro: an input to the headers, never removable",
+      "real_site": "Vc7/include/new:61",
+      "real_header": "Vc7/include/new"
+    },
+    {
+      "line": 123,
+      "name": "_isctype",
+      "kind": "macro",
+      "severity": "source",
+      "reason": "macro here, function in the real header",
+      "real_site": "Vc7/include/ctype.h:93",
+      "real_header": "Vc7/include/ctype.h"
+    },
+    {
+      "line": 163,
+      "name": "STRICT",
+      "kind": "macro",
+      "severity": "config",
+      "reason": "configuration macro: an input to the headers, never removable",
+      "real_site": "Vc7/PlatformSDK/Include/WinDef.h:15",
+      "real_header": "Vc7/PlatformSDK/Include/WinDef.h"
+    },
+    {
+      "line": 166,
+      "name": "NOMINMAX",
+      "kind": "macro",
+      "severity": "config",
+      "reason": "configuration macro: an input to the headers, never removable",
+      "real_site": "Vc7/PlatformSDK/Include/Windows.h:92",
+      "real_header": "Vc7/PlatformSDK/Include/Windows.h"
+    },
+    {
+      "line": 179,
+      "name": "assert",
+      "kind": "macro",
+      "severity": "unverified",
+      "reason": "macro body not proven identical ('_STLP_ASSERT (__MSA_P0__)' vs '(void) ((__MSA_P0__) | | (_assert (\"__MSA_P0__\" , \"W:\\\\OpenB')",
+      "real_site": "Vc7/include/assert.h:42",
+      "real_header": "Vc7/include/assert.h"
+    }
+  ],
+  "scope_config": {
+    "md": true,
+    "pack": 8,
+    "flags": "",
+    "predefinitions": {
+      "_WIN32": "1",
+      "_M_IX86": "600",
+      "_MSC_VER": "1310",
+      "_MSC_FULL_VER": "13103077",
+      "_INTEGRAL_MAX_BITS": "64",
+      "_MSC_EXTENSIONS": "1",
+      "__cplusplus": "199711",
+      "_DLL": "1",
+      "_MT": "1"
+    },
+    "UNDER_CE_defined": false,
+    "WIN32_WCE_defined": false
+  },
+  "header_closure": [],
+  "includes": [
+    [
+      170,
+      "windows.h",
+      true
+    ],
+    [
+      184,
+      "windows.h",
+      true
+    ]
+  ],
+  "parser_error": null,
+  "index_unchanged": true,
+  "prior_native_preprocessing_reused_current_inputs": [
+    {
+      "label": "before",
+      "native_command": [
+        "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+        "-nologo",
+        "-c",
+        "-O2",
+        "-GR-",
+        "-EHsc-",
+        "-O1",
+        "-arch:SSE",
+        "-G7",
+        "-Ireference/shims/bfme2_ascii",
+        "-MD",
+        "-EHsc",
+        "-D_CRTIMP=",
+        "-D_STLP_USE_MALLOC",
+        "-Ireference/shims/bfmealloc",
+        "-D_STLP_USE_STATIC_LIB",
+        "-D_STLP_NO_EXCEPTIONS",
+        "-Fobuild/agent-melee-bfme2-20261120/scriptlist018-player/before-z7.obj",
+        "-Z7",
+        "-showIncludes",
+        "build/agent-melee-bfme2-20261120/scriptlist018-player/before.cpp"
+      ],
+      "preprocess_sha256": "44e55a21a9a5da19fbcd9dcb47b77a39b8bf833ac2c59d96445226da31bdf172",
+      "preprocess_exit": 0,
+      "opened_config": {
+        "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_msvc.h": "903ee17fc93674925d7334d3eec4301e831a83236128cdcf10700e645acb3f90"
+      },
+      "has_wince_input": false,
+      "all_current_opened_input_hashes_still_equal": true,
+      "source_hash": "0547dcd74c599ce7617f9d3557d653b592c510b567d2c3c0810bdc78686517ef"
+    },
+    {
+      "label": "after",
+      "native_command": [
+        "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+        "-nologo",
+        "-c",
+        "-O2",
+        "-GR-",
+        "-EHsc-",
+        "-O1",
+        "-arch:SSE",
+        "-G7",
+        "-Ireference/shims/bfme2_ascii",
+        "-MD",
+        "-EHsc",
+        "-D_CRTIMP=",
+        "-D_STLP_USE_MALLOC",
+        "-Ireference/shims/bfmealloc",
+        "-D_STLP_USE_STATIC_LIB",
+        "-D_STLP_NO_EXCEPTIONS",
+        "-Fobuild/agent-melee-bfme2-20261120/scriptlist018-player/after-z7.obj",
+        "-Z7",
+        "-showIncludes",
+        "build/agent-melee-bfme2-20261120/scriptlist018-player/after.cpp"
+      ],
+      "preprocess_sha256": "c648bfb8831706e8b8a1c0c6d77b239b371719148f72e2972b78ec9319da67a4",
+      "preprocess_exit": 0,
+      "opened_config": {
+        "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_msvc.h": "903ee17fc93674925d7334d3eec4301e831a83236128cdcf10700e645acb3f90"
+      },
+      "has_wince_input": false,
+      "all_current_opened_input_hashes_still_equal": true,
+      "source_hash": "3618645919dbc1883e0614918762f9d1a26831eabe34e394e51621406c62a8ca"
+    }
+  ],
+  "recorded_actual_include_search": {
+    "command": [
+      "rg",
+      "-l",
+      "-i",
+      "-F",
+      "-g",
+      "*.deps.json",
+      "stl_wince.h",
+      "build/match"
+    ],
+    "exit": 1,
+    "matching_receipts": [],
+    "note": "No matches is no observed receipt inclusion; missing/stale/unreceived units are not converted into a proof that no possible consumer exists."
+  },
+  "normal_source_selector_rows": [],
+  "original_history": [
+    "ff7e0fa1c7a27cd6ca0f719b41e94deae9ac834b 2026-08-29 Bootstrap Open-BFME-2: baseline, toolchain workflow, Open-BFME-1 submodule"
+  ],
+  "recommended_candidate": null,
+  "conclusion": "No proven active BFME2 ABI or independently testable migration here. Preserve the WinCE vendor shim and19-entry queue. Current standalone /MD classification has no consumer-context proof. Zero ready edits and zero new bodies/bytes."
+}
