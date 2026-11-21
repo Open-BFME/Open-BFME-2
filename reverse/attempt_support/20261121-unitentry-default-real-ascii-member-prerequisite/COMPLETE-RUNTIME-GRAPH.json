@@ -1,0 +1,3003 @@
+{
+  "runtime_nodes": [
+    48,
+    48
+  ],
+  "removed_runtime_nodes": [],
+  "added_runtime_nodes": [],
+  "runtime_node_deltas": [],
+  "external_definitions_equal": true,
+  "before_external_definitions": [
+    [
+      "??0AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Rva001EAE6FHelper@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Rva001EAE6FHelper@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0UnitRevivalEntry@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Version@Xfer@@QAE@EE@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Version@Xfer@@QAE@EE@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??1AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??4AsciiString@@QAEAAV0@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??4AsciiString@@QAEAAV0@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??8@YA_NABVAsciiString@@0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??8@YA_NABVAsciiString@@0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??_H@YGXPAXIHP6EPAX0@Z@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getFrame@GameLogic@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getFrame@GameLogic@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getPlayerIndex@Player@@QBEHXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getPlayerIndex@Player@@QBEHXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "__real@00000000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@00000000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@3f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@3f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@4f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@4f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ]
+  ],
+  "after_external_definitions": [
+    [
+      "??0AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Rva001EAE6FHelper@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Rva001EAE6FHelper@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0UnitRevivalEntry@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Version@Xfer@@QAE@EE@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Version@Xfer@@QAE@EE@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??1AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??4AsciiString@@QAEAAV0@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??4AsciiString@@QAEAAV0@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??8@YA_NABVAsciiString@@0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??8@YA_NABVAsciiString@@0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??_H@YGXPAXIHP6EPAX0@Z@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getFrame@GameLogic@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getFrame@GameLogic@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getPlayerIndex@Player@@QBEHXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getPlayerIndex@Player@@QBEHXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "__real@00000000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@00000000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@3f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@3f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@4f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@4f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ]
+  ],
+  "comdat_selection_deltas": [],
+  "safeseh_bound_sequence_equal": true,
+  "safeseh_handlers": [
+    1,
+    1
+  ],
+  "weak_equal": true,
+  "weak_before": [],
+  "weak_after": [],
+  "undefined_equal": true,
+  "undefined_before": [
+    [
+      "??0Rva004E04FD@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??1UnitRevivalEntry@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??4Rva001EAFC1@@QAEAAV0@ABV0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?AddDeadHeroEntry@ArmySummarySystem@@QAEXPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?TheGameLogic@@3PAVGameLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?ThePlayerList@@3PAVPlayerList@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheThingFactory@@3PAVThingFactory@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?compare@AsciiString@@QBEHABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?erase@?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@QAEPAURva002E2690Element@@PAU3@0@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?find@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@HPAI@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?push_back@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXABVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcCostToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcTimeToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A9BF2@Rva002A9BF2@@QAEPAXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E1CA7@Rva002E2903Player@@QAE_NPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E204D@Rva002E204D@@QAEPAVRva002E0D93@@PAV2@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?set@?$StringBase@D@@QAEXABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "__EH_prolog",
+      32,
+      2,
+      0
+    ],
+    [
+      "___CxxFrameHandler",
+      32,
+      2,
+      0
+    ],
+    [
+      "__except_list",
+      0,
+      2,
+      0
+    ],
+    [
+      "__fltused",
+      32,
+      2,
+      0
+    ],
+    [
+      "__ftol2",
+      32,
+      2,
+      0
+    ]
+  ],
+  "undefined_after": [
+    [
+      "??0Rva004E04FD@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??1UnitRevivalEntry@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??4Rva001EAFC1@@QAEAAV0@ABV0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?AddDeadHeroEntry@ArmySummarySystem@@QAEXPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?TheGameLogic@@3PAVGameLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?ThePlayerList@@3PAVPlayerList@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheThingFactory@@3PAVThingFactory@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?compare@AsciiString@@QBEHABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?erase@?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@QAEPAURva002E2690Element@@PAU3@0@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?find@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@HPAI@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?push_back@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXABVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcCostToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcTimeToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A9BF2@Rva002A9BF2@@QAEPAXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E1CA7@Rva002E2903Player@@QAE_NPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E204D@Rva002E204D@@QAEPAVRva002E0D93@@PAV2@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?set@?$StringBase@D@@QAEXABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "__EH_prolog",
+      32,
+      2,
+      0
+    ],
+    [
+      "___CxxFrameHandler",
+      32,
+      2,
+      0
+    ],
+    [
+      "__except_list",
+      0,
+      2,
+      0
+    ],
+    [
+      "__fltused",
+      32,
+      2,
+      0
+    ],
+    [
+      "__ftol2",
+      32,
+      2,
+      0
+    ]
+  ],
+  "CRT_equal": true,
+  "CRT_before": [],
+  "CRT_after": [],
+  "debug_metadata_equal": false,
+  "debug_before": [
+    {
+      "name": ".debug$S",
+      "bytes": 133,
+      "body": {
+        "bytes": 133,
+        "sha256": "29fceaedce64b7a191af9f09f46915198e627ae2b9c6e28aa47cbe28bfbeb3fd",
+        "hex": "0200000045000900000000003e573a5c4f70656e42464d455c4f70656e2d42464d452d325c6275696c645c74755f736b656c65746f6e5c383330656364623161653835626465372e6f626a380013100102000007000d000a00050c0d000a00050c214d6963726f736f667420285229204f7074696d697a696e6720436f6d70696c65720000"
+      },
+      "relocs": []
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "db22e22f248a80b4845e85933a783343aa7da17b70cc1c2c91fbe9052e2bbabf",
+        "hex": "00000000060000000000000000000200"
+      },
+      "relocs": [
+        [
+          0,
+          "??0AsciiString@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "2031367a1357af6f1d85fbb9652128dd3ba2ebaf241173e032694f2e913e2811",
+        "hex": "00000000050000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??1AsciiString@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "ea1d9144e1cebdf1f820eed823b7bbcc05e39be721ebb7c639e38b7830010824",
+        "hex": "00000000120000000000000001000700"
+      },
+      "relocs": [
+        [
+          0,
+          "??4AsciiString@@QAEAAV0@ABV0@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "e65bca644ad54451150dc769a6abbb6121039ded8eeaf44ca5e06d9a4683c387",
+        "hex": "00000000130000000000000002000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??8@YA_NABVAsciiString@@0@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "6cf1da47c99da9dde2d4d5ae5ab2cce927bfaa86ebe5d00cb72cd06cb2142ae8",
+        "hex": "00000000040000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?getFrame@GameLogic@@QBEIXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "daf4401eea55cbe682aec708b97b1992354febb0e3c8d043c4546fc692e50841",
+        "hex": "00000000120000000000000002000200"
+      },
+      "relocs": [
+        [
+          0,
+          "??0Version@Xfer@@QAE@EE@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "6cf1da47c99da9dde2d4d5ae5ab2cce927bfaa86ebe5d00cb72cd06cb2142ae8",
+        "hex": "00000000040000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?getPlayerIndex@Player@@QBEHXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "70794b57372ee08121950a9f4038ed99bbc72075a706b7838219eb607cb1fac0",
+        "hex": "000000000c0000000000000000000300"
+      },
+      "relocs": [
+        [
+          0,
+          "??0Rva001EAE6FHelper@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "014394662ff9289532a3681de3ab765de0452b386a573cde8256f2d1b57eb8ae",
+        "hex": "00000000220000000000000004000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??_H@YGXPAXIHP6EPAX0@Z@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "2302deab0d5eed9d2ba130bba3d40d2f998808c789ec9007b015d7103fcc5154",
+        "hex": "00000000190000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "3b15bc192e8a3cb8a83b67626966c6fa06fc79cd465f30c9a304f2db85d29081",
+        "hex": "00000000480000000000000001000700"
+      },
+      "relocs": [
+        [
+          0,
+          "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "862576beede5effa93b0e796f5682aeb0c1cd2d9f1b52695e3d1aa7fdcd32fbd",
+        "hex": "00000000870000000000000000000700"
+      },
+      "relocs": [
+        [
+          0,
+          "??0UnitRevivalEntry@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "373687bc3a41e546b7f20a785c421c4f0291f6193997a787647a5c7fa4cb4c76",
+        "hex": "000000000e0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?VecSize@@YAIPAUVec216@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "66ad325a32b5f2a345ae6f054d92714fbbf920a7412e01a9a85ac83f65734ddc",
+        "hex": "00000000090000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?VecAt@@YAAAVUnitRevivalEntry@@PAUVec216@@H@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "5a791b89e07b59623eb95152e0684a9d0c6d76a162c457a675b7ec92b62d24fc",
+        "hex": "00000000300000000000000001000100"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "82f02ae4c5294e97f5dddf56ee53f69bb8ab71cccb6fff5ad9578e4322cac1b9",
+        "hex": "000000001e0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "ba08f3259d142e19ad2e9669d33de80a02c96e7c8418554b10fac9f32e988d1c",
+        "hex": "00000000220000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "68605291c9711d982df995e2fd78d7ad40aebd825be157bbd460911d59e3bbec",
+        "hex": "000000003b0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "3e29d19d46ff7beaa99537fe990615106b967a3aa868a0c98b10201c9659bc22",
+        "hex": "00000000170000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "73f3d48a5a646ea0e5316cc4bb71fc6a876108fe02ae6b8bc7a31a23579ce88e",
+        "hex": "000000001e0000000000000002000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "8322c5ebf1627be9afbad4315828911436a3066eaeefe0714b076985b9e288f0",
+        "hex": "000000001a0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "a44a0c8d4f291b3f98f0664385b2b12e3d3993d4a533ef19b5a2a21fcdf6665d",
+        "hex": "00000000350000000000000001000700"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "c13aeef14ae6293af4d6e9dad566d905af557be0dac8689ad00f7808f8f98590",
+        "hex": "00000000510000000000000001000800"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "e46dd4b323c6816600a5fcc3607e163a9e2c740e57f4c1590be22207d4647aef",
+        "hex": "000000001f0000000000000001000900"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "e7fe46ac5a7eed89b302e574a84391cdcdb500a2ea3763a5bd5844b0f6baf5f4",
+        "hex": "00000000430000000000000001000510"
+      },
+      "relocs": [
+        [
+          0,
+          "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "907c43cb83ef5f6ba2ac844674c38fea953e0cd83f1f453c231fd317261aad82",
+        "hex": "00000000300000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "4e6738e4cd0d50ea4a4026ef25625ff86d33db762a051d0ac34d76bb272200dc",
+        "hex": "00000000310000000000000001000100"
+      },
+      "relocs": [
+        [
+          0,
+          "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "10c78173ac60c17e9a34fb73ff8c04b3fcce44484564487e7c9a37194cbdce5c",
+        "hex": "000000000f0000000000000002000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "5405ffa3a17ecbc674c5476dfaa0042a9a1435c9c008d5c4d6088aac50d757e8",
+        "hex": "00000000030000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "6cf1da47c99da9dde2d4d5ae5ab2cce927bfaa86ebe5d00cb72cd06cb2142ae8",
+        "hex": "00000000040000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "373687bc3a41e546b7f20a785c421c4f0291f6193997a787647a5c7fa4cb4c76",
+        "hex": "000000000e0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "8da07a629166c8f7ba8bcf5da3a45e4031fa031986a7212258f22f47a7c5e919",
+        "hex": "000000000f0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "99dbd07a7e49211a654cf51f69fcdba65e158329743fa645278ef9d5cfff0e38",
+        "hex": "000000000b0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "b0e8994dfe25227a08601eb36c79831aba37a5fd942324e2c9370c94c6ece1dd",
+        "hex": "00000000ae0000000200000001000510"
+      },
+      "relocs": [
+        [
+          0,
+          "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "373687bc3a41e546b7f20a785c421c4f0291f6193997a787647a5c7fa4cb4c76",
+        "hex": "000000000e0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+          7
+        ]
+      ]
+    }
+  ],
+  "debug_after": [
+    {
+      "name": ".debug$S",
+      "bytes": 133,
+      "body": {
+        "bytes": 133,
+        "sha256": "83aa840f5c309ef5478caa1fe24a27bf2bd575ab8a1b87763568d886ff87e0ab",
+        "hex": "0200000045000900000000003e573a5c4f70656e42464d455c4f70656e2d42464d452d325c6275696c645c74755f736b656c65746f6e5c393830313037386635326663613565392e6f626a380013100102000007000d000a00050c0d000a00050c214d6963726f736f667420285229204f7074696d697a696e6720436f6d70696c65720000"
+      },
+      "relocs": []
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "db22e22f248a80b4845e85933a783343aa7da17b70cc1c2c91fbe9052e2bbabf",
+        "hex": "00000000060000000000000000000200"
+      },
+      "relocs": [
+        [
+          0,
+          "??0AsciiString@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "2031367a1357af6f1d85fbb9652128dd3ba2ebaf241173e032694f2e913e2811",
+        "hex": "00000000050000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??1AsciiString@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "ea1d9144e1cebdf1f820eed823b7bbcc05e39be721ebb7c639e38b7830010824",
+        "hex": "00000000120000000000000001000700"
+      },
+      "relocs": [
+        [
+          0,
+          "??4AsciiString@@QAEAAV0@ABV0@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "e65bca644ad54451150dc769a6abbb6121039ded8eeaf44ca5e06d9a4683c387",
+        "hex": "00000000130000000000000002000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??8@YA_NABVAsciiString@@0@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "6cf1da47c99da9dde2d4d5ae5ab2cce927bfaa86ebe5d00cb72cd06cb2142ae8",
+        "hex": "00000000040000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?getFrame@GameLogic@@QBEIXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "daf4401eea55cbe682aec708b97b1992354febb0e3c8d043c4546fc692e50841",
+        "hex": "00000000120000000000000002000200"
+      },
+      "relocs": [
+        [
+          0,
+          "??0Version@Xfer@@QAE@EE@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "6cf1da47c99da9dde2d4d5ae5ab2cce927bfaa86ebe5d00cb72cd06cb2142ae8",
+        "hex": "00000000040000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?getPlayerIndex@Player@@QBEHXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "70794b57372ee08121950a9f4038ed99bbc72075a706b7838219eb607cb1fac0",
+        "hex": "000000000c0000000000000000000300"
+      },
+      "relocs": [
+        [
+          0,
+          "??0Rva001EAE6FHelper@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "014394662ff9289532a3681de3ab765de0452b386a573cde8256f2d1b57eb8ae",
+        "hex": "00000000220000000000000004000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??_H@YGXPAXIHP6EPAX0@Z@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "2302deab0d5eed9d2ba130bba3d40d2f998808c789ec9007b015d7103fcc5154",
+        "hex": "00000000190000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "3b15bc192e8a3cb8a83b67626966c6fa06fc79cd465f30c9a304f2db85d29081",
+        "hex": "00000000480000000000000001000700"
+      },
+      "relocs": [
+        [
+          0,
+          "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "862576beede5effa93b0e796f5682aeb0c1cd2d9f1b52695e3d1aa7fdcd32fbd",
+        "hex": "00000000870000000000000000000700"
+      },
+      "relocs": [
+        [
+          0,
+          "??0UnitRevivalEntry@@QAE@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "373687bc3a41e546b7f20a785c421c4f0291f6193997a787647a5c7fa4cb4c76",
+        "hex": "000000000e0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?VecSize@@YAIPAUVec216@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "66ad325a32b5f2a345ae6f054d92714fbbf920a7412e01a9a85ac83f65734ddc",
+        "hex": "00000000090000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?VecAt@@YAAAVUnitRevivalEntry@@PAUVec216@@H@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "5a791b89e07b59623eb95152e0684a9d0c6d76a162c457a675b7ec92b62d24fc",
+        "hex": "00000000300000000000000001000100"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "82f02ae4c5294e97f5dddf56ee53f69bb8ab71cccb6fff5ad9578e4322cac1b9",
+        "hex": "000000001e0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "ba08f3259d142e19ad2e9669d33de80a02c96e7c8418554b10fac9f32e988d1c",
+        "hex": "00000000220000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "68605291c9711d982df995e2fd78d7ad40aebd825be157bbd460911d59e3bbec",
+        "hex": "000000003b0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "3e29d19d46ff7beaa99537fe990615106b967a3aa868a0c98b10201c9659bc22",
+        "hex": "00000000170000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "73f3d48a5a646ea0e5316cc4bb71fc6a876108fe02ae6b8bc7a31a23579ce88e",
+        "hex": "000000001e0000000000000002000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "8322c5ebf1627be9afbad4315828911436a3066eaeefe0714b076985b9e288f0",
+        "hex": "000000001a0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "a44a0c8d4f291b3f98f0664385b2b12e3d3993d4a533ef19b5a2a21fcdf6665d",
+        "hex": "00000000350000000000000001000700"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "c13aeef14ae6293af4d6e9dad566d905af557be0dac8689ad00f7808f8f98590",
+        "hex": "00000000510000000000000001000800"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "e46dd4b323c6816600a5fcc3607e163a9e2c740e57f4c1590be22207d4647aef",
+        "hex": "000000001f0000000000000001000900"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "e7fe46ac5a7eed89b302e574a84391cdcdb500a2ea3763a5bd5844b0f6baf5f4",
+        "hex": "00000000430000000000000001000510"
+      },
+      "relocs": [
+        [
+          0,
+          "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "907c43cb83ef5f6ba2ac844674c38fea953e0cd83f1f453c231fd317261aad82",
+        "hex": "00000000300000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "4e6738e4cd0d50ea4a4026ef25625ff86d33db762a051d0ac34d76bb272200dc",
+        "hex": "00000000310000000000000001000100"
+      },
+      "relocs": [
+        [
+          0,
+          "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "10c78173ac60c17e9a34fb73ff8c04b3fcce44484564487e7c9a37194cbdce5c",
+        "hex": "000000000f0000000000000002000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "5405ffa3a17ecbc674c5476dfaa0042a9a1435c9c008d5c4d6088aac50d757e8",
+        "hex": "00000000030000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "6cf1da47c99da9dde2d4d5ae5ab2cce927bfaa86ebe5d00cb72cd06cb2142ae8",
+        "hex": "00000000040000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "373687bc3a41e546b7f20a785c421c4f0291f6193997a787647a5c7fa4cb4c76",
+        "hex": "000000000e0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "8da07a629166c8f7ba8bcf5da3a45e4031fa031986a7212258f22f47a7c5e919",
+        "hex": "000000000f0000000000000001000000"
+      },
+      "relocs": [
+        [
+          0,
+          "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "99dbd07a7e49211a654cf51f69fcdba65e158329743fa645278ef9d5cfff0e38",
+        "hex": "000000000b0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "b0e8994dfe25227a08601eb36c79831aba37a5fd942324e2c9370c94c6ece1dd",
+        "hex": "00000000ae0000000200000001000510"
+      },
+      "relocs": [
+        [
+          0,
+          "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+          7
+        ]
+      ]
+    },
+    {
+      "name": ".debug$F",
+      "bytes": 16,
+      "body": {
+        "bytes": 16,
+        "sha256": "373687bc3a41e546b7f20a785c421c4f0291f6193997a787647a5c7fa4cb4c76",
+        "hex": "000000000e0000000000000000000000"
+      },
+      "relocs": [
+        [
+          0,
+          "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+          7
+        ]
+      ]
+    }
+  ],
+  "graph_helper": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-record-stagea-native-private-dcbd8314-20261121\\section_graph_audit.py",
+  "graph_helper_sha256": "45a831dc4cc05dbc14120581a05f4da94be48141903b7cf203d50f193a586ab0",
+  "compiler_calls_in_graph_reader": 0
+}

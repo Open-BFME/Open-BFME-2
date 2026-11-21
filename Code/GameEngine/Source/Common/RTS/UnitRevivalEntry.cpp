@@ -326,7 +326,7 @@ public:
 	Rva004E04FD m_B0;
 	int m_C8;
 	float m_CC;
-	int m_D0;
+	AsciiString m_D0;
 	AsciiString m_str; // +0xD4
 };
 
@@ -404,7 +404,7 @@ UnitRevivalEntry::UnitRevivalEntry()
       m_94(0), m_98(-1), m_9C(0), m_A0(false), m_A1(false),
       m_A4(0), m_A8(0), m_AC(0), m_B0(), m_C8(0), m_CC(1.0f),
       // Retail stores m_CC before initializing the final two words.
-      m_D0((_ReadWriteBarrier(), 0)), m_str()
+      m_D0(), m_str()
 {
 }
 
