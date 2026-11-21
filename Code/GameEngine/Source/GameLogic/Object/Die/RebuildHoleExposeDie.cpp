@@ -187,15 +187,7 @@ public:
 	Bool m_transferAttackers;	// +0x44
 };
 
-class DieModule : public ObjectModule, public BehaviorModuleInterface, public DieModuleInterface
-{
-public:
-	DieModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~DieModule();
-	bool isDieApplicable(const DamageInfo *damageInfo) const;
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 class RebuildHoleExposeDie : public DieModule
 {
@@ -206,6 +198,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 
 protected:
+	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 };
 
@@ -363,7 +356,14 @@ void RebuildHoleExposeDie::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	((Rva004CE56D *)this)->xfer(xfer);
+	DieModule::xfer(xfer);
+}
+
+// Slot 1 of the primary table 0x0084AE54: the DieModule base call, which
+// retail folds into the shared tail jump 0x00497805.
+void RebuildHoleExposeDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDie.cpp
