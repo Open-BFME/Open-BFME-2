@@ -134,6 +134,7 @@ class AIAttackMoveToState : public Rva0034005D
 {
 public:
 	AIAttackMoveToState(StateMachine *machine);
+	virtual ~AIAttackMoveToState();
 private:
 	Int m_50;
 	StateMachine *m_attackMoveMachine; // +0x54
