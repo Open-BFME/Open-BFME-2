@@ -349,6 +349,16 @@ the prior opaque getter kept as the verified fold owner. Both constructor and de
 now emit all 13 native primary slots at 0x008404FC. The three edited units match 42/42
 function rows and three exact EH graphs. The scoped link preview resolves all four
 providers, including the fold owner. Scheduled real linking must confirm bridge retirement.
+
+The two installers now share one class view. Both copies of the BehaviorModuleInterface
+table at 0x00840440 resolve all 47 retail targets. Slot 32 preserves the null case and
+converts the +0x0C receiver to +0x20. Its compiler-generated eight-byte adjustor also
+fills slot 0 in each 27-slot table at 0x008403C8. Slot 45 keeps the shared positional
+signature and dispatches through interface slot 2, matching the typed 11-byte retail
+provider at 0x004543CA. Eight slots still need native providers in the 27-slot table.
+The 13-slot primary and three-slot UpdateModule tables retain their previous targets.
+The scope passes 120 function rows, one data row and three exact EH graphs. The
+ordinary four-source link preview resolves 2,976 bytes against its local index.
 lk10's held-file recipes above, applied once the files became claimable (lk12, base `c871f897be`):
 BridgeScaffoldBehavior.cpp (1,021 B) binds `??_7Rva00458402@@6BObjectModule/BehaviorModuleInterface/UpdateModule@@@`
 and `6BRva00458402_E1@@@` for its old `6BRva0024A797_Root/_Mid/_B2@@@` and `6B@` (+0/+0x0C/+0x10/+0x20);
