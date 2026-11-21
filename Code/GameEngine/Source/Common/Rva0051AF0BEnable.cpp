@@ -47,35 +47,7 @@ void __cdecl Rva0051B11CEnable(void)
 class Rva002BA8F1Logic;
 
 #include "../../Include/Common/Rva002B2B66.h"
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-	void appendBooleanArgument(bool arg);
-};
-class MessageStream
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7();
-	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *v18(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 struct UnknownE03138
 {
@@ -113,7 +85,7 @@ void __cdecl Rva0051B09BEnable(void)
 {
 	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) != 0 && ((BfmeSelectionState *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->isSelectionLocked()) {
 		Rva0051AF0BEnable(0);
-		GameMessage *msg = TheMessageStream->v18(0x6b8);
+		GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_LW_PLAYER_SURRENDERED);
 		int localPlayerID = ((Rva002B2B66 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2B66();
 		msg->appendIntegerArgument(localPlayerID);
 		return;
@@ -121,7 +93,7 @@ void __cdecl Rva0051B09BEnable(void)
 	Rva0051AF0BEnable(0);
 	if (((UnknownE03138 *)TheVictoryConditions)->u18())
 		return;
-	GameMessage *msg2 = TheMessageStream->v18(0x448);
+	GameMessage *msg2 = TheMessageStream->appendMessage(GameMessage::MSG_SELF_DESTRUCT);
 	msg2->appendBooleanArgument(false);
 	TheInGameUI->m_8C5 = 1;
 }
