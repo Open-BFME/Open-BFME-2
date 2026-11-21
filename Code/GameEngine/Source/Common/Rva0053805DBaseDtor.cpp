@@ -89,7 +89,9 @@ Rva0053805DBase::~Rva0053805DBase()
 	((Rva00537F56List *)(Rva00330757Member *)this)->forEach(&Rva0053805DListener::notify00, this);
 }
 
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?slot1@Rva0053805DBase@@UBE_NXZ=?IsCRC@Xfer@@UBE_NXZ")
+// Slot 1 of 0x00C691EC: the shared xor al, al / ret body retail folds with
+// Xfer::IsCRC at 0x0047A699.
+bool Rva0053805DBase::slot1() const
+{
+	return false;
+}
