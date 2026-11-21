@@ -6427,3 +6427,4 @@ __ehhandler$??1Rva005D06CB@@UAE@XZ,0x007A1B09,"Renamed to __ehhandler$??1Rva005C
 ??1Rva00345CAB@@UAE@XZ,0x00345CAB,"Renamed to ??1AIAttackMoveToState@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C13548)"
 ?xfer@Rva00345CAB@@MAEXPAVXfer@@@Z,0x00340E97,"Renamed to ?xfer@AIAttackMoveToState@@MAEXPAVXfer@@@Z by tools/rename.py (fold: retail vftable 0x00C13548)"
 ??_GRva00345CAB@@UAEPAXI@Z,0x00349FF5,"Renamed to ??_GAIAttackMoveToState@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C13548)"
+?rva004444EB@Rva004444EB@@QAEPAVRva004444EBBase@@XZ,0x004444EB,"Renamed to ?rva004444EB@Rva004444D2@@UAEPAVRva004444EBBase@@XZ by tools/rename.py (to-class: retail vftable 0x00C3E020 slot 20)"

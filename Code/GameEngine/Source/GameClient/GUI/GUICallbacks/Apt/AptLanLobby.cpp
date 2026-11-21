@@ -302,6 +302,7 @@ struct Rva005F8F96
 	~Rva005F8F96();
 	void *m_00;
 };
+class Rva004444EBBase;
 class Rva004444D2
 {
 public:
@@ -326,7 +327,7 @@ public:
 	virtual void slot44() = 0;
 	virtual void slot48() = 0;
 	virtual void slot4C() = 0;
-	virtual void slot50() = 0;
+	virtual Rva004444EBBase *rva004444EB();
 	virtual void slot54() = 0;
 	virtual bool slot58() { return true; }
 
@@ -1712,7 +1713,7 @@ void AptLanLobby::rva00444EC8()
 
 // tu-skeleton: 0x004444A9 5B ?rva004444A9@Rva004444A9@@QAEHHHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
-// tu-skeleton: 0x004444EB 30B ?rva004444EB@Rva004444EB@@QAEPAVRva004444EBBase@@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
+// tu-skeleton: 0x004444EB 30B ?rva004444EB@Rva004444D2@@UAEPAVRva004444EBBase@@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
 
 // tu-skeleton: 0x0044455C 288B ??1AptLanLobby@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
 

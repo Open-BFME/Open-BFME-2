@@ -159,7 +159,7 @@ void Rva003413A1::rva0034143C()
 		m_24->v06();
 }
 
-// slot at 0x004444EB (screen tables beside BfmeAptScreenLanLobby): a new
+// Rva004444D2 slot 20 at 0x004444EB (retail table 0x0083E020): a new
 // 0x0C-byte object with table VA 0x00C3D490 and both words cleared; its base
 // destructor is the shared 0x004E84A4, which restores the canonical
 // Rva0007DF07 table 0x00BC6F20 (its +0x04 word is the first one cleared).
@@ -176,12 +176,8 @@ public:
 public:
 	virtual bool slot04(int) { return true; }
 };
-class Rva004444EB
-{
-public:
-	Rva004444EBBase *rva004444EB();
-};
-Rva004444EBBase *Rva004444EB::rva004444EB()
+#include "../../Include/GameClient/Rva004444D2.h"
+Rva004444EBBase *Rva004444D2::rva004444EB()
 {
 	return new Rva004444EBObject;
 }

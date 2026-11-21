@@ -4,6 +4,8 @@
 #ifndef CANONICAL_RVA004444D2_H
 #define CANONICAL_RVA004444D2_H
 
+class Rva004444EBBase;
+
 class Rva004444D2 {
 public:
     char storage[8];
@@ -28,7 +30,7 @@ public:
     virtual void slot44() = 0;
     virtual void slot48() = 0;
     virtual void slot4C() = 0;
-    virtual void slot50() = 0;
+    virtual Rva004444EBBase *rva004444EB();
     virtual void slot54() = 0;
     virtual bool slot58() { return true; }
 };
