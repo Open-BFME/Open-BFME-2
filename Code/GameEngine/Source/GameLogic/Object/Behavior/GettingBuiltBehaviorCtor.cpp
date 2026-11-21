@@ -57,6 +57,45 @@ void GettingBuiltBehavior::slot45(int)
 	rva00454430();
 }
 
+bool GettingBuiltBehavior::rva004543B6()
+{
+	return m_b32;
+}
+
+bool GettingBuiltBehavior::checkCompletion()
+{
+	return m_b36;
+}
+
+double GettingBuiltBehavior::rva004543BA()
+{
+	return m_x38;
+}
+
+bool GettingBuiltBehavior::rva004543BE()
+{
+	return m_b35;
+}
+
+bool GettingBuiltBehavior::rva004543C2()
+{
+	return m_b33;
+}
+
+bool GettingBuiltBehavior::rva004543C6()
+{
+	return m_b3E;
+}
+
+void GettingBuiltBehavior::rva00454472(int frame)
+{
+	// UpdateModuleInterface is the +0x10 base of the live object.
+	UpdateModuleInterface *updateInterface =
+		reinterpret_cast<UpdateModuleInterface *>(reinterpret_cast<char *>(this) + 0x10);
+	updateInterface->update();
+	setWakeFrame(m_object, static_cast<UpdateSleepTime>(frame));
+}
+
 // ??0GettingBuiltBehavior@@QAE@PAVThing@@PBVModuleData@@@Z @0x004542FA
 GettingBuiltBehavior::GettingBuiltBehavior(Thing *thing, const ModuleData *moduleData) :
 	UpdateModule(thing, moduleData),
