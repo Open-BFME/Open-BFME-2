@@ -126,19 +126,6 @@ Rva00210EF1::Rva00210EF1(EmitVtableTag *)
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class Rva00216BF5
-{
-public:
-	Rva00216BF5(EmitVtableTag *);
-public:
-	virtual ~Rva00216BF5();
-};
-
-// ?<Rva00216BF5::Rva00216BF5> absent-from-retail
-Rva00216BF5::Rva00216BF5(EmitVtableTag *)
-{
-}
-
 class Rva00224A90
 {
 public:

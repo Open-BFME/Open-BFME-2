@@ -6457,3 +6457,6 @@ __ehhandler$??1Rva0060237D@@UAE@XZ,0x007A699F,"Renamed to __ehhandler$??1MemoryW
 ?reset@BannerUI@@QAEXXZ,0x00216D2D,"Renamed to ?reset@BannerUI@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
 ?update@BannerUI@@QAEXXZ,0x002167A3,"Renamed to ?update@BannerUI@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
 __ehhandler$?update@BannerUI@@QAEXXZ,0x0076E2AC,"Renamed to __ehhandler$?update@BannerUI@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
+??1Rva00216BF5@@UAE@XZ,0x00216BF5,"Renamed to ??1BannerUI@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE59E4)"
+__ehhandler$??1Rva00216BF5@@UAE@XZ,0x0076E2EC,"Renamed to __ehhandler$??1BannerUI@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BE59E4)"
+??_GRva00216BF5@@UAEPAXI@Z,0x00216DA0,"Renamed to ??_GBannerUI@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BE59E4)"

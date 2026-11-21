@@ -161,7 +161,7 @@ class Rva00216BF0 : public Rva00216AF6
 public:
     ~Rva00216BF0();
 };
-// Select-any like Rva00216BF5Dtor.cpp's identical copy (an exclusive
+// Select-any like BannerUI.cpp's identical copy (an exclusive
 // definition would duplicate it at link time); the anchor keeps it emitted.
 inline __declspec(noinline) Rva00216BF0::~Rva00216BF0() {}
 // ?bfmeAnchorRva00216BF0Dtor absent-from-retail
