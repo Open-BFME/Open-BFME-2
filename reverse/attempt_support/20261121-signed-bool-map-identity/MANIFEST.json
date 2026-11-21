@@ -1,0 +1,24 @@
+{
+  "head_observed": "56c8d42325165470cf7b73f16ddb473a755a9045",
+  "files": {
+    "CLAIM-SCOPE.json": "f6ba3807bdb95d665ce218333a09fccae2c0c8ddab372c0fb073e4764846f3fc",
+    "COMPILE-ONE.json": "1b750ff2d1ce14ba1ecebe43985735220a078f45ec46f2d4980a8b9a3e2b00fb",
+    "EXISTING-SELECTED-PROVIDERS.json": "427ad332fde11b133c3dd66c2d095109c5f5d21f40cfa66509ab0d5eee74ddf9",
+    "FINAL-INPUT-CURRENCY.json": "3e23d13aaf87acec89fdba5d661875b51b35ce9097d3757517b7205519c21b75",
+    "HANDOFF.md": "4c5e276ea9fb1d977da154510eb21b4359d00e3c466dafbdbd518173c67d2ea6",
+    "NATIVE-PRIVATE-RECURSIVE-PROOF.json": "c577e34b085cd7788ea0a0946a72e57bd02faa93d918e12d7dbd5a90e2035dc3",
+    "OPENED-HEADERS.json": "fbe28a39046f672337a05c8525b70dee6fc310517f177ff0be73dc6b006713c9",
+    "ORIGINAL-CALLGRAPH.json": "7cdf6b0c166d2c42c3b760ab70e9aabb18d6f23d06f52fa27d4c520cf4e8db09",
+    "ROOT-ONLY-ADMISSION-PLAN.json": "0c5a5a9b2eefa78c481063334cdf9a31493c4fc0f6c07e83cb4b07144091a245",
+    "ROOT-ONLY-ADMISSIONS.ps1.txt": "4e5919c72a2ab24cdb4607872015d32711cc31e75fc36d85afad2e1a38caa46c",
+    "source.patch": "5efb070c8c08fe3b6899780064ddedfac3f39df313b0bbfa2c8c458c4230e7a4",
+    "stlport_map_bool_subscript.cpp.txt": "c68b9d64007a603516cf4bf64504018ba997b4f4ac5f73ba58372ef67683edc1",
+    "WHOLE-OBJECT-FOOTPRINT.json": "c008cfb4751ba2689e033763eb974e4402483272259bdbaf5ba7eb710dd35392"
+  },
+  "all_input_currency_checks_true": true,
+  "source_patch_scope": [
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp"
+  ],
+  "private_compiles": 1,
+  "public_admission_or_retirement_run": false
+}

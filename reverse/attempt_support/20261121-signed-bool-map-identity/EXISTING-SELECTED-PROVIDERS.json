@@ -1,0 +1,71 @@
+{
+  "index_meta": {
+    "date": "2026-11-21 05:43",
+    "commit": "4305841cd0",
+    "clean_tree": true,
+    "census_date": "2026-11-18 13:34",
+    "census_commit": "8e4a365b86"
+  },
+  "bindings": [
+    {
+      "name": "?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z",
+      "rva": "0x0046F0A5",
+      "copies": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+          "kind": "COMDAT",
+          "verdict": "unknown",
+          "digest": "657435b7e089"
+        }
+      ]
+    },
+    {
+      "name": "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z",
+      "rva": "0x0046E563",
+      "copies": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+          "kind": "COMDAT",
+          "verdict": null,
+          "digest": "aa2b74389df8"
+        }
+      ]
+    },
+    {
+      "name": "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z",
+      "rva": "0x0046AC52",
+      "copies": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+          "kind": "COMDAT",
+          "verdict": null,
+          "digest": "4f1e13ebd6a4"
+        }
+      ]
+    },
+    {
+      "name": "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABU?$pair@$$CBH_N@2@@Z",
+      "rva": "0x002D464E",
+      "copies": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+          "kind": "COMDAT",
+          "verdict": null,
+          "digest": "5df36ef830cb"
+        }
+      ]
+    },
+    {
+      "name": "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBH_N@2@@Z",
+      "rva": "0x002D563D",
+      "copies": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+          "kind": "COMDAT",
+          "verdict": null,
+          "digest": "2ca13b902945"
+        }
+      ]
+    }
+  ]
+}
