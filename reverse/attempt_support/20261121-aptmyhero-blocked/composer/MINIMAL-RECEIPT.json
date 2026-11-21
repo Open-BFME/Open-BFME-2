@@ -1,0 +1,44 @@
+{
+  "scope": "Private causal fixture only; no engine row, byte-equivalence, tool fix or admission claim",
+  "normal_tool_sha256": "05a807f431834f7ac74fd1c1c05a28be9567f63fdeef2a737f490a7fc8f73291",
+  "cases": {
+    "seed-alone": {
+      "compiled": true,
+      "first_errors": [],
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\objects\\7de01fbe1361162c.obj",
+      "source_sha256": "8986d3e9dae41e05ecfa102a9da32143fc6dec69c547278a699e5ed3d2c41a3c"
+    },
+    "donor-alone": {
+      "compiled": true,
+      "first_errors": [],
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\objects\\54858c377f03e6c6.obj",
+      "source_sha256": "c628adb3410b6a140cc6df2af9ae9cc292b1d9ee6926c81a3949b3f029c54f27"
+    },
+    "normal-composed-drop-all": {
+      "compiled": false,
+      "first_errors": [
+        "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\.Minimal.1929df6c2a0cf539.tu_skeleton.cpp(3) : error C2143: syntax error : missing ';' before '-'",
+        "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\.Minimal.1929df6c2a0cf539.tu_skeleton.cpp(3) : error C2433: 'ExampleVec' : '__forceinline' not permitted on data declarations",
+        "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\.Minimal.1929df6c2a0cf539.tu_skeleton.cpp(3) : error C2501: 'ExampleVec' : missing storage-class or type specifiers"
+      ],
+      "object": null,
+      "source_sha256": "e244296eda448de31fe08d6ce5307c1b9ff192587abd4696520460c8fbc083ba"
+    },
+    "independent-header-before-use-control": {
+      "compiled": true,
+      "first_errors": [],
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\objects\\dcadd8b9fa631fc2.obj",
+      "source_sha256": "b171ca66065451c249416c530895e93f6c7f90e37272119c87dee1079e69123d"
+    },
+    "negative-missing-provider": {
+      "compiled": false,
+      "first_errors": [
+        "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\.Minimal.9275bda3223bcaad.tu_skeleton.cpp(2) : error C2143: syntax error : missing ';' before '-'",
+        "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\.Minimal.9275bda3223bcaad.tu_skeleton.cpp(2) : error C2433: 'ExampleVec' : '__forceinline' not permitted on data declarations",
+        "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-minimal\\.Minimal.9275bda3223bcaad.tu_skeleton.cpp(2) : error C2501: 'ExampleVec' : missing storage-class or type specifiers"
+      ],
+      "object": null,
+      "source_sha256": "93c931cd73e2c3f3013a3674b3f99bfbbba44afe5b5d30d70fd78bbe275ca394"
+    }
+  }
+}

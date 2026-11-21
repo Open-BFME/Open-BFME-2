@@ -1,0 +1,152 @@
+{
+  "status": "NOT LANDABLE;42/43; no task/byte credit",
+  "work_window": {
+    "Basis": "OS artifact timestamps; bounds artifact phase only, not unrecorded earlier reading",
+    "StartEvidence": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\aptmyhero-vector3",
+    "StartUtc": "2026-11-20T23:58:44.5762762Z",
+    "EndEvidence": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\aptmyhero-vector3\\MANIFEST.json",
+    "EndUtc": "2026-11-21T00:28:45.8609864Z",
+    "ElapsedSeconds": 1801.2847102,
+    "ElapsedMinutes": 30.021411836666665,
+    "WholeTaskDurationKnown": false
+  },
+  "root_supplied_base_then": "bce1ceaf11",
+  "seed_source": {
+    "path": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+    "sha256_at_probe": "44e2fd569ace6ce47fa51ea6a1eb5b0827ebdb06fd83bf23fa4f517d69e01744"
+  },
+  "headers_at_probe": {
+    "WWMathClass.h": "ad1abf03be3efa81c907025a3e0fd776298e5d3fc5622d1e18a6b88ebe5f9429",
+    "Vector3Data.h": "fbfdedbde65a531233f3585874d39c5485c99f10368ad14ed67c6f5a861d63e8",
+    "Vector3InlineMath.h": "070acc05ee9202b4cd40eb2b4c46ead1d2750bc75be6a445303a9bf4cbd96f2c"
+  },
+  "native_effective_flags": [
+    "/O1",
+    "/arch:SSE",
+    "/G7",
+    "/MD",
+    "/EHsc",
+    "/D_STLP_USE_STATIC_LIB",
+    "/Ireference/shims/bfme2_ascii",
+    "/Ireference/shims/bfmealloc"
+  ],
+  "compiler_root": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003",
+  "private_native_control": {
+    "matched_count": 43,
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-vector3\\objects\\c25cb945a6061455.obj",
+    "object_sha256": "e7c7951136752c84e3b2b572aa9f8f6a09267c46cdf06c7ca0952e8156f7bc18"
+  },
+  "best_candidate": {
+    "native_matched": 42,
+    "missing": [
+      "0x005B0A95"
+    ],
+    "target": {
+      "name": "?rva005B0A95@AptMyHero@@QAEHHH@Z",
+      "rva": "0x005B0A95",
+      "actual_extent": 971,
+      "expected": 971,
+      "strict_equal": false,
+      "masked": false,
+      "unresolved": [],
+      "relocation_count": 19
+    },
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-vector3\\objects\\dd84db69db0f6922.obj",
+    "object_sha256": "9af8df2dcb6ad889cb03fef52a977064426211d40c23708fba9f203dc15ed42c",
+    "source_artifact_byte_sha256": "a70f5c197684dd18d3e884b86c9b174af4d5e36310b3a6751a323eb73511e774",
+    "target_raw_byte_diff_count": 24,
+    "target_all19_named_relocations_equal": true,
+    "target_windows": [
+      "01EC..0214",
+      "0263..0287"
+    ]
+  },
+  "code_and_undefined_and_vtable_footprint": {
+    "strong_code_before": 58,
+    "strong_code_after": 58,
+    "removed": [
+      "??AVector3@@QBEABMH@Z"
+    ],
+    "added": [
+      {
+        "name": "??AVector3@@QBEMH@Z",
+        "size": 10,
+        "relocs": []
+      }
+    ],
+    "changed": [
+      {
+        "name": "??0Matrix3D@@QAE@ABVVector3@@M@Z",
+        "before": 369,
+        "after": 471,
+        "raw_equal": false,
+        "reloc_lists_equal": false
+      },
+      {
+        "name": "?Set@Matrix3D@@QAEXABVVector3@@M@Z",
+        "before": 356,
+        "after": 454,
+        "raw_equal": false,
+        "reloc_lists_equal": false
+      },
+      {
+        "name": "?Set@Matrix3D@@QAEXABVVector3@@MM@Z",
+        "before": 318,
+        "after": 414,
+        "raw_equal": false,
+        "reloc_lists_equal": false
+      },
+      {
+        "name": "?rva005B0A95@AptMyHero@@QAEHHH@Z",
+        "before": 971,
+        "after": 971,
+        "raw_equal": false,
+        "reloc_lists_equal": true
+      }
+    ],
+    "undefined_added": [],
+    "undefined_removed": [],
+    "vtables_before": [],
+    "vtables_after": []
+  },
+  "data_footprint": {
+    "control_data_sections": 32,
+    "candidate_data_sections": 32,
+    "all_noncode_nondebug_sections_equal_after_real_local_target_normalization": true,
+    "control_sha256": "0b1a39fa33ff27a39cb2ff893dee8d8bdf4a3aa08b7bb8821ee06fb9c8845632",
+    "candidate_sha256": "0b1a39fa33ff27a39cb2ff893dee8d8bdf4a3aa08b7bb8821ee06fb9c8845632"
+  },
+  "definition_inventory": {
+    "before": 25,
+    "after": 25,
+    "equal": true
+  },
+  "refuted_new_forms": [
+    {
+      "form": "H1 const component references",
+      "extent": 980
+    },
+    {
+      "form": "H2 statement construction",
+      "extent": 976
+    },
+    {
+      "form": "H3 actual canonical inline const-index",
+      "extent": 971,
+      "raw_diffs": 24
+    },
+    {
+      "form": "H4 explicit partial sum",
+      "extent": 1014
+    },
+    {
+      "form": "H5 input row reference",
+      "extent": 971,
+      "same_as_H3": true
+    }
+  ],
+  "strictdiff_sha256": "46e4b87e86c5c9295bf76af203be93e6426e1eddd2f0bffd4b4bae3ed92588d0",
+  "metadata_detail_limit": "12 Unwind rows were accepted by native Verifier; auxiliary raw-symbol details used row names rather than compiler emitter names. Those auxiliary errors are not gate misses and their missing per-row details are not invented.",
+  "production_git_flag_header_pin_gate_claim_mutations": false,
+  "runtime_executed": false
+}

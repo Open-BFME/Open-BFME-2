@@ -1,0 +1,304 @@
+{
+  "strong_code_before": 60,
+  "strong_code_after": 59,
+  "removed": [
+    "??AVector3@@QBEABMH@Z"
+  ],
+  "added": [],
+  "changed": [
+    {
+      "name": "??0Matrix3D@@QAE@ABVVector3@@M@Z",
+      "before": 369,
+      "after": 373,
+      "raw_equal": false,
+      "named_relocs_equal": true
+    },
+    {
+      "name": "?Set@Matrix3D@@QAEXABVVector3@@MM@Z",
+      "before": 318,
+      "after": 318,
+      "raw_equal": false,
+      "named_relocs_equal": true
+    },
+    {
+      "name": "?rva005B0A95@AptMyHero@@QAEHHH@Z",
+      "before": 971,
+      "after": 976,
+      "raw_equal": false,
+      "named_relocs_equal": false
+    }
+  ],
+  "three_matrix_bodies": [
+    {
+      "name": "?Set@Matrix3D@@QAEXABVVector3@@MM@Z",
+      "before": 318,
+      "after": 318,
+      "raw_equal": false,
+      "named_relocs_equal": true
+    },
+    {
+      "name": "?Set@Matrix3D@@QAEXABVVector3@@M@Z",
+      "before": 356,
+      "after": 356,
+      "raw_equal": true,
+      "named_relocs_equal": true
+    },
+    {
+      "name": "??0Matrix3D@@QAE@ABVVector3@@M@Z",
+      "before": 369,
+      "after": 373,
+      "raw_equal": false,
+      "named_relocs_equal": true
+    }
+  ],
+  "undefined_removed": [],
+  "undefined_added": [],
+  "vtables_before": [],
+  "vtables_after": [],
+  "linker_directives_equal": true,
+  "noncode_sections_before": 31,
+  "noncode_sections_after": 31,
+  "complete_noncode_actual_target_graphs_equal": true,
+  "data_removed": [],
+  "data_added": [],
+  "data_digest_before": "724d0e9bb89c0f2ba8c18f924c8e314f8d470bf5a462f541e11f5997610095f0",
+  "data_digest_after": "724d0e9bb89c0f2ba8c18f924c8e314f8d470bf5a462f541e11f5997610095f0",
+  "sxdata_before": [
+    {
+      "raw": "bb000000590100008a010000bc010000",
+      "handlers": [
+        "__ehhandler$?rva005B0725@AptMyHero@@QAE_NXZ",
+        "__ehhandler$?SetBling@AptMyHero@@QAEXHHH@Z",
+        "__ehhandler$?rva005B1830@Rva005B1830@@QAEXXZ",
+        "__ehhandler$?BuildBlingData@AptMyHero@@QAEXXZ"
+      ]
+    }
+  ],
+  "sxdata_after": [
+    {
+      "raw": "b60000005401000085010000b7010000",
+      "handlers": [
+        "__ehhandler$?rva005B0725@AptMyHero@@QAE_NXZ",
+        "__ehhandler$?SetBling@AptMyHero@@QAEXHHH@Z",
+        "__ehhandler$?rva005B1830@Rva005B1830@@QAEXXZ",
+        "__ehhandler$?BuildBlingData@AptMyHero@@QAEXXZ"
+      ]
+    }
+  ],
+  "sxdata_actual_handlers_equal": true,
+  "removed_code_incoming_object_relocations": {
+    "??AVector3@@QBEABMH@Z": [
+      {
+        "section": 44,
+        "section_name": ".debug$F",
+        "offset": 0,
+        "kind": 7
+      }
+    ]
+  },
+  "sun": {
+    "before": 971,
+    "after": 976,
+    "before_relocations": [
+      [
+        13,
+        6,
+        "?TheTacticalView@@3PAVView@@A"
+      ],
+      [
+        27,
+        6,
+        "__real@3f81b7a6"
+      ],
+      [
+        40,
+        20,
+        "_cos"
+      ],
+      [
+        54,
+        20,
+        "_sin"
+      ],
+      [
+        70,
+        6,
+        "__real@3f800000"
+      ],
+      [
+        87,
+        6,
+        "__real@00000000"
+      ],
+      [
+        105,
+        6,
+        "__real@3f800000"
+      ],
+      [
+        143,
+        6,
+        "?TheTacticalView@@3PAVView@@A"
+      ],
+      [
+        201,
+        6,
+        "__real@3f20d97c"
+      ],
+      [
+        214,
+        20,
+        "_cos"
+      ],
+      [
+        228,
+        20,
+        "_sin"
+      ],
+      [
+        241,
+        6,
+        "__real@3f800000"
+      ],
+      [
+        787,
+        20,
+        "?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z"
+      ],
+      [
+        792,
+        6,
+        "?TheWritableGlobalData@@3PAVGlobalData@@A"
+      ],
+      [
+        832,
+        6,
+        "?TheDisplay@@3PAVDisplay@@A"
+      ],
+      [
+        855,
+        6,
+        "__real@461c4000"
+      ],
+      [
+        861,
+        6,
+        "?TheW3DShadowManager@@3PAVW3DShadowManager@@A"
+      ],
+      [
+        939,
+        20,
+        "?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z"
+      ],
+      [
+        945,
+        6,
+        "?TheTacticalView@@3PAVView@@A"
+      ]
+    ],
+    "after_relocations": [
+      [
+        13,
+        6,
+        "?TheTacticalView@@3PAVView@@A"
+      ],
+      [
+        27,
+        6,
+        "__real@3f81b7a6"
+      ],
+      [
+        40,
+        20,
+        "_cos"
+      ],
+      [
+        54,
+        20,
+        "_sin"
+      ],
+      [
+        70,
+        6,
+        "__real@3f800000"
+      ],
+      [
+        87,
+        6,
+        "__real@00000000"
+      ],
+      [
+        105,
+        6,
+        "__real@3f800000"
+      ],
+      [
+        143,
+        6,
+        "?TheTacticalView@@3PAVView@@A"
+      ],
+      [
+        201,
+        6,
+        "__real@3f20d97c"
+      ],
+      [
+        214,
+        20,
+        "_cos"
+      ],
+      [
+        228,
+        20,
+        "_sin"
+      ],
+      [
+        241,
+        6,
+        "__real@3f800000"
+      ],
+      [
+        792,
+        20,
+        "?Rotate_Vector@Matrix3D@@QBE?AVVector3@@ABV2@@Z"
+      ],
+      [
+        797,
+        6,
+        "?TheWritableGlobalData@@3PAVGlobalData@@A"
+      ],
+      [
+        837,
+        6,
+        "?TheDisplay@@3PAVDisplay@@A"
+      ],
+      [
+        860,
+        6,
+        "__real@461c4000"
+      ],
+      [
+        866,
+        6,
+        "?TheW3DShadowManager@@3PAVW3DShadowManager@@A"
+      ],
+      [
+        944,
+        20,
+        "?setLightPosition@W3DGameClientShadowShim@@QAEXHMMM@Z"
+      ],
+      [
+        950,
+        6,
+        "?TheTacticalView@@3PAVView@@A"
+      ]
+    ],
+    "all_named_relocations_equal": false,
+    "relocation_names_kinds_sequence_equal": true
+  },
+  "graph_scope": "Read-only actual COFF targets normalized by actual named owners or normal owned-row/funclet bindings; anonymous nodes retain full raw bytes/flags/extents/recursive actual edges and offsets, cycle backedges explicit. SafeSEH .sxdata raw symbol indices are preserved separately and resolved to actual handlers, never silently ignored. This is private object structure, not full link or runtime proof.",
+  "source_definitions_before": 26,
+  "source_definitions_after": 26,
+  "source_definitions_equal": true,
+  "new_credit": 0
+}

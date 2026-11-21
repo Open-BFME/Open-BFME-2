@@ -1,0 +1,39 @@
+{
+  "status": "BLOCKED42/43; no landing patch or new credit",
+  "parent_supplied_base": "b146a56624e02d3329378d808e624bf2f18bb233",
+  "created_utc": "2026-11-21T02:00:25.042912+00:00",
+  "native_compile_window": {
+    "started_utc": "2026-11-21T01:55:34.548277+00:00",
+    "finished_utc": "2026-11-21T01:55:36.848296+00:00"
+  },
+  "one_candidate_form": true,
+  "control_rows": 43,
+  "candidate_rows": 42,
+  "sun_expected": 971,
+  "sun_actual": 976,
+  "source_unchanged_on_completion": true,
+  "all_five_headers_unchanged_on_completion": true,
+  "no_child_production_git_claim_row_header_identity_gate_writes": true,
+  "runtime_or_full_link_claim": false,
+  "new_credit": 0,
+  "compiler_source": "native TS.Verifier under the real TU managed flags with only private path relocation; BFME_OBJSTORE=off",
+  "object_paths": {
+    "control": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-vector3-fields-b146\\objects\\a92abb60a2acbf93.obj",
+    "candidate": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-vector3-fields-b146\\objects\\3a8e955212393191.obj"
+  },
+  "strong_code_counts": [
+    60,
+    59
+  ],
+  "safe_seh": "Raw .sxdata symbol-index arrays differ; same four actual handler identities separately resolved and proved.",
+  "artifact_sha256": {
+    "AptMyHero-canonical-fields.cpp.txt": "b5a157d6a966b9f401bd1a89444a085fcd767efcd8c7b6874e1e0d798be9d9b9",
+    "AptMyHero-control-b146.cpp.txt": "33b56b9184f0ddb762bca0bb63180b42e1518b4430b74e5bd1ffffea9344ec5d",
+    "FOOTPRINT.json": "5373632fa168582feda8d0a71abbc63927b392c6dd76f216082b36c8dd7937de",
+    "HANDOFF.md": "03dc607c44b6d2fa7016d72d441eeb05d4a42d20a2efde0cafab40e9f9fa7fdc",
+    "HYPOTHESIS.md": "103d80a4f98abdacc115d204bc7316637380de9d8edd56075c30948a826abb52",
+    "NATIVE-PROOF.json": "ee6ce6eca4541fc98ead5fb9927caa3326c77c83efcb6121680aca7c9ad784b8",
+    "SOURCE-TRIAL-DIFF.txt": "184c1bcea7182c487eb7a072a3420118a89c3d4c4404291b7ab1719ed1ecf433",
+    "SUN-NATIVE-DIFF.txt": "58a39e58ded36d611df64fb445dd23a553d3ea6537d33631a8cec296857b56ab"
+  }
+}

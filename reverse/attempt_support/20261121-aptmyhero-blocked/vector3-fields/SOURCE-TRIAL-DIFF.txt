@@ -1,0 +1,45 @@
+--- a/Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
++++ b/Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
+@@ -86,17 +86,9 @@
+ extern "C" double __cdecl cos(double);
+ inline float cosf(float _X){return ((float)cos((double)_X));}
+ inline float sinf(float _X){return ((float)sin((double)_X));}
+-class Vector3 {
+-public:
+- float X,Y,Z;
+- __forceinline Vector3(){}
+- __forceinline Vector3(float x,float y,float z){X=x;Y=y;Z=z;}
+- __forceinline Vector3(const Vector3 &vec){X=vec.X;Y=vec.Y;Z=vec.Z;}
+- __forceinline Vector3 &operator=(const Vector3 &vec){X=vec.X;Y=vec.Y;Z=vec.Z;return *this;}
+- __forceinline float &operator[](int i){return (&X)[i];}
+- __forceinline const float &operator[](int i) const{return (&X)[i];}
+- __forceinline Vector3 &operator*=(float k){X*=k;Y*=k;Z*=k;return *this;}
+-};
++#include "../../../../../../Libraries/Source/WWVegas/WWMath/WWMathClass.h"
++#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
++#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3InlineMath.h"
+ __forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}
+ #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+ #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+@@ -1067,9 +1059,9 @@
+ __forceinline float submul(const Vector4 &row,float tmp1,float tmp2,float tmp3){return row.X*tmp1+row.Y*tmp2+row.Z*tmp3;}
+ 
+ __forceinline void Matrix3D::Set(const Vector3 &axis,float s,float c){
+- Row[0].Set((float)(axis[0]*axis[0]+c*(1.0f-axis[0]*axis[0])),(float)(axis[0]*axis[1]*(1.0f-c)-axis[2]*s),(float)(axis[2]*axis[0]*(1.0f-c)+axis[1]*s),0.0f);
+- Row[1].Set((float)(axis[0]*axis[1]*(1.0f-c)+axis[2]*s),(float)(axis[1]*axis[1]+c*(1.0f-axis[1]*axis[1])),(float)(axis[1]*axis[2]*(1.0f-c)-axis[0]*s),0.0f);
+- Row[2].Set((float)(axis[2]*axis[0]*(1.0f-c)-axis[1]*s),(float)(axis[1]*axis[2]*(1.0f-c)+axis[0]*s),(float)(axis[2]*axis[2]+c*(1-axis[2]*axis[2])),0.0f);
++ Row[0].Set((float)(axis.X*axis.X+c*(1.0f-axis.X*axis.X)),(float)(axis.X*axis.Y*(1.0f-c)-axis.Z*s),(float)(axis.Z*axis.X*(1.0f-c)+axis.Y*s),0.0f);
++ Row[1].Set((float)(axis.X*axis.Y*(1.0f-c)+axis.Z*s),(float)(axis.Y*axis.Y+c*(1.0f-axis.Y*axis.Y)),(float)(axis.Y*axis.Z*(1.0f-c)-axis.X*s),0.0f);
++ Row[2].Set((float)(axis.Z*axis.X*(1.0f-c)-axis.Y*s),(float)(axis.Y*axis.Z*(1.0f-c)+axis.X*s),(float)(axis.Z*axis.Z+c*(1-axis.Z*axis.Z)),0.0f);
+ }
+ 
+ __forceinline void Matrix3D::mul(const Matrix3D &matrix3D,const Matrix3D &B){
+@@ -1308,7 +1300,7 @@
+  Vector3 dir=rot.Rotate_Vector(Vector3(0.0f,1.0f,0.0f));
+  SetLightPos(&((GlobalDataLightView *)TheWritableGlobalData)->terrainLightPos0,dir.X,dir.Y,dir.Z);
+  ((DisplayLightView *)TheDisplay)->setLightDirection(&dir);
+- dir=-dir;
++ dir=::operator-(dir);
+  dir*=10000.0f;
+  ((W3DGameClientShadowShim *)TheW3DShadowManager)->setLightPosition(0,dir.X,dir.Y,dir.Z);
+  return TheTacticalView->isCameraMovementFinished()?2:1;

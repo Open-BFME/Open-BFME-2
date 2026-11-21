@@ -1,0 +1,1250 @@
+{
+  "parent_supplied_base": "b146a56624e02d3329378d808e624bf2f18bb233",
+  "started_utc": "2026-11-21T01:55:34.548277+00:00",
+  "finished_utc": "2026-11-21T01:55:36.848296+00:00",
+  "actual_source_sha256": "33b56b9184f0ddb762bca0bb63180b42e1518b4430b74e5bd1ffffea9344ec5d",
+  "headers": {
+    "WWMathClass.h": "ad1abf03be3efa81c907025a3e0fd776298e5d3fc5622d1e18a6b88ebe5f9429",
+    "Vector3Data.h": "fbfdedbde65a531233f3585874d39c5485c99f10368ad14ed67c6f5a861d63e8",
+    "Vector3InlineMath.h": "070acc05ee9202b4cd40eb2b4c46ead1d2750bc75be6a445303a9bf4cbd96f2c",
+    "Vector4Data.h": "7ee5d6891a81a1e5501c75081bbf96e1dcc94f6eaa96e6a8aa1c8176f7c73af0",
+    "Matrix3DData.h": "c082240a96acb0455fab4f6cd1ca603105510f81251a5f065f1ff605734ce7db"
+  },
+  "effective_flags_line": "// cl: /O1 /arch:SSE /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc",
+  "static_component_access_replacements": 30,
+  "control": {
+    "matched": [
+      "0x005B0416",
+      "0x005B0446",
+      "0x005B045D",
+      "0x005B0473",
+      "0x005B0487",
+      "0x005B04B6",
+      "0x005B04D3",
+      "0x005B0725",
+      "0x005B07C1",
+      "0x005B0923",
+      "0x005B097F",
+      "0x005B09D8",
+      "0x005B0A53",
+      "0x005B0A95",
+      "0x005B0E60",
+      "0x005B0EE6",
+      "0x005B0FCD",
+      "0x005B1288",
+      "0x005B129F",
+      "0x005B1830",
+      "0x005B1903",
+      "0x005B1908",
+      "0x005B1A6C",
+      "0x005B1B5E",
+      "0x005B1E71",
+      "0x005B21DA",
+      "0x0079EE12",
+      "0x0079EE1A",
+      "0x0079EE22",
+      "0x0079EE2C",
+      "0x0079EE34",
+      "0x0079EE3C",
+      "0x0079EE44",
+      "0x0079EE4C",
+      "0x0079EF28",
+      "0x0079EF30",
+      "0x0079EF38",
+      "0x0079EF40",
+      "0x0079EF8A",
+      "0x0079EF92",
+      "0x0079EF9A",
+      "0x0079EFA2",
+      "0x007B46F8"
+    ],
+    "missing": [],
+    "errors": [],
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-vector3-fields-b146\\objects\\a92abb60a2acbf93.obj",
+    "rows": [
+      {
+        "name": "?rva005B0E60@AptMyHero@@QAEHPBVObject@@@Z",
+        "rva": "0x005B0E60",
+        "extent": 63,
+        "expected": 63,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "?rva005B045D@Rva005B045D@@QAEPAXXZ",
+        "rva": "0x005B045D",
+        "extent": 22,
+        "expected": 22,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 0
+      },
+      {
+        "name": "?rva005B04B6@Rva005B045D@@QAEXXZ",
+        "rva": "0x005B04B6",
+        "extent": 29,
+        "expected": 29,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "??$__copy@PAURva005B09D8Record@@PAU1@H@_STL@@YAPAURva005B09D8Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+        "rva": "0x005B04D3",
+        "extent": 50,
+        "expected": 50,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 0
+      },
+      {
+        "name": "?rva005B0416@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B0416",
+        "extent": 48,
+        "expected": 48,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "?rva005B1830@Rva005B1830@@QAEXXZ",
+        "rva": "0x005B1830",
+        "extent": 211,
+        "expected": 211,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 16
+      },
+      {
+        "name": "?copyPointersRva005B09D8@@YAPAURva005B09D8Record@@PAU1@00ABU__false_type@_STL@@@Z",
+        "rva": "0x005B09D8",
+        "extent": 29,
+        "expected": 29,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?erase@Rva005B129FVector@@QAEPAURva005B09D8Record@@PAU2@0@Z",
+        "rva": "0x005B129F",
+        "extent": 38,
+        "expected": 38,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?AdjustBling@AptMyHero@@QAEXHHH@Z",
+        "rva": "0x005B0EE6",
+        "extent": 231,
+        "expected": 231,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?SetBling@AptMyHero@@QAEXHHH@Z",
+        "rva": "0x005B07C1",
+        "extent": 354,
+        "expected": 354,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 22
+      },
+      {
+        "name": "?SwitchToPendingHero@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1E71",
+        "extent": 113,
+        "expected": 113,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 9
+      },
+      {
+        "name": "?rva005B0446@AptMyHero@@QAEXXZ",
+        "rva": "0x005B0446",
+        "extent": 23,
+        "expected": 23,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?rva005B0473@AptMyHero@@QAEPAURva005B0473View@@XZ",
+        "rva": "0x005B0473",
+        "extent": 20,
+        "expected": 20,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B0487@AptMyHero@@QAEXXZ",
+        "rva": "0x005B0487",
+        "extent": 47,
+        "expected": 47,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B0725@AptMyHero@@QAE_NXZ",
+        "rva": "0x005B0725",
+        "extent": 156,
+        "expected": 156,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 15
+      },
+      {
+        "name": "?rva005B0923@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B0923",
+        "extent": 92,
+        "expected": 92,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "?rva005B097F@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B097F",
+        "extent": 60,
+        "expected": 60,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?rva005B0A53@@YAABVAsciiString@@PBDH@Z",
+        "rva": "0x005B0A53",
+        "extent": 66,
+        "expected": 66,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 8
+      },
+      {
+        "name": "?rva005B0FCD@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B0FCD",
+        "extent": 76,
+        "expected": 76,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B1288@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1288",
+        "extent": 23,
+        "expected": 23,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B1A6C@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1A6C",
+        "extent": 186,
+        "expected": 186,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "?rva005B21DA@AptMyHero@@QAEXPAVCreateAHeroData@@_NH@Z",
+        "rva": "0x005B21DA",
+        "extent": 187,
+        "expected": 187,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 12
+      },
+      {
+        "name": "__ehhandler$?rva005B1830@Rva005B1830@@QAEXXZ",
+        "rva": "0x0079EF40",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "__ehhandler$?rva005B0725@AptMyHero@@QAE_NXZ",
+        "rva": "0x0079EE22",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "__ehhandler$?SetBling@AptMyHero@@QAEXHHH@Z",
+        "rva": "0x0079EE4C",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?BuildBlingData@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1B5E",
+        "extent": 787,
+        "expected": 787,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 43
+      },
+      {
+        "name": "__ehhandler$?BuildBlingData@AptMyHero@@QAEXXZ",
+        "rva": "0x0079EFA2",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B0A95@AptMyHero@@QAEHHH@Z",
+        "rva": "0x005B0A95",
+        "extent": 971,
+        "expected": 971,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 19
+      },
+      {
+        "name": "?rva005B1903@Rva005B1903@@QAEXPAUBfmePod8@@IABU2@@Z",
+        "rva": "0x005B1903",
+        "extent": 5,
+        "expected": 5,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?rva005B1908@Rva005B1908@@QAEXPAUBfmePod20@@IABU2@@Z",
+        "rva": "0x005B1908",
+        "extent": 5,
+        "expected": 5,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "Unwind@00b9ee2c",
+        "rva": "0x0079EE2C",
+        "extent": 42,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 6
+      },
+      {
+        "name": "Unwind@00b9ee34",
+        "rva": "0x0079EE34",
+        "extent": 34,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "Unwind@00b9ee3c",
+        "rva": "0x0079EE3C",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ee44",
+        "rva": "0x0079EE44",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "Unwind@00b9ee12",
+        "rva": "0x0079EE12",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ee1a",
+        "rva": "0x0079EE1A",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "Unwind@00b9ef8a",
+        "rva": "0x0079EF8A",
+        "extent": 34,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "Unwind@00b9ef92",
+        "rva": "0x0079EF92",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ef9a",
+        "rva": "0x0079EF9A",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "Unwind@00b9ef28",
+        "rva": "0x0079EF28",
+        "extent": 34,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "Unwind@00b9ef30",
+        "rva": "0x0079EF30",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ef38",
+        "rva": "0x0079EF38",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "_$E1",
+        "rva": "0x007B46F8",
+        "extent": 16,
+        "expected": 16,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      }
+    ],
+    "object_sha256": "6fd44185cd6f84e253d1340ea9cda92e1f496290bac8f36e8e40fb721c486071"
+  },
+  "candidate": {
+    "matched": [
+      "0x005B0416",
+      "0x005B0446",
+      "0x005B045D",
+      "0x005B0473",
+      "0x005B0487",
+      "0x005B04B6",
+      "0x005B04D3",
+      "0x005B0725",
+      "0x005B07C1",
+      "0x005B0923",
+      "0x005B097F",
+      "0x005B09D8",
+      "0x005B0A53",
+      "0x005B0E60",
+      "0x005B0EE6",
+      "0x005B0FCD",
+      "0x005B1288",
+      "0x005B129F",
+      "0x005B1830",
+      "0x005B1903",
+      "0x005B1908",
+      "0x005B1A6C",
+      "0x005B1B5E",
+      "0x005B1E71",
+      "0x005B21DA",
+      "0x0079EE12",
+      "0x0079EE1A",
+      "0x0079EE22",
+      "0x0079EE2C",
+      "0x0079EE34",
+      "0x0079EE3C",
+      "0x0079EE44",
+      "0x0079EE4C",
+      "0x0079EF28",
+      "0x0079EF30",
+      "0x0079EF38",
+      "0x0079EF40",
+      "0x0079EF8A",
+      "0x0079EF92",
+      "0x0079EF9A",
+      "0x0079EFA2",
+      "0x007B46F8"
+    ],
+    "missing": [
+      "0x005B0A95"
+    ],
+    "errors": [],
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-bfme2-20261121\\aptmyhero-vector3-fields-b146\\objects\\3a8e955212393191.obj",
+    "rows": [
+      {
+        "name": "?rva005B0E60@AptMyHero@@QAEHPBVObject@@@Z",
+        "rva": "0x005B0E60",
+        "extent": 63,
+        "expected": 63,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "?rva005B045D@Rva005B045D@@QAEPAXXZ",
+        "rva": "0x005B045D",
+        "extent": 22,
+        "expected": 22,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 0
+      },
+      {
+        "name": "?rva005B04B6@Rva005B045D@@QAEXXZ",
+        "rva": "0x005B04B6",
+        "extent": 29,
+        "expected": 29,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "??$__copy@PAURva005B09D8Record@@PAU1@H@_STL@@YAPAURva005B09D8Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+        "rva": "0x005B04D3",
+        "extent": 50,
+        "expected": 50,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 0
+      },
+      {
+        "name": "?rva005B0416@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B0416",
+        "extent": 48,
+        "expected": 48,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "?rva005B1830@Rva005B1830@@QAEXXZ",
+        "rva": "0x005B1830",
+        "extent": 211,
+        "expected": 211,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 16
+      },
+      {
+        "name": "?copyPointersRva005B09D8@@YAPAURva005B09D8Record@@PAU1@00ABU__false_type@_STL@@@Z",
+        "rva": "0x005B09D8",
+        "extent": 29,
+        "expected": 29,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?erase@Rva005B129FVector@@QAEPAURva005B09D8Record@@PAU2@0@Z",
+        "rva": "0x005B129F",
+        "extent": 38,
+        "expected": 38,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?AdjustBling@AptMyHero@@QAEXHHH@Z",
+        "rva": "0x005B0EE6",
+        "extent": 231,
+        "expected": 231,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?SetBling@AptMyHero@@QAEXHHH@Z",
+        "rva": "0x005B07C1",
+        "extent": 354,
+        "expected": 354,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 22
+      },
+      {
+        "name": "?SwitchToPendingHero@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1E71",
+        "extent": 113,
+        "expected": 113,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 9
+      },
+      {
+        "name": "?rva005B0446@AptMyHero@@QAEXXZ",
+        "rva": "0x005B0446",
+        "extent": 23,
+        "expected": 23,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?rva005B0473@AptMyHero@@QAEPAURva005B0473View@@XZ",
+        "rva": "0x005B0473",
+        "extent": 20,
+        "expected": 20,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B0487@AptMyHero@@QAEXXZ",
+        "rva": "0x005B0487",
+        "extent": 47,
+        "expected": 47,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B0725@AptMyHero@@QAE_NXZ",
+        "rva": "0x005B0725",
+        "extent": 156,
+        "expected": 156,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 15
+      },
+      {
+        "name": "?rva005B0923@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B0923",
+        "extent": 92,
+        "expected": 92,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "?rva005B097F@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B097F",
+        "extent": 60,
+        "expected": 60,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?rva005B0A53@@YAABVAsciiString@@PBDH@Z",
+        "rva": "0x005B0A53",
+        "extent": 66,
+        "expected": 66,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 8
+      },
+      {
+        "name": "?rva005B0FCD@AptMyHero@@QAEXH@Z",
+        "rva": "0x005B0FCD",
+        "extent": 76,
+        "expected": 76,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B1288@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1288",
+        "extent": 23,
+        "expected": 23,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B1A6C@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1A6C",
+        "extent": 186,
+        "expected": 186,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "?rva005B21DA@AptMyHero@@QAEXPAVCreateAHeroData@@_NH@Z",
+        "rva": "0x005B21DA",
+        "extent": 187,
+        "expected": 187,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 12
+      },
+      {
+        "name": "__ehhandler$?rva005B1830@Rva005B1830@@QAEXXZ",
+        "rva": "0x0079EF40",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "__ehhandler$?rva005B0725@AptMyHero@@QAE_NXZ",
+        "rva": "0x0079EE22",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "__ehhandler$?SetBling@AptMyHero@@QAEXHHH@Z",
+        "rva": "0x0079EE4C",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?BuildBlingData@AptMyHero@@QAEXXZ",
+        "rva": "0x005B1B5E",
+        "extent": 787,
+        "expected": 787,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 43
+      },
+      {
+        "name": "__ehhandler$?BuildBlingData@AptMyHero@@QAEXXZ",
+        "rva": "0x0079EFA2",
+        "extent": 10,
+        "expected": 10,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      },
+      {
+        "name": "?rva005B0A95@AptMyHero@@QAEHHH@Z",
+        "rva": "0x005B0A95",
+        "extent": 976,
+        "expected": 971,
+        "strict_equal": false,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 19
+      },
+      {
+        "name": "?rva005B1903@Rva005B1903@@QAEXPAUBfmePod8@@IABU2@@Z",
+        "rva": "0x005B1903",
+        "extent": 5,
+        "expected": 5,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "?rva005B1908@Rva005B1908@@QAEXPAUBfmePod20@@IABU2@@Z",
+        "rva": "0x005B1908",
+        "extent": 5,
+        "expected": 5,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 1
+      },
+      {
+        "name": "Unwind@00b9ee2c",
+        "rva": "0x0079EE2C",
+        "extent": 42,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 6
+      },
+      {
+        "name": "Unwind@00b9ee34",
+        "rva": "0x0079EE34",
+        "extent": 34,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "Unwind@00b9ee3c",
+        "rva": "0x0079EE3C",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ee44",
+        "rva": "0x0079EE44",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "Unwind@00b9ee12",
+        "rva": "0x0079EE12",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ee1a",
+        "rva": "0x0079EE1A",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "Unwind@00b9ef8a",
+        "rva": "0x0079EF8A",
+        "extent": 34,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "Unwind@00b9ef92",
+        "rva": "0x0079EF92",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ef9a",
+        "rva": "0x0079EF9A",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "Unwind@00b9ef28",
+        "rva": "0x0079EF28",
+        "extent": 34,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 5
+      },
+      {
+        "name": "Unwind@00b9ef30",
+        "rva": "0x0079EF30",
+        "extent": 26,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 4
+      },
+      {
+        "name": "Unwind@00b9ef38",
+        "rva": "0x0079EF38",
+        "extent": 18,
+        "expected": 8,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 3
+      },
+      {
+        "name": "_$E1",
+        "rva": "0x007B46F8",
+        "extent": 16,
+        "expected": 16,
+        "strict_equal": true,
+        "masked": false,
+        "unresolved": [],
+        "relocation_count": 2
+      }
+    ],
+    "object_sha256": "f77c1e1c1717713735b9b61a621584c2c021dd423ffe97621a7a4d95ba0f6898"
+  },
+  "definitions_before": [
+    [
+      "AptMyHero",
+      "AdjustBling",
+      null
+    ],
+    [
+      "AptMyHero",
+      "BuildBlingData",
+      null
+    ],
+    [
+      "AptMyHero",
+      "SetBling",
+      null
+    ],
+    [
+      "AptMyHero",
+      "SwitchToPendingHero",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0416",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0446",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0473",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0487",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0725",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0923",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B097F",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0A95",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0E60",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0FCD",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B1288",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B1A6C",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B21DA",
+      null
+    ],
+    [
+      "Matrix3D",
+      "Matrix3D",
+      null
+    ],
+    [
+      "Matrix3D",
+      "Set",
+      null
+    ],
+    [
+      "Matrix3D",
+      "mul",
+      null
+    ],
+    [
+      "Rva005B045D",
+      "rva005B045D",
+      null
+    ],
+    [
+      "Rva005B045D",
+      "rva005B04B6",
+      null
+    ],
+    [
+      "Rva005B129FVector",
+      "erase",
+      null
+    ],
+    [
+      "Rva005B1830",
+      "rva005B1830",
+      null
+    ],
+    [
+      "Rva005B1903",
+      "rva005B1903",
+      null
+    ],
+    [
+      "Rva005B1908",
+      "rva005B1908",
+      null
+    ]
+  ],
+  "definitions_after": [
+    [
+      "AptMyHero",
+      "AdjustBling",
+      null
+    ],
+    [
+      "AptMyHero",
+      "BuildBlingData",
+      null
+    ],
+    [
+      "AptMyHero",
+      "SetBling",
+      null
+    ],
+    [
+      "AptMyHero",
+      "SwitchToPendingHero",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0416",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0446",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0473",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0487",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0725",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0923",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B097F",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0A95",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0E60",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B0FCD",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B1288",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B1A6C",
+      null
+    ],
+    [
+      "AptMyHero",
+      "rva005B21DA",
+      null
+    ],
+    [
+      "Matrix3D",
+      "Matrix3D",
+      null
+    ],
+    [
+      "Matrix3D",
+      "Set",
+      null
+    ],
+    [
+      "Matrix3D",
+      "mul",
+      null
+    ],
+    [
+      "Rva005B045D",
+      "rva005B045D",
+      null
+    ],
+    [
+      "Rva005B045D",
+      "rva005B04B6",
+      null
+    ],
+    [
+      "Rva005B129FVector",
+      "erase",
+      null
+    ],
+    [
+      "Rva005B1830",
+      "rva005B1830",
+      null
+    ],
+    [
+      "Rva005B1903",
+      "rva005B1903",
+      null
+    ],
+    [
+      "Rva005B1908",
+      "rva005B1908",
+      null
+    ]
+  ],
+  "production_source_unchanged": true,
+  "production_headers_unchanged": true,
+  "source_forms_tried": 1,
+  "private_diagnostic_not_admission": true
+}
