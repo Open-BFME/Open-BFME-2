@@ -79,6 +79,26 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 
 
+// RefundDie::xfer calls Xfer::Version1; keep its operand types beside the include.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 class RefundDie : public DieModule
 {
 public:
@@ -89,6 +109,10 @@ public:
 
 protected:
 	const RefundDieModuleData *getRefundDieModuleData() const { return (const RefundDieModuleData *)getModuleData(); }
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 class Rva00484FE2Text {public:
@@ -256,6 +280,23 @@ RefundDie::RefundDie( Thing *thing, const ModuleData *moduleData )
 // body.
 RefundDie::~RefundDie()
 {
+}
+
+// Slot 1 of RefundDie's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void RefundDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
+}
+
+// Slot 3 of RefundDie's retail primary table: 0x0045CE8C, version 1 then
+// DieModule::xfer 0x004CE56D; retail folds it with the other module xfers
+// whose base call lands on the same body.
+void RefundDie::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DieModule::xfer( xfer );
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/RefundDieOnDie.cpp
