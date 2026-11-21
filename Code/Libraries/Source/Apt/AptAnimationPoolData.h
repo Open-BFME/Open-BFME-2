@@ -7,6 +7,7 @@
 class AptActionQueueC;
 class AptCIH;
 class AptValue;
+struct AptIntervalTimer;
 struct BfmeMesh1290;
 struct BfmeTransform2_1290;
 struct AptMatrix;
@@ -49,9 +50,13 @@ public:
 	InstSet buttonSet;                        // +0x08, buttons walked for focus and key actions
 	int mBILCount;                            // +0x10
 	ButtonHitTestRecord *aButtonInstanceList; // +0x14, 28-byte records
-	char m_opaque18[0x28 - 0x18];
+	InstSet m_set18;                          // +0x18
+	InstSet m_set20;                          // +0x20
 	InstSet inputSet;                         // +0x28, named by retail's assert "inputSet.maElements[i]->isCIH()"
-	char m_opaque30[0x68 - 0x30];
+	void *m_displayList;                      // +0x30, an embedded AptDisplayList (its one member)
+	AptIntervalTimer *aIntervalTimers;        // +0x34, named by retail's assert "aIntervalTimers != 0"
+	int nIntervalTimers;                      // +0x38, named by retail's assert "nIntervalTimers == 0"
+	char m_opaque3C[0x68 - 0x3C];
 	AptValue *m68;                            // +0x68, topmost hit instance
 	AptCIH *m_current;                        // +0x6C, focused button instance (AddRef held)
 	char m_opaque70[0x74 - 0x70];

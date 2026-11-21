@@ -228,11 +228,9 @@ void Rva006E3E20Object::rva006E3E20(void *unused, void *bindContext)
 // The existing display-list provider carries other unresolved definitions;
 // this caller uses its rowed, correctly selected AptDisplayList body only.
 #include "AptValue.h"
+#include "AptCIHClass.h"
 class Rva006E0DE0 {
 public:
-    unsigned short count;
-    unsigned short capacity;
-    AptValue** entries;
     int rva006E0DE0(AptValue*);
 };
 struct AptIntervalTimer {
@@ -244,36 +242,17 @@ struct AptIntervalTimer {
     AptValue** values;
     void cleanParams();
 };
-struct AptDisplayList {
-    void* value;
-    AptIntervalTimer* buckets;
-    int count;
-    void rva006F8190();
-};
-struct Rva006E3FF0VectorEntry { AptValue* value; char pad04[24]; };
+#include "AptDisplayList.h"
+struct ButtonHitTestRecord { AptCIH* pCIH; char matrix[24]; };
 class Rva006E34D0;
 extern Rva006E34D0* g_bfmeAptPtrAtE176D0;
-struct AptAnimationPoolData {
-    char pad00[8];
-    Rva006E0DE0 set;
-    int vectorCount;
-    Rva006E3FF0VectorEntry* vector;
-    unsigned short valueCount;
-    unsigned short valueCapacity;
-    AptValue** values;
-    unsigned short moreCount;
-    unsigned short moreCapacity;
-    AptValue** moreValues;
-    char pad28[8];
-    AptDisplayList display;
-    void PreDestroy();	// named by its own WorldBuilder assert string
-};
+#include "AptAnimationPoolData.h"
 void AptAnimationPoolData::PreDestroy()
 {
-    int remaining=set.count;
-    for(int i=0; i<set.capacity; ++i) {
-        if(set.entries[i]) {
-            set.rva006E0DE0(set.entries[i]);
+    int remaining=buttonSet.mnCount;
+    for(int i=0; i<buttonSet.GetSize(); ++i) {
+        if(buttonSet.maElements[i]) {
+            reinterpret_cast<Rva006E0DE0*>(&buttonSet)->rva006E0DE0(buttonSet.maElements[i]);
             --remaining;
             if(remaining==0) break;
         }
@@ -281,25 +260,25 @@ void AptAnimationPoolData::PreDestroy()
     int i=0;
     for(; i<reinterpret_cast<int*>(g_bfmeAptPtrAtE176D0)[0xA8/4];++i) {
         int bucketOffset=i*0x20;
-        if(reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->owner) {
-            reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->value->Release();
-            for(int j=0; j<reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->count; ++j)
-                reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->cleanParams();
-            reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->owner=0;
-            --display.count;
+        if(reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(aIntervalTimers)+bucketOffset)->owner) {
+            reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(aIntervalTimers)+bucketOffset)->value->Release();
+            for(int j=0; j<reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(aIntervalTimers)+bucketOffset)->count; ++j)
+                reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(aIntervalTimers)+bucketOffset)->cleanParams();
+            reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(aIntervalTimers)+bucketOffset)->owner=0;
+            --nIntervalTimers;
         }
     }
-    if(display.count!=0) {
+    if(nIntervalTimers!=0) {
         g_bfmeAptAssertAtE17734("nIntervalTimers == 0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp",0x2ED);
         if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm { int 3 } }
     }
-    for(int i=0; i<valueCapacity; ++i) {
-        if(values[i]) { values[i]->Release(); values[i]=0; }
+    for(int i=0; i<m_set18.GetSize(); ++i) {
+        if(m_set18.maElements[i]) { m_set18.maElements[i]->Release(); m_set18.maElements[i]=0; }
     }
-    for(int i=0; i<moreCapacity; ++i) {
-        if(moreValues[i]) { moreValues[i]->Release(); moreValues[i]=0; }
+    for(int i=0; i<m_set20.GetSize(); ++i) {
+        if(m_set20.maElements[i]) { m_set20.maElements[i]->Release(); m_set20.maElements[i]=0; }
     }
-    for(int i=0; i<vectorCount; ++i) vector[i].value->Release();
-    vectorCount=0;
-    display.rva006F8190();
+    for(int i=0; i<mBILCount; ++i) aButtonInstanceList[i].pCIH->Release();
+    mBILCount=0;
+    reinterpret_cast<AptDisplayList*>(&m_displayList)->rva006F8190();
 }
