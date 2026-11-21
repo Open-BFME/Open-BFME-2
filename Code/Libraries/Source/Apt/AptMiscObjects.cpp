@@ -66,9 +66,8 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 // Native add6E9A40..6E9AE3 confirms the two unsigned16-bit counters and
 // pointer array prefix. The matching assertions name _AptSet.h; WB1787120
 // identifies AptValueSet<AptCIH*>::add and supplies the original for-loop.
-// Keep the existing address-derived receiver/callee spelling used by retail
-// consumers; this prefix does not claim a complete AptCIH layout or slot name.
-class AptCIH {public:virtual void slot0();};
+// The list takes a reference through AptValue's first virtual slot.
+#include "AptCIHClass.h"
 
 #include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 
@@ -376,7 +375,7 @@ void Rva006E9A40List::add(AptCIH *element){
    if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
   }
  }
-++count;int index;for(index=count;items[index];++index){if(index>=capacity)index=0;}items[index]=element;element->slot0();
+++count;int index;for(index=count;items[index];++index){if(index>=capacity)index=0;}items[index]=element;element->AddRef();
 }
 
 // ---- from Code/Libraries/Source/Apt/AptObject/AptMathObjectLookup.cpp
