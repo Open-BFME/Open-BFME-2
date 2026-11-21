@@ -14,9 +14,8 @@ enum ScienceType { SCIENCE_INVALID = 0 };
 class Rva0043D16F
 {
 public:
-    bool rva0043CCFC(ScienceType science);
+    virtual bool rva0043CCFC(ScienceType science);
 private:
-    void *m_vptr;
     Player *m_player;
     ScienceType *m_begin;
     ScienceType *m_end;

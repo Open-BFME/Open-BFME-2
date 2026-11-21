@@ -484,7 +484,7 @@ void Rva0043D3DA::rva0043C7C9(int unused)
 
 // tu-skeleton: 0x0043CCDA 34B ?Rva0043CCDASet@@YAXE@Z -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
 
-// tu-skeleton: 0x0043CCFC 64B ?rva0043CCFC@Rva0043D16F@@QAE_NW4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/Rva0043CCFCScienceQuery.cpp (not merged yet)
+// tu-skeleton: 0x0043CCFC 64B ?rva0043CCFC@Rva0043D16F@@UAE_NW4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/Rva0043CCFCScienceQuery.cpp (not merged yet)
 
 // tu-skeleton: 0x0043CD3C 1059B ?rva0043CD3C@AptSpellStore@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp (not merged yet)
 
