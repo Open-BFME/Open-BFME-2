@@ -313,15 +313,7 @@ private:
 	T *Array;
 };
 
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	~StringClass() { Free_String(); }
-private:
-	char *m_Buffer;
-	void Free_String();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/wwstring.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
@@ -533,15 +525,7 @@ public:
 	virtual void Apply(int uv_array_index);
 };
 
-class VertexMaterialClass
-{
-public:
-	void Get_Emissive(Vector3 *set) const;
-	TextureMapperClass *Peek_Mapper(int stage) const { return Mapper[stage]; }
-private:
-	char m_pad00[0x20];
-	TextureMapperClass *Mapper[2];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 class MeshMatDescClass
 {
@@ -1156,7 +1140,7 @@ void W3DBuffBuffer::rva000D28FA(RenderInfoClass &rinfo, bool flag)
 						DX8Wrapper::Set_DX8_Sampler_State(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 						DX8Wrapper::Set_DX8_Sampler_State(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 					}
-					TextureMapperClass *mapper = material->Peek_Mapper(0);
+					TextureMapperClass *mapper = material->Mapper[0];
 					if (mapper && mapper->slot04()) {
 						mapper->Apply(0);
 					} else {
@@ -1181,7 +1165,7 @@ void W3DBuffBuffer::rva000D28FA(RenderInfoClass &rinfo, bool flag)
 						DX8Wrapper::Set_DX8_Sampler_State(1, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 						DX8Wrapper::Set_DX8_Sampler_State(1, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 					}
-					TextureMapperClass *mapper = material->Peek_Mapper(1);
+					TextureMapperClass *mapper = material->Mapper[1];
 					if (mapper && mapper->slot04()) {
 						mapper->Apply(0);
 					} else {
