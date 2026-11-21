@@ -189,7 +189,7 @@ extern AptActionInterpreter g_aptDateInterpreter;
 
 class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);};
 
-class Rva006E34D0 {public:unsigned char unaccessed00[0x20];AptValueSet<AptValue *> listenerSet;};
+#include "Rva006E34D0.h"
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
@@ -537,7 +537,8 @@ AptValue *AptMouse::sMethod_addListener(AptValue *,int nParams)
   if((unsigned char)reinterpret_cast<BfmeAptValue006DCD20 *>(value)->isCIH()) {
    if((*reinterpret_cast<unsigned int *>(reinterpret_cast<char *>(value)+0x5c)&0xc0000)!=0)return gpUndefinedValue;
   }
-  AptValueSet<AptValue *> *set=&g_bfmeAptPtrAtE176D0->listenerSet;
+  AptValueSet<AptValue *> *set =
+      reinterpret_cast<AptValueSet<AptValue *> *>(&g_bfmeAptPtrAtE176D0->m_field20);
   if(!set->has(value)) reinterpret_cast<Rva006E9A40List *>(set)->add(reinterpret_cast<AptCIH *>(value));
  }
  return gpUndefinedValue;
@@ -548,7 +549,8 @@ AptValue *AptMouse::sMethod_removeListener(AptValue *,int nParams)
  if(nParams!=1)return AptBoolean::Create(false);
  AptValue *value=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(0));
  if(reinterpret_cast<Rva006DBB60ShrNAndField *>(value)->get()) {
-  AptValueSet<AptValue *> *set=&g_bfmeAptPtrAtE176D0->listenerSet;
+  AptValueSet<AptValue *> *set =
+      reinterpret_cast<AptValueSet<AptValue *> *>(&g_bfmeAptPtrAtE176D0->m_field20);
   if(set->has(value)) {
    reinterpret_cast<Rva006E0DE0 *>(set)->rva006E0DE0(value);
    return AptBoolean::Create(true);
