@@ -105,7 +105,7 @@ public:
 	virtual ~Rva0053805DBase();
 	virtual void rva0053805D();
 	virtual void rva0053806C();
-	void rva0053807B();
+	virtual void rva0053807B();
 	void rva0053808A();
 	void rva00538099();
 
