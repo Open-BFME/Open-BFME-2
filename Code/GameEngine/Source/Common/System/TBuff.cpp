@@ -193,17 +193,7 @@ private:
 	unsigned char m_pad[0x20]; // sizeof 0x20 per BfmeDynamicNativeVBSize check
 };
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
-class W3DBuffBuffer : public Rva0074011F
-{
-public:
-	void allocateBuffBuffers();
-
-private:
-	void *m_08; // +0x08
-	void *m_0C; // +0x0C
-	int m_10; // +0x10
-	int m_14; // +0x14
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBuffBuffer.h"
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
 // upstream layout: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib/sharebuf.h,
@@ -494,16 +484,16 @@ void Rva000D1C10::rva000D1C10()
 
 void W3DBuffBuffer::allocateBuffBuffers()
 {
-	if (m_p0 || m_p1)
-		Rva0074011F::rva0074011F();
+	if (m_vertexBuffer || m_indexBuffer)
+		reinterpret_cast<Rva0074011F *>(this)->rva0074011F();
 	BfmeDynamicNativeVB *vb = new BfmeDynamicNativeVB(0x142, 0x7534, 1, 0);
-	m_p0 = vb;
+	m_vertexBuffer = vb;
 	DX8IndexBufferClass *ib = new DX8IndexBufferClass(0xea64, DX8IndexBufferClass::USAGE_DYNAMIC);
-	m_08 = 0;
-	m_0C = 0;
-	m_p1 = ib;
-	m_14 = 0xea60;
-	m_10 = 0x7530;
+	m_curNumBuffVertices = 0;
+	m_curNumBuffIndices = 0;
+	m_indexBuffer = ib;
+	m_indexOffset = 0xea60;
+	m_vertexOffset = 0x7530;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva000D1D21Permuted.cpp

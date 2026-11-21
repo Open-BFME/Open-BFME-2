@@ -180,48 +180,7 @@ struct BuffRenderSlots {
 
 struct BuffInfoView { unsigned char unknown[8]; AsciiString name; bool flag; };
 
-struct BuffTypeView { RenderObjClass *render; AsciiString name; bool flag; };
-
-struct BuffInfoView;
-
-class MeshClass;
-
-class RenderInfoClass;
-
-class DX8IndexBufferClass;
-
-namespace { class BuffVertexBufferView; }
-
-class TBuff;
-
-typedef _STL::set<TBuff *> TBuffSet;
-
-class W3DBuffBuffer
-{
-public:
-    enum
-    {
-        MAX_BUFF_VERTEX = 30000,
-        MAX_BUFF_INDEX = 60000
-    };
-    TBuff *addBuff(Drawable *, const BuffInfoView *);
-    int addBuffType(const AsciiString &, const BuffInfoView *);
-    void allocateBuffBuffers();
-    void rva000D2301(MeshClass *mesh, RenderObjClass *target, int type, TBuffSet::iterator *it);
-    void rva000D28FA(RenderInfoClass &rinfo, bool flag);
-
-private:
-    BuffVertexBufferView *m_vertexBuffer;
-    DX8IndexBufferClass *m_indexBuffer;
-    int m_curNumBuffVertices;
-    int m_curNumBuffIndices;
-    int m_vertexOffset;
-    int m_indexOffset;
-    BuffTypeView types[10];
-    int count;
-    TBuffSet buffs[10];
-    bool enabled;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DBuffBuffer.h"
 
 struct Rva000D3945Head
 {
@@ -1017,16 +976,16 @@ void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int typ
 
 	int numBuffVertices = buffs.size() * numVertices;
 	int vertexEnd = m_vertexOffset + numBuffVertices + 2;
-	int vertexSize = m_vertexBuffer->FVF_Info().Get_FVF_Size();
+	int vertexSize = static_cast<BuffVertexBufferView *>(m_vertexBuffer)->FVF_Info().Get_FVF_Size();
 	unsigned char *vertexData;
 	if (vertexEnd >= MAX_BUFF_VERTEX)
 	{
 		m_vertexOffset = 0;
-		m_vertexBuffer->Get_DX8_Vertex_Buffer()->Lock(0, numBuffVertices * vertexSize, &vertexData, 0x2000);
+		static_cast<BuffVertexBufferView *>(m_vertexBuffer)->Get_DX8_Vertex_Buffer()->Lock(0, numBuffVertices * vertexSize, &vertexData, 0x2000);
 	}
 	else
 	{
-		m_vertexBuffer->Get_DX8_Vertex_Buffer()->Lock(m_vertexOffset * vertexSize, numBuffVertices * vertexSize, &vertexData, 0x1000);
+		static_cast<BuffVertexBufferView *>(m_vertexBuffer)->Get_DX8_Vertex_Buffer()->Lock(m_vertexOffset * vertexSize, numBuffVertices * vertexSize, &vertexData, 0x1000);
 	}
 
 	int numBuffIndices = buffs.size() * numPolys * 3;
@@ -1144,7 +1103,7 @@ void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int typ
 		}
 		buff->UpdateFade();
 	}
-	m_vertexBuffer->Get_DX8_Vertex_Buffer()->Unlock();
+	static_cast<BuffVertexBufferView *>(m_vertexBuffer)->Get_DX8_Vertex_Buffer()->Unlock();
 	m_indexBuffer->Get_DX8_Index_Buffer()->Unlock();
 }
 
