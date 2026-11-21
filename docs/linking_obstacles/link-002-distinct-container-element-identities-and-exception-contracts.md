@@ -250,3 +250,8 @@ The lifetime merge still needs a combined-source instantiation context
 that preserves the exact destructor and its two EH companions. MSVC
 C2929 rejects both declaration orders, and a merged scratch source
 without suppression matches six of nine rows.
+
+
+### 2026-11-21: measured local closure, source4305841cd0
+
+The VNI missing-constructor regression is closed in actual local link4305841cd0: the consumer uses the proven12B canonical Record set, its six genuine native-context storage/lifetime providers and exact53/28B implicit destructor folds. All three old consumer rows and both EH graphs remain exact. No old constructor alias was restored. The two-slot/seven-slot event table and borrowed int/AsciiString assignment spelling remain separate open debt; no original EA class-name merge, full container identity register clearance or new unique-byte claim is made. [Receipt and limits](../../reverse/attempt_support/20261121-current-link-closure/README.md).

@@ -123,3 +123,8 @@ state_rebase.py (the view recipes), getter_move.py (the refused getter batch).
 ### 2026-11-21: narrow integrated duplicate-owner repair
 
 At2023f0eeb0 the actual local link found a second implicit AIAttackMoveToState destructor in AIAttackMoveStateMachine.cpp. Commit40496f82be declares the already verified79B owner in AIStates.cpp (00345CAB), without another definition; its constructor147B and the owning source retain their bytes. The actual local40496 measurement confirms duplicate count1→0, with two unrelated unresolved symbols and no successful image. This clears that duplicate alone; the wider State/virtual-provider prerequisites in this entry remain open. [Source proof](../../reverse/attempt_support/20261121-integrated-link-regressions/AI-DTOR.md).
+
+
+### 2026-11-21: measured local closure, source4305841cd0
+
+Actual local integrated link4305841cd0 confirms0duplicate and0unresolved names with the verified AI destructor sole-owner declaration retained. This does not resolve every State-family virtual-role/header-adoption case in this entry. [Receipt and limits](../../reverse/attempt_support/20261121-current-link-closure/README.md).
