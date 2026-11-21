@@ -140,12 +140,12 @@
  "size_by": "majority",
  "vslots": {
   "0": {
-   "decided_by": "majority",
-   "member": "_pure()"
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
   },
   "1": {
    "decided_by": "bytes",
-   "member": "__vecDelDtor(uint)"
+   "member": "_pure()"
   }
  }
 }

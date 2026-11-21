@@ -11,8 +11,8 @@ public:
     int m_4;
     Rva00221635(const AsciiString &s);
     Rva00221635(int arg);
-    virtual void _pure() = 0;
     virtual ~Rva00221635() {}
+    virtual void _pure() = 0;
 };
 
 typedef char canonical_Rva00221635_ee20f077_sizeof[sizeof(Rva00221635) == 8 ? 1 : -1];
