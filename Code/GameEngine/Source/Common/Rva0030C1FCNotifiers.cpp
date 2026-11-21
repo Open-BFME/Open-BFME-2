@@ -102,11 +102,15 @@ private:
 class Rva0053805DBase
 {
 public:
+	virtual ~Rva0053805DBase();
 	void rva0053805D();
 	void rva0053806C();
 	void rva0053807B();
 	void rva0053808A();
 	void rva00538099();
+
+private:
+	char m_unmodelled_04[0x30 - 0x04];
 };
 
 class Rva0030C1FCOwner : public Rva0053805DBase
@@ -124,7 +128,6 @@ public:
 	void rva0030C2B6();
 
 private:
-	char m_unmodelled_00[0x30];
 	Rva0030C185List m_listeners;		// +0x30
 };
 
