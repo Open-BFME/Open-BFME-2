@@ -204,13 +204,20 @@ class TextOnFrameTransition : public Rva001DBAA4
 {
 public:
 	// Retail vftable 0x00C1669C: the destructor (0x0035FA2A) clears +0x0C and chains to
-	// the base; draw and skip are the shared empty body 0x000B3FD0.
+	// the base; draw and skip are the shared empty body 0x000B3FD0. Slot 6 is the
+	// shared finish-if-running body 0x0035F63B; slot 7 the base's 0x000D43D0.
 	virtual ~TextOnFrameTransition(void) { m_win = 0; }
 	virtual void init(GameWindow *win);
 	virtual void update(Int frame);
 	virtual void reverse(void);
 	virtual void draw(void) {}
 	virtual void skip(void) {}
+	virtual void slot6(void)
+	{
+		if (!m_isFinished)
+			update(m_endFrame);
+	}
+	virtual Int slot7(void) { return 0; }
 	TextOnFrameTransition(void);
 
 	Int m_startFrame;	// +0x10
