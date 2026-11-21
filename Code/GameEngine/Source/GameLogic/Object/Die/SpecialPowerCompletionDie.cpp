@@ -127,6 +127,9 @@ private:
 	bool m_creatorSet;					// +0x18
 protected:
 	virtual void xfer(class Xfer *);
+
+protected:
+	virtual void loadPostProcess();
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -142,6 +145,14 @@ SpecialPowerCompletionDie::SpecialPowerCompletionDie( Thing *thing, const Module
 // tail jump to ~DieModule 0x0045CE54.
 SpecialPowerCompletionDie::~SpecialPowerCompletionDie( void )
 {
+}
+
+// Slot 1 of SpecialPowerCompletionDie's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void SpecialPowerCompletionDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
 }
 
 //-------------------------------------------------------------------------------------------------
