@@ -14,15 +14,29 @@ class MemoryWriteFile : public File
 {
 public:
 	virtual ~MemoryWriteFile();
+	virtual bool open(const char *filename, int access);
+	virtual int read(void *buffer, int bytes);
+	virtual int write(const void *buffer, int bytes);
+	virtual int seek(int bytes, seekMode mode);
+	virtual void nextLine(char *buffer, int bytes);
+	virtual bool scanInt(int &value);
+	virtual bool scanReal(float &value);
+	virtual bool scanString(AsciiString &value);
+	virtual int size();
+	virtual int position();
+	virtual char *readEntireAndClose();
+	virtual File *convertToRAMFile();
 private:
-	char *m_14;
-	char m_pad18[0x0C];
-	AsciiString m_24;
+	char *m_data;
+	int m_size;
+	int m_pos;
+	int m_capacity;
+	AsciiString m_name;
 };
 
 MemoryWriteFile::~MemoryWriteFile()
 {
-	delete[] m_14;
+	delete[] m_data;
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds

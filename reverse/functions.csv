@@ -102363,3 +102363,13 @@ $L13350,,0x00792D4D,13,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,matched,
 ?loadPostProcess@StealthDetectorUpdate@@MAEXXZ,,0x00497805,5,Code/GameEngine/Source/GameLogic/Object/Update/StealthDetectorUpdateCtor.cpp,matched,ObjectModule primary table slot 1; UpdateModule base forward ICF-folded with the shared 0x00497805 thunk
 ?GetSnapshotName@StealthDetectorUpdate@@MBEPBDXZ,,0x004A2BEA,6,Code/GameEngine/Source/GameLogic/Object/Update/StealthDetectorUpdateCtor.cpp,matched,ObjectModule primary table slot 2; snapshot name ICF-folded with the rowed non-virtual name getter at 0x004A2BEA
 ?slot34@Rva004444D2@@UAE_NHH@Z,,0x0050BD7C,5,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp,matched,ICF alias: slot 13 of Rva004444D2's own retail vftable 0x0083E020 holds the folded 5-byte body (mov al 1; ret 8)
+?open@MemoryWriteFile@@UAE_NPBDH@Z,,0x0050B5F1,5,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot1 of 0x87A7B8; BFME1 donor open returns FALSE
+?read@MemoryWriteFile@@UAEHPAXH@Z,,0x00574473,6,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot3 of 0x87A7B8; BFME1 donor read returns -1
+?nextLine@MemoryWriteFile@@UAEXPADH@Z,,0x0050B238,3,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot6 of 0x87A7B8; BFME1 donor empty nextLine
+?scanInt@MemoryWriteFile@@UAE_NAAH@Z,,0x005CB9FF,5,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot7 of 0x87A7B8; BFME1 donor returns FALSE
+?scanReal@MemoryWriteFile@@UAE_NAAM@Z,,0x005CB9FF,5,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot8 of 0x87A7B8; BFME1 donor returns FALSE
+?scanString@MemoryWriteFile@@UAE_NAAVAsciiString@@@Z,,0x005CB9FF,5,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot9 of 0x87A7B8; BFME1 donor returns FALSE
+?size@MemoryWriteFile@@UAEHXZ,,0x002A79A1,4,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot11 of 0x87A7B8; returns m_size at +0x18
+?position@MemoryWriteFile@@UAEHXZ,,0x0030F2C7,4,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot12 of 0x87A7B8; returns m_pos at +0x1C
+?readEntireAndClose@MemoryWriteFile@@UAEPADXZ,,0x000D43D0,3,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot13 of 0x87A7B8; BFME1 donor returns NULL
+?convertToRAMFile@MemoryWriteFile@@UAEPAVFile@@XZ,,0x0047A6A9,3,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot14 of 0x87A7B8; BFME1 donor returns this
