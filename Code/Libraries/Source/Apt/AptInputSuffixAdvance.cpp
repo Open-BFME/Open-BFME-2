@@ -26,8 +26,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #define INPUT_ASSERT(test,text,line) if(!(test)){g_bfmeAptAssertAtE17734(text,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptInput.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
-struct BfmeMesh1290;struct BfmeTransform2_1290;
-class AptAnimationPoolData {public:AptCIH *rva006FA420(int,int);bool bfmeMeshHitTest1290(BfmeMesh1290 *,const BfmeTransform2_1290 *,int,int);char unknown00[8];unsigned short count,capacity;AptCIH **entries;char unknown10[0x5C];AptCIH *current;void rva006FA100(AptCIH*,int);void setValidFocusButton();};
+#include "AptAnimationPoolData.h"
 static __declspec(noinline) bool rva006F97F0Parse(EAStringC *value,int *first,int *second)
 {
  if(value->IsEmpty())return false;
@@ -45,22 +44,22 @@ static __declspec(noinline) bool rva006F97F0Parse(EAStringC *value,int *first,in
 void AptAnimationPoolData::setValidFocusButton()
 {
  int first,second;
- if(current && rva006F97F0Parse(cihName(current),&first,&second))return;
- if(current) {current->rva006E1F00(1);rva006FA100(current,2);}
- if(current)current->Release();
- current=0;
+ if(m_current && rva006F97F0Parse(cihName(m_current),&first,&second))return;
+ if(m_current) {m_current->rva006E1F00(1);rva006FA100(m_current,2);}
+ if(m_current)m_current->Release();
+ m_current=0;
  int seen=0;
- for(int i=0;i<capacity;++i) {
-  if(seen==count)break;
-  AptCIH *item=entries[i];
+ for(int i=0;i<m_cihCapacity;++i) {
+  if(seen==m_cihCount)break;
+  AptCIH *item=m_cihEntries[i];
   if(item) {
-   if(!cihName(item)->IsEmpty() && rva006F97F0Parse(cihName(entries[i]),&first,&second)) {
-    current=entries[i];current->AddRef();break;
+   if(!cihName(item)->IsEmpty() && rva006F97F0Parse(cihName(m_cihEntries[i]),&first,&second)) {
+    m_current=m_cihEntries[i];m_current->AddRef();break;
    }
    ++seen;
   }
  }
- if(current){current->rva006E1F00(2);rva006FA100(current,1);}
+ if(m_current){m_current->rva006E1F00(2);rva006FA100(m_current,1);}
 }
 
 // BFME1 AptInput directional-score/search semantic guide; native 6F98C0/6F99D0
