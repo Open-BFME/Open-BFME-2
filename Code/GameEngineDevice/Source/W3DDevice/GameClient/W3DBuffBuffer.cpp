@@ -323,15 +323,7 @@ private:
 	void Free_String();
 };
 
-class WW3D
-{
-public:
-	static bool Is_Snapshot_Activated() { return SnapshotActivated; }
-	static bool Is_Currently_Rendering_Shadow_Map() { return IsCurrentlyRenderingShadowMap; }
-private:
-	static bool SnapshotActivated;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
@@ -411,7 +403,7 @@ public:
 	static __forceinline void Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
 	{
 		if (RenderStates[state] == value) return;
-		if (WW3D::Is_Snapshot_Activated()) {
+		if (WW3D::SnapshotActivated) {
 			StringClass value_name(0, true);
 			Get_DX8_Render_State_Value_Name(value_name, state, value);
 		}
@@ -425,7 +417,7 @@ public:
 	static __declspec(dllimport) __forceinline void Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value)
 	{
 		if (TextureStageStates[stage][state] == value) return;
-		if (WW3D::Is_Snapshot_Activated()) {
+		if (WW3D::SnapshotActivated) {
 			StringClass value_name(0, true);
 			Get_DX8_Texture_Stage_State_Value_Name(value_name, state, value);
 		}
