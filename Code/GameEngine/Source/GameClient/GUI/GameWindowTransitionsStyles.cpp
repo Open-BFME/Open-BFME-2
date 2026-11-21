@@ -5,7 +5,6 @@
 #define ICOORD2D_VIEW_DEFAULT_CTOR
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #undef ICOORD2D_VIEW_DEFAULT_CTOR
-#pragma comment(linker, "/alternatename:??1FullFadeTransition@@UAE@XZ=??1Rva0035F1D0@@UAE@XZ")
 #include "ascii_string.h"
 #include "unicode_string.h"
 #ifndef MIN
@@ -159,13 +158,22 @@ typedef int Color;
 class FullFadeTransition : public Rva001DBAA4
 {
 public:
+	// Retail vftable 0x00C1663C: the destructor (0x0035F1D0) clears +0x0C and chains to
+	// the base; reverse is the shared 0x0035D1BD, skip the empty 0x000B3FD0, slot 6 the
+	// shared update(m_endFrame) body 0x0035D1E7 and slot 7 the base's 0x000D43D0.
 	FullFadeTransition(void);
-	virtual ~FullFadeTransition(void);
+	virtual ~FullFadeTransition(void) { m_win = 0; }
 	virtual void init(GameWindow *win);
 	virtual void update(Int frame);
-	virtual void reverse(void) = 0;
+	virtual void reverse(void)
+	{
+		m_isFinished = false;
+		m_isForward = false;
+	}
 	virtual void draw(void);
-	virtual void skip(void) = 0;
+	virtual void skip(void) {}
+	virtual void slot6(void) { update(m_endFrame); }
+	virtual Int slot7(void) { return 0; }
 
 	Int m_startFrame;		// +0x10
 	Int m_endFrame;			// +0x14
