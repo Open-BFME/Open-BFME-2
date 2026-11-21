@@ -3570,6 +3570,26 @@ float Rva0039D840::rva0039D840()
 	return (float)m_target2C->m_value21C;
 }
 
+float Team::vslot02() const
+{
+	return static_cast<float>(m_proto->m_teamTemplate.m_productionPriority);
+}
+
+bool Team::vslot14() const
+{
+	return false;
+}
+
+bool Team::vslot15(int)
+{
+	return true;
+}
+
+int Team::vslot16(void *)
+{
+	return 0;
+}
+
 float Rva003ABEFD::rva003A3700(int)
 {
 	return 1.0f;
