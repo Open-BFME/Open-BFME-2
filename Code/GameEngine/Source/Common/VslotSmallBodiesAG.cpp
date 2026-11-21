@@ -267,13 +267,7 @@ void Rva004469D1Receiver::rva0044446D(bool flag)
 // table's slot 12, rva00493805.
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../Include/GameLogic/Module/SpecialPowerModule.h"
-class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
-{
-public:
-	virtual void rva00493805();			// primary slot 12
-	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43
-	virtual void slot44();				// BehaviorModuleInterface slot 44
-};
+#include "../../Include/GameLogic/Module/SpecialPowerModuleClass.h"
 void SpecialPowerModule::slot43(float readyFraction)
 {
 	startPowerRecharge(readyFraction);

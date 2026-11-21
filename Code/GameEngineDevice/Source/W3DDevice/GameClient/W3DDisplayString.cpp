@@ -24,6 +24,18 @@ class GameFont;
 
 class Gen_00942BC0 { public: void process( void *text, void *hkX, void *hkY ); };
 
+class Rva00154320
+{
+public:
+	bool rva00154320(Real a, Real b);
+};
+
+class Rva00154370
+{
+public:
+	bool rva00154370(Real a, Real b);
+};
+
 #include "../../../Include/W3DDevice/GameClient/Rva00155AD0.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
@@ -56,6 +68,8 @@ public:
 	virtual void getSize( Int *width, Int *height );
 	virtual void setUseHotkey( Bool useHotkey, Color hotKeyColor );
 	virtual void setClipRegion( IRegion2D *region );
+	virtual void slot17(float a, float b);
+	virtual void slot18(float a, float b);
 protected:
 	void computeExtents();
 public:
@@ -344,9 +358,21 @@ void W3DDisplayString::draw( Int x, Int y, Color xDrop, Color yDrop )
 		m_lastResourceFrame = TheGameClient->getFrame();
 }
 
-// tu-skeleton: 0x00105FE4 82B ?rva00105FE4@Rva00105FE4@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
+void W3DDisplayString::slot17(float a, float b)
+{
+	if (reinterpret_cast<Rva00154320 *>(&m_textRendererHotKey)->rva00154320(a, b))
+		m_bfmeColorsChanged = true;
+	if (reinterpret_cast<Rva00154320 *>(&m_textRenderer)->rva00154320(a, b))
+		m_bfmeColorsChanged = true;
+}
 
-// tu-skeleton: 0x00106036 82B ?rva00106036@Rva00106036@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
+void W3DDisplayString::slot18(float a, float b)
+{
+	if (reinterpret_cast<Rva00154370 *>(&m_textRendererHotKey)->rva00154370(a, b))
+		m_bfmeColorsChanged = true;
+	if (reinterpret_cast<Rva00154370 *>(&m_textRenderer)->rva00154370(a, b))
+		m_bfmeColorsChanged = true;
+}
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp
 

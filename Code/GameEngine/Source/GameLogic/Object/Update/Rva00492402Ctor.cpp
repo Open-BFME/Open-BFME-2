@@ -10,11 +10,12 @@
 // (factory stub news 0x88).
 // Identity unproven (opaque Rva name); serves the 0x24DA7C factory stub.
 // The paired dtor (0x00492439, ModuleUpdateDtors.cpp) is rowed and references the same table.
+
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+
 class Thing;
 class ModuleData;
 
-extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
-extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
 // RVA 0x0084DFD4: nine code pointers, immediately followed by the primary
 // table at 0x0084DFF8. Keep the existing provisional data-owner name;
 // these slot bindings do not establish the interface's original identity.
@@ -42,21 +43,13 @@ extern "C" const void *const s_dummy20[9] = {
 	(const void *)&__identifier("?bfmeGoFDH@BfmeThingFDH@@QAEDPAX@Z"), // RVA 0x00492543
 };
 
-// Opaque 0x88-byte UpdateModule-derived intermediate; ctor resolves to the
-// opaque pin at 0x0044EF5E. Protected slots mirror the retail stores.
-class Rva0044EF5E
+// Rva0044EF5E only spells the base constructor call: the ledger rows SpecialAbilityUpdate's constructor
+// under that name. It adds nothing to SpecialAbilityUpdate.
+class Rva0044EF5E : public SpecialAbilityUpdate
 {
 public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva0044EF5E();
-
-protected:
-	unsigned char m_pad0[8];
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad1[0x20 - 0x14];
-	const void *m_p20;
-	unsigned char m_pad2[0x88 - 0x24];
 };
 
 class Rva00492402 : public Rva0044EF5E
@@ -64,14 +57,15 @@ class Rva00492402 : public Rva0044EF5E
 public:
 	Rva00492402(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva00492402();
+public:
+	virtual void triggerAbilityEffect();
+public:
+	virtual void startUnpacking();
 };
 
 Rva00492402::Rva00492402(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
-	m_p20 = s_dummy20;
 }
 
 // ~Rva00492402 (retail 0x00492439) and its deleting destructor are defined in

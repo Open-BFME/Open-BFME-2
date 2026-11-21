@@ -11,7 +11,7 @@
 class Thing;
 class ModuleData;
 
-extern "C" char __identifier("??_7Rva004AE4E2@@6B@");
+extern "C" char __identifier("??_7Rva004AE4E2@@6BObjectModule@@@");
 extern "C" char __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 extern "C" char __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 
@@ -49,7 +49,7 @@ private:
 ToggleDeploySpecialAbilityUpdate::ToggleDeploySpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = &__identifier("??_7Rva004AE4E2@@6B@");
+	m_vtable = &__identifier("??_7Rva004AE4E2@@6BObjectModule@@@");
 	m_p0C = &__identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = &s_dummy5348;

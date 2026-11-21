@@ -175,17 +175,16 @@ struct Rva0043C772Inner
 	char m_pad00[0x24];
 	Int m_24;
 };
-class Rva0043C772
+class Rva0043D16F
 {
 public:
-	Int rva0043C772();
+	virtual Int rva0043C772();
 private:
-	char m_pad00[0x04];
 	Rva0043C772Inner *m_04;
 	char m_pad08[0x14 - 0x08];
 	Int m_14;
 };
-Int Rva0043C772::rva0043C772()
+Int Rva0043D16F::rva0043C772()
 {
 	if (m_04)
 		return m_04->m_24 - m_14;

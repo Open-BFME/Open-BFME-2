@@ -8,9 +8,8 @@
 // is proven by the matched ProneUpdate ctor 0x0049FF06, pool key 0x0049FE9A and
 // name getter 0x0049FE94; goProne was pinned at 0x0049FFB9 from a placed caller;
 // update is slot 0 of the vtable 0x00C51910 at +0x10 (UpdateModuleInterface;
-// that vtable's matched dtor 0x0049FE7B keeps the placeholder row name
-// Rva0049FE7B) and calls stopProneEffects on the full object; goProne calls
-// startProneEffects.
+// the matched dtor 0x0049FE7B installs it) and calls stopProneEffects on the
+// full object; goProne calls startProneEffects.
 // BFME2 deltas: the model condition lives on the Object (word array at +0x10C,
 // MODELCONDITION_PRONE = word 2 bit 7) and is set or cleared through
 // masked-word accessors around the pinned notifier 0x0028AE6D; the no-attack
@@ -100,22 +99,16 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ProneUpdate : public UpdateModule
-{
-public:
-	ProneUpdate(Thing *thing, const ModuleData *moduleData);
-	void goProne(const DamageInfo *damageInfo);
-	virtual UpdateSleepTime update();
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	const ProneUpdateModuleData *getProneUpdateModuleData() const
-	{
-		return (const ProneUpdateModuleData *)getModuleData();
-	}
-	void startProneEffects();
-	void stopProneEffects();
-	Int m_proneFrames; // +0x20
-};
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class Region2D;
+class RealRange;
+class RGBAColorReal;
+class RGBAColorInt;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/GameLogic/Module/ProneUpdate.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdate.cpp
 
@@ -124,6 +117,22 @@ protected:
 // 1 loadPostProcess (0x0058B03E in UpdateModule's), 2 GetSnapshotName
 // (0x002533CD), 3 xfer (0x0044DF9F), 4 getModuleNameKey (__purecall in
 // UpdateModule's, 0x0049FE9A in ProneUpdate's).
+
+// Slots 1 and 3 of 0x00C5191C are bodies the linker folded with other
+// modules': loadPostProcess 0x00497805 tail-jumps to UpdateModule's and xfer
+// 0x0049508D (also AutoFindHealingUpdate's) writes Version1, the base and
+// m_proneFrames.
+void ProneUpdate::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}
+
+void ProneUpdate::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpdateModule::xfer(xfer);
+	*xfer == m_proneFrames;
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProneUpdatePoolKey.cpp
 
@@ -198,4 +207,4 @@ ProneUpdate::ProneUpdate(Thing *thing, const ModuleData *moduleData)
 	m_proneFrames = 0;
 }
 
-// tu-skeleton: 0x0049FF34 28B ??_GRva0049FE7B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x0049FF34 28B ??_GProneUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)

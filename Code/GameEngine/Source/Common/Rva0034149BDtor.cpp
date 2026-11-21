@@ -38,6 +38,12 @@ protected:
 	virtual void xfer(Xfer *xfer);
 private:
 	Rva0034149BMember *m_20;
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 #include <new>
 AIAttackSquadState::~AIAttackSquadState()

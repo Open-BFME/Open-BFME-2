@@ -11,10 +11,10 @@
 class Thing;
 class ModuleData;
 
-extern "C" const void *const __identifier("??_7Rva004C6943@@6BRva00451F45_Root@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C6943@@6BObjectModule@@@")[];
 extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
-extern "C" const void *const __identifier("??_7Rva004C6943@@6BRva00451F45_B2@@@")[];
-extern "C" const void *const __identifier("??_7Rva004C6943@@6BRva00451F45_E1@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C6943@@6BUpdateModule@@@")[];
+extern "C" const void *const __identifier("??_7Rva004C6943@@6BSpecialPowerUpdateInterface@@@")[];
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -47,9 +47,9 @@ private:
 WoundArrowUpdate::WoundArrowUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = __identifier("??_7Rva004C6943@@6BRva00451F45_Root@@@");
+	m_vtable = __identifier("??_7Rva004C6943@@6BObjectModule@@@");
 	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7Rva004C6943@@6BRva00451F45_B2@@@");
-	m_p20 = __identifier("??_7Rva004C6943@@6BRva00451F45_E1@@@");
+	m_p10 = __identifier("??_7Rva004C6943@@6BUpdateModule@@@");
+	m_p20 = __identifier("??_7Rva004C6943@@6BSpecialPowerUpdateInterface@@@");
 	m_88 = 0;
 }

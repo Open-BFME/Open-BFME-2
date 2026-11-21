@@ -102,11 +102,15 @@ private:
 class Rva0053805DBase
 {
 public:
-	void rva0053805D();
-	void rva0053806C();
-	void rva0053807B();
-	void rva0053808A();
+	virtual ~Rva0053805DBase();
+	virtual void rva0053805D();
+	virtual void rva0053806C();
+	virtual void rva0053807B();
+	virtual void rva0053808A();
 	void rva00538099();
+
+private:
+	char m_unmodelled_04[0x30 - 0x04];
 };
 
 class Rva0030C1FCOwner : public Rva0053805DBase
@@ -124,31 +128,30 @@ public:
 	void rva0030C2B6();
 
 private:
-	char m_unmodelled_00[0x30];
 	Rva0030C185List m_listeners;		// +0x30
 };
 
 void Rva0030C1FCOwner::rva0030C1FC()
 {
-	rva0053805D();
+	Rva0053805DBase::rva0053805D();
 	m_listeners.forEach(&Rva0030C1FCListener::notify04, this);
 }
 
 void Rva0030C1FCOwner::rva0030C214()
 {
-	rva0053806C();
+	Rva0053805DBase::rva0053806C();
 	m_listeners.forEach(&Rva0030C1FCListener::notify08, this);
 }
 
 void Rva0030C1FCOwner::rva0030C22C()
 {
-	rva0053807B();
+	Rva0053805DBase::rva0053807B();
 	m_listeners.forEach(&Rva0030C1FCListener::notify14, this);
 }
 
 void Rva0030C1FCOwner::rva0030C244()
 {
-	rva0053808A();
+	Rva0053805DBase::rva0053808A();
 	m_listeners.forEach(&Rva0030C1FCListener::notify1C, this);
 }
 

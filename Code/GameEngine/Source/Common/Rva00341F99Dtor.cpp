@@ -45,6 +45,15 @@ public:
 
 private:
 	Rva00341F99Member *m_ptr20;
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AITunnelNetworkGuardState::~AITunnelNetworkGuardState()

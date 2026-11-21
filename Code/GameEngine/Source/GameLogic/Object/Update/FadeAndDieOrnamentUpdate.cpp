@@ -28,7 +28,7 @@ class ModuleData;
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
   // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
 
-extern "C" const void *const __identifier("??_7Rva003A4322@@6BRva003A4322_B2@@@")[];
+extern "C" const void *const __identifier("??_7Rva003A4322@@6B@")[];
   // vftable 0x00C1AF54
 // The retail table at RVA 0x0081AF60: 13 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -110,7 +110,7 @@ FadeAndDieOrnamentUpdate::FadeAndDieOrnamentUpdate(Thing *thing, const ModuleDat
 	float fzero = 0.0f;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C1AF60);
 	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva003A4322@@6BRva003A4322_B2@@@"));
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva003A4322@@6B@"));
 	m_28.init();
 	const FadeAndDieOrnamentUpdateModuleData *data = (const FadeAndDieOrnamentUpdateModuleData *)getModuleData();
 	m_20 &= 0;

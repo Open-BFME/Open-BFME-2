@@ -14,7 +14,6 @@
 class AsciiString;
 
 namespace _STL { template <> _Rb_tree_node<AsciiString> * allocator<_Rb_tree_node<AsciiString> >::allocate(unsigned int,void const *) const; }
-
 #include "../../../../GameEngine/Include/Common/BfmeStringNoCaseLess.h"
 
 // set::insert calls the rowed insert_unique 0x0002C908; this unit's STLport
@@ -203,6 +202,14 @@ namespace rts {
 	template <>
 	bool less_than_nocase<UnicodeString>::operator()(const UnicodeString &a, const UnicodeString &b) const;
 }
+
+// 0x00604A1E: creates the named directory (kernel32 CreateDirectoryW, no
+// security attributes) unless the name is NULL or empty.
+class Rva00604A1E
+{
+public:
+	bool rva00604A1E(const unsigned short *path);
+};
 
 // ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp
 
@@ -409,26 +416,6 @@ Rva00604A5F::~Rva00604A5F()
 {
 }
 
-// tu-skeleton: 0x00604A1E 36B ?rva00604A1E@Rva00604A1E@@QAE_NPBG@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp (not merged yet)
-
-// tu-skeleton: 0x00604A42 29B ??_GRva00604A42@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp (not merged yet)
-
-// tu-skeleton: 0x00604A68 7B ?apply@Rva000604A68DwordImmSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp (not merged yet)
-
-// tu-skeleton: 0x00604A6F 28B ??_GRva00604A68@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
-
-// tu-skeleton: 0x00604C57 34B ?_M_create_node@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VUnicodeString@@@2@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
-
-// tu-skeleton: 0x00604C79 149B ?_M_insert@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VUnicodeString@@U?$_Nonconst_traits@VUnicodeString@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVUnicodeString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
-
-// tu-skeleton: 0x00604D0E 86B ??$_M_find@VUnicodeString@@@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@ABEPAU?$_Rb_tree_node@VUnicodeString@@@1@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
-
-// tu-skeleton: 0x00604D64 153B ?insert_unique@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VUnicodeString@@U?$_Nonconst_traits@VUnicodeString@@@_STL@@@_STL@@_N@2@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
-
-// tu-skeleton: 0x00604DFD 20B ??$find@VUnicodeString@@@?$set@VUnicodeString@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QBE?AU?$_Rb_tree_iterator@VUnicodeString@@U?$_Const_traits@VUnicodeString@@@_STL@@@1@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
-
-// tu-skeleton: 0x00604E11 35B ?insert@?$set@VUnicodeString@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VUnicodeString@@U?$_Const_traits@VUnicodeString@@@_STL@@@_STL@@_N@2@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystemGetFileListWide.cpp
 
 // platformsdk
@@ -507,3 +494,37 @@ void Win32LocalFileSystem::getFileListInDirectory(const UnicodeString &currentDi
 		FindClose(fileHandle);
 	}
 }
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp
+
+// platformsdk
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
+// from their bytes), batch T. As in VslotSmallBodiesA-S, each class and
+// method is address-derived unless the ledger already names it, and models
+// only what its body touches. Meanings are not recovered.
+
+bool Rva00604A1E::rva00604A1E(const unsigned short *path)
+{
+	if (path && *path)
+		return CreateDirectoryW(path, 0) != 0;
+	return false;
+}
+
+// tu-skeleton: 0x00604A42 29B ??_GRva00604A42@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp (not merged yet)
+
+// tu-skeleton: 0x00604A68 7B ?apply@Rva000604A68DwordImmSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp (not merged yet)
+
+// tu-skeleton: 0x00604A6F 28B ??_GRva00604A68@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
+
+// tu-skeleton: 0x00604C57 34B ?_M_create_node@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VUnicodeString@@@2@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
+
+// tu-skeleton: 0x00604C79 149B ?_M_insert@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VUnicodeString@@U?$_Nonconst_traits@VUnicodeString@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVUnicodeString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
+
+// tu-skeleton: 0x00604D0E 86B ??$_M_find@VUnicodeString@@@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@ABEPAU?$_Rb_tree_node@VUnicodeString@@@1@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
+
+// tu-skeleton: 0x00604D64 153B ?insert_unique@?$_Rb_tree@VUnicodeString@@V1@U?$_Identity@VUnicodeString@@@_STL@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VUnicodeString@@U?$_Nonconst_traits@VUnicodeString@@@_STL@@@_STL@@_N@2@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
+
+// tu-skeleton: 0x00604DFD 20B ??$find@VUnicodeString@@@?$set@VUnicodeString@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QBE?AU?$_Rb_tree_iterator@VUnicodeString@@U?$_Const_traits@VUnicodeString@@@_STL@@@1@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)
+
+// tu-skeleton: 0x00604E11 35B ?insert@?$set@VUnicodeString@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VUnicodeString@@U?$_Const_traits@VUnicodeString@@@_STL@@@_STL@@_N@2@ABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp (not merged yet)

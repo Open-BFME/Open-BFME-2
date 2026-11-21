@@ -774,7 +774,7 @@ void Rva004ADBD7::rva004ADBD7()
 // 0x004ADAFF). This unit's one-slot Rva004AD9B0 view makes that name the
 // compiler's vftable entity, so it is redeclared with the compiler's own type;
 // any other type is C2373.
-extern "C" void (__cdecl *const __identifier("??_7Rva004AD9B0@@6B@")[1])(void);
+extern "C" void (__cdecl *const __identifier("??_7Rva004AD9B0@@6BObjectModule@@@")[1])(void);
 
 // ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x4ADAB5
 ToggleMountedSpecialAbilityUpdate::ToggleMountedSpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData)
@@ -783,7 +783,7 @@ ToggleMountedSpecialAbilityUpdate::ToggleMountedSpecialAbilityUpdate(Thing *thin
 	m_slotBase = &__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@");
 	_ReadWriteBarrier();
 	m_slotBase = &s_dummy5188;
-	*(const void **)this = __identifier("??_7Rva004AD9B0@@6B@");
+	*(const void **)this = __identifier("??_7Rva004AD9B0@@6BObjectModule@@@");
 	*(const void **)((char *)this + 0x0C) = s_dummy62D8;
 	*(const void **)((char *)this + 0x10) = &__identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	*(const void **)((char *)this + 0x20) = &s_dummy5198;

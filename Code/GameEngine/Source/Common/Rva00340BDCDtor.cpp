@@ -27,6 +27,9 @@ public:
     virtual StateReturnType onEnter();
     virtual void onExit(StateExitType status);
     virtual StateReturnType update();
+protected:
+    // retail 0x003441F7 (slot 17), rowed protected
+    virtual bool computePath();
 };
 
 class Rva0033FF2B : public AIInternalMoveToState

@@ -271,6 +271,10 @@ public:
 
   // ??_7OneRingPenaltyUpdateModuleData@@6B@
 
+// The destructor inlines ModuleData's empty destructor down to Snapshot's
+// vptr restore (BoredUpdateModuleDataDtor.cpp precedent).
+inline ModuleData::~ModuleData() {}
+
 // ??0OneRingPenaltyUpdateModuleData@@QAE@XZ
 OneRingPenaltyUpdateModuleData::OneRingPenaltyUpdateModuleData()
 {

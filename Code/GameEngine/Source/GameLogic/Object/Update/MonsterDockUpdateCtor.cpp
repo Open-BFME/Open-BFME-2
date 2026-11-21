@@ -14,10 +14,10 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_Root@@@")[];  // vftable 0x00C51D74
-extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_M1@@@")[];  // vftable 0x00C51B20
-extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_B2@@@")[];  // vftable 0x00C51D68
-extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_E1@@@")[];  // vftable 0x00C51D18
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BObjectModule@@@")[];  // vftable 0x00C51D74
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C51B20
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BUpdateModule@@@")[];  // vftable 0x00C51D68
+extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BDockUpdateInterface@@@")[];  // vftable 0x00C51D18
 
 // Rowed DockUpdate base; ctor resolves to its row. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -52,10 +52,10 @@ MonsterDockUpdate::MonsterDockUpdate(Thing *thing, const ModuleData *moduleData)
 {
 	m_8C = 0;
 	_ReadWriteBarrier();
-	m_vtable = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_Root@@@");
-	m_p0C = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_M1@@@");
-	m_p10 = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_B2@@@");
-	m_p20 = __identifier("??_7MonsterDockUpdate@@6BRva0058A0F4_E1@@@");
+	m_vtable = __identifier("??_7MonsterDockUpdate@@6BObjectModule@@@");
+	m_p0C = __identifier("??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7MonsterDockUpdate@@6BUpdateModule@@@");
+	m_p20 = __identifier("??_7MonsterDockUpdate@@6BDockUpdateInterface@@@");
 	m_88 = 1;
 	m_89 = 0;
 }

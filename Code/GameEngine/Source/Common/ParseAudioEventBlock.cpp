@@ -29,30 +29,10 @@ private:
 	char m_pad0D[0x3];
 };
 
-namespace _STL
-{
-template <class T> class allocator
-{
-};
-template <class T, class A> class vector;
-template <> class vector<Rva004E18A2, allocator<Rva004E18A2> >
-{
-public:
-	void push_back(const Rva004E18A2 &x);
-private:
-	Rva004E18A2 *m_start;
-	Rva004E18A2 *m_finish;
-	Rva004E18A2 *m_endOfStorage;
-};
-}
-
 class Rva0056654FOwner
 {
 public:
 	void append(const Rva004E18A2 &record);
-private:
-	unsigned char m_unreconstructed_00[0x78];
-	_STL::vector<Rva004E18A2, _STL::allocator<Rva004E18A2> > m_audioEvents;	// +0x78
 };
 
 extern const FieldParse g_00C61C68[];

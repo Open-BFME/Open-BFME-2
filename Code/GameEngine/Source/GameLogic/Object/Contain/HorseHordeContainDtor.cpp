@@ -25,11 +25,7 @@ enum BodyDamageType;
 #include "../../../../Include/Common/B7.h"
 #include "../../../../Include/Common/B8.h"
 
-class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
-{
-public:
-	virtual ~OpenContain();
-};
+#include "../../../../Include/GameLogic/Module/TransportContain.h"
 
 class ThingTemplate;
 class PayloadContainView;
@@ -41,12 +37,6 @@ class HFC { public: virtual Object *createPayloadMember(const ThingTemplate *, P
 // HordeContain::rva00472329 (0x00472329, HordeContainIface11CSlots.cpp).
 class HLC { public: virtual void rva00472329(const Coord3D *, int) = 0; };
 
-class TransportContain : public OpenContain, public HFC
-{
-public:
-	virtual ~TransportContain();
-	virtual Object *createPayloadMember(const ThingTemplate *what, PayloadContainView *contain, Object *parent, const char *name, int initial);	// 0x00466FE0
-};
 
 class HordeContain : public TransportContain, public HLC
 {

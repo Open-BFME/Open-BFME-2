@@ -15,18 +15,7 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
-class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
-{
-public:
-	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
-	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
-	virtual ~SpecialPowerModule();
-public:
-	virtual SpecialPowerModuleInterface *getSpecialPower();	// BehaviorModuleInterface slot 8: retail 0x002533D3, the +0x10 interface
-public:
-	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
-	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleClass.h"
 enum NameKeyType
 {
 	NK_UNKNOWN = 0

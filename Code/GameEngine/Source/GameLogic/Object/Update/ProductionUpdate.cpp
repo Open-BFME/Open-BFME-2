@@ -4,7 +4,7 @@
 #include <list>
 #include <vector>
 #include "ascii_string.h"
-#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/Common/ModuleData.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include <algorithm>
 #include <memory>
@@ -187,16 +187,14 @@ private:
 	unsigned int m_words[(NUMBITS+31)/32];
 };
 
-class ProductionUpdateModuleData : public Snapshot
+class ProductionUpdateModuleData : public ModuleData
 {
 public:
  ProductionUpdateModuleData();
 	virtual ~ProductionUpdateModuleData();
 
 private:
-	// +0 is the base vptr (retail 0x00C515F0); no explicit slot follows, so
-	// members land on the ctor TU's offsets.
-	int m_unused04; // +4, untouched padding
+	// +0 is the base vptr (retail 0x00C515F0); +4 is ModuleData's module tag key.
 	Int m_numDoorAnimations; // +8
 	unsigned int m_doorOpeningTime; // +0xC
 	unsigned int m_doorWaitOpenTime; // +0x10
@@ -929,9 +927,9 @@ void Rva0049DC50::rva0049DC50(int id)
 // precedent). Members are declared in offset order so reverse destruction
 // yields states 3/2/1/0.
 
-// ModuleData stand-in: virtuals give the derived dtor its entry vtable
-// store; the inline dtor restores the base table 0x00BBB554 after all
-// members fall (LargeGroupBonus precedent).
+// The destructor inlines ModuleData's empty destructor down to Snapshot's
+// vptr restore (BoredUpdateModuleDataDtor.cpp precedent).
+inline ModuleData::~ModuleData() {}
 
 // ??1ProductionUpdateModuleData@@UAE@XZ @0x0049E2B3
 ProductionUpdateModuleData::~ProductionUpdateModuleData()
@@ -1173,7 +1171,7 @@ void ProductionUpdate::rva0049E368()
 
 // bfme link decl-only end
 ProductionUpdateModuleData::ProductionUpdateModuleData()
-	: Snapshot()
+	: ModuleData()
 	, m_bonusForType()
 	, m_speedBonusAudioLoop()
 {

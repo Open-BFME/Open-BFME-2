@@ -20,11 +20,17 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16*, size_t);
 }
 
+enum ScienceType { SCIENCE_INVALID = 0 };
+class CreateAHeroData;
+
+// Retail table 0x0083D7E8: 0x0043CCFC, 0x0043C772, 0x0043C754.
 class Rva0043D16F
 {
 public:
 	Rva0043D16F();
-	virtual void keep() {}
+	virtual bool rva0043CCFC(ScienceType science);
+	virtual int rva0043C772();
+	virtual void rva0043C754(CreateAHeroData *hero, bool *out);
 private:
 	int m_04; // +0x04 cleared
 	_STL::vector<struct BfmeE16> m_vec; // +0x08

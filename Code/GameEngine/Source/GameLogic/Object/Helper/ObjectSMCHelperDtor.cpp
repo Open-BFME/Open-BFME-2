@@ -40,41 +40,28 @@ namespace _STL
 template<> _List_base<int, allocator<int> >::~_List_base();
 }
 
-class Rva0024A797
-{
-public:
-	virtual ~Rva0024A797();
-
-private:
-	char m_pad04[8];
-};
-
-#include "../../../../Include/Common/MiBase1.h"
-
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/GameLogic/Module/UpdateSleepTime.h"
 
-// The update interface at +0x10: retail's ObjectSMCHelper table there (0x00BFC07C)
-// holds ObjectSMCHelper::update (rowed) in slot 0.
-class Rva004DF7C2_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class ObjectHelper : public Rva0024A797, public MiBase1, public Rva004DF7C2_B2
-{
-public:
-	virtual ~ObjectHelper();
-};
+// The canonical ObjectHelper (UpdateModule) chain: retail's ObjectSMCHelper tables are
+// 0x00BFC088 at +0x00, UpdateModule's BehaviorModuleInterface table 0x00BEFF90 at +0x0C
+// and 0x00BFC07C at +0x10. The overrides are those ObjectSMCHelper_Rva002927f8.cpp's
+// view declares, so both units' vftable copies are one copy.
+#include "../../../../Include/GameLogic/Module/ObjectHelper.h"
 
 class ObjectSMCHelper : public ObjectHelper
 {
 public:
 	virtual ~ObjectSMCHelper();
+
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_pad14_20[0x20 - 0x14];
 	_STL::list<int> m_timers;
 };
 

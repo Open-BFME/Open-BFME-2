@@ -64,6 +64,9 @@ public:
 	virtual bool slot1() const;
 	virtual void rva0053805D();
 	virtual void rva0053806C();
+	virtual void rva0053807B();
+	virtual void rva0053808A();
+	virtual void slot6() = 0;
 private:
 	_STL::_List_base<Rva004FA1FObserver *, _STL::allocator<Rva004FA1FObserver *> > m_observers;	// +0x1C
 	int m_20;

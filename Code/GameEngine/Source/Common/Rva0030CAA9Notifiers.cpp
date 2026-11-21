@@ -77,8 +77,8 @@ class Rva0053805DBase
 {
 public:
 	virtual ~Rva0053805DBase();
-	void rva0053805D();
-	void rva0053806C();
+	virtual void rva0053805D();
+	virtual void rva0053806C();
 	void rva00538099();
 
 private:
@@ -106,13 +106,13 @@ private:
 
 void Rva0030CAA9Owner::rva0030CAA9()
 {
-	rva0053805D();
+	Rva0053805DBase::rva0053805D();
 	m_listeners.forEach(&Rva0030CAA9Listener::notify04, this);
 }
 
 void Rva0030CAA9Owner::rva0030CAC1()
 {
-	rva0053806C();
+	Rva0053805DBase::rva0053806C();
 	m_listeners.forEach(&Rva0030CAA9Listener::notify08, this);
 }
 

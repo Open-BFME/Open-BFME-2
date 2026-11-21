@@ -51,14 +51,7 @@ __declspec(noinline) inline void Rva0046247D::rva0046247D(Rva0046247DPair &resul
 	result.m00 = (ContainModuleInterface *)(base ? field : 0);
 	result.m04 = (HordeMemberList *)((char *)base + 0x54);
 }
-class TransportContain
-{
-public:
-    virtual void primaryAnchor() = 0;
-    unsigned char m_pad004[4];
-    Object *m_object;
-    unsigned char m_pad00C[0x11C - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/TransportContain.h"
 template <int N> class Rva0046BB38Slots : public Rva0046BB38Slots<N - 1>
 {
 public:

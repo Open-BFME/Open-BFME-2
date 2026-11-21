@@ -15,12 +15,12 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-extern "C" char __identifier("??_7Rva004AE1AC@@6BRva00451F45_Root@@@");
+extern "C" char __identifier("??_7Rva004AE1AC@@6BObjectModule@@@");
 extern "C" char __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-extern "C" char __identifier("??_7Rva004AE1AC@@6BRva00451F45_B2@@@");
+extern "C" char __identifier("??_7Rva004AE1AC@@6BUpdateModule@@@");
 // +0x20: retail stores 0x00C552A4, SpecialAbilityUpdate's SpecialPowerUpdateInterface
 // table (ICF-shared); the ledger binds this compiled name there.
-extern "C" char __identifier("??_7Rva004AE1AC@@6BRva00451F45_E1@@@");
+extern "C" char __identifier("??_7Rva004AE1AC@@6BSpecialPowerUpdateInterface@@@");
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -55,8 +55,8 @@ ToggleHiddenSpecialAbilityUpdate::ToggleHiddenSpecialAbilityUpdate(Thing *thing,
 {
 	m_88 = 0;
 	_ReadWriteBarrier();
-	m_vtable = &__identifier("??_7Rva004AE1AC@@6BRva00451F45_Root@@@");
+	m_vtable = &__identifier("??_7Rva004AE1AC@@6BObjectModule@@@");
 	m_p0C = &__identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = &__identifier("??_7Rva004AE1AC@@6BRva00451F45_B2@@@");
-	m_p20 = &__identifier("??_7Rva004AE1AC@@6BRva00451F45_E1@@@");
+	m_p10 = &__identifier("??_7Rva004AE1AC@@6BUpdateModule@@@");
+	m_p20 = &__identifier("??_7Rva004AE1AC@@6BSpecialPowerUpdateInterface@@@");
 }

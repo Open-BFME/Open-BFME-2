@@ -7,12 +7,27 @@
 // pure, as the other Visitor005CCCD0 views declare it: one table copy.
 #include "../../Include/Common/Visitor005CCCD0.h"
 #include "../../Include/Common/Rva005CCD36.h"
+#include "../../Include/Common/Rva005CCB3EByteChaseField.h"
+#include "../../../Libraries/Source/WWVegas/WW3D2/Font3DInstanceClass.h"
+// Slot 0 of table 0x0087500C is the native 43-byte callback 0x005CD737: skip an
+// already marked target or one whose Peek_Texture is not the sentinel 1;
+// otherwise note the listener and stop the walk.
 class HasListenersVisitor : public Visitor005CCCD0
 {
 public:
 	HasListenersVisitor();
 	virtual ~HasListenersVisitor() {}
-	virtual bool visit(TargetRef00217D4C *target) { m_found = true; return true; }
+	virtual bool visit(TargetRef00217D4C *target) {
+		if (((Rva005CCB3EByteChaseField *)target)->get() != 0)
+			return true;
+		TextureClass *texture = ((Font3DInstanceClass *)target)->Peek_Texture();
+		if (texture == (TextureClass *)1)
+		{
+			m_found = (unsigned char)(unsigned int)texture != 0;
+			return false;
+		}
+		return true;
+	}
 	bool m_found;
 };
 // ??0HasListenersVisitor@@QAE@XZ @0x005CD801 9B: the visitor's default

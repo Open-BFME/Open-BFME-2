@@ -86,6 +86,12 @@ protected:
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustsDestination; // +0x48
 	unsigned char m_pad49[0x4C - 0x49];
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType status);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 
 class AIGuardRetaliateReturnState : public AIInternalMoveToState

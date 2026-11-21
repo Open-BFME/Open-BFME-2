@@ -7,7 +7,7 @@
 // (the state's own name literal) and the matching ZH body.
 // AIAttackMoveToState::onExit, retail 0x0034A011 (28 bytes): slot 5 of vtable
 // 0x00C13548 (name getter 0x00345CFA, AIAttackMoveToState; the same class as
-// the placeholder rows Rva00345CAB); m_attackMoveMachine at +0x54 is set to
+// the placeholder rows AIAttackMoveToState); m_attackMoveMachine at +0x54 is set to
 // AI_IDLE through StateMachine virtual slot 8, then the inherited
 // AIMoveToState::onExit (not overridden, so the base 0x003473A4).
 // AIFollowWaypointPathState::onExit, retail 0x0034A0D7 (46 bytes): slot 5 of

@@ -24,30 +24,24 @@ enum BodyDamageType;
 #include "../../../../Include/Common/B7.h"
 #include "../../../../Include/Common/B8.h"
 
-class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
-{
-public:
-	virtual ~OpenContain();
-};
-
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
-class GarrisonContain : public OpenContain
-{
-public:
-	virtual ~GarrisonContain();
-	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState); // the rowed 0x0047876A
-
-private:
-	unsigned char m_padFC424[0x424 - 0xFC];
-	Coord3D m_garrisonPoint[120];
-	unsigned char m_tail[0x9E0 - 0x9C4];
-};
+#include "../../../../Include/GameLogic/Module/GarrisonContain.h"
 
 class TunnelContain : public GarrisonContain
 {
 public:
 	virtual ~TunnelContain();
+	// Retail TunnelContain tables: the overrides the ledger rows under TunnelContain's name.
+	virtual NameKeyType getModuleNameKey() const;			// 0x0047DB43
+	virtual void onDelete();					// 0x0047DFFF
+	virtual UpdateSleepTime update();				// 0x0047E017
+	virtual void onSelling();					// 0x0047E00F
+	virtual void onRemoving(Object *obj);				// 0x0047DD2D
+	virtual int getContainMax() const;				// 0x0047DDFF
+	virtual bool isValidContainerFor(Object *obj, bool checkCapacity, bool flag);	// 0x0047DDA2
+	virtual void addToContainList(Object *obj);			// 0x0047DC75
+	virtual void onDie(const DamageInfo *damageInfo);		// 0x0047DFD9
+protected:
+	virtual void xfer(Xfer *xfer);					// 0x0047DBB0
 };
 
 TunnelContain::~TunnelContain()

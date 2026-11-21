@@ -51,36 +51,11 @@ struct UpgradeMaskType
 	unsigned long m_words[32];
 };
 
-// The flattened view Rva0024A797Derived.cpp gives StealthUpdate's destructor:
-// UpdateModule's own vptr at +0x00, then the two interface vptrs at +0x0C
-// (the shared 0x007EFF90) and +0x10 (0x00817F14), so this constructor's
-// vftable copies are the ones that unit's destructor stores. The interface
-// bases are novtable: retail stores only the three StealthUpdate vftables.
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	Object *getObject() const { return m_object; }
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-class __declspec(novtable) MiBase1
-{
-public:
-	virtual void f1();
-};
-
-// The +0x10 update interface: slot 0 of its retail table is the rowed StealthUpdate::update.
-class __declspec(novtable) Rva00373CB1_B2
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+// The canonical UpdateModule: its +0x0C interface is the shared 0x007EFF90
+// and its +0x10 interface the three-slot 0x00817F14 (slot 0 the rowed
+// StealthUpdate::update). Rva0024A797Derived.cpp gives StealthUpdate's
+// destructor the same view, so both units' vftable copies are one copy.
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class StealthUpdateModuleData
 {
@@ -94,16 +69,18 @@ public:
 // The status helper at 0x003743CF, rowed under an address name.
 #include "../../../../Include/GameLogic/Module/Rva003743CF.h"
 
-class StealthUpdate : public UpdateModule, public MiBase1, public Rva00373CB1_B2
+class StealthUpdate : public UpdateModule
 {
 public:
 	StealthUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~StealthUpdate();
 	virtual UpdateSleepTime update();
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
 private:
-	const StealthUpdateModuleData *getStealthUpdateModuleData() const { return (const StealthUpdateModuleData *)m_moduleData; }
+	const StealthUpdateModuleData *getStealthUpdateModuleData() const { return (const StealthUpdateModuleData *)getModuleData(); }
 
-	UnsignedInt m_updateModuleFields[3]; // +0x14..+0x1F, UpdateModule's own (set by its constructor)
 	UnsignedInt m_stealthAllowedFrame; // +0x20
 	UnsignedInt m_detectionExpiresFrame; // +0x24
 	UnsignedInt m_framesGranted; // +0x28

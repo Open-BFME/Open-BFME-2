@@ -51,9 +51,9 @@ public:
 // addresses: Rva004A0C0E's (RadarUpdate's placeholder, Rva0024A797Derived.cpp) at
 // +0 and +0x10, and the 47-slot BehaviorModuleInterface table folded across the
 // module family at +0x0C, by the name its definer AttributeModifierPoolUpdate.cpp emits.
-extern "C" const void *const __identifier("??_7Rva004A0C0E@@6BUpdateModule@@@")[];  // VA 0x00C51A0C
+extern "C" const void *const __identifier("??_7Rva004A0C0E@@6BObjectModule@@@")[];  // VA 0x00C51A0C
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];  // VA 0x00BEFF90
-extern "C" const void *const __identifier("??_7Rva004A0C0E@@6BRva004A0C0E_B2@@@")[];  // VA 0x00C51A00
+extern "C" const void *const __identifier("??_7Rva004A0C0E@@6B@")[];  // VA 0x00C51A00
 
 // ??0RadarUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
 RadarUpdate::RadarUpdate( Thing *thing, const ModuleData *moduleData )
@@ -62,7 +62,7 @@ RadarUpdate::RadarUpdate( Thing *thing, const ModuleData *moduleData )
 	m_flag25 = false;
 	m_value20 = 0;
 	m_flag24 = false;
-	*(const void *const **)this = __identifier("??_7Rva004A0C0E@@6BUpdateModule@@@");
+	*(const void *const **)this = __identifier("??_7Rva004A0C0E@@6BObjectModule@@@");
 	*(const void *const **)((char *)this + 0x0C) = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
-	*(const void *const **)((char *)this + 0x10) = __identifier("??_7Rva004A0C0E@@6BRva004A0C0E_B2@@@");
+	*(const void *const **)((char *)this + 0x10) = __identifier("??_7Rva004A0C0E@@6B@");
 }

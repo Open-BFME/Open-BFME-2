@@ -167,11 +167,13 @@ public:
 	virtual ~GloriousChargeUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void startPreparation();
+	virtual bool continuePreparation();
 	void rva004AD613();
 	void rva004AD7B6();
 	virtual void triggerAbilityEffect();
 	virtual UpdateSleepTime update();
 protected:
+	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 private:
 	const GloriousChargeUpdateModuleData *getGloriousChargeData() const
@@ -456,6 +458,19 @@ void GloriousChargeUpdate::xfer(Xfer *xfer)
 	xferSTLObjectIDList(xfer, reinterpret_cast<BridgeBehaviorObjectIDList *>(&m_88));
 	*xfer == m_90;
 	*xfer == m_8C;
+}
+
+// Primary vftable 0x00C55118 slots 1 and 16 are shared tail jumps (ICF):
+// 0x00483CEF jumps to SpecialAbilityUpdate's loadPostProcess 0x00497805, and
+// 0x00494E21 to SpecialAbilityUpdate::continuePreparation 0x0044FC52.
+void GloriousChargeUpdate::loadPostProcess()
+{
+	SpecialAbilityUpdate::loadPostProcess();
+}
+
+bool GloriousChargeUpdate::continuePreparation()
+{
+	return SpecialAbilityUpdate::continuePreparation();
 }
 
 // tu-skeleton: 0x004AD51D 27B ?buildFieldParse@GloriousChargeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)

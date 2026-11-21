@@ -12,7 +12,7 @@
 class Thing;
 class ModuleData;
 
-extern "C" const void *const __identifier("??_7Rva004B29BE@@6B@")[];
+extern "C" const void *const __identifier("??_7Rva004B29BE@@6BObjectModule@@@")[];
 extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@")[];
 extern "C" const void *const __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@")[];
 // +0x20: retail stores 0x00C552A4, SpecialAbilityUpdate's SpecialPowerUpdateInterface
@@ -48,7 +48,7 @@ private:
 ReplaceObjectUpdate::ReplaceObjectUpdate(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = __identifier("??_7Rva004B29BE@@6B@");
+	m_vtable = __identifier("??_7Rva004B29BE@@6BObjectModule@@@");
 	m_p0C = __identifier("??_7ArrowStormUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = __identifier("??_7ArrowStormUpdate@@6BUpdateModule@@@");
 	m_p20 = __identifier("??_7SpecialAbilityUpdate@@6BSpecialPowerUpdateInterface@@@");

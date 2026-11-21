@@ -19,15 +19,15 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 extern "C" const void *const __identifier("??_7Rva00588FFAIface10@@6B@")[];
-extern "C" const void *const __identifier("??_7CaveContain@@6BB0@@@")[];  // vftable 0x00C43CB8
-extern "C" const void *const __identifier("??_7CaveContain@@6BB1@@@")[];  // vftable 0x00C43BF8
-extern "C" const void *const __identifier("??_7CaveContain@@6BB2@@@")[];  // vftable 0x00C43BE8
-extern "C" const void *const __identifier("??_7CaveContain@@6BB3@@@")[];  // vftable 0x00C43A70
-extern "C" const void *const __identifier("??_7CaveContain@@6BB4@@@")[];  // vftable 0x00C46064
-extern "C" const void *const __identifier("??_7CaveContain@@6BB5@@@")[];  // vftable 0x00C43A6C
-extern "C" const void *const __identifier("??_7CaveContain@@6BB6@@@")[];  // vftable 0x00C58790
-extern "C" const void *const __identifier("??_7CaveContain@@6BB7@@@")[];  // vftable 0x00C43380
-extern "C" const void *const __identifier("??_7CaveContain@@6BB8@@@")[];  // vftable 0x00C43A5C
+extern "C" const void *const __identifier("??_7CaveContain@@6BObjectModule@@@")[];  // vftable 0x00C43CB8
+extern "C" const void *const __identifier("??_7CaveContain@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C43BF8
+extern "C" const void *const __identifier("??_7CaveContain@@6BUpdateModule@@@")[];  // vftable 0x00C43BE8
+extern "C" const void *const __identifier("??_7CaveContain@@6BContainModuleInterface@@@")[];  // vftable 0x00C43A70
+extern "C" const void *const __identifier("??_7CaveContain@@6BCollideModuleInterface@@@")[];  // vftable 0x00C46064
+extern "C" const void *const __identifier("??_7CaveContain@@6BDieModuleInterface@@@")[];  // vftable 0x00C43A6C
+extern "C" const void *const __identifier("??_7CaveContain@@6BDamageModuleInterface@@@")[];  // vftable 0x00C58790
+extern "C" const void *const __identifier("??_7CaveContain@@6BExitInterface@@@")[];  // vftable 0x00C43380
+extern "C" const void *const __identifier("??_7CaveContain@@6BCreateModuleInterface@@@")[];  // vftable 0x00C43A5C
 extern "C" const void *const __identifier("??_7CaveContain@@6B@")[];  // vftable 0x00C43A54
 
 // Opaque OpenContain base (0xFC); ctor resolves to its pin.
@@ -61,15 +61,15 @@ CaveContain::CaveContain(Thing *thing, const ModuleData *moduleData)
 	_ReadWriteBarrier();
 	m_104 = 0;
 	m_108 = 0;
-	*(const void **)this = __identifier("??_7CaveContain@@6BB0@@@");
-	*(const void **)((char *)this + 0xC) = __identifier("??_7CaveContain@@6BB1@@@");
-	*(const void **)((char *)this + 0x10) = __identifier("??_7CaveContain@@6BB2@@@");
-	*(const void **)((char *)this + 0x20) = __identifier("??_7CaveContain@@6BB3@@@");
-	*(const void **)((char *)this + 0x24) = __identifier("??_7CaveContain@@6BB4@@@");
-	*(const void **)((char *)this + 0x28) = __identifier("??_7CaveContain@@6BB5@@@");
-	*(const void **)((char *)this + 0x2C) = __identifier("??_7CaveContain@@6BB6@@@");
-	*(const void **)((char *)this + 0x30) = __identifier("??_7CaveContain@@6BB7@@@");
-	*(const void **)((char *)this + 0x34) = __identifier("??_7CaveContain@@6BB8@@@");
+	*(const void **)this = __identifier("??_7CaveContain@@6BObjectModule@@@");
+	*(const void **)((char *)this + 0xC) = __identifier("??_7CaveContain@@6BBehaviorModuleInterface@@@");
+	*(const void **)((char *)this + 0x10) = __identifier("??_7CaveContain@@6BUpdateModule@@@");
+	*(const void **)((char *)this + 0x20) = __identifier("??_7CaveContain@@6BContainModuleInterface@@@");
+	*(const void **)((char *)this + 0x24) = __identifier("??_7CaveContain@@6BCollideModuleInterface@@@");
+	*(const void **)((char *)this + 0x28) = __identifier("??_7CaveContain@@6BDieModuleInterface@@@");
+	*(const void **)((char *)this + 0x2C) = __identifier("??_7CaveContain@@6BDamageModuleInterface@@@");
+	*(const void **)((char *)this + 0x30) = __identifier("??_7CaveContain@@6BExitInterface@@@");
+	*(const void **)((char *)this + 0x34) = __identifier("??_7CaveContain@@6BCreateModuleInterface@@@");
 	m_FC = __identifier("??_7CaveContain@@6B@");
 	m_100 = 1;
 }

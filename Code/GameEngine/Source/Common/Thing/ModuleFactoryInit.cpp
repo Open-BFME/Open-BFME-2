@@ -389,7 +389,7 @@ class ProductionSpeedBonusModuleData { public: static ModuleData *friend_newModu
 #include "../../../Include/GameLogic/Module/ProductionUpdateClass.h"
 class ProductionUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ProjectileStreamUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class ProneUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/ProneUpdate.h"
 class ProneUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class PropagandaTowerBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class PropagandaTowerBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };

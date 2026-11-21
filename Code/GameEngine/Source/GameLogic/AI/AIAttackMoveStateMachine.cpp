@@ -106,6 +106,21 @@ public:
 	virtual ~AIInternalMoveToState();
 protected:
 	unsigned char m_pad20[0x4C - 0x20];
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *xfer);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType status);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
 };
 // ZH's AIMoveToState, rowed by address.
 class Rva0034005D : public AIInternalMoveToState
@@ -132,6 +147,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
 };
 
 AIAttackMoveToState::AIAttackMoveToState(StateMachine *machine) : Rva0034005D(machine)
@@ -166,6 +184,9 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
 };
 
 AIAttackFollowWaypointPathState::AIAttackFollowWaypointPathState(StateMachine *machine, Bool asGroup) : Rva00342BAE(machine, asGroup, false)
@@ -195,6 +216,12 @@ public:
 public:
 	// retail vftable slot: the rowed override
 	virtual void onExit(StateExitType);
+protected:
+	// retail vftable slot: the rowed override
+	virtual bool computePath();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
 };
 
 AIFollowPathAsTeamState::AIFollowPathAsTeamState(StateMachine *machine, Bool attackMove, unsigned int hash) : AIInternalMoveToState(machine, hash)

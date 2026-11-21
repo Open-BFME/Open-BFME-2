@@ -1,0 +1,829 @@
+{
+ "bases": [
+  "UpdateModule",
+  "Rva004626A6",
+  "<vftable 0x840818>",
+  "<vftable 0x81c780>",
+  "<vftable 0x7e2b78>",
+  "Rva0046249E",
+  "<vftable 0x84ef80>"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "OpenContain",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [
+    "B0",
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8"
+   ],
+   "zh": [
+    "UpdateModule",
+    "ContainModuleInterface",
+    "CollideModuleInterface",
+    "DieModuleInterface",
+    "DamageModuleInterface",
+    "ExitInterface"
+   ]
+  },
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x68": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4649f8"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x8435e8",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva004626A6",
+       "offset": 32,
+       "own_vftable": "0x8433b0",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x840818>",
+       "offset": 36,
+       "own_vftable": "0x846064",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 40,
+       "own_vftable": "0x846f78",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x7e2b78>",
+       "offset": 44,
+       "own_vftable": "0x858790",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "target",
+       "name": "Rva0046249E",
+       "offset": 48,
+       "own_vftable": "0x843380",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x84ef80>",
+       "offset": 52,
+       "own_vftable": "0x848b28",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4649f8"
+     ],
+     "value": 240
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4649f8"
+     ],
+     "value": {
+      "0x38": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0xd0": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xdc": [
+       1
+      ],
+      "0xdd": [
+       1
+      ],
+      "0xde": [
+       1
+      ],
+      "0xdf": [
+       1
+      ],
+      "0xe0": [
+       1
+      ],
+      "0xe1": [
+       1
+      ],
+      "0xe4": [
+       4
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xec": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4649f8"
+     ],
+     "value": {
+      "0x3c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x48": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x54": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x5c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x74": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x84": [
+       "??0Rva0042526Member@@QAE@XZ"
+      ],
+      "0xf0": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24b713"
+     ],
+     "value": 252
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4649f8"
+     ],
+     "value": {
+      "0x10": [
+       "0x843be8"
+      ],
+      "0xc": [
+       "0x843528"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4649f8"
+     ],
+     "value": {
+      "0x0": "0x8435e8",
+      "0x20": "0x8433b0",
+      "0x24": "0x846064",
+      "0x28": "0x846f78",
+      "0x2c": "0x858790",
+      "0x30": "0x843380",
+      "0x34": "0x848b28"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8435e8"
+     ],
+     "value": {
+      "count": 27,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GOpenContain@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x464b7a"
+       },
+       {
+        "name": "?loadPostProcess@OpenContain@@MAEXXZ",
+        "slot": 1,
+        "target": "0x463c6e"
+       },
+       {
+        "name": "?name@OpenContain@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4647ba"
+       },
+       {
+        "name": "?xfer@OpenContain@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x465ef1"
+       },
+       {
+        "name": "?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x464775"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?onDelete@OpenContain@@UAEXXZ",
+        "slot": 8,
+        "target": "0x464120"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       },
+       {
+        "name": "?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z",
+        "slot": 13,
+        "target": "0x462f75"
+       },
+       {
+        "name": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+        "slot": 14,
+        "target": "0x5cb9fa"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 15,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 16,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?monitorConditionChanges@OpenContain@@MAEXXZ",
+        "slot": 17,
+        "target": "0x462c72"
+       },
+       {
+        "name": "?redeployOccupants@OpenContain@@MAEXXZ",
+        "slot": 18,
+        "target": "0x464286"
+       },
+       {
+        "name": "?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z",
+        "slot": 19,
+        "target": "0x464ee7"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 20,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?doLoadSound@OpenContain@@MAEXXZ",
+        "slot": 21,
+        "target": "0x46279c"
+       },
+       {
+        "name": "?doUnloadSound@OpenContain@@MAEXXZ",
+        "slot": 22,
+        "target": "0x46282b"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 23,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z",
+        "slot": 24,
+        "target": "0x462e3a"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 25,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z",
+        "slot": 26,
+        "target": "0x465972"
+       }
+      ],
+      "table": "0x8435e8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {
+   "0x843380": {
+    "offset": 48,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8433b0": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8435e8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GOpenContain@@UAEPAXI@Z",
+     "1": "?loadPostProcess@OpenContain@@MAEXXZ",
+     "2": "?name@OpenContain@@QBEPBDXZ",
+     "3": "?xfer@OpenContain@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "?onDelete@OpenContain@@UAEXXZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+     "13": "?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z",
+     "14": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+     "15": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "16": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "17": "?monitorConditionChanges@OpenContain@@MAEXXZ",
+     "18": "?redeployOccupants@OpenContain@@MAEXXZ",
+     "19": "?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z",
+     "20": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "21": "?doLoadSound@OpenContain@@MAEXXZ",
+     "22": "?doUnloadSound@OpenContain@@MAEXXZ",
+     "23": "??1Region2D@@QAE@XZ",
+     "24": "?rva00462E3A@Rva00462E3A@@QAEXPAVObject@@HH@Z",
+     "25": "??1Region2D@@QAE@XZ",
+     "26": "?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z"
+    },
+    "stores": 1
+   },
+   "0x846064": {
+    "offset": 36,
+    "slots": {},
+    "stores": 1
+   },
+   "0x846f78": {
+    "offset": 40,
+    "slots": {},
+    "stores": 1
+   },
+   "0x848b28": {
+    "offset": 52,
+    "slots": {},
+    "stores": 1
+   },
+   "0x858790": {
+    "offset": 44,
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 1,
+   "108": 1,
+   "192": 1,
+   "252": 3,
+   "256": 1,
+   "2528": 1
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/OpenContain.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "m_object",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "m_containList._M_node._M_data",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "count68",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag",
+   "name_by": "majority",
+   "offset": 189,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base@0x20",
+   "candidates": {
+    "'Rva004626A6'": 1
+   },
+   "class": "OpenContain",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "base@0x24",
+   "candidates": {
+    "'<vftable 0x840818>'": 1
+   },
+   "class": "OpenContain",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "base@0x28",
+   "candidates": {
+    "'<vftable 0x81c780>'": 1
+   },
+   "class": "OpenContain",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "base@0x2c",
+   "candidates": {
+    "'<vftable 0x7e2b78>'": 1
+   },
+   "class": "OpenContain",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "base@0x30",
+   "candidates": {
+    "'Rva0046249E'": 1
+   },
+   "class": "OpenContain",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "base@0x34",
+   "candidates": {
+    "'<vftable 0x84ef80>'": 1
+   },
+   "class": "OpenContain",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "nested@0x34",
+   "candidates": {
+    "m_containList._M_node._M_data": 4
+   },
+   "class": "OpenContain"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "__vecDelDtor(uint)": 1
+   },
+   "class": "OpenContain",
+   "why": "beyond the retail vftable's 27 slots"
+  },
+  {
+   "attribute": "slot29",
+   "candidates": {
+    "removeAllContained(bool)": 1
+   },
+   "class": "OpenContain",
+   "why": "beyond the retail vftable's 27 slots"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "xfer(Xfer*)": 1
+   },
+   "class": "OpenContain",
+   "why": "beyond the retail vftable's 27 slots"
+  },
+  {
+   "attribute": "slot31",
+   "candidates": {
+    "loadPostProcess()": 1
+   },
+   "class": "OpenContain",
+   "why": "beyond the retail vftable's 27 slots"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "update()": 1,
+    "v00()": 1
+   },
+   "class": "OpenContain"
+  }
+ ],
+ "size": 252,
+ "size_by": "retail-new",
+ "vslots": {
+  "1": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "slot13(Object*)"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "slot19()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v02()"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "slot22()"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "slot24(Object*,bool,bool)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}

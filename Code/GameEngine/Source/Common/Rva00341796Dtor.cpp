@@ -35,6 +35,12 @@ public:
 	virtual ~AIHarvestState();
 private:
 	Rva00341796Member *m_20;
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType onEnter();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 #include <new>
 AIHarvestState::~AIHarvestState()

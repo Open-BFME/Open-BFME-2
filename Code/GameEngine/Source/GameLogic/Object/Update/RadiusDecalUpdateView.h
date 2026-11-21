@@ -53,53 +53,11 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *, const ModuleData *);
-	virtual ~ObjectModule();
+// The canonical UpdateModule: retail's RadiusDecalUpdate tables are 0x0081A018 at +0x00,
+// UpdateModule's BehaviorModuleInterface table 0x007EFF90 at +0x0C and 0x0081A00C at +0x10
+// (update, then UpdateModule's 0x00253376 and 0x0044DF8D).
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	Object *getObject() const { return m_object; }
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
-class UpdateModuleInterface
-{
-public:
-	virtual void updateModuleInterfaceAnchor();
-};
-
-class ModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;	// slot 0 of the +0x10 vftable
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
-class UpdateModule : public ObjectModule, public UpdateModuleInterface, public ModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	virtual void loadPostProcess();				// slot 1
-	virtual const char *GetSnapshotName() const;		// slot 2
-public:
-	virtual void xfer(Xfer *xfer);				// slot 3
-	virtual NameKeyType getModuleNameKey() const = 0;	// slot 4
-protected:
-	void setWakeFrame(Object *, UpdateSleepTime);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/RadiusDecal.h
 class RadiusDecal
 {
     friend class RadiusDecalUpdate;

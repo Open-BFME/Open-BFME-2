@@ -33187,9 +33187,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A044B4,4,.data,global,_s_rva007B328F,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A044B8,4,.data,global,_s_rva007B32B9,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A044BC,4,.data,global,?key_warehouseUpdate@?N@??findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,owned,,1,2
-0x00A044C0,4,.data,global,?g_Va00E044C0@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E044xx.cpp,provisional,?$S2@?N@??findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z@4IA@Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp;?g_Va00E044C0@@3IA,2,4
+0x00A044C0,4,.data,global,?$S2@?N@??findSupplyCenter@AIPlayer@@IAEPAVObject@@H@Z@4IA,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,owned,,1,4
 0x00A044C4,4,.data,global,?key_centerUpdate@?7??checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,owned,,1,2
-0x00A044C8,4,.data,global,?g_Va00E044C8@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E044xx.cpp,provisional,?$S1@?7??checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z@4IA@Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp;?g_Va00E044C8@@3IA,2,4
+0x00A044C8,4,.data,global,?$S1@?7??checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z@4IA,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,owned,,1,4
 0x00A044CC,4,.data,global,?key_warehouseUpdate@?BM@??queueSupplyTruck@AIPlayer@@IAEXXZ@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp,owned,,1,2
 0x00A044D0,4,.data,global,?$S3@?BM@??queueSupplyTruck@AIPlayer@@IAEXXZ@4IA,Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp,owned,,1,2
 0x00A044D4,4,.data,global,_DRAWABLE_FRAMES_PER_FLASH,Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp,owned,,1,1

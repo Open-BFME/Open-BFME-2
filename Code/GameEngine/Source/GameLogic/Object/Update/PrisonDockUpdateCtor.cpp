@@ -14,7 +14,7 @@ class Object;
 // BehaviorModuleInterface table) at +0x0C and VA 0x00C5F594 at +0x10. They were zero ints here, so
 // Object::Object's slot-0 call on +0x0C jumped to address 0 (P115).
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
-extern "C" const void *const __identifier("??_7Rva004CC63A@@6BRva004CC63A_B2@@@")[];
+extern "C" const void *const __identifier("??_7Rva004CC63A@@6B@")[];
 
 // Opaque UpdateModule (0x30 bytes); ctor resolves to the matched row at
 // 0x00253390, setWakeFrame to the pin at 0x0044DF71.
@@ -56,7 +56,7 @@ TemporarilyDefectUpdate::TemporarilyDefectUpdate(Thing *thing, const ModuleData 
 {
 	int zero = 0;
 	m_p0C = __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@");
-	m_p10 = __identifier("??_7Rva004CC63A@@6BRva004CC63A_B2@@@");
+	m_p10 = __identifier("??_7Rva004CC63A@@6B@");
 	m_i20 = zero;
 	m_i24 = zero;
 	m_i28 = zero;

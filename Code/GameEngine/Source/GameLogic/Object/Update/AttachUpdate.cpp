@@ -184,7 +184,7 @@ struct XferUnknown11;
 extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
   // folded vftable 0x00BEFF90 (80 classes), by the name AttributeModifierPoolUpdate.cpp emits (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
 
-extern "C" const void *const __identifier("??_7Rva0049188D@@6BRva0049188D_B2@@@")[];
+extern "C" const void *const __identifier("??_7Rva0049188D@@6B@")[];
   // vftable 0x00C4DB14
 // The retail table at RVA 0x0084DB20: 13 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -456,7 +456,7 @@ AttachUpdate::AttachUpdate(Thing *thing, const ModuleData *moduleData)
 {
 	*reinterpret_cast<const void **>(this) = vtbl_00C4DB20;
 	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva0049188D@@6BRva0049188D_B2@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva0049188D@@6B@"));
 	m_parentID = (ObjectID)0;
 	m_diedEvaEvent = -1;
 	setWakeFrame(m_object, (UpdateSleepTime)UPDATE_SLEEP_NONE);

@@ -49,6 +49,15 @@ protected:
 
 private:
 	Rva00342228Member *m_ptr20;
+public:
+	// retail vftable slot: the rowed override
+	virtual bool isAttack() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 
 AIAttackAreaState::~AIAttackAreaState()
