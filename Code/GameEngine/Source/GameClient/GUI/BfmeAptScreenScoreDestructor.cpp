@@ -6,21 +6,9 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-#include "../../../Include/GameClient/BfmeAptScreenBaseLayout.h"
-
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-
-class _bfme_AptGameWindow
-{
-public:
-	virtual ~_bfme_AptGameWindow();
-
-private:
-	BfmeAptScreenBaseLayout<> m_primaryStorage;
-};
-
-#include "../../../Include/GameClient/BfmeAptFunctorMarker.h"
+#include "../../../Include/GameClient/_bfme_AptGameWindow.h"
 
 #include "../../../Include/GameClient/Shell.h"
 
@@ -39,14 +27,13 @@ struct AptScoreScreenBuffer
 	~AptScoreScreenBuffer() { if (p) free(p); }
 };
 
-class __multiple_inheritance AptScoreScreen
-	: public _bfme_AptGameWindow, public BfmeAptFunctorMarker
+class AptScoreScreen : public _bfme_AptGameWindow
 {
 public:
 	virtual ~AptScoreScreen();
 
 private:
-	char m_pad21C[100];
+	char m_pad27C[4];
 	int m_280;
 	char m_pad284[8];
 	AptScoreScreenBuffer m_28c;
