@@ -836,5 +836,259 @@ class AnonymousUnions(unittest.TestCase):
         self.assertIn("not proven", why)
 
 
+class ConstructorInitializerRename(unittest.TestCase):
+    HEAD = "class C { public: int old; int extra; C(); C(const C &other); int f(); };\n"
+    MAPPING = {"old": "canonical"}
+
+    def setUp(self):
+        # As with this module's layout/build fixture, only compiler command
+        # construction is replaced. The real include/scope/currency guards run
+        # over actual temporary source/header files; no compiler is invoked.
+        import build
+        directory = self.enterContext(tempfile.TemporaryDirectory())
+        self.root = Path(directory)
+        self.command = self.enterContext(unittest.mock.patch.object(
+            build, "compiler_command", return_value=(["cl.exe", "/c", "/DNDEBUG"], {})))
+        self.serial = 0
+
+    def view(self, suffix, prefix="", every=None):
+        layout = {"key": "class", "fwd": False, "size": 8, "bases": [],
+                  "fields": [[0, "old", "int", 4], [4, "extra", "int", 4]], "methods": ["C", "f"],
+                  "statics": [], "virtual": [], "vslots": {}, "vfptr": False}
+        path = self.root / f"u{self.serial}.cpp"
+        self.serial += 1
+        text = prefix + self.HEAD + suffix
+        path.write_text(text, encoding="latin-1", newline="")
+        return V.View(path.name, text, "C", layout,
+                      {"C": layout, **(every or {})}, source_root=self.root)
+
+    def test_parenthesized_constructor_initializers_have_member_scope(self):
+        for suffix in (
+            "C::C() : old(0) {}\n",
+            "C::C() : old((clear(), (cost()))) {}\n",
+            "C::C(const C &other) : old(other.old) {}\n",
+            "C::C(const C &other) : old(other.old), extra(0) {}\n",
+            "C::C() : old(f(a[2], (b ? c : d))) {}\n",
+        ):
+            with self.subTest(suffix=suffix):
+                view = self.view(suffix)
+                self.assertIsNone(V.rename_problem(view, self.MAPPING))
+                self.assertTrue(V._constructor_initializer_ranges(view.code, "C"))
+
+    def test_comments_and_literals_do_not_supply_delimiters_or_renamed_tokens(self):
+        suffix = ('C::C() : old(/* } ; ) [ */ f("})[; old", \'(\')) {} // old }\n'
+                  'const char *text = "old {";\n')
+        view = self.view(suffix)
+        self.assertIsNone(V.rename_problem(view, self.MAPPING))
+        out = V.rename(view.text, self.MAPPING)
+        self.assertIn('canonical(/* } ; ) [ */ f("})[; old", \'(\'))', out)
+        self.assertIn('// old }', out)
+        self.assertIn('"old {"', out)
+
+    def test_only_the_initializer_list_gains_a_range(self):
+        view = self.view("C::C() : old(0) { use(old); }\n")
+        ((start, end),) = V._constructor_initializer_ranges(view.code, "C")
+        self.assertEqual(view.text[start:end].strip(), ": old(0)")
+        self.assertEqual(view.text[end], "{")
+
+    def test_real_file_scope_names_stay_refused_before_and_after_the_constructor(self):
+        for foreign in ("int old;\n", "extern int old;\n", "static int old;\n",
+                        "typedef int old;\n", "#define old other\n",
+                        'extern "C" { int old; }\n', "namespace Other { int old; }\n"):
+            for before in (False, True):
+                with self.subTest(foreign=foreign, before=before):
+                    ctor = "C::C() : old(0) {}\n"
+                    view = self.view(ctor if before else ctor + foreign,
+                                     prefix=foreign if before else "")
+                    self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_parameters_locals_and_qualified_globals_stay_refused(self):
+        for suffix in (
+            "void f(int old);\nC::C() : old(0) {}\n",
+            "C::C(int old) : old(old) {}\n",
+            "C::C() : old(0) { int old = 1; use(old); }\n",
+            "C::C() : old(::old) {}\n",
+            "C::C() : old(Other::old) {}\n",
+        ):
+            with self.subTest(suffix=suffix):
+                self.assertIsNotNone(V.rename_problem(self.view(suffix), self.MAPPING))
+
+    def test_scoped_success_preserving_a_foreign_field_does_not_allow_token_renaming(self):
+        view = self.view("C::C() : old(p->old) {}\n", prefix="class Other; Other *p;\n",
+                         every={"Other": {"fwd": True}})
+        start, end = view.span
+        outside = view.text[:start] + re.sub(r"[^\r\n]", " ", view.text[start:end]) + view.text[end:]
+        scoped, why = V.hal.scoped_rename(outside, {"C": self.MAPPING})
+        self.assertIsNone(why)
+        self.assertIn("p->old", scoped)
+        self.assertNotEqual(scoped, V.rename(outside, self.MAPPING))
+        self.assertFalse(V._initializer_rename_matches_tokens(view, self.MAPPING))
+        self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_unknown_and_derived_receivers_stay_refused(self):
+        for suffix in ("Alias *p;\nC::C() : old(p->old) {}\n",
+                       "class Other : public C {}; Other *p;\nC::C() : old(p->old) {}\n"):
+            with self.subTest(suffix=suffix):
+                self.assertIsNotNone(V.rename_problem(self.view(suffix), self.MAPPING))
+
+    def test_nested_class_and_lambda_scopes_stay_refused(self):
+        for suffix in (
+            "C::C() : old(([]{ int old=1; return old; }(), 0)) {}\n",
+            "C::C() : old(0) { struct Other { int old; }; }\n",
+            "C::C() : old(0) { auto f = [old]() { return old; }; }\n",
+        ):
+            with self.subTest(suffix=suffix):
+                self.assertIsNotNone(V.rename_problem(self.view(suffix), self.MAPPING))
+
+    def test_incomplete_or_unsupported_initializers_gain_no_scope(self):
+        for suffix in (
+            "C::C( : old(0) {}\n", "C::C() : old((0) {}\n",
+            "C::C() : old(a[0)) {}\n", "C::C() : old(0] {}\n",
+            "C::C() : old(0); void f() {}\n",
+            "C::C() : old(0), {}\n", "C::C() : old{0} {}\n",
+            "C::C() : old(0) garbage {}\n", "C::C() : old(0) {\n",
+            "C::C() : old(0) { f(]; }\n",
+            "C::C() : old(\n#if YES\n0\n#endif\n) {}\n",
+            "C::C() : old(0) {\n#if YES\n#endif\n}\n",
+        ):
+            with self.subTest(suffix=suffix):
+                view = self.view(suffix)
+                self.assertEqual(V._constructor_initializer_ranges(view.code, "C"), [])
+                self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_nondefinitions_and_unsupported_heads_gain_no_initializer_range(self):
+        # The existing declaration reader does not prove an inline-prefixed
+        # head; this repair must not silently broaden that reader's policy.
+        for suffix in ("void f() { C::C(); }\n", "C::C();\n",
+                       "int C::f() { return old; }\n",
+                       "inline C::C() : old(0) {}\n"):
+            with self.subTest(suffix=suffix):
+                view = self.view(suffix)
+                self.assertEqual(V._constructor_initializer_ranges(view.code, "C"), [])
+
+    def test_splices_and_trigraphs_still_refuse_even_inside_original_comments(self):
+        for comment in ("// continued\\\n", "// trigraph ??/\n"):
+            view = self.view("C::C() : old(0) {}\n" + comment)
+            self.assertFalse(V._initializer_rename_matches_tokens(view, self.MAPPING))
+            self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_other_class_and_new_name_collision_checks_are_unchanged(self):
+        view = self.view("C::C() : old(0) {}\n", every={"Other": {"fields": [[0, "old", "int", 4]]}})
+        self.assertIn("also a member of Other", V.rename_problem(view, self.MAPPING))
+        view = self.view("C::C() : old(0) {}\nint canonical;\n")
+        self.assertIn("collides", V.rename_problem(view, self.MAPPING))
+
+    def test_receiver_comma_expressions_stay_refused(self):
+        view = self.view("C::C(const C &other) : old((clear(), other.old)), extra(0) {}\n")
+        self.assertFalse(V._initializer_rename_matches_tokens(view, self.MAPPING))
+        self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_class_owner_macro_cannot_turn_a_field_into_a_foreign_base_initializer(self):
+        foreign = ("struct Base { Base(int); int payload; };\n"
+                   "typedef Base old; typedef Base canonical; struct D : Base { D(); };\n")
+        (self.root / "foreign.h").write_text(foreign, encoding="latin-1")
+        for suffix, prefix in (
+            ("int observe(C &c) { return c.old; }\n#define C D\nC::C() : old(0) {}\n",
+             '#include "foreign.h"\n'),
+            ('int observe(C &c) { return c.old; }\n#include "late.h"\nC::C() : old(0) {}\n', ""),
+        ):
+            (self.root / "late.h").write_text(foreign + "#define C D\n", encoding="latin-1")
+            with self.subTest(suffix=suffix):
+                view = self.view(suffix, prefix)
+                self.assertFalse(V._initializer_rename_matches_tokens(view, self.MAPPING))
+                self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_command_line_owner_macro_is_part_of_the_same_proof(self):
+        view = self.view("C::C() : old(0) {}\n")
+        self.command.return_value = (["cl.exe", "/c", "/DC=D"], {})
+        self.assertFalse(V._initializer_rename_matches_tokens(view, self.MAPPING))
+        self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_nonstandard_pp_whitespace_never_hides_an_owner_macro(self):
+        foreign = ("struct Base { Base(int); int payload; }; typedef Base old;\n"
+                   "typedef Base canonical; struct D : Base { D(); };\n")
+        directives = ("\f#define C D\n", "#define\fC D\n", "#\tdefine\vC D\n",
+                      "\v#\fdefine\vC D\n", "#define\rC D\n", "\r#define C D\n")
+        for directive in directives:
+            for location in ("source", "late-header"):
+                with self.subTest(directive=repr(directive), location=location):
+                    body = 'int observe(C &c) { return c.old; }\n'
+                    if location == "source":
+                        (self.root / "foreign.h").write_text(foreign, encoding="latin-1", newline="")
+                        body += '#include "foreign.h"\n' + directive
+                    else:
+                        (self.root / "foreign.h").write_text(foreign + directive, encoding="latin-1", newline="")
+                        body += '#include "foreign.h"\n'
+                    view = self.view(body + 'C::C() : old(0) {}\n')
+                    self.assertFalse(V._initializer_rename_matches_tokens(view, self.MAPPING))
+                    self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_crlf_source_and_header_keep_physical_newline_boundaries(self):
+        (self.root / "plain.h").write_bytes(b"#ifndef H\r\n#define H\r\nstruct Other {};\r\n#endif\r\n")
+        view = self.view('C::C():old(0) {}\n', prefix='#include "plain.h"\n')
+        text = view.text.replace('\n', '\r\n')
+        (self.root / view.path).write_bytes(text.encode('latin-1'))
+        view = V.View(view.path, text, view.cls, view.layout, view.every, source_root=self.root)
+        self.assertIsNone(V.rename_problem(view, self.MAPPING))
+
+    def test_scope_macros_and_separate_literal_namespace_includes_stay_refused(self):
+        (self.root / "foreign.h").write_text(
+            "namespace N { struct Base { Base(int); int payload; }; typedef Base old;\n"
+            "typedef Base canonical; struct C : Base { C(); }; }\n", encoding="latin-1")
+        (self.root / "open.h").write_text("namespace N {\n", encoding="latin-1")
+        (self.root / "close.h").write_text("}\n", encoding="latin-1")
+        for suffix, prefix in (
+            ("#define OPEN namespace N {\n#define CLOSE }\nOPEN\nC::C() : old(0) {}\nCLOSE\n",
+             '#include "foreign.h"\n'),
+            ("#define OPEN namespace N {\n#define CLOSE }\nOPEN; C::C() : old(0) {} CLOSE\n", ""),
+            ('#include "open.h"\nC::C() : old(0) {}\n#include "close.h"\n', ""),
+        ):
+            with self.subTest(suffix=suffix):
+                view = self.view(suffix, prefix)
+                self.assertFalse(V._initializer_rename_matches_tokens(view, self.MAPPING))
+                self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_missing_stale_and_unknown_context_cannot_grant_the_exception(self):
+        view = self.view("C::C() : old(0) {}\n")
+        path = self.root / view.path
+        path.write_text(view.text + "// newer source\n", encoding="latin-1")
+        self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+        path.unlink()
+        self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+        path.write_text(view.text, encoding="latin-1")
+        self.command.side_effect = OSError("no proven compiler command")
+        self.assertIsNotNone(V.rename_problem(view, self.MAPPING))
+
+    def test_tool_plan_does_not_drop_include_or_flag_context(self):
+        seed = SEED.replace("void a();", "Foo();\n\tvoid a();")
+        donor = DONOR.replace("int b();", "Foo();\n\tint b();") + (
+            '#include "late.h"\nFoo::Foo() : m_first(0) {}\n')
+        fx = Fixture({"Seed.cpp": seed, "Donor.cpp": donor})
+        try:
+            (fx.root / "late.h").write_text("#define Foo Other\n", encoding="latin-1")
+            rep = fx.run()
+            self.assertEqual(rep["applied"], [])
+            self.assertEqual(fx.text("Donor.cpp"), donor)
+            (fx.root / "late.h").write_text("// no definitions\n", encoding="latin-1")
+            self.command.return_value = (["cl.exe", "/c", "/DFoo=Other"], {})
+            rep = fx.run()
+            self.assertEqual(rep["applied"], [])
+            self.assertEqual(fx.text("Donor.cpp"), donor)
+        finally:
+            fx.close()
+
+    def test_a_whole_tu_rewrite_retains_a_proven_constructor_initializer(self):
+        seed = SEED.replace("void a();", "Foo();\n\tvoid a();")
+        donor = DONOR.replace("int b();", "Foo();\n\tint b();") + "Foo::Foo() : m_first(0) {}\n"
+        fx = Fixture({"Seed.cpp": seed, "Donor.cpp": donor})
+        try:
+            rep = fx.run()
+            self.assertEqual(rep["applied"], ["Foo"])
+            self.assertIn("Foo::Foo() : m_x(0) {}", fx.text("Donor.cpp"))
+            self.assertIn('"m_first"', fx.text("Donor.cpp"))
+        finally:
+            fx.close()
+
+
 if __name__ == "__main__":
     unittest.main()

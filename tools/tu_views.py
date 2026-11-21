@@ -527,10 +527,12 @@ def function(p, cls, typedefs):
 class View:
     """One file's private view of one class: its source span, members and layout."""
 
-    def __init__(self, path, text, cls, layout, every, inert=False):
+    def __init__(self, path, text, cls, layout, every, inert=False, source_root=None, include_seeds=()):
         """`inert`: the compiler laid no layout of the class out for this file (nothing
         in it uses the class), so the view is evidence of nothing; it only receives the block."""
         self.path, self.cls, self.layout, self.every, self.inert = path, cls, layout, every, inert
+        self.text = text                            # scope proof must retain comments and line splices
+        self.source_root, self.include_seeds = source_root, tuple(include_seeds)
         code = hal.masked(text)
         span = class_span(text, cls, code)
         if not span:
@@ -1003,10 +1005,34 @@ def rename(text, mapping, keep=None):
     return "".join(out)
 
 
+def _constructor_initializer_ranges(code, cls):
+    """The shared strict reader's initializer intervals, with no alternate grammar."""
+    return [scope["initializers"] for scope in hal.constructor_initializer_scopes(code, cls)]
+
+def _initializer_rename_matches_tokens(view, mapping):
+    """Every outside token must have the same proven owner as a TU token rename.
+
+    scoped_rename may preserve a proven foreign receiver's field. That is safe
+    for the header lane, but not for this lane's global token substitution.
+    """
+    text = getattr(view, "text", None)
+    if text is None or hal.unproven_pp_whitespace(text) \
+            or re.search(r"\\\r?\n|\?\?[=/'()!<>-]", text):
+        return False
+    if hal.initializer_context_problem(view.path, text, {view.cls: mapping},
+                                       root=view.source_root, seeds=view.include_seeds):
+        return False
+    start, end = view.span
+    outside = text[:start] + re.sub(r"[^\r\n]", " ", text[start:end]) + text[end:]
+    scoped, why = hal.scoped_rename(outside, {view.cls: mapping})
+    return why is None and scoped == rename(outside, mapping)
+
+
 def rename_problem(view, mapping):
     """Why renaming `mapping` in this view's file is unsafe, or None."""
     body = IDENT.findall(view.code[view.span[0]:view.span[1]])
     outside = view.code[:view.span[0]] + "\n" + view.code[view.span[1]:]
+    initializers, scoped_tokens = None, None
     for old, new in sorted(mapping.items()):
         if view.used.get(new) or body.count(new):
             return f"{view.path}: renaming {old} -> {new} collides with an existing `{new}` there"
@@ -1023,6 +1049,13 @@ def rename_problem(view, mapping):
         # or parameter spelling): a token rename would reach a name that is not the field.
         for m in re.finditer(r"\b" + re.escape(old) + r"\b", view.code):
             if not view.span[0] <= m.start() < view.span[1] and not depth_at(view.code, m.start()):
+                if initializers is None:
+                    initializers = _constructor_initializer_ranges(view.code, view.cls)
+                if any(start <= m.start() < end for start, end in initializers):
+                    if scoped_tokens is None:
+                        scoped_tokens = _initializer_rename_matches_tokens(view, mapping)
+                    if scoped_tokens:
+                        continue
                 return f"{view.path}: {old} also appears at file scope; a token rename would reach it"
     return None
 
@@ -1317,9 +1350,9 @@ class Tool:
         for f in files:
             lay = self.layouts(f).get(cls)
             if not lay or lay.get("fwd"):
-                inert.append(View(f, texts[f], cls, {}, self.layouts(f), inert=True))
+                inert.append(View(f, texts[f], cls, {}, self.layouts(f), inert=True, source_root=self.root))
             else:
-                views.append(View(f, texts[f], cls, lay, self.layouts(f)))
+                views.append(View(f, texts[f], cls, lay, self.layouts(f), source_root=self.root))
         refuse_union_reconciliation(views + inert)
         if not views:
             raise Refused(f"no file's CodeView lays {cls} out (nothing uses it)")
