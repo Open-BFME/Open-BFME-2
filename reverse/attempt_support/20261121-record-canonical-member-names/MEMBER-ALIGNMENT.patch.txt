@@ -1,0 +1,24 @@
+--- Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
++++ Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
+@@ -78,9 +78,9 @@
+ }
+ struct Rva001EB15A
+ {
+-	int a, b, c;
+-	UnicodeString wide;
+-	AsciiString text;
++	int m_00, m_04, m_08;
++	UnicodeString m_wstr0C;
++	AsciiString m_str10;
+ 	bool m_14;
+ 	__declspec(noinline) Rva001EB15A();
+ 	Rva001EB15A(const Rva001EB15A &);
+@@ -588,7 +588,7 @@
+     if(version.m_minimum >= 7) Rva004E12D7Parse(xfer,&m_ac);
+     if(version.m_minimum >= 8) *xfer == m_a1;
+     if(version.m_minimum >= 2) reinterpret_cast<Rva004E0513*>(&m_record)->rva004E0513(xfer);
+-    else *xfer == m_record.a;
++    else *xfer == m_record.m_00;
+     if(version.m_minimum >= 3) *xfer == m_rank;
+     AsciiString imageName;
+     if(xfer->IsStoring()) {
