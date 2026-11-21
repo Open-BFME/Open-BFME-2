@@ -29,6 +29,13 @@ constructor trial keeps49/49 bytes and emits that scalar body in the constructor
 unit; its current row cannot be hand-moved to an unapproved emitter. Both trials
 are banked outside Code. [Exact emitter boundary and prepared cohort](../../reverse/attempt_support/damagemodule-native-provider-20261106/README.md).
 
+2026-11-21. HordeTransportContainDamage now has a byte-matched canonical
+constructor candidate that passes the destructor fold identity check. An inline
+owner accessor preserves the exact secondary callback bytes. The independently
+approved callback rename passes byte verification but the commit hook rejects
+its source fingerprints. The candidate and exact blocker are recorded in the
+[Horde handoff](../../reverse/attempt_support/horde-transport-damage-native-20261121.md).
+
 The supported Horde child fold is also blocked: C59E70 currently names only
 Rva004BB0CC through the constructor's explicit table reference. Establish a
 genuine destination table binding with its full actual callback profile first.
