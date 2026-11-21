@@ -25,17 +25,11 @@ enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
 // The 28-byte by-value kind filter retail copies through the rowed copy
 // constructor 0x0004543D; a one-bit filter is built in place (memset, then
 // the bit's byte).
-class BfmeFixedStorage0004543D
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
+static __forceinline void setKindByte(BfmeFixedStorage0004543D &mask, Int bit)
 {
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-	__forceinline explicit BfmeFixedStorage0004543D(Int bit)
-	{
-		memset(w, 0, sizeof(w));
-		((unsigned char *)w)[bit / 8] |= 1 << (bit % 8);
-	}
-	unsigned int w[7];
-};
+	((unsigned char *)mask.m_bytes)[bit / 8] |= 1 << (bit % 8);
+}
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class BfmeTab1026;
@@ -378,7 +372,8 @@ Bool VictoryConditions::testDefeat(Player *player)
 	{
 	case 0:
 	{
-		BfmeFixedStorage0004543D mask(177);
+		BfmeFixedStorage0004543D mask;
+		setKindByte(mask, 177);
 		if (!player->rva002AB295(mask, false))
 			return true;
 		break;
@@ -395,7 +390,8 @@ Bool VictoryConditions::testDefeat(Player *player)
 	{
 		if (player->rva002AB2D9((BfmeTab1026 *)&((VictoryGlobalDataView *)TheWritableGlobalData)->m_buildingTable, false))
 			return false;
-		BfmeFixedStorage0004543D mask(14);
+		BfmeFixedStorage0004543D mask;
+		setKindByte(mask, 14);
 		return player->rva002AB341(mask, *(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE) ? false : true;
 	}
 	}
