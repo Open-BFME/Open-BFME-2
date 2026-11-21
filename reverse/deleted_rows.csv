@@ -6421,3 +6421,4 @@ __ehhandler$??1Rva005D06CB@@UAE@XZ,0x007A1B09,"Renamed to __ehhandler$??1Rva005C
 ?rva0053805D@Rva0053805DBase@@QAEXXZ,0x0053805D,"Renamed to ?rva0053805D@Rva0053805DBase@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
 ?rva0053806C@Rva0053805DBase@@QAEXXZ,0x0053806C,"Renamed to ?rva0053806C@Rva0053805DBase@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
 ?rva0053807B@Rva0053805DBase@@QAEXXZ,0x0053807B,"Renamed to ?rva0053807B@Rva0053805DBase@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
+?rva0053808A@Rva0053805DBase@@QAEXXZ,0x0053808A,"Renamed to ?rva0053808A@Rva0053805DBase@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"

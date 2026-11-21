@@ -132,7 +132,7 @@ public:
 	virtual void rva0053805D();
 	virtual void rva0053806C();
 	virtual void rva0053807B();
-	void rva0053808A();
+	virtual void rva0053808A();
 	void rva00538099();
 
 private:
