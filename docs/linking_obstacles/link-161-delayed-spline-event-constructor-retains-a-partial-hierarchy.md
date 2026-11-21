@@ -140,3 +140,10 @@ result; historical evidence and unrelated prerequisites remain in force.
 The absorbed Common/Rva002BAEAB.cpp bodies now reside at the TU path above.
 Common/Rva003C2F40TreeCtor.cpp remains separate; the native hierarchy, slot
 identities and kind-8 consumer reconciliation remain their own work.
+
+2026-11-21: Authoritative run 405 failed with LNK2019 for `BfmeVNITree::BfmeVNITree` in `BfmeRectVNI_ctor.cpp`. Its
+67-byte retail caller passes the tree at +0x0C to 0x005011C1. The
+typed STLport view now binds the original REL32 at +0x2A directly to
+the existing 25-byte map constructor. The member at +0x18 stays
+in place. The scoped verification passes. The next real link will
+confirm resolution.

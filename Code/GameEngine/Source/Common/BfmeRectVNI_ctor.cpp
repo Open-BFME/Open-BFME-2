@@ -25,21 +25,22 @@ public:
 };
 
 
-struct BfmeVNINode
+// The tree at +0x0C uses the existing STLport constructor at 0x005011C1.
+struct BfmePod24;
+namespace _STL
 {
-	char color;
-	int *parent;
-	BfmeVNINode *left;
-	BfmeVNINode *right;
-};
-
-struct BfmeVNITree
+template <class T> struct less;
+template <class T> class allocator;
+template <class A, class B> struct pair;
+template <class Key, class Value, class Compare, class Allocator> class map
 {
-	BfmeVNINode *header;
-	int count;
-	BfmeVNITree();
+public:
+	map();
+private:
+	char m_pad[12];
 };
-
+}
+typedef _STL::map<int, BfmePod24, _STL::less<int>, _STL::allocator<_STL::pair<const int, BfmePod24> > > BfmeVNITree;
 
 class BfmeRectVNI : public BfmeBaseVNH
 {
@@ -47,7 +48,6 @@ public:
 	BfmeRectVNI(unsigned w, char f);
 
 	BfmeVNITree m_tree;
-	int m_at14;
 	int m_at18;
 };
 
@@ -77,9 +77,6 @@ Rva005045DBTree&Rva005045DBTree::self(){return *this;}
 // tree storage has no asserted original mapped-value identity.
 class AsciiString;
 namespace _STL {
-template<class A,class B>struct pair;
-template<class T>struct less;
-template<class T>class allocator;
 template<class T>struct _Select1st;
 template<class K,class V,class Extract,class Compare,class Alloc>class _Rb_tree{
 public:_Rb_tree&operator=(const _Rb_tree&);
