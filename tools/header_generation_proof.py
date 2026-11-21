@@ -591,3 +591,694 @@ def capture(name, header, contract, sources, root=ROOT):
     snapshot.revalidate()
     return CanonicalInput(name, header, text, hashlib.sha256(raw).hexdigest(), witnesses, files, snapshot,
                           frozenset(rebuildable))
+
+
+# Raw-owner witnesses grant no generator, object-provider or layout admission.
+# Capture is an explicit frontdoor; readers below never start a preprocessor.
+_OWNER_SEAL = object()
+
+
+def _owner_mapping(name, mapping):
+    import tu_views
+    if not re.fullmatch(r"[A-Za-z_]\w*", name) or not isinstance(mapping, dict) or not mapping:
+        raise InputRefused("raw owner needs one literal class and a nonempty field mapping")
+    pairs = tuple(sorted(mapping.items()))
+    if any(not isinstance(a, str) or not isinstance(b, str)
+           or not re.fullmatch(r"[A-Za-z_]\w*", a) or not re.fullmatch(r"[A-Za-z_]\w*", b)
+           or a == b or a in tu_views.KEYWORDS or b in tu_views.KEYWORDS for a, b in pairs) \
+            or len({b for a, b in pairs}) != len(pairs) or set(mapping) & set(mapping.values()):
+        raise InputRefused("raw owner mapping is ambiguous or not a field rename")
+    return pairs
+
+
+def _owner_read(path):
+    path = Path(path).absolute()
+    before = I._stamp(path.stat())
+    digest, md5, raw = I._hash(path, retain=True)
+    after = I._stamp(path.stat())
+    if before != after:
+        raise InputRefused(f"raw owner input changed while reading: {path}")
+    return (str(path.resolve()), digest, tuple(after)), md5, raw
+
+
+def _owner_profile(root, source, output):
+    import build
+    import header_adopt_lane as lane
+    command, env = _normal_command(root, source, output)
+    if not command or any(lane.unproven_pp_whitespace(arg) or "\n" in arg or "\r" in arg for arg in command):
+        raise InputRefused("raw owner command has unsupported preprocessing whitespace")
+    inventory = build.search_inventory(root / source, command, env)
+    if inventory is None:
+        raise InputRefused("raw owner compiler search inventory is unknown")
+    return tuple(command), tuple(sorted(env.items())), inventory, env
+
+
+def _owner_project_git(root):
+    """RegisteredGeneration's HEAD and complete staged-index identity, read only."""
+    import subprocess
+    values = []
+    for arguments in (("rev-parse", "HEAD"), ("ls-files", "--stage", "-z")):
+        done = subprocess.run(["git", "-C", str(root), *arguments], capture_output=True)
+        if done.returncode or not done.stdout:
+            raise InputRefused("raw owner cannot freeze HEAD and the complete index")
+        values.append(done.stdout)
+    return tuple(values)
+
+
+def _owner_policy_population(root):
+    """Conservative authoritative input domains, not a metadata filename allowlist.
+
+    This includes absence/new directories and untracked policy/module files.
+    Only the build's existing generated-Python-cache rule is reused; a tracked
+    file is never dropped by that rule. No verification metadata is an output.
+    """
+    import os
+    import stat
+    import build
+    modes = I._tracked(root)
+    domains = ("reverse", "baselines", "tools", ".githooks", ".github")
+    for path in modes:
+        prefix = path.split("/", 1)[0]
+        if prefix not in domains and prefix.casefold() in domains:
+            # Refuse this unsupported spelling; do NOT equate distinct POSIX
+            # files or silently omit a native Windows case-equivalent control.
+            raise InputRefused("raw owner indexed control domain spelling is noncanonical")
+    # The index is an independent lower bound on the control population.
+    # Root gitlinks are directories outside these domains, not root files.
+    known = {p: mode for p, mode in modes.items()
+             if p.split("/", 1)[0] in domains or ("/" not in p and mode != "160000")}
+    if any(mode not in ("100644", "100755") for mode in known.values()):
+        raise InputRefused("raw owner indexed control input is not an ordinary file")
+
+    def kind(path, *, absent=False):
+        try:
+            mode = path.lstat().st_mode
+        except FileNotFoundError as exc:
+            if absent:
+                return None
+            raise InputRefused("raw owner listed/indexed control input is missing: " + str(path)) from exc
+        except OSError as exc:
+            raise InputRefused("raw owner cannot classify control input: " + str(path)) from exc
+        if stat.S_ISREG(mode):
+            return "file"
+        if stat.S_ISDIR(mode):
+            return "directory"
+        raise InputRefused("raw owner control input is a symlink or unsupported type: " + str(path))
+
+    def enumeration_error(exc):
+        raise InputRefused("raw owner cannot completely enumerate control inputs: " + str(exc)) from exc
+
+    population, files = [], set()
+    try:
+        roots = tuple(root.iterdir())
+        listed = {path.name for path in roots}
+        for path in roots:
+            if kind(path) == "file":
+                population.append((path.name, "file"))
+                files.add(path)
+        for name in domains:
+            base = root / name
+            required = name in listed or any(p == name or p.startswith(name + "/") for p in known)
+            classification = kind(base, absent=not required)
+            if classification is None:
+                population.append((name, "absent"))
+                continue
+            if classification != "directory":
+                raise InputRefused("raw owner control domain is not an ordinary directory")
+            population.append((name, "directory"))
+            for directory, subdirs, names in os.walk(base, onerror=enumeration_error, followlinks=False):
+                directory = Path(directory)
+                if kind(directory) != "directory":
+                    raise InputRefused("raw owner enumerated control directory changed type")
+                for child in list(subdirs):
+                    path = directory / child
+                    if kind(path) != "directory":
+                        raise InputRefused("raw owner listed control subdirectory changed type")
+                    relative = path.relative_to(root).as_posix()
+                    if (name in {"tools", ".githooks"} and build._in_generated_dir((child,))
+                            and not any(p.startswith(relative + "/") for p in modes)):
+                        subdirs.remove(child)
+                        continue
+                    population.append((relative, "directory"))
+                for filename in names:
+                    path = directory / filename
+                    if kind(path) != "file":
+                        raise InputRefused("raw owner listed control file changed type")
+                    population.append((path.relative_to(root).as_posix(), "file"))
+                    files.add(path)
+    except InputRefused:
+        raise
+    except Exception as exc:
+        enumeration_error(exc)
+    if not set(known) <= {p.relative_to(root).as_posix() for p in files}:
+        raise InputRefused("raw owner population does not cover every indexed control input")
+    return tuple(sorted(population)), tuple(sorted(files))
+
+
+def _owner_policy_read(path):
+    """Hash large ledgers as streams; never load/parse them wholesale."""
+    try:
+        before = I._stamp(path.stat())
+        digest, _md5, _raw = I._hash(path)
+        after = I._stamp(path.stat())
+    except OSError as exc:
+        raise InputRefused("raw owner cannot read a complete policy generation: " + str(path)) from exc
+    if before != after:
+        raise InputRefused("raw owner policy generation changed while reading")
+    return str(path.resolve()), digest, tuple(after)
+
+
+@dataclass(frozen=True)
+class _OwnerProjectInputs:
+    root: Path
+    git: tuple
+    population: tuple
+    files: tuple
+
+    def validate(self):
+        if _owner_project_git(self.root) != self.git:
+            raise InputRefused("raw owner HEAD or complete index changed")
+        population, paths = _owner_policy_population(self.root)
+        if population != self.population or tuple(str(p.resolve()) for p in paths) != tuple(p[0] for p in self.files):
+            raise InputRefused("raw owner metadata/module/policy input population changed")
+        for expected in self.files:
+            if _owner_policy_read(Path(expected[0])) != expected:
+                raise InputRefused("raw owner verification/ownership/policy input changed: " + expected[0])
+        if _owner_project_git(self.root) != self.git:
+            raise InputRefused("raw owner HEAD/index changed during policy validation")
+        return True
+
+
+def _capture_owner_project(root):
+    before = _owner_project_git(root)
+    population, paths = _owner_policy_population(root)
+    observed = tuple(_owner_policy_read(path) for path in paths)
+    result = _OwnerProjectInputs(root, before, population, observed)
+    result.validate()
+    return result
+
+
+def _owner_spans(text, stream, name, source, declaration, declaration_source, words):
+    """Every changed raw token belongs to a complete exact global declaration/member."""
+    import header_adopt_lane as lane
+    import tu_views
+    code = lane.masked(text)
+    span = lane.body_span(declaration, name)
+    if span is None:
+        raise InputRefused("raw owner class has no existing-reader declaration span")
+    expected = tuple(t for t, a, b in _tokens(_comments(declaration[span[0]:span[1]])))
+    _bound_span(stream, name, declaration_source, expected, True)
+    depths, depth = [], 0
+    for token, _file, _line in stream:
+        depths.append(depth)
+        depth += (token == "{") - (token == "}")
+        if depth < 0:
+            raise InputRefused("raw owner has an invalid expanded scope")
+    if depth:
+        raise InputRefused("raw owner has an incomplete expanded scope")
+    classes = set(lane.class_layouts.class_bodies(text)) | {name}
+    members = []
+    for start, end, owner in lane.member_spans(code, sorted(classes)):
+        head = text.rfind("\n", 0, start) + 1
+        before = max(code.rfind(ch, 0, head) for ch in ";{}") + 1
+        prefix = re.sub(r"(?m)^[ \t]*#[^\n]*", "", code[before:head])
+        if prefix.strip():
+            continue                         # no multi-line/omitted head inference
+        members.append((head, end, owner))
+    local_class = span if declaration_source == source else None
+    raw_class = tu_views.no_comments(declaration[span[0]:span[1]])
+    shape = lane.masked(raw_class)
+    parsed = tu_views.members(raw_class[shape.index("{") + 1:shape.rindex("}")],
+                              name, tu_views.file_typedefs(declaration))
+    fields = {m.name for m in parsed if m.kind == "data"}
+    used, total = set(), 0
+    pattern = re.compile(r"\b(?:" + "|".join(re.escape(w) for w in sorted(words)) + r")\b")
+    for found in pattern.finditer(code):
+        total += 1
+        if local_class and local_class[0] <= found.start() < local_class[1]:
+            count = len(re.findall(r"\b" + re.escape(found[0]) + r"\b", code[span[0]:span[1]]))
+            if count == 1 and found[0] in fields:
+                continue
+            raise InputRefused("raw owner has an inline or non-data class occurrence")
+        owned = [m for m in members if m[0] <= found.start() < m[1]]
+        if len(owned) != 1:
+            raise InputRefused("raw owner changed token has no unique complete member scope")
+        used.add(owned[0])
+    if not total:
+        raise InputRefused("raw owner mapping has no actual source occurrences")
+    for start, end, owner in sorted(used):
+        expected = [(t, text[:start + a].count("\n") + 1)
+                    for t, a, b in _tokens(_comments(text[start:end]))]
+        matches = []
+        for index, (token, file, line) in enumerate(stream):
+            if not expected or (token, line) != expected[0] or file != source.lower():
+                continue
+            part = stream[index:index + len(expected)]
+            if len(part) == len(expected) and all(t == want and f == source.lower() and line == want_line
+                 for (t, f, line), (want, want_line) in zip(part, expected)):
+                matches.append(index)
+        if len(matches) != 1 or depths[matches[0]] != 0:
+            raise InputRefused("raw owner whole member tokens/file/lines/global scope are unproved")
+        owner_text, owner_path = (declaration, declaration_source) if owner == name else (text, source)
+        owner_span = lane.body_span(owner_text, owner)
+        if owner_span is None:
+            raise InputRefused("raw owner member has no complete declaring class")
+        owner_tokens = tuple(t for t, a, b in _tokens(_comments(owner_text[owner_span[0]:owner_span[1]])))
+        _bound_span(stream, owner, owner_path, owner_tokens, True)
+    return total, tuple(sorted(used))
+
+
+@dataclass(frozen=True)
+class _OwnerState:
+    root: Path
+    identity: tuple
+    files: tuple
+    profiles: tuple
+    tracked: tuple
+    source_state: tuple
+    coverage: tuple
+    opened: tuple
+    normal_deps: tuple
+    project: _OwnerProjectInputs
+
+    def anchor_paths(self):
+        return {str(Path(self.source_state[1]).resolve()),
+                str(I._receipt_path(self.root, self.source_state[0]).resolve())}
+
+    def source_record(self):
+        path = str((self.root / self.source_state[0]).resolve())
+        return next(record for record in self.files if record[0] == path)
+
+    def _validate_inputs(self, source_record=None):
+        """Only a sealed owned transaction may supply its exact current source generation."""
+        self.project.validate()
+        source_path = self.source_record()[0]
+        for expected in self.files:
+            if expected[0] in self.anchor_paths():
+                continue                     # anchors have a separate, exact output witness
+            if expected[0] == source_path and source_record is not None:
+                expected = source_record
+            if _owner_read(expected[0])[0] != expected:
+                raise InputRefused(f"raw owner input generation changed: {expected[0]}")
+        modes = I._tracked(self.root)
+        if any(modes.get(path) != mode for path, mode in self.tracked):
+            raise InputRefused("raw owner tracked source/header mode changed")
+        for source, output, command, env, inventory in self.profiles:
+            now = _owner_profile(self.root, source, Path(output))
+            if now[:3] != (command, env, inventory):
+                raise InputRefused("raw owner command/profile/search inventory changed")
+        return True
+
+    def validate(self):
+        self._validate_inputs()
+        for expected in self.files:
+            if expected[0] in self.anchor_paths() and _owner_read(expected[0])[0] != expected:
+                raise InputRefused("raw owner original object/receipt anchor changed")
+        source, output, expected = self.source_state
+        if I._compiler_inputs(self.root, source, Path(output)) != expected:
+            raise InputRefused("raw owner normal source/object receipt is no longer current")
+        return True
+
+
+@dataclass(frozen=True)
+class CurrentOwnerWitness:
+    name: str
+    source: str
+    header: str
+    mapping: tuple
+    _state: _OwnerState = field(repr=False)
+    _seal: object = field(default=None, repr=False)
+
+    def __post_init__(self):
+        if self._seal is not _OWNER_SEAL or self._state.identity != (self.name, self.source, self.header, self.mapping):
+            raise InputRefused("raw owner witness was not issued for this source/mapping")
+
+    def validate(self):
+        return self._state.validate()
+
+    def plan_text(self):
+        """Pure proposal only: no layout, gate, preprocessor or source write."""
+        import os
+        import header_adopt_lane as lane
+        self.validate()
+        text = (self._state.root / self.source).read_bytes().decode("latin-1")
+        include = os.path.relpath(self._state.root / self.header,
+                                 (self._state.root / self.source).parent).replace("\\", "/")
+        swapped = lane.swap(text, [self.name], include)
+        if swapped is None:
+            raise InputRefused("raw owner class cannot be swapped by the normal reader")
+        planned, why = lane.scoped_rename(swapped, {self.name: dict(self.mapping)})
+        if why:
+            raise InputRefused("raw owner scoped proposal refused: " + why)
+        return planned
+
+
+@dataclass(frozen=True)
+class PairedOwnerWitness:
+    current: CurrentOwnerWitness
+    prospective: str
+    _state: _OwnerState = field(repr=False)
+    _seal: object = field(default=None, repr=False)
+
+    def __post_init__(self):
+        if (type(self.current) is not CurrentOwnerWitness or self._seal is not _OWNER_SEAL
+                or self._state.identity != (self.current.name, self.current.source, self.current.header,
+                                            self.current.mapping, self.prospective)):
+            raise InputRefused("raw owner pair was not issued for these actual contexts")
+
+    def validate_for(self, source, text, mappings, root, seeds):
+        current = self.current
+        if (Path(root).resolve() != current._state.root or source != current.source
+                or mappings != {current.name: dict(current.mapping)} or tuple(seeds) != (current.header,)
+                or text.encode("latin-1") != (current._state.root / source).read_bytes()):
+            raise InputRefused("raw owner pair does not match this source/class/header/mapping")
+        current.validate()
+        self._state.validate()
+        if (self._state.root / self.prospective).read_bytes() != current.plan_text().encode("latin-1"):
+            raise InputRefused("raw owner prospective bytes no longer equal the pure proposal")
+        return True
+
+
+def _capture_owner_context(root, name, source, header, mapping, known, source_state, identity,
+                           declaration_source, source_profile, normal_deps, project):
+    import census_receipts
+    import header_adopt_lane as lane
+    command, env_keys, inventory, env = source_profile
+    words = {name, *dict(mapping), *dict(mapping).values()}
+    _command_collisions(command, env, words, None)
+    if command.count("-c") != 1:
+        raise InputRefused("raw owner normal command cannot be transformed exactly to -E")
+    pp = [arg for arg in command if not arg.startswith(("-Fo", "/Fo"))]
+    pp[pp.index("-c")] = "-E"
+    pp.append("-showIncludes")
+    outputs, corpus = [], []
+    frozen = {Path(p).resolve(): record for p, record in known.items()}
+    def revalidate():
+        project.validate()
+        for path, expected in frozen.items():
+            if _owner_read(path)[0] != expected:
+                raise InputRefused(f"raw owner input changed during capture: {path}")
+        output = source_state[1] if source == source_state[0] else str(root / source) + ".command-only.obj"
+        if _owner_profile(root, source, Path(output))[:3] != (command, env_keys, inventory):
+            raise InputRefused("raw owner profile/search inputs changed during capture")
+        if I._compiler_inputs(root, source_state[0], Path(source_state[1])) != source_state[2]:
+            raise InputRefused("raw owner current normal object lost currency during capture")
+    for _ in range(2):
+        revalidate()
+        done = _preprocess(pp, env)        # explicit frontdoor only, never called by a reader
+        if done.returncode or not done.stdout or census_receipts._CLOCK_OUTPUT.search(done.stdout):
+            raise InputRefused("raw owner native preprocessor failed or produced volatile output")
+        opened = _opened_paths(root / source, done.stderr + b"\n" + done.stdout)
+        if (root / source).resolve() not in opened or not opened <= set(frozen):
+            raise InputRefused("raw owner native opened input was absent from the prebound inputs")
+        if (root / declaration_source).resolve() not in opened:
+            raise InputRefused("raw owner declaring source/header was not actually opened")
+        if len(opened) == 1 and re.search(r"(?m)^\s*#\s*include\b", (root / source).read_text(encoding="latin-1")):
+            raise InputRefused("raw owner native actual include trace is missing")
+        current_corpus = []
+        for path in sorted(opened):
+            _record, _md5, raw = _owner_read(path)
+            if _line_directive(raw) or lane.unproven_pp_whitespace(raw.decode("latin-1")):
+                raise InputRefused("raw owner opened input has forged line/unsupported whitespace provenance")
+            if census_receipts._VOLATILE.search(re.sub(rb"\\\r?\n", b"", raw)):
+                raise InputRefused("raw owner opened input has a volatile predefined macro")
+            current_corpus.append((str(path), raw.decode("latin-1")))
+        outputs.append((done.stdout, done.stderr, tuple(sorted(map(str, opened)))))
+        corpus = current_corpus
+        revalidate()
+    if outputs[0] != outputs[1]:
+        raise InputRefused("raw owner repeated native output/include inputs differ")
+    text = (root / source).read_bytes().decode("latin-1")
+    macros, why = lane.storage_command_macros(source, command)
+    if why:
+        raise InputRefused(why)
+    corpus += [(source + ".compiler-macros", macros)]
+    why = lane.name_shadow(corpus, name) or lane.macro_shadow(corpus, {name: dict(mapping)}, text)
+    if why:
+        raise InputRefused("raw owner name/macro ownership: " + why)
+    declaration = (root / declaration_source).read_bytes().decode("latin-1")
+    stream = _expanded_tokens(outputs[0][0], root)
+    changed = set(dict(mapping)) if declaration_source == source else set(dict(mapping).values())
+    coverage = _owner_spans(text, stream, name, source, declaration, declaration_source, changed)
+    if declaration_source == source:
+        import tu_views
+        span = lane.body_span(text, name)
+        outside = text[:span[0]] + re.sub(r"[^\r\n]", " ", text[span[0]:span[1]]) + text[span[1]:]
+        scoped, why = lane.scoped_rename(outside, {name: dict(mapping)})
+        if why or scoped != tu_views.rename(outside, dict(mapping)):
+            raise InputRefused("raw owner scoped rename does not equal all changed tokens")
+    tracked = I._tracked(root)
+    required = (source_state[0], header)
+    if any(tracked.get(p) not in ("100644", "100755") for p in required):
+        raise InputRefused("raw owner source/header is not a tracked ordinary file")
+    output = source_state[1] if source == source_state[0] else str(root / source) + ".command-only.obj"
+    state = _OwnerState(root, identity, tuple(sorted(frozen.values())),
+             ((source, output, command, env_keys, inventory),),
+             tuple((p, tracked[p]) for p in required), source_state, coverage,
+             outputs[0][2], normal_deps, project)
+    state.validate()
+    return state
+
+
+def capture_owner_current(name, source, header, mapping, root=ROOT):
+    """Explicit two-PP current owner capture; it grants pure planning only."""
+    import build
+    import sys
+    import header_adopt_lane as lane
+    import tu_views
+    root = Path(root).resolve()
+    source, header = I._relative(source), I._relative(header)
+    mapping = _owner_mapping(name, mapping)
+    if not source.endswith(".cpp"):
+        raise InputRefused("raw owner needs an ordinary C++ source")
+    modes = I._tracked(root)
+    if any(modes.get(p) not in ("100644", "100755") for p in (source, header)):
+        raise InputRefused("raw owner source/header is not a tracked ordinary file")
+    project = _capture_owner_project(root)
+    receipt = I._receipt_path(root, source)
+    output = receipt.with_name(receipt.name[:-len(".deps.json")] + ".obj")
+    files = {}
+    def observe(path):
+        record, md5, raw = _owner_read(path)
+        if record[0] in files and files[record[0]] != record:
+            raise InputRefused("raw owner input changed before capture")
+        files[record[0]] = record
+        return md5, raw
+    source_md5, source_raw = observe(root / source)
+    observe(root / header)
+    _md5, raw = observe(receipt)
+    meta = json.loads(raw)
+    object_md5, _raw = observe(output)
+    state = I._compiler_inputs(root, source, output)
+    if (not state.reusable or state.inventory is None or state.forced
+            or meta.get("path") != source or meta.get("source") != source_md5
+            or meta.get("object") != object_md5 or not isinstance(meta.get("deps"), dict)):
+        raise InputRefused("raw owner needs a strictly current bound normal source/object receipt")
+    for path, digest in meta["deps"].items():
+        if observe(Path(path) if Path(path).is_absolute() else root / path)[0] != digest:
+            raise InputRefused("raw owner normal dependency bytes differ")
+    profile = _owner_profile(root, source, output)
+    if _command_fingerprint(profile[0], profile[3]) != state.fingerprint:
+        raise InputRefused("raw owner actual normal command differs from its object receipt")
+    observe(Path(profile[0][0]))
+    for module in (sys.modules[__name__], I, lane, tu_views, build, lane.class_layouts):
+        observe(Path(module.__file__))
+    if any(re.search(r"\b" + re.escape(new) + r"\b", lane.masked(source_raw.decode("latin-1"))) for old, new in mapping):
+        raise InputRefused("raw owner destination already occurs in the source")
+    identity = (name, source, header, mapping)
+    result = _capture_owner_context(root, name, source, header, mapping, files,
+        (source, str(output), state), identity, source, profile,
+        tuple(sorted(str((Path(p) if Path(p).is_absolute() else root / p).resolve()) for p in meta['deps'])), project)
+    return CurrentOwnerWitness(name, source, header, mapping, result, _OWNER_SEAL)
+
+
+def capture_owner_pair(current, prospective):
+    """Explicit two further PP calls of a real adjacent prospective source; no writes."""
+    if type(current) is not CurrentOwnerWitness:
+        raise InputRefused("raw owner pair needs a real current owner witness")
+    current.validate()
+    prospective = I._relative(prospective)
+    root = current._state.root
+    if (Path(prospective).parent != Path(current.source).parent or prospective == current.source
+            or not prospective.endswith(".cpp")):
+        raise InputRefused("raw owner prospective source must be a different real adjacent C++ file")
+    record, _md5, raw = _owner_read(root / prospective)
+    if raw != current.plan_text().encode("latin-1"):
+        raise InputRefused("raw owner prospective source differs from the exact pure proposal")
+    profile = _owner_profile(root, prospective, Path(str(root / prospective) + ".command-only.obj"))
+    original = current._state.profiles[0]
+    def normalized(command, source):
+        return tuple(a for a in command if not a.startswith(("-Fo", "/Fo")) and a != source)
+    if (normalized(profile[0], prospective) != normalized(original[2], current.source)
+            or profile[1:3] != original[3:5]):
+        raise InputRefused("raw owner prospective ordinary profile/search inventory differs")
+    files = {p: value for value in current._state.files for p in (value[0],)}
+    files[record[0]] = record
+    identity = (current.name, current.source, current.header, current.mapping, prospective)
+    state = _capture_owner_context(root, current.name, prospective, current.header, current.mapping,
+        files, current._state.source_state, identity, current.header, profile,
+        current._state.normal_deps, current._state.project)
+    current.validate()
+    return PairedOwnerWitness(current, prospective, state, _OWNER_SEAL)
+
+
+def _owner_pair_inputs(pair, source_record, expected_source):
+    if type(pair) is not PairedOwnerWitness:
+        raise InputRefused("owned trial needs an issued paired owner witness")
+    original = pair.current._state.source_record()
+    if source_record[0] != original[0] or source_record[1] != hashlib.sha256(expected_source).hexdigest():
+        raise InputRefused("owned source transition is not the exact original/candidate image")
+    pair.current._state._validate_inputs(source_record)
+    pair._state._validate_inputs(source_record)
+
+
+def _owner_output_records(pair):
+    return tuple(_owner_read(path)[0] for path in sorted(pair.current._state.anchor_paths()))
+
+
+def _owner_written_record(writes, path, candidate):
+    generation = writes.generations.get(path)
+    if generation is None:
+        raise InputRefused("owned source write has no pre-replacement generation")
+    return str(path.resolve()), hashlib.sha256(candidate).hexdigest(), generation
+
+
+def _owner_restore(writes, path, original_record):
+    # The writer already knows its exact generation BEFORE replacement. Never
+    # substitute a byte-only cleanup when a subsequent ownership read failed.
+    actual = _owner_read(path)[0]
+    if actual == original_record:
+        return actual
+    if actual != _owner_written_record(writes, path, writes.written.get(path, b"")):
+        raise InputRefused("foreign source generation preserved; no owner output token")
+    writes.restore()
+    restored = _owner_written_record(writes, path, writes.before[path])
+    if _owner_read(path)[0] != restored:
+        raise InputRefused("foreign generation after owned restoration; no owner output token")
+    return restored
+
+
+def _owner_candidate_cache(pair, source_record, candidate):
+    """Require the ordinary strict current check while the real candidate is on disk."""
+    _owner_pair_inputs(pair, source_record, candidate)
+    anchors = _owner_output_records(pair)
+    state = pair.current._state
+    source, output, expected = state.source_state
+    # This existing API calls normal build.compile_is_current(..., strict=True).
+    current = I._compiler_inputs(state.root, source, Path(output))
+    if not current.reusable or current != expected:
+        raise InputRefused("owned byte gate did not leave an ordinary strictly current candidate object")
+    receipt = I._receipt_path(state.root, source)
+    _record, _md5, raw = _owner_read(receipt)
+    meta = json.loads(raw)
+    object_md5 = _owner_read(output)[1]
+    if (not isinstance(meta, dict) or meta.get("version") != 2 or meta.get("path") != source
+            or meta.get("source") != hashlib.md5(candidate).hexdigest()
+            or meta.get("object") != object_md5 or meta.get("cmd") != expected.fingerprint
+            or not isinstance(meta.get("deps"), dict)):
+        raise InputRefused("owned gate receipt does not bind the actual source/object/profile")
+    profile_only = {p.casefold() for p in state.normal_deps} - {p.casefold() for p in state.opened}
+    needed = ({p.casefold() for p in pair._state.opened}
+              - {str((state.root / pair.prospective).resolve()).casefold()}) | profile_only
+    actual = set()
+    for path, digest in meta["deps"].items():
+        record, md5, _raw = _owner_read(Path(path) if Path(path).is_absolute() else state.root / path)
+        if digest != md5:
+            raise InputRefused("owned gate dependency digest differs from its actual input")
+        actual.add(record[0].casefold())
+    if actual != needed:
+        raise InputRefused("owned gate receipt does not cover exactly the native prospective inputs")
+    _owner_pair_inputs(pair, source_record, candidate)
+    if _owner_output_records(pair) != anchors:
+        raise InputRefused("owned gate object/receipt changed during strict output validation")
+    return anchors
+
+
+@dataclass(frozen=True)
+class OwnerGateOutputWitness:
+    pair: PairedOwnerWitness
+    outputs: tuple
+    restored_source: tuple
+    candidate: bytes = field(repr=False)
+    _seal: object = field(default=None, repr=False)
+
+    def __post_init__(self):
+        prospective_path = str((self.pair._state.root / self.pair.prospective).resolve()) \
+            if type(self.pair) is PairedOwnerWitness else ""
+        expected_candidate = next((r[1] for r in self.pair._state.files if r[0] == prospective_path), None) \
+            if type(self.pair) is PairedOwnerWitness else None
+        if (self._seal is not _OWNER_SEAL or type(self.pair) is not PairedOwnerWitness
+                or len(self.outputs) != 2
+                or {record[0] for record in self.outputs} != self.pair.current._state.anchor_paths()
+                or self.restored_source[:2] != self.pair.current._state.source_record()[:2]
+                or hashlib.sha256(self.candidate).hexdigest() != expected_candidate):
+            raise InputRefused("owned gate output was not issued for these two anchors and restored source")
+
+    def _before_apply(self):
+        original = (self.pair.current._state.root / self.pair.current.source).read_bytes()
+        _owner_pair_inputs(self.pair, self.restored_source, original)
+        if self.restored_source[1] != self.pair.current._state.source_record()[1]:
+            raise InputRefused("owned gate source is no longer the original image")
+        if _owner_output_records(self.pair) != self.outputs:
+            raise InputRefused("owned gate object/receipt changed after PASS")
+
+    def apply(self):
+        """CAS the exact gate-verified candidate; no compiler/preprocessor or ledger write."""
+        import header_adopt_lane as lane
+        self._before_apply()
+        path = self.pair.current._state.root / self.pair.current.source
+        original = path.read_bytes()
+        writes = lane.GenerationWrites({path: self.restored_source[1]},
+                                      owned_generations={path: self.restored_source[2]})
+        if _owner_read(path)[0] != self.restored_source:
+            raise InputRefused("foreign source generation changed before final apply")
+        success = False
+        try:
+            writes.write(path, self.candidate)
+            owned = _owner_written_record(writes, path, self.candidate)
+            if _owner_read(path)[0] != owned:
+                raise InputRefused("foreign source generation changed after final write")
+            if _owner_candidate_cache(self.pair, owned, self.candidate) != self.outputs:
+                raise InputRefused("owned gate outputs changed during final apply")
+            success = True
+            return True
+        finally:
+            if not success:
+                _owner_restore(writes, path, self.restored_source)
+
+
+def verify_owner_trial(pair):
+    """One explicit ordinary source byte-gate transaction; never a capture reader."""
+    import header_adopt_lane as lane
+    if type(pair) is not PairedOwnerWitness:
+        raise InputRefused("owned trial requires the paired stage, never a current-only proof")
+    current = pair.current
+    path = current._state.root / current.source
+    original = path.read_bytes()
+    pair.validate_for(current.source, original.decode("latin-1"),
+                      {current.name: dict(current.mapping)}, current._state.root, (current.header,))
+    candidate = current.plan_text().encode("latin-1")
+    before = _owner_read(path)[0]
+    if before != current._state.source_record():
+        raise InputRefused("foreign source generation changed before owned trial")
+    writes = lane.GenerationWrites({path: before[1]}, owned_generations={path: before[2]})
+    owned, outputs = None, None
+    try:
+        writes.write(path, candidate)
+        owned = _owner_written_record(writes, path, candidate)
+        if _owner_read(path)[0] != owned:
+            raise InputRefused("foreign source generation changed after trial write")
+        _owner_pair_inputs(pair, owned, candidate)
+        verdict = lane.gate_many([current.source])       # unchanged normal byte gate
+        if not isinstance(verdict, dict) or verdict.get(current.source, "missing byte verdict") is not None:
+            raise InputRefused("owned ordinary byte gate did not PASS")
+        outputs = _owner_candidate_cache(pair, owned, candidate)
+    finally:
+        restored_record = _owner_restore(writes, path, before)
+    restored = _owner_read(path)[0]
+    if restored != restored_record:
+        raise InputRefused("foreign source generation changed after trial restoration")
+    _owner_pair_inputs(pair, restored, original)
+    if outputs is None or _owner_output_records(pair) != outputs:
+        raise InputRefused("owned gate object/receipt changed before trial restoration completed")
+    return OwnerGateOutputWitness(pair, outputs, restored, candidate, _OWNER_SEAL)

@@ -3733,3 +3733,14 @@ def test_scoped_field_receiver_paths_do_not_silently_accept_pp_whitespace(prefix
 def test_constructor_initializer_heads_have_no_unproven_prefix(prefix):
     code = lane.masked("class C;\n" + prefix + "C::C():old(0){}\n")
     assert lane.constructor_initializer_scopes(code, "C") == []
+
+
+@pytest.mark.parametrize("witness", [True, {}, SimpleNamespace(validate_for=lambda *a: True)])
+def test_raw_owner_reader_rejects_ignore_booleans_json_and_duck_witnesses(witness):
+    text="class C { int old; C(); };\nC::C():old(0){}\n"
+    assert "paired" in lane.owner_witness_problem(witness,"u.cpp",text,{"C":{"old":"canonical"}})
+    def forbidden(*args,**kwargs):
+        pytest.fail("an unknown witness must fail before any layout or compiler boundary")
+    fields,why=lane.field_renames("u.cpp",text,["C"],"C.h",compile=forbidden,
+                                  header="C.h",owner_witness=witness)
+    assert fields is None and "paired" in why

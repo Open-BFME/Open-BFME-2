@@ -527,12 +527,13 @@ def function(p, cls, typedefs):
 class View:
     """One file's private view of one class: its source span, members and layout."""
 
-    def __init__(self, path, text, cls, layout, every, inert=False, source_root=None, include_seeds=()):
+    def __init__(self, path, text, cls, layout, every, inert=False, source_root=None, include_seeds=(), owner_witness=None):
         """`inert`: the compiler laid no layout of the class out for this file (nothing
         in it uses the class), so the view is evidence of nothing; it only receives the block."""
         self.path, self.cls, self.layout, self.every, self.inert = path, cls, layout, every, inert
         self.text = text                            # scope proof must retain comments and line splices
         self.source_root, self.include_seeds = source_root, tuple(include_seeds)
+        self.owner_witness = owner_witness
         code = hal.masked(text)
         span = class_span(text, cls, code)
         if not span:
@@ -1020,7 +1021,8 @@ def _initializer_rename_matches_tokens(view, mapping):
             or re.search(r"\\\r?\n|\?\?[=/'()!<>-]", text):
         return False
     if hal.initializer_context_problem(view.path, text, {view.cls: mapping},
-                                       root=view.source_root, seeds=view.include_seeds):
+                                       root=view.source_root, seeds=view.include_seeds,
+                                       owner_witness=view.owner_witness):
         return False
     start, end = view.span
     outside = text[:start] + re.sub(r"[^\r\n]", " ", text[start:end]) + text[end:]
@@ -1030,6 +1032,11 @@ def _initializer_rename_matches_tokens(view, mapping):
 
 def rename_problem(view, mapping):
     """Why renaming `mapping` in this view's file is unsafe, or None."""
+    if view.owner_witness is not None:
+        why = hal.owner_witness_problem(view.owner_witness, view.path, view.text, {view.cls: mapping},
+                                        root=view.source_root, seeds=view.include_seeds)
+        if why:
+            return why
     body = IDENT.findall(view.code[view.span[0]:view.span[1]])
     outside = view.code[:view.span[0]] + "\n" + view.code[view.span[1]:]
     initializers, scoped_tokens = None, None

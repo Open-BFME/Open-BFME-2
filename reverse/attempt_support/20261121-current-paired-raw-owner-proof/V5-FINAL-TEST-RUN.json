@@ -1,0 +1,16 @@
+{
+  "actual_cpp_pp_link_processes": 0,
+  "arguments": [
+    "W:/OpenBFME/diagnostics/continue-20261120-body-recovery-1656/agents/melee/b2-raw-owner-witness-review-20261121/test_closed_witness_review.py",
+    "W:/OpenBFME/diagnostics/continue-20261120-body-recovery-1656/agents/melee/b2-raw-owner-witness-review-20261121/test_write_failure_review.py",
+    "W:/OpenBFME/diagnostics/continue-20261120-body-recovery-1656/agents/melee/b2-raw-owner-witness-v3-review-20261121/test_review_v3.py",
+    "W:/OpenBFME/diagnostics/continue-20261120-body-recovery-1656/agents/melee/b2-raw-owner-witness-v3-review-20261121/test_population_v3.py",
+    "W:/OpenBFME/diagnostics/continue-20261120-body-recovery-1656/agents/melee/b2-raw-owner-witness-v3-review-20261121/test_v3_additional_controls.py",
+    "W:/OpenBFME/diagnostics/continue-20261120-body-recovery-1656/agents/melee/b2-raw-owner-witness-v4-review-20261121/test_extra_population.py"
+  ],
+  "exit": 0,
+  "forbidden_native_process_attempts": [],
+  "subprocess_executables": [
+    "git"
+  ]
+}

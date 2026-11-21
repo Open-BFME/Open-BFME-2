@@ -1090,5 +1090,19 @@ class ConstructorInitializerRename(unittest.TestCase):
             fx.close()
 
 
+class RawOwnerReaderStageBarrier(unittest.TestCase):
+    def test_reader_cannot_use_an_unknown_witness_or_start_a_preprocessor(self):
+        from types import SimpleNamespace
+        import header_generation_proof as P
+        text="class C { public: int old; C(); };\nC::C():old(0){}\n"
+        layout={"fwd":False,"key":"class","size":4,"bases":[],"fields":[[0,"old","int",4]],
+                "statics":[],"methods":["C"],"virtual":[],"vslots":{},"vfptr":False}
+        with unittest.mock.patch.object(P,"_preprocess",side_effect=AssertionError("reader PP forbidden")) as calls:
+            for witness in (True,{},SimpleNamespace(validate_for=lambda *a:True)):
+                view=V.View("u.cpp",text,"C",layout,{"C":layout},owner_witness=witness)
+                self.assertIn("paired",V.rename_problem(view,{"old":"canonical"}))
+            calls.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()

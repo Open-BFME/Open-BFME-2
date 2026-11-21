@@ -1589,7 +1589,19 @@ def storage_command_macros(source, command=None):
     return "".join(definitions), None
 
 
-def initializer_context_problem(source, text, mappings, root=None, seeds=()):
+def owner_witness_problem(witness, source, text, mappings, root=None, seeds=()):
+    """Validate only an issued pair; never capture, compile or preprocess here."""
+    import header_generation_proof as proof
+    if type(witness) is not proof.PairedOwnerWitness:
+        return "constructor scope: a revalidated paired owner witness is required"
+    try:
+        witness.validate_for(source, text, mappings, ROOT if root is None else root, seeds)
+    except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+        return f"constructor scope: raw owner pair refused: {exc}"
+    return None
+
+
+def initializer_context_problem(source, text, mappings, root=None, seeds=(), owner_witness=None):
     """Why a constructor's raw-token owner is unproven in its current inputs.
 
     No preprocessor is run. This deliberately narrow proof uses the ordinary
@@ -1598,6 +1610,8 @@ def initializer_context_problem(source, text, mappings, root=None, seeds=()):
     capture binds the proof to the source, headers, search choices and command;
     an old View or a partial/missing context cannot grant a token-rename exception.
     """
+    if owner_witness is not None:
+        return owner_witness_problem(owner_witness, source, text, mappings, root, seeds)
     import build
     root = ROOT if root is None else Path(root)
     path = (root / source).resolve()
@@ -1832,7 +1846,7 @@ def storage_expansion_problem(source, text, probe, names, before_family, after_f
     return None
 
 
-def field_renames(source, text, strip, include, compile=None, header=None):
+def field_renames(source, text, strip, include, compile=None, header=None, owner_witness=None):
     """({class: {private field: canonical field}}, None) for the unit's views of the
     `strip` classes, or (None, why) when a private field has no canonical field of its
     offset and size, several canonical fields share that offset and size (a union) and
@@ -1856,6 +1870,39 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     {class: layout} (text None: the unit as it stands); `header` is the canonical header,
     whose class bodies prove the new names hide nothing (refused when it cannot be read)."""
     import tu_views
+    if owner_witness is not None:
+        import header_generation_proof as proof
+        if type(owner_witness) is not proof.PairedOwnerWitness:
+            return None, "field renames require a paired owner witness; current proof is planning only"
+        active_strip = [name for name in strip if body_span(text, name)]
+        if (header != owner_witness.current.header or active_strip != [owner_witness.current.name]
+                or source != owner_witness.current.source):
+            return None, "field renames owner pair belongs to another source/header/class"
+        try:
+            owner_witness.validate_for(source, text,
+                {owner_witness.current.name: dict(owner_witness.current.mapping)}, ROOT, (header,))
+        except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+            return None, f"field renames owner pair refused: {exc}"
+    if owner_witness is not None and compile is None:
+        def paired_layout(source, proposed):
+            why = owner_witness_problem(owner_witness, source, text,
+                {owner_witness.current.name: dict(owner_witness.current.mapping)}, ROOT, (header,))
+            if why:
+                raise RuntimeError(why)
+            if proposed is None:
+                result = class_layouts.compile_layouts(source)
+            elif proposed == probe_text(text, strip, include):
+                # Use the complete already-real bound candidate; never write a
+                # truncated layout probe over the captured original source.
+                result = class_layouts.compile_layouts(owner_witness.prospective, use_cache=False)
+            else:
+                raise RuntimeError("paired owner route has no proof for this additional layout probe")
+            why = owner_witness_problem(owner_witness, source, text,
+                {owner_witness.current.name: dict(owner_witness.current.mapping)}, ROOT, (header,))
+            if why:
+                raise RuntimeError(why)
+            return result
+        compile = paired_layout
     compile = compile or compile_text
     try:
         every = compile(source, None)
@@ -1870,7 +1917,7 @@ def field_renames(source, text, strip, include, compile=None, header=None):
             continue                                    # no view, or nothing in the unit lays it out
         try:
             view = tu_views.View(source, text, name, lay, every,
-                                 include_seeds=(header,) if header else ())
+                                 include_seeds=(header,) if header else (), owner_witness=owner_witness)
         except tu_views.Refused as exc:
             return None, str(exc)
         # Inline uses count too. The shared PAD heuristic is intentionally unchanged:
@@ -6858,7 +6905,7 @@ def acceptance_dependencies(sources, base="HEAD"):
     return adoption_dependencies(items, before, after)
 
 
-def prepare_unit(source, strip, header, key):
+def prepare_unit(source, strip, header, key, owner_witness=None):
     """Prepare a swap without writing source/ledger files or running the byte gate."""
     path = ROOT / source
     original = path.read_bytes()
@@ -6869,7 +6916,8 @@ def prepare_unit(source, strip, header, key):
     swapped = swap(text, strip, include)
     if swapped is None:
         return source, "no private view found", None, []
-    fields, why = field_renames(source, text, strip, include, header=header)
+    options = {"owner_witness": owner_witness} if owner_witness is not None else {}
+    fields, why = field_renames(source, text, strip, include, header=header, **options)
     if why:
         return source, f"field renames: {why}", None, []
     if fields:
@@ -6877,6 +6925,12 @@ def prepare_unit(source, strip, header, key):
         if why:
             return source, f"field renames: {why}", None, []
         FIELD_RENAMES[source] = {f"{cls}::{old}": new for cls, m in fields.items() for old, new in m.items()}
+    if owner_witness is not None:
+        why = owner_witness_problem(owner_witness, source, text, fields, ROOT, (header,))
+        if why:
+            return source, why, None, []
+        if swapped != owner_witness.current.plan_text():
+            return source, "paired owner candidate differs from the actual prospective source", None, []
     renames, why = ledger_renames(source, strip[0], key) if view_key != key else ([], None)
     if why:
         return source, f"class-key {view_key}: {why}", None, []
@@ -6901,13 +6955,57 @@ def try_unit(source, strip, header, key):
     return source, why, swapped, renames
 
 
-def try_units(sources, strip, header, key, jobs=1, dependency_plan=None):
+def _try_owner_unit(sources, strip, header, key, witness, outputs, dependency_plan):
+    """One source, unchanged class-key/ledger, exact paired CAS transaction only."""
+    import header_generation_proof as proof
+    def refused(why):
+        return [(s, why, None, []) for s in sources]
+    if (type(witness) is not proof.PairedOwnerWitness or len(sources) != 1
+            or witness.current.name not in strip or sources[0] != witness.current.source
+            or header != witness.current.header or not isinstance(outputs, dict)):
+        return refused("owned source trial requires one exact paired source/class/header scope")
+    source = sources[0]
+    try:
+        original = (ROOT / source).read_text(encoding="latin-1")
+        if [name for name in strip if body_span(original, name)] != [witness.current.name]:
+            return refused("owned source trial cannot remove any additional private class")
+        old = body_span(original, strip[0])
+        new = body_span((ROOT / header).read_text(encoding="latin-1"), strip[0])
+        if not old or not new or old[2] != key or new[2] != key:
+            return refused("owned source trial has no transaction for class-key/ledger renames")
+        prospective = prospective_renames(sources, strip[0], key)
+        if any(item[3] for item in prospective):
+            return refused("owned source trial cannot change ledger names")
+        plan = adoption_dependencies(prospective)
+        blocked = {**key_backref_blockers(sources, strip[0], key), **key_metadata_blockers(prospective),
+                   **dependency_blockers(plan, sources)}
+        if blocked:
+            return refused(blocked.get(source, "owned source dependency scope is incomplete"))
+        prepared = prepare_unit(source, strip, header, key, owner_witness=witness)
+        if prepared[1] or prepared[3]:
+            return [prepared] if prepared[1] else refused("owned source trial cannot change ledger names")
+        actual = adoption_dependencies([prepared])
+        if dependency_plan is not None:
+            dependency_plan.update(actual)
+        blocked = dependency_blockers(actual, sources)
+        if blocked:
+            return refused(blocked[source])
+        token = proof.verify_owner_trial(witness)
+        outputs[source] = token
+        return [prepared]
+    except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+        return refused(f"owned source transaction refused: {exc}")
+
+
+def try_units(sources, strip, header, key, jobs=1, dependency_plan=None, owner_witness=None, owner_outputs=None):
     """Trial a whole variant in one source/ledger state, always restoring both.
 
     Preparation errors remain per-file failures. Byte failures are isolated by
     gate_many; class-key renames share one temporary ledger instead of races.
     """
     sources = list(dict.fromkeys(sources))
+    if owner_witness is not None:
+        return _try_owner_unit(sources, strip, header, key, owner_witness, owner_outputs, dependency_plan)
     if not BFME2:
         with cf.ThreadPoolExecutor(jobs) as pool:
             got = list(pool.map(lambda s: try_unit(s, strip, header, key), sources))
@@ -7562,7 +7660,7 @@ def accept(name, sources, header=None, gate=None, providers=()):
     return bad
 
 
-def adopt(name, header, sources, apply=False, jobs=1):
+def adopt(name, header, sources, apply=False, jobs=1, owner_witness=None):
     """Adopt `header` in the given units without registering `name`: staged adoption for a
     class whose merge donors still mostly carry private views (registering would make
     class_gate refuse their merges). Each unit is swapped as the tournament swaps it, field
@@ -7576,14 +7674,25 @@ def adopt(name, header, sources, apply=False, jobs=1):
         raise SystemExit(f"{header} does not define {name}")
     strip = [name] + STRIP_WITH.get(name, [])
     strip += [c for c in header_classes(header) if c not in strip]
-    got = try_units(sources, strip, header, span[2], jobs)
+    owner_outputs = {}
+    options = {"owner_witness": owner_witness, "owner_outputs": owner_outputs} if owner_witness is not None else {}
+    got = try_units(sources, strip, header, span[2], jobs, **options)
     failed = 0
     for source, why, text, renames in got:
+        if why is None and apply and owner_witness is not None:
+            import header_generation_proof as proof
+            try:
+                token = owner_outputs.get(source)
+                if type(token) is not proof.OwnerGateOutputWitness:
+                    raise ValueError("missing sealed ordinary gate output")
+                token.apply()
+            except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+                why = f"owned final apply refused: {exc}"
         fields = FIELD_RENAMES.get(source, {})
         print(f"  {'PASS' if why is None else 'FAIL'} {source}" + (f": {why}" if why else "")
               + (" (fields: " + ", ".join(f"{a} -> {b}" for a, b in sorted(fields.items())) + ")" if fields else ""))
         failed += why is not None
-        if why is None and apply:
+        if why is None and apply and owner_witness is None:
             (ROOT / source).write_bytes(text.encode("latin-1"))
             rewrite_ledger(renames)
     return failed
@@ -7657,12 +7766,31 @@ class GenerationRefused(ValueError):
 
 class GenerationWrites:
     """Restore only bytes this trial last wrote; never clobber an intervening edit."""
-    def __init__(self, frozen=None):
+    def __init__(self, frozen=None, *, owned_generations=None):
         self.before, self.written = {}, {}
         self.frozen = dict(frozen or {})
+        # Opt-in owner transactions need the actual generation, including when
+        # the first read AFTER a successful replace raises or is interrupted.
+        # Ordinary registered-generation callers retain their existing route.
+        self.initial_generations = None if owned_generations is None else dict(owned_generations)
+        self.generations = {}
+
+    @staticmethod
+    def generation(path):
+        import header_generation_inputs as inputs
+        if path.is_symlink() or not path.is_file():
+            raise GenerationRefused(f"owned source is not an ordinary file: {path}")
+        return tuple(inputs._stamp(path.stat()))
+
+    def _known_generation(self, path):
+        return self.generations.get(path, self.initial_generations.get(path))
 
     def current(self, path):
+        before = self.generation(path) if self.initial_generations is not None else None
         current = path.read_bytes() if path.exists() else None
+        if self.initial_generations is not None:
+            if before != self.generation(path) or before != self._known_generation(path):
+                raise GenerationRefused(f"intervening source generation: {path}")
         if path not in self.before and path in self.frozen:
             expected = self.frozen[path]
             if ((current is None) != (expected is None) or
@@ -7681,12 +7809,31 @@ class GenerationWrites:
             self.written[path] = None
             path.unlink(missing_ok=True)
         else:
-            temporary = None
+            temporary, preflight = None, None
             try:
-                with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".header-generation-", delete=False) as handle:
+                owner_mode = self.initial_generations is not None
+                with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".header-generation-",
+                                                suffix=".cpp" if owner_mode else "", delete=False) as handle:
                     temporary = Path(handle.name)
                     handle.write(data)
                     handle.flush()
+                if owner_mode:
+                    generation = self.generation(temporary)
+                    # Refuse filesystems with a rename-changing generation
+                    # BEFORE replacing the real source. These own .cpp paths
+                    # do not change the native header search inventory.
+                    with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".header-generation-",
+                                                    suffix=".cpp", delete=False) as handle:
+                        preflight = Path(handle.name)
+                    os.replace(temporary, preflight)
+                    temporary = preflight
+                    if self.generation(temporary) != generation:
+                        raise GenerationRefused("owned atomic rename does not preserve a provable generation")
+                    if self.current(path) != current:
+                        raise GenerationRefused(f"intervening input before replacement: {path}")
+                    # Record BEFORE final replace, independently of a fallible
+                    # read of its destination and without blessing foreign bytes.
+                    self.generations[path] = generation
                 # Record before the atomic replacement: cancellation immediately
                 # after replace still leaves a recognizable owned generation.
                 self.written[path] = data
@@ -7694,12 +7841,14 @@ class GenerationWrites:
                     os.replace(temporary, path)
                 except BaseException:
                     actual = path.read_bytes() if path.exists() else None
-                    if actual == current:
+                    if actual == current and not owner_mode:
                         self.written[path] = current
                     raise
             finally:
                 if temporary is not None:
                     temporary.unlink(missing_ok=True)
+                if preflight is not None:
+                    preflight.unlink(missing_ok=True)
 
     def observe(self, path):
         """Record an owning ledger/registry writer's result, after saving its input."""
@@ -7730,6 +7879,14 @@ class GenerationWrites:
             if path not in self.written:
                 continue
             if current == original:
+                continue
+            if self.initial_generations is not None:
+                if current != self.written[path] or self.generation(path) != self.generations.get(path):
+                    drift.append(str(path))
+                    continue
+                # This write remains generation-CAS guarded too. A foreign
+                # same-bytes replacement is never mistaken for our generation.
+                self.write(path, original)
                 continue
             if current != self.written[path]:
                 drift.append(str(path))
