@@ -79,11 +79,7 @@ public:
 	Dict *getProperties() { return &m_properties; }
 };
 
-class BfmeMapObjectListHolder
-{
-public:
-	BfmeMapObjectListEntry *m_bfmeHead;			///< retail this+0x00
-};
+#include "../../../Include/W3DDevice/GameClient/BfmeMapObjectListHolder.h"
 
 class BfmeMapObjectExtra
 {
@@ -97,7 +93,7 @@ extern BfmeMapObjectExtra BfmeTheMapObjectExtra;		///< retail 0x012ED5E0
 /*static */ Int MapObject::countMapObjectsWithOwner(const AsciiString& asciiString)
 {
 	Int count = 0;
-	BfmeMapObjectListEntry *pMapObj = BfmeTheMapObjectListHolder->m_bfmeHead;
+	BfmeMapObjectListEntry *pMapObj = reinterpret_cast<BfmeMapObjectListEntry *>(BfmeTheMapObjectListHolder->m_head);
 	for (; pMapObj; pMapObj = pMapObj->m_next)
 	{
 		if (pMapObj->getProperties()->getAsciiString(TheKey_originalOwner.key(), 0) == asciiString)
