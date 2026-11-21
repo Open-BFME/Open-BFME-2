@@ -5,6 +5,7 @@
 struct BfmePod72 { int a[18]; };
 inline bool operator==(const BfmePod72 &x, const BfmePod72 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod72 &x, const BfmePod72 &y) { return x.a[0] < y.a[0]; }
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include <vector>
 #include "ascii_string.h"
@@ -31,25 +32,16 @@ struct BfmeStringRecord000B75AE { char m_pad[32]; public: BfmeStringRecord000B75
 struct BfmeStringRecord00415F34 { char m_pad[24]; public: BfmeStringRecord00415F34(const BfmeStringRecord00415F34 &); ~BfmeStringRecord00415F34(); };
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class __declspec(novtable) BFME2NativeNetwork
-{
-public:
-	BFME2NativeNetwork()
-	{
-		reinterpret_cast<SubsystemInterface *>(this)->SubsystemInterface::SubsystemInterface();
-	}
-	virtual ~BFME2NativeNetwork();
-private:
-	char m_flag04;
-	char m_pad05[3];
-	int m_value08;
-};
-
-class SubsystemLegend : public BFME2NativeNetwork
+// Retail table 0x007D7678: slot 1 init 0x001B4CD0 (below), reset and update
+// the shared empty body 0x000B3FD0; every other slot is SubsystemInterface's.
+class SubsystemLegend : public SubsystemInterface
 {
 public:
 	SubsystemLegend();
 	virtual ~SubsystemLegend();
+	virtual void init();
+	virtual void reset() {}
+	virtual void update() {}
 private:
 	_STL::list<BfmePod72, _STL::allocator<BfmePod72> > m_list0C;
 };
@@ -302,7 +294,13 @@ void Rva001B4D09::rva001B4D09()
 
 // bfme link decl-only end
 
-// tu-skeleton: 0x001B4CD0 8B ?rva001B4CD0@Rva001B4CD0Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
+// ?init@SubsystemLegend@@UAEXXZ 0x001B4CD0 8B: slot 1 of table 0x007D7678,
+// add ecx, 0Ch then a tail jump to the member list's clear 0x001B4C7A (the
+// clear the dtor 0x001B4D16 calls, rowed above for BfmeVectorRecord001B4A39).
+void SubsystemLegend::init()
+{
+	((_STL::_List_base<BfmeVectorRecord001B4A39, _STL::allocator<BfmeVectorRecord001B4A39> > *)&m_list0C)->clear();
+}
 
 // tu-skeleton: 0x001B4D0E 8B ?append@Rva001B4D0E@@QAEXABUBfmePod72@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001B4D0EAppend.cpp (not merged yet)
 

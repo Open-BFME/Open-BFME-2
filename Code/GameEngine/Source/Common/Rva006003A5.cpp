@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva006003A5@Rva006003FC@@QAEXPAVObject@@@Z @0x006003A5 8B vslot.
+// ?rva006003A5@Rva006003FC@@UAEXPAVObject@@@Z @0x006003A5 8B vslot.
 // Retail add ecx,8 then jmp performUpgradeFX 0x0047A69C. Evidence: vslot lane;
 // slot 2 of 0x0087A638 class of ??1Rva006003FC@@UAE@XZ; pin-only callee
 // ?performUpgradeFX@UpgradeMuxData@@QBEXPAVObject@@@Z; tail return-mem-method
@@ -13,12 +13,32 @@ class Xfer;
 namespace FXParticleSystem
 {
 }
-class Rva006003FC {
-public: void rva006003A5(Object *obj);
-private: char m_pad[8];
-         UpgradeMuxData m_mux;
+// Retail table 0x0087A638 slots 2-4 all hold this body: identical-code folding
+// merged three virtuals that forward to the +8 upgrade mux. The base is the
+// canonical Rva0007DF07 (vptr, +4).
+#include "../../Include/Common/Rva0007DF07.h"
+
+class Rva006003FC : public Rva0007DF07 {
+public:
+	virtual void rva006003AD();
+	virtual void rva006003A5(Object *obj);
+	virtual void slot03(Object *obj);
+	virtual void slot04(Object *obj);
+private: UpgradeMuxData m_mux;
 };
 void Rva006003FC::rva006003A5(Object *obj)
+{
+	m_mux.performUpgradeFX(obj);
+}
+
+// ?slot03@Rva006003FC@@UAEXPAVObject@@@Z and ?slot04@... @0x006003A5 8B:
+// slots 3 and 4 of 0x0087A638, folded into slot 2's body.
+void Rva006003FC::slot03(Object *obj)
+{
+	m_mux.performUpgradeFX(obj);
+}
+
+void Rva006003FC::slot04(Object *obj)
 {
 	m_mux.performUpgradeFX(obj);
 }

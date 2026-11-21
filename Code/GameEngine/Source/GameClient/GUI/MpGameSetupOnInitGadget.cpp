@@ -45,24 +45,7 @@ namespace _STL
 	typedef _List_iterator<int, _Const_traits<int> > ListIntConstIterator;
 }
 
-class AptMpGameSetup
-{
-public:
-	static void PlayerTooltip(GameWindow *window, WinInstanceData *data, unsigned int flags);
-	void InitGadgets(const char *name, void *argument, GameWindow *window);
-
-private:
-	unsigned char m_pad0[0x7c];
-	int m_hideFlag;
-	unsigned char m_pad1[0x2d4 - 0x80];
-	GameWindow *m_player[8];
-	_STL::ListIntConstIterator m_color[8];
-	GameWindow *m_team[8];
-	GameWindow *m_playerTemplate[8];
-	GameWindow *m_handicap[8];
-	GameWindow *m_hero[8];
-	GameWindow *m_mapList;
-};
+#include "../../../Include/GameClient/AptMpGameSetup.h"
 
 // ?InitGadgets@AptMpGameSetup@@QAEXPBDPAXPAVGameWindow@@@Z
 void AptMpGameSetup::InitGadgets(const char *name, void *, GameWindow *window)
@@ -72,7 +55,7 @@ void AptMpGameSetup::InitGadgets(const char *name, void *, GameWindow *window)
 
 	if (strcmp(name, "MapList") == 0)
 	{
-		m_mapList = window;
+		field394 = window;
 		int widths[5] = { 8, 2, 0x46, 10, 10 };
 		GadgetListBoxSetColumnWidths(window, 5, widths);
 		return;
@@ -86,18 +69,18 @@ void AptMpGameSetup::InitGadgets(const char *name, void *, GameWindow *window)
 	if (strcmp(leaf, "Player") == 0)
 	{
 		GadgetComboBoxReset(window);
-		m_player[index] = window;
+		field2d4[index] = window;
 		GadgetComboBoxGetListBox(window)->winSetTooltipFunc(&AptMpGameSetup::PlayerTooltip);
 	}
 	else if (strcmp(leaf, "PlayerTemplate") == 0)
 	{
 		GadgetComboBoxReset(window);
-		m_playerTemplate[index] = window;
+		field334[index] = window;
 	}
 	else if (strcmp(leaf, "Team") == 0)
 	{
 		GadgetComboBoxReset(window);
-		m_team[index] = window;
+		field314[index] = window;
 	}
 	else if (strcmp(leaf, "Color") == 0)
 	{
@@ -107,22 +90,22 @@ void AptMpGameSetup::InitGadgets(const char *name, void *, GameWindow *window)
 		// own stlport _Construct at 0x3FA3D3 keeps its test/je), while
 		// retail here calls the iterator ctor directly with no check, so
 		// the body reconstructs the color slot in place this way.
-		m_color[index]._STL::ListIntConstIterator::ListIntConstIterator(
+		((_STL::ListIntConstIterator *)field2f4)[index]._STL::ListIntConstIterator::ListIntConstIterator(
 			(_STL::_List_node<int> *)window);
 	}
 	else if (strcmp(leaf, "Handicap") == 0)
 	{
 		GadgetComboBoxReset(window);
-		m_handicap[index] = window;
+		field354[index] = window;
 	}
 	else if (strcmp(leaf, "Hero") == 0)
 	{
 		GadgetComboBoxReset(window);
-		m_hero[index] = window;
+		field374[index] = window;
 	}
 	else
 		return;
 
-	if (index >= 6 && m_hideFlag == 1)
+	if (index >= 6 && field7c == 1)
 		window->winHide(true);
 }

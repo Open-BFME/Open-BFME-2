@@ -27,6 +27,8 @@
 #include "DieModuleInterface.h"
 
 //-------------------------------------------------------------------------------------------------
+class Xfer;
+
 class DieModule : public BehaviorModule, public DieModuleInterface
 {
 public:
@@ -37,6 +39,14 @@ public:
 protected:
 	virtual ~DieModule();
 	bool isDieApplicable( const DamageInfo *damageInfo ) const;
+
+	// Snapshot slots 1 and 3 of the primary table 0x00C41E78: loadPostProcess
+	// 0x0058B03E and xfer 0x004CE56D (bodies retail folds with DamageModule's and
+	// CollideModule's identical overrides). Slot 2, the class-name getter
+	// 0x0045CEEE ("DieModule"), is still the free placeholder Rva45CEEEGet until
+	// its slot name is approved.
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 #endif // __BFME2_DIEMODULE_H_

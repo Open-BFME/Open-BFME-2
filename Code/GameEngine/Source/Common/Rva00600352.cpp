@@ -71,11 +71,17 @@ static __forceinline unsigned int getPlayerColor(const Rva006003FCInputs *in)
 {
 	return ((Rva006003FCPlayer *)in->m_source->rva003F468D(in->m_a, in->m_b))->getColor()->getAsInt() | 0xff000000;
 }
+class Object;
+
 class Rva006003FC : public Rva0007DF07
 {
 public:
 	Rva006003FC(void *first, void *second, void *third);
 	virtual ~Rva006003FC();	// 0x006003FC, Rva006003FCDtor.cpp
+	virtual void rva006003AD();	// 0x006003AD
+	virtual void rva006003A5(Object *obj);	// 0x006003A5; slots 3-4 fold to it
+	virtual void slot03(Object *obj);
+	virtual void slot04(Object *obj);
 private:
 	Rva006003FCMember m_08;			// +0x08
 	Rva006003FCInputs m_14;			// +0x14

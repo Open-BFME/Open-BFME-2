@@ -6,13 +6,17 @@
 
 class Object;
 class Player;
+class TacticalAI;
 class Team;
 class Xfer;
 
 class SkirmishAI {
 public:
     unsigned char m_prefix[348];
-    char m_pad15C[44];
+    Player *m_player;            // +0x15C
+    void *m_specialMaster160;    // +0x160, the constructor's master argument
+    TacticalAI *m_tacticalAI;    // +0x164
+    char m_pad168[32];
     void DoXfer(Xfer *xfer);
     void Register(Team *team);
     SkirmishAI(Player *player, void *master, bool first);

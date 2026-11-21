@@ -146,21 +146,8 @@ public:
 	ObjectID m_crateCreated; // +0x238
 };
 
-struct TeamTemplateInfo
-{
-	char m_pad[0x216];
-	Bool m_attackCommonTarget;
-};
-
-class Team
-{
-public:
-	Object *getTeamTargetObject();
-	void setTeamTargetObject(Object *target);
-	void rva0039E5B9(Coord3D *pos);
-	char m_pad[0x30];
-	TeamTemplateInfo *m_prototype;
-};
+#include "../../../Include/Common/Team.h"
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../../Include/Common/TeamFactory.h"
 
@@ -693,7 +680,7 @@ Bool AIGuardMachine::lookForInnerTarget()
 	}
 
 	Object *teamVictim = 0;
-	if (owner->getTeam()->m_prototype->m_attackCommonTarget)
+	if (owner->getTeam()->getPrototype()->m_attackCommonTarget)
 	{
 		teamVictim = owner->getTeam()->getTeamTargetObject();
 		if (teamVictim)

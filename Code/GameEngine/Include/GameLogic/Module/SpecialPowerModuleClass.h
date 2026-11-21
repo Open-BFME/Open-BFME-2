@@ -34,6 +34,7 @@
 
 #include "BehaviorModule.h"
 #include "SpecialPowerModule.h"
+#include "SpecialPowerModuleData.h"
 
 template <int N> class BitFlags;
 class INI;
@@ -85,7 +86,9 @@ public:
 
 protected:
     virtual void loadPostProcess();                                // slot 1, 0x00493B1E
-    virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const; // +0x10 slot 6, 0x00493236
+    const SpecialPowerModuleData *getSpecialPowerModuleData() const { return (const SpecialPowerModuleData *)getModuleData(); }
+    // +0x10 slot 6, 0x00493236: inline, as the constructor 0x00493C5A and destructor 0x00493DEF expand it
+    virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const { return getSpecialPowerModuleData()->m_specialPowerTemplate; }
     void createViewObject(const Coord3D *location);                // 0x00493845
     void aboutToDoSpecialPower(const Coord3D *location);           // 0x004939AB
 

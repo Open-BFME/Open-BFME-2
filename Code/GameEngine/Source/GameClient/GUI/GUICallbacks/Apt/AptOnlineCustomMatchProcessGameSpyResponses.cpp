@@ -521,19 +521,11 @@ public:
 
 #include "../../../../../Include/GameClient/Rva0043DFE0.h"
 
-class AptMpGameSetup
-{
-public:
-	virtual void v00();
-	virtual void v01();
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
-	void rva0043DC0F();
-	bool rva0043DCFA(Int startPos);
-
-	void enable() { ((Rva0043DB47DoubleSetter *)this)->enable(); }
-	void enableByte() { ((Rva0043DB5EByteOneSetter *)this)->enable(); }
-	void rva0043DBA3() { ((Rva0043DFE0 *)this)->rva0043DBA3(); }
-};
+static inline void enableSetup(AptMpGameSetup *setup) { ((Rva0043DB47DoubleSetter *)setup)->enable(); }
+static inline void enableSetupByte(AptMpGameSetup *setup) { ((Rva0043DB5EByteOneSetter *)setup)->enable(); }
+static inline void refreshSetup(AptMpGameSetup *setup) { ((Rva0043DFE0 *)setup)->rva0043DBA3(); }
 
 extern Int g_Va00E0333C;
 
@@ -572,10 +564,8 @@ public:
 	void PopulateGamesListBox();
 
 private:
-	AptMpGameSetup m_setup;			 // +0x70
-	UnsignedByte m_pad074[0xEC - 0x74];
-	Int m_gameMode;					 // +0xEC
-	UnsignedByte m_pad0f0[0x46C - 0xF0];
+	AptMpGameSetup m_setup;			 // +0x70; its +0x7C is the game mode (+0xEC)
+	UnsignedByte m_pad450[0x46C - 0x450];
 	GameModePreferences m_prefs;		// +0x46C
 	Int m_state;						// +0x488
 	UnsignedByte m_pad48c[0x4A0 - 0x48C];
@@ -609,7 +599,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 				if (resp.createStagingRoom.result == 0)
 				{
 					TheGameSpyInfo->markAsStagingRoomHost();
-					TheGameSpyGame->rva003FF1A7(m_gameMode);
+					TheGameSpyGame->rva003FF1A7(m_setup.field7c);
 					TheGameSpyInfo->setGameOptions();
 					GameSpyStagingRoom *game = TheGameSpyInfo->getCurrentStagingRoom();
 					if (game)
@@ -751,7 +741,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 				if (!TheGameSpyGame)
 					break;
 				SendStatsToOtherPlayers(TheGameSpyGame);
-				m_setup.v01();
+				m_setup.slot01();
 				myGame->m_seed = resp.gameStart.seed;
 				*(Rva00382E73 *)TheGameSpyGame = *(Rva00382E73 *)myGame;
 				TheGameSpyGame->startGame(0);
@@ -773,7 +763,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 
 		case PeerResponse::PEERRESPONSE_PLAYERINFO:
 			{
-				m_setup.enable();
+				enableSetup(&m_setup);
 				TheGameSpyInfo->setGameOptions();
 			}
 			break;
@@ -891,13 +881,13 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 			}
 		case PeerResponse::PEERRESPONSE_PLAYERCHANGEDFLAGS:
 			{
-				m_setup.enable();
+				enableSetup(&m_setup);
 			}
 			break;
 
 		case PeerResponse::PEERRESPONSE_22:
 			{
-				m_setup.enable();
+				enableSetup(&m_setup);
 			}
 			break;
 
@@ -930,7 +920,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 					}
 
 					TheGameSpyInfo->setGameOptions();
-					m_setup.enable();
+					enableSetup(&m_setup);
 
 					if (game && !TheGameSpyInfo->amIHost())
 					{
@@ -939,7 +929,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 						{
 							game->reset();
 							TheGameSpyInfo->leaveStagingRoom();
-							m_setup.v01();
+							m_setup.slot01();
 							GSMessageBoxOk(TheGameText->fetch("GUI:HostLeftTitle"), TheGameText->fetch("GUI:HostLeft"));
 							rva005A1EEE();
 						}
@@ -1056,7 +1046,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 								}
 							}
 						}
-						m_setup.enable();
+						enableSetup(&m_setup);
 
 						// if I changed map availability, send it across
 						newMapCRC = game->getMapCRC();
@@ -1114,7 +1104,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 									room->reset();
 								TheGameSpyInfo->leaveStagingRoom();
 								GSMessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"), TheGameText->fetch("GUI:GSKicked"));
-								m_setup.v01();
+								m_setup.slot01();
 								rva005A1EEE();
 							}
 						}
@@ -1170,7 +1160,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 					GameSpyStagingRoom *game = TheGameSpyInfo->getCurrentStagingRoom();
 					if (game && game->isInGame() && !game->v12() && game->getSlot(0) && game->getSlot(0)->isPlayer(resp.nick.c_str()))
 					{
-						m_setup.rva0043DBA3();
+						refreshSetup(&m_setup);
 					}
 				}
 				else if (!strcmp(resp.command.c_str(), "EUI"))
@@ -1246,7 +1236,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 								}
 							}
 						}
-						m_setup.enableByte();
+						enableSetupByte(&m_setup);
 					}
 				}
 			}
@@ -1301,7 +1291,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 								message = TheGameText->fetch("GUI:GSKickedGameFull");
 							}
 							GSMessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"), message);
-							m_setup.v01();
+							m_setup.slot01();
 							rva005A1EEE();
 						}
 					}
@@ -1311,13 +1301,13 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 						{
 							game->getSlot(slotNum)->m_isAccepted = true;
 							TheGameSpyInfo->setGameOptions();
-							m_setup.enable();
+							enableSetup(&m_setup);
 						}
 						else if (!strcmp(resp.command.c_str(), "UNREADY"))
 						{
 							game->getSlot(slotNum)->unAccept();
 							TheGameSpyInfo->setGameOptions();
-							m_setup.enable();
+							enableSetup(&m_setup);
 						}
 						else if (!strcmp(resp.command.c_str(), "MAP"))
 						{
@@ -1344,7 +1334,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 									text.format(TheGameText->fetchPtr("GUI:PlayerNoMap"), game->getSlot(slotNum)->getName().str(), mapDisplayName.str());
 								TheGameSpyInfo->addText(text, GameSpyColor[GSCOLOR_DEFAULT]);
 							}
-							m_setup.enable();
+							enableSetup(&m_setup);
 						}
 						else if (!strcmp(resp.command.c_str(), "REQ"))
 						{
@@ -1429,7 +1419,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 								if (((const Rva003821B9AsciiField *)slot)->get().compare(options.str() + 1) != 0 && slot->m_playerTemplate != PLAYERTEMPLATE_OBSERVER)
 								{
 									slot->rva003FF5F2(AsciiString(options.str() + 1));
-									m_setup.enableByte();
+									enableSetupByte(&m_setup);
 									change = true;
 									shouldUnaccept = true;
 								}
@@ -1496,7 +1486,7 @@ void AptOnlineCustomMatch::ProcessGameSpyResponses()
 								if (shouldUnaccept)
 									game->resetAccepted();
 								TheGameSpyInfo->setGameOptions();
-								m_setup.enable();
+								enableSetup(&m_setup);
 							}
 						}
 					}

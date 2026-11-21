@@ -306,20 +306,14 @@ public:
 	}
 };
 
-#include "../../../Include/Common/MemoryPoolObject.h"
+#include "../../../Include/Common/TeamBFME2.h"
 
-class Team : public MemoryPoolObject, public Snapshot
+// Zero Hour's inline body of the rowed 0x00263864: retail still calls it out
+// of line, and the visible body shapes garrisonAllUnits' frame.
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
 {
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const
-	{
-		return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
-	}
-private:
-	unsigned char m_teamPad[0x38 - 8];
-	Object *m_dlinkhead_TeamMemberList; // +0x38
-};
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
 struct Rva2AE9B8Prototype
 {
 public:

@@ -35,7 +35,9 @@ extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 #include "../../../../Include/GameLogic/Rva0026119DFilter.h"
-class BfmeFixedStorage0004543D {public:void SetBit(unsigned bit){words[bit>>5]|=1<<(bit&31);} void set(int i){SetBit(i);}BfmeFixedStorage0004543D(){memset(words,0,sizeof(words));}BfmeFixedStorage0004543D(int,int) throw();BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();unsigned words[7];};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
+static inline void SetKindBit(BfmeFixedStorage0004543D &m,unsigned bit){m.m_bytes[bit>>5]|=1<<(bit&31);}
+static inline void setKind(BfmeFixedStorage0004543D &m,int i){SetKindBit(m,i);}
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva00045411BitSet:public BfmeFixedStorage0004543D{public:Rva00045411BitSet(int,int) throw();};
@@ -72,7 +74,7 @@ void CastleBehavior::rva00398E9A(){
  if(castleData->radius<=0.0f || castleData->disabled)return;
  Coord3D pos;
  pos.x=object->pos.x;pos.y=object->pos.y;pos.z=object->pos.z;
- BfmeFixedStorage0004543D flags;flags.set(8);flags.set(10);flags.set(11);flags.set(9);
+ BfmeFixedStorage0004543D flags;setKind(flags,8);setKind(flags,10);setKind(flags,11);setKind(flags,9);
  BfmeWideResult result=ThePartitionManager->iterateObjectsInRange(&pos,castleData->radius,0,
   PartitionFilterRejectByKindOf(Rva00045411BitSet(0,127),*(BfmeFixedStorage0004543D*)&KINDOFMASK_NONE).link(Rva003959FA(flags).link(&Rva0026119DFilter())),0);
  int initial=-1;_STL::vector<int> weights(20U,initial);

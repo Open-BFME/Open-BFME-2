@@ -99,9 +99,16 @@ struct Rva0050B7D2Arg
 class Made002CCBCA : public Rva00507823
 {
 public:
-	virtual bool rva0050B745(const Rva0050B7D2Arg *arg, Object *source);
-	virtual void rva0050B7D2(const Rva0050B7D2Arg *arg, int value);
-	virtual void rva0050B843(const Rva0050B7D2Arg *arg, int value);
+	// Retail table 0x00864DFC is the base's 14 slots with 1, 2, 5..8
+	// overridden: 0x0050B745, the shared slot-2 test 0x00507943, 0x0050B7D2,
+	// 0x0050B843, the shared false predicate 0x0047A699 and the shared tail
+	// jump 0x0050B928. The three shared bodies are ICF folds.
+	virtual unsigned char rva005075D6(const void *a, Object *source);
+	virtual unsigned char vslot02(const void *a, int b) { return Rva00507823::rva0050774A(a, b) ? true : false; }
+	virtual void vslot05(const void *a, void *value);
+	virtual void vslot06(const void *a, void *value);
+	virtual bool vslot07() { return false; }
+	virtual void rva00507877() { Rva00507823::rva00507877(); }
 private:
 	unsigned char m_128; // +0x128
 	char m_pad129[3];
@@ -123,8 +130,9 @@ private:
 // (0x0050B843) of that interface. The +0x250 pointer is read once into a local
 // (retail mov/test, not a re-read of the member).
 
-void Made002CCBCA::rva0050B7D2(const Rva0050B7D2Arg *arg, int value)
+void Made002CCBCA::vslot05(const void *a, void *value)
 {
+	const Rva0050B7D2Arg *arg = (const Rva0050B7D2Arg *)a;
 	Object *object = TheGameLogic->findObjectByID(arg->m_targetID);
 	if (!object)
 		return;
@@ -140,13 +148,14 @@ void Made002CCBCA::rva0050B7D2(const Rva0050B7D2Arg *arg, int value)
 			int slot = m_12c;
 			if (slot != 5)
 				object->setWeaponLock((WeaponSlotType)slot, LOCKED_TEMPORARILY);
-			target->rva0050B7D2Slot1(value, flag);
+			target->rva0050B7D2Slot1((int)value, flag);
 		}
 	}
 }
 
-void Made002CCBCA::rva0050B843(const Rva0050B7D2Arg *arg, int value)
+void Made002CCBCA::vslot06(const void *a, void *value)
 {
+	const Rva0050B7D2Arg *arg = (const Rva0050B7D2Arg *)a;
 	Object *object = TheGameLogic->findObjectByID(arg->m_targetID);
 	if (!object)
 		return;
@@ -162,7 +171,7 @@ void Made002CCBCA::rva0050B843(const Rva0050B7D2Arg *arg, int value)
 			int slot = m_12c;
 			if (slot != 5)
 				object->setWeaponLock((WeaponSlotType)slot, LOCKED_TEMPORARILY);
-			target->rva0050B7D2Slot0(value, flag);
+			target->rva0050B7D2Slot0((int)value, flag);
 		}
 	}
 }
@@ -174,8 +183,9 @@ void Made002CCBCA::rva0050B843(const Rva0050B7D2Arg *arg, int value)
 // carrying a weapon, that weapon decides (pinned 0x002CCED3, given the target
 // and the source Object) whether the nugget applies; any missing link lets it
 // apply.
-bool Made002CCBCA::rva0050B745(const Rva0050B7D2Arg *arg, Object *source)
+unsigned char Made002CCBCA::rva005075D6(const void *a, Object *source)
 {
+	const Rva0050B7D2Arg *arg = (const Rva0050B7D2Arg *)a;
 	if (!Rva00507823::rva005075D6(arg, source))
 		return false;
 	Object *object = TheGameLogic->findObjectByID(arg->m_targetID);

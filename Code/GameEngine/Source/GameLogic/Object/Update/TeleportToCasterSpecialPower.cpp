@@ -148,12 +148,7 @@ public:
 	Object *m_object;
 };
 
-class BfmeFixedStorage0004543D
-{
-public:
-	char bits[28];
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva0006EE7A
 {

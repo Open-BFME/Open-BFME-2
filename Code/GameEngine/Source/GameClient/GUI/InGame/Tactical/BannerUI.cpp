@@ -197,6 +197,8 @@ public:
 	}
 	BfmePod28 *m_slots[2];
 };
+// BannerUI fills the full 14-slot SubsystemInterface table 0x007E59E4.
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #define BFME_ASCII_DTOR_DECL
 #include <memory>
@@ -232,8 +234,9 @@ class BannerUI : public SubsystemInterface
 {
 public:
 	BannerUI();
+	virtual ~BannerUI();
 	static void ParseBannerTypeInfo(INI *ini);
- void init();
+ virtual void init();
  const AsciiString &GetBannerIconImageName(const AsciiString &key);
  int CreateBanner(int bannerID);
  void OnAptMovieInitialized(const char *path);
@@ -242,8 +245,8 @@ public:
  void SetBannerSlotXOffset(unsigned int index, float value);
  void RemoveBanner(int value);
  void Hide(bool on);
- void reset();
- void update();
+ virtual void reset();
+ virtual void update();
 
 	static __forceinline int bannerStateFor(int armyState)
 	{
@@ -751,18 +754,6 @@ struct Gen_uw_0007fab3
 	void *m_capacity;
 };
 
-class Rva00216BF5 : public SubsystemInterface
-{
-public:
-	virtual ~Rva00216BF5();
-private:
-	Rva00216BF0 m_types;			// +0x0C
-	bool m_aptMovieInitialized;		// +0x20
-	unsigned char m_pad21[3];
-	int m_windowIndex;				// +0x24
-	Gen_uw_0007fab3 m_28;			// +0x28
-};
-
 struct Rva00217031Element {Rva00217031Element();Rva00217031Element(const Rva00217031Element&);Rva00217031Element&operator=(const Rva00217031Element&);~Rva00217031Element(){}char bytes[8]; bool operator==(const Rva00217031Element&)const;};
 
 // Only the rowed hashtable constructor is instantiated: the whole hash_map
@@ -1180,7 +1171,7 @@ BfmePod28 *Rva0021618AFind(BfmePod28 *first,BfmePod28 *last,int key) {
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
 
-// ?update@BannerUI@@QAEXXZ retail 0x002167A3..0x00216A2E (651B).
+// ?update@BannerUI@@UAEXXZ retail 0x002167A3..0x00216A2E (651B).
 // Same-TU callee lever: stateString's address goes to Rva00216332Call
 // (0x00216332) and progress's to Rva0021639AInvoke (0x0021639A); with both
 // rowed bodies owned here as select-any definitions cl proves the
@@ -1424,7 +1415,7 @@ void BannerUI::Hide(bool on)
 	}
 }
 
-// ?reset@BannerUI@@QAEXXZ, retail 0x00216D2D (47B, reached from a retail
+// ?reset@BannerUI@@UAEXXZ, retail 0x00216D2D (47B, reached from a retail
 // table): hide, empty the +0x28 records and zero the two +0x3C floats.
 void BannerUI::reset()
 {
@@ -1443,9 +1434,9 @@ void BannerUI::reset()
 
 // ---- from Code/GameEngine/Source/Common/Rva00216BF5Dtor.cpp
 
-// ??1Rva00216BF5@@UAE@XZ, retail 0x00216BF5..0x00216D2D (312 bytes, EH):
-// by its literals AptBannerUI's destructor (a SubsystemInterface; opaque pin
-// of its scalar deleting destructor 0x00216DA0, table 0x00BE59E4). With an
+// ??1BannerUI@@UAE@XZ, retail 0x00216BF5..0x00216D2D (312 bytes, EH):
+// by its literals AptBannerUI's destructor (a SubsystemInterface; its scalar
+// deleting destructor 0x00216DA0 is slot 0 of BannerUI's table 0x00BE59E4). With an
 // Apt player it removes the over-button handlers of both banner locations'
 // available and waiting buttons and background, and drops the
 // "AptBannerUI::OnInitialized" and "AptBannerUI::OnBttnBanner" callbacks
@@ -1453,7 +1444,7 @@ void BannerUI::reset()
 // 0x0007FAB3), the +0xC bucket table dies (rowed 0x00216B80; its wrapper's
 // unwind copy is the 5-byte thunk 0x00216BF0) and SubsystemInterface last.
 
-Rva00216BF5::~Rva00216BF5()
+BannerUI::~BannerUI()
 {
 	if (((AptPlayer *)g_bfmeAptWindowManager))
 	{

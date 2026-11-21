@@ -180,8 +180,10 @@ class Rva006003FC
 {
 public:
 	virtual ~Rva006003FC();
-	void rva006003AD();
-	void rva006003A5(Object *value);
+	virtual void rva006003AD();
+	virtual void rva006003A5(Object *value);
+	virtual void slot03(Object *value);
+	virtual void slot04(Object *value);
 };
 
 // Member destructor rowed as Rva005FAFB2::clear (OwnedPointerResets.cpp); the
@@ -561,28 +563,28 @@ struct Rva005FA9FCTarget
 // ?rva005FAA90@Rva005FB1AD@@QAEXXZ @0x005FAA90 17B, slot 1.
 void Rva005FB1AD::rva005FAA90()
 {
-	rva006003AD();
+	Rva006003FC::rva006003AD();
 	reinterpret_cast<Rva005FAA4D *>(m_member.m_value)->rva005FAA4D();
 }
 
 // ?rva005FA9E0@Rva005FB1AD@@QAEXH@Z @0x005FA9E0 28B, slot 2.
 void Rva005FB1AD::rva005FA9E0(int value)
 {
-	rva006003A5((Object *)value);
+	Rva006003FC::rva006003A5((Object *)value);
 	reinterpret_cast<Rva005FA91C *>(m_member.m_value)->OnSwapButtonLeftClicked(value);
 }
 
 // ?rva005FA9FC@Rva005FB1AD@@QAEXH@Z @0x005FA9FC 25B, slot 3.
 void Rva005FB1AD::rva005FA9FC(int value)
 {
-	rva006003A5((Object *)value);
+	Rva006003FC::rva006003A5((Object *)value);
 	reinterpret_cast<Rva005FA9FCTarget *>(m_member.m_value)->m_50 = value;
 }
 
 // ?rva005FAA15@Rva005FB1AD@@QAEXH@Z @0x005FAA15 28B, slot 4.
 void Rva005FB1AD::rva005FAA15(int value)
 {
-	rva006003A5((Object *)value);
+	Rva006003FC::rva006003A5((Object *)value);
 	reinterpret_cast<Rva005FA97C *>(m_member.m_value)->rva005FA97C(value);
 }
 

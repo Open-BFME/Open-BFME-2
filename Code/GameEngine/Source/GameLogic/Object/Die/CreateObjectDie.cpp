@@ -133,6 +133,10 @@ private:
 	{
 		return (const CreateObjectDieModuleData *)getModuleData();
 	}
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 // ?xfer@Rva00485BB8@@QAEXPAVXfer@@@Z, retail 0x00485BB8 28B: Version1 via rowed 0x000053EE then uint at +0x00 via Xfer slot 0x78.
@@ -395,6 +399,23 @@ CreateObjectDie::CreateObjectDie( Thing *thing, const ModuleData* moduleData ) :
 // to ~DieModule 0x0045CE54.
 CreateObjectDie::~CreateObjectDie( void )
 {
+}
+
+// Slot 1 of CreateObjectDie's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void CreateObjectDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
+}
+
+// Slot 3 of CreateObjectDie's retail primary table: 0x0045CE8C, version 1 then
+// DieModule::xfer 0x004CE56D; retail folds it with the other module xfers
+// whose base call lands on the same body.
+void CreateObjectDie::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DieModule::xfer( xfer );
 }
 
 // BFME2 has no crc; CreateObjectDie's Snapshot slots are the rowed 0x00497805

@@ -598,16 +598,22 @@ public:
 // ??0Rva002D76A6@@QAE@XZ @0x002D76A6 (17B).
 // Ctor stores vtable 0x0087506C then zeroes dwords at +0x04 and +0x08.
 // Evidence: vtable store plus two dword zeroes; 1 caller at 0x0004EF6F;
-// honest Rva class, no donor.
+// honest Rva class, no donor. Table 0x0087506C is the shared deleting
+// dtor 0x005FAA31 then three __purecall slots; the empty dtor folds into
+// 0x004E84A4, which restores the Rva0007DF07 table, so the class derives
+// from the canonical Rva0007DF07 (its +0x04 word) and adds +0x08.
+#include "../../../Include/Common/Rva0007DF07.h"
 
-class Rva002D76A6
+class Rva002D76A6 : public Rva0007DF07
 {
 public:
-	virtual void v0() = 0;
 	Rva002D76A6();
+	virtual ~Rva002D76A6();
+	virtual void v1() = 0;
+	virtual void v2() = 0;
+	virtual void v3() = 0;
 
 private:
-	int m_04;
 	int m_08;
 };
 // ?DeleteReference@RadarMarker@@QAEXXZ, retail 0x002D76BB, 11 bytes.
@@ -824,7 +830,7 @@ unsigned char __fastcall Rva002D7682Check(void *object)
 
 // ---- from Code/GameEngine/Source/Common/Rva002D76A6Ctor.cpp
 
-Rva002D76A6::Rva002D76A6() : m_04(0), m_08(0)
+Rva002D76A6::Rva002D76A6() : m_08(0)
 {
 }
 

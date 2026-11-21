@@ -698,31 +698,19 @@ extern PlayerList *ThePlayerList;
 
 #include "../../../Include/Common/Team.h"
 
-class Team : public MemoryPoolObject, public Snapshot
+#include "../../../Include/Common/TeamBFME2.h"
+
+// Zero Hour's Team::getState and Team::getName; the canonical class keeps
+// the +0x44 state string opaque and has no name accessor.
+static inline const AsciiString &teamState(const Team *team)
 {
-public:
-	const AsciiString &getState() const { return m_state; }
-	const AsciiString &getName() const
-	{
-		return m_proto == NULL ? AsciiString::TheEmptyString : m_proto->getName();
-	}
-	// Zero Hour's Team::hasAnyUnits; the ledger keeps the address name.
-	bool hasAnyUnits();
-	bool hasAnyObjects(bool ignoreBuildings);
-	// The rowed team centroid 0x0039DA2A in its pinned pointer-return
-	// spelling: the body leaves its argument in EAX, which callers use.
-	Coord3D *rva0039DA2A(Coord3D *pos) const;
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	bool didEnterOrExit() const { return m_enteredOrExited; }
-private:
-	unsigned char m_pad08[0x30 - 0x08];
-	TeamPrototype *m_proto; // +0x30
-	unsigned char m_pad34[0x44 - 0x34];
-	AsciiString m_state; // +0x44
-	unsigned char m_pad48[0x5C - 0x48];
-	bool m_enteredOrExited; // +0x5C
-};
+	return *(const AsciiString *)team->m_opaque44;
+}
+
+static inline const AsciiString &teamName(const Team *team)
+{
+	return team->getPrototype() == NULL ? AsciiString::TheEmptyString : team->getPrototype()->getName();
+}
 
 inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {
@@ -784,7 +772,7 @@ bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 		return false;
 	}
 	Team *thisTeam = TheScriptEngine->getTeamNamed(THIS_TEAM, false);
-	if (thisTeam && thisTeam->getName() == desiredTeamName) {
+	if (thisTeam && teamName(thisTeam) == desiredTeamName) {
 		return thisTeam->hasAnyUnits();
 	}
 
@@ -805,7 +793,7 @@ bool ScriptConditions::evaluateTeamStateIs(Parameter *pTeamParm, Parameter *pSta
 	Team *theTeam = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
 	AsciiString stateName = pStateParm->getString();
 	if (theTeam) {
-		return (theTeam->getState() == stateName);
+		return (teamState(theTeam) == stateName);
 	}
 	return false;
 }
@@ -814,7 +802,7 @@ bool ScriptConditions::evaluateTeamStateIsNot(Parameter *pTeamParm, Parameter *p
 	Team *theTeam = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
 	AsciiString stateName = pStateParm->getString();
 	if (theTeam) {
-		return (!(theTeam->getState() == stateName));
+		return (!(teamState(theTeam) == stateName));
 	}
 	return false;
 }

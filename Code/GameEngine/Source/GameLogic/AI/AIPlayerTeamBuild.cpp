@@ -746,56 +746,33 @@ private:
 	unsigned char m_state[20];
 };
 
-// Team has two bases, a memory-pool object at +0 and its Snapshot at +4:
-// retail's DLINK_ITERATOR<Team> carries the eight-byte member-function
-// pointer of a multiple-inheritance class (selectTeamToReinforce).
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class TeamPoolView
-{
-public:
-	virtual ~TeamPoolView();
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
-class Rva0055B156 : public Snapshot
+// The rowed gap-list push 0x0055B156 on Team's +4 base, still spelled under
+// its address-era class.
+class Rva0055B156
 {
 public:
 	void rva0055B156(int val);
 };
 
-class Team : public TeamPoolView, public Rva0055B156
+// The +4 base as a reference conversion: no null test, as the member view did.
+static inline Rva0055B156 *teamBuildable(Team *team)
 {
-public:
-	virtual ~Team();
-	Rva0055B156 *getSnapshotView() { return this; }	// +0x04
-	char m_pad008[0x30 - 0x08];
-	TeamPrototype *m_proto;			// +0x30
-	unsigned int m_id;			// +0x34
-	Object *m_firstMember;			// +0x38
-	char m_pad03C[0x5D - 0x3C];
-	Bool m_active;				// +0x5D
-	Bool m_created;				// +0x5E
-	char m_pad05F[0x110 - 0x5F];
-	Bool m_bfme110;				// +0x110
-	Bool m_bfme111;				// +0x111
+	return (Rva0055B156 *)&static_cast<Rva0055B0CC &>(*team);
+}
 
-	Team *dlink_next_TeamInstanceList() const;
-	Bool hasAnyUnits();
-	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate *const *things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
-	Object *getFirstItemIn_TeamMemberList() const { return m_firstMember; }
-	void rva0039D889(Bool flag);
-	void disband();
-	Object *tryToRecruit(const ThingTemplate *thing, const Coord3D *pos, Real maxDist, Int a, Int b, Int c);
-	Bool isIdle() const;
-	Bool hasAnyObjects(Bool ignoreBuilding);
-	void setActive() { if (!m_active) { m_created = true; m_active = true; } }
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
-	const AsciiString &getName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getName(); }
-	TeamPrototype *getPrototype() const { return m_proto; }
-	Coord3D *rva0039DA2A(Coord3D *center) const;
-	__forceinline void deleteInstance() { ::delete this; }
-};
+static inline const AsciiString &teamOwnerName(const Team *team)
+{
+	return team->getPrototype() == 0 ? AsciiString::TheEmptyString : team->getPrototype()->getOwnerName();
+}
+
+static inline const AsciiString &teamGetName(const Team *team)
+{
+	return team->getPrototype() == 0 ? AsciiString::TheEmptyString : team->getPrototype()->getName();
+}
 
 inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {
@@ -1081,8 +1058,8 @@ Bool AIPlayer::rva004F13D8(TeamPrototype *proto)
 				continue;
 			if (team->m_proto->m_bfme210)
 				eligible = true;
-			if (team->m_bfme110)
-				eligible = team->m_bfme111;
+			if (team->m_isRecruitablitySet)
+				eligible = team->m_isRecruitable;
 			if (!eligible)
 				continue;
 			if (object->m_ai && !object->m_ai->m_bfme3BE)
@@ -1175,7 +1152,7 @@ void AIPlayer::checkQueuedTeams()
 				{
 					team->disband();
 					removeFrom_TeamBuildQueue(team);
-					team->deleteInstance();
+					::delete (Snapshot *)team;
 				}
 				iter = iterateTeamBuildQueue(m_teamBuildQueue);
 			}
@@ -1205,7 +1182,7 @@ void AIPlayer::checkQueuedTeams()
 			{
 				AsciiString scope;
 				const AsciiString &cond = team->m_team->getPrototype()->getProductionCondition();
-				Script *script = (Script *)((Rva003573C4Owner *)TheScriptEngine)->rva003573C4(team->m_team->getOwnerName(), reinterpret_cast<const BfmeRoomZC &>(cond), &scope);
+				Script *script = (Script *)((Rva003573C4Owner *)TheScriptEngine)->rva003573C4(teamOwnerName(team->m_team), reinterpret_cast<const BfmeRoomZC &>(cond), &scope);
 				if (script)
 					((Rva0020D451Engine *)TheScriptEngine)->rva0020D451(scope, script->getAction(), script, (void *)&cond, team->m_team);
 			}
@@ -1296,9 +1273,9 @@ Bool AIPlayer::startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName
 		{
 			for (Int i = order->m_numCompleted; i < order->m_numRequired; i++)
 			{
-				void *unit = record->rva004EC088(1, team->getSnapshotView(), &order->m_thing->getName());
+				void *unit = record->rva004EC088(1, teamBuildable(team), &order->m_thing->getName());
 				if (unit)
-					team->getSnapshotView()->rva0055B156((int)unit);
+					teamBuildable(team)->rva0055B156((int)unit);
 			}
 		}
 		order->m_bfmeFlag28 = true;
@@ -1376,7 +1353,7 @@ void AIPlayer::queueDozer()
 				teamName.concat(factory->m_template->getName());
 				TheScriptEngine->AppendDebugMessage(teamName, false);
 				m_teamDelay = 0;
-				startTraining(order, team->m_priorityBuild, team->m_team->getName());
+				startTraining(order, team->m_priorityBuild, teamGetName(team->m_team));
 				break;
 			}
 		}
@@ -1619,7 +1596,7 @@ void AIPlayer::checkReadyTeams()
 			}
 			if (anyIdle && team->m_team->getPrototype()->getExecuteActions())
 			{
-				Script *script = (Script *)((Rva003573C4Owner *)TheScriptEngine)->rva003573C4(team->m_team->getOwnerName(), reinterpret_cast<const BfmeRoomZC &>(team->m_team->getPrototype()->getProductionCondition()), NULL);
+				Script *script = (Script *)((Rva003573C4Owner *)TheScriptEngine)->rva003573C4(teamOwnerName(team->m_team), reinterpret_cast<const BfmeRoomZC &>(team->m_team->getPrototype()->getProductionCondition()), NULL);
 				if (script && script->getAction())
 					allIdle = true;
 			}
@@ -1647,7 +1624,7 @@ void AIPlayer::checkReadyTeams()
 						TheScriptEngine->AppendDebugMessage(teamName, false);
 					}
 				}
-				team->deleteInstance();
+				::delete (Snapshot *)team;
 				iter = iterateTeamReadyQueue(m_teamReadyQueue);
 			}
 		}
@@ -1920,7 +1897,7 @@ void AIPlayer::buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild)
 			{
 				AsciiString scope;
 				const AsciiString &cond = team->m_team->getPrototype()->getProductionCondition();
-				Script *script = (Script *)((Rva003573C4Owner *)TheScriptEngine)->rva003573C4(team->m_team->getOwnerName(), reinterpret_cast<const BfmeRoomZC &>(cond), &scope);
+				Script *script = (Script *)((Rva003573C4Owner *)TheScriptEngine)->rva003573C4(teamOwnerName(team->m_team), reinterpret_cast<const BfmeRoomZC &>(cond), &scope);
 				if (script && script->getAction())
 					((Rva0020D451Engine *)TheScriptEngine)->rva0020D451(scope, script->getAction(), script, (void *)&cond, team->m_team);
 			}
@@ -2029,7 +2006,7 @@ void AIPlayer::recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadiu
 		{
 			if (!theTeam->getPrototype()->getIsSingleton())
 			{
-				theTeam->deleteInstance();
+				::delete (Snapshot *)theTeam;
 				theTeam = NULL;
 			}
 			teamName = teamProto->getName();
@@ -2151,7 +2128,7 @@ Bool AIPlayer::selectTeamToReinforce( Int minPriority )
 				ai->getCommandInterface()->aiIdle(CMD_FROM_AI);
 			}
 		} else if (!TheSkirmishAIManager->rva002A8AB1(m_player)) {
-			startTraining( order, teamQ->m_priorityBuild, teamQ->m_team->getName());
+			startTraining( order, teamQ->m_priorityBuild, teamGetName(teamQ->m_team));
 		}
 		m_teamDelay = 0;
 		return true;

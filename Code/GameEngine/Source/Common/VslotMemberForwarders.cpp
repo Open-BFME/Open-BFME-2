@@ -18,7 +18,6 @@ class DataChunkInput; struct DataChunkInfo;
 #include "../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 class TextureFilterClass { public: void Apply(unsigned int); };
 namespace _STL { template <class T> class allocator; template <class T, class A> class _List_base { public: void clear(); }; }
-struct BfmeVectorRecord001B4A39;
 #include "../../Include/Common/Rva002034E9Host.h"
 class Rva0020F58E { public: int length() const; };
 class Rva00210E7C { public: void rva00210E9D(); };
@@ -350,27 +349,6 @@ private:
 void Rva000B1974Forwarder::rva000B1974(Int firstValue, Int secondValue)
 {
 	((WorldHeightMap *)m_member)->ParseHeightMapData(*(DataChunkInput *)firstValue, (DataChunkInfo *)secondValue);
-}
-
-class Rva001B4C7ATarget
-{
-public:
-	void rva001B4C7A();
-};
-
-class Rva001B4CD0Forwarder
-{
-public:
-	void rva001B4CD0();
-private:
-	char m_lead[0xC];
-	Rva001B4C7ATarget m_member;
-};
-
-// vtable 0x00BD7678#1
-void Rva001B4CD0Forwarder::rva001B4CD0()
-{
-	((_STL::_List_base<BfmeVectorRecord001B4A39, _STL::allocator<BfmeVectorRecord001B4A39> > *)&m_member)->clear();
 }
 
 class Rva00222D47Target

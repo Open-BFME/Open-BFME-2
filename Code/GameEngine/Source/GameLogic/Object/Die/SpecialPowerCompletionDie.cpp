@@ -30,9 +30,11 @@
 class Thing;
 class ModuleData;
 class Object;
-// Keep ??_7DieModule@@6BObjectModule@@@ slot 1 aligned across Die units
-// (?loadPostProcess@BehaviorModule@@MAEXXZ).
+// DieModule::loadPostProcess and DieModule::xfer below make Zero Hour's base
+// calls; select the BehaviorModule declarations they need (BehaviorModule.h).
+// Every table this unit emits derives from DieModule, which overrides both.
 #define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
+#define BFME_BEHAVIORMODULE_XFER
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 #include "../../../../Include/GameLogic/Module/DieMuxData.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
@@ -40,6 +42,26 @@ class Object;
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/ObjectID.h"
+
+// DieModule::xfer calls Xfer::Version1; keep its operand types beside the include.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 // BFME2 has no crc: the canonical DieModule's Snapshot slot 2 is GetSnapshotName,
 // so this unit's tables no longer name the Zero Hour ?crc@BehaviorModule.
@@ -69,6 +91,26 @@ inline DieModule::DieModule( Thing *thing, const ModuleData *moduleData ) : Beha
 }
 
 //-------------------------------------------------------------------------------------------------
+// DieModule's Snapshot overrides, slots 1 and 3 of its primary table 0x00C41E78.
+// Both are bodies retail folds with other modules' identical overrides:
+//  - loadPostProcess 0x0058B03E: the tail jump to BehaviorModule::loadPostProcess
+//    (UpdateModule's, DamageModule's and CollideModule's rows share it);
+//  - xfer 0x004CE56D: Version1, then BehaviorModule::xfer 0x004C9C7D
+//    (DamageModule's and CollideModule's rows share it).
+// Donor: Zero Hour DieModule.cpp defines these two (and crc, which BFME2's
+// Snapshot has no slot for), with these bodies.
+void DieModule::loadPostProcess()
+{
+	BehaviorModule::loadPostProcess();
+}
+
+void DieModule::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	BehaviorModule::xfer( xfer );
+}
+
+//-------------------------------------------------------------------------------------------------
 class Xfer;
 class SpecialPowerCompletionDie : public DieModule
 {
@@ -85,6 +127,9 @@ private:
 	bool m_creatorSet;					// +0x18
 protected:
 	virtual void xfer(class Xfer *);
+
+protected:
+	virtual void loadPostProcess();
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -100,6 +145,14 @@ SpecialPowerCompletionDie::SpecialPowerCompletionDie( Thing *thing, const Module
 // tail jump to ~DieModule 0x0045CE54.
 SpecialPowerCompletionDie::~SpecialPowerCompletionDie( void )
 {
+}
+
+// Slot 1 of SpecialPowerCompletionDie's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void SpecialPowerCompletionDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
 }
 
 //-------------------------------------------------------------------------------------------------

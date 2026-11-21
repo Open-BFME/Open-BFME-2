@@ -1,0 +1,10 @@
+{
+  "pre_merge_head": "16a726a1c06d0b0f4737905d4005a5c6b4c5f120",
+  "upstream": "4b5fbee85e6c53f54765cdc7691ade14962910f2",
+  "status": "conflicts-resolved-awaiting-normal-gates",
+  "source_resolution": "upstream source verbatim; retain common four-vptr DockUpdate hierarchy and genuine SupplyCenter overrides",
+  "source_sha256": "91e7f31aaaa540130c83fcde3394b81cc84c4ee791e11af75c1a6ada93640b9f",
+  "votes_resolution": "native three-way merge_rows preserves both existing independent vote histories",
+  "queue_resolution": "native exit_link --blockers from exact complete measured16a; integration tree remains unlinked",
+  "new_completed_tasks_credit": 0
+}

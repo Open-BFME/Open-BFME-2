@@ -1,0 +1,45 @@
+{
+  "source_commit": "16a726a1c06d0b0f4737905d4005a5c6b4c5f120",
+  "execution": {
+    "local_opt_in": true,
+    "platform": "win32",
+    "host": "Michael-PC",
+    "github_actions": false
+  },
+  "authoritative": true,
+  "unresolved": 0,
+  "duplicates": 0,
+  "kept_objects": 17477,
+  "placement_only_omitted": 17,
+  "funclets_exact_parent_covered": 835,
+  "uncovered_funclets": 0,
+  "full_gate_rows": 102399,
+  "full_gate_all_checks_passed": true,
+  "full_gate_data_receipts": [
+    "Data rows: OK (2361 row(s) byte-verified)"
+  ],
+  "vtables_bridged": 2896,
+  "vtable_slots_bridged": 41698,
+  "refused_tables": 27,
+  "initializers_bridged": 431,
+  "image_sha256": "12353248b71f5f4be91316a9bd5ca9fe792fdd77cec5bf0059e3b4af7b938d16",
+  "map_sha256": "ec2bf8d7ca0348919c50b5b21536f539e6b3d250ed22292cabf817273a06a3d5",
+  "image_executed": false,
+  "github_actions": false,
+  "warning_comparison": {
+    "previous_count": 5,
+    "current_count": 5,
+    "same_multiset": true,
+    "current": [
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva003^a53^c4^finish.obj : warning LNK4078: multiple '.data' sections found with different attributes (40300040)",
+      "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva003^a53^c4^finish.obj : warning LNK4078: multiple '.data' sections found with different attributes (40300040)",
+      "^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map_^rva00069^f4^f.obj : warning LNK4217: locally defined symbol ?__stl_throw_range_error@_STL@@YAXPBD@Z (void __cdecl _STL::__stl_throw_range_error(char const *)) imported in function \"public: void __thiscall _STL::vector<bool,class _STL::allocator<bool> >::_M_range_check(unsigned int)const \" (?_M_range_check@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QBEXI@Z)",
+      "^code_^game^engine_^source_^common_^bfme^string^tail^record180^ctor.obj : warning LNK4217: locally defined symbol ?deallocate@?$__node_alloc@$00$0A@@_STL@@SAXPAXI@Z (public: static void __cdecl _STL::__node_alloc<1,0>::deallocate(void *,unsigned int)) imported in function \"public: void __thiscall _STL::allocator<struct PlayerAITypeEntry>::deallocate(struct PlayerAITypeEntry *,unsigned int)const \" (?deallocate@?$allocator@UPlayerAITypeEntry@@@_STL@@QBEXPAUPlayerAITypeEntry@@I@Z)",
+      "^code_^game^engine_^source_^common_^system_^rva00236285^ctor.obj : warning LNK4049: locally defined symbol ?deallocate@?$__node_alloc@$00$0A@@_STL@@SAXPAXI@Z (public: static void __cdecl _STL::__node_alloc<1,0>::deallocate(void *,unsigned int)) imported"
+    ]
+  },
+  "evidence": "bfme2/local-real-link-16a726a1c0",
+  "new_completed_tasks_credit": 0,
+  "new_unique_bytes_credit": 0,
+  "limits": "Actual native Windows opt-in no-FORCE image link and normal full gate on immutable16a only. Existing source hatches/bridges remain. image_objects metadata is a post-link snapshot, not earlier consumption proof. No runtime/menu/skirmish/save-load/CRC/memory/crash/performance improvement proved."
+}

@@ -6,18 +6,14 @@
 // Team int setter through the doSetTeamState argument idiom: copies the
 // name through the rowed StringBase copy ctor, resolves the team through
 // rowed ScriptEngine 0x003584E9 getTeamNamed, and applies the pinned
-// 0x003A10FE (int) member when non-null.
+// 0x003A10FE Team::deleteTeam when non-null.
 #include "ascii_string.h"
 
 
 
-class Team
-{
-public:
-	// LINK: 0x003A10FE is rowed as Team::deleteTeam(bool) (Team rows); the old int-flag call stays through a member-pointer cast.
-	void deleteTeam(bool v);
-};
-typedef void (Team::*TeamDeleteIntShape)(int);
+#include "../../../Include/Common/TeamBFME2.h"
+// 0x003A10FE is Team::deleteTeam(bool); retail pushes the int argument
+// unconverted, so the call reads its flag in place.
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -26,5 +22,5 @@ void ScriptActions::doTeamDelete(const AsciiString &team, int v)
 {
 	Team *t = TheScriptEngine->getTeamNamed(team, false);
 	if (t != 0)
-		(t->*reinterpret_cast<TeamDeleteIntShape>(&Team::deleteTeam))(v);
+		t->deleteTeam(*reinterpret_cast<bool *>(&v));
 }

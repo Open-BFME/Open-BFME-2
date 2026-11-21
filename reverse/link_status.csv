@@ -1441,7 +1441,7 @@ Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB15.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB16.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB17.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB18.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB18.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/OpaqueThunkDtorsB18.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Open2Destructors.cpp,yes,0,0,0,0,0
@@ -5184,7 +5184,7 @@ Code/GameEngine/Source/Common/Rva005E12D1Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005E1627Ctors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005E16B9.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005E16DA.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva005E16DADtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva005E16DADtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/Rva005E187A.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005E18B9.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005E18D0Forwarders.cpp,yes,0,0,0,0,0
@@ -5463,7 +5463,7 @@ Code/GameEngine/Source/Common/Rva005FAB16Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FAB9ECtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FAD8DCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FAD8DDtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva005FB1ADCtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/Rva005FB1ADCtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/Common/Rva005FB204Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FB22BCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005FB400.cpp,yes,0,0,0,0,0

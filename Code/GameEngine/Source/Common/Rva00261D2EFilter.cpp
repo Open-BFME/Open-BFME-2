@@ -52,7 +52,7 @@ struct FilterModuleOwner { char data00[0xC]; FilterModule module; };
 #include "../../../../reference/open-bfme-1/game/GameEngine/Include/Common/NameKeyType.h"
 class Module;
 class Object {
- friend class Rva00391667Filter;
+ friend class Rva00391667;
 protected:
  Module *findModule(NameKeyType key) const;
 public:
@@ -116,42 +116,30 @@ bool Rva00261D2EFilter::allow(Object *other)
  return result;
 }
 
-// ?allow@Rva00391667Filter@@UAE_NPAVObject@@@Z
+// ?allow@Rva00391667@@UAE_NPAVObject@@@Z
 // Retail 0x00261F35..0x00262002, RET4: slot 1 of vftable 0x00C1A068, whose
-// constructor 0x00391667 copies the point to +0x0C and zeroes the radius at
-// +0x08. An object with a castle behaviour (module key 0x003955DA) passes
+// constructor 0x00391667 (BuildAssistant.cpp) copies the point to +0x0C and
+// zeroes the radius at +0x08. An object with a castle behaviour (module key 0x003955DA) passes
 // when its XY distance to the point is inside the castle radius 0x00395A60
 // plus the filter radius; any other object passes when its own geometry
 // collides with a 20-unit cylinder of the filter radius at the point.
 class CastleBehavior { public: static NameKeyType rva0003955DA(); };
 #include "../../Include/GameLogic/Rva00395A60.h"
-class Rva00391667Filter {
-public:
- virtual void slot00();
- virtual bool allow(Object *other);
- void *next;
- Real radius;
- Coord3D position;
-};
-bool Rva00391667Filter::allow(Object *other)
+#include "../../Include/GameLogic/Rva00391667.h"
+bool Rva00391667::allow(Object *other)
 {
  Module *castle=other->findModule(CastleBehavior::rva0003955DA());
  if(castle) {
-  Real distSq=((Rva000CBA20*)other)->distSq((const Rva000CBA20Point*)&position);
-  Real range=((Rva00395A60*)castle)->rva00395A60()+radius;
+  Real distSq=((Rva000CBA20*)other)->distSq((const Rva000CBA20Point*)&m_pos);
+  Real range=((Rva00395A60*)castle)->rva00395A60()+m_range;
   if(distSq<range*range)
    return true;
  } else {
-  GeometryInfo area(GEOMETRY_CYLINDER,false,20.0f,radius,radius);
+  GeometryInfo area(GEOMETRY_CYLINDER,false,20.0f,m_range,m_range);
   Real angle=other->angle;
   const GeometryInfo &geometry=other->geometry;
-  if(geometry.CollidesWith(other->position,angle,area,position,0.0f))
+  if(geometry.CollidesWith(other->position,angle,area,m_pos,0.0f))
    return true;
  }
  return false;
 }
-
-// BuildAssistant.cpp builds this filter in isLocationClearOfObjects through its
-// constructor 0x00391667 and names the class by that address (Rva00391667,
-// vftable 0x00C1A068); its slot-1 reference binds to this body.
-#pragma comment(linker, "/alternatename:?allow@Rva00391667@@UAE_NPAVObject@@@Z=?allow@Rva00391667Filter@@UAE_NPAVObject@@@Z")

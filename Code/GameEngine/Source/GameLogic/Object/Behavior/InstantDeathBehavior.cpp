@@ -135,6 +135,10 @@ public:
 	InstantDeathBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~InstantDeathBehavior();
 	virtual void onDie(const DamageInfo*);
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 extern WeaponStore *TheWeaponStore;
@@ -211,6 +215,23 @@ InstantDeathBehavior::InstantDeathBehavior(Thing *thing, const ModuleData *modul
 // this body.
 InstantDeathBehavior::~InstantDeathBehavior()
 {
+}
+
+// Slot 1 of InstantDeathBehavior's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void InstantDeathBehavior::loadPostProcess()
+{
+	DieModule::loadPostProcess();
+}
+
+// Slot 3 of InstantDeathBehavior's retail primary table: 0x0045CE8C, version 1 then
+// DieModule::xfer 0x004CE56D; retail folds it with the other module xfers
+// whose base call lands on the same body.
+void InstantDeathBehavior::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DieModule::xfer( xfer );
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataCtor.cpp

@@ -11,12 +11,12 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 class Player;
 class BfmeOwnerCFF;
+// The rowed controller setter 0x0039D704 of the team's TeamPrototype, still
+// spelled under its address-era class.
 class BfmeThingCFF
 {
 public:
 	void bfmeGoCFF(BfmeOwnerCFF *owner);
-	unsigned char m_head[8];
-	BfmeOwnerCFF *m_owner;
 };
 
 #include "../../../Include/Common/ThingTemplate.h"
@@ -55,24 +55,22 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
-class Team
+#include "../../../Include/Common/Team.h"
+#include "../../../Include/Common/TeamBFME2.h"
+
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
 {
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
-	void setControllingPlayer(Player *player);
-	unsigned char m_pad00[0x30];
-	BfmeThingCFF *m_proto;
-    char pad34[4];
-    Object *m_head;
-};
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
+
 void Team::setControllingPlayer(Player *player)
 {
- BfmeOwnerCFF *owner=(BfmeOwnerCFF*)player;
-	BfmeThingCFF *proto = m_proto;
+	BfmeOwnerCFF *owner = (BfmeOwnerCFF *)player;
+	TeamPrototype *proto = m_proto;
 	if (!proto)
 		return;
-	BfmeOwnerCFF *curOwner = proto->m_owner;
-	proto->bfmeGoCFF(owner);
+	BfmeOwnerCFF *curOwner = (BfmeOwnerCFF *)proto->getControllingPlayer();
+	((BfmeThingCFF *)proto)->bfmeGoCFF(owner);
 	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 		Object *obj = iter.cur();
 		obj->makeDirty();

@@ -80,53 +80,7 @@ extern InGameUI *TheInGameUI;
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
-{
-public:
-	SpecialPowerModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~SpecialPowerModule();
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual AsciiString getPowerName() const;
-	virtual void s06() = 0;
-	virtual void onSpecialPowerCreation();
-	virtual void s08() = 0;
-	virtual void pauseCountdown(Bool pause);
-	virtual void s10() = 0;
-	virtual void s11() = 0;
-	virtual void s12() = 0;
-	virtual void s13() = 0;
-	virtual void s14() = 0;
-	virtual void startPowerRecharge(Real readyFraction);
-protected:
-	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return (const SpecialPowerModuleData *)getModuleData(); }
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return getSpecialPowerModuleData()->m_specialPowerTemplate; }
-private:
-	UnsignedInt m_rechargeFrames; // +0x14
-	UnsignedInt m_availableOnFrame; // +0x18
-	Int m_pausedCount; // +0x1C
-	UnsignedInt m_pausedOnFrame; // +0x20
-	Real m_pausedPercent; // +0x24
-	Bool m_28;
-	Int m_2c;
-	Bool m_30;
-protected:
-	// retail slot 1: the rowed ?loadPostProcess@SpecialPowerModule@@MAEXXZ
-	virtual void loadPostProcess();
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@SpecialPowerModule@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
-public:
-	// BehaviorModuleInterface slot 8, retail 0x002533D3 (the +0x10 interface): inline as in the units that adopt
-	// reference/shims/bfme2_specialpower_layout's SpecialPowerModule.h, so every copy is the same COMDAT
-	virtual SpecialPowerModuleInterface *getSpecialPower() { return this; }
-public:
-	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
-	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleClass.h"
 
 SpecialPowerModule::SpecialPowerModule(Thing *thing, const ModuleData *moduleData)
 	: BehaviorModule(thing, moduleData)

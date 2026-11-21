@@ -243,6 +243,26 @@ class Thing;
 
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 
+// CreateCrateDie::xfer calls Xfer::Version1; keep its operand types beside the include.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 class CreateCrateDie : public DieModule
 {
 public:
@@ -262,6 +282,10 @@ private:
 	Bool testKillerType(const CrateTemplate *currentCrateData, Object *killer);
 	Bool testKillerScience(const CrateTemplate *currentCrateData, Object *killer);
 	Object *createCrate(const CrateTemplate *currentCrateData);
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 // ?testCreationChance@CreateCrateDie@@AAE_NPBVCrateTemplate@@@Z
@@ -313,6 +337,23 @@ CreateCrateDie::CreateCrateDie(Thing *thing, const ModuleData *moduleData)
 // body.
 CreateCrateDie::~CreateCrateDie()
 {
+}
+
+// Slot 1 of CreateCrateDie's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void CreateCrateDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
+}
+
+// Slot 3 of CreateCrateDie's retail primary table: 0x0045CE8C, version 1 then
+// DieModule::xfer 0x004CE56D; retail folds it with the other module xfers
+// whose base call lands on the same body.
+void CreateCrateDie::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DieModule::xfer( xfer );
 }
 
 // ?createCrate@CreateCrateDie@@AAEPAVObject@@PBVCrateTemplate@@@Z

@@ -263,7 +263,7 @@ UpdateSleepTime SpecialAbilityUpdate::rva0044F881()
 
 
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-class BfmeFixedStorage0004543D {public:char data[28];};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();virtual bool allow(Object*);BfmeFixedStorage0004543D a,b;};
 // Existing provider ThingIsAnyKindOf.cpp owns this seven-word zero mask.
