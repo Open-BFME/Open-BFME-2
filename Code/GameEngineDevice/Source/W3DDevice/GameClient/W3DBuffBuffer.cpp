@@ -697,11 +697,7 @@ class CameraClass : public RenderObjClass
 {
 };
 
-class RenderInfoClass
-{
-public:
-	CameraClass &Camera;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 #include "../../../../GameEngine/Include/Common/Player.h"
 
