@@ -55,23 +55,19 @@ int GadgetListBoxGetNumEntries(GameWindow*);
 int Rva0043DDF8(int);
 __declspec(noinline) bool rva0043F14D(const _STL::vector<bool>&first,const _STL::vector<bool>&second){
  return first.size()==second.size()&&_STL::equal(first.begin(),first.end(),second.begin());}
-class AptMpGameSetup {public:bool PopulateColorCombo(int);int getMode()const{return mode;}
- char pad00[0x58];ColorSetupOwner*owner;Rva0043DA65*game;
- char pad60[0x7c-0x60];int mode;char pad80[0x2be-0x80];bool dirty;
- char pad2bf[0x2f4-0x2bf];MpGameSetupComboRef combos[8];
- char pad314[0x3c4-0x314];_STL::vector<bool>offered;int availableCount;bool optional;
-};
+#include "../../../Include/GameClient/AptMpGameSetup.h"
+static inline int getMode(const AptMpGameSetup*setup){return setup->field7c;}
 bool AptMpGameSetup::PopulateColorCombo(int index) {
- GameInfo*info=(GameInfo*)game->rva0043DA65();
+ GameInfo*info=(GameInfo*)field5c->rva0043DA65();
  if(!info)return false;
  const GameSlot*cur=info->getConstSlot(index);
  if(!cur)return false;
- _STL::vector<bool>available(offered);
- int count=availableCount;
+ _STL::vector<bool>available(*(_STL::vector<bool> *)field3c4);
+ int count=field3d8;
  int numColors=available.size();
- bool changed=(getMode()==1);
+ bool changed=(getMode(this)==1);
  bool editable=(info->getLocalSlotNum()==index);
- if(owner->amIHost()&&cur->isAI())editable=true;
+ if(((ColorSetupOwner *)field58)->amIHost()&&cur->isAI())editable=true;
  if(editable){
   for(int i=0;i<8;++i){
    GameSlot*slot=info->getSlot(i);
@@ -80,8 +76,8 @@ bool AptMpGameSetup::PopulateColorCombo(int index) {
    }
   }
  }
- if(optional)++count;
- MpGameSetupComboRef combo(combos[index]);
+ if(field3dc)++count;
+ MpGameSetupComboRef combo(((MpGameSetupComboRef *)field2f4)[index]);
  GameWindow*list=*(GameWindow**)((char*)combo.window->winGetUserData()+8);
  if(list){
   int entries=GadgetListBoxGetNumEntries(list);
@@ -99,7 +95,7 @@ bool AptMpGameSetup::PopulateColorCombo(int index) {
  bool wasObserver=(((Rva003236E8*)&combo)->rva003236E8()==1);
  ((Rva00323619*)&combo)->rva00323642();
  TheMultiplayerSettings->getColor(-1);
- if(optional||cur->m_state==1){
+ if(field3dc||cur->m_state==1){
   static const Image*randomImage=TheMappedImageCollection->findImageByName(AsciiString("AptRandomColor"));
   int entry=((Rva003235B8*)&combo)->rva003235B8(randomImage,20,20,AptLobbyRandomColorTint);
   ((Rva003236A0*)&combo)->rva003236A0(entry,-1);
@@ -114,6 +110,6 @@ bool AptMpGameSetup::PopulateColorCombo(int index) {
  }
  ((Rva00323619*)&combo)->rva00323619(Rva0043DDF8(index)*22+4);
  if(wasObserver)((BfmeThing925D*)&combo)->bfmeGo925D(0);
- if(changed)dirty=true;
+ if(changed)field2be=true;
  return true;
 }
