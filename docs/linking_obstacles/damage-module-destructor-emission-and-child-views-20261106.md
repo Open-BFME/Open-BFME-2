@@ -14,6 +14,14 @@ the table also installed by constructor4BABB4. Both sources retain7/7 rows.
 This removes one naming prerequisite for adopting the real callback surface,
 while the private parent/interface projections and old aliases remain debt.
 
+2026-11-21. Both ReflectDamage emitters now use the canonical declaration.
+The constructor and destructor bind identical 12-, 47- and 3-slot tables at
+0x00859CBC, 0x008597F8 and 0x00859CB0. All 124 slots match retail. Five
+independently emitted exact folds provide the class-specific callbacks.
+Bridge retirement awaits the authoritative real link. The sibling
+HordeTransportContainDamage tables in the mixed destructor unit still use
+the old class symbols.
+
 Fresh private probes: the canonical complete DamageModule destructor reproduces
 all25 native bytes, but Common/Rva0049B47CThreeVptrDerived.cpp then lacks its
 separately tracked28-byte scalar destructor. It retains12/13 rows. The canonical

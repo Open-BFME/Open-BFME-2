@@ -33,20 +33,7 @@ BoneFXDamage::~BoneFXDamage()
 {
 }
 
-class DamageInfo;
-// The +0x10 damage interface: slot 0 of ReflectDamage's table is its rowed onDamage.
-class Rva004BAB36_B2
-{
-public:
-	virtual void onDamage(DamageInfo *damageInfo) = 0;
-};
-
-class ReflectDamage : public Rva004B96CC, public MiBase1, public Rva004BAB36_B2
-{
-public:
-	virtual ~ReflectDamage();
-	virtual void onDamage(DamageInfo *damageInfo);
-};
+#include "../../Include/GameLogic/Module/ReflectDamage.h"
 
 ReflectDamage::~ReflectDamage()
 {
