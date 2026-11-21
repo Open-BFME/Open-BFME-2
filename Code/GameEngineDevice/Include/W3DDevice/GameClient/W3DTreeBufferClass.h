@@ -9,6 +9,7 @@ class Matrix3D;
 struct Rva000ECF79Coord;
 struct Rva000ECF79Data;
 class Vector3;
+struct TTree;
 
 class W3DTreeBuffer
 {
@@ -21,6 +22,10 @@ public:
 	bool rva000EA644(void *firstValue);
 	bool rva000EA6A7(void *a);
 	bool rva000ECF2A(unsigned int a, int b);
+
+protected:
+	void updateTopplingTree(TTree *tree);
+	friend class Rva000EDB47;
 };
 
 #endif // CANONICAL_W3DTREEBUFFER_H

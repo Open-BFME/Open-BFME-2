@@ -75,6 +75,15 @@
       "providers": [
         "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp"
       ]
+    },
+    {
+      "class": "W3DTreeBuffer",
+      "consumers": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp"
+      ],
+      "providers": [
+        "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp"
+      ]
     }
   ]
 }
