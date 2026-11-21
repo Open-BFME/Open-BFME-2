@@ -1,0 +1,36 @@
+recorded: ?rva000EDB47@Rva000EDB47@@QAEXXZ @ 0x000EDB47 -> solved
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+code identity: 6 row(s), 0 new finding(s), 4.4s, mode shadow
+data_check (shadow): 1 source(s), 0 finding(s), 0 outside the baseline {}; 1.6s
+data_check (converged, enforced): 0 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+header_dependents: 1 changed header(s), 0 included file(s) and 0 vendored file(s) reach 8 ledger source(s)
+pre-commit: header/shim change — scoped gate over 8 dependent source(s)
+Source claims: OK (8 sources, scoped byte-verified)
+Data rows: OK (2 row(s) byte-verified)
+Compile: 6 of 8 TU(s) (deps-cache: 2 current)
+Funclet pins: 25 row(s) verified past a renumbered $L label
+    $L369 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L369 was renumbered; verified parent EH data places $L67813 at 0x0075E70F
+    $L370 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L370 was renumbered; verified parent EH data places $L67814 at 0x0075E719
+    uw_0076a65b (Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp): $L421 was renumbered; verified parent EH data places $L14449 at 0x0076A65B
+    uw_0075e7c1 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp): $L540 was renumbered; verified parent EH data places $L67844 at 0x0075E7C1
+    uw_00763887 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp): $L968 was renumbered; verified parent EH data places $L5260 at 0x00763887
+Functions: OK 146/146 matched across 8 source file(s)
+String-ref verify: OK (9 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (7 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+data_check (converged, enforced): 8 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+check_csv: OK (functions.csv 102469 rows, symbols.csv 8534 rows, data_rows.csv 2361 rows)
+Flag overrides: OK 675
+Pin consistency: OK (3 multi-pinned symbols of 8531; 0 baselined, 0 new, 0 stale)
+pin admission: OK
+Pin baseline: OK (0 entries, 0 removed vs HEAD, 0 added)
+EH baseline: OK (shrink-only)
+reverse/gate_baseline.txt: OK (no line added)
+repair_queue: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp: reverse/header_queue.tsv row (W3DTreeBuffer) removed but acceptance fails: context: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp: provider dependency proof unavailable: its object is not proven current: the source, the compile command, a dependency or an include search directory changed since it was built, or its receipt has no inventory
+PRE-COMMIT FAILED: a deleted debt line (gate, data, identity or header) has no passing verdict (see above)
+Traceback (most recent call last):
+  File "W:\OpenBFME\diagnostics\one-per-project-20261122\bfme2\bank-update.py", line 53, in <module>
+    subprocess.run(['git', '-c', 'core.hooksPath=.githooks', 'commit', '-m', 'Adopt the canonical W3DTreeBuffer interface in the tree update consumer'], check=True)
+  File "C:\Users\micha\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-c', 'core.hooksPath=.githooks', 'commit', '-m', 'Adopt the canonical W3DTreeBuffer interface in the tree update consumer']' returned non-zero exit status 1.

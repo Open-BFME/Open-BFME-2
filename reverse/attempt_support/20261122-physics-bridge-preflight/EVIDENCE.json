@@ -1,0 +1,866 @@
+{
+  "parent_reported_head": "fb05fff834 (17de7e integrated)",
+  "global_head_snapshot_claim": false,
+  "image_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "tables": [
+    {
+      "rva": "0x0081D654",
+      "role": "served-primary",
+      "slots": [
+        "0x003AEFF6",
+        "0x000B3FD0",
+        "0x0003B810",
+        "0x0055EF39",
+        "0x00094A9C",
+        "0x004F5FA3",
+        "0x003ABD6B",
+        "0x0045310D",
+        "0x003ABD51"
+      ]
+    },
+    {
+      "rva": "0x0081D678",
+      "role": "served-snapshot",
+      "slots": [
+        "0x003A588E",
+        "0x000B3FD0",
+        "0x003ABD55",
+        "0x003ABD63"
+      ]
+    },
+    {
+      "rva": "0x0081D638",
+      "role": "Rva0055BF21-base",
+      "slots": [
+        "0x003AEF18",
+        "0x0003B810",
+        "0x0003B810",
+        "0x0003B810"
+      ]
+    },
+    {
+      "rva": "0x0081BCB0",
+      "role": "DefaultPhysicsModuleInfo",
+      "slots": [
+        "0x003A77A7",
+        "0x000B3FD0",
+        "0x003A612D",
+        "0x0055EECB"
+      ]
+    }
+  ],
+  "selected_rows": [
+    {
+      "name": "??1Region2D@@QAE@XZ",
+      "target_rva": "0x000B3FD0",
+      "target_size": "1",
+      "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    {
+      "name": "?GetSnapshotName@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEPBDXZ",
+      "target_rva": "0x003A612D",
+      "target_size": "6",
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+      "status": "matched",
+      "notes": "Open-BFME5 clean C++; snapshot name accessor"
+    },
+    {
+      "name": "?get@Rva00094A9CFloatField@@QBEMXZ",
+      "target_rva": "0x00094A9C",
+      "target_size": "4",
+      "source": "Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp",
+      "status": "matched",
+      "notes": "Disp8 float getter; address-derived opaque holder"
+    },
+    {
+      "name": "?get@Rva0045310DByteField@@QBEEXZ",
+      "target_rva": "0x0045310D",
+      "target_size": "4",
+      "source": "Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp",
+      "status": "matched",
+      "notes": "Disp8 byte getter; address-derived opaque holder"
+    },
+    {
+      "name": "?get@Rva003ABD51ByteField@@QBEEXZ",
+      "target_rva": "0x003ABD51",
+      "target_size": "4",
+      "source": "Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp",
+      "status": "matched",
+      "notes": "Disp8 byte getter; address-derived opaque holder"
+    },
+    {
+      "name": "?Rva003ABD55Get@@YAHXZ",
+      "target_rva": "0x003ABD55",
+      "target_size": "6",
+      "source": "Code/GameEngine/Source/Common/ConstIntGetters.cpp",
+      "status": "matched",
+      "notes": "B8-6 returner ret 0xC1C59C; prev ret with 2 refs and no callers; opaque name"
+    },
+    {
+      "name": "??0Rva003AEBC9@@QAE@ABV0@@Z",
+      "target_rva": "0x003AEBC9",
+      "target_size": "91",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp",
+      "status": "matched",
+      "notes": "Default-module template copy via rowed base 0x3AEEB3 plus pinned DefaultPhysics sub-copy 0x3A7736; null-preserving sub at plus 0x1C"
+    },
+    {
+      "name": "??0Rva0055BF21@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "target_rva": "0x0055BF21",
+      "target_size": "42",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "status": "matched",
+      "notes": "own vtable 0x00C1D638 plus second third 0x00C1C780 via rowed base 0x0055BEE9 callers 0x0055BF65 0x0055F1B1"
+    },
+    {
+      "name": "??0Rva0055F197@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "target_rva": "0x0055F197",
+      "target_size": "129",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "unlock base 0x0055BF21 plus DefaultPhysicsModuleInfo pin"
+    },
+    {
+      "name": "__purecall",
+      "target_rva": "0x0003B810",
+      "target_size": "62",
+      "source": "Code/Libraries/Source/debug/debug_purecall.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    {
+      "name": "?rva003ABD6B@Rva003ABD6B@@QAE?AURva00SlotFloat2@@XZ",
+      "target_rva": "0x003ABD6B",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp",
+      "status": "matched",
+      "notes": "unclaimed straight-line vtable slot body (vftable_map); address-named owner; float types inferred from movss/x87 use"
+    },
+    {
+      "name": "??1Rva005FEA50Base@FXParticleSystem@@UAE@XZ",
+      "target_rva": "0x003ABC0B",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp",
+      "status": "matched",
+      "notes": "null guarded vptr restore plus tail jmp to base"
+    },
+    {
+      "name": "?xfer@Rva0055EF39@@UAEXPAVXfer@@@Z",
+      "target_rva": "0x0055EF39",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055EF39Xfer.cpp",
+      "status": "matched",
+      "notes": "target calls Xfer Version1 then DefaultPhysicsModuleInfo DoXfer on this+0x1c; outer identity unresolved"
+    },
+    {
+      "name": "?DoXfer@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+      "target_rva": "0x0055EECB",
+      "target_size": "110",
+      "source": "Code/GameEngine/Source/GameClient/Rva0055EECBXfer.cpp",
+      "status": "matched",
+      "notes": "version gated xfer; vslots 0x28 0x70 0x60 0x90; matched xferRandomVariable helper; t=68min model=claude-haiku-5-5"
+    },
+    {
+      "name": "?get@Rva004F5FA3LeaGetter@@QBEPAXXZ",
+      "target_rva": "0x004F5FA3",
+      "target_size": "4",
+      "source": "Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp",
+      "status": "matched",
+      "notes": "Disp8 lea getter of plus20 shared by eight vtables"
+    },
+    {
+      "name": "??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ",
+      "target_rva": "0x0055EE5E",
+      "target_size": "109",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoDefaultCtors.cpp",
+      "status": "matched",
+      "notes": "default ctor: Snapshot base (folded 0x49B47C dtor stores 0xBBB554); +4 coordinate with an empty inline default then zero() per WB twin 0x141ED90; setRange(0 0) at rowed 0x2341E7; two flags; /EHsc host"
+    },
+    {
+      "name": "?LoadPostProcess@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEXXZ",
+      "target_rva": "0x000B3FD0",
+      "target_size": "1",
+      "source": "Code/GameEngine/Source/GameClient/FXParticleSystem.cpp",
+      "status": "matched",
+      "notes": "gen-alias; target export and native four-slot info vtable identify empty post-load callback; same purpose in BFME1 a7c38d3b2; complete RET1 with no relocations equals Region2D owner and has no separate address"
+    },
+    {
+      "name": "?xfer@Rva0055EF39@@WBM@AEXPAVXfer@@@Z",
+      "target_rva": "0x003ABD63",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/GapForwardersSeat8.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    {
+      "name": "??1Rva0055F9B4@@UAE@XZ",
+      "target_rva": "0x003ABC0B",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp",
+      "status": "matched",
+      "notes": "gen-alias; Rva0055F9B4 vtable 0x00C1D688 slot 0 is the deleting dtor 0x003AEFF6 that calls the 22B +0x1C restore and tail jump 0x003ABC0B; same novtable view and body emit the same bytes and relocations"
+    },
+    {
+      "name": "??1Rva0055F197@@UAE@XZ",
+      "target_rva": "0x003ABC0B",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp",
+      "status": "matched",
+      "notes": "gen-alias; Rva0055F197 vtable 0x00C1D654 slot 0 is the deleting dtor 0x003AEFF6 that calls the 22B +0x1C restore and tail jump 0x003ABC0B; same novtable view and body emit the same bytes and relocations"
+    },
+    {
+      "name": "??1Rva003AEA42@@UAE@XZ",
+      "target_rva": "0x003ABC0B",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp",
+      "status": "matched",
+      "notes": "Native 3ABC6E constructor calls Rva003AEA42 provider; Snapshot subobject at 1C and common-head cleanup reach the complete22B existing owner. Whole body and real REL32 twin; no unique byte gain;reverse/attempt_support/particle_siblings_20261022.md;gen-alias;fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp;icf-owner=??1Rva005FEA50Base@FXParticleSystem@@UAE@XZ"
+    },
+    {
+      "name": "??1Rva0055BF4B@@UAE@XZ",
+      "target_rva": "0x003ABC0B",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp",
+      "status": "matched",
+      "notes": "Native3ABCB5 constructor calls Rva0055BF4B provider; canonical Snapshot+1C teardown and common primary cleanup equal complete22B3ABC0B owner;reverse/attempt_support/particle_siblings_20261022.md;gen-alias;fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp;icf-owner=??1Rva005FEA50Base@FXParticleSystem@@UAE@XZ"
+    },
+    {
+      "name": "?GetSnapshotName@Rva003ABD20@@UAEPBDXZ",
+      "target_rva": "0x003ABD55",
+      "target_size": "6",
+      "source": "Code/GameEngine/Source/Common/Rva003ABD20Ctor.cpp",
+      "status": "matched",
+      "notes": "gen-alias;NativeC1CE54 Snapshot slot2 andprimary6B getter return C1C59C DefaultModule<CAT_PHYSICS> literal; canonical Snapshot nonconst name ABI; whole6B no-call fold; owner from ctor3ABD20;reverse/attempt_support/particle_siblings_20261022.md;fold-proof=Code/GameEngine/Source/Common/ConstIntGetters.cpp;icf-owner=?Rva003ABD55Get@@YAHXZ"
+    },
+    {
+      "name": "?DoXfer@Rva003ABD20@@UAEXAAVXfer@@@Z",
+      "target_rva": "0x0055EF39",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/Common/Rva003ABD20Ctor.cpp",
+      "status": "matched",
+      "notes": "gen-alias;NativeC1C578 primaryslot3 is55EF39 andSnapshot+1C slot3 adjusts to it. Xfer Version1 thenDefaultPhysicsModuleInfo DoXfer onthis+1C follows canonicalSnapshot Xfer-reference ABI; whole28B andallcallee relocations equal owner;reverse/attempt_support/particle_siblings_20261022.md;fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055EF39Xfer.cpp;icf-owner=?xfer@Rva0055EF39@@UAEXPAVXfer@@@Z"
+    },
+    {
+      "name": "?DoXfer@Rva003ABD20@@WBM@AEXAAVXfer@@@Z",
+      "target_rva": "0x003ABD63",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/Rva003ABD20Ctor.cpp",
+      "status": "matched",
+      "notes": "gen-alias;NativeC1CE54 slot3 is this-1C DoXfer adjustor; compiler emits whole8B andsame55EF39 target as original owner; canonicalSnapshot Xfer-reference word ABI; no newunique bytes;reverse/attempt_support/particle_siblings_20261022.md;fold-proof=Code/GameEngine/Source/Common/GapForwardersSeat8.cpp;icf-owner=?xfer@Rva0055EF39@@WBM@AEXPAVXfer@@@Z"
+    },
+    {
+      "name": "?Get_Fog_Color@SceneClass@@UAEABVVector3@@XZ",
+      "target_rva": "0x004F5FA3",
+      "target_size": "4",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClassConstructorBFME2.cpp",
+      "status": "matched",
+      "notes": "gen-alias; native SimpleScene table BD33D0 slot11 selects whole4B getter; constructor140C60 independently establishes FogColor20; donor scene.h at96c88c73 supplies names and semantics; exact byte-and-relocation twin of existing owner"
+    },
+    {
+      "name": "??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z",
+      "target_rva": "0x003AEFF6",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+      "status": "matched",
+      "notes": "opaque scalar deleting dtor (vtable 0x00C1D654#0); calls pinned dtor 0x003ABC0B then operator delete; row moved home from OpaqueScalarDeletingDtorsB02.cpp; existing complete retail-exact provider"
+    },
+    {
+      "name": "??_GRva0055F98A@@UAEPAXI@Z",
+      "target_rva": "0x003AEF18",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "status": "matched",
+      "notes": "opaque scalar deleting dtor (vtable 0x00C1D5E8#0); calls pinned dtor 0x003A972D then operator delete; row moved home from OpaqueScalarDeletingDtorsB02.cpp; existing complete retail-exact provider"
+    },
+    {
+      "name": "??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z",
+      "target_rva": "0x003A588E",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp",
+      "status": "matched",
+      "notes": "this-adjusting (-0x1C) deleting-dtor thunk of opaque class Rva003ABC0B; row moved home from OpaqueScalarDeletingDtorsB02.cpp; existing complete retail-exact provider"
+    },
+    {
+      "name": "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z",
+      "target_rva": "0x003A77A7",
+      "target_size": "75",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultPhysicsModuleInfoVectorDeletingDestructor_Rva003A69B4.cpp",
+      "status": "matched",
+      "notes": "Corrected native identity from disproven69B4 volume stride20 to exported DefaultPhysics tableC1BCB0 slot0 at3A77A7 stride24;canonical header supplies real36B layout;complete75B and all lifetime bindings verified;source path unchanged;fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultPhysicsModuleInfoVectorDeletingDestructor_Rva003A69B4.cpp"
+    },
+    {
+      "name": "??_GRva005641BB@@UAEPAXI@Z",
+      "target_rva": "0x003AEF18",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp",
+      "status": "matched",
+      "notes": "ICF twin at 0x003AEF18 of ??_GRva0055F98A@@UAEPAXI@Z: slot 0 of the retail table 0x00C1D718 this unit emits; whole 28B body and every relocation target equal retail"
+    },
+    {
+      "name": "??_GRva0055F197@@UAEPAXI@Z",
+      "target_rva": "0x003AEFF6",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055F197@@6BDefaultModuleHeadBase@@@ holds in this slot compiles to the body retail has at this address (rowed as ??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    },
+    {
+      "name": "??_GRva0055B5BF@@UAEPAXI@Z",
+      "target_rva": "0x003AEF18",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055B5BF@@6BDefaultModuleHeadBase@@@ holds in this slot compiles to the body retail has at this address (rowed as ??_GRva0055F98A@@UAEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp"
+    },
+    {
+      "name": "??_GRva0055BF21@@UAEPAXI@Z",
+      "target_rva": "0x003AEF18",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055BF21@@6BDefaultModuleHeadBase@@@ holds in this slot compiles to the body retail has at this address (rowed as ??_GRva0055F98A@@UAEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleDerivedSmartCtors.cpp"
+    },
+    {
+      "name": "??_GRva0055F9B4@@UAEPAXI@Z",
+      "target_rva": "0x003AEFF6",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/Common/Rva0055F9B4Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055F9B4@@6BDefaultModuleHeadBase@@@ holds in this slot compiles to the body retail has at this address (rowed as ??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    },
+    {
+      "name": "??_GRva0055BF4B@@UAEPAXI@Z",
+      "target_rva": "0x003AEFF6",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055BF4BFinish.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055BF4B@@6BDefaultModuleHeadBase@@@ holds in this slot compiles to the body retail has at this address (rowed as ??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    },
+    {
+      "name": "??_ERva0055BF4B@@WBM@AEPAXI@Z",
+      "target_rva": "0x003A588E",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055BF4BFinish.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055BF4B@@6B@ holds in slot 0 compiles to the body retail has at this address (rowed as ??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    },
+    {
+      "name": "??_ERva0055F197@@WBM@AEPAXI@Z",
+      "target_rva": "0x003A588E",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055F197@@6B@ holds in slot 0 compiles to the body retail has at this address (rowed as ??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    },
+    {
+      "name": "??_ERva0055F9B4@@WBM@AEPAXI@Z",
+      "target_rva": "0x003A588E",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/Rva0055F9B4Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055F9B4@@6B@ holds in slot 0 compiles to the body retail has at this address (rowed as ??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    }
+  ],
+  "served_whole_file_rows": [
+    {
+      "name": "??0Rva0055F197@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "target_rva": "0x0055F197",
+      "target_size": "129",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "unlock base 0x0055BF21 plus DefaultPhysicsModuleInfo pin"
+    },
+    {
+      "name": "__ehhandler$??0Rva0055F197@@QAE@ABVRvaSmartPtr12@@H@Z",
+      "target_rva": "0x00799A8B",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x0055F197; retail parent installs handler 0x00799A8B (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+    },
+    {
+      "name": "Unwind@00b99a83",
+      "target_rva": "0x00799A83",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0Rva0055F197@@QAE@ABVRvaSmartPtr12@@H@Z;object-symbol=$L476; Matched parent 0x0055F197's EH graph is EXACT (eh_verify) and binds compiler label $L476 to retail Unwind@00b99a83 (was gen_uw scaffold uw_00799a83)"
+    },
+    {
+      "name": "??_GRva0055F197@@UAEPAXI@Z",
+      "target_rva": "0x003AEFF6",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055F197@@6BDefaultModuleHeadBase@@@ holds in this slot compiles to the body retail has at this address (rowed as ??_GRva005FEA50Base@FXParticleSystem@@UAEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    },
+    {
+      "name": "??_ERva0055F197@@WBM@AEPAXI@Z",
+      "target_rva": "0x003A588E",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF alias: the deleting destructor ??_7Rva0055F197@@6B@ holds in slot 0 compiles to the body retail has at this address (rowed as ??_ERva005FEA50Base@FXParticleSystem@@WBM@AEPAXI@Z); fold-proof=Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp"
+    }
+  ],
+  "bodies": [
+    {
+      "rva": "0x000B3FD0",
+      "size": 1,
+      "raw_hex": "c3",
+      "asm": [
+        "000B3FD0 ret "
+      ]
+    },
+    {
+      "rva": "0x003A612D",
+      "size": 6,
+      "raw_hex": "b850b9c100c3",
+      "asm": [
+        "003A612D mov eax, 0xc1b950",
+        "003A6132 ret "
+      ]
+    },
+    {
+      "rva": "0x00094A9C",
+      "size": 4,
+      "raw_hex": "d9412cc3",
+      "asm": [
+        "00094A9C fld dword ptr [ecx + 0x2c]",
+        "00094A9F ret "
+      ]
+    },
+    {
+      "rva": "0x0045310D",
+      "size": 4,
+      "raw_hex": "8a413cc3",
+      "asm": [
+        "0045310D mov al, byte ptr [ecx + 0x3c]",
+        "00453110 ret "
+      ]
+    },
+    {
+      "rva": "0x003ABD51",
+      "size": 4,
+      "raw_hex": "8a413dc3",
+      "asm": [
+        "003ABD51 mov al, byte ptr [ecx + 0x3d]",
+        "003ABD54 ret "
+      ]
+    },
+    {
+      "rva": "0x003ABD55",
+      "size": 6,
+      "raw_hex": "b89cc5c100c3",
+      "asm": [
+        "003ABD55 mov eax, 0xc1c59c",
+        "003ABD5A ret "
+      ]
+    },
+    {
+      "rva": "0x003AEBC9",
+      "size": 91,
+      "raw_hex": "538b5c24085657538bf1e8db0200008bc383c31cf7d81bc023c38d7e1c508bcfc70638d6c100c7461480c7c100c7461880c7c100e8348bffffc70778d6c1005fc70654d6c100c7461480c7c100c7461880c7c1008bc65e5bc20400",
+      "asm": [
+        "003AEBC9 push ebx",
+        "003AEBCA mov ebx, dword ptr [esp + 8]",
+        "003AEBCE push esi",
+        "003AEBCF push edi",
+        "003AEBD0 push ebx",
+        "003AEBD1 mov esi, ecx",
+        "003AEBD3 call 0x3aeeb3",
+        "003AEBD8 mov eax, ebx",
+        "003AEBDA add ebx, 0x1c",
+        "003AEBDD neg eax",
+        "003AEBDF sbb eax, eax",
+        "003AEBE1 and eax, ebx",
+        "003AEBE3 lea edi, [esi + 0x1c]",
+        "003AEBE6 push eax",
+        "003AEBE7 mov ecx, edi",
+        "003AEBE9 mov dword ptr [esi], 0xc1d638",
+        "003AEBEF mov dword ptr [esi + 0x14], 0xc1c780",
+        "003AEBF6 mov dword ptr [esi + 0x18], 0xc1c780",
+        "003AEBFD call 0x3a7736",
+        "003AEC02 mov dword ptr [edi], 0xc1d678",
+        "003AEC08 pop edi",
+        "003AEC09 mov dword ptr [esi], 0xc1d654",
+        "003AEC0F mov dword ptr [esi + 0x14], 0xc1c780",
+        "003AEC16 mov dword ptr [esi + 0x18], 0xc1c780",
+        "003AEC1D mov eax, esi",
+        "003AEC1F pop esi",
+        "003AEC20 pop ebx",
+        "003AEC21 ret 4"
+      ]
+    },
+    {
+      "rva": "0x0055BF21",
+      "size": 42,
+      "raw_hex": "56ff74240c8bf1ff74240ce8b8ffffffc70638d6c100c7461480c7c100c7461880c7c1008bc65ec20800",
+      "asm": [
+        "0055BF21 push esi",
+        "0055BF22 push dword ptr [esp + 0xc]",
+        "0055BF26 mov esi, ecx",
+        "0055BF28 push dword ptr [esp + 0xc]",
+        "0055BF2C call 0x55bee9",
+        "0055BF31 mov dword ptr [esi], 0xc1d638",
+        "0055BF37 mov dword ptr [esi + 0x14], 0xc1c780",
+        "0055BF3E mov dword ptr [esi + 0x18], 0xc1c780",
+        "0055BF45 mov eax, esi",
+        "0055BF47 pop esi",
+        "0055BF48 ret 8"
+      ]
+    },
+    {
+      "rva": "0x0055F197",
+      "size": 129,
+      "raw_hex": "b88b9ab900e8e79f0c005153568b750c5756ff75088bd9895df0e86bcdffff8365fc008d7b1c8bcfe89afcffffc70778d6c100c70354d6c100c7431480c7c100c7431880c7c1008b461889432c8b450c83c60c8d7b20a5a5a58d701c8d7b30a5a5a58a4828884b3c8a40298b4df45f88433d5e8bc35b64890d00000000c9c20800",
+      "asm": [
+        "0055F197 mov eax, 0xb99a8b",
+        "0055F19C call 0x629188",
+        "0055F1A1 push ecx",
+        "0055F1A2 push ebx",
+        "0055F1A3 push esi",
+        "0055F1A4 mov esi, dword ptr [ebp + 0xc]",
+        "0055F1A7 push edi",
+        "0055F1A8 push esi",
+        "0055F1A9 push dword ptr [ebp + 8]",
+        "0055F1AC mov ebx, ecx",
+        "0055F1AE mov dword ptr [ebp - 0x10], ebx",
+        "0055F1B1 call 0x55bf21",
+        "0055F1B6 and dword ptr [ebp - 4], 0",
+        "0055F1BA lea edi, [ebx + 0x1c]",
+        "0055F1BD mov ecx, edi",
+        "0055F1BF call 0x55ee5e",
+        "0055F1C4 mov dword ptr [edi], 0xc1d678",
+        "0055F1CA mov dword ptr [ebx], 0xc1d654",
+        "0055F1D0 mov dword ptr [ebx + 0x14], 0xc1c780",
+        "0055F1D7 mov dword ptr [ebx + 0x18], 0xc1c780",
+        "0055F1DE mov eax, dword ptr [esi + 0x18]",
+        "0055F1E1 mov dword ptr [ebx + 0x2c], eax",
+        "0055F1E4 mov eax, dword ptr [ebp + 0xc]",
+        "0055F1E7 add esi, 0xc",
+        "0055F1EA lea edi, [ebx + 0x20]",
+        "0055F1ED movsd dword ptr es:[edi], dword ptr [esi]",
+        "0055F1EE movsd dword ptr es:[edi], dword ptr [esi]",
+        "0055F1EF movsd dword ptr es:[edi], dword ptr [esi]",
+        "0055F1F0 lea esi, [eax + 0x1c]",
+        "0055F1F3 lea edi, [ebx + 0x30]",
+        "0055F1F6 movsd dword ptr es:[edi], dword ptr [esi]",
+        "0055F1F7 movsd dword ptr es:[edi], dword ptr [esi]",
+        "0055F1F8 movsd dword ptr es:[edi], dword ptr [esi]",
+        "0055F1F9 mov cl, byte ptr [eax + 0x28]",
+        "0055F1FC mov byte ptr [ebx + 0x3c], cl",
+        "0055F1FF mov al, byte ptr [eax + 0x29]",
+        "0055F202 mov ecx, dword ptr [ebp - 0xc]",
+        "0055F205 pop edi",
+        "0055F206 mov byte ptr [ebx + 0x3d], al",
+        "0055F209 pop esi",
+        "0055F20A mov eax, ebx",
+        "0055F20C pop ebx",
+        "0055F20D mov dword ptr fs:[0], ecx",
+        "0055F214 leave ",
+        "0055F215 ret 8"
+      ]
+    },
+    {
+      "rva": "0x0003B810",
+      "size": 62,
+      "raw_hex": "6a01e879cfffff8b0d8008de008b0183c404ff50608b0d8008de008b116a006a006a00ff526c8b106808edbb008bc8ff52388b106a018bc8ff524c33c0c3",
+      "asm": [
+        "0003B810 push 1",
+        "0003B812 call 0x38790",
+        "0003B817 mov ecx, dword ptr [0xde0880]",
+        "0003B81D mov eax, dword ptr [ecx]",
+        "0003B81F add esp, 4",
+        "0003B822 call dword ptr [eax + 0x60]",
+        "0003B825 mov ecx, dword ptr [0xde0880]",
+        "0003B82B mov edx, dword ptr [ecx]",
+        "0003B82D push 0",
+        "0003B82F push 0",
+        "0003B831 push 0",
+        "0003B833 call dword ptr [edx + 0x6c]",
+        "0003B836 mov edx, dword ptr [eax]",
+        "0003B838 push 0xbbed08",
+        "0003B83D mov ecx, eax",
+        "0003B83F call dword ptr [edx + 0x38]",
+        "0003B842 mov edx, dword ptr [eax]",
+        "0003B844 push 1",
+        "0003B846 mov ecx, eax",
+        "0003B848 call dword ptr [edx + 0x4c]",
+        "0003B84B xor eax, eax",
+        "0003B84D ret "
+      ]
+    },
+    {
+      "rva": "0x003ABD6B",
+      "size": 22,
+      "raw_hex": "d941348b442404f30f104138d918f30f114004c20400",
+      "asm": [
+        "003ABD6B fld dword ptr [ecx + 0x34]",
+        "003ABD6E mov eax, dword ptr [esp + 4]",
+        "003ABD72 movss xmm0, dword ptr [ecx + 0x38]",
+        "003ABD77 fstp dword ptr [eax]",
+        "003ABD79 movss dword ptr [eax + 4], xmm0",
+        "003ABD7E ret 4"
+      ]
+    },
+    {
+      "rva": "0x003ABC0B",
+      "size": 22,
+      "raw_hex": "8bc1f7d88d511c1bc023c2c70054b5bb00e9f69bffff",
+      "asm": [
+        "003ABC0B mov eax, ecx",
+        "003ABC0D neg eax",
+        "003ABC0F lea edx, [ecx + 0x1c]",
+        "003ABC12 sbb eax, eax",
+        "003ABC14 and eax, edx",
+        "003ABC16 mov dword ptr [eax], 0xbbb554",
+        "003ABC1C jmp 0x3a5817"
+      ]
+    },
+    {
+      "rva": "0x0055EF39",
+      "size": 28,
+      "raw_hex": "568bf18b4c2408e8a964aaffff7424088d4e1ce87affffff5ec20400",
+      "asm": [
+        "0055EF39 push esi",
+        "0055EF3A mov esi, ecx",
+        "0055EF3C mov ecx, dword ptr [esp + 8]",
+        "0055EF40 call 0x53ee",
+        "0055EF45 push dword ptr [esp + 8]",
+        "0055EF49 lea ecx, [esi + 0x1c]",
+        "0055EF4C call 0x55eecb",
+        "0055EF51 pop esi",
+        "0055EF52 ret 4"
+      ]
+    },
+    {
+      "rva": "0x0055EECB",
+      "size": 110,
+      "raw_hex": "558bec51568b75088b06578bf98d4dfc518bcec645fc01c645fd03ff50288b068d4f10518bceff50708b068d4f04518bceff50608d47145056e87a72daff807dfd025959720e8b068d4f20518bceff9090000000807dfd03720e8b0683c721578bceff90900000005f5ec9c20400",
+      "asm": [
+        "0055EECB push ebp",
+        "0055EECC mov ebp, esp",
+        "0055EECE push ecx",
+        "0055EECF push esi",
+        "0055EED0 mov esi, dword ptr [ebp + 8]",
+        "0055EED3 mov eax, dword ptr [esi]",
+        "0055EED5 push edi",
+        "0055EED6 mov edi, ecx",
+        "0055EED8 lea ecx, [ebp - 4]",
+        "0055EEDB push ecx",
+        "0055EEDC mov ecx, esi",
+        "0055EEDE mov byte ptr [ebp - 4], 1",
+        "0055EEE2 mov byte ptr [ebp - 3], 3",
+        "0055EEE6 call dword ptr [eax + 0x28]",
+        "0055EEE9 mov eax, dword ptr [esi]",
+        "0055EEEB lea ecx, [edi + 0x10]",
+        "0055EEEE push ecx",
+        "0055EEEF mov ecx, esi",
+        "0055EEF1 call dword ptr [eax + 0x70]",
+        "0055EEF4 mov eax, dword ptr [esi]",
+        "0055EEF6 lea ecx, [edi + 4]",
+        "0055EEF9 push ecx",
+        "0055EEFA mov ecx, esi",
+        "0055EEFC call dword ptr [eax + 0x60]",
+        "0055EEFF lea eax, [edi + 0x14]",
+        "0055EF02 push eax",
+        "0055EF03 push esi",
+        "0055EF04 call 0x306183",
+        "0055EF09 cmp byte ptr [ebp - 3], 2",
+        "0055EF0D pop ecx",
+        "0055EF0E pop ecx",
+        "0055EF0F jb 0x55ef1f",
+        "0055EF11 mov eax, dword ptr [esi]",
+        "0055EF13 lea ecx, [edi + 0x20]",
+        "0055EF16 push ecx",
+        "0055EF17 mov ecx, esi",
+        "0055EF19 call dword ptr [eax + 0x90]",
+        "0055EF1F cmp byte ptr [ebp - 3], 3",
+        "0055EF23 jb 0x55ef33",
+        "0055EF25 mov eax, dword ptr [esi]",
+        "0055EF27 add edi, 0x21",
+        "0055EF2A push edi",
+        "0055EF2B mov ecx, esi",
+        "0055EF2D call dword ptr [eax + 0x90]",
+        "0055EF33 pop edi",
+        "0055EF34 pop esi",
+        "0055EF35 leave ",
+        "0055EF36 ret 4"
+      ]
+    },
+    {
+      "rva": "0x004F5FA3",
+      "size": 4,
+      "raw_hex": "8d4120c3",
+      "asm": [
+        "004F5FA3 lea eax, [ecx + 0x20]",
+        "004F5FA6 ret "
+      ]
+    },
+    {
+      "rva": "0x0055EE5E",
+      "size": 109,
+      "raw_hex": "b8679ab900e820a30c0051568bf18975f0d9ee0f57c08365fc008d4e146a01c706b0bcc1008321005151d95c2404f30f114104f30f114108d9eef30f114610d91c24f30f114604f30f114608f30f11460ce83353cdff8b4df4c6462000c64621008bc65e64890d00000000c9c3",
+      "asm": [
+        "0055EE5E mov eax, 0xb99a67",
+        "0055EE63 call 0x629188",
+        "0055EE68 push ecx",
+        "0055EE69 push esi",
+        "0055EE6A mov esi, ecx",
+        "0055EE6C mov dword ptr [ebp - 0x10], esi",
+        "0055EE6F fldz ",
+        "0055EE71 xorps xmm0, xmm0",
+        "0055EE74 and dword ptr [ebp - 4], 0",
+        "0055EE78 lea ecx, [esi + 0x14]",
+        "0055EE7B push 1",
+        "0055EE7D mov dword ptr [esi], 0xc1bcb0",
+        "0055EE83 and dword ptr [ecx], 0",
+        "0055EE86 push ecx",
+        "0055EE87 push ecx",
+        "0055EE88 fstp dword ptr [esp + 4]",
+        "0055EE8C movss dword ptr [ecx + 4], xmm0",
+        "0055EE91 movss dword ptr [ecx + 8], xmm0",
+        "0055EE96 fldz ",
+        "0055EE98 movss dword ptr [esi + 0x10], xmm0",
+        "0055EE9D fstp dword ptr [esp]",
+        "0055EEA0 movss dword ptr [esi + 4], xmm0",
+        "0055EEA5 movss dword ptr [esi + 8], xmm0",
+        "0055EEAA movss dword ptr [esi + 0xc], xmm0",
+        "0055EEAF call 0x2341e7",
+        "0055EEB4 mov ecx, dword ptr [ebp - 0xc]",
+        "0055EEB7 mov byte ptr [esi + 0x20], 0",
+        "0055EEBB mov byte ptr [esi + 0x21], 0",
+        "0055EEBF mov eax, esi",
+        "0055EEC1 pop esi",
+        "0055EEC2 mov dword ptr fs:[0], ecx",
+        "0055EEC9 leave ",
+        "0055EECA ret "
+      ]
+    },
+    {
+      "rva": "0x003ABD63",
+      "size": 8,
+      "raw_hex": "83e91ce9ce311b00",
+      "asm": [
+        "003ABD63 sub ecx, 0x1c",
+        "003ABD66 jmp 0x55ef39"
+      ]
+    },
+    {
+      "rva": "0x003AEFF6",
+      "size": 28,
+      "raw_hex": "568bf1e80dccfffff644240801740756e8550dc8ff598bc65ec20400",
+      "asm": [
+        "003AEFF6 push esi",
+        "003AEFF7 mov esi, ecx",
+        "003AEFF9 call 0x3abc0b",
+        "003AEFFE test byte ptr [esp + 8], 1",
+        "003AF003 je 0x3af00c",
+        "003AF005 push esi",
+        "003AF006 call 0x2fd60",
+        "003AF00B pop ecx",
+        "003AF00C mov eax, esi",
+        "003AF00E pop esi",
+        "003AF00F ret 4"
+      ]
+    },
+    {
+      "rva": "0x003AEF18",
+      "size": 28,
+      "raw_hex": "568bf1e80da8fffff644240801740756e8330ec8ff598bc65ec20400",
+      "asm": [
+        "003AEF18 push esi",
+        "003AEF19 mov esi, ecx",
+        "003AEF1B call 0x3a972d",
+        "003AEF20 test byte ptr [esp + 8], 1",
+        "003AEF25 je 0x3aef2e",
+        "003AEF27 push esi",
+        "003AEF28 call 0x2fd60",
+        "003AEF2D pop ecx",
+        "003AEF2E mov eax, esi",
+        "003AEF30 pop esi",
+        "003AEF31 ret 4"
+      ]
+    },
+    {
+      "rva": "0x003A588E",
+      "size": 8,
+      "raw_hex": "83e91ce960970000",
+      "asm": [
+        "003A588E sub ecx, 0x1c",
+        "003A5891 jmp 0x3aeff6"
+      ]
+    },
+    {
+      "rva": "0x003A77A7",
+      "size": 75,
+      "raw_hex": "538a5c2408f6c302568bf1742457687cb489008d7efcff376a2456e849192800f6c301740757e8ae85c8ff598bc75feb158bcee89d3c0f00f6c301740756e87685c8ff598bc65e5bc20400",
+      "asm": [
+        "003A77A7 push ebx",
+        "003A77A8 mov bl, byte ptr [esp + 8]",
+        "003A77AC test bl, 2",
+        "003A77AF push esi",
+        "003A77B0 mov esi, ecx",
+        "003A77B2 je 0x3a77d8",
+        "003A77B4 push edi",
+        "003A77B5 push 0x89b47c",
+        "003A77BA lea edi, [esi - 4]",
+        "003A77BD push dword ptr [edi]",
+        "003A77BF push 0x24",
+        "003A77C1 push esi",
+        "003A77C2 call 0x629110",
+        "003A77C7 test bl, 1",
+        "003A77CA je 0x3a77d3",
+        "003A77CC push edi",
+        "003A77CD call 0x2fd80",
+        "003A77D2 pop ecx",
+        "003A77D3 mov eax, edi",
+        "003A77D5 pop edi",
+        "003A77D6 jmp 0x3a77ed",
+        "003A77D8 mov ecx, esi",
+        "003A77DA call 0x49b47c",
+        "003A77DF test bl, 1",
+        "003A77E2 je 0x3a77eb",
+        "003A77E4 push esi",
+        "003A77E5 call 0x2fd60",
+        "003A77EA pop ecx",
+        "003A77EB mov eax, esi",
+        "003A77ED pop esi",
+        "003A77EE pop ebx",
+        "003A77EF ret 4"
+      ]
+    }
+  ],
+  "snapshot_name_literal": "DefaultModule<CAT_PHYSICS>",
+  "source_hashes": {
+    "Code/GameEngine/Source/Common/Rva0055F197Ctor.cpp": "4ba8ec16a15e39a920f5a8c91107bf5c942650789451b9cb74a9351b962c7915",
+    "Code/GameEngine/Source/Common/Rva003ABD20Ctor.cpp": "d57885bea83d3a79d7ec0383aaad880f4938914529918c7158638218fef0fb1b",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABD20Dtor.cpp": "0e78955c466a0a9bedc34e303c91fbc2b7eda2dc805d59c41f3e2b75e4b10c99",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC0BDtor.cpp": "b120550cba5f91be87d775e9cf9135c7c2ac773926953c0063235d2897c7101e",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp": "c8f30c969c4d077466f0ff2d90fac003bf1b18018fb13092288583da4cff6018",
+    "Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp": "ed8f034f275e24f63c8cf8ea00a02ebd2c2daeb210f653bb7ed804fce53ea326",
+    "Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp": "ab7d44def6498c42397165d6d18cf6eafee49cbc2a2c93c32ebb39951b1f7a31",
+    "Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp": "da836aa4f0b723df0f4a1b6b59e1c0d6b5af1bbe18f634662dbdee251ca4a1be",
+    "Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp": "010cd4ff4a31428c01c3e27fa9349cb1c0e5265d5abab5b966389c4ac37888f5",
+    "Code/GameEngine/Source/Common/ConstIntGetters.cpp": "47ea6644a8a190f085ba4e721b07a3f1a6cc17c279e03d49f043e08a5ec5c0e7",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055EF39Xfer.cpp": "ad93dc3254cdae601d414fe3bc9e1d023fb5601c6f18889ac047d4f124711e39",
+    "Code/GameEngine/Include/GameClient/DefaultModuleHeadBase.h": "e43d2636dd21ea0ef495bf0353ad6b81e77106000eb40933bcbdc41d4bb8c9a8",
+    "Code/GameEngine/Include/GameClient/Rva003AEEB3.h": "2ac1477571cbe93242eaed597f6cc794d9a6e9f123f80aa25fb1c65130a1d82f",
+    "Code/GameEngine/Include/Common/Rva0055BF21.h": "43147b130db011ef31050abd2e118f5873d6cb8d80b909d254a90f1c248c87ef",
+    "Code/GameEngine/Include/GameClient/DefaultPhysicsModuleInfo.h": "f0ec55c9fd33aa738559c3a693fd81b9c101a6258cf05f2b4f4e63d43f8868c6",
+    "Code/GameEngine/Include/GameClient/DefaultModuleTemplate.h": "808f2b94615d428fa5a7dc35991c39ab5c115a62ee2b8d373b1315e7f27d509e",
+    "Code/GameEngine/Include/GameClient/GameClientRandomVariable.h": "e207adf75b41dd5608d172125e7ff10d31e3cf18c1f92b6b29ffaca665bf0e84",
+    "reference/shims/moduledata/Common/Snapshot.h": "966b0ec30c8d777caa46df85bfc0f9013baeed17f8cc2cd1a1c4295172cf2206",
+    "reverse/attempt_support/default-module-pure-bindings-20261109/README.md": "8e0d691631b2b9546ae0db2bb0bea546b341365a98d2477a323e127c7bad40bc",
+    "reverse/attempt_support/particle_siblings_20261022.md": "4751e6d05760a52b18d9298b48e503b1d122a15fa662e7e22c8bbce1db5095b8",
+    "tools/rename.py": "ae66ae79b067ba6d5ba581b74a72a9374420972bdfaf61587ff6b3321dd3d9b6",
+    "tools/add_match.py": "3e68c4024fc7b9e9db9169c96d51633f77bbb8e103a163b2babd6dee06312925"
+  },
+  "inspected_inputs_stable": true,
+  "actual_cpp_pp_calls": 0,
+  "production_writes": false,
+  "task_credit": 0
+}

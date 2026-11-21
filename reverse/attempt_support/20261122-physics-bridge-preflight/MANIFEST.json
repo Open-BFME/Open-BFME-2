@@ -1,0 +1,46 @@
+{
+  "EVIDENCE.json": {
+    "sha256": "ad942b29ad821bfe61694d22dbb03bf824ce299f6244f7395beda4fd18cacdd8",
+    "size": 38935
+  },
+  "HANDOFF.md": {
+    "sha256": "51ca3ae63e49e19d9791eeaf26382c2468d81e975c725908649a2f88e1139eb5",
+    "size": 7195
+  },
+  "read_slot_evidence.py": {
+    "sha256": "2c0341b8ea45d6bce3da991b5edbfc2126787b4a8b9e09f14cd9ce66040d15ce",
+    "size": 4979
+  },
+  "selected-before-build.log": {
+    "sha256": "8385e6cf73fefc2885df246fb6a081e39a95e699cc4cabfe3e671ec1ad800ad7",
+    "size": 563
+  },
+  "selected-before-link.log": {
+    "sha256": "b440d5d68305779b0dd09a756ce1a56645b2098e17bead2c3527ed0aac217145",
+    "size": 708
+  },
+  "STRICT-RECEIPT.md": {
+    "sha256": "9989161e292596361f5c050ef9b0374ca130c7df48336b23443fd47e552b9e03",
+    "size": 1004
+  },
+  "SUMMARY.json": {
+    "sha256": "16e5f1d78ee71ab058b6a719455924211d8e4143b080762c83e71981c9b5f66e",
+    "size": 1037
+  },
+  "update-native-strict-graph.log": {
+    "sha256": "a42fb1d4dd7a3f0ac9a50db0cdffa1fb496ed243e3c1537af9fef04b9b86e331",
+    "size": 1174
+  },
+  "update-native-strict-preparation.log": {
+    "sha256": "440ac2c14906cd434ad3341d10e8c424ab3c5a1d819218f42266560f77a0d094",
+    "size": 1445
+  },
+  "update-normal-commit-retry.log": {
+    "sha256": "9ab875dd00eee78d7b032b85d4144baf7a5ead03b2756542dc747e786e17f0ac",
+    "size": 2754
+  },
+  "update-normal-commit.log": {
+    "sha256": "033f7c2f203f985234b085d7dafd697107327ca0b79a862ba0b54e7b331d12d5",
+    "size": 3511
+  }
+}
