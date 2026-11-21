@@ -153,7 +153,10 @@ private:
 	unsigned char m_pad14[0x20 - 0x14];
 };
 
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
 #include "../../../../Include/Common/Rva001EB15A.h"
+
+class Image;
 
 class UnitRevivalEntry
 {
@@ -161,7 +164,20 @@ public:
 	~UnitRevivalEntry();
 
 private:
-	unsigned char m_pad00[0xB0];
+	const Image *m_field00;
+	const Image *m_field04;
+	float m_field08;
+	int m_field0C;
+	int m_field10;
+	BfmeFixedStorage128 m_field14;
+	unsigned int m_field94;
+	int m_field98;
+	unsigned int m_field9C;
+	bool m_fieldA0;
+	bool m_fieldA1;
+	int m_fieldA4;
+	int m_fieldA8;
+	int m_fieldAC;
 	Rva001EB15A m_B0;			// +0xB0, real24B owned record
 	int m_fieldC8;			// +0xC8
 	float m_fieldCC;			// +0xCC

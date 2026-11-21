@@ -1,0 +1,178 @@
+{
+  "read_only_native_api": "class_layouts.type_stream + TypeStream.classes; no compile_layouts/private_views invocation",
+  "object": "W:\\OpenBFME\\Open-BFME-2\\build\\class_layouts\\Code_GameEngine_Source_GameLogic_Object_Update_FreelistPool.cpp.obj",
+  "metadata": "W:\\OpenBFME\\Open-BFME-2\\build\\class_layouts\\Code_GameEngine_Source_GameLogic_Object_Update_FreelistPool.cpp.json",
+  "object_sha256": "f2f61b00fae5f6837e0277d8eed1bca8c6ef7015f3f7685a6dc25bba0c8ec3f4",
+  "metadata_sha256": "ccbf10408817463a295bac139c75acf38377712f28d1010c5e371f53e239724a",
+  "expected_current_source_command_key": "d7e2e2cc5cbf245c00a8daf5682a798aa3d6a6b8b1f65ff72e1b9082e6e84c53",
+  "metadata_key": "48facbc9a4476eaf9b9b369bf6fa265799767285e41e54a8f4d22163abbc50cc",
+  "source_profile_key_current": false,
+  "header_receipt_current": true,
+  "type_stream_digest_matches_meta": true,
+  "type_stream_length": 25928,
+  "selected_classes": {
+    "UnitRevivalEntry": {
+      "fwd": false,
+      "key": "class",
+      "size": 216,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "m_field00",
+          "Image*",
+          4
+        ],
+        [
+          4,
+          "m_field04",
+          "Image*",
+          4
+        ],
+        [
+          8,
+          "m_field08",
+          "float",
+          4
+        ],
+        [
+          12,
+          "m_field0C",
+          "int",
+          4
+        ],
+        [
+          16,
+          "m_field10",
+          "int",
+          4
+        ],
+        [
+          20,
+          "m_field14",
+          "BfmeFixedStorage128",
+          128
+        ],
+        [
+          148,
+          "m_field94",
+          "uint",
+          4
+        ],
+        [
+          152,
+          "m_field98",
+          "int",
+          4
+        ],
+        [
+          156,
+          "m_field9C",
+          "uint",
+          4
+        ],
+        [
+          160,
+          "m_fieldA0",
+          "bool",
+          1
+        ],
+        [
+          161,
+          "m_fieldA1",
+          "bool",
+          1
+        ],
+        [
+          164,
+          "m_fieldA4",
+          "int",
+          4
+        ],
+        [
+          168,
+          "m_fieldA8",
+          "int",
+          4
+        ],
+        [
+          172,
+          "m_fieldAC",
+          "int",
+          4
+        ],
+        [
+          176,
+          "m_fieldB0",
+          "Rva001EB15A",
+          24
+        ],
+        [
+          200,
+          "m_fieldC8",
+          "int",
+          4
+        ],
+        [
+          204,
+          "m_fieldCC",
+          "float",
+          4
+        ],
+        [
+          208,
+          "m_fieldD0",
+          "AsciiString",
+          4
+        ],
+        [
+          212,
+          "m_fieldD4",
+          "AsciiString",
+          4
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "UnitRevivalEntry",
+        "__vecDelDtor",
+        "calcButtonImage",
+        "getThingTemplate",
+        "revivalEntryCalcCostToBuild",
+        "revivalEntryCalcTimeToBuild",
+        "rva0037E473",
+        "setThingTemplateName",
+        "~UnitRevivalEntry"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "BfmeFixedStorage128": {
+      "fwd": false,
+      "key": "struct",
+      "size": 128,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "m_bits",
+          "uint[32]",
+          128
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "BfmeFixedStorage128",
+        "any",
+        "clear",
+        "clearBit"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    }
+  },
+  "candidate_measurement_available": false,
+  "additional_compiler_calls": 0
+}

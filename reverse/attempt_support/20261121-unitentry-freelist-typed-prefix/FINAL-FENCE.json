@@ -1,0 +1,18 @@
+{
+  "head": "c57a1134bbd64285d118938112b3e4abd660488d",
+  "time_utc": "2026-11-21T14:58:54.975875+00:00",
+  "git_status": "",
+  "frozen_input_count": 88,
+  "changed_frozen_inputs": [],
+  "matched_calls": 2,
+  "own_temporary_sources_removed": true,
+  "native_private_objects_preserved": [
+    "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\8700bcceff7cb232.obj",
+    "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\951c5a7a59318979.obj"
+  ],
+  "actual_dependency_added": [
+    "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\Common\\BfmeFixedStorage128.h"
+  ],
+  "actual_dependency_removed": [],
+  "additional_compiler_calls": 0
+}
