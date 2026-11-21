@@ -26,7 +26,13 @@ class Player;
 class Rva002195E6;
 class Rva0040A3F9;
 
+// Existing Apt UI views: the class record remains opaque; only its
+// native 32-byte stride and three-pointer vector span are represented here.
+struct CreateAHeroClassRecord {char opaque[0x20];};
+struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
+
 class CreateAHeroManager : public SubsystemInterface {
+    friend class AptMyHero;
 public:
     class CreateAHeroClass;
     class CreateAHeroSubClass;
@@ -56,6 +62,11 @@ public:
     const AsciiString &GetBlingUpgradeName(int, const CreateAHeroHero *, unsigned int);
     const AsciiString &GetBlingNameTag(int, unsigned int, unsigned int, unsigned int);
     const AsciiString &GetBlingDescTag(int, unsigned int, unsigned int, unsigned int);
+    // Keep the existing public UI count helper and its typed span operation.
+    unsigned int GetClassCount() const
+    {
+        return reinterpret_cast<const CreateAHeroClassList *>(field14C)->size();
+    }
     const AsciiString &GetClassNameTag(unsigned int);
     const AsciiString &GetClassDescTag(unsigned int);
     const AsciiString &GetClassPowersTag(unsigned int);

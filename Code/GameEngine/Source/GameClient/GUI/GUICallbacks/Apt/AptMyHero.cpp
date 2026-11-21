@@ -37,10 +37,8 @@ public:
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
 #include "../../../../../Include/Common/Rva00406E47.h"
 #include "../../../../../Include/GameClient/Rva005B0473View.h"
-struct CreateAHeroClassRecord {char opaque[0x20];};
-struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
 class Rva002195E6;
-class CreateAHeroManager {public: const Rva002195E6 *GetViewInfo(unsigned int,unsigned int);const AsciiString &GetClassNameTag(unsigned int);const AsciiString &GetSubClassNameTag(unsigned int,unsigned int);const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int);int GetSubClassSpendableAttributePoints(unsigned int,unsigned int);void *GetBlingBinder(unsigned int);int GetBlingCount(int,const CreateAHeroHero *) const;int GetSubClassDefaultBlingId(int,unsigned int,unsigned int) const;int GetSubClassAttributeMinValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeMaxValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeDefaultValue(unsigned int,unsigned int,unsigned int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x168-0x158];BlingBinderList binders168;char pad174[0x1E8-0x174];AsciiString field1E8,field1EC;};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 class Object;
 #include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
@@ -1348,7 +1346,7 @@ void AptMyHero::BuildBlingData(){
  int sub=m_10;int cls=m_0c;
  maxAttribPoints158=availAttribPoints154=TheCreateAHeroManager->GetSubClassSpendableAttributePoints(cls,sub);
  reinterpret_cast<CreateAHeroHero *>(this)->ConstructHeroBlingList();
- unsigned int count=TheCreateAHeroManager->binders168.size();
+ unsigned int count=reinterpret_cast<const BlingBinderList *>(TheCreateAHeroManager->field168)->size();
  for(unsigned int i=0;i<count;++i){
   BlingBinder *binder=(BlingBinder *)TheCreateAHeroManager->GetBlingBinder(i);
   if(!binder)continue;
