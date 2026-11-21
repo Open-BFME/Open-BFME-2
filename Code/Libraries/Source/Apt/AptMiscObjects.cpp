@@ -192,7 +192,7 @@ class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);};
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
-class AptBoolean {public:static AptValue *Create(bool);};
+#include "AptBoolean.h"
 
 // Constructor storage view only; rowed native ctor initializes all36 bytes.
 class Rva006D6500
