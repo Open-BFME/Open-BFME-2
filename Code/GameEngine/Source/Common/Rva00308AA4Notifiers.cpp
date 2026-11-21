@@ -165,25 +165,25 @@ private:
 
 void Rva00308AA4Owner::rva00308AA4()
 {
-	rva0053805D();
+	Rva0053805DBase::rva0053805D();
 	m_listeners.forEach(&Rva00308AA4Listener::notify04, this);
 }
 
 void Rva00308AA4Owner::rva00308ABC()
 {
-	rva0053806C();
+	Rva0053805DBase::rva0053806C();
 	m_listeners.forEach(&Rva00308AA4Listener::notify08, this);
 }
 
 void Rva00308AA4Owner::rva00308AD4()
 {
-	rva0053807B();
+	Rva0053805DBase::rva0053807B();
 	m_listeners.forEach(&Rva00308AA4Listener::notify10, this);
 }
 
 void Rva00308AA4Owner::rva00308AEC()
 {
-	rva0053808A();
+	Rva0053805DBase::rva0053808A();
 	m_listeners.forEach(&Rva00308AA4Listener::notify14, this);
 }
 

@@ -106,13 +106,13 @@ private:
 
 void Rva0030CAA9Owner::rva0030CAA9()
 {
-	rva0053805D();
+	Rva0053805DBase::rva0053805D();
 	m_listeners.forEach(&Rva0030CAA9Listener::notify04, this);
 }
 
 void Rva0030CAA9Owner::rva0030CAC1()
 {
-	rva0053806C();
+	Rva0053805DBase::rva0053806C();
 	m_listeners.forEach(&Rva0030CAA9Listener::notify08, this);
 }
 
