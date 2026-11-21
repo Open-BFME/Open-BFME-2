@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /DBFME_SUBSYSTEM_SLOTS
 // ??1SubsystemLegend@@UAE@XZ retail 0x001B4D16 77B
 // Own vptr 0x00BD7678 (slot-0 ??_G at 0x001B4D63). The body clears the
 // STLport list member at +0x0C through the rowed _List_base clear 0x001B4C7A,
@@ -40,6 +40,9 @@ class SubsystemLegend : public SubsystemInterface
 {
 public:
 	virtual ~SubsystemLegend();
+	virtual void init();
+	virtual void reset() {}
+	virtual void update() {}
 
 private:
 	_STL::_List_base<BfmeVectorRecord001B4A39, _STL::allocator<BfmeVectorRecord001B4A39> > m_list0C; // +0x0C

@@ -33517,7 +33517,7 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva000791E5@Rva000791E5Forwarder@@QAEXH@Z,,0x000791E5,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BC68F0#67 slot forwarder (ptr hop)
 ?rva0009AD42@Rva0009AD42Forwarder@@QAEXXZ,,0x0009AD42,11,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BC89C8#12 slot forwarder (global hop)
 ?rva000B1974@Rva000B1974Forwarder@@QAEXHH@Z,,0x000B1974,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BC95B8#1 slot forwarder (ptr hop)
-?rva001B4CD0@Rva001B4CD0Forwarder@@QAEXXZ,,0x001B4CD0,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BD7678#1 slot forwarder (sub hop)
+?init@SubsystemLegend@@UAEXXZ,,0x001B4CD0,8,Code/GameEngine/Source/Common/SubsystemLegend.cpp,matched,slot 1 of SubsystemLegend table 0x007D7678 (init overrides SubsystemInterface slot 1); add ecx 0Ch then tail jump to the member list clear 0x001B4C7A
 ?rva00222D3F@Rva00222A19@@UAEXHHH@Z,,0x00222D3F,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BE6D5C#1 slot forwarder (ptr hop)
 ?rva0022C9D2@Rva0022C9D2Forwarder@@QAEXXZ,,0x0022C9D2,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BE74F0#9 slot forwarder (sub hop)
 ?rva0025DC30@Rva0025DC30Forwarder@@QAEXXZ,,0x0025DC30,8,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp,matched,vtable 0x00BF6040#31 slot forwarder (ptr hop)
@@ -102414,3 +102414,5 @@ $L13350,,0x00792D4D,13,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,matched,
 ?vslot02@Made002CCBCA@@UAEEPBXH@Z,,0x00507943,21,Code/GameEngine/Source/GameLogic/Object/Made002CCBCACtor.cpp,matched,ICF fold; fold-proof=Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva00507991.cpp; slot 2 of retail Made002CCBCA table 0x00864DFC
 ?vslot07@Made002CCBCA@@UAE_NXZ,,0x0047A699,3,Code/GameEngine/Source/GameLogic/Object/Made002CCBCACtor.cpp,matched,ICF fold; fold-proof=Code/GameEngine/Source/Common/System/Xfer.cpp; slot 7 of retail Made002CCBCA table 0x00864DFC
 ?rva00507877@Made002CCBCA@@UAEXXZ,,0x0050B928,5,Code/GameEngine/Source/GameLogic/Object/Made002CCBCACtor.cpp,matched,ICF fold; fold-proof=Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp; slot 8 of retail Made002CCBCA table 0x00864DFC
+?reset@SubsystemLegend@@UAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/SubsystemLegend.cpp,matched,ICF twin at 0x000B3FD0 of ??1Region2D@@QAE@XZ: slot 9 of the retail table 0x007D7678 this unit emits; whole 1B body and every relocation target equal retail;fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp
+?update@SubsystemLegend@@UAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/SubsystemLegend.cpp,matched,ICF twin at 0x000B3FD0 of ??1Region2D@@QAE@XZ: slot 10 of the retail table 0x007D7678 this unit emits; whole 1B body and every relocation target equal retail;fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp
