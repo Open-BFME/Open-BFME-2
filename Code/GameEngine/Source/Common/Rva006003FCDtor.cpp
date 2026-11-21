@@ -21,10 +21,16 @@ public:
 // and the derived table's first slot is this class's own deleting dtor.
 #include "../../Include/Common/Rva0007DF07.h"
 
+class Object;
+
 class Rva006003FC : public Rva0007DF07
 {
 public:
 	virtual ~Rva006003FC();
+	virtual void rva006003AD();
+	virtual void rva006003A5(Object *obj);
+	virtual void slot03(Object *obj);
+	virtual void slot04(Object *obj);
 
 private:
 	StrategicHUD::BattlePromptPlayerPageMovieClip m_member08;

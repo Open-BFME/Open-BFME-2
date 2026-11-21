@@ -182,6 +182,8 @@ public:
 	virtual ~Rva006003FC();
 	virtual void rva006003AD();
 	virtual void rva006003A5(Object *value);
+	virtual void slot03(Object *value);
+	virtual void slot04(Object *value);
 };
 
 // Member destructor rowed as Rva005FAFB2::clear (OwnedPointerResets.cpp); the
