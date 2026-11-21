@@ -13,10 +13,10 @@
 class Thing;
 class ModuleData;
 
-extern "C" const void *const __identifier("??_7Rva004A11D4@@6BRva0058A0F4_Root@@@")[];
+extern "C" const void *const __identifier("??_7Rva004A11D4@@6BObjectModule@@@")[];
 extern "C" const void *const __identifier("??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@")[];
 extern "C" const void *const __identifier("??_7DockUpdate@@6BUpdateModule@@@")[];
-extern "C" const void *const __identifier("??_7Rva004A11D4@@6BRva0058A0F4_E1@@@")[];
+extern "C" const void *const __identifier("??_7Rva004A11D4@@6BDockUpdateInterface@@@")[];
 
 // Rowed DockUpdate base; ctor resolves to its row. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -49,9 +49,9 @@ RepairDockUpdate::RepairDockUpdate(Thing *thing, const ModuleData *moduleData)
 	: DockUpdate(thing, moduleData)
 {
 	m_88 = 0;
-	m_vtable = __identifier("??_7Rva004A11D4@@6BRva0058A0F4_Root@@@");
+	m_vtable = __identifier("??_7Rva004A11D4@@6BObjectModule@@@");
 	m_p0C = __identifier("??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@");
 	m_p10 = __identifier("??_7DockUpdate@@6BUpdateModule@@@");
-	m_p20 = __identifier("??_7Rva004A11D4@@6BRva0058A0F4_E1@@@");
+	m_p20 = __identifier("??_7Rva004A11D4@@6BDockUpdateInterface@@@");
 	m_8C = 0.0f;
 }
