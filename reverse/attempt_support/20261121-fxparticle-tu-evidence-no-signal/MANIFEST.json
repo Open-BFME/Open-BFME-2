@@ -1,0 +1,49 @@
+{
+  "created_utc": "2026-11-21T06:43:08.949837+00:00",
+  "claim_basis_head": "e587ad3656865550008ac64cf8de1919a9710d53",
+  "read_only": true,
+  "new_task_credit": 0,
+  "inputs": {
+    "AGENTS.md": "8aa79d1736730ba48195bb913d2402596d7b2887e6e3270073d9bf371e9e1eae",
+    "docs/consolidation.md": "375ab0739049154ffeb0cdaf3fda30efa96d2603726cc0aa006337153779c84d",
+    "docs/naming.md": "d4aff52d9143ce8edbee068b4cf3182944c993f8943eb8372405821c9aa70174",
+    "tools/tu_evidence.py": "b42b6b2c3ef5cb7d0a4fcf06b3667395966ae17b75b83d152b3543f8f8597a71",
+    "tools/tu_map.py": "6704561df78e4ed50fcf8377520197aa7d18cc799080dafad737a31d33c4800d",
+    "reverse/functions.csv": "81db466aae10acdb4b3d3004c8239d898f5075965041da38ae6065493ac651fc",
+    "reverse/ghidra_functions.csv": "a3543f692612bde1632cbba2de313b63911c440690e1f91062b9a9796d28f1ac",
+    "reverse/string_xrefs.tsv": "9b50f74a6b10dcd5c43896678fcea032ae15d9e35140c519ca22859b10121a9f",
+    "reverse/data_xrefs.tsv": "59304ce921ff8c8187319fadef08dfb44dd48a96e281f09909818d6a8d5a7f71",
+    "reverse/wb_name_leads.csv": "0d44d69a680797450a77fc275a7ea5bd84a2a5f1e8c5a3c3993fd83ca7f5feb2",
+    "reverse/worldbuilder_source_paths.csv": "1ce0718e5b1465366c4d8734b9c592b5647bc8b20c188a70f1ee872bd33bbd8d"
+  },
+  "files": {
+    "ALL16-COUNTS.csv": {
+      "sha256": "89220baf7dc8f467aea32b9041b36626ed619a54ba22c0d7fbaef170bcd108a3",
+      "bytes": 1713
+    },
+    "FIRST-NATIVE-CLI.txt": {
+      "sha256": "eac418b9d52c2f8971f4d4edf25619c76236dee9bf9b120d88516e86854883cf",
+      "bytes": 224
+    },
+    "HANDOFF.md": {
+      "sha256": "8c3d30f468574b2c60d7fd7eb42e8ac250ee4dae0ff940ed5012618f2e37b51b",
+      "bytes": 5526
+    },
+    "NATIVE-EVIDENCE-ALL16.json": {
+      "sha256": "2ef449b5913575effbae87d4bb5308ff2c80316f8100e96b872462aa1723d73f",
+      "bytes": 45707
+    },
+    "ORIGIN-AND-BRACKET-SUMMARY.json": {
+      "sha256": "29471f146aee79c428390b00bb8520e57a22f8283cc7b52ebaa4dcb799ff4ebd",
+      "bytes": 24176
+    },
+    "SCOPE-ROWS.json": {
+      "sha256": "d9747488c05ef522abbe2063fe0f0f282825df374243e2c8b3cc61d6af0e4b0d",
+      "bytes": 39659
+    },
+    "SOURCE-ORIGIN-EXCERPTS.json": {
+      "sha256": "b13e511be8a9c141f977a6880492b1fcb88bd51c3a2b28ebe54383ee6b1f94ee",
+      "bytes": 27496
+    }
+  }
+}
