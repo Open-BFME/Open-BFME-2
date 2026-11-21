@@ -1,0 +1,15 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp
+approved: 61
+mixed: {'Code/GameEngine/Source/Common/ConstIntGetters4.cpp': 247, 'Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp': 3, 'Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp': 79, 'Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp': 22, 'Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp': 34}
+refused: {}
+accepted: ['Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp', 'Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp']
+rejected: {}
+excluded: ['Code/GameEngine/Source/GameLogic/Object/Update/CameraMarkerVecErase.cpp', 'Code/Libraries/Source/WWVegas/WWLib/stlport_copy_camera_marker.cpp']
+adopt_first: {'Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp': ['AI', 'AICommandInterface', 'AIUpdateInterface', 'Drawable', 'Pathfinder', 'TerrainLogic', 'ThingTemplate']}
+link_guard: census-linked: Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp, Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp
+rows: 52
+carried: {'reverse/data_ledger.csv': 6, 'reverse/hatch_baseline.tsv': 'hatch_counters --update'}
+trailer: Verifier-Change: tu_skeleton --merge carried the protected-register keys of 1 absorbed donor(s) to Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp (transfer; totals kept)
+repointed: {'reverse/functions.csv': 18, 'reverse/tu_map.csv': 18, 'reverse/header_queue.tsv': 7, 'reverse/data_ledger.csv': 6, 'reverse/hatch_baseline.tsv': 'updated'}
+stage: staged: Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp reverse/data_ledger.csv reverse/functions.csv reverse/hatch_baseline.tsv reverse/header_queue.tsv reverse/tu_map.csv Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp
+subject: Merge 2 files into FlammableUpdate.cpp (52 rows, tu_map approved TU, retail order)
