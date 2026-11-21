@@ -298,13 +298,13 @@ public:
 	int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
 	const Image *calcButtonImage(const Player *player);
 
-	int m_00;
-	int m_04;
+	const Image *m_00;
+	const Image *m_04;
 	float m_08;
 	int m_0C;
 	int m_10;
 	BfmeFixedStorage128 m_14;
-	int m_94;
+	unsigned int m_94;
 	int m_98;
 	unsigned int m_9C; // build time, from the template's float via _ftol
 	bool m_A0;

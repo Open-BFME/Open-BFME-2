@@ -1,0 +1,13 @@
+{
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+  "source_sha": "5b481f63663772a541ad01154800ef5c685eb4ac3a5b72af56c121267c96631d",
+  "diagnostic_only": true,
+  "native_adoption_already_refused": true,
+  "normal_compiler_command_capture": true,
+  "cpp_or_preprocessor_calls": 0,
+  "source_header_ledger_writes": 0,
+  "context_problem": "constructor scope: W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\string.h: include operand has no complete literal-input proof",
+  "mapping_scope": "one real already-reported field for diagnostic only; no rename/adoption",
+  "cannot_establish_other_field_ownership": true,
+  "new_body_credit": 0
+}
