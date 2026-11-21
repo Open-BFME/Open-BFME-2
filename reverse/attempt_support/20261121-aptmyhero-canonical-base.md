@@ -25,6 +25,21 @@ The served whole-TU item remains open: the canonical-manager/other header and
 STL emission contexts still need reconciliation before a native merge can pass.
 No completed served item or new machine-code coverage is credited here.
 
+The complete documented local real link also passed for source head
+bce1ceaf11b75d5f0b81ba1047e91d8d65ee2578: authoritative receipt,17,485 kept
+objects,835/835 omitted funclets covered,0 unresolved and0 duplicate names.
+Miles Snapshot remains fully covered and correct. This integrated snapshot has
+3,008 bridged vtables/44,447 slots,27 refused tables and431 bridged initializers.
+The five-table improvement includes the separately authored upstream repairs;
+the unchanged-footprint base adoption is not credited with all five retirements.
+The native writer updates both queue files from this exact matching result.
+This was Windows local opt-in, not GitHub Actions, and the image was not run.
+
+ImageSHA256:111897ec70f58aafdf121faaeea80eb6629f837a427538f04efe0040b5fe6ea6.
+MapSHA256:beb3c2c63386b57387be1c073321dd89d57f52b6b8cc1f0c82e2ee0d525d3864.
+Unmodified artifacts and hashes are preserved under session diagnostics
+bfme2/local-real-link-bce1ceaf11, including the actual image and map.
+
 Final private refresh: HEAD 5abc17522a94bf263749b92be9c16ceb65c9e2b6,
 while Root's upstream merge is staged (51 unrelated paths recorded). The checked
 compiler/header/source inputs remained unchanged throughout; both normal source
