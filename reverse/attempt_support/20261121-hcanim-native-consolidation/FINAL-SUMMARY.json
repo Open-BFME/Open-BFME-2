@@ -1,0 +1,99 @@
+{
+  "root_source_sha256": "0eabe340e3b1b7aa5ff7943685311e4df8f527e55d4764f8ee37deae881cd382",
+  "private_composed_source_sha256": "ae8dd23b8c909f95d121e8c4e168a7e59672fc539ab2d01eccd1601375efe614",
+  "cpp_tokens_and_flag_tokens_equal": true,
+  "strict_rows": 72,
+  "unique_rvas": 64,
+  "unmasked_exact_no_unresolved": true,
+  "root_normal_object_graph_equals_private": true,
+  "combined_original_graphs_preserved": true,
+  "root_donor_deleted": true,
+  "native_composer_strategy": "first",
+  "native_header_dedupe": [
+    "HCompressedAnimClass",
+    "TimeCodedBitChannelClass"
+  ],
+  "seed_union_kept": true,
+  "EH": {
+    "seed-control": [
+      "EXACT",
+      "EXACT",
+      "EXACT",
+      "EXACT",
+      "EXACT",
+      "EXACT"
+    ],
+    "donor-control": [],
+    "composed": [
+      "EXACT",
+      "EXACT",
+      "EXACT",
+      "EXACT",
+      "EXACT",
+      "EXACT"
+    ]
+  },
+  "renumbered_funclets": [
+    {
+      "name": "uw_007688e0",
+      "rva": "0x007688E0",
+      "note": "$L16619 was renumbered; verified parent EH data places $L17460 at 0x007688E0"
+    },
+    {
+      "name": "uw_00768900",
+      "rva": "0x00768900",
+      "note": "$L16721 was renumbered; verified parent EH data places $L17553 at 0x00768900"
+    },
+    {
+      "name": "uw_00768920",
+      "rva": "0x00768920",
+      "note": "$L17635 was renumbered; verified parent EH data places $L17931 at 0x00768920"
+    },
+    {
+      "name": "uw_0076892b",
+      "rva": "0x0076892B",
+      "note": "$L17636 was renumbered; verified parent EH data places $L17932 at 0x0076892B"
+    }
+  ],
+  "definition_or_undefined_delta": {
+    "missing_definitions": [],
+    "new_definitions": [],
+    "new_undefined": [],
+    "removed_undefined": [
+      "?Get_Channel_Memory_Usage@NodeCompressedMotionStruct@@QAEHXZ",
+      "?rva0018FB70@HCompressedAnimClass@@UAEHXZ"
+    ],
+    "internalized_undefined": [
+      "?Get_Channel_Memory_Usage@NodeCompressedMotionStruct@@QAEHXZ",
+      "?rva0018FB70@HCompressedAnimClass@@UAEHXZ"
+    ],
+    "unexpected_removed_undefined": []
+  },
+  "directives": {
+    "seed-control": [
+      "/DEFAULTLIB:\"debug.lib\" /include:___DebugIncludeInLink1 /alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"msvcprt\" /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+    ],
+    "donor-control": [
+      "/DEFAULTLIB:\"LIBC\" /DEFAULTLIB:\"OLDNAMES\" "
+    ],
+    "composed": [
+      "/DEFAULTLIB:\"debug.lib\" /include:___DebugIncludeInLink1 /alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"msvcprt\" /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+    ]
+  },
+  "vtable_names_unchanged": true,
+  "vtable_names": [
+    "??_7HashableClass@@6B@",
+    "??_7HCompressedAnimClass@@6BHashableClass@@@",
+    "??_7HCompressedAnimClass@@6BRefCountClass@@@",
+    "??_7HAnimClass@@6BHashableClass@@@",
+    "??_7RefCountClass@@6B@",
+    "??_7HAnimClass@@6BRefCountClass@@@"
+  ],
+  "crt_sections": {
+    "seed-control": [],
+    "donor-control": [],
+    "composed": []
+  },
+  "unique_new_body_bytes": 0,
+  "runtime_or_fresh_image_link_proof": false
+}

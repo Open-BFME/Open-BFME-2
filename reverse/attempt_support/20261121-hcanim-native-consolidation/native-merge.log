@@ -1,0 +1,14 @@
+tu: Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
+approved: 43
+mixed: {'Code/GameEngine/Source/Common/VslotSmallBodiesX.cpp': 6, 'Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimTransform.cpp': 1}
+refused: {}
+accepted: ['Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp', 'Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp']
+rejected: {}
+link_guard: census-linked: Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp, Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
+flags: ['/Ob2', '/DNDEBUG', '/MD', '/EHsc', '/Ireference/shims/bfmerendobj', '/Ireference/shims/bfmehcanim', '/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath', '/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib', '/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2', '/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad', '/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil', '/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload', '/Ireference/open-bfme-1/Code/Libraries/Source/Compression', '/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug']
+rows: 64
+carried: {'reverse/hatch_baseline.tsv': 'hatch_counters --update'}
+trailer: Verifier-Change: tu_skeleton --merge carried the protected-register keys of 1 absorbed donor(s) to Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp (transfer; totals kept)
+repointed: {'reverse/functions.csv': 1, 'reverse/tu_map.csv': 1, 'reverse/hatch_baseline.tsv': 'updated'}
+stage: staged: Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp reverse/functions.csv reverse/hatch_baseline.tsv reverse/tu_map.csv Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp
+subject: Merge 2 files into hcanim.cpp (64 rows, tu_map approved TU, retail order)
