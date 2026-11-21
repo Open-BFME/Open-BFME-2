@@ -1,34 +1,7 @@
 // cl: /MD
 // ?rva0029AA3F@Rva0029AA3F@@QAEXXZ @0x0029AA3F 35B. Emit 0x467 then location at +0x9B8. Evidence: rowed appendLocationArgument 0x0030F9BB global MessageStreamSubsystem slot 0x48 appendType pattern Rva005D1F45 caller 0x00431A21.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
-class GameMessage
-{
-public:
-	void appendLocationArgument(const Coord3D &arg);
-};
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *appendType(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 class GameClient;
 extern GameClient *TheGameClient;
@@ -69,7 +42,7 @@ private:
 
 void Rva0029AA3F::rva0029AA3F()
 {
-	GameMessage *msg = TheMessageStream->appendType(0x467);
+	GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_ROTATE_FIRINGARC);
 	msg->appendLocationArgument(m_pos);
 }
 

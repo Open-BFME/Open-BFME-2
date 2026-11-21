@@ -8,35 +8,7 @@
 // meaning of the message remain structural inferences; class identity is
 // unknown and the method name is address-derived.
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int value);
-};
-
-class MessageStream
-{
-public:
-	virtual ~MessageStream();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual GameMessage *CreateMessage(int type);
-};
+#include "../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 
 #include "../../../Include/GameLogic/PathfindLayer.h"
@@ -92,7 +64,7 @@ void Rva005D14C0::rva005D14C0()
 
 	int index = reinterpret_cast<Rva00005C792CPtrChaseField *>(m_data->m_view)->get();
 	Rva005D14C0Entry *entry = (Rva005D14C0Entry *)m_data->m_entries[index];
-	GameMessage *message = TheMessageStream->CreateMessage(0x6B7);
+	GameMessage *message = TheMessageStream->appendMessage(GameMessage::MSG_LW_RESOLVE_REGION_AWARD_DISPUTE);
 	message->appendIntegerArgument(((Rva005D14C0MessageHost *)m_data->m_messageHost)->m_value04);
 	message->appendIntegerArgument(entry->m_value14);
 }

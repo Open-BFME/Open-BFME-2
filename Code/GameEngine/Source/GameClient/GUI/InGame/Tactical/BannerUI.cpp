@@ -450,35 +450,7 @@ extern PlayerList *ThePlayerList;
 
 int __cdecl Rva0021642FInvoke(Rva00222A8BTarget *target, void *owner, const char *name, const float &value);
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);	// 0x0030F936
-};
-
-class MessageStream
-{
-public:
-	virtual void vslot0() = 0;
-	virtual void vslot1() = 0;
-	virtual void vslot2() = 0;
-	virtual void vslot3() = 0;
-	virtual void vslot4() = 0;
-	virtual void vslot5() = 0;
-	virtual void vslot6() = 0;
-	virtual void vslot7() = 0;
-	virtual void vslot8() = 0;
-	virtual void vslot9() = 0;
-	virtual void vslot10() = 0;
-	virtual void vslot11() = 0;
-	virtual void vslot12() = 0;
-	virtual void vslot13() = 0;
-	virtual void vslot14() = 0;
-	virtual void vslot15() = 0;
-	virtual void vslot16() = 0;
-	virtual void vslot17() = 0;
-	virtual GameMessage *appendMessage(int type) = 0;	// slot 18, 0x0030F6D4
-};
+#include "../../../../../Include/Common/MessageStream.h"
 
 extern MessageStream *TheMessageStream;
 
@@ -936,13 +908,13 @@ void BannerUI::OnBannerButton(int slot)
 	{
 		if (banner->state == 0)
 		{
-			GameMessage *msg = TheMessageStream->appendMessage(0x45E);
+			GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_SUMMON_REINFORCEMENTS);
 			msg->appendIntegerArgument(banner->bannerID);
 		}
 		else if (banner->state == 2)
 		{
 			TheScriptEngine->rva00357DAC(*TheGameLogic->rva0023D05F(banner->bannerID));
-			GameMessage *msg = TheMessageStream->appendMessage(0x45F);
+			GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_CALL_IN_REINFORCEMENTS);
 			msg->appendIntegerArgument(banner->bannerID);
 			banner->pendingDelete = true;
 		}

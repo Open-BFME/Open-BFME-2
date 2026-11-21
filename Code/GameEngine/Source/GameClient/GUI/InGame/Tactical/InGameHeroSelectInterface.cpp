@@ -434,15 +434,7 @@ BuilderSelectionData *InGameHeroSelectInterface::Impl::FindReadyLocalBuilder(_ST
 	return result;
 }
 
-class GameMessage {public:void appendBooleanArgument(bool);void appendObjectIDArgument(ObjectID);};
-class MessageStream {public:
-#define MSLOT(N) virtual void v##N();
- MSLOT(0) MSLOT(1) MSLOT(2) MSLOT(3) MSLOT(4) MSLOT(5) MSLOT(6) MSLOT(7)
- MSLOT(8) MSLOT(9) MSLOT(10) MSLOT(11) MSLOT(12) MSLOT(13) MSLOT(14) MSLOT(15)
- MSLOT(16) MSLOT(17)
-#undef MSLOT
- virtual GameMessage *createMessage(int);
-};
+#include "../../../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 // WB13C13F0 names SelectAllHeroes; complete native525E55..526008 is435B.
 // Native establishes16 slots of24B at+48, Object id+74/flags438,
@@ -477,7 +469,7 @@ void InGameHeroSelectInterface::Impl::SelectAllHeroes()
    }
   }
   if(clear)reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->clearSelection();
-  GameMessage *message=TheMessageStream->createMessage(i==last?0x3E9:0x3EA);
+  GameMessage *message=TheMessageStream->appendMessage(i==last?GameMessage::MSG_CREATE_SELECTED_GROUP:GameMessage::MSG_CREATE_SELECTED_GROUP_NO_SOUND);
   message->appendBooleanArgument(clear);
   message->appendObjectIDArgument(hero->id);
   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
@@ -577,7 +569,7 @@ void InGameHeroSelectInterface::Impl::SelectNearestBuilder(bool noCamera)
   Object *builder=TheGameLogic->findObjectByID(entry->id);
   Drawable *draw=builder->getDrawable();
   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->clearSelection();
-  GameMessage *message=TheMessageStream->createMessage(0x3EB);
+  GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP_IDLE_WORKER_VOICE);
   message->appendBooleanArgument(true);
   message->appendObjectIDArgument(builder->id);
   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
@@ -612,7 +604,7 @@ void InGameHeroSelectInterface::Impl::OnButtonPressed(const char *params) {
   if(selected->size()==1 && selected->front()==draw)TheTacticalView->lookAt(draw->getPosition());
   else {
    reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->clearSelection();
-   GameMessage *message=TheMessageStream->createMessage(0x3E9);
+   GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP);
    message->appendBooleanArgument(true);
    message->appendObjectIDArgument(obj->id);
    reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
@@ -625,11 +617,11 @@ void InGameHeroSelectInterface::Impl::OnButtonPressed(const char *params) {
    else ++pos;
   }
   if(found) {
-   GameMessage *message=TheMessageStream->createMessage(0x3ED);
+   GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_REMOVE_FROM_SELECTED_GROUP);
    message->appendObjectIDArgument(obj->id);
    reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->deselectDrawable(draw);
   }else {
-   GameMessage *message=TheMessageStream->createMessage(0x3E9);
+   GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_CREATE_SELECTED_GROUP);
    message->appendBooleanArgument(false);
    message->appendObjectIDArgument(obj->id);
    reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);

@@ -1,5 +1,5 @@
 // cl: /MD
-// ?issueFireWeaponCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00429471 593B: free issueFireWeaponCommand emitting 0x40D/0x40E/0x40F via TheMessageStream createMessage plus voice response.
+// ?issueFireWeaponCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00429471 593B: free issueFireWeaponCommand emitting 0x40D/0x40E/0x40F via TheMessageStream appendMessage plus voice response.
 // Evidence: BFME1 donor CommandTranslator_issueFireWeaponCommand options-7 isValid slot75 then 0x1000-0x20 arms weaponSlot-maxShots appends PickAndPlayInfo drawTarget-weaponSlot-position; BFME2 messages plus1; rowed isValid 0x35B112 appends 0x30F936 0x30F9BB 0x30F979 ctor 0x4D92FE override 0x288609 pinned pickAndPlay 0x4DAAFD; caller 0x42A345.
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
@@ -12,31 +12,7 @@ enum ObjectID
 class Drawable;
 
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_INVALID = 0,
-		MSG_40D = 0x40D,
-		MSG_40E = 0x40E,
-		MSG_40F = 0x40F
-	};
-	void appendIntegerArgument(int arg);
-	void appendLocationArgument(const struct Coord3D &arg);
-	void appendObjectIDArgument(ObjectID arg);
-};
-
-class MessageStream
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual GameMessage *createMessage(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 
 extern MessageStream *TheMessageStream; // ledger alias of MessageStreamSubsystem at 0x00A00950
 
@@ -128,10 +104,10 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 
 		if ((command->getOptions() & 0x1000) != 0)
 		{
-			msgType = GameMessage::MSG_40E;
+			msgType = GameMessage::MSG_DO_WEAPON_AT_LOCATION;
 			if (commandType == DO_COMMAND)
 			{
-				GameMessage *msg = TheMessageStream->createMessage(0x40E);
+				GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_WEAPON_AT_LOCATION);
 				msg->appendIntegerArgument(command->getWeaponSlot());
 				msg->appendLocationArgument(*pos);
 				msg->appendIntegerArgument(command->getMaxShotsToFire());
@@ -143,15 +119,15 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 				info.m_04 = target;
 				int slot = command->getWeaponSlot();
 				info.m_0C = &slot;
-				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40E, (PickAndPlayInfo *)&info);
+				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), GameMessage::MSG_DO_WEAPON_AT_LOCATION, (PickAndPlayInfo *)&info);
 			}
 		}
 		else
 		{
-			msgType = GameMessage::MSG_40F;
+			msgType = GameMessage::MSG_DO_WEAPON_AT_OBJECT;
 			if (commandType == DO_COMMAND)
 			{
-				GameMessage *msg = TheMessageStream->createMessage(0x40F);
+				GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_WEAPON_AT_OBJECT);
 				msg->appendIntegerArgument(command->getWeaponSlot());
 				ObjectID targetID = (target && target->m_object) ? target->m_object->m_id : OBJECTID_NONE;
 				msg->appendObjectIDArgument(targetID);
@@ -161,16 +137,16 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 				info.m_04 = target;
 				int slot = command->getWeaponSlot();
 				info.m_0C = &slot;
-				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40F, (PickAndPlayInfo *)&info);
+				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), GameMessage::MSG_DO_WEAPON_AT_OBJECT, (PickAndPlayInfo *)&info);
 			}
 		}
 	}
 	else if ((command->getOptions() & 0x20) != 0)
 	{
-		msgType = GameMessage::MSG_40E;
+		msgType = GameMessage::MSG_DO_WEAPON_AT_LOCATION;
 		if (commandType == DO_COMMAND)
 		{
-			GameMessage *msg = TheMessageStream->createMessage(0x40E);
+			GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_WEAPON_AT_LOCATION);
 			msg->appendIntegerArgument(command->getWeaponSlot());
 			msg->appendLocationArgument(*pos);
 			msg->appendIntegerArgument(command->getMaxShotsToFire());
@@ -182,15 +158,15 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 			info.m_04 = target;
 			int slot = command->getWeaponSlot();
 			info.m_0C = &slot;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40E, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), GameMessage::MSG_DO_WEAPON_AT_LOCATION, (PickAndPlayInfo *)&info);
 		}
 	}
 	else
 	{
-		msgType = GameMessage::MSG_40D;
+		msgType = GameMessage::MSG_DO_WEAPON;
 		if (commandType == DO_COMMAND)
 		{
-			GameMessage *msg = TheMessageStream->createMessage(0x40D);
+			GameMessage *msg = TheMessageStream->appendMessage(GameMessage::MSG_DO_WEAPON);
 			msg->appendIntegerArgument(command->getSpecialPowerTemplate()->getID());
 
 			PickAndPlayInfo info;
@@ -199,7 +175,7 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 				info.m_14 = *pos;
 			int slot = command->getWeaponSlot();
 			info.m_0C = &slot;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x40D, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), GameMessage::MSG_DO_WEAPON, (PickAndPlayInfo *)&info);
 		}
 	}
 

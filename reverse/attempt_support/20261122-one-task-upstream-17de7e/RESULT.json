@@ -1,0 +1,27 @@
+{
+  "base": "16968d24869723257f52bd66a62378703a99c347",
+  "upstream": "17de7e488e78da8579183dc3b7927481be46cceb",
+  "sources": [
+    "Code/GameEngine/Source/Common/CommandTranslator_issueFireWeaponCommand.cpp",
+    "Code/GameEngine/Source/Common/Rva0023D29F.cpp",
+    "Code/GameEngine/Source/Common/Rva0029AA3F.cpp",
+    "Code/GameEngine/Source/Common/Rva004312E5Message.cpp",
+    "Code/GameEngine/Source/Common/Rva00431B76.cpp",
+    "Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp",
+    "Code/GameEngine/Source/Common/Rva005CF9C9.cpp",
+    "Code/GameEngine/Source/Common/Rva005D1F45.cpp",
+    "Code/GameEngine/Source/Common/Rva005E8D38Method.cpp",
+    "Code/GameEngine/Source/Common/Rva005FA91CMessage.cpp",
+    "Code/GameEngine/Source/Common/StrategicInGameUI_SendCancelUpgradeMessages.cpp",
+    "Code/GameEngine/Source/Common/doAttackMoveCommand.cpp",
+    "Code/GameEngine/Source/GameClient/FormationTranslatorRva00431C9D.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D14C0.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreen.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolver.cpp"
+  ],
+  "no_source_conflict": true,
+  "new_task_credit": 0
+}

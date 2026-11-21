@@ -653,8 +653,7 @@ struct StartGameInfoView {char pad[0x50];unsigned seed;int u54;int scenario;};
 extern MapCache *TheMapCache;
 void InitGameLogicRandom(unsigned);
 class GameMessageArgument {public:char pad[8];int value;char tail[12];int type;};
-class GameMessage { GameMessageArgument *allocArg(); public:void appendIntegerArgument(int);
- void wb00EC9680(int);};
+#include "../../../../../Include/Common/MessageStream.h"
 class StartGameSetupView {public:
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
  virtual void start(int);
@@ -669,10 +668,6 @@ class Rva002D3627Host {public:
  virtual void enable(bool);
 };
 class LivingWorld; extern LivingWorld *TheLivingWorld;
-class MessageStream {public:
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
- virtual GameMessage *append(int);
-};
 extern MessageStream *TheMessageStream;
 
 // Native 0x00521CFF..0x00521E65 and WB 0x01466D30
@@ -694,13 +689,13 @@ void AptSkirmish::StartGameAfterCDCheck() {
    TheVideoPlayer->stopAll();
    TheGameLogic->clearGameData(false,false);
    ((Rva002D3627Host *)TheLivingWorld)->enable(true);
-   GameMessage *msg=TheMessageStream->append(31);
+   GameMessage *msg=TheMessageStream->appendMessage(GameMessage::MSG_START_LIVING_WORLD_LOGIC);
    if(msg) {msg->appendIntegerArgument(((StartGameInfoView *)(*(GameInfo * *)&TheSkirmishGameInfo))->scenario);msg->wb00EC9680(0);}
   } else {
    bool isSkirmish=true;
    const MapMetaData *map=TheMapCache->findMap((*(GameInfo * *)&TheSkirmishGameInfo)->getMap());
    if(map) isSkirmish=map->m_isMultiplayer;
-   GameMessage *msg=TheMessageStream->append(30);
+   GameMessage *msg=TheMessageStream->appendMessage(GameMessage::MSG_NEW_GAME);
    msg->appendIntegerArgument(isSkirmish ? 2 : 0);
    msg->appendIntegerArgument(1);msg->appendIntegerArgument(0);
   }
