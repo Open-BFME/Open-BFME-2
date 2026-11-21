@@ -80,12 +80,7 @@ public:
 	__forceinline Rva001EAE6FHelper() throw() { clear80(); }
 };
 
-class Rva004E04FD
-{
-	char m_data[0x18];
-public:
-	Rva004E04FD() throw();
-};
+#include "../../../Include/Common/Rva001EB15A.h"
 
 class Object;
 
@@ -323,7 +318,7 @@ public:
 	int m_A4;
 	int m_A8;
 	int m_AC;
-	Rva004E04FD m_B0;
+	Rva001EB15A m_B0;
 	int m_C8;
 	float m_CC;
 	AsciiString m_D0;
@@ -395,7 +390,7 @@ void UnitRevivalEntry::setThingTemplateName(const AsciiString &asciiString)
 
 // ??0UnitRevivalEntry@@QAE@XZ @0x0037E352 135B
 // Default ctor over UnitRevivalEntry: zeros plus ones plus clear80 0x001EAE6F plus
-// Rva004E04FD ctor plus float global 1.0f plus AsciiString null.
+// Existing 0x004E04FD record ctor plus float global 1.0f plus AsciiString null.
 // Neighbours in Rva0037E270Lookup.cpp share /O1 /DNDEBUG /MD; /arch:SSE for
 // retail xorps plus movss float zero and global float moves.
 
