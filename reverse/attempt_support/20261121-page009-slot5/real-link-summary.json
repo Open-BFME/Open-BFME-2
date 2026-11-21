@@ -1,0 +1,27 @@
+{
+  "source_commit": "369548e971988bdc9ce997b54be41b3dcf80432b",
+  "execution": {
+    "local_opt_in": true,
+    "platform": "win32",
+    "host": "Michael-PC",
+    "github_actions": false
+  },
+  "authoritative": true,
+  "unresolved": 0,
+  "duplicates": 0,
+  "vtables_bridged": 3007,
+  "vtable_slots_bridged": 44441,
+  "refused_tables": 27,
+  "initializers_bridged": 431,
+  "image_sha256": "00503658e2884c994212cc66093e2a87620bf63f2acd9d4a8d6f27879470dc55",
+  "map_sha256": "ea2e01d76ca5e0954694c13bd0783cddea5ef22801efcba438a25fe93cb18f17",
+  "image_executed": false,
+  "github_actions": false,
+  "miles_snapshot_still_correct": true,
+  "evidence": "bfme2/local-real-link-369548e971",
+  "credit": "Actual local link only; canonical declarations retain existing code, and upstream bridge changes are not new bodies or runtime proof.",
+  "page009_source_table_correct": true,
+  "page009_table_rva": "0x0086551C",
+  "page009_slots": 6,
+  "page009_credit": "Pending source/queue publication,0 new physical bytes"
+}

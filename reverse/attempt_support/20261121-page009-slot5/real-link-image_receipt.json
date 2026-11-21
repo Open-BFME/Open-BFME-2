@@ -1,0 +1,24 @@
+{
+ "authoritative": true,
+ "omission_proof": "passed",
+ "execution": {
+  "local_opt_in": true,
+  "platform": "win32",
+  "host": "Michael-PC",
+  "github_actions": false
+ },
+ "vtables_bridged": 3007,
+ "vtable_slots_bridged": 44441,
+ "kind": "real",
+ "commit": "369548e971988bdc9ce997b54be41b3dcf80432b",
+ "base": "0x2000000",
+ "image_sha256": "00503658e2884c994212cc66093e2a87620bf63f2acd9d4a8d6f27879470dc55",
+ "map_sha256": "ea2e01d76ca5e0954694c13bd0783cddea5ef22801efcba438a25fe93cb18f17",
+ "stubbed": [],
+ "exports_requested": 1964,
+ "rsrc": true,
+ "fixed_no": true,
+ "opt": "NOREF,NOICF",
+ "size_of_image": "0xcf3000",
+ "base_room": "0xd20d000"
+}

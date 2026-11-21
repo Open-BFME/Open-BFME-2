@@ -1,0 +1,43 @@
+{
+  "rva": 8803612,
+  "name": "??_7Rva0050EA74@@6B@",
+  "names": [
+    "??_7Rva0050EA74@@6B@"
+  ],
+  "name_bindings": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "row_rva": 5302900,
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+      "names": [
+        "??_7Rva0050EA74@@6B@"
+      ],
+      "offset": 36,
+      "name": "??_7Rva0050EA74@@6B@",
+      "rva": 8803612
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "row_rva": 5302818,
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+      "names": [
+        "??_7Rva0050EA74@@6B@",
+        "??_7Rva0050EA74Base@@6B@"
+      ],
+      "offset": 19,
+      "name": "??_7Rva0050EA74@@6B@",
+      "rva": 8803612
+    }
+  ],
+  "name_addresses": {
+    "??_7Rva0050EA74@@6B@": [
+      8803612
+    ]
+  },
+  "slots": 6,
+  "source": "W:\\OpenBFME\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\Rva0050EA74Ctor.cpp",
+  "previous_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj",
+  "previous_extent": 24,
+  "source_slot_mismatches": [],
+  "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj"
+}
