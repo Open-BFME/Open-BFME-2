@@ -59,15 +59,7 @@ private:
 	RetailPlayerRelationMap *m_teamRelations; // +0x334
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;
-	int getTeamKey() const { return m_key34; }
-private:
-	char m_pad00[0x34];
-	int m_key34; // +0x34
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 #include "../../GameLogic/Object/object.h"
 
@@ -93,7 +85,7 @@ Relationship Player::getRelationship(const Team *that) const
 		RetailPlayerRelationMap *rel = m_teamRelations;
 		if (!rel->m_map.empty())
 		{
-			PlayerRelationMapType::const_iterator it = rel->m_map.find(that->getTeamKey());
+			PlayerRelationMapType::const_iterator it = rel->m_map.find(that->getID());
 			if (it != rel->m_map.end())
 				return (*it).second;
 		}
