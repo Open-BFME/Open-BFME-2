@@ -93,45 +93,7 @@ inline BehaviorModule::~BehaviorModule()
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
-{
-public:
-	// BehaviorModuleInterface slot 8 of the table 0x00BEFCF8 this destructor restores at +0x0C:
-	// retail 0x002533D3, the +0x10 interface (inline, the COMDAT SpecialPowerModuleCtor.cpp emits)
-	virtual SpecialPowerModuleInterface *getSpecialPower() { return this; }
-	virtual ~SpecialPowerModule();
-	// The virtual list is SpecialPowerModuleCtor.cpp's, so both units emit the same
-	// three tables: twelve unrecovered primary slots, and the class's own
-	// getSpecialPowerTemplate, loadPostProcess and getModuleNameKey overrides.
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual AsciiString getPowerName() const;
-	virtual void s06() = 0;
-	virtual void onSpecialPowerCreation();
-	virtual void s08() = 0;
-	virtual void pauseCountdown(bool pause);
-	virtual void s10() = 0;
-	virtual void s11() = 0;
-	virtual void s12() = 0;
-	virtual void s13() = 0;
-	virtual void s14() = 0;
-	virtual void startPowerRecharge(float percent);
-protected:
-	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return (const SpecialPowerModuleData *)getModuleData(); }
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return getSpecialPowerModuleData()->m_specialPowerTemplate; }
-	virtual void loadPostProcess();
-public:
-	virtual NameKeyType getModuleNameKey() const;
-private:
-	int m_unknown14;
-	unsigned int m_availableOnFrame;
-public:
-	virtual void slot43(float readyFraction);	// BehaviorModuleInterface slot 43: retail 0x00251C11
-	virtual void slot44();	// BehaviorModuleInterface slot 44: retail 0x00251C24
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleClass.h"
 
 SpecialPowerModule::~SpecialPowerModule()
 {
