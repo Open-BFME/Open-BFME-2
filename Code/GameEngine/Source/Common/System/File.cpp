@@ -236,9 +236,18 @@ class MemoryReadFile : public File
 {
 public:
 	MemoryReadFile(char *data, int size);
+	virtual bool open(const char *filename, int access);
 	virtual int read(void *buffer, int bytes);
+	virtual int write(const void *buffer, int bytes);
 	virtual int seek(int bytes, seekMode mode);
+	virtual void nextLine(char *buffer, int bytes);
+	virtual bool scanInt(int &value);
+	virtual bool scanReal(float &value);
+	virtual bool scanString(AsciiString &value);
+	virtual int size();
+	virtual int position();
 	virtual char *readEntireAndClose();
+	virtual File *convertToRAMFile();
 
 private:
 	char *m_data;

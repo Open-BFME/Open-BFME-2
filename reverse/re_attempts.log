@@ -133255,3 +133255,12 @@ class-header:AIInternalMoveToState	0x0034005D	0	blocked	adopt trial over 14 imt 
 ?position@MemoryWriteFile@@UAEHXZ	0x0030F2C7	4	landed	add_match verified Code/GameEngine/Source/Common/System/File.cpp 4B; MemoryWriteFile slot12 of 0x87A7B8; returns m_pos at +0x1C
 ?readEntireAndClose@MemoryWriteFile@@UAEPADXZ	0x000D43D0	3	landed	add_match verified Code/GameEngine/Source/Common/System/File.cpp 3B; MemoryWriteFile slot13 of 0x87A7B8; BFME1 donor returns NULL
 ?convertToRAMFile@MemoryWriteFile@@UAEPAVFile@@XZ	0x0047A6A9	3	landed	add_match verified Code/GameEngine/Source/Common/System/File.cpp 3B; MemoryWriteFile slot14 of 0x87A7B8; BFME1 donor returns this
+?open@MemoryReadFile@@UAE_NPBDH@Z	0x0050B5F1	5	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 5B; MemoryReadFile slot1 of 0x87A748; BFME1 donor open returns FALSE
+?write@MemoryReadFile@@UAEHPBXH@Z	0x00574473	6	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 6B; MemoryReadFile slot4 of 0x87A748; BFME1 donor write returns -1
+?nextLine@MemoryReadFile@@UAEXPADH@Z	0x0050B238	3	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 3B; MemoryReadFile slot6 of 0x87A748; BFME1 donor empty nextLine
+?scanInt@MemoryReadFile@@UAE_NAAH@Z	0x005CB9FF	5	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 5B; MemoryReadFile slot7 of 0x87A748; BFME1 donor returns FALSE
+?scanReal@MemoryReadFile@@UAE_NAAM@Z	0x005CB9FF	5	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 5B; MemoryReadFile slot8 of 0x87A748; BFME1 donor returns FALSE
+?scanString@MemoryReadFile@@UAE_NAAVAsciiString@@@Z	0x005CB9FF	5	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 5B; MemoryReadFile slot9 of 0x87A748; BFME1 donor returns FALSE
+?size@MemoryReadFile@@UAEHXZ	0x002A79A1	4	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 4B; MemoryReadFile slot11 of 0x87A748; returns m_size at +0x18
+?position@MemoryReadFile@@UAEHXZ	0x0030F2C7	4	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 4B; MemoryReadFile slot12 of 0x87A748; returns m_pos at +0x1C
+?convertToRAMFile@MemoryReadFile@@UAEPAVFile@@XZ	0x0047A6A9	3	landed	add_match verified Code/GameEngine/Source/Common/System/MemoryReadFile.cpp 3B; MemoryReadFile slot14 of 0x87A748; BFME1 donor returns this

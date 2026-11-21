@@ -102373,3 +102373,12 @@ $L13350,,0x00792D4D,13,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,matched,
 ?position@MemoryWriteFile@@UAEHXZ,,0x0030F2C7,4,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot12 of 0x87A7B8; returns m_pos at +0x1C
 ?readEntireAndClose@MemoryWriteFile@@UAEPADXZ,,0x000D43D0,3,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot13 of 0x87A7B8; BFME1 donor returns NULL
 ?convertToRAMFile@MemoryWriteFile@@UAEPAVFile@@XZ,,0x0047A6A9,3,Code/GameEngine/Source/Common/System/File.cpp,matched,MemoryWriteFile slot14 of 0x87A7B8; BFME1 donor returns this
+?open@MemoryReadFile@@UAE_NPBDH@Z,,0x0050B5F1,5,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot1 of 0x87A748; BFME1 donor open returns FALSE
+?write@MemoryReadFile@@UAEHPBXH@Z,,0x00574473,6,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot4 of 0x87A748; BFME1 donor write returns -1
+?nextLine@MemoryReadFile@@UAEXPADH@Z,,0x0050B238,3,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot6 of 0x87A748; BFME1 donor empty nextLine
+?scanInt@MemoryReadFile@@UAE_NAAH@Z,,0x005CB9FF,5,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot7 of 0x87A748; BFME1 donor returns FALSE
+?scanReal@MemoryReadFile@@UAE_NAAM@Z,,0x005CB9FF,5,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot8 of 0x87A748; BFME1 donor returns FALSE
+?scanString@MemoryReadFile@@UAE_NAAVAsciiString@@@Z,,0x005CB9FF,5,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot9 of 0x87A748; BFME1 donor returns FALSE
+?size@MemoryReadFile@@UAEHXZ,,0x002A79A1,4,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot11 of 0x87A748; returns m_size at +0x18
+?position@MemoryReadFile@@UAEHXZ,,0x0030F2C7,4,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot12 of 0x87A748; returns m_pos at +0x1C
+?convertToRAMFile@MemoryReadFile@@UAEPAVFile@@XZ,,0x0047A6A9,3,Code/GameEngine/Source/Common/System/MemoryReadFile.cpp,matched,MemoryReadFile slot14 of 0x87A748; BFME1 donor returns this
