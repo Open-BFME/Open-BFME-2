@@ -48,6 +48,26 @@ struct HeroDieModuleData
 // below under their real names). Zero new pins (base resolves via the
 // existing DieModule pin).
 
+// HeroDie::xfer calls Xfer::Version1; keep its operand types beside the include.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
 class HeroDie : public DieModule
 {
 public:
@@ -58,6 +78,10 @@ private:
 	static int rva004C2299(Object *obj, void *userData);
 public:
 	HeroDie(Thing *thing, const ModuleData *moduleData);
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer( Xfer *xfer );
 };
 
 //
@@ -164,6 +188,23 @@ HeroDie::HeroDie(Thing *thing, const ModuleData *moduleData) :
 // body plus operator delete 0x2FD60.
 HeroDie::~HeroDie()
 {
+}
+
+// Slot 1 of HeroDie's retail primary table: 0x00497805 (`jmp 0x0058B03E`),
+// the DieModule base call every module-family override without work of its
+// own shares (ICF).
+void HeroDie::loadPostProcess()
+{
+	DieModule::loadPostProcess();
+}
+
+// Slot 3 of HeroDie's retail primary table: 0x0045CE8C, version 1 then
+// DieModule::xfer 0x004CE56D; retail folds it with the other module xfers
+// whose base call lands on the same body.
+void HeroDie::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	DieModule::xfer( xfer );
 }
 
 // tu-skeleton: 0x004C234E 28B ??_GHeroDie@@UAEPAXI@Z -- defined in this unit
