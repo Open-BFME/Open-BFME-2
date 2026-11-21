@@ -568,7 +568,7 @@ Code/GameEngine/Source/Common/BfmeQueryForward1279.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeQueryProcess1279.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeRecord001DD3BC.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeRectVNH.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp,no,1,0,0,0,0
 Code/GameEngine/Source/Common/BfmeRefVGO.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeRegistryForgetCC.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/BfmeReload1221.cpp,yes,0,0,0,0,0
@@ -1218,7 +1218,6 @@ Code/GameEngine/Source/Common/GlobalFlagClearers_E038xx.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GlobalFlagClearers_E03Bxx.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GlobalFlagClearers_E03Dxx.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GlobalFlagClearers_E03Fxx.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/GlobalFlagClearers_E044xx.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GlobalFlagClearers_E1F4E0.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/GlobalGetterSingles.cpp,yes,0,0,0,0,0
@@ -4081,14 +4080,11 @@ Code/GameEngine/Source/Common/Rva004E0D67Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E12D7Parse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E179ADoXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E17EBParse.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004E1A04Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E1B00DoXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E2941Dtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004E32D5Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E32F2Ctor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004E37CFNamedReplace.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E3C32Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E3C71DestroyFree.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004E3CD0Ctor.cpp,yes,0,0,0,0,0
@@ -6159,7 +6155,6 @@ Code/GameEngine/Source/Common/System/GeometryParseOther.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/GeometryParseType.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/GeometryPointLineDistSquared.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/GeometryRecord.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/System/GeometryRecordVector.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/GeometryRecordVectorCopyConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/GeometryShapeVectorCopyConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/System/GetArmySummaryName.cpp,yes,0,0,0,0,0
@@ -9025,7 +9020,6 @@ Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldSoundAssign_Rva003FB00B.
 Code/GameEngine/Source/GameLogic/LivingWorld/ParseForceBattle.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/Rva002B2DAD.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectParseINIBlock.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectRva004E3383.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/LocomotorHeight.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/AerialPathfinder.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Map/AreaSetInsert.cpp,yes,0,0,0,0,0
@@ -16958,7 +16952,6 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00434E94.cpp,yes,0,0,0,0,
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_004D1B38.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_004DC87E.cpp,yes,0,0,0,0,0
-Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_004e1f97.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00502610.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_find_004DC8AB.cpp,yes,0,0,0,0,0
 Code/Libraries/Source/WWVegas/WWLib/stlport_tree_rva004d971d.cpp,yes,0,0,0,0,0
