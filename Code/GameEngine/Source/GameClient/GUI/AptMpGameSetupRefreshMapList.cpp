@@ -88,17 +88,10 @@ void GadgetListBoxReset(GameWindow *window);
 void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 int GadgetListBoxAddEntryImage(GameWindow *window,const Image *image,int row,int column,int height,int width,bool overwrite,int color);
 int GadgetListBoxAddEntryText(GameWindow *window,UnicodeString text,int color,int row,int column,bool overwrite);
-class AptMpGameSetup {public:void rva00443538(int flags);
- private:
- char unknown00[0x7c];int mode;
- char unknown80[0x2c2-0x80];bool refreshing;
- char unknown2C3[0x394-0x2c3];GameWindow *mapList;
- _STL::vector<AsciiString> mapNames;int lobbyFlags;
- char unknown3A8[4];int sortColumn,previousSortColumn;
-};
+#include "../../../Include/GameClient/AptMpGameSetup.h"
 void AptMpGameSetup::rva00443538(int flags)
 {
- if(!TheMapCache || !mapList) return;
+ if(!TheMapCache || !field394) return;
  const Image *notConquered=TheMappedImageCollection->findImageByName(AsciiString("AptDifficultyNotConquered"));
  const Image *easy=TheMappedImageCollection->findImageByName(AsciiString("AptDifficultyEasyConquered"));
  const Image *medium=TheMappedImageCollection->findImageByName(AsciiString("AptDifficultyMedConquered"));
@@ -113,15 +106,15 @@ void AptMpGameSetup::rva00443538(int flags)
  const Image *userMaximum=TheMappedImageCollection->findImageByName(AsciiString("AptUserMapMaxConquered"));
  UserPreferences *stats=0;
  int width=hard ? ((const ImageWidthView *)hard)->width : 10;
- int columnWidth=GadgetListBoxGetColumnWidth(mapList,0);
+ int columnWidth=GadgetListBoxGetColumnWidth(field394,0);
  width=_STL::min(width,columnWidth);
- refreshing=true;
- int numColumns=GadgetListBoxGetNumColumns(mapList);
- if(lobbyFlags&1) {
-  SkirmishPreferences prefs(mode);
+ field2c2=true;
+ int numColumns=GadgetListBoxGetNumColumns(field394);
+ if(field3a4&1) {
+  SkirmishPreferences prefs(field7c);
   stats=new RealTimeStatsPreferences(prefs.Rva0043B9F5());
  }
- if(!(flags&0x40)) {GadgetListBoxReset(mapList);mapNames.clear();}
+ if(!(flags&0x40)) {GadgetListBoxReset(field394);(*(_STL::vector<AsciiString> *)field398).clear();}
  _STL::vector<MapMetaData *> maps;
  rva00302459(flags,&maps);
  for(_STL::vector<MapMetaData *>::iterator it=maps.begin();it!=maps.end();++it) {
@@ -141,7 +134,7 @@ void AptMpGameSetup::rva00443538(int flags)
   } else map->fieldF4=0;
   if(!map->m_isOfficial)map->fieldF4|=0x8000;
  }
- _STL::sort(maps.begin(),maps.end(),Rva0043FE9ALess(sortColumn,previousSortColumn));
+ _STL::sort(maps.begin(),maps.end(),Rva0043FE9ALess(field3ac,field3b0));
  for(_STL::vector<MapMetaData *>::iterator it=maps.begin();it!=maps.end();++it) {
   MapMetaData *map=*it;
   const Image *badge=notConquered;
@@ -154,13 +147,13 @@ void AptMpGameSetup::rva00443538(int flags)
   case 0x8004:badge=userHard;break;case 0x8005:badge=userBrutal;break;
   case 0x8006:badge=userMaximum;break;
   }
-  GadgetListBoxSetItemData(mapList,(void *)(map->fieldF4),-1,1);
-  int row=GadgetListBoxAddEntryImage(mapList,badge,-1,0,width,width,true,-1);
-  row=GadgetListBoxAddEntryText(mapList,map->bfme_getDisplayName(false),-1,row,numColumns-3,true);
+  GadgetListBoxSetItemData(field394,(void *)(map->fieldF4),-1,1);
+  int row=GadgetListBoxAddEntryImage(field394,badge,-1,0,width,width,true,-1);
+  row=GadgetListBoxAddEntryText(field394,map->bfme_getDisplayName(false),-1,row,numColumns-3,true);
   UnicodeString players;players.format(L"%d",map->m_numPlayers);
-  GadgetListBoxAddEntryText(mapList,players,-1,row,numColumns-1,true);
-  mapNames.push_back(map->m_fileName);
+  GadgetListBoxAddEntryText(field394,players,-1,row,numColumns-1,true);
+  (*(_STL::vector<AsciiString> *)field398).push_back(map->m_fileName);
  }
  if(stats) operator delete(((PreferencesDeletingDtorView *)stats)->scalarDeletingDtor(0));
- refreshing=false;
+ field2c2=false;
 }
