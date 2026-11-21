@@ -158,32 +158,7 @@ private:
 
 class Image;
 
-class UnitRevivalEntry
-{
-public:
-	~UnitRevivalEntry();
-
-private:
-	const Image *m_field00;
-	const Image *m_field04;
-	float m_field08;
-	int m_field0C;
-	int m_field10;
-	BfmeFixedStorage128 m_field14;
-	unsigned int m_field94;
-	int m_field98;
-	unsigned int m_field9C;
-	bool m_fieldA0;
-	bool m_fieldA1;
-	int m_fieldA4;
-	int m_fieldA8;
-	int m_fieldAC;
-	Rva001EB15A m_fieldB0;			// +0xB0, real24B owned record
-	int m_fieldC8;			// +0xC8
-	float m_fieldCC;			// +0xCC
-	AsciiString m_fieldD0;			// +0xD0
-	AsciiString m_fieldD4;			// +0xD4
-};
+#include "../../../../Include/GameLogic/UnitRevivalEntry.h"
 
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva001EB10CImulAddField, 0x24)

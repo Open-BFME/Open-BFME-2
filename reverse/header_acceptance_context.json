@@ -66,6 +66,15 @@
       "providers": [
         "Code/GameEngine/Source/Common/Rva0026163A.cpp"
       ]
+    },
+    {
+      "class": "UnitRevivalEntry",
+      "consumers": [
+        "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp"
+      ],
+      "providers": [
+        "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp"
+      ]
     }
   ]
 }

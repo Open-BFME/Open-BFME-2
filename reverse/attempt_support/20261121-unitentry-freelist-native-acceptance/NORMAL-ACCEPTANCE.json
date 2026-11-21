@@ -1,0 +1,24 @@
+{
+  "base": "951ed2cbc86eb05eca9a03e91049ad996909317b",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+  "class_name": "UnitRevivalEntry",
+  "header": "Code/GameEngine/Include/GameLogic/UnitRevivalEntry.h",
+  "native_adopt": true,
+  "native_accept": true,
+  "retired_consumer_keys": 1,
+  "remaining_original_provider_units": 2,
+  "normal_code_rows": 429,
+  "normal_data_rows": 3,
+  "runtime_nodes": 37,
+  "runtime_checks": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "prior_object_sha256": "5df9d0f2f371b29848198c35ee9195c515a67e51b0ae79118e599cd5c3fde09a",
+  "accepted_object_sha256": "dc2a969a63bb9fb1e5a12418a52e6a425aa232ff1f52d12e84a0c0b9136f435e",
+  "new_unique_bytes": 0,
+  "completed_credit_pending_publication": 1,
+  "published": false
+}
