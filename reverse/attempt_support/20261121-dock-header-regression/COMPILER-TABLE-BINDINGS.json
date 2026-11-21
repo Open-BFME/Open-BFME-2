@@ -1,0 +1,20 @@
+{
+  "actual_new_table_vas": {
+    "??_7SupplyCenterDockUpdate@@6BObjectModule@@@": "0xc51bdc",
+    "??_7SupplyCenterDockUpdate@@6BBehaviorModuleInterface@@@": "0xc51b20",
+    "??_7SupplyCenterDockUpdate@@6BUpdateModule@@@": "0xc51b10",
+    "??_7SupplyCenterDockUpdate@@6BDockUpdateInterface@@@": "0xc51ac0",
+    "??_7Rva004A11D4@@6BObjectModule@@@": "0xc51c80",
+    "??_7Rva004A11D4@@6BBehaviorModuleInterface@@@": "0xc51b20",
+    "??_7Rva004A11D4@@6BUpdateModule@@@": "0xc51d68",
+    "??_7Rva004A11D4@@6BDockUpdateInterface@@@": "0xc51c30",
+    "??_7SupplyWarehouseDockUpdate@@6BObjectModule@@@": "0xc53790",
+    "??_7SupplyWarehouseDockUpdate@@6BBehaviorModuleInterface@@@": "0xc51b20",
+    "??_7SupplyWarehouseDockUpdate@@6BUpdateModule@@@": "0xc51d68",
+    "??_7SupplyWarehouseDockUpdate@@6BDockUpdateInterface@@@": "0xc53740"
+  },
+  "required_constructor_rebindings": {
+    "??_7Rva004A11D4@@6BRva0058A0F4_Root@@@": "??_7Rva004A11D4@@6BObjectModule@@@",
+    "??_7Rva004A11D4@@6BRva0058A0F4_E1@@@": "??_7Rva004A11D4@@6BDockUpdateInterface@@@"
+  }
+}

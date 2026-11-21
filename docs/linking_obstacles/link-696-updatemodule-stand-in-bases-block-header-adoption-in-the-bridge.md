@@ -76,8 +76,8 @@ undefined with no definer 3,155 -> 3,127. Dead hatches left in the sources (regi
   `?moduleInterfaceAnchor@ModuleInterface@@UAEXXZ`, which six other objects' tables still reference
   (seven before the LevelGrantSpecialPower commit) (the
   registered ModuleInterface.h declares it out of line). Prerequisite: an owner for that anchor.
-- Rva0058A0F4Derived.cpp (DockUpdate, 3 classes): same route as MonsterDockUpdate, held by another seat's
-  class-identity work; RepairDockUpdateBehaviorCtor.cpp stores its tables by name.
+- Rva0058A0F4Derived.cpp (DockUpdate, 3 classes) and the two Repair constructor table references
+  are adopted in the2026-11-21 scoped follow-up below; five per-class table debts remain.
 - AIUpdateInterface family (Rva0026E836Derived.cpp, 6 classes with 153/154 primaries; Worker,
   DeployStyle and HordeWorker destructors): the peer constructor units carry private AIUpdateInterface
   views of their own and the canonical primaries are themselves 145-146/154 wrong. AIUpdate.h adoption
@@ -115,3 +115,10 @@ elsewhere (2); excluded ancestors (5). Stub views retried with the size check re
 constructor other than an EmitVtableTag emitter, only destructor rows for the class): none taken; their table
 or inline copies differ from the class's other emitters (6), the emitter constructor needs a default
 constructor the canonical class lacks (3), or the bytes move (2).
+
+
+### 2026-11-21: remaining Dock emitter and Repair constructor
+
+2026-11-21, scoped follow-up at40496f82be plus the Root change: Rva0058A0F4Derived.cpp now adopts the existing DockUpdate view in SupplyWarehouseDockUpdateNative.h. Its one-slot M1 stand-in and unresolved f1 reference are removed by the real47-slot BehaviorModuleInterface chain, without an alias, fake empty body or header/API/flag change. RepairDockUpdateBehaviorCtor.cpp binds the two compiler-confirmed ObjectModule/DockUpdateInterface table names at the unchanged nativeVAs00C51C80/00C51C30. All seven existing code rows247B retain exact bytes and reference operands. Native local slot predicates improve0/12→7/12 correct tables and241→12 mismatches; all three47-slot secondary tables and all four SupplyWarehouse tables match. Five SupplyCenter/opaqueRepair tables still need their real snapshot/module-key/update/action overrides; slot12 signature/name reconciliation remains a prerequisite, not an invented override. Raw current-index provider contexts remain compatible in either order (12445 retained comparisons); no unexplained new undefined name or other strong collision was found. A fresh ordinary post-change real link is still required before claiming unresolved/bridge retirement. Full inventory hashes and compact evidence are recorded with the change.
+
+Normal production whole-file build and definition gates pass for both files (seven retained rows). The two local linking previews are scoped predictions; no successful new full-image link is claimed. [Compact proof and limits](../../reverse/attempt_support/20261121-dock-header-regression/HANDOFF.md).

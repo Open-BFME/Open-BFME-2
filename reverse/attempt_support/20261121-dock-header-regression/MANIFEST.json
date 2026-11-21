@@ -1,0 +1,54 @@
+{
+  "scope": "Compact candidate/evidence handoff; original full inventories remain private with hashes",
+  "files": {
+    "COMPILER-TABLE-BINDINGS.json": {
+      "sha256": "56d8d014b4c6bd2528059991325c42d91260671d3b1aa496596455e1b7420e13",
+      "bytes": 1071
+    },
+    "dock-header-adoption.patch": {
+      "sha256": "2e09ee94e729a73a372f2d54a9f0d9f44ab49c32882330dcf9cde60e5e6e085d",
+      "bytes": 4922
+    },
+    "HANDOFF.md": {
+      "sha256": "fb40b50c6f2bbf85069c9378b5f9a370edd533fe06b420108725baeadd8f03de",
+      "bytes": 5163
+    },
+    "PRIVATE-INVENTORY-MANIFEST.json": {
+      "sha256": "c63289b33b95aa91e6fb83d2f0c3c5f7f461f0ae7934f287bbb77281a73674fd",
+      "bytes": 3041
+    },
+    "REGISTER-UPDATE.md": {
+      "sha256": "07b90698ac919cc734ad03ddc11c6f92f0b945ef613385c2d8ba1c51f1fff86b",
+      "bytes": 2021
+    },
+    "RepairDockUpdateBehaviorCtor.cpp.txt": {
+      "sha256": "d9ca5680662ad96da4502594a8bb4b02d7ab270ea8b7cd3f87ca18e51b13ac11",
+      "bytes": 2137
+    },
+    "Rva0058A0F4Derived.cpp.txt": {
+      "sha256": "3df1c8b74afb58398f9bf8e8d0167c2df2169a51ee0c0c37f84f007e8bf99580",
+      "bytes": 717
+    },
+    "SELECTION-SUMMARY.json": {
+      "sha256": "767896556bab52cb5bdd97bb3926f52b339fa2ab74822e991ec922fce4dc5175",
+      "bytes": 3587
+    },
+    "SEVEN-CODE-ROWS.json": {
+      "sha256": "2de6e5074930b76a8345be7e212fb43c45a12158bf68673f330e14d4fbcd6293",
+      "bytes": 8086
+    },
+    "SOURCE-HASHES.json": {
+      "sha256": "502d035e7e177c10e4d6439d594d805e4cfc5c4ad13ee812531138170893fbc2",
+      "bytes": 2336
+    },
+    "TWELVE-TABLE-VERDICTS.json": {
+      "sha256": "0438e6f3fe71bfbfed9d4d46751ae4f2009e86927091da4ee1dd0be8400d39ae",
+      "bytes": 7745
+    }
+  },
+  "total_payload_bytes": 40826,
+  "production_changes_by_child": false,
+  "new_body_credit": 0,
+  "new_cpp_coverage_credit": 0,
+  "actual_postchange_full_link_run": false
+}

@@ -118,3 +118,8 @@ Not taken:
 
 Scratch: build/st/census.py (census), overrides.py and declare.py (declarations), imt_complete.py and
 state_rebase.py (the view recipes), getter_move.py (the refused getter batch).
+
+
+### 2026-11-21: narrow integrated duplicate-owner repair
+
+At2023f0eeb0 the actual local link found a second implicit AIAttackMoveToState destructor in AIAttackMoveStateMachine.cpp. Commit40496f82be declares the already verified79B owner in AIStates.cpp (00345CAB), without another definition; its constructor147B and the owning source retain their bytes. The actual local40496 measurement confirms duplicate count1→0, with two unrelated unresolved symbols and no successful image. This clears that duplicate alone; the wider State/virtual-provider prerequisites in this entry remain open. [Source proof](../../reverse/attempt_support/20261121-integrated-link-regressions/AI-DTOR.md).

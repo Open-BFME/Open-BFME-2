@@ -1,0 +1,89 @@
+{
+  "scope": "Raw private selection/context comparisons against the time-bound native index; no fresh actual full link.",
+  "index_meta": {
+    "date": "2026-11-21 04:38",
+    "commit": "40496f82be",
+    "clean_tree": true,
+    "census_date": "2026-11-18 13:34",
+    "census_commit": "8e4a365b86"
+  },
+  "index_sha256": "c471081bb1013016492eab26752d17d9673ab93ab70bd81235aa85be3ead9e12",
+  "all_273_actual_provider_objects_read": true,
+  "retained_other_provider_comparisons": 12445,
+  "all_retained_other_contexts_SELECT_ANY2_and_twins_both_orders": true,
+  "failures": [],
+  "replaced_original_target_comparisons": [
+    {
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+      "name": "??1SupplyCenterDockUpdate@@UAE@XZ",
+      "candidate_selection": 1,
+      "provider_selection": 1,
+      "raw_context_twin": false
+    },
+    {
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+      "name": "??_GSupplyCenterDockUpdate@@UAEPAXI@Z",
+      "candidate_selection": 2,
+      "provider_selection": 2,
+      "raw_context_twin": true
+    },
+    {
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+      "name": "??1Rva004A11D4@@UAE@XZ",
+      "candidate_selection": 1,
+      "provider_selection": 1,
+      "raw_context_twin": false
+    },
+    {
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+      "name": "??_GRva004A11D4@@UAEPAXI@Z",
+      "candidate_selection": 2,
+      "provider_selection": 2,
+      "raw_context_twin": true
+    },
+    {
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+      "name": "??1SupplyWarehouseDockUpdate@@UAE@XZ",
+      "candidate_selection": 1,
+      "provider_selection": 1,
+      "raw_context_twin": false
+    },
+    {
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+      "name": "??_GSupplyWarehouseDockUpdate@@UAEPAXI@Z",
+      "candidate_selection": 2,
+      "provider_selection": 2,
+      "raw_context_twin": true
+    }
+  ],
+  "weak_slots": [
+    {
+      "name": "??_ESupplyCenterDockUpdate@@UAEPAXI@Z",
+      "default": "??_GSupplyCenterDockUpdate@@UAEPAXI@Z",
+      "characteristics": 2,
+      "index_actual_definitions": []
+    },
+    {
+      "name": "??_ERva004A11D4@@UAEPAXI@Z",
+      "default": "??_GRva004A11D4@@UAEPAXI@Z",
+      "characteristics": 2,
+      "index_actual_definitions": []
+    },
+    {
+      "name": "??_ESupplyWarehouseDockUpdate@@UAEPAXI@Z",
+      "default": "??_GSupplyWarehouseDockUpdate@@UAEPAXI@Z",
+      "characteristics": 2,
+      "index_actual_definitions": []
+    }
+  ],
+  "new_undefined_name_count": 29,
+  "unexplained_new_names": [],
+  "strong_other_collisions": [],
+  "removed_undefined_f1": "?f1@Rva0058A0F4_M1@@UAEXXZ",
+  "limits": [
+    "Twelve residual slot mismatches in five tables remain existing override/API debt.",
+    "Index snapshot40496/04:38 derives from18-Nov census8e4a365b86; full4753 not duplicated or claimed.",
+    "Old target object is replaced; its three changed destructor relocation contexts are not kept as competing providers.",
+    "Index retention edges are not a complete removed-data-symbol consumer inventory; see private REMOVED-TABLE-USERS limit."
+  ]
+}

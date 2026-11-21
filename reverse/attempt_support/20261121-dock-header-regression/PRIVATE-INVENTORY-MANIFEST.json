@@ -1,0 +1,78 @@
+{
+  "root": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\dock-derived-probe",
+  "scope": "Full private inventories remain here, not a multi-megabyte tracked payload. Hashes bind compact review summaries to complete actual evidence.",
+  "files": {
+    "constructor-candidate.cpp.txt": {
+      "sha256": "0cb7e7a9c0c3518cb4c267b75a0fedb75cde7f47a57d3a19fdff5223853d4337",
+      "bytes": 2194
+    },
+    "constructor-candidate.effective.cpp.txt": {
+      "sha256": "5ce704a71146471c298da7959b1f3d8208841ba7ed88538d596d91b3d9ef7cb8",
+      "bytes": 2212
+    },
+    "constructor-control.cpp.txt": {
+      "sha256": "c94460550e90832b4782f09958c5b13b753db535ac1e741aed8e4b6c9b48990c",
+      "bytes": 2192
+    },
+    "constructor-control.effective.cpp.txt": {
+      "sha256": "c447b671c057ebcc46826459fd25b97f04339e0701cc7c8681094bb16441e95c",
+      "bytes": 2210
+    },
+    "constructor-proof.json": {
+      "sha256": "24c6a056c753e586d136cae028bd75ccda18eabcfee6a7eabbd76706415bbfbe",
+      "bytes": 10223
+    },
+    "DATA-SLOT-NATIVE-PROOF.json": {
+      "sha256": "fe3ab35c922d7016adb5e55801372ccfc8111644dc213ce07b6e42aec96bbd2a",
+      "bytes": 119444
+    },
+    "derived-candidate.cpp.txt": {
+      "sha256": "725ab164a9d010543eb66c8adb61c2d1dd125aa9b27251334e1b76a211023a62",
+      "bytes": 745
+    },
+    "derived-candidate.effective.cpp.txt": {
+      "sha256": "cbfa068614230fa6262c2f7c7cd364291d7ebf3ea33baf300e80c7908be32ce9",
+      "bytes": 792
+    },
+    "derived-control.cpp.txt": {
+      "sha256": "da5a3fe9ecc465d9554f76aa647bdfc213b3c9977e526de4e793a68d9bb5d10c",
+      "bytes": 2913
+    },
+    "derived-control.effective.cpp.txt": {
+      "sha256": "bcb026989617dd4703cea4b0440286cc74d3a0b92f6467882923519b1c51f805",
+      "bytes": 2931
+    },
+    "derived-proof.json": {
+      "sha256": "8c0df78a866ed4714f5ca282f932370f162cc3b6b158ff91491491ff1603853d",
+      "bytes": 183666
+    },
+    "MULTI-PROVIDER-RAW.json": {
+      "sha256": "48588c2f1e45eb8ac7e92e280c214be4437c7b1d651b911691e7121914b9c671",
+      "bytes": 3362158
+    },
+    "native-compiler-table-bindings.json": {
+      "sha256": "56d8d014b4c6bd2528059991325c42d91260671d3b1aa496596455e1b7420e13",
+      "bytes": 1071
+    },
+    "REMOVED-TABLE-USERS.json": {
+      "sha256": "4128d2932cbbfb3378640a23aa9885cb826297552377aa75d6660c8b07034334",
+      "bytes": 1468
+    },
+    "SELECTION-PROOF.json": {
+      "sha256": "0fbd40d66f3dd9994d2e5a021ca9fb7b68f52ed6ad867289218202685226709c",
+      "bytes": 4618844
+    },
+    "SOURCE-INPUTS.json": {
+      "sha256": "86d0215e7d9497eeebad89775cc3bc5a9fda05d225008a82f9dc5278956f2716",
+      "bytes": 1215
+    },
+    "STRICT-SEVEN-CODE-ROWS.json": {
+      "sha256": "2de6e5074930b76a8345be7e212fb43c45a12158bf68673f330e14d4fbcd6293",
+      "bytes": 8086
+    },
+    "SYMBOL-AVAILABILITY.json": {
+      "sha256": "2c05dca59b0d182c054a44058d9d375ec597c256f186c48bc9575af84aacc10f",
+      "bytes": 9418
+    }
+  }
+}
