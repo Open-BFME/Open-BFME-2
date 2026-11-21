@@ -9,21 +9,9 @@
 // Rva0088FAA0Interface name in the BFME1 donor is the port's guess-label;
 // retail owns the base as DebugIOInterface (upstream debug_io.h).
 
-class DebugIOInterface
-{
-protected:
-    virtual ~DebugIOInterface(void) {}
+#include "../../debug/bfme_debug_io_interface.h"
 
-public:
-    explicit DebugIOInterface(void) {}
-    virtual int Read(char *, int) = 0;
-    virtual void Write(int, const char *, const char *) = 0;
-    virtual void EmergencyFlush(void) = 0;
-    virtual void Execute(void) = 0;
-    virtual void Delete(void) = 0;
-};
-
-// The constructor is inline in Zero Hour's debug_io.h, so every unit that
+// The constructor is inline in debug_io.h, so every unit that
 // builds a DebugIO emits it as a select-any copy; a plain definition here
 // collided with each of them. Constructing the base is what makes this unit
 // emit the vftable and the deleting destructor row, so the anchor below keeps

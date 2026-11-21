@@ -43,17 +43,26 @@ struct CreateMask { unsigned int bits[4]; };
 enum ObjectID; class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID); };
 extern ThingFactory *TheThingFactory;
 #include "../../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
-class GettingBuiltBehaviorSecondary {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
- virtual void rva00453652(bool);
- void resumeBuildingConstruction(bool);
-};
-void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
+#include "GettingBuiltBehaviorInterface.h"
+
+class GettingBuiltBehaviorSecondary
 {
- const GettingBuiltBehaviorModuleData *data = *(const GettingBuiltBehaviorModuleData **)((char *)this-0x1c);
- Object *object = *(Object **)((char *)this-0x18);
- if (data->m_workerName.isEmpty()) { rva00453652(instant); return; }
+public:
+	void resumeBuildingConstruction(bool instant);
+};
+
+// This unit uses the two bases to emit the +0x20 virtual entry.
+class GettingBuiltBehavior : public UpdateModule, public GettingBuiltBehaviorInterface
+{
+public:
+	virtual void resumeBuildingConstruction(bool instant);
+};
+
+static __forceinline void resumeConstruction(GettingBuiltBehaviorInterface *construction, bool instant)
+{
+ const GettingBuiltBehaviorModuleData *data = *(const GettingBuiltBehaviorModuleData **)((char *)construction-0x1c);
+ Object *object = *(Object **)((char *)construction-0x18);
+ if (data->m_workerName.isEmpty()) { construction->rva00453652(instant); return; }
  Player *player = object->getControllingPlayer();
  if (!player) return;
  if (!object->getControllingPlayer()->rva002AA245()) return;
@@ -70,7 +79,7 @@ void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
  builder->setPosition(&object->m_cachedPos);
  builder->setProducer(object);
  object->setBuilder(builder);
- *((bool *)this+0x1c) = true;
+ *((bool *)construction+0x1c) = true;
  if (object->privateStatus & 1) {
    object->setEffectivelyDead(false);
    object->construction = 0.0f;
@@ -88,6 +97,17 @@ void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
  }
  Drawable *drawable = builder->getDrawable();
  if (drawable) drawable->rva000B3FD0();
- *((bool *)this+0x1d) = true;
+ *((bool *)construction+0x1d) = true;
 }
 
+void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
+{
+	resumeConstruction(reinterpret_cast<GettingBuiltBehaviorInterface *>(this), instant);
+}
+
+void GettingBuiltBehavior::resumeBuildingConstruction(bool instant)
+{
+	GettingBuiltBehaviorInterface *construction = reinterpret_cast<GettingBuiltBehaviorInterface *>(
+		reinterpret_cast<char *>(this) + sizeof(UpdateModule));
+	resumeConstruction(construction, instant);
+}

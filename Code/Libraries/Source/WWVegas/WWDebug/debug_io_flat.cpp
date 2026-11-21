@@ -29,6 +29,7 @@
 //
 // Debug I/O class flat (flat or split log file)
 //////////////////////////////////////////////////////////////////////////////
+#include "../../debug/bfme_debug_io_interface.h"
 #include <_pch.h>
 #include <stdlib.h>
 #include <new>      // needed for placement new prototype
@@ -360,6 +361,10 @@ void DebugIOFlat::EmergencyFlush(void)
 void DebugIOFlat::Execute(class Debug& dbg, const char *cmd, bool structuredCmd,
                           unsigned argn, const char * const * argv)
 {
+  const int bytesPerKiB = 1024;
+  const unsigned everyMessageType = 0xffffffff;
+  const unsigned splitArgumentCount = 3;
+
   DebugIOFlatDebugShim &flatDbg=reinterpret_cast<DebugIOFlatDebugShim &>(dbg);
 
   if (!cmd||!strcmp(cmd,"help"))
@@ -452,7 +457,7 @@ void DebugIOFlat::Execute(class Debug& dbg, const char *cmd, bool structuredCmd,
 
     m_firstStream=(StreamListEntry *)DebugAllocMemory(sizeof(StreamListEntry));
     m_firstStream->next=NULL;
-    m_firstStream->stream=OutputStream::Create(fn,argn>1?atoi(argv[1])*1024:0);
+    m_firstStream->stream=OutputStream::Create(fn,argn>1?atoi(argv[1])*bytesPerKiB:0);
     m_lastStreamPtr=&m_firstStream->next;
   }
   else if (!strcmp(cmd,"copy"))
@@ -467,7 +472,7 @@ void DebugIOFlat::Execute(class Debug& dbg, const char *cmd, bool structuredCmd,
   else if (!strcmp(cmd,"splitadd"))
   {
     // splitadd <types> <filter> <name> [ <size in kb> ]
-    if (argn>=3)
+    if (argn>=splitArgumentCount)
     {
       // add entry
       SplitListEntry *cur=(SplitListEntry *)DebugAllocMemory(sizeof(SplitListEntry));
@@ -489,7 +494,7 @@ void DebugIOFlat::Execute(class Debug& dbg, const char *cmd, bool structuredCmd,
         }
       }
       if (!cur->stringTypes)
-        cur->stringTypes=0xffffffff;
+        cur->stringTypes=everyMessageType;
 
       strncpy(cur->items,argv[1],sizeof(cur->items)-1);
       cur->items[sizeof(cur->items)-1]=0;
@@ -510,7 +515,7 @@ void DebugIOFlat::Execute(class Debug& dbg, const char *cmd, bool structuredCmd,
         stream->next=NULL;
         *m_lastStreamPtr=stream;
         m_lastStreamPtr=&stream->next;
-        stream->stream=OutputStream::Create(fn,argn>3?atoi(argv[3])*1024:0);
+        stream->stream=OutputStream::Create(fn,argn>3?atoi(argv[3])*bytesPerKiB:0);
       }
       cur->stream=stream->stream;
     }

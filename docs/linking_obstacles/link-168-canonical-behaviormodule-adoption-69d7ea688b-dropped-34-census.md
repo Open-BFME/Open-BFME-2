@@ -342,6 +342,31 @@ primary overrides (parity, not native table correctness). HordeMeleeSwarm.cpp (1
 `?erase@?$vector@UBfmePod28@@...`: a `link_check` artifact, since the 14:31 index still holds the
 object of Rva005842F7Finish.cpp, which `ab58bb88df` merged into HordeMeleeSwarm.cpp at 17:49 (after
 the index); the next census will not see that object.
+
+GettingBuiltBehavior follow-up (2026-11-21): the native six-byte getter at 0x004543A3
+returns the snapshot name. Its protected override lives in GettingBuiltBehavior.cpp, with
+the prior opaque getter kept as the verified fold owner. Both constructor and destructor
+now emit all 13 native primary slots at 0x008404FC. The three edited units match 42/42
+function rows and three exact EH graphs. The scoped link preview resolves all four
+providers, including the fold owner. Scheduled real linking must confirm bridge retirement.
+
+The two installers now share one class view. Both copies of the BehaviorModuleInterface
+table at 0x00840440 resolve all 47 retail targets. Slot 32 preserves the null case and
+converts the +0x0C receiver to +0x20. Its compiler-generated eight-byte adjustor also
+fills slot 0 in each 27-slot table at 0x008403C8. Slot 45 keeps the shared positional
+signature and dispatches through interface slot 2, matching the typed 11-byte retail
+provider at 0x004543CA. Eight slots still need native providers in the 27-slot table.
+The 13-slot primary and three-slot UpdateModule tables retain their previous targets.
+The scope passes 120 function rows, one data row and three exact EH graphs. The
+ordinary four-source link preview resolves 2,976 bytes against its local index.
+
+The completed 0x008403C8 view binds six field readers, the construction-resume virtual
+and the wake-frame virtual. The 449-byte resume body and all 25 relocations are identical
+under the preexisting and virtual entry points. The 29-byte wake-frame override calls the
+same native provider at 0x0044DF71. Both installers now emit identical copies of all four
+tables at their retail extents: 13, 47, 3 and 27 slots. The seven-source preview resolves
+4,990 bytes and all 378 function rows pass. Scoped EH is exact for all three graphs.
+The scheduled real link must still establish bridge retirement.
 lk10's held-file recipes above, applied once the files became claimable (lk12, base `c871f897be`):
 BridgeScaffoldBehavior.cpp (1,021 B) binds `??_7Rva00458402@@6BObjectModule/BehaviorModuleInterface/UpdateModule@@@`
 and `6BRva00458402_E1@@@` for its old `6BRva0024A797_Root/_Mid/_B2@@@` and `6B@` (+0/+0x0C/+0x10/+0x20);

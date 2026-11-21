@@ -1,0 +1,14 @@
+Source claims: OK (32 sources, scoped byte-verified)
+Data rows: OK (4 row(s) byte-verified)
+Compile: 10 of 32 TU(s) (deps-cache: 22 current)
+Funclet pins: 215 row(s) verified past a renumbered $L label
+    uw_0075cdd1 (Code/Libraries/Source/WWVegas/WWDebug/DebugIOOds_Create.cpp): $L671 was renumbered; verified parent EH data places $L673 at 0x0075CDD1
+    uw_0075cdf0 (Code/Libraries/Source/debug/debug_io_net.cpp): $L368 was renumbered; verified parent EH data places $L4165 at 0x0075CDF0
+    uw_0075ce21 (Code/Libraries/Source/debug/debug_io_net.cpp): $L612 was renumbered; verified parent EH data places $L4205 at 0x0075CE21
+    uw_0075ce40 (Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp): $L4453 was renumbered; verified parent EH data places $L4459 at 0x0075CE40
+    uw_0075ce60 (Code/Libraries/Source/WWVegas/WWDebug/debug_io_flat.cpp): $L4407 was renumbered; verified parent EH data places $L4413 at 0x0075CE60
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 579/579 matched across 32 source file(s)
+String-ref verify: OK (115 literals + 11 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (31 compiler literals verified)
+Import-ref verify: OK (36 named imports verified)

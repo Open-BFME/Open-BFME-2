@@ -495,3 +495,12 @@ seven affected units retained 11,482 scoped linked bytes. The primary
 has thirteen ordinary slots. Its exact seven-byte nonvirtual base
 teardown remains blocked on the owning special-member transition.
 [Native table and lifetime evidence](../../reverse/attempt_support/checklist-item-base-tables-20261120-root20.md).
+
+2026-11-21: Run 405 failed with LNK2005 for the
+`AIAttackMoveToState` destructor after the fold at `61a376521b5`.
+The constructor unit now declares the destructor defined in `AIStates.cpp`
+at 0x00345CAB. The before and after objects match all 15 constructor-unit
+rows. They emit the same vtable bytes, relocation names, weak defaults and
+COMDAT selection. The previous conflicting table copies remain covered
+by the bridge at 0x00813548. The next real link will confirm that the
+duplicate definition is gone.

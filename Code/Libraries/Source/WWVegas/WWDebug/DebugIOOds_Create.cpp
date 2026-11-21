@@ -4,39 +4,16 @@
 
 extern void *DebugAllocMemory(unsigned size);
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug/debug_io.h
-class Debug;
-class DebugIOInterface
+#include "../../debug/bfme_debug_io_interface.h"
+
+bool DebugIOInterface::HasInput()
 {
-protected:
-    virtual ~DebugIOInterface(void) {}
+    return false;
+}
 
-public:
-    DebugIOInterface(void) {}
-    enum StringType { Assert = 0, Check, Log, Crash, Exception, CmdReply, StructuredCmdReply, Other, MAX };
-    virtual int Read(char *buf, int maxchar) = 0;
-    virtual void Write(StringType type, const char *src, const char *str) = 0;
-    virtual void EmergencyFlush(void) = 0;
-    virtual void Execute(class Debug &dbg, const char *cmd, bool structuredCmd, unsigned argn, const char *const *argv) = 0;
-    virtual void Delete(void) = 0;
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug/internal_io.h
-// The base deleting destructor is frameless; the derived native bodies retain EBP,
-// as in the existing DebugIONetPipeDestructorThunk.cpp compiler boundary.
+// The base deleting destructor is frameless. The derived retail bodies retain EBP.
 #pragma optimize("y", off)
-
-class DebugIOOds : public DebugIOInterface
-{
-public:
-    explicit DebugIOOds(void) {}
-    virtual int Read(char *buf, int maxchar) { return 0; }
-    virtual void Write(StringType type, const char *src, const char *str);
-    virtual void EmergencyFlush(void) {}
-    virtual void Execute(class Debug &dbg, const char *cmd, bool structuredCmd, unsigned argn, const char *const *argv) {}
-    static DebugIOInterface *Create(void);
-    virtual void Delete(void);
-};
+#include "../../debug/bfme_debug_io_ods.h"
 
 // ?Create@DebugIOOds@@SAPAVDebugIOInterface@@XZ
 DebugIOInterface *DebugIOOds::Create(void)
