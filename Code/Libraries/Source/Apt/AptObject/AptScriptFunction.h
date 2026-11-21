@@ -22,44 +22,7 @@ enum AptVirtualFunctionTable_Indices { AptVFT_ScriptFunctionByteCodeBlock = 45 }
 
 #include "../AptNativeHash.h"
 
-class AptValue
-{
-public:
-    AptNativeFunction *c_nativefunction() const;
-    AptDate *c_date() const;
-    AptCIH *c_cih(bool = false) const;
-    bool isArray() const;
-    int toInteger() const;
-    void toString(EAStringC &) const;
-    void rva006DE870(char *) const;
-    AptArray *c_array() const;
-    AptString *c_string() const;
-    bool isUndefined() const;
-    AptValue *findChild(const EAStringC *, AptValue *);
-    bool getIsDefined() const;
-    unsigned int getRefCount() const;
-    bool isCIH(bool = false) const;
-    virtual void AddRef();
-    virtual void Release();
-    virtual void ForceDelete();
-    virtual AptNativeHash *GetNativeHashVirtual();
-    virtual bool ContainsNativeHashVirtual() const;
-    virtual int getHasClass() const;
-    virtual void setHasClass(int);
-    virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
-    virtual bool objectMemberSet(AptValue *const, const EAStringC *const, AptValue *const);
-    virtual void DeleteThis();
-    virtual void PreDestroy();
-    virtual void DestroyGCPointers();
-    virtual bool IsGarbageCollected() const = 0;
-    virtual void RegisterReferences() const = 0;
-protected:
-    AptValue(AptVirtualFunctionTable_Indices);
-    virtual ~AptValue();
-    unsigned int mnValueData;
-private:
-    void SetDestroyedGC(); // Native6DBD80 ORs destroyed-GC bit3.
-};
+#include "../AptValue.h"
 // Native GC destructor6D6340 tail-calls the base without resetting a GC vptr.
 class __declspec(novtable) AptValueGC : public AptValue
 {

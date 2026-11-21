@@ -312,7 +312,7 @@ static __forceinline float apt_fmodf(float x,float y) { return (float)fmod(x,y);
 void AptValue::toString(EAStringC &sBuf) const {
  if(isUndefined()) {sBuf.rva006D3470();return;}
  char szTemp[128];
- switch(((int)mnValueData)>>25) {
+ switch(((int)field04)>>25) {
  case 1:case 42:sBuf=c_string()->str;break;
  case 5:if(((AptBoolean*)this)->GetBool())sBuf=*Rva0070B4F0GetString(168);else sBuf=*Rva0070B4F0GetString(52);break;
  case 7:sprintf(szTemp,"%d",((AptInteger*)this)->GetInt());sBuf=szTemp;break;
@@ -334,7 +334,7 @@ void AptValue::toString(EAStringC &sBuf) const {
  case 38:sBuf="[GlobalExtension]";break;
  case 41:sBuf=((AptError*)this)->msMessage;break;
  case 13:case 14:case 15:case 18:case 19:AptActionInterpreter::getName(c_cih(),sBuf);break;
- default:sprintf(szTemp,"[Type=0x%X]",((int)mnValueData)>>25);sBuf=szTemp;break;
+ default:sprintf(szTemp,"[Type=0x%X]",((int)field04)>>25);sBuf=szTemp;break;
  }
 }
 
