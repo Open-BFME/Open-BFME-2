@@ -154,7 +154,7 @@ enum ScienceType { S3ScienceForce=0x7fffffff };
 struct Rva0026F4F4Element { unsigned words[1]; bool operator<(const Rva0026F4F4Element &)const;bool operator==(const Rva0026F4F4Element &)const; };
 namespace _STL {template<>struct __type_traits<Rva0026F4F4Element> : __type_traits_aux<1> {};}
 
-class BfmeFixedStorage0004543D {public:BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&);char data[28];};
+#include "../../Include/Common/BfmeFixedStorage0004543D.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../Include/GameLogic/Module/Rva003623E5Member.h"
