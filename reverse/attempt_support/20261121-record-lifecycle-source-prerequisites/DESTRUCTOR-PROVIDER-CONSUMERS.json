@@ -1,0 +1,1372 @@
+{
+  "symbol": "??1Rva001EB15A@@QAE@XZ",
+  "rva": "0x001EB05E",
+  "size": 54,
+  "index_path": "W:\\OpenBFME\\Open-BFME-2\\build\\link_census\\link_index.pkl",
+  "index_sha256": "1b84089bee6c31ea387a324290e2d39bfb52556162047d0897ad841c270e1970",
+  "index_meta": {
+    "date": "2026-11-21 11:47",
+    "commit": "dcbd831464",
+    "clean_tree": true,
+    "census_date": "2026-11-18 13:34",
+    "census_commit": "8e4a365b86"
+  },
+  "strong": null,
+  "comdat": [
+    [
+      7592,
+      "5f883da03894",
+      "retail"
+    ]
+  ],
+  "provider_objects": [
+    "^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker.obj"
+  ],
+  "touching_objects": [
+    "^code_^game^engine_^source_^common_^carryover^unit.obj",
+    "^code_^game^engine_^source_^game^logic_^object_^object^constructor.obj",
+    "^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker.obj"
+  ],
+  "objects": [
+    {
+      "object": "^code_^game^engine_^source_^common_^carryover^unit.obj",
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^carryover^unit.obj",
+      "sha256": "072b938398cfa46ae6fcf4da4bd48901d1afc5f7d5e91df3f819529f536c2816",
+      "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+      "source_sha256": "31ab50bbbaf210e54f97c6c16eb7438d876d1d473871fab698c068c9712425a8",
+      "definitions_or_undefined": [
+        {
+          "index": 81,
+          "name": "??1Rva001EB15A@@QAE@XZ",
+          "value": 0,
+          "section": 0,
+          "type": 32,
+          "storage": 2
+        }
+      ],
+      "runtime_reference_sites": [
+        {
+          "section": 22,
+          "section_name": ".text",
+          "section_symbols": [
+            [
+              0,
+              "??1CarryoverUnit@@UAE@XZ",
+              2
+            ]
+          ],
+          "offset": 37,
+          "kind": 20,
+          "target_symbol_index": 81
+        }
+      ],
+      "whole_source_rows": [
+        {
+          "name": "?GetCommandPointSize@Rva0037DCA5@@QAEHXZ",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0037DCA5",
+          "target_size": "39",
+          "status": "matched",
+          "notes": "sibling 0x0037E270 same global and callee via Rva0037E270Lookup plus same-shape 0x0037DC52"
+        },
+        {
+          "name": "?Rva0037DC8AEqual@@YA_NPBX0@Z",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0037DC8A",
+          "target_size": "27",
+          "status": "matched",
+          "notes": "memcmp 0x80 wrapper precedent Rva002634E0Equal"
+        },
+        {
+          "name": "??0CarryoverUnit@@QAE@XZ",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0037DF2C",
+          "target_size": "97",
+          "status": "matched",
+          "notes": "vtable plus empty-string plus float plus clear80 plus zeroing ctor"
+        },
+        {
+          "name": "?rva0037DE0E@Rva0037DE0E@@QAEEPAX@Z",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0037DE0E",
+          "target_size": "85",
+          "status": "matched",
+          "notes": "chain of rowed 0x0037E3D9 plus block and Rva001EAFC1"
+        },
+        {
+          "name": "?rva0037DCCC@@YAXPAVObject@@H@Z",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0037DCCC",
+          "target_size": "28",
+          "status": "matched",
+          "notes": ""
+        },
+        {
+          "name": "??1CarryoverUnit@@UAE@XZ",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0037DEE4",
+          "target_size": "72",
+          "status": "matched",
+          "notes": "banked partial closed by tools/permute.py; identity carried from the banked attempt"
+        },
+        {
+          "name": "__ehhandler$??0CarryoverUnit@@QAE@XZ",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0077F0BE",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0037DF2C; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+        },
+        {
+          "name": "$L1212",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0077F0B3",
+          "target_size": "11",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0CarryoverUnit@@QAE@XZ; Matched parent 0x0037DF2C's EH graph is EXACT (eh_verify) and binds compiler label $L1212 to retail Unwind@00b7f0b3 0x77F0B3; replaces generated uw_0077f0b3"
+        },
+        {
+          "name": "??_GCarryoverUnit@@UAEPAXI@Z",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x001EB815",
+          "target_size": "28",
+          "status": "matched",
+          "notes": "scalar deleting dtor in slot0 of CarryoverUnit vtable 0x00BDF158 (copy ctor 0x001EB79E and ctor 0x0037DF2C store it); calls rowed ??1CarryoverUnit 0x0037DEE4 then operator delete 0x0002FD60; emitted with the vtable by the dtor's unit"
+        },
+        {
+          "name": "??4CarryoverUnit@@QAEAAV0@ABV0@@Z",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x001EB20E",
+          "target_size": "84",
+          "status": "matched",
+          "notes": "Native CarryoverUnit assignment source proven by live temporary copied at 1EBEEC filled at 1EBF3F and 1EBF8B then destroyed at 1EBF9D; derived base-assignment corroborates receiver identity; complete 84B bytes and relocations equal the existing record owner; no unique coverage added;fold-proof=Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord172Assign.cpp"
+        },
+        {
+          "name": "?loadPostProcess@CarryoverUnit@@UAEXXZ",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x000B3FD0",
+          "target_size": "1",
+          "status": "matched",
+          "notes": "Native CarryoverUnit table BDF158 installed by constructor and restored by destructor has slot 1 at shared empty RET B3FD0; complete C++ override byte-and-relocation twin of region owner; zero unique coverage;fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x0037DC84",
+          "target_size": "6",
+          "status": "matched",
+          "notes": "Native BDF158 slot2 returns CarryoverUnit literal; real override replaces linker alias while retaining old owner; approved Common TU from fresh map; fold-proof=Code/GameEngine/Source/Common/SubsystemNameGetters.cpp"
+        },
+        {
+          "name": "_$E1",
+          "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+          "target_rva": "0x007AF00F",
+          "target_size": "16",
+          "status": "matched",
+          "notes": "compiler-emitted .text$yc dynamic initializer of this unit's Drawable.h copy DRAWABLE_FRAMES_PER_FLASH = BfmeClientFramesPerSecond / 2; retail .CRT$XCU entry alone in its run after Recorder.cpp's copy run (link order); its static VA 0x00E02298 directly follows Recorder's copy (LINK-236)"
+        }
+      ],
+      "whole_source_row_count": 13
+    },
+    {
+      "object": "^code_^game^engine_^source_^game^logic_^object_^object^constructor.obj",
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^object^constructor.obj",
+      "sha256": "4486b6c7e25369e76767621f3bb51d5d405fd3ea799b1bf60479d7ed9f73c67b",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+      "source_sha256": "b046b64066706816e2ab18516895b0b7534c91a611f5042d86637a14bdcffb0b",
+      "definitions_or_undefined": [
+        {
+          "index": 852,
+          "name": "??1Rva001EB15A@@QAE@XZ",
+          "value": 0,
+          "section": 0,
+          "type": 32,
+          "storage": 2
+        }
+      ],
+      "runtime_reference_sites": [
+        {
+          "section": 311,
+          "section_name": ".text$x",
+          "section_symbols": [
+            [
+              0,
+              "$L15959",
+              3
+            ],
+            [
+              8,
+              "$L15960",
+              3
+            ],
+            [
+              19,
+              "$L15961",
+              3
+            ],
+            [
+              33,
+              "$L15962",
+              3
+            ],
+            [
+              47,
+              "$L15963",
+              3
+            ],
+            [
+              61,
+              "$L15964",
+              3
+            ],
+            [
+              75,
+              "$L15965",
+              3
+            ],
+            [
+              89,
+              "$L15966",
+              3
+            ],
+            [
+              103,
+              "$L15967",
+              3
+            ],
+            [
+              117,
+              "$L15968",
+              3
+            ],
+            [
+              131,
+              "$L15969",
+              3
+            ],
+            [
+              145,
+              "$L15970",
+              3
+            ],
+            [
+              159,
+              "$L15971",
+              3
+            ],
+            [
+              173,
+              "$L15972",
+              3
+            ],
+            [
+              187,
+              "$L15973",
+              3
+            ],
+            [
+              201,
+              "$L15974",
+              3
+            ],
+            [
+              215,
+              "$L15975",
+              3
+            ],
+            [
+              225,
+              "$L15976",
+              3
+            ],
+            [
+              233,
+              "$L15977",
+              3
+            ],
+            [
+              246,
+              "$L15979",
+              3
+            ],
+            [
+              256,
+              "$L15980",
+              3
+            ],
+            [
+              269,
+              "$L15982",
+              3
+            ],
+            [
+              279,
+              "$L15983",
+              3
+            ],
+            [
+              292,
+              "$L15985",
+              3
+            ],
+            [
+              302,
+              "$L15986",
+              3
+            ],
+            [
+              315,
+              "$L15988",
+              3
+            ],
+            [
+              325,
+              "$L15989",
+              3
+            ],
+            [
+              339,
+              "$L15991",
+              3
+            ],
+            [
+              349,
+              "$L15992",
+              3
+            ],
+            [
+              363,
+              "$L15994",
+              3
+            ],
+            [
+              373,
+              "$L15995",
+              3
+            ],
+            [
+              387,
+              "$L15997",
+              3
+            ],
+            [
+              397,
+              "$L15998",
+              3
+            ],
+            [
+              405,
+              "$L15999",
+              3
+            ],
+            [
+              419,
+              "$L16000",
+              3
+            ],
+            [
+              433,
+              "$L16001",
+              3
+            ],
+            [
+              449,
+              "$L16002",
+              3
+            ],
+            [
+              465,
+              "$L16007",
+              3
+            ],
+            [
+              473,
+              "$L16008",
+              3
+            ],
+            [
+              483,
+              "__ehhandler$??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z",
+              3
+            ]
+          ],
+          "offset": 169,
+          "kind": 20,
+          "target_symbol_index": 852
+        }
+      ],
+      "whole_source_rows": [
+        {
+          "name": "??__FweaponStatusModuleData@?BH@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007B7842",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E7;compiler-generated atexit cleanup of function-local static ?weaponStatusModuleData@?BH@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@4VObjectHelperModuleData@@A (RVA 0x009FED9C; ecx=static then tail-jump to ??1ObjectHelperModuleData@@UAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??__FguardingModuleData@?BE@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007B784C",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E6;compiler-generated atexit cleanup of function-local static ?guardingModuleData@?BE@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@4VObjectHelperModuleData@@A (RVA 0x009FEDA8; ecx=static then tail-jump to ??1ObjectHelperModuleData@@UAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??__FdefectionModuleData@?BE@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007B7856",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E5;compiler-generated atexit cleanup of function-local static ?defectionModuleData@?BE@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@4VObjectHelperModuleData@@A (RVA 0x009FEDB4; ecx=static then tail-jump to ??1ObjectHelperModuleData@@UAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??__FrepulsorModuleData@?BB@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007B7860",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E4;compiler-generated atexit cleanup of function-local static ?repulsorModuleData@?BB@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@4VObjectHelperModuleData@@A (RVA 0x009FEDC0; ecx=static then tail-jump to ??1ObjectHelperModuleData@@UAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??__FrecoveryModuleData@?O@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007B786A",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E3;compiler-generated atexit cleanup of function-local static ?recoveryModuleData@?O@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@4VObjectHelperModuleData@@A (RVA 0x009FEDCC; ecx=static then tail-jump to ??1ObjectHelperModuleData@@UAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??__FsmcModuleData@?O@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007B7874",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E2;compiler-generated atexit cleanup of function-local static ?smcModuleData@?O@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@4VObjectHelperModuleData@@A (RVA 0x009FEDD8; ecx=static then tail-jump to ??1ObjectHelperModuleData@@UAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??__FfiringTrackerModuleData@?BH@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007B787E",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E8;compiler-generated atexit cleanup of function-local static ?firingTrackerModuleData@?BH@???0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z@4VObjectHelperModuleData@@A (RVA 0x009FED90; ecx=static then tail-jump to ??1ObjectHelperModuleData@@UAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00298EA9",
+          "target_size": "3525",
+          "status": "matched",
+          "notes": "Object::Object (WB twin CBA4F0 and the ZH donor): Object has a virtual base so RET 0x14 is four arguments plus the most-derived flag and the fourth is an ObjectID; real STLport list / vector / map fix the parameter-slot reuse; the defection kind-of test spelled as dword +0x118 bit 0x100 restores the byte guard ops; calls GameLogic rva0023CAD9 and registerObject through the canonical header; unblocked by Thing::Thing 30A188; EH; full 3525B exact (helper-agent work reviewed)"
+        },
+        {
+          "name": "__ehhandler$??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774997",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "Compiler-emitted C++ EH handler of exact parent0x00298EA9; retail frame installs0x00774997 and associative graph proves FuncInfo0x0091BCD0; complete10B MOV FuncInfo and tail-jump to existing CxxFrameHandler; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10046",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007747FF",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole14B action at0x007747FF; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10047",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077480D",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole14B action at0x0077480D; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10051",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774845",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; complete exact3525B parent and associative EH graph place actual xdata action at774845; whole14B extent ends at next action; member440 list destructor fold proven from whole emitted5B tail and23B base with every owner relocation; opaque element identity retained; no adjacency inference"
+        },
+        {
+          "name": "$L10056",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077488B",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x0077488B; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10060",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748AA",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x007748AA; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10063",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748C1",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x007748C1; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10066",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748D8",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x007748D8; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10069",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748EF",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x007748EF; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10072",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774907",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x00774907; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10075",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077491F",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x0077491F; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10078",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774937",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x00774937; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "$L10089",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077498D",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;Exact complete parent EH graph at0x00298EA9 places whole10B action at0x0077498D; actual xdata-referenced COFF symbol; extent ends at next action or handler; naturally emitted real C++ Object construction and destruction; native3525B constructor and WorldBuilder Object twin establish parent identity; no alias or adjacency inference"
+        },
+        {
+          "name": "Unwind@00b747bc",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007747BC",
+          "target_size": "11",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9849; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9849 to retail Unwind@00b747bc (was gen_uw scaffold uw_007747bc)"
+        },
+        {
+          "name": "Unwind@00b747c7",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007747C7",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9850; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9850 to retail Unwind@00b747c7 (was gen_uw scaffold uw_007747c7)"
+        },
+        {
+          "name": "Unwind@00b747d5",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007747D5",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9851; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9851 to retail Unwind@00b747d5 (was gen_uw scaffold uw_007747d5)"
+        },
+        {
+          "name": "Unwind@00b747f1",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007747F1",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9853; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9853 to retail Unwind@00b747f1 (was gen_uw scaffold uw_007747f1)"
+        },
+        {
+          "name": "Unwind@00b7481b",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077481B",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9856; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9856 to retail Unwind@00b7481b (was gen_uw scaffold uw_0077481b)"
+        },
+        {
+          "name": "Unwind@00b74829",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774829",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9857; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9857 to retail Unwind@00b74829 (was gen_uw scaffold uw_00774829)"
+        },
+        {
+          "name": "Unwind@00b74837",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774837",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9858; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9858 to retail Unwind@00b74837 (was gen_uw scaffold uw_00774837)"
+        },
+        {
+          "name": "Unwind@00b74861",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774861",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9861; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9861 to retail Unwind@00b74861 (was gen_uw scaffold uw_00774861)"
+        },
+        {
+          "name": "Unwind@00b7486f",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077486F",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9862; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9862 to retail Unwind@00b7486f (was gen_uw scaffold uw_0077486f)"
+        },
+        {
+          "name": "Unwind@00b7487d",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077487D",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9863; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9863 to retail Unwind@00b7487d (was gen_uw scaffold uw_0077487d)"
+        },
+        {
+          "name": "Unwind@00b74895",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774895",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9865; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9865 to retail Unwind@00b74895 (was gen_uw scaffold uw_00774895)"
+        },
+        {
+          "name": "Unwind@00b74941",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774941",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9887; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9887 to retail Unwind@00b74941 (was gen_uw scaffold uw_00774941)"
+        },
+        {
+          "name": "Unwind@00b74985",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774985",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z;object-symbol=$L9896; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9896 to retail Unwind@00b74985 (was gen_uw scaffold uw_00774985)"
+        },
+        {
+          "name": "?getGeometryInfo@Object@@UBEABVGeometryInfo@@XZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x005FBE57",
+          "target_size": "4",
+          "status": "matched",
+          "notes": "gen-alias; Object table VA 0x00BFC2B8 slot 0 takes the Object plus 0x6C receiver and returns its independently constructed GeometryInfo at plus 0x3C; complete emitted getter and zero relocations equal TextureBaseClass Get_Texture_Name in Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp; no independent target address"
+        },
+        {
+          "name": "$L9921",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774957",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9921 at native 0x00774957: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva00774957ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9916",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774929",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9916 at native 0x00774929: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva00774929ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9913",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774911",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9913 at native 0x00774911: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva00774911ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9910",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748F9",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9910 at native 0x007748F9: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva007748F9ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9907",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748E2",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9907 at native 0x007748E2: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva007748E2ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9904",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748CB",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9904 at native 0x007748CB: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva007748CBClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9901",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007748B4",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9901 at native 0x007748B4: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva007748B4ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9898",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0077489D",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9898 at native 0x0077489D: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0077489DClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9920",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774949",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9920 at native 0x00774949: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva00774949ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9923",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774975",
+          "target_size": "16",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9923 at native 0x00774975: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva00774975ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L9922",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774965",
+          "target_size": "16",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Exact parent 0x00298EA9 EH graph (eh_verify EXACT) places compiler label $L9922 at native 0x00774965: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva00774965ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "??1ObjectHelperModuleData@@UAE@XZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0049B47C",
+          "target_size": "7",
+          "status": "matched",
+          "notes": "fold-proof=Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp; compiler-emitted ObjectHelperModuleData destructor (mov [ecx] ModuleDataBase vtable = retail 0x00BBB554 Snapshot vtable; ret) that retail ICF-folded with ??1Snapshot@@UAE@XZ; the unit's atexit cleanups of its 7 static ObjectHelperModuleData objects tail-jump to 0x0049B47C; zero unique bytes"
+        },
+        {
+          "name": "$L9966",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x007747B4",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9966 to retail 0x007747B4; replaces generated uw_007747b4"
+        },
+        {
+          "name": "$L9978",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00774853",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z; Matched parent 0x00298EA9's EH graph is EXACT (eh_verify) and binds compiler label $L9978 to retail 0x00774853; replaces generated uw_00774853"
+        },
+        {
+          "name": "??_GObject@@MAEPAXI@Z",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0029A10F",
+          "target_size": "28",
+          "status": "matched",
+          "notes": "ICF twin at 0x0029A10F: the copy the exit link keeps (first provider in its input order) is emitted in this unit for a slot of ??_7Object@@6BSnapshot@@@; whole 28B body and every relocation target equal retail and the owner ??_GRva00299CE4@@UAEPAXI@Z (LINK-514 lk68); fold-proof=Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp"
+        },
+        {
+          "name": "??_EObject@@OGA@AEPAXI@Z",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C89",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "ICF twin at 0x00299C89: the copy the exit link keeps (first provider in its input order) is emitted in this unit for a slot of ??_7Object@@6BSnapshot@@@; whole 8B body and every relocation target equal retail and the owner ??_ERva00299CE4@@WGA@AEPAXI@Z (LINK-514 lk68); fold-proof=Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp"
+        },
+        {
+          "name": "??_GObjectHelperModuleData@@UAEPAXI@Z",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x004A10FD",
+          "target_size": "28",
+          "status": "matched",
+          "notes": "ICF twin at 0x004A10FD: the copy the exit link keeps (first provider in its input order) is emitted in this unit for slot 0 of ??_7ObjectHelperModuleData@@6B@ through the weak ??_E default (other slots of that table still differ); whole 28B body and every relocation target equal retail and the owner ??_GObjectModule@@UAEPAXI@Z (LINK-514 lk71); fold-proof=Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp"
+        },
+        {
+          "name": "?slot@Object@@$4PPPPPPPM@A@BEPAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C91",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "header-inline default slot (2 bridged tables);fold-proof=Code/GameEngine/Source/Common/GapForwardersSeat8.cpp"
+        },
+        {
+          "name": "?asDrawableMeth@Thing@@MBEPBVDrawable@@XZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x000D43D0",
+          "target_size": "3",
+          "status": "matched",
+          "notes": "header-inline default slot (2 bridged tables);fold-proof=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarCallback.cpp"
+        },
+        {
+          "name": "?asDrawableMeth@Thing@@MAEPAVDrawable@@XZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x000D43D0",
+          "target_size": "3",
+          "status": "matched",
+          "notes": "header-inline default slot (2 bridged tables);fold-proof=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarCallback.cpp"
+        },
+        {
+          "name": "?asObjectMeth@Object@@MBEPBV1@XZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0047A6A9",
+          "target_size": "3",
+          "status": "matched",
+          "notes": "Object primary-table override (0x007FC300 slots 1/2; 2 bridged tables);fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?asObjectMeth@Object@@MAEPAV1@XZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x0047A6A9",
+          "target_size": "3",
+          "status": "matched",
+          "notes": "Object primary-table override (0x007FC300 slots 1/2; 2 bridged tables);fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?opaqueSlot1@Object@@MAEXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x000B3FD0",
+          "target_size": "1",
+          "status": "matched",
+          "notes": "Object +0x64 interface override (0x007FC2D8 slot 1; 2 bridged tables);fold-proof=Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+        },
+        {
+          "name": "?rva00299C74@Object@@UBEPAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C74",
+          "target_size": "4",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC2B8 slot 3; 2 bridged tables);fold-proof=Code/GameEngine/Source/GameLogic/Object/Object.cpp"
+        },
+        {
+          "name": "?rva00299C74@Object@@UAEPAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C74",
+          "target_size": "4",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC2B8 slot 4; 2 bridged tables);fold-proof=Code/GameEngine/Source/GameLogic/Object/Object.cpp"
+        },
+        {
+          "name": "?rva00299C78@Object@@UBEPAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C78",
+          "target_size": "4",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC290 slot 2; 2 bridged tables);fold-proof=Code/GameEngine/Source/GameLogic/Object/Object.cpp"
+        },
+        {
+          "name": "?rva00299C78@Object@@UAEPAXXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C78",
+          "target_size": "4",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC290 slot 3; 2 bridged tables);fold-proof=Code/GameEngine/Source/GameLogic/Object/Object.cpp"
+        },
+        {
+          "name": "?rva00299C7C_6Cs5@Object@@UAEXH@Z",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C7C",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC2B8 slot 5; 2 bridged tables);fold-proof=Code/GameEngine/Source/GameLogic/Object/Object.cpp"
+        },
+        {
+          "name": "?rva00299C7C_70s6@Object@@UAEXH@Z",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00299C7C",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC290 slot 6; 2 bridged tables);fold-proof=Code/GameEngine/Source/GameLogic/Object/Object.cpp"
+        },
+        {
+          "name": "?rva00042272_6Cs6@Object@@UBEHXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00042272",
+          "target_size": "7",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC2B8 slot 6; 2 bridged tables);fold-proof=Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp"
+        },
+        {
+          "name": "?rva00042272_70s7@Object@@UBEHXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x00042272",
+          "target_size": "7",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC290 slot 7; 2 bridged tables);fold-proof=Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp"
+        },
+        {
+          "name": "?rva005801F2@Object@@UBEHXZ",
+          "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+          "target_rva": "0x005801F2",
+          "target_size": "4",
+          "status": "matched",
+          "notes": "Object interface override (0x007FC290 slot 4; 2 bridged tables);fold-proof=Code/GameEngine/Source/GameClient/FXParticleSystem.cpp"
+        }
+      ],
+      "whole_source_row_count": 67
+    },
+    {
+      "object": "^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker.obj",
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker.obj",
+      "sha256": "2995bc9875ecaa18247628775e8f6cdac65c5f6710f24ee2e44c323c581280b6",
+      "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+      "source_sha256": "26984ecfa0d0a5ddb10e7e1d448ba862a43dec26350c407162773627b31fd10d",
+      "definitions_or_undefined": [
+        {
+          "index": 196,
+          "name": "??1Rva001EB15A@@QAE@XZ",
+          "value": 0,
+          "section": 64,
+          "type": 32,
+          "storage": 2
+        }
+      ],
+      "runtime_reference_sites": [
+        {
+          "section": 68,
+          "section_name": ".text$x",
+          "section_symbols": [
+            [
+              0,
+              "$L22195",
+              3
+            ],
+            [
+              14,
+              "$L22196",
+              3
+            ],
+            [
+              28,
+              "__ehhandler$??0UnitRevivalEntry@@QAE@ABV0@@Z",
+              3
+            ]
+          ],
+          "offset": 10,
+          "kind": 20,
+          "target_symbol_index": 196
+        },
+        {
+          "section": 91,
+          "section_name": ".text$x",
+          "section_symbols": [
+            [
+              0,
+              "$L22351",
+              3
+            ],
+            [
+              14,
+              "$L22352",
+              3
+            ],
+            [
+              28,
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+              3
+            ]
+          ],
+          "offset": 10,
+          "kind": 20,
+          "target_symbol_index": 196
+        },
+        {
+          "section": 100,
+          "section_name": ".text$x",
+          "section_symbols": [
+            [
+              0,
+              "$L22395",
+              3
+            ],
+            [
+              14,
+              "$L22396",
+              3
+            ],
+            [
+              28,
+              "$L22397",
+              3
+            ],
+            [
+              42,
+              "$L22398",
+              3
+            ],
+            [
+              55,
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+              3
+            ]
+          ],
+          "offset": 10,
+          "kind": 20,
+          "target_symbol_index": 196
+        }
+      ],
+      "whole_source_rows": [
+        {
+          "name": "??__Fwhite@?9??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x007B7D77",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E7;compiler-generated atexit cleanup of function-local static ?white@?9??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@4VRevivalStaticAsciiString@@A (RVA 0x00A022A8; ecx=static then tail-jump to ??1Rva0048BA39StringElement@@QAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "??__Fgandalf@?6??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@YAXXZ",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x007B7D81",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "object-symbol=_$E6;compiler-generated atexit cleanup of function-local static ?gandalf@?6??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@4VRevivalStaticAsciiString@@A (RVA 0x00A022AC; ecx=static then tail-jump to ??1Rva0048BA39StringElement@@QAE@XZ); registered by its matched parent in this unit; full bytes verified"
+        },
+        {
+          "name": "?productionSystemQueueCreateUnit@UnitRevivalTracker@@QAE_NHHPAPBVImage@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037EDE0",
+          "target_size": "108",
+          "status": "matched",
+          "notes": "wb-lead 2.4/callgraph WB UnitRevivalTracker::productionSystemQueueCreateUnit"
+        },
+        {
+          "name": "?revivalEntryCalcTimeToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037E1FD",
+          "target_size": "115",
+          "status": "matched",
+          "notes": "WB UnitRevivalEntry::revivalEntryCalcTimeToBuild; /G7 byte-arg shape; build time 0x0033AA1F pinned"
+        },
+        {
+          "name": "?revivalEntryCalcCostToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037E18A",
+          "target_size": "115",
+          "status": "matched",
+          "notes": "wb-lead: WB UnitRevivalEntry::revivalEntryCalcCostToBuild (UnitRevivalTracker.cpp:162 template assert); cost twin of rowed revivalEntryCalcTimeToBuild: producer factor slot 0x70 via rowed 0x28BC94 with +0xA0, findTemplate pin 0x2D06CA on +0xD4, cost helper 0x33A69A(player, 0, +0x94) scaled; wb-name-unverified"
+        },
+        {
+          "name": "??0UnitRevivalEntry@@QAE@ABV0@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x002E134C",
+          "target_size": "261",
+          "status": "matched",
+          "notes": "native complete constructor 0x002E134C..0x002E1451; production caller 0x0037EFA9 and Object constructor establish same D8 revival record; target memberwise copies include 128-byte upgrades and 24-byte record with Unicode and ASCII strings; real C++ copy constructor"
+        },
+        {
+          "name": "??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037E94A",
+          "target_size": "386",
+          "status": "matched",
+          "notes": "BFME1 ba7ddda7 revival Object ctor semantic donor; WB UnitRevivalTracker family and paired EFE320 constructor; nativeD8 record offsets and386B complete boundary37E94A..37EACA; existinghelpers and exact7B foldedgetter; Ob1 required"
+        },
+        {
+          "name": "??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037E289",
+          "target_size": "201",
+          "status": "matched",
+          "notes": "Native complete201B constructor 37E289..37E352 RET4; unnamed WB F5E7A0 corroborates template constructor and StringBase name copy from64. Established D8 revival entry and24B record+B0; target template unsigned16 cost5DA and float build time4DC. Unsigned stored time override required for native FLD/_ftol2 amid SSE initialization; direct existing storage copies preserved and inlined default uses rowed clear80; default record independently exact22B. Legacy constructor pin remains provisional. No new pins; full unit verified."
+        },
+        {
+          "name": "?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037F32F",
+          "target_size": "96",
+          "status": "matched",
+          "notes": "WB 0x00F5FC20 names UnitRevivalTracker addInitialBuildUnit; native complete 96B EH wrapper constructs existing 0xD8 Rva002E2D10Record from ThingTemplate via 0x0037E289; stores rowed-script template rank 0x0033B479 at +0x0C; rowed vector push_back at tracker+4 and existing dtor; retain established caller symbol and pointer ABI; all four unit bodies verified"
+        },
+        {
+          "name": "?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037EBEA",
+          "target_size": "476",
+          "status": "matched",
+          "notes": "WB F5ED20 UnitRevivalTracker.cpp names calcButtonImage; complete476B native37EBEA..37EDC6; native37ECB0 and37ED3B use argument as const Player receiver and hero query; replaces inferred Int pin and corrects both existing callers; native GandalftheWhite portrait gate and CreateAHero cache then template image; real C++ with actual local static strings and compiler cleanups"
+        },
+        {
+          "name": "?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037EF5D",
+          "target_size": "784",
+          "status": "matched",
+          "notes": "WB F60270 UnitRevivalTracker.cpp names productionSystemNewObject; native complete 37EF5D..37F26D D8-record copy then factory revival and two science upgrades; all layout and branch evidence native; existing experience accessor preserves retail flag-save scheduling; WB107DDF0 CreateAHeroHero.cpp names UpdateCommandSet with int level and boolean return; native407705..4078A8 complete419B RET4 and production call37F0FA establish binding; real C++ no assembly"
+        },
+        {
+          "name": "?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0037E473",
+          "target_size": "470",
+          "status": "matched",
+          "notes": "Native complete470B RET4 37E473..37E649; WB F5F830 corroborates revival entry transfer Version1..10 and field ordering. Established Xfer full virtual API and native unsigned slots78 for cost94/time9C; image-name store/load uses Image name+4 and rowed collection lookup. Existing upgrade/army/record helpers only; method name retains address-derived identity; full unit byte verification and EH required."
+        },
+        {
+          "name": "__ehhandler$??0UnitRevivalEntry@@QAE@ABV0@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x00778796",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x002E134C; retail parent installs handler 0x00778796 (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+        },
+        {
+          "name": "__ehhandler$??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F137",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x0037E94A; retail parent installs handler 0x0077F137 (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+        },
+        {
+          "name": "__ehhandler$??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F0E4",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x0037E289; retail parent installs handler 0x0077F0E4 (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+        },
+        {
+          "name": "__ehhandler$?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F16B",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x0037EBEA; retail parent installs handler 0x0077F16B (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+        },
+        {
+          "name": "__ehhandler$?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F1AD",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x0037EF5D; retail parent installs handler 0x0077F1AD (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+        },
+        {
+          "name": "__ehhandler$?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F0F6",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x0037E473; retail parent installs handler 0x0077F0F6 (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+        },
+        {
+          "name": "$L16480",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F175",
+          "target_size": "11",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z; Matched parent 0x0037EF5D's EH graph is EXACT (eh_verify) and binds compiler label $L16480 to retail Unwind@00b7f175 0x77F175; whole 11B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+        },
+        {
+          "name": "$L16352",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F1CC",
+          "target_size": "11",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z; Matched parent 0x0037F32F's EH graph is EXACT (eh_verify) and binds compiler label $L16352 to retail Unwind@00b7f1cc 0x77F1CC; whole 11B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+        },
+        {
+          "name": "__ehhandler$?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F1D7",
+          "target_size": "10",
+          "status": "matched",
+          "notes": "Naturally emitted compiler EH handler of verified 96B parent 0x0037F32F. Parent frame and complete associative EH graph bind handler 0x0077F1D7 and FuncInfo 0x00929728; every EH state and native graph relocation verifies EXACT. Whole10B MOV FuncInfoVA plus JMP existing CxxFrameHandler 0x00629182 independently byte-verified through owning real C++ unit. Existing parent identity and source uncertainty retained. One primary row at this address; no new alias or manual lift."
+        },
+        {
+          "name": "??1Rva001EB15A@@QAE@XZ",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x001EB05E",
+          "target_size": "54",
+          "status": "matched",
+          "notes": "gen-alias;Complete54B same-object record destructor and full EH graph exact; native three UnitRevivalEntry constructor unwind maps independently destroy member+B0 through1EB05E; matched copy1EB15A and default4E04FD prove 24B record with AsciiString+10 and UnicodeString+C; exact owner relocations and member teardown; original record name unknown; zero unique-byte gain"
+        },
+        {
+          "name": "$L16456",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077877A",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@ABV0@@Z;Complete native parent EH graph binds record member+B0 via inherited EBP-10; whole14B exact with relocation to same-object full54B Rva001EB15A destructor1EB05E; destructor bytes and EH graph exact; clean C++ automatic member cleanup; original record class name unknown"
+        },
+        {
+          "name": "$L16648",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F100",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@PAVObject@@@Z;Complete native parent EH graph binds record member+B0 via inherited EBP-10; whole14B exact with relocation to same-object full54B Rva001EB15A destructor1EB05E; destructor bytes and EH graph exact; clean C++ automatic member cleanup; original record class name unknown"
+        },
+        {
+          "name": "$L16612",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F0C8",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z;Complete native parent EH graph binds record member+B0 via inherited EBP-10; whole14B exact with relocation to same-object full54B Rva001EB15A destructor1EB05E; destructor bytes and EH graph exact; clean C++ automatic member cleanup; original record class name unknown"
+        },
+        {
+          "name": "Unwind@00b78788",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x00778788",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@ABV0@@Z;object-symbol=$L16450; Matched parent 0x002E134C's EH graph is EXACT (eh_verify) and binds compiler label $L16450 to retail Unwind@00b78788 (was gen_uw scaffold uw_00778788)"
+        },
+        {
+          "name": "Unwind@00b7f10e",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F10E",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@PAVObject@@@Z;object-symbol=$L16650; Matched parent 0x0037E94A's EH graph is EXACT (eh_verify) and binds compiler label $L16650 to retail Unwind@00b7f10e (was gen_uw scaffold uw_0077f10e)"
+        },
+        {
+          "name": "Unwind@00b7f11c",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F11C",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@PAVObject@@@Z;object-symbol=$L16651; Matched parent 0x0037E94A's EH graph is EXACT (eh_verify) and binds compiler label $L16651 to retail Unwind@00b7f11c (was gen_uw scaffold uw_0077f11c)"
+        },
+        {
+          "name": "Unwind@00b7f0d6",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F0D6",
+          "target_size": "14",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z;object-symbol=$L16606; Matched parent 0x0037E289's EH graph is EXACT (eh_verify) and binds compiler label $L16606 to retail Unwind@00b7f0d6 (was gen_uw scaffold uw_0077f0d6)"
+        },
+        {
+          "name": "Unwind@00b7f15b",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F15B",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z;object-symbol=$L16552; Matched parent 0x0037EBEA's EH graph is EXACT (eh_verify) and binds compiler label $L16552 to retail Unwind@00b7f15b (was gen_uw scaffold uw_0077f15b)"
+        },
+        {
+          "name": "Unwind@00b7f163",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F163",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z;object-symbol=$L16553; Matched parent 0x0037EBEA's EH graph is EXACT (eh_verify) and binds compiler label $L16553 to retail Unwind@00b7f163 (was gen_uw scaffold uw_0077f163)"
+        },
+        {
+          "name": "Unwind@00b7f18d",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F18D",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z;object-symbol=$L16475; Matched parent 0x0037EF5D's EH graph is EXACT (eh_verify) and binds compiler label $L16475 to retail Unwind@00b7f18d (was gen_uw scaffold uw_0077f18d)"
+        },
+        {
+          "name": "Unwind@00b7f195",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F195",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z;object-symbol=$L16476; Matched parent 0x0037EF5D's EH graph is EXACT (eh_verify) and binds compiler label $L16476 to retail Unwind@00b7f195 (was gen_uw scaffold uw_0077f195)"
+        },
+        {
+          "name": "Unwind@00b7f19d",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F19D",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z;object-symbol=$L16477; Matched parent 0x0037EF5D's EH graph is EXACT (eh_verify) and binds compiler label $L16477 to retail Unwind@00b7f19d (was gen_uw scaffold uw_0077f19d)"
+        },
+        {
+          "name": "Unwind@00b7f1a5",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F1A5",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z;object-symbol=$L16478; Matched parent 0x0037EF5D's EH graph is EXACT (eh_verify) and binds compiler label $L16478 to retail Unwind@00b7f1a5 (was gen_uw scaffold uw_0077f1a5)"
+        },
+        {
+          "name": "Unwind@00b7f0ee",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F0EE",
+          "target_size": "8",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z;object-symbol=$L16366; Matched parent 0x0037E473's EH graph is EXACT (eh_verify) and binds compiler label $L16366 to retail Unwind@00b7f0ee (was gen_uw scaffold uw_0077f0ee)"
+        },
+        {
+          "name": "$L16814",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F12A",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=??0UnitRevivalEntry@@QAE@PAVObject@@@Z; Exact parent 0x0037E94A EH graph (eh_verify EXACT) places compiler label $L16814 at native 0x0077F12A: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0077F12AClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L16713",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F14E",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z; Exact parent 0x0037EBEA EH graph (eh_verify EXACT) places compiler label $L16713 at native 0x0077F14E: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0077F14EClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L16712",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F141",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z; Exact parent 0x0037EBEA EH graph (eh_verify EXACT) places compiler label $L16712 at native 0x0077F141: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0077F141ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "$L16636",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x0077F180",
+          "target_size": "13",
+          "status": "matched",
+          "notes": "gen-funclet;parent=?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z; Exact parent 0x0037EF5D EH graph (eh_verify EXACT) places compiler label $L16636 at native 0x0077F180: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0077F180ClearFlag (reverse/deleted_rows.csv)"
+        },
+        {
+          "name": "_$E1",
+          "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+          "target_rva": "0x007AF039",
+          "target_size": "16",
+          "status": "matched",
+          "notes": "compiler-emitted .text$yc dynamic initializer of this TU fragment's Drawable.h copy DRAWABLE_FRAMES_PER_FLASH = BfmeClientFramesPerSecond / 2; retail .CRT$XCU entry alone in its .text$yc run; its static VA 0x00E022BC directly follows the guard $S2 of UnitRevivalTracker::productionSystemNewObject (this fragment of the UnitRevivalEntry.cpp TU defines it) in .bss; was rva007AF039 in Rva007AB7F0HalfRateInits.cpp"
+        }
+      ],
+      "whole_source_row_count": 41
+    }
+  ],
+  "index_unchanged_during_read": true
+}

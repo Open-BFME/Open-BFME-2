@@ -84,6 +84,7 @@ struct Rva001EB15A
 	bool flag;
 	__declspec(noinline) Rva001EB15A();
 	Rva001EB15A(const Rva001EB15A &);
+	~Rva001EB15A();
 };
 
 struct RevivalLevelValue
@@ -601,4 +602,9 @@ void UnitRevivalEntry::rva0037E473(Xfer *xfer)
     if(version.m_minimum >= 6) *xfer == m_factor;
     if(version.m_minimum >= 9) *xfer == m_displayName;
     if(version.m_minimum >= 10) *xfer == m_c8;
+}
+
+// Existing54B provider at001EB05E: express the same owned member teardown in its existing TU.
+Rva001EB15A::~Rva001EB15A()
+{
 }
