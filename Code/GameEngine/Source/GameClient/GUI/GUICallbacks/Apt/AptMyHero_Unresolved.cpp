@@ -125,16 +125,9 @@ inline float sinf(float _X){return ((float)sin((double)_X));}
 __forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 __forceinline float submul(const Vector4 &row,float tmp1,float tmp2,float tmp3){return row.X*tmp1+row.Y*tmp2+row.Z*tmp3;}
-class Matrix3D {
-public:
- __forceinline Matrix3D(){}
- __forceinline Matrix3D(const Vector3 &axis,float angle){Set(axis,angle);}
- __forceinline void Set(const Vector3 &axis,float angle){float c=cosf(angle);float s=sinf(angle);Set(axis,s,c);}
- void Set(const Vector3 &axis,float s,float c);
- void mul(const Matrix3D &A,const Matrix3D &B);
- Vector3 Rotate_Vector(const Vector3 &vect) const;
- Vector4 Row[3];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+__forceinline Matrix3D::Matrix3D(const Vector3 &axis,float angle){Set(axis,angle);}
+__forceinline void Matrix3D::Set(const Vector3 &axis,float angle){float c=cosf(angle);float s=sinf(angle);Set(axis,s,c);}
 __forceinline void Matrix3D::Set(const Vector3 &axis,float s,float c){
  Row[0].Set((float)(axis[0]*axis[0]+c*(1.0f-axis[0]*axis[0])),(float)(axis[0]*axis[1]*(1.0f-c)-axis[2]*s),(float)(axis[2]*axis[0]*(1.0f-c)+axis[1]*s),0.0f);
  Row[1].Set((float)(axis[0]*axis[1]*(1.0f-c)+axis[2]*s),(float)(axis[1]*axis[1]+c*(1.0f-axis[1]*axis[1])),(float)(axis[1]*axis[2]*(1.0f-c)-axis[0]*s),0.0f);
