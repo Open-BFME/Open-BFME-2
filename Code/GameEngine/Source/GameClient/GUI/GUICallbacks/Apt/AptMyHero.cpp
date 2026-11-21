@@ -41,7 +41,7 @@ class Rva002195E6;
 #include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 class Object;
 #include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
-class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
+#include "../../../../../Include/GameClient/Drawable.h"
 #include "../../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 #include "../../../../../Include/GameClient/Display.h"
@@ -1206,8 +1206,8 @@ int AptMyHero::rva005B0E60(const Object *object){
 void AptMyHero::rva005B1A6C(){
  BfmePod8 empty={0,0.0f};
  mapObjectInfo15C.resize(TheCreateAHeroManager->GetClassCount(),empty);
- for(Drawable *drawable=TheGameClient->firstDrawable();drawable;drawable=drawable->next){
-  Object *object=drawable->object;
+ for(Drawable *drawable=TheGameClient->firstDrawable();drawable;drawable=drawable->getNextDrawable()){
+  Object *object=drawable->getObject();
   if(!object)continue;
   int location=rva005B0E60(object);
   if(location<0)continue;

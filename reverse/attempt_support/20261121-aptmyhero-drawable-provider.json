@@ -1,0 +1,64 @@
+{
+  "head": "874f5012c9df8d970a85919421e15a27f4460dab",
+  "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+  "index_meta": {
+    "date": "2026-11-21 01:32",
+    "commit": "874f5012c9",
+    "clean_tree": true,
+    "census_date": "2026-11-18 13:34",
+    "census_commit": "8e4a365b86"
+  },
+  "index_sha256": "21856616e0dc522733ab1241dc1798e4b8b38f2bb95d9a7adbd4e7e08d0fff91",
+  "findings": [],
+  "report": {},
+  "reference_walk_complete": true,
+  "getter_selections": {
+    "?getObject@Drawable@@QAEPAVObject@@XZ": {
+      "referenced": false,
+      "retail order": {
+        "before": [
+          "^code_^game^engine^device_^source_^w3^d^device_^game^client_^r^t^s3^d^scene^flush^occluded^objects^into^stencil.obj",
+          "fe4594b2999c"
+        ],
+        "after": [
+          "^code_^game^engine^device_^source_^w3^d^device_^game^client_^r^t^s3^d^scene^flush^occluded^objects^into^stencil.obj",
+          "fe4594b2999c"
+        ]
+      },
+      "path order": {
+        "before": [
+          "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^boat^wake^model^draw.obj",
+          "fe4594b2999c"
+        ],
+        "after": [
+          "^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^boat^wake^model^draw.obj",
+          "fe4594b2999c"
+        ]
+      }
+    },
+    "?getNextDrawable@Drawable@@QBEPAV1@XZ": {
+      "referenced": false,
+      "retail order": {
+        "before": [
+          "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "fc85d9099760"
+        ],
+        "after": [
+          "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "fc85d9099760"
+        ]
+      },
+      "path order": {
+        "before": [
+          "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^view^iterate^drawables^in^region.obj",
+          "fc85d9099760"
+        ],
+        "after": [
+          "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^view^iterate^drawables^in^region.obj",
+          "fc85d9099760"
+        ]
+      }
+    }
+  },
+  "limitations": "Native guard prediction only, historical census inventory; not a real link or normal header admission."
+}
