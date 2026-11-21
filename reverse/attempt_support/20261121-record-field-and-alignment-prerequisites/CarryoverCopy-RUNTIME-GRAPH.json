@@ -1,0 +1,508 @@
+{
+  "label": "CarryoverCopy",
+  "controls": {
+    "unique_runtime_node_sets_equal": true,
+    "runtime_code_data_relocations_equal": true,
+    "external_definitions_equal": true,
+    "comdat_selection_equal": true,
+    "weak_equal": true,
+    "undefined_equal": true,
+    "directives_equal": true,
+    "crt_ordered_sequence_equal": true,
+    "safeseh_bound_set_equal": true,
+    "native_dir32_pairs_equal": true
+  },
+  "all_required_private_comparisons_pass": true,
+  "runtime_nodes": [
+    8,
+    8
+  ],
+  "mapping": [
+    {
+      "before": 1,
+      "after": 1,
+      "identity": [
+        "anonymous",
+        ".drectve",
+        600,
+        "862521b5d91cc18fdfdc5ac4b3e0c417926c5eabbee2c7d7cf9c173399068ec4"
+      ]
+    },
+    {
+      "before": 3,
+      "after": 3,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 5,
+      "after": 5,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 7,
+      "after": 7,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??0EmptyBase@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 9,
+      "after": 9,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??0CarryoverUnit@@QAE@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 10,
+      "after": 10,
+      "identity": [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$??0CarryoverUnit@@QAE@ABV0@@Z",
+            19,
+            3,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 11,
+      "after": 11,
+      "identity": [
+        "associated",
+        ".xdata$x",
+        [
+          "named",
+          ".text",
+          [
+            [
+              "??0CarryoverUnit@@QAE@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 12,
+      "after": 12,
+      "identity": [
+        "SafeSEH-symbol-index-metadata",
+        ".sxdata",
+        4
+      ]
+    }
+  ],
+  "removed_nodes": [],
+  "added_nodes": [],
+  "runtime_node_deltas": [],
+  "selection_deltas": [],
+  "safeseh_ordered_sequence_equal": true,
+  "safeseh_before": [
+    [
+      "local",
+      [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$??0CarryoverUnit@@QAE@ABV0@@Z",
+            19,
+            3,
+            32
+          ]
+        ]
+      ],
+      19,
+      3,
+      32
+    ]
+  ],
+  "safeseh_after": [
+    [
+      "local",
+      [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$??0CarryoverUnit@@QAE@ABV0@@Z",
+            19,
+            3,
+            32
+          ]
+        ]
+      ],
+      19,
+      3,
+      32
+    ]
+  ],
+  "external_before": [
+    [
+      "??0AsciiString@@QAE@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0CarryoverUnit@@QAE@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0CarryoverUnit@@QAE@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0EmptyBase@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0EmptyBase@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??1AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ]
+  ],
+  "external_after": [
+    [
+      "??0AsciiString@@QAE@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0CarryoverUnit@@QAE@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0CarryoverUnit@@QAE@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0EmptyBase@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0EmptyBase@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??1AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ]
+  ],
+  "weak_before": [],
+  "weak_after": [],
+  "undefined_before": [
+    [
+      "??0?$StringBase@D@@AAE@ABV0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "??0BfmeFixedStorage128@@QAE@ABU0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "??0Rva001EB15A@@QAE@ABU0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "??1EmptyBase@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??_7CarryoverUnit@@6B@",
+      0,
+      2,
+      0
+    ],
+    [
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "__EH_prolog",
+      32,
+      2,
+      0
+    ],
+    [
+      "___CxxFrameHandler",
+      32,
+      2,
+      0
+    ],
+    [
+      "__except_list",
+      0,
+      2,
+      0
+    ],
+    [
+      "__fltused",
+      32,
+      2,
+      0
+    ]
+  ],
+  "undefined_after": [
+    [
+      "??0?$StringBase@D@@AAE@ABV0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "??0BfmeFixedStorage128@@QAE@ABU0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "??0Rva001EB15A@@QAE@ABU0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "??1EmptyBase@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??_7CarryoverUnit@@6B@",
+      0,
+      2,
+      0
+    ],
+    [
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "__EH_prolog",
+      32,
+      2,
+      0
+    ],
+    [
+      "___CxxFrameHandler",
+      32,
+      2,
+      0
+    ],
+    [
+      "__except_list",
+      0,
+      2,
+      0
+    ],
+    [
+      "__fltused",
+      32,
+      2,
+      0
+    ]
+  ],
+  "directives_before": [
+    "/alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+  ],
+  "directives_after": [
+    "/alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+  ],
+  "crt_before": [],
+  "crt_after": [],
+  "native_dir32_before": [
+    {
+      "name": "??0CarryoverUnit@@QAE@ABV0@@Z",
+      "pairs": [
+        [
+          "??_7CarryoverUnit@@6B@",
+          12448088
+        ],
+        [
+          "__except_list",
+          0
+        ]
+      ]
+    },
+    {
+      "name": "__ehhandler$??0CarryoverUnit@@QAE@ABV0@@Z",
+      "pairs": []
+    },
+    {
+      "name": "Unwind@00b6a573",
+      "pairs": []
+    }
+  ],
+  "native_dir32_after": [
+    {
+      "name": "??0CarryoverUnit@@QAE@ABV0@@Z",
+      "pairs": [
+        [
+          "??_7CarryoverUnit@@6B@",
+          12448088
+        ],
+        [
+          "__except_list",
+          0
+        ]
+      ]
+    },
+    {
+      "name": "__ehhandler$??0CarryoverUnit@@QAE@ABV0@@Z",
+      "pairs": []
+    },
+    {
+      "name": "Unwind@00b6a573",
+      "pairs": []
+    }
+  ],
+  "raw_normalized_ordinal_inventory_identical": true,
+  "limits": "Private byte/relocation/EH/layout-assertion proof only. No native ownership, combined145row adoption, four-source link, full-image or runtime admission inferred."
+}

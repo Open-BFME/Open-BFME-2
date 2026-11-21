@@ -81,7 +81,7 @@ struct Rva001EB15A
 	int a, b, c;
 	UnicodeString wide;
 	AsciiString text;
-	bool flag;
+	bool m_14;
 	__declspec(noinline) Rva001EB15A();
 	Rva001EB15A(const Rva001EB15A &);
 	~Rva001EB15A();
@@ -455,7 +455,7 @@ Object *UnitRevivalTracker::productionSystemNewObject(unsigned int productionID,
                 reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(false);
                 reinterpret_cast<ExperienceTracker*>(object->getExperience())->rva0039B315(entry.m_experience-1.0f,false,false,false,false);
                 reinterpret_cast<Rva0039B20C*>(object->getExperience())->rva0039B227(entry.m_level);
-                *reinterpret_cast<bool*>(reinterpret_cast<char*>(object->getExperience())+0x20)=entry.m_record.flag;
+                *reinterpret_cast<bool*>(reinterpret_cast<char*>(object->getExperience())+0x20)=entry.m_record.m_14;
                 reinterpret_cast<_STL::_Base_bitset<32>*>(&object->upgrades)->_M_do_or(*reinterpret_cast<const _STL::_Base_bitset<32>*>(&entry.m_upgrades));
                 level=entry.m_rank;
                 reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(oldFlag);
