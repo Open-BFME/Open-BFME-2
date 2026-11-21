@@ -238,15 +238,7 @@ private:
 
 #include "../../../../GameEngine/Include/Common/TriIndex.h"
 
-struct VertexFormatXYZDUV1
-{
-	float x;
-	float y;
-	float z;
-	unsigned int diffuse;
-	float u;
-	float v;
-};
+#include "../../../../GameEngine/Include/Common/VertexFormatXYZDUV1.h"
 
 struct IDirect3DVertexBuffer8
 {
@@ -1058,8 +1050,8 @@ void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int typ
 
 			for (int i = 0; i < numVertices; i++)
 			{
-				vb->u = uvs[i].X;
-				vb->v = uvs[i].Y;
+				vb->u1 = uvs[i].X;
+				vb->v1 = uvs[i].Y;
 				BuffVertexValue vertex = vertices[i];
 				BuffVertexValue world = vertex;
 				world *= scale;
