@@ -73,6 +73,9 @@ public:
 	virtual bool slot1() const;
 	virtual void rva0053805D();
 	virtual void rva0053806C();
+	virtual void rva0053807B();
+	virtual void rva0053808A();
+	virtual void slot6() = 0;
 private:
 	_STL::_List_base<Rva004FA1FObserver *, _STL::allocator<Rva004FA1FObserver *> > m_observers;	// +0x1C
 	AsciiString m_20;
@@ -89,6 +92,4 @@ Rva0053805DBase::~Rva0053805DBase()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?rva0053805D@Rva0053805DBase@@UAEXXZ=?rva0053805D@Rva0053805DBase@@UAEXXZ")
-#pragma comment(linker, "/alternatename:?rva0053806C@Rva0053805DBase@@UAEXXZ=?rva0053806C@Rva0053805DBase@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot1@Rva0053805DBase@@UBE_NXZ=?IsCRC@Xfer@@UBE_NXZ")
