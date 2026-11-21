@@ -85,11 +85,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 // consumers; this prefix does not claim a complete AptCIH layout or slot name.
 class AptCIH {public:virtual void slot0();};
 
-class Rva006E9A40List {
-public:
- unsigned short mnElements,mnMaxElements;AptCIH **maElements;
- void add(AptCIH *element);
-};
+#include "../../../GameEngine/Include/Common/Rva006E9A40List.h"
 
 S4_MEMBER( 005864A0 )
 
@@ -377,17 +373,17 @@ AptValue *Rva006E9800::call(AptValue *const context,const EAStringC *const name)
 // ---- from Code/Libraries/Source/Apt/AptValueSetHas.cpp
 
 void Rva006E9A40List::add(AptCIH *element){
- if(!(mnElements<mnMaxElements)){
+ if(!(count<capacity)){
   g_bfmeAptAssertAtE17734("mnElements < mnMaxElements","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptSet.h",0x27);
   if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
  }
- for(int i=0;i<mnMaxElements;++i){
-  if(maElements[i]==element){
+ for(int i=0;i<capacity;++i){
+  if(items[i]==element){
    g_bfmeAptAssertAtE17734("maElements[i] != element","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptSet.h",0x2D);
    if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
   }
  }
-++mnElements;int index;for(index=mnElements;maElements[index];++index){if(index>=mnMaxElements)index=0;}maElements[index]=element;element->slot0();
+++count;int index;for(index=count;items[index];++index){if(index>=capacity)index=0;}items[index]=element;element->slot0();
 }
 
 // ---- from Code/Libraries/Source/Apt/AptObject/AptMathObjectLookup.cpp
