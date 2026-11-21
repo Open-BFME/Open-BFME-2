@@ -24,12 +24,7 @@ public:
 	Bool checkEnemyForAttackMove(Object *searcher, Object *enemy);	// 0x002C600A
 };
 
-class SkirmishAI
-{
-public:
-	unsigned char m_pad000[0x164];
-	TacticalAI *m_tacticalAI;			// +0x164
-};
+#include "../../../Include/Common/SkirmishAI.h"
 
 enum { AI_STATE_ATTACK_MOVE = 0x21 };
 
