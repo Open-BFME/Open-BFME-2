@@ -306,6 +306,7 @@ public:
 };
 
 #include "../../../../../Include/Common/AIUpdateInterface24.h"
+#include "../../../../../Include/Common/BitFlags11.h"
 
 class Xfer;
 enum NameKeyType;
@@ -320,6 +321,12 @@ public:
 	virtual CollideModuleInterface *getCollide();
 	virtual AIUpdateInterface *getAIUpdateInterface();
 	virtual void onCollide(Object *obj, const Coord3D *loc, const Coord3D *normal);
+	// UpdateModuleInterface slot 1 (retail VA 0x00854184): rowed at 0x004A2D67
+	// (header-inline in AIUpdate.h; SupplyTruckAIUpdateCtor.cpp).
+	virtual DisabledMaskType getDisabledTypesToProcess() const
+	{
+		return DisabledMaskType(DisabledMaskType::kInit, 3);
+	}
 	// Primary vtable slots 1-8 (slot 0 is the destructor).
 protected:
 	virtual void loadPostProcess();
