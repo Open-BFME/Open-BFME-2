@@ -1,0 +1,15 @@
+{
+  "head_observed": "4c3ccf6f37e556b07d17e6dce2b7dd605d0cc89b",
+  "source_still_original": true,
+  "files": {
+    "AptSpellStore.cpp.txt": "0f19945c8ec6296b6276f94cda4770b82ec33579ecd4c0f660395299d8df6e92",
+    "CLAIM-SCOPE.json": "22d375ebc6743540d5bae7397e2a68165c0c993a034565f2f6d643b9d8e5d272",
+    "CURRENT-COFF-READONLY.json": "b63aa2d06170d6628fbbac93d60ab1036a1177f4bc9caf9d3287bab513687ca5",
+    "HANDOFF.md": "47f435900864b99a6a547dd1230dc310726f72a28e1a4f903a904917fcd4a2cb",
+    "READONLY-HEADER-AUDIT.json": "577d26cb80946b2b34519c5a2948037599d0a56037cfcf10bbb3c47324a6b8db",
+    "source.patch": "a33cede880bd6fbbf7392bd965c2cbbe295a59063d00ffa8d5018149decb4cb8"
+  },
+  "compiles": 0,
+  "native_public_build_and_queue_update_pending": true,
+  "native_compile_is_current": true
+}

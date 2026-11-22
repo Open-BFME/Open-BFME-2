@@ -1,0 +1,1385 @@
+{
+  "head_observed": "e587ad3656865550008ac64cf8de1919a9710d53",
+  "native_current_map_rebuild_stale_inputs": [
+    "reverse/functions.csv",
+    "vendored-upstream:Code",
+    "tools/tu_map.py",
+    "tools/tu_evidence.py",
+    "reverse/tu_map.csv"
+  ],
+  "native_current_selected_rows": [
+    {
+      "rva": "0x0032AE25",
+      "size": "109",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp",
+      "confidence": "proposed",
+      "by": "N",
+      "evidence": "N=Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp noncontiguous",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp"
+    },
+    {
+      "rva": "0x0032AE92",
+      "size": "112",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp",
+      "confidence": "proposed",
+      "by": "N",
+      "evidence": "N=Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp noncontiguous",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp"
+    },
+    {
+      "rva": "0x0032AF02",
+      "size": "84",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "E",
+      "evidence": "E=0x0077B581..0x0077B5E3@0x0032A942,0x0032B1E1",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+    },
+    {
+      "rva": "0x0032AF56",
+      "size": "25",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032A942..0x0032B0A9@0x0032A942,0x0032B0A9",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+    },
+    {
+      "rva": "0x0032AF6F",
+      "size": "45",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032A942..0x0032B0A9@0x0032A942,0x0032B0A9",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_0032cb55.cpp"
+    },
+    {
+      "rva": "0x0032AF9C",
+      "size": "8",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032A942..0x0032B0A9@0x0032A942,0x0032B0A9",
+      "source": "Code/GameEngine/Source/Common/VslotMemberForwarders.cpp"
+    },
+    {
+      "rva": "0x0032AFA4",
+      "size": "40",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032A942..0x0032B0A9@0x0032A942,0x0032B0A9",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+    },
+    {
+      "rva": "0x0032AFCC",
+      "size": "8",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032A942..0x0032B0A9@0x0032A942,0x0032B0A9",
+      "source": "Code/GameEngine/Source/Common/VslotMemberForwarders.cpp"
+    },
+    {
+      "rva": "0x0032AFD4",
+      "size": "147",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032A942..0x0032B0A9@0x0032A942,0x0032B0A9",
+      "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineResolveName.cpp"
+    },
+    {
+      "rva": "0x0032B067",
+      "size": "9",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032A942..0x0032B0A9@0x0032A942,0x0032B0A9",
+      "source": "Code/GameEngine/Source/Common/System/XferAsciiStringVector.cpp"
+    },
+    {
+      "rva": "0x0032B070",
+      "size": "57",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "S",
+      "evidence": "S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesInfo.cpp",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp"
+    },
+    {
+      "rva": "0x0032B0A9",
+      "size": "150",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "Z",
+      "evidence": "Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_findSideInfo.cpp"
+    },
+    {
+      "rva": "0x0032B13F",
+      "size": "162",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "Z",
+      "evidence": "Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_findSideInfo.cpp"
+    },
+    {
+      "rva": "0x0032B1E1",
+      "size": "196",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "Z",
+      "evidence": "Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_findSideInfo.cpp"
+    },
+    {
+      "rva": "0x0032B2A5",
+      "size": "228",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "Z",
+      "evidence": "Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_findSideInfo.cpp"
+    },
+    {
+      "rva": "0x0032B389",
+      "size": "98",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "E",
+      "evidence": "E=0x0077B615..0x0077B67D@0x0032B2A5,0x0032B88C",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+    },
+    {
+      "rva": "0x0032B3EB",
+      "size": "194",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "E",
+      "evidence": "E=0x0077B615..0x0077B67D@0x0032B2A5,0x0032B88C",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+    },
+    {
+      "rva": "0x0032B4AD",
+      "size": "5",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032B2A5..0x0032C26D@0x0032B2A5,0x0032C26D",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp"
+    },
+    {
+      "rva": "0x0032B4B2",
+      "size": "59",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032B2A5..0x0032C26D@0x0032B2A5,0x0032C26D",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+    },
+    {
+      "rva": "0x0032B4ED",
+      "size": "53",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "confidence": "approved",
+      "by": "T",
+      "evidence": "T=0x0032B2A5..0x0032C26D@0x0032B2A5,0x0032C26D",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_teamsinforec_map_erase.cpp"
+    },
+    {
+      "rva": "0x0032B522",
+      "size": "30",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp",
+      "confidence": "proposed",
+      "by": "N",
+      "evidence": "N=Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp noncontiguous",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp"
+    },
+    {
+      "rva": "0x0032B540",
+      "size": "37",
+      "kind": "code",
+      "tu": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp",
+      "confidence": "proposed",
+      "by": "N",
+      "evidence": "N=Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp noncontiguous",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp"
+    }
+  ],
+  "whole_file_current_ledger_rows": [
+    {
+      "name": "?init@SidesInfo@@QAEXPBVDict@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032CDAA",
+      "target_size": "84",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "ZH SidesInfo init; BFME2 target stores ScriptList by value and clears vector at +0x54; /O1 /G7"
+    },
+    {
+      "name": "?swap@SidesInfo@@QAEXPAV1@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032B070",
+      "target_size": "57",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "member-wise swap of build list Dict ScriptList and vector; target calls verified callees"
+    },
+    {
+      "name": "??0SidesInfo@@QAE@ABV0@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032C6AD",
+      "target_size": "204",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "ZH deep build-list copy moved into target copy ctor; target catch-all deletes partial list and rethrows; extent includes inline handler"
+    },
+    {
+      "name": "??1SidesInfo@@QAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x0032D4C0",
+      "target_size": "80",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "ZH SidesInfo teardown; target clears then destroys vector ScriptList and Dict members"
+    },
+    {
+      "name": "??4SidesInfo@@QAEAAV0@ABV0@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032D510",
+      "target_size": "68",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "target copy-and-swap assignment over verified copy ctor and swap"
+    },
+    {
+      "name": "?emptySides@SidesList@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0032D81B",
+      "target_size": "53",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "target zeroes both counts then clears twenty regular and skirmish SidesInfo entries"
+    },
+    {
+      "name": "?emptyTeams@SidesList@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0032D05C",
+      "target_size": "26",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "target clears TeamsInfoRec at +0xF44 and +0xF60"
+    },
+    {
+      "name": "?addSide@SidesList@@QAEHPBVDict@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032D076",
+      "target_size": "63",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "ZH addSide behavior; target returns index or -1 and posts indexed notification via +0x10; /G7"
+    },
+    {
+      "name": "?clear@SidesList@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0032DDDE",
+      "target_size": "38",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "target clears sides and teams sets +0xF7C then posts clear notification"
+    },
+    {
+      "name": "?post@SidesListNotifier@@QAEXP6AXXZPAX@Z",
+      "export_rva": "",
+      "target_rva": "0x0032B522",
+      "target_size": "30",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "retail REL32 from SidesList clear 0x32DDFD; notifier takes callback and owner"
+    },
+    {
+      "name": "?post@SidesListNotifier@@QAEXP6AXXZPAXH@Z",
+      "export_rva": "",
+      "target_rva": "0x0032B540",
+      "target_size": "37",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "retail REL32 from SidesList addSide 0x32D0A4; notifier takes callback owner and index"
+    },
+    {
+      "name": "?clear@SidesInfo@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0032D4AD",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "Zero Hour SidesInfo::clear (init(NULL)); 60 masked placements resolved to one unowned hit by call target = rowed SidesInfo::init 0x0032CDAA; directly precedes rowed ~SidesInfo in this TU"
+    },
+    {
+      "name": "?Rva0032DD81Copy@@YAPAVSidesInfo@@PAV1@00@Z",
+      "export_rva": "",
+      "target_rva": "0x0032DD81",
+      "target_size": "50",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "copies SidesInfo range via operator equals 0x60 stride"
+    },
+    {
+      "name": "??0SidesInfo@@QAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x0032C667",
+      "target_size": "70",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "ZH SidesList default ctor at BFME1 6583b3c1; target Dict(0) 313581 ScriptList 3B7720 and empty vector base 211E58 at offsets 4/8/54 agree with rowed copy ctor and dtor; full 70B exact"
+    },
+    {
+      "name": "?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032AE25",
+      "target_size": "109",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp",
+      "status": "matched",
+      "notes": "EH-guarded listener walk behind the rowed post 0x0032B522: LatchRestore<unsigned int> index latch at +0xC then each listener through the posted member pointer with the owner; shape of 0x00308688"
+    },
+    {
+      "name": "?dispatchIndexed@SidesListNotifier@@QAEXPBUPostIndexed@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032AE92",
+      "target_size": "112",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp",
+      "status": "matched",
+      "notes": "EH-guarded listener walk behind the rowed post 0x0032B540: same latch with owner plus side index; shape of 0x003086F5"
+    },
+    {
+      "name": "??4SidesList@@QAEAAV0@ABV0@@Z",
+      "export_rva": "",
+      "target_rva": "0x0032E978",
+      "target_size": "199",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "identity (target): WorldBuilder's unnamed twin wb 0xa80e80 aligns step for step: inline SubsystemInterface assign then Snapshot null-checked cast then m_numSides and the side-array copy over that many entries then the skirmish pair then two TeamsInfoRec assigns (wb 0xa81000) then m_cleared then the 20-entry faction build list copy then the notifier post with this; callees SubsystemInterface::operator= 0x00329880 and copy<SidesInfo*> 0x0032E8F9 and TeamsInfoRec::operator= 0x0032DDB3 by their rows; the 0x1C-record copy 0x0032DD66 (placeholder row; the faction list struct name is this TU's) pinned; callback VA 0x009CB265 is the folded slot-3 forwarder pinned as Rva005CB265"
+    },
+    {
+      "name": "?DoXfer@SidesList@@UAEXPAVXfer@@@Z",
+      "export_rva": "",
+      "target_rva": "0x00329AEA",
+      "target_size": "212",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "wb-lead callgraph: WB SidesList::DoXfer (Snapshot override, this at +0x0C); ZH SidesList::xfer body (version 1, side count vs +0x3C, script list presence/xferSnapshot per side via getSideInfo 0x2035BA) with BFME early-out on Xfer slot +0x10, XferException(5) throws and trailing xferBool of +0xF7C"
+    },
+    {
+      "name": "?addToFactionBuildListMap@SidesList@@QAEXW4NameKeyType@@ABUBfmePod128@@H@Z",
+      "export_rva": "",
+      "target_rva": "0x0032CDFE",
+      "target_size": "160",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "wb-lead callgraph: WB SidesList::addToFactionBuildListMap (SidesList.cpp); 20 slots of 0x1C at +0xF80 keyed by NameKeyType, free slot keyed nameToKey(\"UNASSIGNED\") pin 0x148E1A, list type 0/1 vector push_back pin 0x32CA14 at slot +4/+0x10; element type placeholder BfmePod128; wb-name-unverified"
+    },
+    {
+      "name": "?duplicateScripts@SidesList@@QAEXABV1@@Z",
+      "export_rva": "",
+      "target_rva": "0x00329A80",
+      "target_size": "106",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "wb-lead callgraph: WB SidesList::duplicateScripts (SidesList.cpp:1473 assert m_numSides == other.m_numSides); per side ScriptList copy ctor pin 0x3B88DA from other side +0x48, swap pin 0x3B58DF (inlined setScriptList), ~ScriptList 0x3B774B under EH; wb-name-unverified"
+    },
+    {
+      "name": "?removeSide@SidesList@@QAEXH@Z",
+      "export_rva": "",
+      "target_rva": "0x0032D850",
+      "target_size": "119",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "wb-lead callgraph: WB SidesList::removeSide (SidesList.cpp:1331/1332 asserts); rowed SidesInfo::swap 0x32B070 down to m_numSides-1, SidesInfo::init(0) to slot 20, m_numSides-- then notifier +0x10 post with callback 0x5CC208 and index; wb-name-unverified"
+    },
+    {
+      "name": "__ehhandler$?duplicateScripts@SidesList@@QAEXABV1@@Z",
+      "export_rva": "",
+      "target_rva": "0x0077B480",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x00329A80; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$??0SidesInfo@@QAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x0077B6E1",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032C667; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$??0SidesInfo@@QAE@ABV0@@Z",
+      "export_rva": "",
+      "target_rva": "0x0077B716",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032C6AD; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$??1SidesInfo@@QAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x0077B7E6",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032D4C0; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$??4SidesInfo@@QAEAAV0@ABV0@@Z",
+      "export_rva": "",
+      "target_rva": "0x0077B7F8",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032D510; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "$L943",
+      "export_rva": "",
+      "target_rva": "0x0077B70C",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L943 to retail Unwind@00b7b70c 0x77B70C; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "__ehhandler$?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z",
+      "export_rva": "",
+      "target_rva": "0x0077B5BF",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent ?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z"
+    },
+    {
+      "name": "Unwind@00b7b6eb",
+      "export_rva": "",
+      "target_rva": "0x0077B6EB",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z;object-symbol=$L933; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L933 to retail Unwind@00b7b6eb (was gen_uw scaffold uw_0077b6eb)"
+    },
+    {
+      "name": "Unwind@00b7b6f6",
+      "export_rva": "",
+      "target_rva": "0x0077B6F6",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z;object-symbol=$L934; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L934 to retail Unwind@00b7b6f6 (was gen_uw scaffold uw_0077b6f6)"
+    },
+    {
+      "name": "Unwind@00b7b701",
+      "export_rva": "",
+      "target_rva": "0x0077B701",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z;object-symbol=$L935; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L935 to retail Unwind@00b7b701 (was gen_uw scaffold uw_0077b701)"
+    },
+    {
+      "name": "Unwind@00b7b7c5",
+      "export_rva": "",
+      "target_rva": "0x0077B7C5",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??1SidesInfo@@QAE@XZ;object-symbol=$L1053; Matched parent 0x0032D4C0's EH graph is EXACT (eh_verify) and binds compiler label $L1053 to retail Unwind@00b7b7c5 (was gen_uw scaffold uw_0077b7c5)"
+    },
+    {
+      "name": "Unwind@00b7b7d0",
+      "export_rva": "",
+      "target_rva": "0x0077B7D0",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??1SidesInfo@@QAE@XZ;object-symbol=$L1054; Matched parent 0x0032D4C0's EH graph is EXACT (eh_verify) and binds compiler label $L1054 to retail Unwind@00b7b7d0 (was gen_uw scaffold uw_0077b7d0)"
+    },
+    {
+      "name": "Unwind@00b7b7db",
+      "export_rva": "",
+      "target_rva": "0x0077B7DB",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??1SidesInfo@@QAE@XZ;object-symbol=$L1055; Matched parent 0x0032D4C0's EH graph is EXACT (eh_verify) and binds compiler label $L1055 to retail Unwind@00b7b7db (was gen_uw scaffold uw_0077b7db)"
+    },
+    {
+      "name": "Unwind@00b7b7f0",
+      "export_rva": "",
+      "target_rva": "0x0077B7F0",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??4SidesInfo@@QAEAAV0@ABV0@@Z;object-symbol=$L1070; Matched parent 0x0032D510's EH graph is EXACT (eh_verify) and binds compiler label $L1070 to retail Unwind@00b7b7f0 (was gen_uw scaffold uw_0077b7f0)"
+    },
+    {
+      "name": "Unwind@00b7b6d6",
+      "export_rva": "",
+      "target_rva": "0x0077B6D6",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0SidesInfo@@QAE@XZ;object-symbol=$L1032; Matched parent 0x0032C667's EH graph is EXACT (eh_verify) and binds compiler label $L1032 to retail Unwind@00b7b6d6 (was gen_uw scaffold uw_0077b6d6)"
+    },
+    {
+      "name": "Unwind@00b7b478",
+      "export_rva": "",
+      "target_rva": "0x0077B478",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?duplicateScripts@SidesList@@QAEXABV1@@Z;object-symbol=$L978; Matched parent 0x00329A80's EH graph is EXACT (eh_verify) and binds compiler label $L978 to retail Unwind@00b7b478 (was gen_uw scaffold uw_0077b478)"
+    },
+    {
+      "name": "$L393",
+      "export_rva": "",
+      "target_rva": "0x0077B5B7",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z; Matched parent 0x0032AE25's EH graph is EXACT (eh_verify) and binds compiler label $L393 to retail 0x0077B5B7; replaces generated uw_0077b5b7; retail FuncInfo 0x00924654 is shared by 2 parent frames; parent is the one the section's existing __ehhandler$ row names"
+    }
+  ],
+  "private_naming_catalogue_packets": [
+    {
+      "blockers": [
+        "quoted-include-resolution-review"
+      ],
+      "cl_lines": [
+        " /DNDEBUG /MD /EHsc"
+      ],
+      "complete": false,
+      "data_rows": [],
+      "included_by": [],
+      "placement_evidence": [
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z",
+          "rva": "0x0032AE25",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "?dispatchIndexed@SidesListNotifier@@QAEXPBUPostIndexed@1@@Z",
+          "rva": "0x0032AE92",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "__ehhandler$?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z",
+          "rva": "0x0077B5BF",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "$L393",
+          "rva": "0x0077B5B7",
+          "strength": "unresolved",
+          "target": ""
+        }
+      ],
+      "rows": [
+        {
+          "name": "?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z",
+          "notes": "EH-guarded listener walk behind the rowed post 0x0032B522: LatchRestore<unsigned int> index latch at +0xC then each listener through the posted member pointer with the owner; shape of 0x00308688",
+          "rva": "0x0032AE25",
+          "size": 109
+        },
+        {
+          "name": "?dispatchIndexed@SidesListNotifier@@QAEXPBUPostIndexed@1@@Z",
+          "notes": "EH-guarded listener walk behind the rowed post 0x0032B540: same latch with owner plus side index; shape of 0x003086F5",
+          "rva": "0x0032AE92",
+          "size": 112
+        },
+        {
+          "name": "__ehhandler$?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent ?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z",
+          "rva": "0x0077B5BF",
+          "size": 10
+        },
+        {
+          "name": "$L393",
+          "notes": "gen-funclet;parent=?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z; Matched parent 0x0032AE25's EH graph is EXACT (eh_verify) and binds compiler label $L393 to retail 0x0077B5B7; replaces generated uw_0077b5b7; retail FuncInfo 0x00924654 is shared by 2 parent frames; parent is the one the section's existing __ehhandler$ row names",
+          "rva": "0x0077B5B7",
+          "size": 8
+        }
+      ],
+      "scope": "selected-active-ledger",
+      "sha256": "5c0a378dd13edafbe28fec2559c47353e8dfe5d749ab9057609208252e1a2852",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp"
+    },
+    {
+      "blockers": [
+        "macro-or-pragma-context",
+        "quoted-include-resolution-review"
+      ],
+      "cl_lines": [],
+      "complete": false,
+      "data_rows": [],
+      "included_by": [],
+      "placement_evidence": [
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesInfo.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "?init@SidesInfo@@QAEXPBVDict@@@Z",
+          "rva": "0x0032CDAA",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesInfo.cpp"
+          ],
+          "name": "?swap@SidesInfo@@QAEXPAV1@@Z",
+          "rva": "0x0032B070",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesInfo.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "??0SidesInfo@@QAE@ABV0@@Z",
+          "rva": "0x0032C6AD",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesInfo.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "??1SidesInfo@@QAE@XZ",
+          "rva": "0x0032D4C0",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: C=0x0032D4C0..0x0032D554"
+          ],
+          "name": "??4SidesInfo@@QAEAAV0@ABV0@@Z",
+          "rva": "0x0032D510",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "?emptySides@SidesList@@QAEXXZ",
+          "rva": "0x0032D81B",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "?emptyTeams@SidesList@@QAEXXZ",
+          "rva": "0x0032D05C",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+            "zh-definition: same spelling; target identity unproven",
+            "bfme1-ea: same spelling; no cross-game RVA transfer"
+          ],
+          "name": "?addSide@SidesList@@QAEHPBVDict@@@Z",
+          "rva": "0x0032D076",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "?clear@SidesList@@QAEXXZ",
+          "rva": "0x0032DDDE",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "?post@SidesListNotifier@@QAEXP6AXXZPAX@Z",
+          "rva": "0x0032B522",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [],
+          "conflict": false,
+          "evidence": [],
+          "name": "?post@SidesListNotifier@@QAEXP6AXXZPAXH@Z",
+          "rva": "0x0032B540",
+          "strength": "unresolved",
+          "target": ""
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesInfo.cpp"
+          ],
+          "name": "?clear@SidesInfo@@QAEXXZ",
+          "rva": "0x0032D4AD",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: C=0x0032DB1B..0x0032DDB3"
+          ],
+          "name": "?Rva0032DD81Copy@@YAPAVSidesInfo@@PAV1@00@Z",
+          "rva": "0x0032DD81",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesInfo.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "??0SidesInfo@@QAE@XZ",
+          "rva": "0x0032C667",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: C=0x0032E6F4..0x0032EA3F"
+          ],
+          "name": "??4SidesList@@QAEAAV0@ABV0@@Z",
+          "rva": "0x0032E978",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "name": "?DoXfer@SidesList@@UAEXPAVXfer@@@Z",
+          "rva": "0x00329AEA",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "name": "?addToFactionBuildListMap@SidesList@@QAEXW4NameKeyType@@ABUBfmePod128@@H@Z",
+          "rva": "0x0032CDFE",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "name": "?duplicateScripts@SidesList@@QAEXABV1@@Z",
+          "rva": "0x00329A80",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+            "zh-definition: same spelling; target identity unproven"
+          ],
+          "name": "?removeSide@SidesList@@QAEXH@Z",
+          "rva": "0x0032D850",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x00329A80@FuncInfo0x0092442C"
+          ],
+          "name": "__ehhandler$?duplicateScripts@SidesList@@QAEXABV1@@Z",
+          "rva": "0x0077B480",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032C667@FuncInfo0x00924814"
+          ],
+          "name": "__ehhandler$??0SidesInfo@@QAE@XZ",
+          "rva": "0x0077B6E1",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032C6AD@FuncInfo0x00924884"
+          ],
+          "name": "__ehhandler$??0SidesInfo@@QAE@ABV0@@Z",
+          "rva": "0x0077B716",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032D4C0@FuncInfo0x009249A4"
+          ],
+          "name": "__ehhandler$??1SidesInfo@@QAE@XZ",
+          "rva": "0x0077B7E6",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032D510@FuncInfo0x009249C8"
+          ],
+          "name": "__ehhandler$??4SidesInfo@@QAEAAV0@ABV0@@Z",
+          "rva": "0x0077B7F8",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032C6AD@FuncInfo0x00924884"
+          ],
+          "name": "$L943",
+          "rva": "0x0077B70C",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032C6AD@FuncInfo0x00924884"
+          ],
+          "name": "Unwind@00b7b6eb",
+          "rva": "0x0077B6EB",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032C6AD@FuncInfo0x00924884"
+          ],
+          "name": "Unwind@00b7b6f6",
+          "rva": "0x0077B6F6",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032C6AD@FuncInfo0x00924884"
+          ],
+          "name": "Unwind@00b7b701",
+          "rva": "0x0077B701",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032D4C0@FuncInfo0x009249A4"
+          ],
+          "name": "Unwind@00b7b7c5",
+          "rva": "0x0077B7C5",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032D4C0@FuncInfo0x009249A4"
+          ],
+          "name": "Unwind@00b7b7d0",
+          "rva": "0x0077B7D0",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032D4C0@FuncInfo0x009249A4"
+          ],
+          "name": "Unwind@00b7b7db",
+          "rva": "0x0077B7DB",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032D510@FuncInfo0x009249C8"
+          ],
+          "name": "Unwind@00b7b7f0",
+          "rva": "0x0077B7F0",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x0032C667@FuncInfo0x00924814"
+          ],
+          "name": "Unwind@00b7b6d6",
+          "rva": "0x0077B6D6",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        },
+        {
+          "alternatives": [
+            "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+          ],
+          "conflict": false,
+          "evidence": [
+            "stale-tu-map: P=0x00329A80@FuncInfo0x0092442C"
+          ],
+          "name": "Unwind@00b7b478",
+          "rva": "0x0077B478",
+          "strength": "hint",
+          "target": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp"
+        }
+      ],
+      "rows": [
+        {
+          "name": "?init@SidesInfo@@QAEXPBVDict@@@Z",
+          "notes": "ZH SidesInfo init; BFME2 target stores ScriptList by value and clears vector at +0x54; /O1 /G7",
+          "rva": "0x0032CDAA",
+          "size": 84
+        },
+        {
+          "name": "?swap@SidesInfo@@QAEXPAV1@@Z",
+          "notes": "member-wise swap of build list Dict ScriptList and vector; target calls verified callees",
+          "rva": "0x0032B070",
+          "size": 57
+        },
+        {
+          "name": "??0SidesInfo@@QAE@ABV0@@Z",
+          "notes": "ZH deep build-list copy moved into target copy ctor; target catch-all deletes partial list and rethrows; extent includes inline handler",
+          "rva": "0x0032C6AD",
+          "size": 204
+        },
+        {
+          "name": "??1SidesInfo@@QAE@XZ",
+          "notes": "ZH SidesInfo teardown; target clears then destroys vector ScriptList and Dict members",
+          "rva": "0x0032D4C0",
+          "size": 80
+        },
+        {
+          "name": "??4SidesInfo@@QAEAAV0@ABV0@@Z",
+          "notes": "target copy-and-swap assignment over verified copy ctor and swap",
+          "rva": "0x0032D510",
+          "size": 68
+        },
+        {
+          "name": "?emptySides@SidesList@@QAEXXZ",
+          "notes": "target zeroes both counts then clears twenty regular and skirmish SidesInfo entries",
+          "rva": "0x0032D81B",
+          "size": 53
+        },
+        {
+          "name": "?emptyTeams@SidesList@@QAEXXZ",
+          "notes": "target clears TeamsInfoRec at +0xF44 and +0xF60",
+          "rva": "0x0032D05C",
+          "size": 26
+        },
+        {
+          "name": "?addSide@SidesList@@QAEHPBVDict@@@Z",
+          "notes": "ZH addSide behavior; target returns index or -1 and posts indexed notification via +0x10; /G7",
+          "rva": "0x0032D076",
+          "size": 63
+        },
+        {
+          "name": "?clear@SidesList@@QAEXXZ",
+          "notes": "target clears sides and teams sets +0xF7C then posts clear notification",
+          "rva": "0x0032DDDE",
+          "size": 38
+        },
+        {
+          "name": "?post@SidesListNotifier@@QAEXP6AXXZPAX@Z",
+          "notes": "retail REL32 from SidesList clear 0x32DDFD; notifier takes callback and owner",
+          "rva": "0x0032B522",
+          "size": 30
+        },
+        {
+          "name": "?post@SidesListNotifier@@QAEXP6AXXZPAXH@Z",
+          "notes": "retail REL32 from SidesList addSide 0x32D0A4; notifier takes callback owner and index",
+          "rva": "0x0032B540",
+          "size": 37
+        },
+        {
+          "name": "?clear@SidesInfo@@QAEXXZ",
+          "notes": "Zero Hour SidesInfo::clear (init(NULL)); 60 masked placements resolved to one unowned hit by call target = rowed SidesInfo::init 0x0032CDAA; directly precedes rowed ~SidesInfo in this TU",
+          "rva": "0x0032D4AD",
+          "size": 8
+        },
+        {
+          "name": "?Rva0032DD81Copy@@YAPAVSidesInfo@@PAV1@00@Z",
+          "notes": "copies SidesInfo range via operator equals 0x60 stride",
+          "rva": "0x0032DD81",
+          "size": 50
+        },
+        {
+          "name": "??0SidesInfo@@QAE@XZ",
+          "notes": "ZH SidesList default ctor at BFME1 6583b3c1; target Dict(0) 313581 ScriptList 3B7720 and empty vector base 211E58 at offsets 4/8/54 agree with rowed copy ctor and dtor; full 70B exact",
+          "rva": "0x0032C667",
+          "size": 70
+        },
+        {
+          "name": "??4SidesList@@QAEAAV0@ABV0@@Z",
+          "notes": "identity (target): WorldBuilder's unnamed twin wb 0xa80e80 aligns step for step: inline SubsystemInterface assign then Snapshot null-checked cast then m_numSides and the side-array copy over that many entries then the skirmish pair then two TeamsInfoRec assigns (wb 0xa81000) then m_cleared then the 20-entry faction build list copy then the notifier post with this; callees SubsystemInterface::operator= 0x00329880 and copy<SidesInfo*> 0x0032E8F9 and TeamsInfoRec::operator= 0x0032DDB3 by their rows; the 0x1C-record copy 0x0032DD66 (placeholder row; the faction list struct name is this TU's) pinned; callback VA 0x009CB265 is the folded slot-3 forwarder pinned as Rva005CB265",
+          "rva": "0x0032E978",
+          "size": 199
+        },
+        {
+          "name": "?DoXfer@SidesList@@UAEXPAVXfer@@@Z",
+          "notes": "wb-lead callgraph: WB SidesList::DoXfer (Snapshot override, this at +0x0C); ZH SidesList::xfer body (version 1, side count vs +0x3C, script list presence/xferSnapshot per side via getSideInfo 0x2035BA) with BFME early-out on Xfer slot +0x10, XferException(5) throws and trailing xferBool of +0xF7C",
+          "rva": "0x00329AEA",
+          "size": 212
+        },
+        {
+          "name": "?addToFactionBuildListMap@SidesList@@QAEXW4NameKeyType@@ABUBfmePod128@@H@Z",
+          "notes": "wb-lead callgraph: WB SidesList::addToFactionBuildListMap (SidesList.cpp); 20 slots of 0x1C at +0xF80 keyed by NameKeyType, free slot keyed nameToKey(\"UNASSIGNED\") pin 0x148E1A, list type 0/1 vector push_back pin 0x32CA14 at slot +4/+0x10; element type placeholder BfmePod128; wb-name-unverified",
+          "rva": "0x0032CDFE",
+          "size": 160
+        },
+        {
+          "name": "?duplicateScripts@SidesList@@QAEXABV1@@Z",
+          "notes": "wb-lead callgraph: WB SidesList::duplicateScripts (SidesList.cpp:1473 assert m_numSides == other.m_numSides); per side ScriptList copy ctor pin 0x3B88DA from other side +0x48, swap pin 0x3B58DF (inlined setScriptList), ~ScriptList 0x3B774B under EH; wb-name-unverified",
+          "rva": "0x00329A80",
+          "size": 106
+        },
+        {
+          "name": "?removeSide@SidesList@@QAEXH@Z",
+          "notes": "wb-lead callgraph: WB SidesList::removeSide (SidesList.cpp:1331/1332 asserts); rowed SidesInfo::swap 0x32B070 down to m_numSides-1, SidesInfo::init(0) to slot 20, m_numSides-- then notifier +0x10 post with callback 0x5CC208 and index; wb-name-unverified",
+          "rva": "0x0032D850",
+          "size": 119
+        },
+        {
+          "name": "__ehhandler$?duplicateScripts@SidesList@@QAEXABV1@@Z",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x00329A80; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler",
+          "rva": "0x0077B480",
+          "size": 10
+        },
+        {
+          "name": "__ehhandler$??0SidesInfo@@QAE@XZ",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032C667; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler",
+          "rva": "0x0077B6E1",
+          "size": 10
+        },
+        {
+          "name": "__ehhandler$??0SidesInfo@@QAE@ABV0@@Z",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032C6AD; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler",
+          "rva": "0x0077B716",
+          "size": 10
+        },
+        {
+          "name": "__ehhandler$??1SidesInfo@@QAE@XZ",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032D4C0; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler",
+          "rva": "0x0077B7E6",
+          "size": 10
+        },
+        {
+          "name": "__ehhandler$??4SidesInfo@@QAEAAV0@ABV0@@Z",
+          "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0032D510; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler",
+          "rva": "0x0077B7F8",
+          "size": 10
+        },
+        {
+          "name": "$L943",
+          "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L943 to retail Unwind@00b7b70c 0x77B70C; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin",
+          "rva": "0x0077B70C",
+          "size": 10
+        },
+        {
+          "name": "Unwind@00b7b6eb",
+          "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z;object-symbol=$L933; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L933 to retail Unwind@00b7b6eb (was gen_uw scaffold uw_0077b6eb)",
+          "rva": "0x0077B6EB",
+          "size": 11
+        },
+        {
+          "name": "Unwind@00b7b6f6",
+          "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z;object-symbol=$L934; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L934 to retail Unwind@00b7b6f6 (was gen_uw scaffold uw_0077b6f6)",
+          "rva": "0x0077B6F6",
+          "size": 11
+        },
+        {
+          "name": "Unwind@00b7b701",
+          "notes": "gen-funclet;parent=??0SidesInfo@@QAE@ABV0@@Z;object-symbol=$L935; Matched parent 0x0032C6AD's EH graph is EXACT (eh_verify) and binds compiler label $L935 to retail Unwind@00b7b701 (was gen_uw scaffold uw_0077b701)",
+          "rva": "0x0077B701",
+          "size": 11
+        },
+        {
+          "name": "Unwind@00b7b7c5",
+          "notes": "gen-funclet;parent=??1SidesInfo@@QAE@XZ;object-symbol=$L1053; Matched parent 0x0032D4C0's EH graph is EXACT (eh_verify) and binds compiler label $L1053 to retail Unwind@00b7b7c5 (was gen_uw scaffold uw_0077b7c5)",
+          "rva": "0x0077B7C5",
+          "size": 11
+        },
+        {
+          "name": "Unwind@00b7b7d0",
+          "notes": "gen-funclet;parent=??1SidesInfo@@QAE@XZ;object-symbol=$L1054; Matched parent 0x0032D4C0's EH graph is EXACT (eh_verify) and binds compiler label $L1054 to retail Unwind@00b7b7d0 (was gen_uw scaffold uw_0077b7d0)",
+          "rva": "0x0077B7D0",
+          "size": 11
+        },
+        {
+          "name": "Unwind@00b7b7db",
+          "notes": "gen-funclet;parent=??1SidesInfo@@QAE@XZ;object-symbol=$L1055; Matched parent 0x0032D4C0's EH graph is EXACT (eh_verify) and binds compiler label $L1055 to retail Unwind@00b7b7db (was gen_uw scaffold uw_0077b7db)",
+          "rva": "0x0077B7DB",
+          "size": 11
+        },
+        {
+          "name": "Unwind@00b7b7f0",
+          "notes": "gen-funclet;parent=??4SidesInfo@@QAEAAV0@ABV0@@Z;object-symbol=$L1070; Matched parent 0x0032D510's EH graph is EXACT (eh_verify) and binds compiler label $L1070 to retail Unwind@00b7b7f0 (was gen_uw scaffold uw_0077b7f0)",
+          "rva": "0x0077B7F0",
+          "size": 8
+        },
+        {
+          "name": "Unwind@00b7b6d6",
+          "notes": "gen-funclet;parent=??0SidesInfo@@QAE@XZ;object-symbol=$L1032; Matched parent 0x0032C667's EH graph is EXACT (eh_verify) and binds compiler label $L1032 to retail Unwind@00b7b6d6 (was gen_uw scaffold uw_0077b6d6)",
+          "rva": "0x0077B6D6",
+          "size": 11
+        },
+        {
+          "name": "Unwind@00b7b478",
+          "notes": "gen-funclet;parent=?duplicateScripts@SidesList@@QAEXABV1@@Z;object-symbol=$L978; Matched parent 0x00329A80's EH graph is EXACT (eh_verify) and binds compiler label $L978 to retail Unwind@00b7b478 (was gen_uw scaffold uw_0077b478)",
+          "rva": "0x0077B478",
+          "size": 8
+        }
+      ],
+      "scope": "selected-active-ledger",
+      "sha256": "e45226cde97c3fd88fe40153b9cab4b3c0cd87fda2fd17085ba4155737fc31b9",
+      "source": "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp"
+    }
+  ],
+  "catalogued_paths": [
+    {
+      "path": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "kind": "cpp",
+      "origins": "worldbuilder;zh;bfme1-ea",
+      "case_variants": "[\"Code/GameEngine/Source/GameLogic/Map/SidesList.cpp\"]",
+      "target_case_conflict": "false",
+      "bfme2_file": "Code/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "bfme1_reconstructed": "game/GameEngine/Source/GameLogic/Map/SidesList.cpp",
+      "retail_evidence": "[]",
+      "worldbuilder_evidence": "[\"worldbuilder.exe:offset=0x01A0DE78 rva=0x01A0DE78\"]",
+      "zh_evidence": "[\"GameEngine/Source/GameLogic/Map/SidesList.cpp\"]",
+      "bfme1_ea_evidence": "[\"ea_evidence.csv:1480 route=wb1-run\", \"ea_evidence.csv:1482 route=wb2\", \"ea_evidence.csv:21583 route=wb2\", \"ea_evidence.csv:28397 route=zh\", \"ea_evidence.csv:410 route=wb1\", \"ea_evidence.csv:4139 route=wb1\", \"ea_evidence.csv:4141 route=retail-run\", \"ea_evidence.csv:4142 route=retail-run\", \"ea_evidence.csv:4143 route=retail-run\", \"ea_evidence.csv:4144 route=retail-run\", \"ea_evidence.csv:4145 route=retail-run\", \"ea_evidence.csv:4146 route=retail-run\", \"ea_evidence.csv:4147 route=retail-run\", \"ea_evidence.csv:4148 route=retail-run\", \"ea_evidence.csv:4149 route=zh\", \"ea_evidence.csv:4150 route=zh\", \"ea_evidence.csv:4151 route=zh\", \"ea_evidence.csv:4152 route=retail-run\", \"ea_evidence.csv:4153 route=retail-run\", \"ea_evidence.csv:4154 route=retail-run\", \"ea_evidence.csv:4155 route=wb2-run\", \"ea_evidence.csv:4156 route=retail-run\", \"ea_evidence.csv:4157 route=retail-run\", \"ea_evidence.csv:4158 route=zh\", \"ea_evidence.csv:4159 route=wb2-run\", \"ea_evidence.csv:4160 route=wb2-run\", \"ea_evidence.csv:4161 route=wb2-run\", \"ea_evidence.csv:4163 route=zh\", \"ea_evidence.csv:4164 route=zh\", \"ea_evidence.csv:4165 route=zh\", \"ea_evidence.csv:4166 route=wb2-run\", \"ea_evidence.csv:4167 route=wb2-run\", \"ea_evidence.csv:4168 route=wb2-run\", \"ea_evidence.csv:4169 route=retail-run\", \"ea_evidence.csv:4170 route=retail-run\", \"ea_evidence.csv:4171 route=retail-run\", \"ea_evidence.csv:4172 route=retail-run\", \"ea_evidence.csv:4173 route=retail-run\", \"ea_evidence.csv:4174 route=retail-run\", \"ea_evidence.csv:4175 route=retail-run\", \"ea_evidence.csv:4176 route=wb2-run\", \"ea_evidence.csv:4177 route=retail-run\", \"ea_evidence.csv:4178 route=retail-run\", \"ea_evidence.csv:4179 route=retail-run\", \"ea_evidence.csv:4180 route=wb2-run\", \"ea_evidence.csv:4181 route=retail-run\", \"ea_evidence.csv:4182 route=retail-run\", \"ea_evidence.csv:4183 route=retail-run\", \"ea_evidence.csv:4184 route=wb2-run\", \"ea_evidence.csv:4185 route=retail-run\", \"ea_evidence.csv:4186 route=wb2-run\", \"ea_evidence.csv:4187 route=wb2-run\", \"ea_evidence.csv:4188 route=retail-run\", \"ea_evidence.csv:4189 route=retail-run\", \"ea_evidence.csv:4190 route=retail-run\", \"ea_evidence.csv:4191 route=zh\", \"ea_evidence.csv:4192 route=zh\", \"ea_evidence.csv:4193 route=zh\", \"ea_evidence.csv:4194 route=zh\", \"ea_evidence.csv:4195 route=wb2-run\", \"ea_evidence.csv:4196 route=retail-run\", \"ea_evidence.csv:4197 route=retail-run\", \"ea_evidence.csv:4198 route=retail-run\", \"ea_evidence.csv:4199 route=retail-run\", \"ea_evidence.csv:4200 route=retail-run\", \"ea_evidence.csv:4201 route=retail-run\", \"ea_evidence.csv:4202 route=retail-run\", \"ea_evidence.csv:4203 route=retail-run\", \"ea_evidence.csv:4204 route=retail-run\", \"ea_evidence.csv:4205 route=retail-run\", \"ea_evidence.csv:4206 route=retail-run\", \"ea_evidence.csv:4207 route=retail-run\", \"ea_evidence.csv:4208 route=retail-run\", \"ea_evidence.csv:4209 route=retail-run\", \"ea_evidence.csv:4210 route=retail-run\", \"ea_evidence.csv:4211 route=retail-run\", \"ea_evidence.csv:4212 route=retail-run\", \"ea_evidence.csv:4213 route=retail-run\", \"ea_evidence.csv:4214 route=retail-run\", \"ea_evidence.csv:4215 route=retail-run\", \"ea_evidence.csv:4216 route=retail-run\", \"ea_evidence.csv:4217 route=retail-run\", \"ea_evidence.csv:4218 route=retail-run\", \"ea_evidence.csv:4219 route=retail-run\", \"ea_evidence.csv:4220 route=retail-run\", \"ea_evidence.csv:4221 route=wb1\", \"ea_evidence.csv:4223 route=retail-run\", \"ea_evidence.csv:4224 route=retail-run\", \"ea_evidence.csv:4225 route=retail-run\", \"ea_evidence.csv:4226 route=wb2-run\", \"ea_evidence.csv:4227 route=retail-run\", \"ea_evidence.csv:4228 route=retail-run\", \"ea_evidence.csv:4229 route=retail-run\", \"ea_evidence.csv:4230 route=retail-run\", \"ea_evidence.csv:4231 route=retail-run\", \"ea_evidence.csv:4232 route=retail-run\", \"ea_evidence.csv:4233 route=retail-run\", \"ea_evidence.csv:4234 route=retail-run\", \"ea_evidence.csv:4235 route=retail-run\", \"ea_evidence.csv:4236 route=retail-run\", \"ea_evidence.csv:4237 route=retail-run\", \"ea_evidence.csv:4238 route=retail-run\", \"ea_evidence.csv:4239 route=retail-run\", \"ea_evidence.csv:4240 route=retail-run\", \"ea_evidence.csv:4241 route=retail-run\", \"ea_evidence.csv:4242 route=retail-run\", \"ea_evidence.csv:4243 route=retail-run\", \"ea_evidence.csv:4244 route=retail-run\", \"ea_evidence.csv:4245 route=retail-run\", \"ea_evidence.csv:4246 route=zh\", \"ea_evidence.csv:4247 route=retail-run\", \"ea_evidence.csv:4248 route=retail-run\", \"ea_evidence.csv:4249 route=wb1\", \"ea_evidence.csv:4251 route=retail-run\", \"ea_evidence.csv:4252 route=wb2-run\", \"ea_evidence.csv:4253 route=wb1-run\", \"ea_evidence.csv:4254 route=retail-run\", \"ea_evidence.csv:4255 route=zh\", \"ea_evidence.csv:4256 route=retail-run\", \"ea_evidence.csv:4257 route=retail-run\", \"ea_evidence.csv:4258 route=retail-run\", \"ea_evidence.csv:4259 route=wb1-run\", \"ea_evidence.csv:4260 route=retail-run\", \"ea_evidence.csv:4261 route=wb1-run\", \"ea_evidence.csv:4262 route=retail-run\", \"ea_evidence.csv:4263 route=retail-run\", \"ea_evidence.csv:4264 route=retail-run\", \"ea_evidence.csv:4265 route=retail-run\", \"ea_evidence.csv:4266 route=retail-run\", \"ea_evidence.csv:4267 route=retail-run\", \"ea_evidence.csv:4268 route=wb1-run\", \"ea_evidence.csv:4269 route=retail-run\", \"ea_evidence.csv:4270 route=retail-run\", \"ea_evidence.csv:4271 route=wb1-run\", \"ea_evidence.csv:4272 route=retail-run\", \"ea_evidence.csv:4273 route=wb1\", \"ea_evidence.csv:4275 route=retail-run\", \"ea_evidence.csv:4276 route=retail-run\", \"ea_evidence.csv:4277 route=retail-run\", \"ea_evidence.csv:4278 route=wb1\", \"ea_evidence.csv:4280 route=retail-run\", \"ea_evidence.csv:4281 route=wb1-run\", \"ea_evidence.csv:4282 route=wb1-run\", \"ea_evidence.csv:4283 route=retail-run\", \"ea_evidence.csv:4284 route=wb1-run\", \"ea_evidence.csv:4285 route=retail-run\", \"ea_evidence.csv:4286 route=retail-run\", \"ea_evidence.csv:4287 route=retail-run\", \"ea_evidence.csv:4288 route=retail-run\", \"ea_evidence.csv:4289 route=wb1-run\", \"ea_evidence.csv:4290 route=retail-run\", \"ea_evidence.csv:4291 route=retail-run\", \"ea_evidence.csv:4292 route=zh\", \"ea_evidence.csv:4293 route=wb1-run\", \"ea_evidence.csv:4294 route=wb1-run\", \"ea_evidence.csv:4295 route=wb2-run\", \"ea_evidence.csv:4296 route=retail-run\", \"ea_evidence.csv:4297 route=wb1-run\", \"ea_evidence.csv:4298 route=retail-run\", \"ea_evidence.csv:4299 route=wb1\", \"ea_evidence.csv:4301 route=wb1\", \"ea_evidence.csv:4303 route=wb1-run\", \"ea_evidence.csv:4304 route=retail-run\", \"ea_evidence.csv:4305 route=wb1-run\", \"ea_evidence.csv:4306 route=retail-run\", \"ea_evidence.csv:4307 route=wb1-run\", \"ea_evidence.csv:4308 route=retail-run\", \"ea_evidence.csv:4309 route=wb1-run\", \"ea_evidence.csv:4310 route=retail-run\", \"ea_evidence.csv:4311 route=wb1-run\", \"ea_evidence.csv:4312 route=wb1\", \"ea_evidence.csv:4314 route=wb2\", \"ea_evidence.csv:4316 route=wb1-run\", \"ea_evidence.csv:4317 route=wb1-run\", \"ea_evidence.csv:4318 route=wb1\", \"ea_evidence.csv:4319 route=wb1-run\", \"ea_evidence.csv:4320 route=wb1\", \"ea_evidence.csv:4322 route=retail-run\", \"ea_evidence.csv:4323 route=retail-run\", \"ea_evidence.csv:4324 route=retail-run\", \"ea_evidence.csv:4325 route=retail-run\", \"ea_evidence.csv:4326 route=retail-run\", \"ea_evidence.csv:4327 route=retail-run\", \"ea_evidence.csv:4328 route=wb1-run\", \"ea_evidence.csv:4329 route=wb1-run\", \"ea_evidence.csv:4330 route=retail-run\", \"ea_evidence.csv:4331 route=retail-run\", \"ea_evidence.csv:4332 route=retail-run\", \"ea_evidence.csv:4333 route=wb1\", \"ea_evidence.csv:4335 route=wb1-run\", \"ea_evidence.csv:4336 route=retail-run\", \"ea_evidence.csv:4337 route=retail-run\", \"ea_evidence.csv:4338 route=wb1-run\", \"ea_evidence.csv:4339 route=retail-run\", \"ea_evidence.csv:4340 route=retail-run\", \"ea_evidence.csv:4341 route=wb1-run\", \"ea_evidence.csv:4342 route=retail-run\", \"ea_evidence.csv:4343 route=wb2-run\", \"ea_evidence.csv:4344 route=wb1-run\", \"ea_evidence.csv:4345 route=retail-run\", \"ea_evidence.csv:4346 route=retail-run\", \"ea_evidence.csv:4347 route=retail-run\", \"ea_evidence.csv:4348 route=wb1-run\", \"ea_evidence.csv:4349 route=wb2-run\", \"ea_evidence.csv:4350 route=wb1-run\", \"ea_evidence.csv:4351 route=wb2-run\", \"ea_evidence.csv:4352 route=retail-run\", \"ea_evidence.csv:4353 route=retail-run\", \"ea_evidence.csv:4354 route=wb1-run\", \"ea_evidence.csv:4355 route=retail-run\", \"ea_evidence.csv:4356 route=retail-run\", \"ea_evidence.csv:4357 route=retail-run\", \"ea_evidence.csv:4358 route=wb2-run\", \"ea_evidence.csv:4359 route=wb1-run\", \"ea_evidence.csv:4360 route=retail-run\", \"ea_evidence.csv:4361 route=wb1\", \"ea_evidence.csv:4363 route=retail-run\", \"ea_evidence.csv:4364 route=retail-run\", \"ea_evidence.csv:4365 route=wb1\", \"ea_evidence.csv:4367 route=wb1-run\", \"ea_evidence.csv:4368 route=retail-run\", \"ea_evidence.csv:4369 route=retail-run\", \"ea_evidence.csv:4370 route=retail-run\", \"ea_evidence.csv:4371 route=zh\", \"ea_evidence.csv:9903 route=wb2\"]",
+      "rotwk_source_evidence": "[]"
+    }
+  ],
+  "input_hashes": {
+    "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp": "5c0a378dd13edafbe28fec2559c47353e8dfe5d749ab9057609208252e1a2852",
+    "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp": "e45226cde97c3fd88fe40153b9cab4b3c0cd87fda2fd17085ba4155737fc31b9",
+    "AGENTS.md": "8aa79d1736730ba48195bb913d2402596d7b2887e6e3270073d9bf371e9e1eae",
+    "tools/tu_map.py": "6704561df78e4ed50fcf8377520197aa7d18cc799080dafad737a31d33c4800d",
+    "tools/tu_skeleton.py": "05a807f431834f7ac74fd1c1c05a28be9567f63fdeef2a737f490a7fc8f73291",
+    "reverse/functions.csv": "81db466aae10acdb4b3d3004c8239d898f5075965041da38ae6065493ac651fc",
+    "reverse/tu_map.csv": "42727046a4f49f55dd532ba2ccff3a5013a0d6a1b968df376ef95ed4be0c41de",
+    "Code/GameEngine/Include/Common/SidesListNotifier.h": "a1172dda6956963fe1239b185f7a8db9b8e2607706b1a442e8de5765f1b95bb8",
+    "Code/GameEngine/Include/Common/Rva00330757Member.h": "a47ea5665d43d3720fe8a72435291d1507e5797c86e53c279739915b887cf752",
+    "reverse/class_contracts/SidesListNotifier.json": "c3f78fa2560e8efed145c5176b3b136a5e04875732d56ea1c4210d2d5bdf693f"
+  },
+  "observation_time_utc": "2026-11-21T07:03:36.225389+00:00",
+  "native_observations": [
+    {
+      "command": "BFME_PICKER_CACHE=off BFME_OBJSTORE=off python3 -B tools/tu_skeleton.py --plan Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp",
+      "exit_code": 0,
+      "stdout": "0 approved rows, 0 donor files, 0 mixed files, 0 refused files",
+      "item_pass": false
+    },
+    {
+      "command": "python3 -B tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp",
+      "exit_code": 0,
+      "stdout": "All defined functions are already matched."
+    },
+    {
+      "command": "python3 -B tools/name_lane.py consolidate --under Code/GameEngine/Source/GameLogic/Map/ --out build/consolidation/agent-thing-item012-20261121",
+      "exit_code": 0,
+      "writes": "private isolated native report only; original Code/ledgers/index/claims untouched"
+    },
+    {
+      "command": "python3 -B tools/name_lane.py consolidate --check build/consolidation/agent-thing-item012-20261121",
+      "exit_code": 0,
+      "stdout": "Consolidation snapshot inputs and outputs agree; no code or merge verification is implied."
+    }
+  ],
+  "input_currency_at_receipt": {
+    "Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp": true,
+    "Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp": true,
+    "AGENTS.md": true,
+    "tools/tu_map.py": true,
+    "tools/tu_skeleton.py": true,
+    "reverse/functions.csv": true,
+    "reverse/tu_map.csv": true,
+    "Code/GameEngine/Include/Common/SidesListNotifier.h": true,
+    "Code/GameEngine/Include/Common/Rva00330757Member.h": true,
+    "reverse/class_contracts/SidesListNotifier.json": true
+  }
+}

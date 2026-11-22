@@ -1,0 +1,4840 @@
+{
+  "head": "d2e90ccf3b5a6826bce9c68df830c23a38e1b7ad",
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+  "controls": {
+    "all_27_native_rows_and_eh_pass_both": true,
+    "same_48_runtime_section_identity_sets": true,
+    "only_shared_node_delta_is_real_default_callee": true,
+    "exactly_one_unhidden_rel32_default_binding_delta": true,
+    "all_runtime_raw_code_data_bytes_flags_extents_equal": true,
+    "external_definitions_unchanged_no_new_ctor_cleanup_emitter": true,
+    "undefined_old_default_replaced_only_by_existing_canonical_default": true,
+    "all_comdat_selections_and_associations_equal": true,
+    "weak_externals_and_directives_equal": true,
+    "crt_order_raw_data_relocation_facts_equal": true,
+    "safeseh_bound_order_equal": true,
+    "full_existing_xfer_eh_graph_and_bytes_equal": true,
+    "default135_has_no_new_eh_data": true,
+    "native_dir32_pairs_equal": true,
+    "actual_native_process_did_not_read_mutable_tool_overlay": true
+  },
+  "bounded_private_expected_deltas_pass": true,
+  "whole_runtime_graph_identical": false,
+  "runtime_nodes": [
+    48,
+    48
+  ],
+  "runtime_mapping": [
+    {
+      "before": 1,
+      "after": 1,
+      "identity": [
+        "anonymous",
+        ".drectve",
+        659,
+        "b1177b689a37d7940eed81d7b2f7dc8aec987e496e4090da051ccc120d1f4954"
+      ]
+    },
+    {
+      "before": 3,
+      "after": 3,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 5,
+      "after": 5,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 7,
+      "after": 7,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??4AsciiString@@QAEAAV0@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 9,
+      "after": 9,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??8@YA_NABVAsciiString@@0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 11,
+      "after": 11,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?getFrame@GameLogic@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 13,
+      "after": 13,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??0Version@Xfer@@QAE@EE@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 15,
+      "after": 15,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?getPlayerIndex@Player@@QBEHXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 17,
+      "after": 17,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??0Rva001EAE6FHelper@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 19,
+      "after": 19,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??_H@YGXPAXIHP6EPAX0@Z@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 21,
+      "after": 21,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 23,
+      "after": 23,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 25,
+      "after": 25,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 26,
+      "after": 26,
+      "identity": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@3f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 28,
+      "after": 28,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?VecSize@@YAIPAUVec216@@@Z",
+            0,
+            3,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 30,
+      "after": 30,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?VecAt@@YAAAVUnitRevivalEntry@@PAUVec216@@H@Z",
+            0,
+            3,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 32,
+      "after": 32,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 34,
+      "after": 34,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 36,
+      "after": 36,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 38,
+      "after": 38,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 40,
+      "after": 40,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 42,
+      "after": 42,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 43,
+      "after": 43,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 45,
+      "after": 45,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 47,
+      "after": 47,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 48,
+      "after": 48,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 49,
+      "after": 49,
+      "identity": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@00000000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 50,
+      "after": 50,
+      "identity": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@4f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 51,
+      "after": 51,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 52,
+      "after": 52,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 54,
+      "after": 54,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 56,
+      "after": 56,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 58,
+      "after": 58,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 59,
+      "after": 59,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 61,
+      "after": 61,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 63,
+      "after": 63,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 65,
+      "after": 65,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 67,
+      "after": 67,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 69,
+      "after": 69,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 71,
+      "after": 71,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 73,
+      "after": 73,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 75,
+      "after": 75,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 77,
+      "after": 77,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 78,
+      "after": 78,
+      "identity": [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            11,
+            3,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 79,
+      "after": 79,
+      "identity": [
+        "associated",
+        ".xdata$x",
+        [
+          "named",
+          ".text",
+          [
+            [
+              "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 80,
+      "after": 80,
+      "identity": [
+        "SafeSEH-symbol-index-metadata",
+        ".sxdata",
+        4
+      ]
+    },
+    {
+      "before": 81,
+      "after": 81,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "before": 83,
+      "after": 83,
+      "identity": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    }
+  ],
+  "node_deltas": [
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "before": [
+        ".text",
+        135,
+        1611665440,
+        {
+          "bytes": 135,
+          "sha256": "1413c08c5dbbc350a0197f51e75993cf65be0632c52345f3e8c863d50ccdce50"
+        },
+        [
+          [
+            32,
+            20,
+            [
+              "external",
+              "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+              0
+            ]
+          ],
+          [
+            92,
+            20,
+            [
+              "external",
+              "??0Rva004E04FD@@QAE@XZ",
+              0
+            ]
+          ],
+          [
+            100,
+            6,
+            [
+              "external",
+              "__real@3f800000",
+              0
+            ]
+          ]
+        ]
+      ],
+      "after": [
+        ".text",
+        135,
+        1611665440,
+        {
+          "bytes": 135,
+          "sha256": "1413c08c5dbbc350a0197f51e75993cf65be0632c52345f3e8c863d50ccdce50"
+        },
+        [
+          [
+            32,
+            20,
+            [
+              "external",
+              "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+              0
+            ]
+          ],
+          [
+            92,
+            20,
+            [
+              "external",
+              "??0Rva001EB15A@@QAE@XZ",
+              0
+            ]
+          ],
+          [
+            100,
+            6,
+            [
+              "external",
+              "__real@3f800000",
+              0
+            ]
+          ]
+        ]
+      ]
+    }
+  ],
+  "explicit_relocation_deltas": [
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "offset": 92,
+      "kind": 20,
+      "before": [
+        "external",
+        "??0Rva004E04FD@@QAE@XZ",
+        0
+      ],
+      "after": [
+        "external",
+        "??0Rva001EB15A@@QAE@XZ",
+        0
+      ],
+      "expected_real_default_callee_change": true
+    }
+  ],
+  "raw_runtime_section_deltas": [],
+  "definitions_before": [
+    [
+      "??0AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Rva001EAE6FHelper@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Rva001EAE6FHelper@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0UnitRevivalEntry@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Version@Xfer@@QAE@EE@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Version@Xfer@@QAE@EE@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??1AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??4AsciiString@@QAEAAV0@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??4AsciiString@@QAEAAV0@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??8@YA_NABVAsciiString@@0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??8@YA_NABVAsciiString@@0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??_H@YGXPAXIHP6EPAX0@Z@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getFrame@GameLogic@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getFrame@GameLogic@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getPlayerIndex@Player@@QBEHXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getPlayerIndex@Player@@QBEHXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "__real@00000000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@00000000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@3f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@3f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@4f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@4f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ]
+  ],
+  "definitions_after": [
+    [
+      "??0AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Rva001EAE6FHelper@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Rva001EAE6FHelper@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0UnitRevivalEntry@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??0Version@Xfer@@QAE@EE@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??0Version@Xfer@@QAE@EE@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??1AsciiString@@QAE@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??4AsciiString@@QAEAAV0@ABV0@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??4AsciiString@@QAEAAV0@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??8@YA_NABVAsciiString@@0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??8@YA_NABVAsciiString@@0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "??_H@YGXPAXIHP6EPAX0@Z@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getFrame@GameLogic@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getFrame@GameLogic@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getPlayerIndex@Player@@QBEHXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getPlayerIndex@Player@@QBEHXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      0,
+      32
+    ],
+    [
+      "__real@00000000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@00000000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@3f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@3f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ],
+    [
+      "__real@4f800000",
+      [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@4f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      0,
+      0
+    ]
+  ],
+  "undefined_removed": [
+    [
+      "??0Rva004E04FD@@QAE@XZ",
+      32,
+      2,
+      0
+    ]
+  ],
+  "undefined_added": [
+    [
+      "??0Rva001EB15A@@QAE@XZ",
+      32,
+      2,
+      0
+    ]
+  ],
+  "undefined_before": [
+    [
+      "??0Rva004E04FD@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??1UnitRevivalEntry@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??4Rva001EAFC1@@QAEAAV0@ABV0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?AddDeadHeroEntry@ArmySummarySystem@@QAEXPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?TheGameLogic@@3PAVGameLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?ThePlayerList@@3PAVPlayerList@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheThingFactory@@3PAVThingFactory@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?compare@AsciiString@@QBEHABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?erase@?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@QAEPAURva002E2690Element@@PAU3@0@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?find@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@HPAI@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?push_back@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXABVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcCostToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcTimeToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A9BF2@Rva002A9BF2@@QAEPAXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E1CA7@Rva002E2903Player@@QAE_NPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E204D@Rva002E204D@@QAEPAVRva002E0D93@@PAV2@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?set@?$StringBase@D@@QAEXABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "__EH_prolog",
+      32,
+      2,
+      0
+    ],
+    [
+      "___CxxFrameHandler",
+      32,
+      2,
+      0
+    ],
+    [
+      "__except_list",
+      0,
+      2,
+      0
+    ],
+    [
+      "__fltused",
+      32,
+      2,
+      0
+    ],
+    [
+      "__ftol2",
+      32,
+      2,
+      0
+    ]
+  ],
+  "undefined_after": [
+    [
+      "??0Rva001EB15A@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??1UnitRevivalEntry@@QAE@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "??4Rva001EAFC1@@QAEAAV0@ABV0@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?AddDeadHeroEntry@ArmySummarySystem@@QAEXPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?TheGameLogic@@3PAVGameLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?ThePlayerList@@3PAVPlayerList@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?TheThingFactory@@3PAVThingFactory@@A",
+      0,
+      2,
+      0
+    ],
+    [
+      "?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?compare@AsciiString@@QBEHABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?erase@?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@QAEPAURva002E2690Element@@PAU3@0@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?find@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@HPAI@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?push_back@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXABVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcCostToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?revivalEntryCalcTimeToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A8AB1@Rva002A8F24@@QAEPAURva002A8AB1Record@@PAX@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002A9BF2@Rva002A9BF2@@QAEPAXXZ",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E1CA7@Rva002E2903Player@@QAE_NPAVUnitRevivalEntry@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E204D@Rva002E204D@@QAEPAVRva002E0D93@@PAV2@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "?set@?$StringBase@D@@QAEXABV1@@Z",
+      32,
+      2,
+      0
+    ],
+    [
+      "__EH_prolog",
+      32,
+      2,
+      0
+    ],
+    [
+      "___CxxFrameHandler",
+      32,
+      2,
+      0
+    ],
+    [
+      "__except_list",
+      0,
+      2,
+      0
+    ],
+    [
+      "__fltused",
+      32,
+      2,
+      0
+    ],
+    [
+      "__ftol2",
+      32,
+      2,
+      0
+    ]
+  ],
+  "weak_before": [],
+  "weak_after": [],
+  "directives_before": [
+    "/DEFAULTLIB:\"stlport_vc7_static.lib\" /DEFAULTLIB:\"msvcprt\" /alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+  ],
+  "directives_after": [
+    "/DEFAULTLIB:\"stlport_vc7_static.lib\" /DEFAULTLIB:\"msvcprt\" /alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+  ],
+  "crt_before": [],
+  "crt_after": [],
+  "safeseh_before": [
+    [
+      "local",
+      [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            11,
+            3,
+            32
+          ]
+        ]
+      ],
+      11,
+      3,
+      32
+    ]
+  ],
+  "safeseh_after": [
+    [
+      "local",
+      [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            11,
+            3,
+            32
+          ]
+        ]
+      ],
+      11,
+      3,
+      32
+    ]
+  ],
+  "safeseh_raw_before": [
+    "e8000000"
+  ],
+  "safeseh_raw_after": [
+    "e8000000"
+  ],
+  "selection_counts_before": {
+    "0": 2,
+    "2": 19,
+    "1": 25,
+    "5": 2
+  },
+  "selection_counts_after": {
+    "0": 2,
+    "2": 19,
+    "1": 25,
+    "5": 2
+  },
+  "comdat_before": [
+    {
+      "key": [
+        "anonymous",
+        ".drectve",
+        659,
+        "b1177b689a37d7940eed81d7b2f7dc8aec987e496e4090da051ccc120d1f4954"
+      ],
+      "selection": 0,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??4AsciiString@@QAEAAV0@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??8@YA_NABVAsciiString@@0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?getFrame@GameLogic@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0Version@Xfer@@QAE@EE@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?getPlayerIndex@Player@@QBEHXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0Rva001EAE6FHelper@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??_H@YGXPAXIHP6EPAX0@Z@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@3f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?VecSize@@YAIPAUVec216@@@Z",
+            0,
+            3,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?VecAt@@YAAAVUnitRevivalEntry@@PAUVec216@@H@Z",
+            0,
+            3,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@00000000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@4f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            11,
+            3,
+            32
+          ]
+        ]
+      ],
+      "selection": 5,
+      "association": [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "key": [
+        "associated",
+        ".xdata$x",
+        [
+          "named",
+          ".text",
+          [
+            [
+              "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      ],
+      "selection": 5,
+      "association": [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "key": [
+        "SafeSEH-symbol-index-metadata",
+        ".sxdata",
+        4
+      ],
+      "selection": 0,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    }
+  ],
+  "comdat_after": [
+    {
+      "key": [
+        "anonymous",
+        ".drectve",
+        659,
+        "b1177b689a37d7940eed81d7b2f7dc8aec987e496e4090da051ccc120d1f4954"
+      ],
+      "selection": 0,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??1AsciiString@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??4AsciiString@@QAEAAV0@ABV0@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??8@YA_NABVAsciiString@@0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?getFrame@GameLogic@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0Version@Xfer@@QAE@EE@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?getPlayerIndex@Player@@QBEHXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0Rva001EAE6FHelper@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??_H@YGXPAXIHP6EPAX0@Z@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??0UnitRevivalEntry@@QAE@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@3f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?VecSize@@YAIPAUVec216@@@Z",
+            0,
+            3,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?VecAt@@YAAAVUnitRevivalEntry@@PAUVec216@@H@Z",
+            0,
+            3,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@00000000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".rdata",
+        [
+          [
+            "__real@4f800000",
+            0,
+            2,
+            0
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?begin@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?end@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEPAVUnitRevivalEntry@@XZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?size@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QBEIXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "??A?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEAAVUnitRevivalEntry@@I@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?clear@?$vector@VUnitRevivalEntry@@V?$allocator@VUnitRevivalEntry@@@_STL@@@_STL@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 2,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text$x",
+        [
+          [
+            "__ehhandler$?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            11,
+            3,
+            32
+          ]
+        ]
+      ],
+      "selection": 5,
+      "association": [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "key": [
+        "associated",
+        ".xdata$x",
+        [
+          "named",
+          ".text",
+          [
+            [
+              "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      ],
+      "selection": 5,
+      "association": [
+        "named",
+        ".text",
+        [
+          [
+            "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "key": [
+        "SafeSEH-symbol-index-metadata",
+        ".sxdata",
+        4
+      ],
+      "selection": 0,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    },
+    {
+      "key": [
+        "named",
+        ".text",
+        [
+          [
+            "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+            0,
+            2,
+            32
+          ]
+        ]
+      ],
+      "selection": 1,
+      "association": null
+    }
+  ],
+  "eh_summary": [
+    {
+      "name": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      "rva": "0x0037F39E",
+      "retail_states_and_action_bindings_equal": true,
+      "native_numeric_funclet_bindings_equal": true,
+      "all_eh_raw_sections_extents_and_placements_equal": true
+    }
+  ],
+  "native_funclet_label_bindings": [
+    {
+      "parent": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      "action_rva": 7860705,
+      "before_label": "$L9231",
+      "after_label": "$L9522",
+      "proof": "native verified_funclet_locations; unique same original action RVA within the same parent"
+    }
+  ],
+  "default135_row_eh_before_after": [
+    {
+      "name": "??0UnitRevivalEntry@@QAE@XZ",
+      "rva": "0x0037E352",
+      "size": "135",
+      "equal": true,
+      "unresolved": [],
+      "masked": false,
+      "concrete": 135,
+      "note": null,
+      "verified_folds": [],
+      "eh": null
+    },
+    {
+      "name": "??0UnitRevivalEntry@@QAE@XZ",
+      "rva": "0x0037E352",
+      "size": "135",
+      "equal": true,
+      "unresolved": [],
+      "masked": false,
+      "concrete": 135,
+      "note": null,
+      "verified_folds": [],
+      "eh": null
+    }
+  ],
+  "dir32_before": [
+    {
+      "name": "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E421",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+      "rva": "0x0037E7BC",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E451",
+      "pairs": []
+    },
+    {
+      "name": "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+      "rva": "0x0037E7DA",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+      "rva": "0x0037EACC",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+      "rva": "0x0037EB1D",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E7A5",
+      "pairs": []
+    },
+    {
+      "name": "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+      "rva": "0x0037E270",
+      "pairs": [
+        [
+          "?TheThingFactory@@3PAVThingFactory@@A",
+          14675968
+        ]
+      ]
+    },
+    {
+      "name": "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+      "rva": "0x0037E3D9",
+      "pairs": []
+    },
+    {
+      "name": "??0UnitRevivalEntry@@QAE@XZ",
+      "rva": "0x0037E352",
+      "pairs": []
+    },
+    {
+      "name": "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+      "rva": "0x0037F38F",
+      "pairs": []
+    },
+    {
+      "name": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      "rva": "0x0037F39E",
+      "pairs": [
+        [
+          "?ThePlayerList@@3PAVPlayerList@@A",
+          14675688
+        ],
+        [
+          "__except_list",
+          0
+        ]
+      ]
+    },
+    {
+      "name": "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+      "rva": "0x0037EB3C",
+      "pairs": [
+        [
+          "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+          14675728
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+      "rva": "0x0037EF2D",
+      "pairs": []
+    },
+    {
+      "name": "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+      "rva": "0x0037EEFC",
+      "pairs": []
+    },
+    {
+      "name": "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+      "rva": "0x0037EEB9",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+      "rva": "0x0037F26D",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+      "rva": "0x0037E6E8",
+      "pairs": [
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ],
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+      "rva": "0x0037E787",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+      "rva": "0x0037EDC6",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+      "rva": "0x0037E649",
+      "pairs": [
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ],
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E915",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+      "rva": "0x0037E898",
+      "pairs": [
+        [
+          "?TheGameLogic@@3PAVGameLogic@@A",
+          14673804
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+      "rva": "0x0037EE4C",
+      "pairs": []
+    },
+    {
+      "name": "__ehhandler$?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      "rva": "0x0077F1EC",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+      "rva": "0x0037E815",
+      "pairs": [
+        [
+          "?TheGameLogic@@3PAVGameLogic@@A",
+          14673804
+        ]
+      ]
+    },
+    {
+      "name": "uw_0077f1e1",
+      "rva": "0x0077F1E1",
+      "pairs": []
+    }
+  ],
+  "dir32_after": [
+    {
+      "name": "?rva0037E421@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E421",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E7BC@Rva0037E421@@QAEEH@Z",
+      "rva": "0x0037E7BC",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E451@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E451",
+      "pairs": []
+    },
+    {
+      "name": "?productionSystemCancelUnitCreate@Rva0037E421@@QAEEH@Z",
+      "rva": "0x0037E7DA",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037EACC@Rva0037EACC@@QAEXPAX@Z",
+      "rva": "0x0037EACC",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037EB1D@Rva0037EB1D@@QAEXPAX@Z",
+      "rva": "0x0037EB1D",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E7A5@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E7A5",
+      "pairs": []
+    },
+    {
+      "name": "?getThingTemplate@UnitRevivalEntry@@QAEPAXXZ",
+      "rva": "0x0037E270",
+      "pairs": [
+        [
+          "?TheThingFactory@@3PAVThingFactory@@A",
+          14675968
+        ]
+      ]
+    },
+    {
+      "name": "?setThingTemplateName@UnitRevivalEntry@@QAEXABVAsciiString@@@Z",
+      "rva": "0x0037E3D9",
+      "pairs": []
+    },
+    {
+      "name": "??0UnitRevivalEntry@@QAE@XZ",
+      "rva": "0x0037E352",
+      "pairs": []
+    },
+    {
+      "name": "?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z",
+      "rva": "0x0037F38F",
+      "pairs": []
+    },
+    {
+      "name": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      "rva": "0x0037F39E",
+      "pairs": [
+        [
+          "?ThePlayerList@@3PAVPlayerList@@A",
+          14675688
+        ],
+        [
+          "__except_list",
+          0
+        ]
+      ]
+    },
+    {
+      "name": "?retrieveHeroesForArmySummary@UnitRevivalTracker@@QAEXPAVArmySummarySystem@@@Z",
+      "rva": "0x0037EB3C",
+      "pairs": [
+        [
+          "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+          14675728
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037EF2D@UnitRevivalTracker@@QAEXI@Z",
+      "rva": "0x0037EF2D",
+      "pairs": []
+    },
+    {
+      "name": "?removeBuildUnitByIndex@UnitRevivalTracker@@QAEXH@Z",
+      "rva": "0x0037EEFC",
+      "pairs": []
+    },
+    {
+      "name": "?removeBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@@Z",
+      "rva": "0x0037EEB9",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037F26D@UnitRevivalTracker@@QAEXXZ",
+      "rva": "0x0037F26D",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z",
+      "rva": "0x0037E6E8",
+      "pairs": [
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ],
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037E787@Rva0037E787@@QAEHPAX0@Z",
+      "rva": "0x0037E787",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z",
+      "rva": "0x0037EDC6",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E649@Rva0037E6E8@@QAEHHPAVObject@@@Z",
+      "rva": "0x0037E649",
+      "pairs": [
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ],
+        [
+          "?TheSkirmishAIManager@@3PAVRva002A8F24@@A",
+          14675704
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037E915@Rva0037E421@@QAEPAXH@Z",
+      "rva": "0x0037E915",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E898@Rva0037E6E8@@QAEMHPAHPAVObject@@@Z",
+      "rva": "0x0037E898",
+      "pairs": [
+        [
+          "?TheGameLogic@@3PAVGameLogic@@A",
+          14673804
+        ]
+      ]
+    },
+    {
+      "name": "?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z",
+      "rva": "0x0037EE4C",
+      "pairs": []
+    },
+    {
+      "name": "__ehhandler$?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+      "rva": "0x0077F1EC",
+      "pairs": []
+    },
+    {
+      "name": "?rva0037E815@Rva0037E6E8@@QAEMHPAVObject@@@Z",
+      "rva": "0x0037E815",
+      "pairs": [
+        [
+          "?TheGameLogic@@3PAVGameLogic@@A",
+          14673804
+        ]
+      ]
+    },
+    {
+      "name": "uw_0077f1e1",
+      "rva": "0x0077F1E1",
+      "pairs": []
+    }
+  ],
+  "actual_native_tool_reads": [
+    "tools/",
+    "tools/allowed_symbols.py",
+    "tools/build.py",
+    "tools/cl_flags.py",
+    "tools/claims.py",
+    "tools/coffar.py",
+    "tools/compiler_profiles.py",
+    "tools/eh_verify.py",
+    "tools/flag_defaults.py",
+    "tools/gen_case_shims.py",
+    "tools/git_trust.py",
+    "tools/hatch_counters.py",
+    "tools/ledger_cache.py",
+    "tools/ledger_io.py",
+    "tools/link_census.py",
+    "tools/name_agreement.py",
+    "tools/name_metric.py",
+    "tools/picker_cache.py",
+    "tools/pin_admission.py",
+    "tools/portable_lock.py",
+    "tools/reloc_ledger.py",
+    "tools/rename.py",
+    "tools/rename_files.py",
+    "tools/retail_identity.py",
+    "tools/stlport_folds.py",
+    "tools/stlport_overlay.py",
+    "tools/tu_map.py",
+    "tools/tu_skeleton.py"
+  ],
+  "forbidden_mutable_tool_reads": [],
+  "ordinary_debug_type_stream_lengths": [
+    0,
+    0
+  ],
+  "limits": "Two native private whole27-row Cpp objects only; one genuine external callee binding changes. No normal19/434+3, strict provider/link, layout/accept or runtime verdict inferred. Separate coordinated Tool/ReLog overlay is not a clean tree."
+}

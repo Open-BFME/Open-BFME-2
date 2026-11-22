@@ -1,0 +1,243 @@
+{
+  "scope": "No masked code bytes. Actual stored-vptr words bind table names; this alone does not prove contents of each table. Complete data slots and providers are separate.",
+  "rows": [
+    {
+      "name": "??1SupplyCenterDockUpdate@@UAE@XZ",
+      "rva": "0x004A0E0C",
+      "size": 32,
+      "all_code_bytes_and_reference_operands_equal": true,
+      "relocations": [
+        {
+          "offset": 2,
+          "kind": 6,
+          "target": "??_7SupplyCenterDockUpdate@@6BObjectModule@@@",
+          "value": "0xc51bdc",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 9,
+          "kind": 6,
+          "target": "??_7SupplyCenterDockUpdate@@6BBehaviorModuleInterface@@@",
+          "value": "0xc51b20",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 16,
+          "kind": 6,
+          "target": "??_7SupplyCenterDockUpdate@@6BUpdateModule@@@",
+          "value": "0xc51b10",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 23,
+          "kind": 6,
+          "target": "??_7SupplyCenterDockUpdate@@6BDockUpdateInterface@@@",
+          "value": "0xc51ac0",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 28,
+          "kind": 20,
+          "target": "??1DockUpdate@@UAE@XZ",
+          "value": "0xe92c8",
+          "proof": "existing normal native callable candidate list"
+        }
+      ]
+    },
+    {
+      "name": "??1Rva004A11D4@@UAE@XZ",
+      "rva": "0x004A11D4",
+      "size": 32,
+      "all_code_bytes_and_reference_operands_equal": true,
+      "relocations": [
+        {
+          "offset": 2,
+          "kind": 6,
+          "target": "??_7Rva004A11D4@@6BObjectModule@@@",
+          "value": "0xc51c80",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 9,
+          "kind": 6,
+          "target": "??_7Rva004A11D4@@6BBehaviorModuleInterface@@@",
+          "value": "0xc51b20",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 16,
+          "kind": 6,
+          "target": "??_7Rva004A11D4@@6BUpdateModule@@@",
+          "value": "0xc51d68",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 23,
+          "kind": 6,
+          "target": "??_7Rva004A11D4@@6BDockUpdateInterface@@@",
+          "value": "0xc51c30",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 28,
+          "kind": 20,
+          "target": "??1DockUpdate@@UAE@XZ",
+          "value": "0xe8f00",
+          "proof": "existing normal native callable candidate list"
+        }
+      ]
+    },
+    {
+      "name": "??1SupplyWarehouseDockUpdate@@UAE@XZ",
+      "rva": "0x004A7D55",
+      "size": 32,
+      "all_code_bytes_and_reference_operands_equal": true,
+      "relocations": [
+        {
+          "offset": 2,
+          "kind": 6,
+          "target": "??_7SupplyWarehouseDockUpdate@@6BObjectModule@@@",
+          "value": "0xc53790",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 9,
+          "kind": 6,
+          "target": "??_7SupplyWarehouseDockUpdate@@6BBehaviorModuleInterface@@@",
+          "value": "0xc51b20",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 16,
+          "kind": 6,
+          "target": "??_7SupplyWarehouseDockUpdate@@6BUpdateModule@@@",
+          "value": "0xc51d68",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 23,
+          "kind": 6,
+          "target": "??_7SupplyWarehouseDockUpdate@@6BDockUpdateInterface@@@",
+          "value": "0xc53740",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 28,
+          "kind": 20,
+          "target": "??1DockUpdate@@UAE@XZ",
+          "value": "0xe237f",
+          "proof": "existing normal native callable candidate list"
+        }
+      ]
+    },
+    {
+      "name": "??_GSupplyCenterDockUpdate@@UAEPAXI@Z",
+      "rva": "0x004A0E91",
+      "size": 28,
+      "all_code_bytes_and_reference_operands_equal": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "kind": 20,
+          "target": "??1SupplyCenterDockUpdate@@UAE@XZ",
+          "value": "0xffffff73",
+          "proof": "existing normal native callable candidate list"
+        },
+        {
+          "offset": 17,
+          "kind": 20,
+          "target": "??3@YAXPAX@Z",
+          "value": "0xffb8eeba",
+          "proof": "existing normal native callable candidate list"
+        }
+      ]
+    },
+    {
+      "name": "??_GRva004A11D4@@UAEPAXI@Z",
+      "rva": "0x004A1239",
+      "size": 28,
+      "all_code_bytes_and_reference_operands_equal": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "kind": 20,
+          "target": "??1Rva004A11D4@@UAE@XZ",
+          "value": "0xffffff93",
+          "proof": "existing normal native callable candidate list"
+        },
+        {
+          "offset": 17,
+          "kind": 20,
+          "target": "??3@YAXPAX@Z",
+          "value": "0xffb8eb12",
+          "proof": "existing normal native callable candidate list"
+        }
+      ]
+    },
+    {
+      "name": "??_GSupplyWarehouseDockUpdate@@UAEPAXI@Z",
+      "rva": "0x004A7E27",
+      "size": 28,
+      "all_code_bytes_and_reference_operands_equal": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "kind": 20,
+          "target": "??1SupplyWarehouseDockUpdate@@UAE@XZ",
+          "value": "0xffffff26",
+          "proof": "existing normal native callable candidate list"
+        },
+        {
+          "offset": 17,
+          "kind": 20,
+          "target": "??3@YAXPAX@Z",
+          "value": "0xffb87f24",
+          "proof": "existing normal native callable candidate list"
+        }
+      ]
+    },
+    {
+      "name": "??0RepairDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z",
+      "rva": "0x004A118B",
+      "size": 67,
+      "all_code_bytes_and_reference_operands_equal": true,
+      "relocations": [
+        {
+          "offset": 12,
+          "kind": 20,
+          "target": "??0DockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "value": "0xe90f5",
+          "proof": "existing normal native callable candidate list"
+        },
+        {
+          "offset": 28,
+          "kind": 6,
+          "target": "??_7Rva004A11D4@@6BObjectModule@@@",
+          "value": "0xc51c80",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 35,
+          "kind": 6,
+          "target": "??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@",
+          "value": "0xc51b20",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 42,
+          "kind": 6,
+          "target": "??_7DockUpdate@@6BUpdateModule@@@",
+          "value": "0xc51d68",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        },
+        {
+          "offset": 49,
+          "kind": 6,
+          "target": "??_7Rva004A11D4@@6BDockUpdateInterface@@@",
+          "value": "0xc51c30",
+          "proof": "independent native stored-vptr binding; data slots checked separately"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "head": "423e9fba37c7ac26790a3c6dbad42b0474df2d27",
+  "observed_utc": "2026-11-21T08:25:29.304770+00:00",
+  "files": [
+    {
+      "path": "Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp",
+      "sha256": "6b6fdc68c9815d02e82bc5c79e5797cd96f252144686247a6178ddb4b58a64aa",
+      "bytes": 7209
+    },
+    {
+      "path": "Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp",
+      "sha256": "b2a9848e702f1c38b584300db017644ffec46fd0a009f1e47ca11ba8346a9aa7",
+      "bytes": 1733
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "8aa79d1736730ba48195bb913d2402596d7b2887e6e3270073d9bf371e9e1eae",
+      "bytes": 10993
+    },
+    {
+      "path": "docs/consolidation.md",
+      "sha256": "375ab0739049154ffeb0cdaf3fda30efa96d2603726cc0aa006337153779c84d",
+      "bytes": 114081
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/ModuleData.h",
+      "sha256": "3abdc2564c8dce950a23d2452f4916b7b1bcb4ca6227fd0935494c5656e1e044",
+      "bytes": 5477
+    },
+    {
+      "path": "reference/shims/moduledata/Common/Snapshot.h",
+      "sha256": "966b0ec30c8d777caa46df85bfc0f9013baeed17f8cc2cd1a1c4295172cf2206",
+      "bytes": 5450
+    },
+    {
+      "path": "Code/GameEngine/Include/GameLogic/Module/Rva003623E5Member.h",
+      "sha256": "e6d0cff81b2ad54c5b3d6c70c6b4e8c262ce29dc713579f72acff838e8d00e46",
+      "bytes": 1873
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/BfmeFixedStorage0004543D.h",
+      "sha256": "963e154767de5ee5ecd10b5fa8f3710ae70241a4d0cddfeba3a803584cd84fc2",
+      "bytes": 917
+    },
+    {
+      "path": "Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
+      "sha256": "77013d215dd54abe6d4a7be0989cea25437e589b8d37a24d9eb6c7d10f3931d6",
+      "bytes": 3850
+    },
+    {
+      "path": "Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h",
+      "sha256": "5f3eb59ac62f6d0a521d3772a509405f3121371a951c2acfcc77f28866e12d3f",
+      "bytes": 9656
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/Module.h",
+      "sha256": "8ec9003546c5b43140486d6e65c444ce0d025cdf8ed08c9efde2bda5b5b0cb79",
+      "bytes": 2763
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/NameKeyGenerator.h",
+      "sha256": "9f872e5366beeb9756979738b1217fb0d48978e4f1166d3ed12053d9362897fc",
+      "bytes": 3805
+    }
+  ]
+}

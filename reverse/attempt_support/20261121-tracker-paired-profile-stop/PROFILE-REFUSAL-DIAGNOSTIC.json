@@ -1,0 +1,71 @@
+{
+  "current_normalized_command": [
+    "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O1",
+    "-arch:SSE",
+    "-G7",
+    "-Ireference/shims/bfme2_ascii",
+    "-ICode/Libraries/Source/WWVegas/WWLib",
+    "-Ob1",
+    "-EHsc",
+    "-DNDEBUG",
+    "-MD"
+  ],
+  "prospective_normalized_command": [
+    "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-Ireference/shims/bfme2_ascii",
+    "-ICode/Libraries/Source/WWVegas/WWLib",
+    "-O1",
+    "-Ob1",
+    "-EHsc",
+    "-DNDEBUG",
+    "-MD",
+    "-arch:SSE",
+    "-G7"
+  ],
+  "normalized_commands_equal": false,
+  "command_deltas": [
+    {
+      "operation": "delete",
+      "current": [
+        "-O1",
+        "-arch:SSE",
+        "-G7"
+      ],
+      "prospective": []
+    },
+    {
+      "operation": "insert",
+      "current": [],
+      "prospective": [
+        "-O1"
+      ]
+    },
+    {
+      "operation": "insert",
+      "current": [],
+      "prospective": [
+        "-arch:SSE",
+        "-G7"
+      ]
+    }
+  ],
+  "changed_environment_keys": [],
+  "environments_equal": true,
+  "current_search_inventory": "fbee673a14db8293b44f9536f6f2e579778e7bde951635172a935feb645cd357",
+  "prospective_search_inventory": "fbee673a14db8293b44f9536f6f2e579778e7bde951635172a935feb645cd357",
+  "inventories_equal": true,
+  "actual_cpp_pp_link_calls": 0,
+  "source_and_guarded_inputs_unchanged": true,
+  "proof_or_guard_modified": false
+}

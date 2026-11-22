@@ -1,0 +1,14 @@
+Source claims: OK (25 sources, scoped byte-verified)
+Data rows: OK (5 row(s) byte-verified)
+Compile: 4 of 25 TU(s) (deps-cache: 21 current)
+Funclet pins: 256 row(s) verified past a renumbered $L label
+    $L5159 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5159 was renumbered; verified parent EH data places $L5983 at 0x007787A0
+    $L5124 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5124 was renumbered; verified parent EH data places $L5945 at 0x007669C7
+    $L5189 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5189 was renumbered; verified parent EH data places $L6019 at 0x00790256
+    $L5204 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5204 was renumbered; verified parent EH data places $L6034 at 0x007931AF
+    $L5219 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5219 was renumbered; verified parent EH data places $L6049 at 0x00793BE2
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 691/691 matched across 25 source file(s)
+String-ref verify: OK (81 literals + 6 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (49 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

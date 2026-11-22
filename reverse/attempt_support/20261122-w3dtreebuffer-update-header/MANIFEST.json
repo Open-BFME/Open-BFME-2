@@ -1,0 +1,30 @@
+{
+  "README.md": {
+    "sha256": "0c785788c05cfa77739de2707b4e0cccf62f1fdfb3bcce079ffa5c3db9d47fef",
+    "size": 2246
+  },
+  "update-after-normal-build.log": {
+    "sha256": "5146a16b5b4bd111f01af67a32517b0b5257252500245517fd14b49f0e12976e",
+    "size": 1237
+  },
+  "update-before-normal-build.log": {
+    "sha256": "39ef0c6f824737c75fccdd244fa59d0ee2b26ef0379a6beefcad9de6970c3919",
+    "size": 1237
+  },
+  "update-declared.log": {
+    "sha256": "1acbe863198593932808b39bef4a8fa157fd549415074975abe62b15992c5dae",
+    "size": 44
+  },
+  "update-native-accept.log": {
+    "sha256": "364436c97defdb120ac677f54304e57a10d153c102fc6c83612bfb51bc126624",
+    "size": 161
+  },
+  "update-native-adopt.log": {
+    "sha256": "4257108bd1bdb0a3f0821f41a08bf8c6f7ccc981adeb100299940100beadad3f",
+    "size": 82
+  },
+  "UPDATE-OBJECT-GRAPHS.json": {
+    "sha256": "6ea756786c82c5fa8f7dd68bdb2fcee41c3d6c072cec64c5e42b2fa52f01a05a",
+    "size": 1174
+  }
+}

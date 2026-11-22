@@ -1,0 +1,2877 @@
+[
+  {
+    "label": "Tracker",
+    "runtime_node_count": 79,
+    "mapping": [
+      {
+        "before_section": 1,
+        "after_section": 1,
+        "identity": [
+          "anonymous",
+          ".drectve",
+          652,
+          "792a33ce4546ebb350a4d59b0e70cf65f75b7d32144ac6147887b818c234f874"
+        ]
+      },
+      {
+        "before_section": 3,
+        "after_section": 3,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0AsciiString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 5,
+        "after_section": 5,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0AsciiString@@QAE@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 7,
+        "after_section": 7,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0AsciiString@@QAE@PBD@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 9,
+        "after_section": 9,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1AsciiString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 11,
+        "after_section": 11,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??4AsciiString@@QAEAAV0@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 13,
+        "after_section": 13,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?setCopyInline@AsciiString@@QAEXABV1@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 15,
+        "after_section": 15,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??8@YA_NABVAsciiString@@0@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 17,
+        "after_section": 17,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0BfmeFixedStorage128@@QAE@ABU0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 19,
+        "after_section": 19,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0BfmeFixedStorage128@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 21,
+        "after_section": 21,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?getExperienceValue@RevivalExperienceView@@QBEMXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 23,
+        "after_section": 23,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?getLevelRank@RevivalExperienceView@@QBEHXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 25,
+        "after_section": 25,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva000B49A1@RevivalExperienceView@@QBEHXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 27,
+        "after_section": 27,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??_H@YGXPAXIHP6EPAX0@Z@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 29,
+        "after_section": 29,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?getExperience@Object@@QBEPAVRevivalExperienceView@@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 31,
+        "after_section": 31,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0Version@Xfer@@QAE@EE@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 33,
+        "after_section": 33,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?getFrame@GameLogic@@QBEIXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 35,
+        "after_section": 35,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?begin@UnitRevivalTracker@@QBEPAVUnitRevivalEntry@@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 37,
+        "after_section": 37,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?end@UnitRevivalTracker@@QBEPAVUnitRevivalEntry@@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 39,
+        "after_section": 39,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?revivalEntryCalcTimeToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 40,
+        "after_section": 40,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "__real@3f800000",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 41,
+        "after_section": 41,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?revivalEntryCalcCostToBuild@UnitRevivalEntry@@QAEHPBVPlayer@@PAVObject@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 42,
+        "after_section": 42,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?getFlag@RevivalLogicFlags@@QBE_NXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 44,
+        "after_section": 44,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?setFlag@RevivalLogicFlags@@QAEX_N@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 46,
+        "after_section": 46,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0RevivalStaticAsciiString@@QAE@PBD@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 48,
+        "after_section": 48,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?value@RevivalStaticAsciiString@@QBEABVAsciiString@@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 50,
+        "after_section": 50,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??_GRva0048BA39StringElement@@QAEPAXI@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 52,
+        "after_section": 52,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 53,
+        "after_section": 53,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+              8,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 54,
+        "after_section": 54,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 55,
+        "after_section": 55,
+        "identity": [
+          "SafeSEH-symbol-index-metadata",
+          ".sxdata",
+          32
+        ]
+      },
+      {
+        "before_section": 56,
+        "after_section": 56,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?validate@?$StringBase@G@@ABEXXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 58,
+        "after_section": 58,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1RevivalStaticAsciiString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 60,
+        "after_section": 60,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1?$StringBase@G@@AAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 62,
+        "after_section": 62,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1UnicodeString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 64,
+        "after_section": 75,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1Rva001EB15A@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 65,
+        "after_section": 76,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1Rva001EB15A@@QAE@XZ",
+              11,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 66,
+        "after_section": 77,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??1Rva001EB15A@@QAE@XZ",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 67,
+        "after_section": 87,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0UnitRevivalEntry@@QAE@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 68,
+        "after_section": 88,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@ABV0@@Z",
+              28,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 69,
+        "after_section": 89,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??0UnitRevivalEntry@@QAE@ABV0@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 70,
+        "after_section": 90,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 71,
+        "after_section": 91,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z",
+              56,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 72,
+        "after_section": 92,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0BB@IBBMPMKB@SpellBookAnduril?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 73,
+        "after_section": 93,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0BA@PGAPMBFJ@SCIENCE_Anduril?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 74,
+        "after_section": 94,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0BG@ICKJNCGD@SpellBookGandalfWhite?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 75,
+        "after_section": 69,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0BI@HFDHMOHB@SCIENCE_GandalftheWhite?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 76,
+        "after_section": 95,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?respawnUpdateKey@?BD@??productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z@4W4NameKeyType@@A",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 77,
+        "after_section": 84,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0O@OHBIEHDN@RespawnUpdate?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 78,
+        "after_section": 96,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?$S4@?BD@??productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z@4IA",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 79,
+        "after_section": 97,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 80,
+        "after_section": 64,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 81,
+        "after_section": 65,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+              42,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 82,
+        "after_section": 66,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0O@HEHPMPJG@BuildingNoArt?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 83,
+        "after_section": 67,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0BA@KKFOONI@HIGandalTheGrey?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 84,
+        "after_section": 68,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?grey@?N@??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@4PBV3@B",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 85,
+        "after_section": 70,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?white@?9??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@4VRevivalStaticAsciiString@@A",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 86,
+        "after_section": 71,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0O@FNEBGHGB@GondorGandalf?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 87,
+        "after_section": 72,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?gandalf@?6??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@4VRevivalStaticAsciiString@@A",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 88,
+        "after_section": 73,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?$S5@?6??calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z@4IA",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 89,
+        "after_section": 74,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 90,
+        "after_section": 98,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 91,
+        "after_section": 99,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+              28,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 92,
+        "after_section": 100,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 93,
+        "after_section": 78,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?productionSystemQueueCreateUnit@UnitRevivalTracker@@QAE_NHHPAPBVImage@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 94,
+        "after_section": 79,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "__real@3f7f7cee",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 96,
+        "after_section": 101,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 97,
+        "after_section": 102,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z",
+              11,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 98,
+        "after_section": 103,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 99,
+        "after_section": 81,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 100,
+        "after_section": 82,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+              55,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 101,
+        "after_section": 83,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?respawnUpdateKey@?1???0UnitRevivalEntry@@QAE@PAVObject@@@Z@4W4NameKeyType@@A",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 102,
+        "after_section": 85,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "?$S3@?1???0UnitRevivalEntry@@QAE@PAVObject@@@Z@4IA",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 103,
+        "after_section": 86,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 104,
+        "after_section": 104,
+        "identity": [
+          "named",
+          ".text$yc",
+          [
+            [
+              "_$E1",
+              0,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 105,
+        "after_section": 105,
+        "identity": [
+          "named",
+          ".CRT$XCU",
+          [
+            [
+              "_$S2",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 107,
+        "after_section": 107,
+        "identity": [
+          "named",
+          ".text$yd",
+          [
+            [
+              "_$E7",
+              0,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 109,
+        "after_section": 109,
+        "identity": [
+          "named",
+          ".text$yd",
+          [
+            [
+              "_$E6",
+              0,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 111,
+        "after_section": 111,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "_DRAWABLE_FRAMES_PER_FLASH",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      }
+    ],
+    "runtime_node_deltas": [],
+    "runtime_nodes_and_relocations_equal": true,
+    "external_definitions_equal": true,
+    "selection_deltas": [
+      {
+        "key": [
+          "named",
+          ".text",
+          [
+            [
+              "??1Rva001EB15A@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ],
+        "before": [
+          2,
+          null
+        ],
+        "after": [
+          1,
+          null
+        ]
+      }
+    ],
+    "safeseh_input_sequence_equal": false,
+    "safeseh_bound_handler_set_equal": true,
+    "safeseh_sequence_before": [
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+              8,
+              3,
+              32
+            ]
+          ]
+        ],
+        8,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1Rva001EB15A@@QAE@XZ",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@ABV0@@Z",
+              28,
+              3,
+              32
+            ]
+          ]
+        ],
+        28,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z",
+              56,
+              3,
+              32
+            ]
+          ]
+        ],
+        56,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+              42,
+              3,
+              32
+            ]
+          ]
+        ],
+        42,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+              28,
+              3,
+              32
+            ]
+          ]
+        ],
+        28,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+              55,
+              3,
+              32
+            ]
+          ]
+        ],
+        55,
+        3,
+        32
+      ]
+    ],
+    "safeseh_sequence_after": [
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?rva0037E473@UnitRevivalEntry@@QAEXPAVXfer@@@Z",
+              8,
+              3,
+              32
+            ]
+          ]
+        ],
+        8,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@PBVPlayer@@@Z",
+              42,
+              3,
+              32
+            ]
+          ]
+        ],
+        42,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1Rva001EB15A@@QAE@XZ",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PAVObject@@@Z",
+              55,
+              3,
+              32
+            ]
+          ]
+        ],
+        55,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@ABV0@@Z",
+              28,
+              3,
+              32
+            ]
+          ]
+        ],
+        28,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z",
+              56,
+              3,
+              32
+            ]
+          ]
+        ],
+        56,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0UnitRevivalEntry@@QAE@PBVThingTemplate@@@Z",
+              28,
+              3,
+              32
+            ]
+          ]
+        ],
+        28,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$?addInitialBuildUnit@UnitRevivalTracker@@QAEXPBVThingTemplate@@PAVPlayer@@@Z",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ]
+    ],
+    "limits": "Private semantic object-graph comparison; preserves every runtime node/byte/relocation and external definition under explicit unique section permutation. SafeSEH table has same bound symbol-index members; native owning provider/link admission remains separate."
+  },
+  {
+    "label": "FreelistPool",
+    "runtime_node_count": 37,
+    "mapping": [
+      {
+        "before_section": 1,
+        "after_section": 1,
+        "identity": [
+          "anonymous",
+          ".drectve",
+          659,
+          "f1d5729c5fee0996e2c5b64e301527386ff4300c602e796fd9dbfd26214d76b9"
+        ]
+      },
+      {
+        "before_section": 3,
+        "after_section": 3,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0AsciiString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 5,
+        "after_section": 5,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0AsciiString@@QAE@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 7,
+        "after_section": 7,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1AsciiString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 9,
+        "after_section": 9,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??4AsciiString@@QAEAAV0@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 11,
+        "after_section": 11,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?get@Rva001EB10CImulAddField@@QBEHH@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 13,
+        "after_section": 13,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?grow@FreelistPool@@AAE_NHH@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 15,
+        "after_section": 15,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EAF7B@Rva001EAF7B@@QAE_NXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 17,
+        "after_section": 17,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EAF5E@@YAXPAVRva001EAF5EElement@@0@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 19,
+        "after_section": 19,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB023@Rva001EB023@@QAEPAURva001EB023Elem@@AAVRva00376A62@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 21,
+        "after_section": 21,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB094@Rva001EB023@@QAE_NAAVRva00376A62@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 23,
+        "after_section": 23,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB059@Rva001EB023@@QAEPAURva001EB023Elem@@AAVRva00376A62@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 25,
+        "after_section": 25,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB0B1@Rva001EB0B1Holder@@QAEXXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 27,
+        "after_section": 27,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB0B9@Rva001EB0B9@@QAEEXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 29,
+        "after_section": 29,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB0CA@Rva001EB0CAHolder@@QAEXXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 31,
+        "after_section": 31,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB0D9@Rva001EB0CAHolder@@QAEEXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 33,
+        "after_section": 33,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EB0FB@Rva001EB0FB@@QAE_NAAVRva00376A62@@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 35,
+        "after_section": 35,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0FreelistPool@@QAE@HHHHHH@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 36,
+        "after_section": 36,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??4Rva001EAFC1@@QAEAAV0@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 38,
+        "after_section": 38,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 40,
+        "after_section": 40,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0?$StringBase@G@@AAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 42,
+        "after_section": 42,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?validate@?$StringBase@G@@ABEXXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 44,
+        "after_section": 44,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1?$StringBase@G@@AAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 46,
+        "after_section": 46,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0UnicodeString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 48,
+        "after_section": 48,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0UnicodeString@@QAE@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 50,
+        "after_section": 50,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1UnicodeString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 52,
+        "after_section": 52,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1Rva001EB05E@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 53,
+        "after_section": 53,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1Rva001EB05E@@QAE@XZ",
+              11,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 54,
+        "after_section": 54,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??1Rva001EB05E@@QAE@XZ",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 55,
+        "after_section": 55,
+        "identity": [
+          "SafeSEH-symbol-index-metadata",
+          ".sxdata",
+          12
+        ]
+      },
+      {
+        "before_section": 56,
+        "after_section": 56,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1UnitRevivalEntry@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 57,
+        "after_section": 57,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1UnitRevivalEntry@@QAE@XZ",
+              28,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 58,
+        "after_section": 58,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??1UnitRevivalEntry@@QAE@XZ",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 59,
+        "after_section": 59,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0Rva001EB15A@@QAE@ABU0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 60,
+        "after_section": 60,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0Rva001EB15A@@QAE@ABU0@@Z",
+              11,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 61,
+        "after_section": 61,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??0Rva001EB15A@@QAE@ABU0@@Z",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 62,
+        "after_section": 62,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0Rva001EB15A@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      }
+    ],
+    "runtime_node_deltas": [],
+    "runtime_nodes_and_relocations_equal": true,
+    "external_definitions_equal": true,
+    "selection_deltas": [],
+    "safeseh_input_sequence_equal": true,
+    "safeseh_bound_handler_set_equal": true,
+    "safeseh_sequence_before": [
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1Rva001EB05E@@QAE@XZ",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1UnitRevivalEntry@@QAE@XZ",
+              28,
+              3,
+              32
+            ]
+          ]
+        ],
+        28,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0Rva001EB15A@@QAE@ABU0@@Z",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ]
+    ],
+    "safeseh_sequence_after": [
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1Rva001EB05E@@QAE@XZ",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1UnitRevivalEntry@@QAE@XZ",
+              28,
+              3,
+              32
+            ]
+          ]
+        ],
+        28,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0Rva001EB15A@@QAE@ABU0@@Z",
+              11,
+              3,
+              32
+            ]
+          ]
+        ],
+        11,
+        3,
+        32
+      ]
+    ],
+    "limits": "Private semantic object-graph comparison; preserves every runtime node/byte/relocation and external definition under explicit unique section permutation. SafeSEH table has same bound symbol-index members; native owning provider/link admission remains separate."
+  },
+  {
+    "label": "Carryover",
+    "runtime_node_count": 29,
+    "mapping": [
+      {
+        "before_section": 1,
+        "after_section": 1,
+        "identity": [
+          "anonymous",
+          ".drectve",
+          600,
+          "862521b5d91cc18fdfdc5ac4b3e0c417926c5eabbee2c7d7cf9c173399068ec4"
+        ]
+      },
+      {
+        "before_section": 3,
+        "after_section": 3,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0AsciiString@@QAE@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 5,
+        "after_section": 5,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1AsciiString@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 7,
+        "after_section": 7,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??4AsciiString@@QAEAAV0@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 9,
+        "after_section": 9,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0Snapshot@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 10,
+        "after_section": 10,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_7Snapshot@@6B@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 12,
+        "after_section": 12,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1Snapshot@@UAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 14,
+        "after_section": 14,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??_GSnapshot@@UAEPAXI@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 16,
+        "after_section": 16,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0Rva001EAE6FHelper@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 18,
+        "after_section": 18,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?Rva0037DC8AEqual@@YA_NPBX0@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 20,
+        "after_section": 20,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva0037DCCC@@YAXPAVObject@@H@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 22,
+        "after_section": 22,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??1CarryoverUnit@@UAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 23,
+        "after_section": 23,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1CarryoverUnit@@UAE@XZ",
+              19,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 24,
+        "after_section": 24,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_7CarryoverUnit@@6B@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 25,
+        "after_section": 25,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??1CarryoverUnit@@UAE@XZ",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 26,
+        "after_section": 26,
+        "identity": [
+          "SafeSEH-symbol-index-metadata",
+          ".sxdata",
+          8
+        ]
+      },
+      {
+        "before_section": 27,
+        "after_section": 27,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??_GCarryoverUnit@@UAEPAXI@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 29,
+        "after_section": 29,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?GetCommandPointSize@Rva0037DCA5@@QAEHXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 31,
+        "after_section": 31,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?rva0037DE0E@Rva0037DE0E@@QAEEPAX@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 33,
+        "after_section": 33,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??0CarryoverUnit@@QAE@XZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 34,
+        "after_section": 34,
+        "identity": [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0CarryoverUnit@@QAE@XZ",
+              19,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 35,
+        "after_section": 35,
+        "identity": [
+          "associated",
+          ".xdata$x",
+          [
+            "named",
+            ".text",
+            [
+              [
+                "??0CarryoverUnit@@QAE@XZ",
+                0,
+                2,
+                32
+              ]
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 36,
+        "after_section": 36,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "??4CarryoverUnit@@QAEAAV0@ABV0@@Z",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 38,
+        "after_section": 38,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?loadPostProcess@CarryoverUnit@@UAEXXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 40,
+        "after_section": 40,
+        "identity": [
+          "named",
+          ".text",
+          [
+            [
+              "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+              0,
+              2,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 41,
+        "after_section": 41,
+        "identity": [
+          "named",
+          ".rdata",
+          [
+            [
+              "??_C@_0O@PFEEJIPO@CarryoverUnit?$AA@",
+              0,
+              2,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 43,
+        "after_section": 43,
+        "identity": [
+          "named",
+          ".text$yc",
+          [
+            [
+              "_$E1",
+              0,
+              3,
+              32
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 44,
+        "after_section": 44,
+        "identity": [
+          "named",
+          ".CRT$XCU",
+          [
+            [
+              "_$S2",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      },
+      {
+        "before_section": 46,
+        "after_section": 46,
+        "identity": [
+          "named",
+          ".bss",
+          [
+            [
+              "_DRAWABLE_FRAMES_PER_FLASH",
+              0,
+              3,
+              0
+            ]
+          ]
+        ]
+      }
+    ],
+    "runtime_node_deltas": [],
+    "runtime_nodes_and_relocations_equal": true,
+    "external_definitions_equal": true,
+    "selection_deltas": [],
+    "safeseh_input_sequence_equal": true,
+    "safeseh_bound_handler_set_equal": true,
+    "safeseh_sequence_before": [
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1CarryoverUnit@@UAE@XZ",
+              19,
+              3,
+              32
+            ]
+          ]
+        ],
+        19,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0CarryoverUnit@@QAE@XZ",
+              19,
+              3,
+              32
+            ]
+          ]
+        ],
+        19,
+        3,
+        32
+      ]
+    ],
+    "safeseh_sequence_after": [
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??1CarryoverUnit@@UAE@XZ",
+              19,
+              3,
+              32
+            ]
+          ]
+        ],
+        19,
+        3,
+        32
+      ],
+      [
+        "local",
+        [
+          "named",
+          ".text$x",
+          [
+            [
+              "__ehhandler$??0CarryoverUnit@@QAE@XZ",
+              19,
+              3,
+              32
+            ]
+          ]
+        ],
+        19,
+        3,
+        32
+      ]
+    ],
+    "limits": "Private semantic object-graph comparison; preserves every runtime node/byte/relocation and external definition under explicit unique section permutation. SafeSEH table has same bound symbol-index members; native owning provider/link admission remains separate."
+  }
+]

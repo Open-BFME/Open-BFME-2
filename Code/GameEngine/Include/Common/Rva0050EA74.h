@@ -22,7 +22,8 @@ public:
     virtual void hide();
     virtual int v03(int message, int key, int state) { return 0; }
     virtual int v04(int message, int key, int state) { return 0; }
-    // Native slot 5 remains to be recovered; this table is still bridged.
+    // Slot 5: no-argument callback; native table target is the shared RET.
+    virtual void v05() {}
 
     int m_08;
     AsciiString m_0c;

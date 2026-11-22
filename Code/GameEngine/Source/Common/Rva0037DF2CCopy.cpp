@@ -6,6 +6,7 @@
 // 0x001EB15A. Callers at 0x001EBA02 0x001EBEEC 0x0040D691. Empty base with
 // inline ctor plus declared-only dtor arms EH state 0 per ModuleData precedent.
 #include "ascii_string.h"
+#include "unicode_string.h"
 extern "C" const void *const __identifier("??_7CarryoverUnit@@6B@")[];
 #include "../../Include/Common/EmptyBase.h"
 struct BfmeFixedStorage128
@@ -13,11 +14,7 @@ struct BfmeFixedStorage128
 	BfmeFixedStorage128(const BfmeFixedStorage128 &o);
 	unsigned char bytes[128];
 };
-struct Rva001EB15A
-{
-	Rva001EB15A(const Rva001EB15A &o);
-	unsigned char bytes[24];
-};
+#include "../../Include/Common/Rva001EB15A.h"
 class CarryoverUnit : public EmptyBase
 {
 public:

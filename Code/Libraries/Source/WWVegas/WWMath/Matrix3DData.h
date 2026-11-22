@@ -25,10 +25,20 @@
 
 #include "Vector4Data.h"
 
+class Vector3;
+
 class Matrix3D
 {
 public:
 	__forceinline Matrix3D( void ) { }
+
+	// Axis rotation API from WWMath's original matrix3d.h. Bodies using Vector3
+	// and trigonometry remain with their native consumers.
+	__forceinline Matrix3D(const Vector3 &axis, float angle);
+	__forceinline void Set(const Vector3 &axis, float angle);
+	void Set(const Vector3 &axis, float sine, float cosine);
+	void mul(const Matrix3D &a, const Matrix3D &b);
+	Vector3 Rotate_Vector(const Vector3 &vect) const;
 
 	// Retail also keeps an out-of-line copy (0x0004C91A).
 	__forceinline explicit Matrix3D(bool init) { if (init) Make_Identity(); }

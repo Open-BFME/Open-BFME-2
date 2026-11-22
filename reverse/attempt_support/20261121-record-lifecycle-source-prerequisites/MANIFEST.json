@@ -1,0 +1,214 @@
+{
+  "schema": 1,
+  "base_head": "dcbd831464a14480d4d535bb74078e3a9d0e5b02",
+  "status": "FROZEN PRIVATE BANK PACKAGE; ROOT ADMISSION PENDING",
+  "new_bodies": 0,
+  "new_bytes": 0,
+  "artifacts": [
+    {
+      "path": "audit_runtime.py",
+      "size": 5648,
+      "sha256": "ab33f3350d1934f9833d8ead4747f09e5086c4ac570ac4dcca46bcb8384b09e0"
+    },
+    {
+      "path": "BANK/Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+      "size": 10157,
+      "sha256": "dfe29060b2aac0eec1b38a21dae5a9f80622c098f955a7bf5510a9f19d4cef5d"
+    },
+    {
+      "path": "BANK/Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+      "size": 24111,
+      "sha256": "f3bca6209180dce456ccce6820850fc0b16c2b5202c2169e413c8b70f73d836d"
+    },
+    {
+      "path": "BANK/Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+      "size": 14094,
+      "sha256": "1a96f40228f97c7d1ad9c6a38b0cb472c2ac43bb27f5b928eb7ab4e3540a04ea"
+    },
+    {
+      "path": "BANK-SUMMARY.json",
+      "size": 7879,
+      "sha256": "3c1c88c995a008d6944eb0a1078a05c290baf6d275b5d5e03075cb10d4d85316"
+    },
+    {
+      "path": "Carryover-candidate-ARGS.json",
+      "size": 4925,
+      "sha256": "4edd104dbde06e10f8a506c700d0f3b836982dd86647e4a4997f46a922e33340"
+    },
+    {
+      "path": "Carryover-candidate-effective.cpp",
+      "size": 10175,
+      "sha256": "b7fb797641244af16fe0cc509c6222508b6d4f4722a0833b81ebd1e184f13e09"
+    },
+    {
+      "path": "Carryover-candidate.deps.json",
+      "size": 2268,
+      "sha256": "69af51569d723a6c80ef941066df83d98071ed7337eeed1ec021069581241704"
+    },
+    {
+      "path": "Carryover-candidate.obj",
+      "size": 8747,
+      "sha256": "e9f43a8fa0da25c0a764aedeb9fdd8192eff164fa340f5e1a3e9a5311759cbfb"
+    },
+    {
+      "path": "Carryover-original-ARGS.json",
+      "size": 4925,
+      "sha256": "2230de957684e8fb46f03f494149348af8eba49f3bd247895c308a5adc9337e5"
+    },
+    {
+      "path": "Carryover-original-effective.cpp",
+      "size": 10184,
+      "sha256": "80418894affac0bfe002c14b20416641002edceaf6fcfb6081cd8bea83afa0b1"
+    },
+    {
+      "path": "Carryover-original.deps.json",
+      "size": 2268,
+      "sha256": "5bc58adabf7d4ad6fc32bbe4e73c3c5893b4ef187a57999e06e94642f122713b"
+    },
+    {
+      "path": "Carryover-original.obj",
+      "size": 8747,
+      "sha256": "f154cee8f69350260c21b9e04a35452a266c08be2908b2c4f1f05a46120e65cd"
+    },
+    {
+      "path": "CURRENT-TOOL-INPUT-BINDINGS.json",
+      "size": 823,
+      "sha256": "5435b49e91d447fae3b81a9099ebc6b63316541b07a4f3223a29a56a1fa33c46"
+    },
+    {
+      "path": "DESTRUCTOR-PROVIDER-CONSUMERS.json",
+      "size": 78065,
+      "sha256": "9557f401f96c1b8f9f61d33e8783597553f7f504ef4cdf81d674bb109dcc03c9"
+    },
+    {
+      "path": "finalize_bank_package.py",
+      "size": 13788,
+      "sha256": "2ca6e7bde58ce8707a78ca319347b2a9e6702227748a90e37c53bba759ba78da"
+    },
+    {
+      "path": "FreelistPool-candidate-ARGS.json",
+      "size": 5016,
+      "sha256": "7e947e20ebec9d2538d70868c731e7e33b4fdb7c6cb66677457ab0d1e5fcef9f"
+    },
+    {
+      "path": "FreelistPool-candidate-effective.cpp",
+      "size": 14112,
+      "sha256": "cde3d64fce40c01bf8e2b1ed9eebb305b2aba3f6574efffab188ef2189fe383d"
+    },
+    {
+      "path": "FreelistPool-candidate.deps.json",
+      "size": 6307,
+      "sha256": "afd807fc1874951cff3d105c38dab8f00a48595af0964448f79f20f4ab6be81e"
+    },
+    {
+      "path": "FreelistPool-candidate.obj",
+      "size": 10570,
+      "sha256": "92d4b7f39e39ffaa31fbcce25232d4cc9d6b2bbe6ef8d5465b8900b330d152d9"
+    },
+    {
+      "path": "FreelistPool-original-ARGS.json",
+      "size": 5016,
+      "sha256": "f88cb75f41459c31b1fc103c863b7db4f75db387d0c2071dccb6180babad60f5"
+    },
+    {
+      "path": "FreelistPool-original-effective.cpp",
+      "size": 14121,
+      "sha256": "ebcd02020eb86bd978d44dc65f2dcbe4285d261ec2f06c805d70650a983e2c50"
+    },
+    {
+      "path": "FreelistPool-original.deps.json",
+      "size": 6307,
+      "sha256": "1ff56117bd4fadfa0532d4f7bd3cc19ed8f45869ad90bc3b8cc4570731b077ef"
+    },
+    {
+      "path": "FreelistPool-original.obj",
+      "size": 10570,
+      "sha256": "79ac0a836d7d6397e0703b066cd155a78524ef345159d45fb4b39c872b4a8b2d"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 4700,
+      "sha256": "c68b338498068e189d5ca7df3bdef2e523b56ffed7a9403c617463586c6b1915"
+    },
+    {
+      "path": "provider_scope_readonly.py",
+      "size": 2675,
+      "sha256": "5a879a17ad08aef71a7e7e8c3c146983c6a79b1ec0cc94ef07e079b40fb05281"
+    },
+    {
+      "path": "ROOT_COMMANDS.txt",
+      "size": 3272,
+      "sha256": "97ae7643c54437073d9b442733ecc56104ca57a09b344db5369e4877ff8dd67f"
+    },
+    {
+      "path": "RUN-RESULT.json",
+      "size": 174591,
+      "sha256": "9e8aba307b529e100b75ac85de37c3dd5d2232e6a7de550c1477ac3bce6d6a4a"
+    },
+    {
+      "path": "run_native_matched.py",
+      "size": 10541,
+      "sha256": "8c4872388fb0d789c872246fda2450efcc1467566fc0454efcbefdfe688b31d2"
+    },
+    {
+      "path": "RUNTIME-FOOTPRINTS.json",
+      "size": 236204,
+      "sha256": "f7fc2646ae384b47a8dca5eff061287c08255272751a9eb2c87b32035f4e17c9"
+    },
+    {
+      "path": "SECTION-GRAPH-CLOSURE.json",
+      "size": 58151,
+      "sha256": "13d20cd20fe54bf846e45d87a5e25eb97f10f67bd1f1680233fc517b1f66ba99"
+    },
+    {
+      "path": "section_graph_audit.py",
+      "size": 6238,
+      "sha256": "45a831dc4cc05dbc14120581a05f4da94be48141903b7cf203d50f193a586ab0"
+    },
+    {
+      "path": "stagea-three-source.patch",
+      "size": 1678,
+      "sha256": "f2064befb263d54187f16615334156de5b41d48947db05831d0e30af95761f60"
+    },
+    {
+      "path": "Tracker-candidate-ARGS.json",
+      "size": 5040,
+      "sha256": "5699458f2f9cdb0e3b76a79021d36f6e9808b4188029ed5fa2495b5ce722cbf0"
+    },
+    {
+      "path": "Tracker-candidate-effective.cpp",
+      "size": 24111,
+      "sha256": "468148d72c83f0eb59c224ec6a5989d0d84eb2f6cdd36f7512b2486520aba4f2"
+    },
+    {
+      "path": "Tracker-candidate.deps.json",
+      "size": 15478,
+      "sha256": "0b23ac3c326e16a7831cd273c3c241b986ea913da26fd5f85d4dda185cf2ae9b"
+    },
+    {
+      "path": "Tracker-candidate.obj",
+      "size": 26307,
+      "sha256": "8577e2e56ffa594acdbdf437005c1fba79e63ebb571c5d140293beccd1e92ac4"
+    },
+    {
+      "path": "Tracker-original-ARGS.json",
+      "size": 5040,
+      "sha256": "5d466a46aaf3dd1c70a7459be4851ca8426116946193a155c6c985bca64bfb91"
+    },
+    {
+      "path": "Tracker-original-effective.cpp",
+      "size": 23966,
+      "sha256": "8ba8da173467b0b12b9698f0cdda2ddb8407c08e008fa5283388f9e7ea276356"
+    },
+    {
+      "path": "Tracker-original.deps.json",
+      "size": 15478,
+      "sha256": "6766ae30999fe843a7cda7c757cabb52197fa3e665823020f90d845b93522fb9"
+    },
+    {
+      "path": "Tracker-original.obj",
+      "size": 26307,
+      "sha256": "f83d182f5adbe0430dfa05eb76cb4af99cb6e60c778aab405fbb8096e0f68c0c"
+    }
+  ]
+}

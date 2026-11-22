@@ -1,0 +1,650 @@
+[
+  {
+    "name": "??0HAnimClass@@QAE@XZ",
+    "rva": "0x0018D170",
+    "size": 37,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?read_bit_channel@HCompressedAnimClass@@AAE_NAAVChunkLoadClass@@PAPAVTimeCodedBitChannelClass@@@Z",
+    "rva": "0x0018F350",
+    "size": 101,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??0NodeCompressedMotionStruct@@QAE@XZ",
+    "rva": "0x0018F680",
+    "size": 23,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Channel_Memory_Usage@NodeCompressedMotionStruct@@QAEHXZ",
+    "rva": "0x0018F7B0",
+    "size": 158,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??1NodeCompressedMotionStruct@@QAE@XZ",
+    "rva": "0x0018F6A0",
+    "size": 269,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??AMatrix3D@@QAEAAVVector4@@H@Z",
+    "rva": "0x0007DE8E",
+    "size": 12,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Key@HAnimClass@@UAEPBDXZ",
+    "rva": "0x0018D1A0",
+    "size": 8,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?add_bit_channel@HCompressedAnimClass@@AAEXPAVTimeCodedBitChannelClass@@@Z",
+    "rva": "0x0018F3C0",
+    "size": 33,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?add_channel@HCompressedAnimClass@@AAEXPAVTimeCodedMotionChannelClass@@@Z",
+    "rva": "0x0018F2A0",
+    "size": 172,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Total_Time@HCompressedAnimClass@@UAEMXZ",
+    "rva": "0x0018F190",
+    "size": 7,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?read_channel@HCompressedAnimClass@@AAE_NAAVChunkLoadClass@@PAPAVTimeCodedMotionChannelClass@@@Z",
+    "rva": "0x0018F1C0",
+    "size": 101,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??0BFME2CompressedMotionChannels@@QAE@XZ",
+    "rva": "0x0018F850",
+    "size": 22,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??1BFME2CompressedMotionChannels@@QAE@XZ",
+    "rva": "0x0018F870",
+    "size": 70,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Free@HCompressedAnimClass@@AAEXXZ",
+    "rva": "0x0018FE30",
+    "size": 93,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??_EBFME2CompressedMotionChannels@@QAEPAXI@Z",
+    "rva": "0x0018FB10",
+    "size": 84,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??0HCompressedAnimClass@@QAE@XZ",
+    "rva": "0x0018F0E0",
+    "size": 159,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??1HCompressedAnimClass@@UAE@XZ",
+    "rva": "0x00190F10",
+    "size": 86,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??_GHCompressedAnimClass@@UAEPAXI@Z",
+    "rva": "0x00190F70",
+    "size": 30,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??_GTimeCodedBitChannelClass@@QAEPAXI@Z",
+    "rva": "0x0018D200",
+    "size": 30,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??_GTimeCodedMotionChannelClass@@QAEPAXI@Z",
+    "rva": "0x0018F1A0",
+    "size": 30,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??_GAdaptiveDeltaMotionChannelClass@@QAEPAXI@Z",
+    "rva": "0x0018F1A0",
+    "size": 30,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??_ENodeCompressedMotionStruct@@QAEPAXI@Z",
+    "rva": "0x0018FAB0",
+    "size": 84,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?SetFlavor@NodeCompressedMotionStruct@@QAEXH@Z",
+    "rva": "0x0066C940",
+    "size": 9,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?get@Rva0018F180FloatField@@QBEMXZ",
+    "rva": "0x0018F180",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Visibility@HCompressedAnimClass@@UAE_NHM@Z",
+    "rva": "0x0018F440",
+    "size": 70,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Is_Node_Motion_Present@HCompressedAnimClass@@UAE_NH@Z",
+    "rva": "0x0018F490",
+    "size": 108,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_X_Translation@HCompressedAnimClass@@UAE_NH@Z",
+    "rva": "0x0018F500",
+    "size": 53,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Y_Translation@HCompressedAnimClass@@UAE_NH@Z",
+    "rva": "0x0018F540",
+    "size": 54,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Z_Translation@HCompressedAnimClass@@UAE_NH@Z",
+    "rva": "0x0018F580",
+    "size": 54,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Rotation@HCompressedAnimClass@@UAE_NH@Z",
+    "rva": "0x0018F5C0",
+    "size": 54,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Visibility@HCompressedAnimClass@@UAE_NH@Z",
+    "rva": "0x0018F600",
+    "size": 54,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "uw_007688e0",
+    "rva": "0x007688E0",
+    "size": 8,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": "$L16619 was renumbered; verified parent EH data places $L17460 at 0x007688E0"
+  },
+  {
+    "name": "uw_00768900",
+    "rva": "0x00768900",
+    "size": 11,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": "$L16721 was renumbered; verified parent EH data places $L17553 at 0x00768900"
+  },
+  {
+    "name": "?Get_Channel_Memory_Usage@BFME2CompressedMotionChannels@@QAEHXZ",
+    "rva": "0x0018F8C0",
+    "size": 60,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_X_Translation@HAnimClass@@UAE_NH@Z",
+    "rva": "0x0018D1B0",
+    "size": 5,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??_EHCompressedAnimClass@@W7AEPAXI@Z",
+    "rva": "0x0018FAA0",
+    "size": 8,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??$decompress@$00@AdaptiveDeltaMotionChannelClass@@AAEXKPAMK0@Z",
+    "rva": "0x0018F910",
+    "size": 173,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??$getframe@$00@AdaptiveDeltaMotionChannelClass@@AAEXKAAU?$AdaptiveDeltaCacheStruct@$00@@@Z",
+    "rva": "0x0018FC20",
+    "size": 154,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??$getframe@$03@AdaptiveDeltaMotionChannelClass@@AAEXKAAU?$AdaptiveDeltaCacheStruct@$03@@@Z",
+    "rva": "0x0018FCC0",
+    "size": 194,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?get_index@TimeCodedMotionChannelClass@@AAEKKAAK@Z",
+    "rva": "0x0018EC60",
+    "size": 230,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Vector@TimeCodedMotionChannelClass@@QAEXMPAMAAK@Z",
+    "rva": "0x0018ED50",
+    "size": 408,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_QuatVector@TimeCodedMotionChannelClass@@QAEXMAAVQuaternion@@AAK@Z",
+    "rva": "0x0018EEF0",
+    "size": 484,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Vector@AdaptiveDeltaMotionChannelClass@@QAEXMPAMAAU?$AdaptiveDeltaCacheStruct@$00@@@Z",
+    "rva": "0x0018FD90",
+    "size": 68,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_QuatVector@AdaptiveDeltaMotionChannelClass@@QAEXMAAVQuaternion@@AAU?$AdaptiveDeltaCacheStruct@$03@@@Z",
+    "rva": "0x0018FDE0",
+    "size": 65,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?_bfme_hanim_fade@HCompressedAnimClass@@UAEMHM@Z",
+    "rva": "0x001903C0",
+    "size": 588,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Translation@HCompressedAnimClass@@UBEXAAVVector3@@HM@Z",
+    "rva": "0x00190610",
+    "size": 1605,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Orientation@HCompressedAnimClass@@UBE_NAAVQuaternion@@HM@Z",
+    "rva": "0x00190C60",
+    "size": 677,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?add_channel@HCompressedAnimClass@@AAEXPAVAdaptiveDeltaMotionChannelClass@@@Z",
+    "rva": "0x0018F2A0",
+    "size": 172,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Load_W3D@HCompressedAnimClass@@QAEHAAVChunkLoadClass@@@Z",
+    "rva": "0x0018FE90",
+    "size": 1320,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "uw_00768920",
+    "rva": "0x00768920",
+    "size": 11,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": "$L17635 was renumbered; verified parent EH data places $L17931 at 0x00768920"
+  },
+  {
+    "name": "uw_0076892b",
+    "rva": "0x0076892B",
+    "size": 11,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": "$L17636 was renumbered; verified parent EH data places $L17932 at 0x0076892B"
+  },
+  {
+    "name": "?read_channel@HCompressedAnimClass@@AAE_NAAVChunkLoadClass@@PAPAVAdaptiveDeltaMotionChannelClass@@@Z",
+    "rva": "0x0018F230",
+    "size": 101,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "__ehhandler$??0HCompressedAnimClass@@QAE@XZ",
+    "rva": "0x007688E8",
+    "size": 10,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "__ehhandler$?read_bit_channel@HCompressedAnimClass@@AAE_NAAVChunkLoadClass@@PAPAVTimeCodedBitChannelClass@@@Z",
+    "rva": "0x0076890B",
+    "size": 10,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?reset@Rva0018F900FramePrefix@@QAEPAV1@XZ",
+    "rva": "0x0018F900",
+    "size": 9,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "__ehhandler$?Load_W3D@HCompressedAnimClass@@QAEHAAVChunkLoadClass@@@Z",
+    "rva": "0x00768936",
+    "size": 10,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "??$decompress@$03@AdaptiveDeltaMotionChannelClass@@AAEXKPAMK0@Z",
+    "rva": "0x0018F9C0",
+    "size": 222,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Y_Translation@HAnimClass@@UAE_NH@Z",
+    "rva": "0x0018D1B0",
+    "size": 5,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Z_Translation@HAnimClass@@UAE_NH@Z",
+    "rva": "0x0018D1B0",
+    "size": 5,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Rotation@HAnimClass@@UAE_NH@Z",
+    "rva": "0x0018D1B0",
+    "size": 5,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Has_Visibility@HAnimClass@@UAE_NH@Z",
+    "rva": "0x0018D1B0",
+    "size": 5,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Name@HCompressedAnimClass@@UBEPBDXZ",
+    "rva": "0x0066E430",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?_bfme_hanim_v21@HAnimClass@@UAE_NH@Z",
+    "rva": "0x0018D1B0",
+    "size": 5,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?_bfme_hanim_v3@HCompressedAnimClass@@UBEIXZ",
+    "rva": "0x00661FD0",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Class_ID@HCompressedAnimClass@@UBEHXZ",
+    "rva": "0x00756B00",
+    "size": 6,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?_bfme_hanim_v21@HCompressedAnimClass@@UAE_NH@Z",
+    "rva": "0x0018F640",
+    "size": 54,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Class_ID@HAnimClass@@UBEHXZ",
+    "rva": "0x0013B5E0",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_HName@HCompressedAnimClass@@UBEPBDXZ",
+    "rva": "0x0066D7D0",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Num_Frames@HCompressedAnimClass@@UAEHXZ",
+    "rva": "0x0066D730",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Frame_Rate@HCompressedAnimClass@@UAEMXZ",
+    "rva": "0x0018F180",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?Get_Num_Pivots@HCompressedAnimClass@@UBEHXZ",
+    "rva": "0x00143290",
+    "size": 4,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  },
+  {
+    "name": "?rva0018FB70@HCompressedAnimClass@@UAEHXZ",
+    "rva": "0x0018FB70",
+    "size": 166,
+    "exact": true,
+    "masked": false,
+    "unresolved": [],
+    "note": null
+  }
+]

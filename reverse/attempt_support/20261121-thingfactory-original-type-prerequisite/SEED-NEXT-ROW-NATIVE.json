@@ -1,0 +1,15 @@
+{
+  "rva": "0x00406D4A",
+  "retail_hex": "8b81bc010000c3",
+  "sha256": "e97ed18d27806b58c8c7f8d30122dd5b24658d55e77ca2eb68d5b9205ecd85da",
+  "disassembly": [
+    {
+      "rva": "0x00406D4A",
+      "instruction": "mov eax, dword ptr [ecx + 0x1bc]"
+    },
+    {
+      "rva": "0x00406D50",
+      "instruction": "ret "
+    }
+  ]
+}

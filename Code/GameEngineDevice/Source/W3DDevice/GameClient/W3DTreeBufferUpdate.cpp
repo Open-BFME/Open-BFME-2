@@ -135,12 +135,7 @@ struct TTree
 	int m_E4;					// +0xE4
 };
 
-class W3DTreeBuffer
-{
-protected:
-	void updateTopplingTree(TTree *tree);		// 0x000EA746
-	friend class Rva000EDB47;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTreeBufferClass.h"
 
 struct W3DTreeDrawModuleData
 {

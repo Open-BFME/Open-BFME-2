@@ -1,0 +1,8 @@
+{
+  "original_object_sha256": "1ce98e2af3e7eec7db3d74bc63fc2549e388b92e824b42a694faa9b105b3711b",
+  "normal_object_sha256": "ca22c4eb4528efaa7df97a2e9e71a5328d0facd2c7b4140f32a24ee072ce530b",
+  "entire_coff_equal_except_header_timestamp": false,
+  "ignored_metadata": "Only COFF header timestamp bytes4..7; no code/data/symbol/relocation/COMDAT/EH byte masked",
+  "normal_rows": 16,
+  "new_unique_code_bytes": 0
+}

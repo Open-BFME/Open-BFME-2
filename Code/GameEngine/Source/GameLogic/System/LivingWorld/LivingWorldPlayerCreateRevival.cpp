@@ -60,7 +60,7 @@ static __declspec(noinline) UnitRevivalEntry CreateRevivalEntry(LivingWorldPlaye
  entry.m_field0C=data->rank; entry.m_field10=data->rank; entry.m_field08=data->experience;
  entry.m_field14=data->upgrades;
  entry.m_fieldA8=0; entry.m_fieldAC=data->heroKey;
- *reinterpret_cast<Rva001EAFC1*>(entry.m_fieldB0)=*reinterpret_cast<const Rva001EAFC1*>(data->record);
+ *reinterpret_cast<Rva001EAFC1*>(&entry.m_fieldB0)=*reinterpret_cast<const Rva001EAFC1*>(data->record);
  if(kind==0) {
   int rank=thing->rva0033B479();
   entry.m_field0C=rank; entry.m_field10=rank;

@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "head": "4193449c53410f1f111ae4d2a46b3bd72947f338",
+  "status": "FROZEN CORE FIRST PACKET",
+  "artifacts": [
+    {
+      "path": "CORE-443-CLAIMS.json",
+      "size": 11511,
+      "sha256": "c1186512a74752cb35b0b5d1effc07d43d81a993c1b1a8a750e256aef34ec34a"
+    },
+    {
+      "path": "core-authored-UnitRevivalEntry-B0.candidate.h.txt",
+      "size": 3096,
+      "sha256": "e43c1d95c7b966abb8ce0d5b079c0b28c5e0af15712dfd8d020a4fc816973280"
+    },
+    {
+      "path": "core-B0-plus-two-LWP.patch",
+      "size": 4169,
+      "sha256": "bda09d5ac37a756324dea2711e27aa77c2e8644b35d54bc7f13ba21286b06385"
+    },
+    {
+      "path": "core-CreateRevival-address.candidate.cpp.txt",
+      "size": 10508,
+      "sha256": "861d4627f17334d2bb8c2b8299e3d8217f03a9f8369f30ba4214ec2cd246d482"
+    },
+    {
+      "path": "core-LivingWorldPlayer-address.candidate.cpp.txt",
+      "size": 45736,
+      "sha256": "43338c3dda376603cfb10792578f731a820d2305d577caa73504ff6b51fdf31c"
+    },
+    {
+      "path": "CORE-SUMMARY.json",
+      "size": 7090,
+      "sha256": "c318c47c58c59340f5ebb57b588963d1b72a8a38b646082c0852be292c5b7e6c"
+    },
+    {
+      "path": "CURRENT-READONLY-SCOPE.json",
+      "size": 282317,
+      "sha256": "812cfb5fa2e4073ec0f4438030303875f92fb27b39719259cd0595d81167328b"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 1892,
+      "sha256": "7560319e76b1441fb1939bc34c5ffaf76953cee3636075d3196668c91be36d53"
+    }
+  ]
+}

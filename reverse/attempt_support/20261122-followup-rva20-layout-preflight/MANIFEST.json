@@ -1,0 +1,25 @@
+{
+  "verdict": "BLOCKED_NO_COMPLETE_CANONICAL_LAYOUT_OR_LIFETIME_IDENTITY",
+  "files": {
+    "freeze.py": {
+      "sha256": "f26e3bf759ee83f8ccead5c6fb9d29eef561baed2d9e2114eef653e7b2c61715",
+      "size": 9922
+    },
+    "HANDOFF.md": {
+      "sha256": "a1260b00cb93508674e3095a3b1d0398353f7f3020fa7a1a14ccf0b2d3daa46f",
+      "size": 5885
+    },
+    "INPUT-HASHES.json": {
+      "sha256": "2ad96ff6b72d5f14819700bc928c470103670bcf57d1e51a85527a66c5c898b6",
+      "size": 1986
+    },
+    "SCOPED-LEDGER-EVIDENCE.json": {
+      "sha256": "15669eada8ee4608ec49b3391ab53748127780bea7502921601de51209bc2a10",
+      "size": 25981
+    },
+    "SUMMARY.json": {
+      "sha256": "7de33c5871d97ed4b8b9b8013baccbdfbb6568c3c2145c33ee16ed61d48751f1",
+      "size": 1212
+    }
+  }
+}

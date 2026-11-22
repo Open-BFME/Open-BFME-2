@@ -1,0 +1,21 @@
+{
+  "observed_utc": "2026-11-21T09:29:00.389133+00:00",
+  "head": "64b343fb4109505cdb9073ebc21796b5c02d9500",
+  "captured_probe_inputs_unchanged": true,
+  "current_hashes": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp": "5c677e4fda966ce43a2c9b4015e0190e871b3547f61e0c4a6a06913cfeba5b4a",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp": "3ebbd1172f79bafdbef0319fdb35e33d5a8b9c054ee6d2654d1a171ffac92582",
+    "Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h": "4f0cedc9ca47203c6cf1a16111f59a8a4f0505a7ae7af22f43e0ab7dd53612b5",
+    "tools/build.py": "6e0281d7a7d5196da0a19a73dbb5e69bf3409987fc6447f5d74555f7bbaf69ad",
+    "tools/tu_skeleton.py": "05a807f431834f7ac74fd1c1c05a28be9567f63fdeef2a737f490a7fc8f73291",
+    "tools/flag_defaults.py": "c774d5aed53fbdce05296b8dc0aa4fc3dd12051be514e7985dde5b16f8168a68",
+    "reverse/flag_overrides.csv": "a09d22a9223efbb3f99f5f5855a6f7c8c3071ff840b88f687c16b54d69c83521",
+    "reverse/retail_inventory/flag_regions.csv": "d7146888568a91a46a81f5f7196eb91efa62d53755d71a6ff6bbbbe24d9a3129",
+    "reference/shims/bfme2_ascii/ascii_string.h": "47d6f3c9a787d89c0b734356c22e365b47575a5766126504c5cc1a90cfbdcd24",
+    "reverse/canonical_classes.csv": "ad722eadd3ea74a1f8dafbdddf4479c660158255775af032b22c8bc24a031d95"
+  },
+  "actual_flag_regions_hash_is_post_study_only": true,
+  "tracked_status_read_only": [
+    " M reverse/re_attempts.log"
+  ]
+}

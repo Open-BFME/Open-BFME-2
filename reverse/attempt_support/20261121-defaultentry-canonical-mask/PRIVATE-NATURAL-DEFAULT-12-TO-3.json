@@ -1,0 +1,100 @@
+{
+  "Control": {
+    "symbol": "??0Rva001EAE6FHelper@@QAE@XZ",
+    "extent": 12,
+    "code": {
+      "bytes": 12,
+      "sha256": "6ed687312f2be790fb06a8e06164b72c5d7bd2d6a80d3a66cad7bd7b03fb6528",
+      "hex": "568bf1e8000000008bc65ec3"
+    },
+    "section_flags": 1611665440,
+    "selections": [
+      {
+        "parent": 0,
+        "selection": 2
+      }
+    ],
+    "relocations": [
+      [
+        4,
+        "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ",
+        20
+      ]
+    ],
+    "disassembly": [
+      {
+        "offset": 0,
+        "raw": "56",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "offset": 1,
+        "raw": "8bf1",
+        "mnemonic": "mov",
+        "operands": "esi, ecx"
+      },
+      {
+        "offset": 3,
+        "raw": "e800000000",
+        "mnemonic": "call",
+        "operands": "8"
+      },
+      {
+        "offset": 8,
+        "raw": "8bc6",
+        "mnemonic": "mov",
+        "operands": "eax, esi"
+      },
+      {
+        "offset": 10,
+        "raw": "5e",
+        "mnemonic": "pop",
+        "operands": "esi"
+      },
+      {
+        "offset": 11,
+        "raw": "c3",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    ],
+    "runtime_incoming": [],
+    "no_same_object_runtime_incoming": true,
+    "limit": "Only same-object incoming references; no claim of global unreferencedness or selected link provider."
+  },
+  "Candidate": {
+    "symbol": "??0BfmeFixedStorage128@@QAE@XZ",
+    "extent": 3,
+    "code": {
+      "bytes": 3,
+      "sha256": "58367ffa2a0179375018fa0f5c26da24391e42ebe0ed8fdda35a21fc7bdc396f",
+      "hex": "8bc1c3"
+    },
+    "section_flags": 1611665440,
+    "selections": [
+      {
+        "parent": 0,
+        "selection": 2
+      }
+    ],
+    "relocations": [],
+    "disassembly": [
+      {
+        "offset": 0,
+        "raw": "8bc1",
+        "mnemonic": "mov",
+        "operands": "eax, ecx"
+      },
+      {
+        "offset": 2,
+        "raw": "c3",
+        "mnemonic": "ret",
+        "operands": ""
+      }
+    ],
+    "runtime_incoming": [],
+    "no_same_object_runtime_incoming": true,
+    "limit": "Only same-object incoming references; no claim of global unreferencedness or selected link provider."
+  }
+}

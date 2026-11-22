@@ -1,0 +1,1741 @@
+{
+  "head": "0e57ad0395f52d3fe3c5fd36c25cef7e31bc0f08",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+  "source_sha256": "9a50da117fef8997580ae3fbecafdcc4dec0557d5eae21d69a9946c0eb4149f6",
+  "candidate_sha256": "41fdc97f7f267950a152ebabc8a8ba6774cb1123661f0281adb20730d377820d",
+  "claim_snapshot": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\claims-021-unitentry-stageb-core.json",
+  "claim_snapshot_sha256": "af4e44d4b9dc3d9ac6827f65b4c7b74a126fa870c0a46b4cd1c359ea6cf3f0f0",
+  "root_explicit_authorization": "One original/one candidate native Freelist control; 449 logical keys through two class refs",
+  "native_api": "tu_skeleton.Verifier.matched",
+  "matched_call_limit": 2,
+  "concurrency": 1,
+  "compiler_calls": [
+    {
+      "phase": "original",
+      "api": "tu_skeleton.Verifier.matched",
+      "args": "FreelistPool-original-ARGS.json"
+    },
+    {
+      "phase": "candidate",
+      "api": "tu_skeleton.Verifier.matched",
+      "args": "FreelistPool-candidate-ARGS.json"
+    }
+  ],
+  "controls": [
+    {
+      "phase": "original",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+      "scratch_source": "W:\\OpenBFME\\Open-BFME-2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.FreelistPool.b9770e73e82afdfa.tu_skeleton.cpp",
+      "temporary_source_removed": true,
+      "matched_rvas": [
+        "0x001EAEF9",
+        "0x001EAF5E",
+        "0x001EAF7B",
+        "0x001EAFC1",
+        "0x001EAFFE",
+        "0x001EB023",
+        "0x001EB059",
+        "0x001EB05E",
+        "0x001EB094",
+        "0x001EB0B1",
+        "0x001EB0B9",
+        "0x001EB0CA",
+        "0x001EB0D9",
+        "0x001EB0FB",
+        "0x001EB10C",
+        "0x001EB15A",
+        "0x001EB1CB",
+        "0x001EB63C",
+        "0x004E04FD",
+        "0x0076A4D9",
+        "0x0076A4E4"
+      ],
+      "native_errors": [],
+      "scratch_object": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\b9770e73e82afdfa.obj",
+      "preexisting_scratch": {
+        "exists": false
+      },
+      "rows": [
+        {
+          "name": "?get@Rva001EB10CImulAddField@@QBEHH@Z",
+          "rva": "0x001EB10C",
+          "size": "12",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 12,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?grow@FreelistPool@@AAE_NHH@Z",
+          "rva": "0x001EAEF9",
+          "size": "101",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 101,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0B1@Rva001EB0B1Holder@@QAEXXZ",
+          "rva": "0x001EB0B1",
+          "size": "8",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 8,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0CA@Rva001EB0CAHolder@@QAEXXZ",
+          "rva": "0x001EB0CA",
+          "size": "15",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 15,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0D9@Rva001EB0CAHolder@@QAEEXZ",
+          "rva": "0x001EB0D9",
+          "size": "17",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 17,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??4Rva001EAFC1@@QAEAAV0@ABV0@@Z",
+          "rva": "0x001EAFC1",
+          "size": "61",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 61,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EAF7B@Rva001EAF7B@@QAE_NXZ",
+          "rva": "0x001EAF7B",
+          "size": "32",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 32,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB023@Rva001EB023@@QAEPAURva001EB023Elem@@AAVRva00376A62@@@Z",
+          "rva": "0x001EB023",
+          "size": "54",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 54,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB094@Rva001EB023@@QAE_NAAVRva00376A62@@@Z",
+          "rva": "0x001EB094",
+          "size": "29",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 29,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0FB@Rva001EB0FB@@QAE_NAAVRva00376A62@@@Z",
+          "rva": "0x001EB0FB",
+          "size": "17",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 17,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??0Rva001EB15A@@QAE@ABU0@@Z",
+          "rva": "0x001EB15A",
+          "size": "89",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 89,
+          "note": null,
+          "verified_folds": [],
+          "eh": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??0FreelistPool@@QAE@HHHHHH@Z",
+          "rva": "0x001EB1CB",
+          "size": "67",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 67,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??0Rva001EB15A@@QAE@XZ",
+          "rva": "0x004E04FD",
+          "size": "22",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 22,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??1Rva001EB05E@@QAE@XZ",
+          "rva": "0x001EB05E",
+          "size": "54",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 54,
+          "note": null,
+          "verified_folds": [],
+          "eh": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva001EB0B9@Rva001EB0B9@@QAEEXZ",
+          "rva": "0x001EB0B9",
+          "size": "17",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 17,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EAF5E@@YAXPAVRva001EAF5EElement@@0@Z",
+          "rva": "0x001EAF5E",
+          "size": "29",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 29,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z",
+          "rva": "0x001EAFFE",
+          "size": "37",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 37,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB059@Rva001EB023@@QAEPAURva001EB023Elem@@AAVRva00376A62@@@Z",
+          "rva": "0x001EB059",
+          "size": "5",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 5,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??1UnitRevivalEntry@@QAE@XZ",
+          "rva": "0x001EB63C",
+          "size": "78",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 78,
+          "note": null,
+          "verified_folds": [],
+          "eh": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "__ehhandler$??0Rva001EB15A@@QAE@ABU0@@Z",
+          "rva": "0x0076A4E4",
+          "size": "10",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 10,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "$L1459",
+          "rva": "0x0076A4D9",
+          "size": "11",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 11,
+          "note": "$L1459 was renumbered; verified parent EH data places $L5511 at 0x0076A4D9",
+          "verified_folds": [],
+          "eh": null
+        }
+      ],
+      "object": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-freelist-native-0e57ad03\\FreelistPool-original.obj",
+      "object_sha256": "44b9671f4acc9123b329a6084d7dda4c0682e246bce6d79d0a1444a6d68c5f3c",
+      "sidecar": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-freelist-native-0e57ad03\\FreelistPool-original.deps.json",
+      "sidecar_sha256": "b6cfc87f7d7c2e5848a81abd76eacba85203dcd695ba29cf33977a5449234548",
+      "actual_native_args_fingerprint_bound": true,
+      "actual_opened_input_hashes": [
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfme2_ascii\\ascii_string.h",
+          "sha256": "47d6f3c9a787d89c0b734356c22e365b47575a5766126504c5cc1a90cfbdcd24"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\string.h",
+          "sha256": "649fed9b37a214007f952cdca0d7f2f245ff8a58a646ae37b429f3ca6a617e5a"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_prolog.h",
+          "sha256": "8abf1ddcb3a23632972ab4de4d044ff1accb341d75d3b434547f59161c14b94c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_config.h",
+          "sha256": "05d1cad97eccb486874525dd01356674949cf26336ca01528d626bd53da1e911"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl_user_config.h",
+          "sha256": "bcf037b9c3ca8544ae958f7245d277168ba34727d45c44a8fee938143fe4fcf1"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_config_compat.h",
+          "sha256": "7f44612f97d5e27edd54f8f70987590d9e45be2f102567e7902ca233a5b5f405"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_site_config.h",
+          "sha256": "ff1c5db9f71ee1230eea43510e26f765af9637fc4cbf0cb71de039aa7a24a6e4"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stlcomp.h",
+          "sha256": "ee6ab101eaf8b4e859612359d74299505d196cf1e1e54d03e7de54eab325ff58"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_msvc.h",
+          "sha256": "903ee17fc93674925d7334d3eec4301e831a83236128cdcf10700e645acb3f90"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\vc_select_lib.h",
+          "sha256": "73506bd979c03ef1d370ca719455a7f73680480088d49ff9a8fbcc9ee030f2f8"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_select_lib.h",
+          "sha256": "e9d243d7f42b921599b65f92102c0561e6d4d3b96489277ef825abe151e3bfe3"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_confix.h",
+          "sha256": "0ae8eb1ac3fba9f27b274a6a9e7ed153c99754ffade71b134891c9a2a5f0b048"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\_prolog.h",
+          "sha256": "1151d0631348675e36c0adca86e9dbbcc2d79db019226f40caff2252ebb95ecc"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\_msvc_warnings_off.h",
+          "sha256": "695fb8d4008cde144d14f7dc3aebc8e31d27df99bbcbe8c5d5d7d461c8c0f274"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\string.h",
+          "sha256": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_epilog.h",
+          "sha256": "ed297b864038d25758715d5b5a53b782194618893b311004d79bad14b82bcb04"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\_epilog.h",
+          "sha256": "67f9b63d0883bc7f1f4316108b88b3d86f37fd6ba016b6132bad529a32db772e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_config_compat_post.h",
+          "sha256": "bc54db4e95cef8bf8ba80b053bce3cabbd261dfc82882fd8bdd2a6e39197de4d"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfme2_ascii\\string_base.h",
+          "sha256": "90fc082abfd264be1eea8316990c589be68ba42793edceb310c5b42b7ffc2dfe"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfme2_ascii\\unicode_string.h",
+          "sha256": "07ff8f21e4baa694e850927545bc94fc8aaa3888cd6b190de387232196064f78"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\GameLogic\\ObjectTypesClass.h",
+          "sha256": "7ca8fc51caa324bbd1438dad1cfd6b977ec288ff1f543194ee97bad27d85d59c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\moduledata\\Common\\Snapshot.h",
+          "sha256": "966b0ec30c8d777caa46df85bfc0f9013baeed17f8cc2cd1a1c4295172cf2206"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\vector",
+          "sha256": "f70baf4026f13f6914d35e55e9fa183cbcebaab89c9952c5a1023ce2c1398cba"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfmealloc\\stl\\_algobase.h",
+          "sha256": "9e1a2172ee941b568b26728d00998b5c53c44f3121523174cfcdb590d50c1966"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\cstddef",
+          "sha256": "798d58aa1d369789689f19fe3e4976ec66ed3a15e32aaf9bd931ac6a67627cb2"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstddef",
+          "sha256": "f83f50123dd77e05f5b112abcf7f47b2a9e7076727955f91db471ae273e67430"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\yvals.h",
+          "sha256": "b9340f3de0fd2f1c0e0b81b99e9f42252a0ec5652267536e9c62b0b4f1bf8980"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\use_ansi.h",
+          "sha256": "56ba75ecabe4ff0af0ab227d88ce407c31e0f0c8d05c1e42423186da04069fdc"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stddef.h",
+          "sha256": "6d2c4a058d70bf424018e568feea0a006b3b2730a5f18cc10c9a82dc66bdc7bc"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stddef.h",
+          "sha256": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\cstring",
+          "sha256": "4152f75af2829dec2c32e62da7aacbea2b4bea8bdfc252597810b7996c73a43d"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstring",
+          "sha256": "363e4858a9b1d3fd3ef07d300f7b384615b8af48c0d1e9e4c294ea86a1d7d620"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\using\\cstring",
+          "sha256": "bedaa9a2b060b05f202dad660e584b43171735e2e492d606599b8fd72b746a65"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\climits",
+          "sha256": "c8d9733952dbf91d2bbbb67697c7dbe2227e10e361fc9045814158519ac218a6"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\climits",
+          "sha256": "ccd3e243fd3d9b28d7ef487c6c203ff39e7fbc039eadd28384f7ae8f8e133a0e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\limits.h",
+          "sha256": "d3ad33ce7c8eb1c3f7c5f151339efdcd44ae1d76506a314f0b91daf26c004522"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\cstdlib",
+          "sha256": "0185f277af520d975bbffc37bee0d741e269af7c2a90816776259820ed94d8fa"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstdlib",
+          "sha256": "e7c431e5c256b9458bb31bce7e770d99481b23ff22f609b4b6a91c50f183ec24"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stdlib.h",
+          "sha256": "f1ef61508ef27bc170e615b39318e2bb688d75a2525e265264e3c6279eca9ed2"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stdlib.h",
+          "sha256": "64ff5e0893b39638f7f8e510b7992f8f9c9bb09c046c9747072c44b3348cf946"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_pair.h",
+          "sha256": "4f9809a8e71134ff159b0da69d502d67b3f55f698589f468bad060b4f19f3a8e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_iterator_base.h",
+          "sha256": "d61032f9f00ca07b29617bda5bc541311f412a29f4b6f188cc74be8c5e972ede"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\type_traits.h",
+          "sha256": "033aba0d783060cd9c3b7d3dded980ef6a397501846786a0f0d109880de2f40e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_algobase.c",
+          "sha256": "b23e8258a33985b1427e57226b17737cc3c8b72129c6e237ffb848d28a64604b"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_iterator.h",
+          "sha256": "5c32732d8177aa76a4b3310912391062a7f6f81c91f5c8b4bc4e5c5c04626b2f"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_vector.h",
+          "sha256": "1cb0be1afd4a24ded96d0cfb012c04d1fbb818f86b009ffef352f081f4ca7fcf"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfmealloc\\stl\\_alloc.h",
+          "sha256": "ca68eb1e65e5135e0fbaeb911e54f8f3bd063d177bad1f8be4f3f22bc3755a1b"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\new",
+          "sha256": "70484966eaa0644a8936eaa6a6b21c47fbc721161ca3b4425f21b3857734fa29"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\new",
+          "sha256": "bd97c3f682c039eb7ee00c9acfc2d4cf44c55671b373fba777af7652faf15fd9"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\exception",
+          "sha256": "24239681af3a75a9f1c25c3231643ce4e903d661726329c0f901359fe4f0bbca"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\exception",
+          "sha256": "994d4a23a837d92100205d89ac38c13c317cfb1851c2ae1fdc4d80b0e052c40c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\xstddef",
+          "sha256": "e3b1fa3dcb3281ee2f22f79150303d943362263ea0b95874cd313b2798112a27"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\eh.h",
+          "sha256": "6ee4653126d60011021b2c57abe3e01b3030c3103248346da5299ecdf8e9d932"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_threads.h",
+          "sha256": "c2af83c7807ec31f7a2389ef948b46dbccb506ed580483d56c2d5814341530f3"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_threads.c",
+          "sha256": "bf4ee55d1a690992b697e980cb136c97d1b0417c25c2a72da2472139ac4b192c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_construct.h",
+          "sha256": "c58c7b11f363ef6bf94d52b4a404a20c0f3bc2640f39c7733f3186c871db7679"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfmealloc\\stl\\_uninitialized.h",
+          "sha256": "3ca31b465d9a53cfe9ae7aa3be75cdd9d84ff901a43230f7e1449db519f26877"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_range_errors.h",
+          "sha256": "4649f4db46ca2bbec5261d04aaf8f90f86de11daad23e3b9058662604dfdc1ce"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_relops_cont.h",
+          "sha256": "c9b11d657653b9a6551522090095d59f20817d714502a90cef0629d42085955f"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_vector.c",
+          "sha256": "0332ecf0443095e97e41985aaa288918b921f7c7e46a3523024448b240191d53"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_bvector.h",
+          "sha256": "0c339c65b9994b04e969691306e517a3091126e286883a9bee070fb5807c05e1"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\Common\\Rva000AD6F4.h",
+          "sha256": "67dc8de48bc34461caf76ecff1651cfbd8eb4e2eb12da9fff3186132ba174822"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\GameLogic\\Rva00376A62.h",
+          "sha256": "308c05ddb0edbfc09ce7de54cb8a656b93e9d7ac4664ab1d58dd88642b0e35f3"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\Common\\Rva001EB15A.h",
+          "sha256": "e3235cda746c74fcb4111b1e3ee23c7ff90cabbec5a56dd1d860efa048f469cf"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\Common\\FreelistPool.h",
+          "sha256": "35dde0f949c3fe910f0dd8f27d045ddddf106ce952dfa6b44fd15c7a1b658c02"
+        }
+      ],
+      "scratch_mtime_changed": true,
+      "eh_evidence": [
+        {
+          "name": "??0Rva001EB15A@@QAE@ABU0@@Z",
+          "rva": "0x001EB15A",
+          "retail_handler": 7775460,
+          "retail_funcinfo": 9500816,
+          "unwind_states": [
+            {
+              "state": 0,
+              "to_state": -1,
+              "action_rva": 7775449
+            }
+          ],
+          "sections": [
+            {
+              "index": 60,
+              "name": ".text$x",
+              "retail_rva": 7775449,
+              "bytes": "8b4df083c10ce900000000b800000000e900000000",
+              "sha256": "dded2dcce3a6f62687b7b03ef9f64475984c72acc4c96ce656fd6e59d1fdcbee",
+              "relocs": [
+                [
+                  7,
+                  {
+                    "name": "??1UnicodeString@@QAE@XZ",
+                    "value": 0,
+                    "section": 50,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  12,
+                  {
+                    "name": "$T5523",
+                    "value": 8,
+                    "section": 61,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  17,
+                  {
+                    "name": "___CxxFrameHandler",
+                    "value": 0,
+                    "section": 0,
+                    "storage": 2
+                  },
+                  20
+                ]
+              ]
+            },
+            {
+              "index": 61,
+              "name": ".xdata$x",
+              "retail_rva": 9500808,
+              "bytes": "ffffffff0000000020059319010000000000000000000000000000000000000000000000",
+              "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+              "relocs": [
+                [
+                  4,
+                  {
+                    "name": "$L5511",
+                    "value": 0,
+                    "section": 60,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  16,
+                  {
+                    "name": "$T5525",
+                    "value": 0,
+                    "section": 61,
+                    "storage": 3
+                  },
+                  6
+                ]
+              ]
+            }
+          ],
+          "all_bound_funclets": {
+            "$L5511": 7775449
+          }
+        },
+        {
+          "name": "??1Rva001EB05E@@QAE@XZ",
+          "rva": "0x001EB05E",
+          "retail_handler": 7775460,
+          "retail_funcinfo": 9500816,
+          "unwind_states": [
+            {
+              "state": 0,
+              "to_state": -1,
+              "action_rva": 7775449
+            }
+          ],
+          "sections": [
+            {
+              "index": 53,
+              "name": ".text$x",
+              "retail_rva": 7775449,
+              "bytes": "8b4df083c10ce900000000b800000000e900000000",
+              "sha256": "dded2dcce3a6f62687b7b03ef9f64475984c72acc4c96ce656fd6e59d1fdcbee",
+              "relocs": [
+                [
+                  7,
+                  {
+                    "name": "??1UnicodeString@@QAE@XZ",
+                    "value": 0,
+                    "section": 50,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  12,
+                  {
+                    "name": "$T5486",
+                    "value": 8,
+                    "section": 54,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  17,
+                  {
+                    "name": "___CxxFrameHandler",
+                    "value": 0,
+                    "section": 0,
+                    "storage": 2
+                  },
+                  20
+                ]
+              ]
+            },
+            {
+              "index": 54,
+              "name": ".xdata$x",
+              "retail_rva": 9500808,
+              "bytes": "ffffffff0000000020059319010000000000000000000000000000000000000000000000",
+              "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+              "relocs": [
+                [
+                  4,
+                  {
+                    "name": "$L5461",
+                    "value": 0,
+                    "section": 53,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  16,
+                  {
+                    "name": "$T5490",
+                    "value": 0,
+                    "section": 54,
+                    "storage": 3
+                  },
+                  6
+                ]
+              ]
+            }
+          ],
+          "all_bound_funclets": {
+            "$L5461": 7775449
+          }
+        },
+        {
+          "name": "??1UnitRevivalEntry@@QAE@XZ",
+          "rva": "0x001EB63C",
+          "retail_handler": 7775585,
+          "retail_funcinfo": 9500984,
+          "unwind_states": [
+            {
+              "state": 0,
+              "to_state": -1,
+              "action_rva": 7775557
+            },
+            {
+              "state": 1,
+              "to_state": 0,
+              "action_rva": 7775571
+            }
+          ],
+          "sections": [
+            {
+              "index": 57,
+              "name": ".text$x",
+              "retail_rva": 7775557,
+              "bytes": "8b4df081c1b0000000e9000000008b4df081c1d0000000e900000000b800000000e900000000",
+              "sha256": "182931cea2282bae403ffc879650881e19d6c89de2b09ae287ebc85bc7ca520c",
+              "relocs": [
+                [
+                  10,
+                  {
+                    "name": "??1Rva001EB05E@@QAE@XZ",
+                    "value": 0,
+                    "section": 52,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  24,
+                  {
+                    "name": "??1AsciiString@@QAE@XZ",
+                    "value": 0,
+                    "section": 7,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  29,
+                  {
+                    "name": "$T5505",
+                    "value": 16,
+                    "section": 58,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  34,
+                  {
+                    "name": "___CxxFrameHandler",
+                    "value": 0,
+                    "section": 0,
+                    "storage": 2
+                  },
+                  20
+                ]
+              ]
+            },
+            {
+              "index": 58,
+              "name": ".xdata$x",
+              "retail_rva": 9500968,
+              "bytes": "ffffffff00000000000000000000000020059319020000000000000000000000000000000000000000000000",
+              "sha256": "811e894c9e032607d2cc3dac4f309e135f08ff289c6b6cc02e992ae5bef787a0",
+              "relocs": [
+                [
+                  4,
+                  {
+                    "name": "$L5495",
+                    "value": 0,
+                    "section": 57,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  12,
+                  {
+                    "name": "$L5496",
+                    "value": 14,
+                    "section": 57,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  24,
+                  {
+                    "name": "$T5507",
+                    "value": 0,
+                    "section": 58,
+                    "storage": 3
+                  },
+                  6
+                ]
+              ]
+            }
+          ],
+          "all_bound_funclets": {
+            "$L5496": 7775571,
+            "$L5495": 7775557
+          }
+        }
+      ],
+      "all_rows_and_eh_pass": true
+    }
+  ],
+  "candidates": [
+    {
+      "phase": "candidate",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+      "scratch_source": "W:\\OpenBFME\\Open-BFME-2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.FreelistPool.8700bcceff7cb232.tu_skeleton.cpp",
+      "temporary_source_removed": true,
+      "matched_rvas": [
+        "0x001EAEF9",
+        "0x001EAF5E",
+        "0x001EAF7B",
+        "0x001EAFC1",
+        "0x001EAFFE",
+        "0x001EB023",
+        "0x001EB059",
+        "0x001EB05E",
+        "0x001EB094",
+        "0x001EB0B1",
+        "0x001EB0B9",
+        "0x001EB0CA",
+        "0x001EB0D9",
+        "0x001EB0FB",
+        "0x001EB10C",
+        "0x001EB15A",
+        "0x001EB1CB",
+        "0x001EB63C",
+        "0x004E04FD",
+        "0x0076A4D9",
+        "0x0076A4E4"
+      ],
+      "native_errors": [],
+      "scratch_object": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\8700bcceff7cb232.obj",
+      "preexisting_scratch": {
+        "exists": false
+      },
+      "rows": [
+        {
+          "name": "?get@Rva001EB10CImulAddField@@QBEHH@Z",
+          "rva": "0x001EB10C",
+          "size": "12",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 12,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?grow@FreelistPool@@AAE_NHH@Z",
+          "rva": "0x001EAEF9",
+          "size": "101",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 101,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0B1@Rva001EB0B1Holder@@QAEXXZ",
+          "rva": "0x001EB0B1",
+          "size": "8",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 8,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0CA@Rva001EB0CAHolder@@QAEXXZ",
+          "rva": "0x001EB0CA",
+          "size": "15",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 15,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0D9@Rva001EB0CAHolder@@QAEEXZ",
+          "rva": "0x001EB0D9",
+          "size": "17",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 17,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??4Rva001EAFC1@@QAEAAV0@ABV0@@Z",
+          "rva": "0x001EAFC1",
+          "size": "61",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 61,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EAF7B@Rva001EAF7B@@QAE_NXZ",
+          "rva": "0x001EAF7B",
+          "size": "32",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 32,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB023@Rva001EB023@@QAEPAURva001EB023Elem@@AAVRva00376A62@@@Z",
+          "rva": "0x001EB023",
+          "size": "54",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 54,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB094@Rva001EB023@@QAE_NAAVRva00376A62@@@Z",
+          "rva": "0x001EB094",
+          "size": "29",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 29,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB0FB@Rva001EB0FB@@QAE_NAAVRva00376A62@@@Z",
+          "rva": "0x001EB0FB",
+          "size": "17",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 17,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??0Rva001EB15A@@QAE@ABU0@@Z",
+          "rva": "0x001EB15A",
+          "size": "89",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 89,
+          "note": null,
+          "verified_folds": [],
+          "eh": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "??0FreelistPool@@QAE@HHHHHH@Z",
+          "rva": "0x001EB1CB",
+          "size": "67",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 67,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??0Rva001EB15A@@QAE@XZ",
+          "rva": "0x004E04FD",
+          "size": "22",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 22,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??1Rva001EB05E@@QAE@XZ",
+          "rva": "0x001EB05E",
+          "size": "54",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 54,
+          "note": null,
+          "verified_folds": [],
+          "eh": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva001EB0B9@Rva001EB0B9@@QAEEXZ",
+          "rva": "0x001EB0B9",
+          "size": "17",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 17,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EAF5E@@YAXPAVRva001EAF5EElement@@0@Z",
+          "rva": "0x001EAF5E",
+          "size": "29",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 29,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z",
+          "rva": "0x001EAFFE",
+          "size": "37",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 37,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "?rva001EB059@Rva001EB023@@QAEPAURva001EB023Elem@@AAVRva00376A62@@@Z",
+          "rva": "0x001EB059",
+          "size": "5",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 5,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "??1UnitRevivalEntry@@QAE@XZ",
+          "rva": "0x001EB63C",
+          "size": "78",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 78,
+          "note": null,
+          "verified_folds": [],
+          "eh": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "__ehhandler$??0Rva001EB15A@@QAE@ABU0@@Z",
+          "rva": "0x0076A4E4",
+          "size": "10",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 10,
+          "note": null,
+          "verified_folds": [],
+          "eh": null
+        },
+        {
+          "name": "$L1459",
+          "rva": "0x0076A4D9",
+          "size": "11",
+          "equal": true,
+          "unresolved": [],
+          "masked": false,
+          "concrete": 11,
+          "note": "$L1459 was renumbered; verified parent EH data places $L5513 at 0x0076A4D9",
+          "verified_folds": [],
+          "eh": null
+        }
+      ],
+      "object": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-freelist-native-0e57ad03\\FreelistPool-candidate.obj",
+      "object_sha256": "0f94816a4bd9b641002e0a3627a644115d0e17d9314ffa331f2b16a5f5e31157",
+      "sidecar": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-freelist-native-0e57ad03\\FreelistPool-candidate.deps.json",
+      "sidecar_sha256": "4fee0b685128958223590aa4d2f0ea356ac66d30bc6d9e2635bffde932487c79",
+      "actual_native_args_fingerprint_bound": true,
+      "actual_opened_input_hashes": [
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfme2_ascii\\ascii_string.h",
+          "sha256": "47d6f3c9a787d89c0b734356c22e365b47575a5766126504c5cc1a90cfbdcd24"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\string.h",
+          "sha256": "649fed9b37a214007f952cdca0d7f2f245ff8a58a646ae37b429f3ca6a617e5a"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_prolog.h",
+          "sha256": "8abf1ddcb3a23632972ab4de4d044ff1accb341d75d3b434547f59161c14b94c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_config.h",
+          "sha256": "05d1cad97eccb486874525dd01356674949cf26336ca01528d626bd53da1e911"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl_user_config.h",
+          "sha256": "bcf037b9c3ca8544ae958f7245d277168ba34727d45c44a8fee938143fe4fcf1"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_config_compat.h",
+          "sha256": "7f44612f97d5e27edd54f8f70987590d9e45be2f102567e7902ca233a5b5f405"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_site_config.h",
+          "sha256": "ff1c5db9f71ee1230eea43510e26f765af9637fc4cbf0cb71de039aa7a24a6e4"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stlcomp.h",
+          "sha256": "ee6ab101eaf8b4e859612359d74299505d196cf1e1e54d03e7de54eab325ff58"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_msvc.h",
+          "sha256": "903ee17fc93674925d7334d3eec4301e831a83236128cdcf10700e645acb3f90"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\vc_select_lib.h",
+          "sha256": "73506bd979c03ef1d370ca719455a7f73680480088d49ff9a8fbcc9ee030f2f8"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_select_lib.h",
+          "sha256": "e9d243d7f42b921599b65f92102c0561e6d4d3b96489277ef825abe151e3bfe3"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\stl_confix.h",
+          "sha256": "0ae8eb1ac3fba9f27b274a6a9e7ed153c99754ffade71b134891c9a2a5f0b048"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\_prolog.h",
+          "sha256": "1151d0631348675e36c0adca86e9dbbcc2d79db019226f40caff2252ebb95ecc"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\_msvc_warnings_off.h",
+          "sha256": "695fb8d4008cde144d14f7dc3aebc8e31d27df99bbcbe8c5d5d7d461c8c0f274"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\string.h",
+          "sha256": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_epilog.h",
+          "sha256": "ed297b864038d25758715d5b5a53b782194618893b311004d79bad14b82bcb04"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\config\\_epilog.h",
+          "sha256": "67f9b63d0883bc7f1f4316108b88b3d86f37fd6ba016b6132bad529a32db772e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_config_compat_post.h",
+          "sha256": "bc54db4e95cef8bf8ba80b053bce3cabbd261dfc82882fd8bdd2a6e39197de4d"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfme2_ascii\\string_base.h",
+          "sha256": "90fc082abfd264be1eea8316990c589be68ba42793edceb310c5b42b7ffc2dfe"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfme2_ascii\\unicode_string.h",
+          "sha256": "07ff8f21e4baa694e850927545bc94fc8aaa3888cd6b190de387232196064f78"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\GameLogic\\ObjectTypesClass.h",
+          "sha256": "7ca8fc51caa324bbd1438dad1cfd6b977ec288ff1f543194ee97bad27d85d59c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\moduledata\\Common\\Snapshot.h",
+          "sha256": "966b0ec30c8d777caa46df85bfc0f9013baeed17f8cc2cd1a1c4295172cf2206"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\vector",
+          "sha256": "f70baf4026f13f6914d35e55e9fa183cbcebaab89c9952c5a1023ce2c1398cba"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfmealloc\\stl\\_algobase.h",
+          "sha256": "9e1a2172ee941b568b26728d00998b5c53c44f3121523174cfcdb590d50c1966"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\cstddef",
+          "sha256": "798d58aa1d369789689f19fe3e4976ec66ed3a15e32aaf9bd931ac6a67627cb2"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstddef",
+          "sha256": "f83f50123dd77e05f5b112abcf7f47b2a9e7076727955f91db471ae273e67430"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\yvals.h",
+          "sha256": "b9340f3de0fd2f1c0e0b81b99e9f42252a0ec5652267536e9c62b0b4f1bf8980"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\use_ansi.h",
+          "sha256": "56ba75ecabe4ff0af0ab227d88ce407c31e0f0c8d05c1e42423186da04069fdc"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stddef.h",
+          "sha256": "6d2c4a058d70bf424018e568feea0a006b3b2730a5f18cc10c9a82dc66bdc7bc"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stddef.h",
+          "sha256": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\cstring",
+          "sha256": "4152f75af2829dec2c32e62da7aacbea2b4bea8bdfc252597810b7996c73a43d"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstring",
+          "sha256": "363e4858a9b1d3fd3ef07d300f7b384615b8af48c0d1e9e4c294ea86a1d7d620"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\using\\cstring",
+          "sha256": "bedaa9a2b060b05f202dad660e584b43171735e2e492d606599b8fd72b746a65"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\climits",
+          "sha256": "c8d9733952dbf91d2bbbb67697c7dbe2227e10e361fc9045814158519ac218a6"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\climits",
+          "sha256": "ccd3e243fd3d9b28d7ef487c6c203ff39e7fbc039eadd28384f7ae8f8e133a0e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\limits.h",
+          "sha256": "d3ad33ce7c8eb1c3f7c5f151339efdcd44ae1d76506a314f0b91daf26c004522"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\cstdlib",
+          "sha256": "0185f277af520d975bbffc37bee0d741e269af7c2a90816776259820ed94d8fa"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\cstdlib",
+          "sha256": "e7c431e5c256b9458bb31bce7e770d99481b23ff22f609b4b6a91c50f183ec24"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stdlib.h",
+          "sha256": "f1ef61508ef27bc170e615b39318e2bb688d75a2525e265264e3c6279eca9ed2"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\stdlib.h",
+          "sha256": "64ff5e0893b39638f7f8e510b7992f8f9c9bb09c046c9747072c44b3348cf946"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_pair.h",
+          "sha256": "4f9809a8e71134ff159b0da69d502d67b3f55f698589f468bad060b4f19f3a8e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_iterator_base.h",
+          "sha256": "d61032f9f00ca07b29617bda5bc541311f412a29f4b6f188cc74be8c5e972ede"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\type_traits.h",
+          "sha256": "033aba0d783060cd9c3b7d3dded980ef6a397501846786a0f0d109880de2f40e"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_algobase.c",
+          "sha256": "b23e8258a33985b1427e57226b17737cc3c8b72129c6e237ffb848d28a64604b"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_iterator.h",
+          "sha256": "5c32732d8177aa76a4b3310912391062a7f6f81c91f5c8b4bc4e5c5c04626b2f"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_vector.h",
+          "sha256": "1cb0be1afd4a24ded96d0cfb012c04d1fbb818f86b009ffef352f081f4ca7fcf"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfmealloc\\stl\\_alloc.h",
+          "sha256": "ca68eb1e65e5135e0fbaeb911e54f8f3bd063d177bad1f8be4f3f22bc3755a1b"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\new",
+          "sha256": "70484966eaa0644a8936eaa6a6b21c47fbc721161ca3b4425f21b3857734fa29"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\new",
+          "sha256": "bd97c3f682c039eb7ee00c9acfc2d4cf44c55671b373fba777af7652faf15fd9"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\exception",
+          "sha256": "24239681af3a75a9f1c25c3231643ce4e903d661726329c0f901359fe4f0bbca"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\exception",
+          "sha256": "994d4a23a837d92100205d89ac38c13c317cfb1851c2ae1fdc4d80b0e052c40c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\xstddef",
+          "sha256": "e3b1fa3dcb3281ee2f22f79150303d943362263ea0b95874cd313b2798112a27"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include\\eh.h",
+          "sha256": "6ee4653126d60011021b2c57abe3e01b3030c3103248346da5299ecdf8e9d932"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_threads.h",
+          "sha256": "c2af83c7807ec31f7a2389ef948b46dbccb506ed580483d56c2d5814341530f3"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_threads.c",
+          "sha256": "bf4ee55d1a690992b697e980cb136c97d1b0417c25c2a72da2472139ac4b192c"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_construct.h",
+          "sha256": "c58c7b11f363ef6bf94d52b4a404a20c0f3bc2640f39c7733f3186c871db7679"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\reference\\shims\\bfmealloc\\stl\\_uninitialized.h",
+          "sha256": "3ca31b465d9a53cfe9ae7aa3be75cdd9d84ff901a43230f7e1449db519f26877"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_range_errors.h",
+          "sha256": "4649f4db46ca2bbec5261d04aaf8f90f86de11daad23e3b9058662604dfdc1ce"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_relops_cont.h",
+          "sha256": "c9b11d657653b9a6551522090095d59f20817d714502a90cef0629d42085955f"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_vector.c",
+          "sha256": "0332ecf0443095e97e41985aaa288918b921f7c7e46a3523024448b240191d53"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\vendor\\stlport\\stl\\_bvector.h",
+          "sha256": "0c339c65b9994b04e969691306e517a3091126e286883a9bee070fb5807c05e1"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\Common\\Rva000AD6F4.h",
+          "sha256": "67dc8de48bc34461caf76ecff1651cfbd8eb4e2eb12da9fff3186132ba174822"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\GameLogic\\Rva00376A62.h",
+          "sha256": "308c05ddb0edbfc09ce7de54cb8a656b93e9d7ac4664ab1d58dd88642b0e35f3"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\Common\\Rva001EB15A.h",
+          "sha256": "e3235cda746c74fcb4111b1e3ee23c7ff90cabbec5a56dd1d860efa048f469cf"
+        },
+        {
+          "path": "W:\\OpenBFME\\Open-BFME-2\\code\\gameengine\\Include\\Common\\FreelistPool.h",
+          "sha256": "35dde0f949c3fe910f0dd8f27d045ddddf106ce952dfa6b44fd15c7a1b658c02"
+        }
+      ],
+      "scratch_mtime_changed": true,
+      "eh_evidence": [
+        {
+          "name": "??0Rva001EB15A@@QAE@ABU0@@Z",
+          "rva": "0x001EB15A",
+          "retail_handler": 7775460,
+          "retail_funcinfo": 9500816,
+          "unwind_states": [
+            {
+              "state": 0,
+              "to_state": -1,
+              "action_rva": 7775449
+            }
+          ],
+          "sections": [
+            {
+              "index": 60,
+              "name": ".text$x",
+              "retail_rva": 7775449,
+              "bytes": "8b4df083c10ce900000000b800000000e900000000",
+              "sha256": "dded2dcce3a6f62687b7b03ef9f64475984c72acc4c96ce656fd6e59d1fdcbee",
+              "relocs": [
+                [
+                  7,
+                  {
+                    "name": "??1UnicodeString@@QAE@XZ",
+                    "value": 0,
+                    "section": 54,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  12,
+                  {
+                    "name": "$T5525",
+                    "value": 8,
+                    "section": 61,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  17,
+                  {
+                    "name": "___CxxFrameHandler",
+                    "value": 0,
+                    "section": 0,
+                    "storage": 2
+                  },
+                  20
+                ]
+              ]
+            },
+            {
+              "index": 61,
+              "name": ".xdata$x",
+              "retail_rva": 9500808,
+              "bytes": "ffffffff0000000020059319010000000000000000000000000000000000000000000000",
+              "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+              "relocs": [
+                [
+                  4,
+                  {
+                    "name": "$L5513",
+                    "value": 0,
+                    "section": 60,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  16,
+                  {
+                    "name": "$T5527",
+                    "value": 0,
+                    "section": 61,
+                    "storage": 3
+                  },
+                  6
+                ]
+              ]
+            }
+          ],
+          "all_bound_funclets": {
+            "$L5513": 7775449
+          }
+        },
+        {
+          "name": "??1Rva001EB05E@@QAE@XZ",
+          "rva": "0x001EB05E",
+          "retail_handler": 7775460,
+          "retail_funcinfo": 9500816,
+          "unwind_states": [
+            {
+              "state": 0,
+              "to_state": -1,
+              "action_rva": 7775449
+            }
+          ],
+          "sections": [
+            {
+              "index": 57,
+              "name": ".text$x",
+              "retail_rva": 7775449,
+              "bytes": "8b4df083c10ce900000000b800000000e900000000",
+              "sha256": "dded2dcce3a6f62687b7b03ef9f64475984c72acc4c96ce656fd6e59d1fdcbee",
+              "relocs": [
+                [
+                  7,
+                  {
+                    "name": "??1UnicodeString@@QAE@XZ",
+                    "value": 0,
+                    "section": 54,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  12,
+                  {
+                    "name": "$T5507",
+                    "value": 8,
+                    "section": 58,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  17,
+                  {
+                    "name": "___CxxFrameHandler",
+                    "value": 0,
+                    "section": 0,
+                    "storage": 2
+                  },
+                  20
+                ]
+              ]
+            },
+            {
+              "index": 58,
+              "name": ".xdata$x",
+              "retail_rva": 9500808,
+              "bytes": "ffffffff0000000020059319010000000000000000000000000000000000000000000000",
+              "sha256": "0d3e5c3b04c134726c1292aaa03d3b3720e4e095ca105e0158a66b8340d15010",
+              "relocs": [
+                [
+                  4,
+                  {
+                    "name": "$L5484",
+                    "value": 0,
+                    "section": 57,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  16,
+                  {
+                    "name": "$T5509",
+                    "value": 0,
+                    "section": 58,
+                    "storage": 3
+                  },
+                  6
+                ]
+              ]
+            }
+          ],
+          "all_bound_funclets": {
+            "$L5484": 7775449
+          }
+        },
+        {
+          "name": "??1UnitRevivalEntry@@QAE@XZ",
+          "rva": "0x001EB63C",
+          "retail_handler": 7775585,
+          "retail_funcinfo": 9500984,
+          "unwind_states": [
+            {
+              "state": 0,
+              "to_state": -1,
+              "action_rva": 7775557
+            },
+            {
+              "state": 1,
+              "to_state": 0,
+              "action_rva": 7775571
+            }
+          ],
+          "sections": [
+            {
+              "index": 39,
+              "name": ".text$x",
+              "retail_rva": 7775557,
+              "bytes": "8b4df081c1b0000000e9000000008b4df081c1d0000000e900000000b800000000e900000000",
+              "sha256": "182931cea2282bae403ffc879650881e19d6c89de2b09ae287ebc85bc7ca520c",
+              "relocs": [
+                [
+                  10,
+                  {
+                    "name": "??1Rva001EB15A@@QAE@XZ",
+                    "value": 0,
+                    "section": 0,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  24,
+                  {
+                    "name": "??1AsciiString@@QAE@XZ",
+                    "value": 0,
+                    "section": 7,
+                    "storage": 2
+                  },
+                  20
+                ],
+                [
+                  29,
+                  {
+                    "name": "$T5444",
+                    "value": 16,
+                    "section": 40,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  34,
+                  {
+                    "name": "___CxxFrameHandler",
+                    "value": 0,
+                    "section": 0,
+                    "storage": 2
+                  },
+                  20
+                ]
+              ]
+            },
+            {
+              "index": 40,
+              "name": ".xdata$x",
+              "retail_rva": 9500968,
+              "bytes": "ffffffff00000000000000000000000020059319020000000000000000000000000000000000000000000000",
+              "sha256": "811e894c9e032607d2cc3dac4f309e135f08ff289c6b6cc02e992ae5bef787a0",
+              "relocs": [
+                [
+                  4,
+                  {
+                    "name": "$L5432",
+                    "value": 0,
+                    "section": 39,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  12,
+                  {
+                    "name": "$L5433",
+                    "value": 14,
+                    "section": 39,
+                    "storage": 3
+                  },
+                  6
+                ],
+                [
+                  24,
+                  {
+                    "name": "$T5448",
+                    "value": 0,
+                    "section": 40,
+                    "storage": 3
+                  },
+                  6
+                ]
+              ]
+            }
+          ],
+          "all_bound_funclets": {
+            "$L5433": 7775571,
+            "$L5432": 7775557
+          }
+        }
+      ],
+      "all_rows_and_eh_pass": true
+    }
+  ],
+  "no_source_instrumentation": true,
+  "production_changes": false,
+  "new_bodies": 0,
+  "new_bytes": 0,
+  "limits": "Private row/EH/COFF evidence. No normal owning-tool accept, real provider/link admission or runtime proof.",
+  "matched_calls": 2,
+  "ending_head": "0e57ad0395f52d3fe3c5fd36c25cef7e31bc0f08",
+  "ending_git_status": "",
+  "all_frozen_inputs_current": true
+}

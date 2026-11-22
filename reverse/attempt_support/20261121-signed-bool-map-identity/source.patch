@@ -1,0 +1,10 @@
+--- a/Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp
+@@ -9,6 +9,7 @@
+ // from retail land on the pinned map<int,bool> callees 0x00382A92 and
+ // 0x0046F0A5. The explicit instantiation emits only the operator and its
+ // callees, no scaffold function.
++#define _BFME_RETAIL_TREE_INSERT_LAYOUT 1
+ #include <map>
+ 
+ // __node_alloc<1,0>:: otherwise emits a per-TU COMDAT that loses to another

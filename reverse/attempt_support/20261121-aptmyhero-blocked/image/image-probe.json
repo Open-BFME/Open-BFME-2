@@ -1,0 +1,51 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp",
+  "source_sha256": "0b7f226bec8cc35e0ffdaea8c8f20bedb7fd908fc1a790052ae93f9ad0a82a3a",
+  "control": {
+    "matched": [
+      "0x0007FAB3",
+      "0x005B190D",
+      "0x005B1A50",
+      "0x005B1EE2",
+      "0x0079EF4A",
+      "0x0079EF52",
+      "0x0079EF60",
+      "0x0079EF78",
+      "0x0079EF80",
+      "0x0079EFAC",
+      "0x0079EFB4",
+      "0x0079EFBC",
+      "0x0079EFC4",
+      "0x0079EFCC",
+      "0x0079EFD4",
+      "0x0079EFDC"
+    ],
+    "missing": [],
+    "errors": [],
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\aptmyhero008-image\\objects\\b457541884ab50d9.obj"
+  },
+  "candidate": {
+    "matched": [
+      "0x0007FAB3",
+      "0x005B1A50",
+      "0x005B1EE2",
+      "0x0079EF60",
+      "0x0079EF80",
+      "0x0079EFAC",
+      "0x0079EFB4",
+      "0x0079EFBC",
+      "0x0079EFC4",
+      "0x0079EFCC",
+      "0x0079EFD4",
+      "0x0079EFDC"
+    ],
+    "missing": [
+      "0x005B190D",
+      "0x0079EF4A",
+      "0x0079EF52",
+      "0x0079EF78"
+    ],
+    "errors": [],
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\aptmyhero008-image\\objects\\413fe79fd580a116.obj"
+  }
+}

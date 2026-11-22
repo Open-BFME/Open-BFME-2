@@ -1,0 +1,18 @@
+[
+  {
+    "line": 80350,
+    "text": "?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ\t0x00626DF0\t25\tblocked\tlink-repair ControlBarPopupDescription.cpp (3,289 B): its /O1 size() copy divides by 0x24 (createContent's matched body strides ProductionPrerequisite by 0x24), while the row 0x626DF0 (ThingFactory.cpp, ZH-sized 0x18 element) divides by 24, so the rowed name likely belongs to another 24-byte vector; a TU-end #pragma optimize(\"t\",on) gives the /O2 /36 form (body stays 3/3) but still loses and adds 6 STL allocator/ctor blockers. Needs the naming lane to resolve which vector 0x626DF0 is. t=15 model=claude-opus-5-5"
+  },
+  {
+    "line": 103133,
+    "text": "tu-merge:Code/GameEngine/Source/Common/Thing/ThingFactory.cpp\t0x0\t0\tblocked\tdry run accepted 0 of 62 donors: 54 no baseline match, 8 lose rows under the carried flag override; 6 donors adopt-first (ThingFactory, ThingTemplate, Overridable, MultiIniFieldParse) t=15 model=claude-opus-5-5 merge-lane-2 boat dry run 2026-11-09 after seed-first search 48087f38a3"
+  },
+  {
+    "line": 103155,
+    "text": "??1Nugget@ModuleInfo@@QAE@XZ\t0x002CF51B\t53\tblocked\ttu_skeleton --split Common/Thing/ThingTemplate.cpp --for Common/Thing/ThingFactory.cpp refused: 'no definition spells its name'. No definition of this member appears in the file at all -- it only uses the type, and the body is a header-emitted COMDAT retail's linker kept from this object -- so identify() has nothing to carve and no split can ever move this row; emission_held declines to hold it because spells_definition returns True by default for a non-template name (no proof of absence). tu_skeleton.merge() therefore refuses Common/Thing/ThingTemplate.cpp's TU before weighing any donor (74 donor files) and names a split as the remedy, which cannot be performed. t=2 model=claude-opus-5"
+  },
+  {
+    "line": 103759,
+    "text": "tu-merge:Code/GameEngine/Source/Common/Thing/ThingFactory.cpp\t0x0\t0\tblocked\tdry run at 039704e58a6 (plus the AIStates merge) accepted 0 of 62 donor(s) (134 approved rows, 29 mixed files, 0 refused; 5 loses 2 row(s) under the carried flag override '', 1 loses 3 row(s) under the carried flag override '', 2 loses 5 row(s) under the carried flag override '', 54 no baseline match): ProductionPrerequisiteCopyCtor loses 2 row(s) under the carried flag override ''; ProductionPrerequisiteRecVectorCopy loses 2 row(s) under the carried flag override ''; ThingFactoryDtor loses 3 row(s) under the carried flag override ''; ThingFactoryNewOverride loses 2 row(s) under the carried flag override ''; ThingFactoryNewTemplate loses 2 row(s) under the carried flag override ''; ThingFactoryParseObjectDefinition loses 2 row(s) under the carried flag override ''. Re-measured: its seed or donors changed since the last record; no edits kept. t=5 model=claude-opus-5-5 seat cs93"
+  }
+]

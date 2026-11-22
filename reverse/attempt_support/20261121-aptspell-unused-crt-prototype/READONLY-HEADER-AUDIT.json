@@ -1,0 +1,35 @@
+{
+  "source_sha256": "796ca02ee9649e5ac2963efbb634f21f30552fc691b6e9727a77e095104987a8",
+  "index_key": "490e5f72e45d00f4",
+  "index_sha256": "9df782b6c9c6ab2102c76b34e28f7c2795071e534ddba6d5b8c6624dfb14272a",
+  "scope": "pure native scan_text on original and delete-unused-declaration text; no shared cache/compiler/queue writes",
+  "arms": [
+    {
+      "label": "current",
+      "error": null,
+      "classification": "('conflicting', 'abi', Counter({'abi': 1}))",
+      "occurrences": [
+        [
+          89,
+          "_mbscpy",
+          "function",
+          "abi",
+          "parameter 1 spelled char * vs unsigned char *; parameter 2 spelled const char * vs const unsigned char *; return spelled char * vs unsigned char *; real header declares dllimport; do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)",
+          "Vc7/include/mbstring.h:123"
+        ]
+      ],
+      "closure": "[('Code/GameEngine/Include/GameClient/Shell.h', 19, 'Shell', 'class', 'mangle', 'included Code/GameEngine/Include/GameClient/Shell.h:19 defines its own class Shell; with the real header (Vc7/PlatformSDK/Include/ShlDisp.h:229) it is a redefinition: rename it first'), ('reference/shims/bfmealloc/stl/_algobase.h', 51, 'stl/_pair.h', 'include', 'unknown', 'unresolved include <stl/_pair.h> at reference/shims/bfmealloc/stl/_algobase.h:51: its definitions are unchecked'), ('reference/shims/bfmealloc/stl/_algobase.h', 55, 'stl/_iterator_base.h', 'include', 'unknown', 'unresolved include <stl/_iterator_base.h> at reference/shims/bfmealloc/stl/_algobase.h:55: its definitions are unchecked'), ('reference/shims/bfmealloc/stl/_algobase.h', 573, 'stl/_algobase.c', 'include', 'unknown', 'unresolved include <stl/_algobase.c> at reference/shims/bfmealloc/stl/_algobase.h:573: its definitions are unchecked')]",
+      "note": "do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)",
+      "candidate_sha256": "796ca02ee9649e5ac2963efbb634f21f30552fc691b6e9727a77e095104987a8"
+    },
+    {
+      "label": "drop-unused-mbscpy-only",
+      "error": null,
+      "classification": "(None, None, Counter())",
+      "occurrences": [],
+      "closure": "[('Code/GameEngine/Include/GameClient/Shell.h', 19, 'Shell', 'class', 'mangle', 'included Code/GameEngine/Include/GameClient/Shell.h:19 defines its own class Shell; with the real header (Vc7/PlatformSDK/Include/ShlDisp.h:229) it is a redefinition: rename it first'), ('reference/shims/bfmealloc/stl/_algobase.h', 51, 'stl/_pair.h', 'include', 'unknown', 'unresolved include <stl/_pair.h> at reference/shims/bfmealloc/stl/_algobase.h:51: its definitions are unchecked'), ('reference/shims/bfmealloc/stl/_algobase.h', 55, 'stl/_iterator_base.h', 'include', 'unknown', 'unresolved include <stl/_iterator_base.h> at reference/shims/bfmealloc/stl/_algobase.h:55: its definitions are unchecked'), ('reference/shims/bfmealloc/stl/_algobase.h', 573, 'stl/_algobase.c', 'include', 'unknown', 'unresolved include <stl/_algobase.c> at reference/shims/bfmealloc/stl/_algobase.h:573: its definitions are unchecked')]",
+      "note": "",
+      "candidate_sha256": "0f19945c8ec6296b6276f94cda4770b82ec33579ecd4c0f660395299d8df6e92"
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "head_observed": "bfa69a6bb49d7a1e8e4ef29477ebeee071785da0",
+  "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+  "source_sha256": "1d9571d6a00ebe5f96814d7e5e69ff2be392ba931a7f47b238a8e5c13133eb09",
+  "explicit_definition_prefixes": [
+    [
+      "Rva0050EA74",
+      "Rva0050EA74",
+      null
+    ],
+    [
+      "Rva0050EA74",
+      "~Rva0050EA74",
+      null
+    ]
+  ],
+  "source_rows": [
+    {
+      "name": "??0Rva0050EA74@@QAE@HABVAsciiString@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0050EA74",
+      "target_size": "69",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "ctor via base m04 plus vtable plus StringBase copy"
+    },
+    {
+      "name": "??1Rva0050EA74@@UAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x0050EA22",
+      "target_size": "54",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "dual-vtable via empty inline base plus AsciiString release"
+    },
+    {
+      "name": "??_GRva0050EA74@@UAEPAXI@Z",
+      "export_rva": "",
+      "target_rva": "0x0050EA58",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "auto-emitted deleting dtor over rowed 0x0050EA22"
+    },
+    {
+      "name": "__ehhandler$??0Rva0050EA74@@QAE@HABVAsciiString@@@Z",
+      "export_rva": "",
+      "target_rva": "0x007947E7",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0050EA74; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "??_GRva0050EA74Base@@UAEPAXI@Z",
+      "export_rva": "",
+      "target_rva": "0x0007E5EE",
+      "target_size": "29",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF twin at 0x0007E5EE; scalar deleting destructor in native base table 0x007C6F20; restores the empty base vptr and conditionally deletes this; whole29B and all relocation targets equal retail;fold-proof=Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp"
+    },
+    {
+      "name": "?v03@Rva0050EA74@@UAEHHHH@Z",
+      "export_rva": "",
+      "target_rva": "0x005748AD",
+      "target_size": "5",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF twin at 0x005748AD; native table 0x0086551C slot3 returns zero and pops three dwords; complete5B matches retail; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+    },
+    {
+      "name": "?v04@Rva0050EA74@@UAEHHHH@Z",
+      "export_rva": "",
+      "target_rva": "0x005748AD",
+      "target_size": "5",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "ICF twin at 0x005748AD; native table 0x0086551C slot4 shares the complete zero-return three-dword-pop body with slot3; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+    },
+    {
+      "name": "?v05@Rva0050EA74@@UAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x000B3FD0",
+      "target_size": "1",
+      "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+      "status": "matched",
+      "notes": "Native page table0x0086551C slot5; ECX noargs callback0050F670 discards result; complete1B RET and relocations equal original exported Coord2D empty owner; neutral existing slot model;fold-proof=Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp"
+    }
+  ],
+  "markers": [],
+  "recorded_native_find_declared_unmatched": {
+    "command": "python3 tools/find_declared_unmatched.py Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+    "exit_code": 0,
+    "stdout": "All defined functions are already matched.",
+    "scope": "Explicit source file only, not a new whole-program recovery claim."
+  },
+  "queue_provenance": "# real link at b146a56624e02d3329378d808e624bf2f18bb233: tools/exit_link.py --blockers",
+  "queue_sha256": "ec9d05f3994eb7b971b7fef6c606e0c35340339844b7bfa89a5dd5507eeb6982",
+  "known_family_tables": {
+    "0086551C": {
+      "role": "served base page",
+      "ledger": {
+        "address": "0x0086551C",
+        "size": "24",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva0050EA74@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "retail_hex": "58ea9000bbe79000c0e79000ad489700ad489700d03f4b00",
+      "code_pointer_rvas": [
+        "0050EA58",
+        "0050E7BB",
+        "0050E7C0",
+        "005748AD",
+        "005748AD",
+        "000B3FD0"
+      ]
+    },
+    "00865604": {
+      "role": "StatusPage primary",
+      "ledger": {
+        "address": "0x00865604",
+        "size": "24",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005105D7@@6BRva0050EA74@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      },
+      "retail_hex": "bb059100bbe79000c0e79000ad489700ad489700d03f4b00",
+      "code_pointer_rvas": [
+        "005105BB",
+        "0050E7BB",
+        "0050E7C0",
+        "005748AD",
+        "005748AD",
+        "000B3FD0"
+      ]
+    },
+    "00865600": {
+      "role": "StatusPage callback secondary",
+      "ledger": {
+        "address": "0x00865600",
+        "size": "4",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005105D7@@6BRva005248D0@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      },
+      "retail_hex": "b3059100",
+      "code_pointer_rvas": [
+        "005105B3"
+      ]
+    },
+    "00865670": {
+      "role": "TributePage primary",
+      "ledger": {
+        "address": "0x00865670",
+        "size": "24",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva00510CC3@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "1"
+      },
+      "retail_hex": "a70c9100bbe79000c0e79000ad489700c0019100e2019100",
+      "code_pointer_rvas": [
+        "00510CA7",
+        "0050E7BB",
+        "0050E7C0",
+        "005748AD",
+        "005101C0",
+        "005101E2"
+      ]
+    },
+    "0086568C": {
+      "role": "owning tribute screen",
+      "ledger": {
+        "address": "0x0086568C",
+        "size": "56",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva00510D0C@@6BGameWindow@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      },
+      "retail_hex": "31109100c5eb9000dff59000f8124a00804684005bf6900013397100870d91003a39710078ff4800c6b59000c6b59000fa119100d03f4b00",
+      "code_pointer_rvas": [
+        "00511031",
+        "0050EBC5",
+        "0050F5DF",
+        "000A12F8",
+        "00444680",
+        "0050F65B",
+        "00313913",
+        "00510D87",
+        "0031393A",
+        "0008FF78",
+        "0050B5C6",
+        "0050B5C6",
+        "005111FA",
+        "000B3FD0"
+      ]
+    }
+  },
+  "known_family_queue_entries": [
+    {
+      "state": "bridged",
+      "table": "??_7Rva0050EA74@@6B@",
+      "class": "Rva0050EA74",
+      "reason": "bridge-retirement",
+      "source": "W:\\OpenBFME\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\Rva0050EA74Ctor.cpp",
+      "retail_rva": "0x0086551C",
+      "slots": "6",
+      "evidence": "{\"name_bindings\": [{\"name\": \"??_7Rva0050EA74@@6B@\", \"names\": [\"??_7Rva0050EA74@@6B@\"], \"object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj\", \"offset\": 36, \"row_rva\": 5302900, \"rva\": 8803612, \"source\": \"Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp\"}, {\"name\": \"??_7Rva0050EA74@@6B@\", \"names\": [\"??_7Rva0050EA74@@6B@\", \"??_7Rva0050EA74Base@@6B@\"], \"object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj\", \"offset\": 19, \"row_rva\": 5302818, \"rva\": 8803612, \"source\": \"Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp\"}], \"names\": [\"??_7Rva0050EA74@@6B@\"], \"previous_extent\": 20, \"previous_object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^common_^rva0050^e^a74^ctor.obj\", \"referenced_by\": [], \"source_slot_mismatches\": [{\"ledger_rvas\": [], \"name\": \"\", \"reason\": \"missing-source-slot\", \"retail_target_rva\": 737232, \"slot\": 5}]}"
+    },
+    {
+      "state": "bridged",
+      "table": "??_7Rva005105D7@@6BRva0050EA74@@@",
+      "class": "Rva005105D7",
+      "reason": "bridge-retirement",
+      "source": "W:\\OpenBFME\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\AptRowListConstructor.cpp",
+      "retail_rva": "0x00865604",
+      "slots": "6",
+      "evidence": "{\"name_bindings\": [{\"name\": \"??_7Rva005105D7@@6BRva0050EA74@@@\", \"names\": [\"??_7Rva005105D7@@6BRva0050EA74@@@\", \"??_7Rva005105D7@@6BRva005248D0@@@\"], \"object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^row^list^constructor.obj\", \"offset\": 71, \"row_rva\": 5309347, \"rva\": 8803844, \"source\": \"Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp\"}], \"names\": [\"??_7Rva005105D7@@6BRva0050EA74@@@\"], \"previous_extent\": 24, \"previous_object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^row^list^constructor.obj\", \"referenced_by\": [], \"source_slot_mismatches\": [{\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5302203, \"slot\": 1}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5302208, \"slot\": 2}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5720237, \"slot\": 3}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5720237, \"slot\": 4}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 737232, \"slot\": 5}]}"
+    },
+    {
+      "state": "bridged",
+      "table": "??_7Rva00510CC3@@6B@",
+      "class": "Rva00510CC3",
+      "reason": "bridge-retirement",
+      "source": "W:\\OpenBFME\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\Rva00510CC3Constructor.cpp",
+      "retail_rva": "0x00865670",
+      "slots": "6",
+      "evidence": "{\"name_bindings\": [{\"name\": \"??_7Rva00510CC3@@6B@\", \"names\": [\"??_7Rva00510CC3@@6B@\"], \"object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^common_^rva00510^c^c3^constructor.obj\", \"offset\": 44, \"row_rva\": 5311346, \"rva\": 8803952, \"source\": \"Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp\"}], \"names\": [\"??_7Rva00510CC3@@6B@\"], \"previous_extent\": 24, \"previous_object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^common_^rva00510^c^c3^constructor.obj\", \"referenced_by\": [], \"source_slot_mismatches\": [{\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5302203, \"slot\": 1}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5302208, \"slot\": 2}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5720237, \"slot\": 3}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5308864, \"slot\": 4}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5308898, \"slot\": 5}]}"
+    },
+    {
+      "state": "bridged",
+      "table": "??_7Rva00510D0C@@6BGameWindow@@@",
+      "class": "Rva00510D0C",
+      "reason": "bridge-retirement",
+      "source": "W:\\OpenBFME\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\AptTributeScreenDestructor.cpp",
+      "retail_rva": "0x0086568C",
+      "slots": "14",
+      "evidence": "{\"name_bindings\": [{\"name\": \"??_7Rva00510D0C@@6BGameWindow@@@\", \"names\": [\"??_7Rva00510D0C@@6BGameWindow@@@\", \"??_7Rva00510D0C@@6BRva005248D0@@@\"], \"object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^tribute^screen^destructor.obj\", \"offset\": 37, \"row_rva\": 5312475, \"rva\": 8803980, \"source\": \"Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp\"}, {\"name\": \"??_7Rva00510D0C@@6BGameWindow@@@\", \"names\": [\"??_7Rva00510D0C@@6BGameWindow@@@\", \"??_7Rva00510D0C@@6BRva005248D0@@@\"], \"object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^tribute^screen^destructor.obj\", \"offset\": 19, \"row_rva\": 5311756, \"rva\": 8803980, \"source\": \"Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp\"}], \"names\": [\"??_7Rva00510D0C@@6BGameWindow@@@\"], \"previous_extent\": 44, \"previous_object\": \"W:\\\\OpenBFME\\\\Open-BFME-2\\\\build\\\\match\\\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^tribute^screen^destructor.obj\", \"referenced_by\": [], \"source_slot_mismatches\": [{\"addend\": 0, \"ledger_rvas\": [658687], \"name\": \"?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z\", \"relocation_kind\": 6, \"retail_target_rva\": 5303237, \"slot\": 1}, {\"addend\": 0, \"ledger_rvas\": [1068613], \"name\": \"?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z\", \"relocation_kind\": 6, \"retail_target_rva\": 5305823, \"slot\": 2}, {\"addend\": 0, \"ledger_rvas\": [646149], \"name\": \"?draw@GameWindow@@UAEHPAX@Z\", \"relocation_kind\": 6, \"retail_target_rva\": 660216, \"slot\": 3}, {\"addend\": 0, \"ledger_rvas\": [589654], \"name\": \"?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z\", \"relocation_kind\": 6, \"retail_target_rva\": 4474496, \"slot\": 4}, {\"addend\": 0, \"ledger_rvas\": [654712], \"name\": \"?rva0009FD78@GameWindow@@UAEHXZ\", \"relocation_kind\": 6, \"retail_target_rva\": 5305947, \"slot\": 5}, {\"addend\": 0, \"ledger_rvas\": [243728], \"name\": \"__purecall\", \"relocation_kind\": 6, \"retail_target_rva\": 5311879, \"slot\": 7}, {\"ledger_rvas\": [], \"name\": \"\", \"reason\": \"missing-source-slot\", \"retail_target_rva\": 5289414, \"slot\": 11}, {\"ledger_rvas\": [], \"name\": \"\", \"reason\": \"missing-source-slot\", \"retail_target_rva\": 5313018, \"slot\": 12}, {\"ledger_rvas\": [], \"name\": \"\", \"reason\": \"missing-source-slot\", \"retail_target_rva\": 737232, \"slot\": 13}]}"
+    }
+  ],
+  "limitations": "Read-only exact-known-RVA filtering of existing metadata; no queue selection, claim, Source edit, compile, or broad binary scan."
+}

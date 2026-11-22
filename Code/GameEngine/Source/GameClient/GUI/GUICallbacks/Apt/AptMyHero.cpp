@@ -24,19 +24,7 @@ int __cdecl Rva0043DB23(Rva00222A8BTarget *,void *,const char *);
 #include "../../../../../Include/GameClient/Rva002239B2.h"
 // AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
 // and destructor, and the fields the screen reads.
-class CreateAHeroData {
-public:
- virtual ~CreateAHeroData();
- virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- CreateAHeroData &operator=(const CreateAHeroData &);
-protected:
- char pad04[4];
- UnicodeString heroName08;
- int field0C,field10;
- char pad14[0x138-0x14];
- const Image *image138;
- char pad13C[4];
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 // Native vector cleanup uses the game CRT allocator at00030830.
 extern "C" void __cdecl free(void *) throw(...);
 struct BfmePod8
@@ -49,34 +37,22 @@ public:
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
 #include "../../../../../Include/Common/Rva00406E47.h"
 #include "../../../../../Include/GameClient/Rva005B0473View.h"
-struct CreateAHeroClassRecord {char opaque[0x20];};
-struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
 class Rva002195E6;
-class CreateAHeroManager {public: const Rva002195E6 *GetViewInfo(unsigned int,unsigned int);const AsciiString &GetClassNameTag(unsigned int);const AsciiString &GetSubClassNameTag(unsigned int,unsigned int);const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int);int GetSubClassSpendableAttributePoints(unsigned int,unsigned int);void *GetBlingBinder(unsigned int);int GetBlingCount(int,const CreateAHeroHero *) const;int GetSubClassDefaultBlingId(int,unsigned int,unsigned int) const;int GetSubClassAttributeMinValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeMaxValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeDefaultValue(unsigned int,unsigned int,unsigned int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x168-0x158];BlingBinderList binders168;char pad174[0x1E8-0x174];AsciiString field1E8,field1EC;};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 class Object;
 #include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
-class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
+#include "../../../../../Include/GameClient/Drawable.h"
 #include "../../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 #include "../../../../../Include/GameClient/Display.h"
 // Display keeps its +0x141 flag protected; this unit writes it through a view
 // of the real TheDisplay.
 struct DisplayFlag141View {char pad000[0x141];bool field141;};
-class GameWindowTransitionsHandler {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();
- bool isFinished();
- void reverse(AsciiString);
- void setGroup(AsciiString groupName,bool immediate);
-};
+#include "../../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../../Include/GameClient/Rva001DBB82OneSetter.h"
-class GameWindowManager {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
@@ -123,16 +99,9 @@ public:
 };
 __forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D {
-public:
- __forceinline Matrix3D(){}
- __forceinline Matrix3D(const Vector3 &axis,float angle){Set(axis,angle);}
- __forceinline void Set(const Vector3 &axis,float angle){float c=cosf(angle);float s=sinf(angle);Set(axis,s,c);}
- void Set(const Vector3 &axis,float s,float c);
- void mul(const Matrix3D &A,const Matrix3D &B);
- Vector3 Rotate_Vector(const Vector3 &vect) const;
- Vector4 Row[3];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+__forceinline Matrix3D::Matrix3D(const Vector3 &axis,float angle){Set(axis,angle);}
+__forceinline void Matrix3D::Set(const Vector3 &axis,float angle){float c=cosf(angle);float s=sinf(angle);Set(axis,s,c);}
 #include "../../../../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 class GlobalData;
@@ -1132,7 +1101,7 @@ void AptMyHero::SwitchToPendingHero(){
 // Native005B0473..005B0487 forwards fields10 then0C through the existing
 // typed manager global. Named locals preserve the independently observed
 // read order; the getter and returned view retain address-derived names.
-Rva005B0473View *AptMyHero::rva005B0473(){int b=field10;int a=field0C;return const_cast<Rva005B0473View *>(reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b)));}
+Rva005B0473View *AptMyHero::rva005B0473(){int b=m_10;int a=m_0c;return const_cast<Rva005B0473View *>(reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b)));}
 
 // WB AptMyHero.cpp line1170 and native005B0923..005B097F prove this
 // unnamed record loop. Retail retains the exact diagnostic path and line1203.
@@ -1149,7 +1118,7 @@ void AptMyHero::rva005B0923(int group){
 
 // Native005B0487..005B04B6 and WB corresponding view access prove the
 // +60 float bound and +168/+16C range. Retail emits SSE2 stores.
-void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b))->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
+void AptMyHero::rva005B0487(){int b=m_10;int a=m_0c;float upper=reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b))->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
 
 // WB record-minimum loop and native005B097F..005B09BB; independent index.
 void AptMyHero::rva005B097F(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->minimum);slot14();}
@@ -1162,7 +1131,7 @@ void AptMyHero::rva005B0FCD(int group){MyHeroBlingBlock &block=blocks174[group];
 // HPGandalf fallback and Cah::Portrait. Existing canonical image global
 // and retained image-store owner are used without a new alias or pin.
 bool AptMyHero::rva005B0725(){
- const Image *image=image138;
+ const Image *image=field138;
  if(!image){AsciiString name("HPGandalf");image=TheMappedImageCollection->findImageByName(name);}
  const char *key="Cah::Portrait";
  if(reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->FindRenderImage(key,0)==image)return false;
@@ -1209,10 +1178,10 @@ void AptMyHero::rva005B21DA(CreateAHeroData *hero,bool flag,int mode){
    break;
   case 1:
    ((DisplayFlag141View *)TheDisplay)->field141=true;
-   TheTransitionHandler->slot24();
+   reinterpret_cast<SubsystemInterface *>(TheTransitionHandler)->reset();
    TheTransitionHandler->setGroup(TheCreateAHeroManager->field1E8,false);
    reinterpret_cast<Rva001DBB82OneSetter *>(TheTransitionHandler)->enable();
-   TheWindowManager->slot28();
+   TheWindowManager->update();
    field14C=1;
    break;
  }
@@ -1237,8 +1206,8 @@ int AptMyHero::rva005B0E60(const Object *object){
 void AptMyHero::rva005B1A6C(){
  BfmePod8 empty={0,0.0f};
  mapObjectInfo15C.resize(TheCreateAHeroManager->GetClassCount(),empty);
- for(Drawable *drawable=TheGameClient->firstDrawable();drawable;drawable=drawable->next){
-  Object *object=drawable->object;
+ for(Drawable *drawable=TheGameClient->firstDrawable();drawable;drawable=drawable->getNextDrawable()){
+  Object *object=drawable->getObject();
   if(!object)continue;
   int location=rva005B0E60(object);
   if(location<0)continue;
@@ -1357,10 +1326,10 @@ int AptMyHero::rva005B0A95(int,int){
 // gets its Apt label and a value clamped into range through SetBling.
 void AptMyHero::BuildBlingData(){
  reinterpret_cast<Rva005B1830 *>(this)->rva005B1830();
- int sub=field10;int cls=field0C;
+ int sub=m_10;int cls=m_0c;
  maxAttribPoints158=availAttribPoints154=TheCreateAHeroManager->GetSubClassSpendableAttributePoints(cls,sub);
  reinterpret_cast<CreateAHeroHero *>(this)->ConstructHeroBlingList();
- unsigned int count=TheCreateAHeroManager->binders168.size();
+ unsigned int count=reinterpret_cast<const BlingBinderList *>(TheCreateAHeroManager->field168)->size();
  for(unsigned int i=0;i<count;++i){
   BlingBinder *binder=(BlingBinder *)TheCreateAHeroManager->GetBlingBinder(i);
   if(!binder)continue;
@@ -1379,19 +1348,19 @@ void AptMyHero::BuildBlingData(){
   case 1:
    record.minimum=0;
    record.maximum=TheCreateAHeroManager->GetBlingCount(record.field00,reinterpret_cast<const CreateAHeroHero *>(this))-1;
-   {int s2=field10;int c2=field0C;record.field10=TheCreateAHeroManager->GetSubClassDefaultBlingId(record.field00,c2,s2);}
+   {int s2=m_10;int c2=m_0c;record.field10=TheCreateAHeroManager->GetSubClassDefaultBlingId(record.field00,c2,s2);}
    key.format("APT:MyHeroAppearance_%d",slot);
    g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(binder->label),false);
    if(hasValue)value=record.field10;
    break;
   case 0:
    if(TheCreateAHeroManager->GetBlingCount(record.field00,reinterpret_cast<const CreateAHeroHero *>(this))){
-    {int s2=field10;int c2=field0C;record.minimum=TheCreateAHeroManager->GetSubClassAttributeMinValue(record.field00,c2,s2);}
-    {int s2=field10;int c2=field0C;record.maximum=TheCreateAHeroManager->GetSubClassAttributeMaxValue(record.field00,c2,s2);}
-    {int s2=field10;int c2=field0C;record.field10=TheCreateAHeroManager->GetSubClassAttributeDefaultValue(record.field00,c2,s2);}
+    {int s2=m_10;int c2=m_0c;record.minimum=TheCreateAHeroManager->GetSubClassAttributeMinValue(record.field00,c2,s2);}
+    {int s2=m_10;int c2=m_0c;record.maximum=TheCreateAHeroManager->GetSubClassAttributeMaxValue(record.field00,c2,s2);}
+    {int s2=m_10;int c2=m_0c;record.field10=TheCreateAHeroManager->GetSubClassAttributeDefaultValue(record.field00,c2,s2);}
    }else{
-    {int s2=field10;int c2=field0C;record.minimum=((c2+1)*(s2+1)*(i+1))%10+5;}
-    record.maximum=record.minimum+3+(int)(i*3)%10-field0C;
+    {int s2=m_10;int c2=m_0c;record.minimum=((c2+1)*(s2+1)*(i+1))%10+5;}
+    record.maximum=record.minimum+3+(int)(i*3)%10-m_0c;
    }
    if(hasValue)value=record.minimum;
    reinterpret_cast<Rva00407E28 *>(this)->rva00407DE0(record.field00,record.minimum);

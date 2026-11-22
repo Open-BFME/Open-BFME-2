@@ -1,0 +1,112 @@
+{
+  "head": "8ceca1621406b9dac9f2ca826343fb741eea2c4a",
+  "source_sha256": "9642079319c16074a3d1485f13cf7eda9bb727e877efb75528dafba6793e67f3",
+  "contract_sha256": "b8f8ac879d69288fd82b1909733d531d39609176600555b55fcaaa2d66ae342a",
+  "graph_helper": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-record-stagea-native-private-dcbd8314-20261121\\section_graph_audit.py",
+  "graph_helper_sha256": "45a831dc4cc05dbc14120581a05f4da94be48141903b7cf203d50f193a586ab0",
+  "native_compile_calls": 2,
+  "additional_compiler_calls_in_finalize": 0,
+  "production_changes": false,
+  "files": [
+    {
+      "path": "Candidate-ARGS.json",
+      "size": 2028,
+      "sha256": "ef3bf501be0b8833a42da01b085766fc7970f8f08282b522dcee57ac4fbab5ea"
+    },
+    {
+      "path": "Candidate-effective.cpp.txt",
+      "size": 24130,
+      "sha256": "9dbaa880137554ba7cb2da3b2c830bc75c489879a66d235786d80cae39fced46"
+    },
+    {
+      "path": "CANDIDATE-SOURCE.cpp.txt",
+      "size": 24130,
+      "sha256": "3c7711b37302cb47e2fd6dd4b0063165ba9044a889f72c39dd920c76555e034a"
+    },
+    {
+      "path": "Candidate.deps.json",
+      "size": 15478,
+      "sha256": "fbd886a29806b8108bef4fce198d5631f3cf58170be40937280b1c57bb36a6e9"
+    },
+    {
+      "path": "Candidate.obj",
+      "size": 26307,
+      "sha256": "a093a8f445fc59c5bf95e00fd816c34677feffb5271b61a49a3a9833a46e7593"
+    },
+    {
+      "path": "COMPLETE-RUNTIME-GRAPH.json",
+      "size": 257168,
+      "sha256": "e4f628ff53fd66ccd3c0a6223f74bca064361bc82cb07aae4a650f514a7cae7c"
+    },
+    {
+      "path": "Control-ARGS.json",
+      "size": 2028,
+      "sha256": "2969693935968c4fccf00aad544fe1a2cfbae5697192392f2e08c61548226d06"
+    },
+    {
+      "path": "Control-effective.cpp.txt",
+      "size": 24111,
+      "sha256": "0f6cf16c07ae7aa0dd5cd5c85cfdd83fb60c63d34e0cc80c1898ad775e37b3ab"
+    },
+    {
+      "path": "Control.deps.json",
+      "size": 15478,
+      "sha256": "db636c1d4e4b6ef413627a36172c25895f33744c5c87ae9bcd02258f43a1b836"
+    },
+    {
+      "path": "Control.obj",
+      "size": 26307,
+      "sha256": "2e924847cba4cbae34be500bf48c80f15e962bb183ce037177dce55e24676e09"
+    },
+    {
+      "path": "finalize_existing_objects.py",
+      "size": 5023,
+      "sha256": "c627a49091a493d997f90b2769873d0809b0a749de9007e25ddde91b6f75d50e"
+    },
+    {
+      "path": "freeze_handoff.py",
+      "size": 5806,
+      "sha256": "6c25abe700c459f80d435a32df652ae59b588a736af6cf481b107b20f3c64d0b"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 3816,
+      "sha256": "cf4f7093295ab1b4c4c705aa33a897781dcc39656b4a3f1c712c66ba9da8de60"
+    },
+    {
+      "path": "MEMBER-ALIGNMENT.patch.txt",
+      "size": 801,
+      "sha256": "322bf56cbdd3d16e0602b12c4361c26b1a884948f4983ec8f47668041c0aa657"
+    },
+    {
+      "path": "ORIGINAL-SOURCE.cpp.txt",
+      "size": 24111,
+      "sha256": "9642079319c16074a3d1485f13cf7eda9bb727e877efb75528dafba6793e67f3"
+    },
+    {
+      "path": "prepare_private.py",
+      "size": 3087,
+      "sha256": "e2c5a56ad4593ea6278c029890eff4a909b3e8f9d99f6eb0223698e5da9f5bea"
+    },
+    {
+      "path": "RUN-RESULT.json",
+      "size": 126727,
+      "sha256": "2a4a7f460fc6ab3be34f3468573987f7b8fd5f5e833edf91133374423d9b9f17"
+    },
+    {
+      "path": "run_two_native.py",
+      "size": 8140,
+      "sha256": "c5c102b10e165d77db82d1999651924e4e0a779c3d16be5549c76a7910f52167"
+    },
+    {
+      "path": "SUMMARY.json",
+      "size": 1012,
+      "sha256": "4372116dfa1d738f56fd4a4d12a53a4bbfcec73068b485dc50e45e6c2944a452"
+    },
+    {
+      "path": "TARGETED-SOURCE-PLAN.json",
+      "size": 2043,
+      "sha256": "adc66fa75bb51fa4831719e26ba45ac68b7fc7abab5d9934f87872a72e4cf644"
+    }
+  ]
+}

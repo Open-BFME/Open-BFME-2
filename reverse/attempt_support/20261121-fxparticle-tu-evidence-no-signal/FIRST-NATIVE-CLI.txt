@@ -1,0 +1,5 @@
+Observed native command, exit0:
+python3 tools/tu_evidence.py --source Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleTemplateCopyCtorThunk.cpp
+
+Complete stdout:
+rva,source,signal,tu,ref,status

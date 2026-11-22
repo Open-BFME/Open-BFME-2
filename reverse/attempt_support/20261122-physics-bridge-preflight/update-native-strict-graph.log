@@ -1,0 +1,28 @@
+[
+  {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp",
+    "runtime_nodes": 26,
+    "before_sha256": "93b0699f1efcc7a47bf4b8aed202ca1b69178c7b45e911146b7aec58207684f8",
+    "after_sha256": "c6ae065901cf296342564b8aeedf2617eb6bf94393a999bd478d82cac9d12059",
+    "checks_equal": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "limit": "Same ordinary native object runtime graph, external definitions, COMDAT choices and SafeSEH sequence; not full-image or runtime proof."
+  },
+  {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp",
+    "runtime_nodes": 165,
+    "before_sha256": "931e4bbb4ef91636dedff4bcd9b155fdc8a1ad4852eef914ecc8214a7fdeba51",
+    "after_sha256": "35088f1d2dcc5a1a9fd3bd745701820eac229344e98c8c2c61a5efe9bb0cc596",
+    "checks_equal": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "limit": "Same ordinary native object runtime graph, external definitions, COMDAT choices and SafeSEH sequence; not full-image or runtime proof."
+  }
+]

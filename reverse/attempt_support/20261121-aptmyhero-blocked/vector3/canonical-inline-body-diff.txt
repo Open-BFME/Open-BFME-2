@@ -1,0 +1,50 @@
+--- control971
+
++++ canonical-inline971
+
+@@ -119,14 +119,14 @@
+
+ 01df movss xmm6, dword ptr [ebp + 0x40]
+ 01e4 mulss xmm6, xmm7
+ 01e8 addss xmm5, xmm6
+-01ec movss dword ptr [ebp - 0x3c], xmm5
+-01f1 movss xmm5, dword ptr [ebp + 0xc]
+-01f6 mulss xmm5, dword ptr [ebp + 0x30]
+-01fb movaps xmm6, xmm1
+-01fe mulss xmm6, dword ptr [ebp + 0x50]
++01ec movss xmm6, dword ptr [ebp + 0x10]
++01f1 mulss xmm6, dword ptr [ebp + 0x40]
++01f6 movss dword ptr [ebp - 0x3c], xmm5
++01fb movaps xmm5, xmm1
++01fe mulss xmm5, dword ptr [ebp + 0x50]
+ 0203 addss xmm5, xmm6
+-0207 movss xmm6, dword ptr [ebp + 0x10]
+-020c mulss xmm6, dword ptr [ebp + 0x40]
++0207 movss xmm6, dword ptr [ebp + 0xc]
++020c mulss xmm6, dword ptr [ebp + 0x30]
+ 0211 addss xmm5, xmm6
+ 0215 movss dword ptr [ebp - 0x2c], xmm5
+ 021a movaps xmm5, xmm3
+@@ -146,14 +146,14 @@
+
+ 0256 movss xmm6, dword ptr [ebp + 0x44]
+ 025b mulss xmm6, xmm7
+ 025f addss xmm5, xmm6
+-0263 movss dword ptr [ebp - 0x38], xmm5
+-0268 movss xmm5, dword ptr [ebp + 0xc]
+-026d mulss xmm5, dword ptr [ebp + 0x34]
+-0272 movaps xmm6, xmm1
+-0275 mulss xmm6, dword ptr [ebp + 0x54]
++0263 movss xmm6, dword ptr [ebp + 0x10]
++0268 mulss xmm6, dword ptr [ebp + 0x44]
++026d movss dword ptr [ebp - 0x38], xmm5
++0272 movaps xmm5, xmm1
++0275 mulss xmm5, dword ptr [ebp + 0x54]
+ 027a addss xmm5, xmm6
+-027e movss xmm6, dword ptr [ebp + 0x10]
+-0283 mulss xmm6, dword ptr [ebp + 0x44]
++027e movss xmm6, dword ptr [ebp + 0xc]
++0283 mulss xmm6, dword ptr [ebp + 0x34]
+ 0288 addss xmm5, xmm6
+ 028c movss dword ptr [ebp + 0x1c], xmm1
+ 0291 movss dword ptr [ebp + 0x20], xmm2

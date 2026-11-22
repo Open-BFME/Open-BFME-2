@@ -1,0 +1,36 @@
+{
+  "source_head": "40496f82be14ec699d35ea9c0100c0e3d366a7c1",
+  "banks": {
+    "Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp": {
+      "source_bank": "Rva0058A0F4Derived.cpp.txt",
+      "original_sha256": "8e60b89a3ab9fe275f0c81918ae775b5c5f525f930f0113336eb42b79bd2216e",
+      "candidate_sha256": "3df1c8b74afb58398f9bf8e8d0167c2df2169a51ee0c0c37f84f007e8bf99580",
+      "normalized_probe_candidate_sha256": "3df1c8b74afb58398f9bf8e8d0167c2df2169a51ee0c0c37f84f007e8bf99580",
+      "original_CRLF": 0,
+      "original_LF": 99,
+      "candidate_CRLF": 0,
+      "candidate_LF": 28,
+      "preserved_original_EOL_kind": true
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Update/RepairDockUpdateBehaviorCtor.cpp": {
+      "source_bank": "RepairDockUpdateBehaviorCtor.cpp.txt",
+      "original_sha256": "b3ae969245db237bfa9195214c405ec163a414384193414e7c0169b5c4cd70d0",
+      "candidate_sha256": "d9ca5680662ad96da4502594a8bb4b02d7ab270ea8b7cd3f87ca18e51b13ac11",
+      "normalized_probe_candidate_sha256": "d9ca5680662ad96da4502594a8bb4b02d7ab270ea8b7cd3f87ca18e51b13ac11",
+      "original_CRLF": 0,
+      "original_LF": 57,
+      "candidate_CRLF": 0,
+      "candidate_LF": 57,
+      "preserved_original_EOL_kind": true
+    }
+  },
+  "unchanged_input_hashes": {
+    "Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp": "8e60b89a3ab9fe275f0c81918ae775b5c5f525f930f0113336eb42b79bd2216e",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RepairDockUpdateBehaviorCtor.cpp": "b3ae969245db237bfa9195214c405ec163a414384193414e7c0169b5c4cd70d0",
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdateNative.h": "9faf8027012e42403813ceb7d2e39ef688f0755eb4ecf014ad13e86381ec6957",
+    "Code/GameEngine/Include/GameLogic/Module/UpdateModule.h": "77013d215dd54abe6d4a7be0989cea25437e589b8d37a24d9eb6c7d10f3931d6",
+    "Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h": "5f3eb59ac62f6d0a521d3772a509405f3121371a951c2acfcc77f28866e12d3f",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp": "232e94a4945baf76aab19fda7cabc955a08d6d9529d39cb132338de689340e4a",
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp": "b5a5d03f23d77b67fafe0b1bc1a5b88095ac0266f34999d2c91c659fea4b9862"
+  }
+}

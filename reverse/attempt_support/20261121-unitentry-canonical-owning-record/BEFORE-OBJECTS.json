@@ -1,0 +1,82 @@
+{
+  "Code/GameEngine/Source/Common/CarryoverUnit.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\0-before.obj",
+    "before_sha256": "3888877feb6750fd7390049c6f956fdb9d3271b3c39b2e0c1267fe67c57aa924",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^carryover^unit.obj"
+  },
+  "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\1-before.obj",
+    "before_sha256": "254df4ca1a44e6a628c3a7aa7fc4dbd06096f4d078f7a70915416d66590e30ba",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^r^t^s_^unit^revival^entry.obj"
+  },
+  "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\2-before.obj",
+    "before_sha256": "5e2ae8d1f238855954ff655ef102ec00e3f961becd29f1376d072f7f0465f9b1",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker.obj"
+  },
+  "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\3-before.obj",
+    "before_sha256": "6b9d3067d1ef95da3f3b7f7126bb72af3f6d4e911e596924dd197ebcde0f8c39",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker^ctor^b^f^m^e2.obj"
+  },
+  "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\4-before.obj",
+    "before_sha256": "b61aae23aa9838fc15ff7462b5d363e4d2c0c98d7b39ce17c435225f166deb77",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker^rva0037^f2^c0^finish.obj"
+  },
+  "Code/GameEngine/Source/Common/Rva002E2F39.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\5-before.obj",
+    "before_sha256": "8b423be706bec6af0d126617bb32db4e527d3fc017804cd195818337a62a7a19",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva002^e2^f39.obj"
+  },
+  "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\6-before.obj",
+    "before_sha256": "71833c0be78638a23c0e5daf7a61814c782733cdc9e2dd9234a703906189e356",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0037^d^f2^c^copy.obj"
+  },
+  "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\7-before.obj",
+    "before_sha256": "9cf3c314d0c479c4bf3efb14453b330ec33739e6bca83128e918204a7ae69f42",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj"
+  },
+  "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\8-before.obj",
+    "before_sha256": "545df69817d352abd11b061143bc268f15be29e6e92cbcd4d192178518f6c6b1",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^object^constructor.obj"
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\9-before.obj",
+    "before_sha256": "55d8dad5f4b7874b7e1be391642090fc3e619895ead755bbee974850cf0fe64b",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^freelist^pool.obj"
+  },
+  "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\10-before.obj",
+    "before_sha256": "42763aa185fbbee35c6c4e72d89a6b80fe32e48d00ea255b0191eef0672cfeaf",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^script^engine_^script^actions_living^world^region.obj"
+  },
+  "Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\11-before.obj",
+    "before_sha256": "d5b0291d2e9180ab1b7f4d3bc905d4b08fe27ce8fadec8fe62ea25d6b4928801",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^army^summary^revival^spawn.obj"
+  },
+  "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\12-before.obj",
+    "before_sha256": "12c0baa5d3feb15fe126559064a0e4cad607c3a9bb6a990ea0431510d9eacaf8",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^linear^campaign^manager.obj"
+  },
+  "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\13-before.obj",
+    "before_sha256": "f4a5ed76e6b4d483cd0b8bc360f0931cb44ddfca841235debc32be480e9d27e4",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player.obj"
+  },
+  "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\14-before.obj",
+    "before_sha256": "e6cdbbcc0d469bb3fc33f172821db08583ce44b5bdcc037ed7146c582f5a6206",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^create^revival.obj"
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp": {
+    "before": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\unitentry-owned-record-header\\15-before.obj",
+    "before_sha256": "397f5fd6b585aab33297b54e47dcb1dab3da8efc6c543c122a3b484b1a6f4113",
+    "normal_object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stlport^construct^family^w3^g15.obj"
+  }
+}

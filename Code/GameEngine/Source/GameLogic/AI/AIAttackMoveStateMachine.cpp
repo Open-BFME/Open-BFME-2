@@ -134,6 +134,7 @@ class AIAttackMoveToState : public Rva0034005D
 {
 public:
 	AIAttackMoveToState(StateMachine *machine);
+	// The existing79B destructor is defined in AIStates.cpp.
 	virtual ~AIAttackMoveToState();
 private:
 	Int m_50;

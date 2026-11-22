@@ -1,0 +1,1243 @@
+{
+  "head": "40496f82be14ec699d35ea9c0100c0e3d366a7c1",
+  "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+  "source_sha256": "7ecf43889ac5ed7ba464b57e7dba641636473d0ada01616d5ef3706add27764e",
+  "candidate_sha256": "76c1bb26dba9f24d9f13f5580b7f3d5297343a08e2e791855286333fe573b810",
+  "exact_provider_dependency_view": [
+    {
+      "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+      "rva": "0x0014F3C4",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\df545d197596ed55.obj",
+      "strict_verified": true
+    },
+    {
+      "name": "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+      "rva": "0x00417B55",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\df545d197596ed55.obj",
+      "strict_verified": true
+    },
+    {
+      "name": "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "rva": "0x002B80CE",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\dtor\\e543ffbdd206f629.obj",
+      "strict_verified": true
+    }
+  ],
+  "rows": [
+    {
+      "name": "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z",
+      "export_rva": "",
+      "target_rva": "0x005041F6",
+      "target_size": "137",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "unlock Rb_tree insert via rowed create 0x005041B6 plus Rebalance; caller 0x0050456D unblocks 0x00504509; migrated=stlport-4.6"
+    },
+    {
+      "name": "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z",
+      "export_rva": "",
+      "target_rva": "0x00504509",
+      "target_size": "136",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "chain insert_unique via rowed _M_insert 0x005041F6 plus _M_decrement; caller 0x005045AF unblocks 0x005045A3; migrated=stlport-4.6"
+    },
+    {
+      "name": "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005045A3",
+      "target_size": "35",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "chain set insert via rowed insert_unique 0x00504509; callers 0x005045D2 0x00504670 unblocks 0x005045C6; migrated=stlport-4.6"
+    },
+    {
+      "name": "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005045C6",
+      "target_size": "21",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "chain void wrapper via rowed set insert 0x005045A3; callers 0x004E1497 0x004E14C7 unblocks 0x005045E0; migrated=stlport-4.6"
+    },
+    {
+      "name": "??R?$less@VRva00064640Record@@@_STL@@QBE_NABVRva00064640Record@@0@Z",
+      "export_rva": "",
+      "target_rva": "0x00503EE3",
+      "target_size": "21",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "comparator this TU emits; place_bodies masked search places it exactly once in .text and it has no call sites; migrated=stlport-4.6"
+    },
+    {
+      "name": "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z",
+      "export_rva": "",
+      "target_rva": "0x002B60F9",
+      "target_size": "45",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "STLport trivial-value tree erase; native node links +8/+C and free; genuine full45 recursive byte-and-relocation twin of existing owner; migrated=stlport-4.6"
+    },
+    {
+      "name": "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x002B70B3",
+      "target_size": "41",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "STLport ControlPoint record tree clear; native header/count reset and verified trivial erase; full41 byte-and-relocation twin of existing clear owner; migrated=stlport-4.6"
+    },
+    {
+      "name": "?rva004E12BC@Rva004E12BCOwner@@QAEXABVRva00064640Record@@@Z",
+      "export_rva": "",
+      "target_rva": "0x004E12BC",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "add ecx 0xC then tail jump into rowed Rva005045C6::rva005045C6; owner address-named; migrated=stlport-4.6"
+    },
+    {
+      "name": "?rva004E149D@Rva004E149DOwner@@QAEXABVRva00064640Record@@@Z",
+      "export_rva": "",
+      "target_rva": "0x004E149D",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "add ecx 0x4 then tail jump into rowed Rva005045C6::rva005045C6; owner address-named; migrated=stlport-4.6"
+    },
+    {
+      "name": "?DoXfer@ControlPointBlock@@QAEXPAVXfer@@@Z",
+      "export_rva": "",
+      "target_rva": "0x005045E0",
+      "target_size": "162",
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "status": "matched",
+      "notes": "WB ControlPoint.cpp ControlPointBlock::DoXfer; established neutral owner retained; native save/load virtual slots2/1 and count slot31; owned record constructor and serializer; actual STLport set iteration clear and insert; migrated=stlport-4.6"
+    }
+  ],
+  "cases": {
+    "control": {
+      "matched": [
+        "0x002B60F9",
+        "0x002B70B3",
+        "0x004E12BC",
+        "0x004E149D",
+        "0x00503EE3",
+        "0x005041F6",
+        "0x00504509",
+        "0x005045A3",
+        "0x005045C6",
+        "0x005045E0"
+      ],
+      "errors": [],
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\caller\\61b9782c70d57765.obj",
+      "strict_rows": [
+        {
+          "name": "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z",
+          "rva": "0x005041F6",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z",
+          "rva": "0x00504509",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z",
+          "rva": "0x005045A3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z",
+          "rva": "0x005045C6",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??R?$less@VRva00064640Record@@@_STL@@QBE_NABVRva00064640Record@@0@Z",
+          "rva": "0x00503EE3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z",
+          "rva": "0x002B60F9",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ",
+          "rva": "0x002B70B3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?rva004E12BC@Rva004E12BCOwner@@QAEXABVRva00064640Record@@@Z",
+          "rva": "0x004E12BC",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?rva004E149D@Rva004E149DOwner@@QAEXABVRva00064640Record@@@Z",
+          "rva": "0x004E149D",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?DoXfer@ControlPointBlock@@QAEXPAVXfer@@@Z",
+          "rva": "0x005045E0",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        }
+      ],
+      "public_code": {
+        "??8_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z": {
+          "size": 16,
+          "hex": "8b018b4c24042b01f7d81bc040c20400",
+          "relocs": []
+        },
+        "??MRva00064640Record@@QBE_NABV0@@Z": {
+          "size": 17,
+          "hex": "8b41188b4c24043b41181bc0f7d8c20400",
+          "relocs": []
+        },
+        "?deallocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@I@Z": {
+          "size": 20,
+          "hex": "837c240400740aff742404e80000000059c20800",
+          "relocs": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ]
+        },
+        "??D?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@QBEABVRva00064640Record@@XZ": {
+          "size": 6,
+          "hex": "8b0183c010c3",
+          "relocs": []
+        },
+        "??E?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@QAEAAU01@XZ": {
+          "size": 17,
+          "hex": "568bf1ff36e8000000008906598bc65ec3",
+          "relocs": [
+            [
+              6,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ]
+          ]
+        },
+        "?size@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QBEIXZ": {
+          "size": 4,
+          "hex": "8b4104c3",
+          "relocs": []
+        },
+        "??0?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@1@AB_N@Z": {
+          "size": 22,
+          "hex": "8bc18b4c24048b0989088b4c24088a09884804c20800",
+          "relocs": []
+        },
+        "?_M_root@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@XZ": {
+          "size": 6,
+          "hex": "8b0183c004c3",
+          "relocs": []
+        },
+        "?_M_leftmost@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@XZ": {
+          "size": 6,
+          "hex": "8b0183c008c3",
+          "relocs": []
+        },
+        "?_M_rightmost@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@XZ": {
+          "size": 6,
+          "hex": "8b0183c00cc3",
+          "relocs": []
+        },
+        "??0?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@QAE@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z": {
+          "size": 11,
+          "hex": "8bc18b4c24048908c20400",
+          "relocs": []
+        },
+        "?_S_left@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU32@@Z": {
+          "size": 8,
+          "hex": "8b44240483c008c3",
+          "relocs": []
+        },
+        "?_S_right@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU32@@Z": {
+          "size": 8,
+          "hex": "8b44240483c00cc3",
+          "relocs": []
+        },
+        "?_S_right@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU_Rb_tree_node_base@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c00cc3",
+          "relocs": []
+        },
+        "??R?$less@VRva00064640Record@@@_STL@@QBE_NABVRva00064640Record@@0@Z": {
+          "size": 21,
+          "hex": "8b4424048b40188b4c24083b41181bc0f7d8c20800",
+          "relocs": []
+        },
+        "??0?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAE@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z": {
+          "size": 11,
+          "hex": "8bc18b4c24048908c20400",
+          "relocs": []
+        },
+        "??0?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAE@ABU01@@Z": {
+          "size": 13,
+          "hex": "8bc18b4c24048b098908c20400",
+          "relocs": []
+        },
+        "??E?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAEAAU01@XZ": {
+          "size": 17,
+          "hex": "568bf1ff36e8000000008906598bc65ec3",
+          "relocs": [
+            [
+              6,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ]
+          ]
+        },
+        "??F?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAEAAU01@XZ": {
+          "size": 17,
+          "hex": "568bf1ff36e8000000008906598bc65ec3",
+          "relocs": [
+            [
+              6,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ]
+          ]
+        },
+        "??0?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@1@AB_N@Z": {
+          "size": 22,
+          "hex": "8bc18b4c24048b0989088b4c24088a09884804c20800",
+          "relocs": []
+        },
+        "??R?$_Identity@VRva00064640Record@@@_STL@@QBEABVRva00064640Record@@ABV2@@Z": {
+          "size": 7,
+          "hex": "8b442404c20400",
+          "relocs": []
+        },
+        "?_S_value@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAVRva00064640Record@@PAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c010c3",
+          "relocs": []
+        },
+        "??$_Destroy@VRva00064640Record@@@_STL@@YAXPAVRva00064640Record@@@Z": {
+          "size": 1,
+          "hex": "c3",
+          "relocs": []
+        },
+        "?_S_parent@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU32@@Z": {
+          "size": 8,
+          "hex": "8b44240483c004c3",
+          "relocs": []
+        },
+        "?size@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QBEIXZ": {
+          "size": 4,
+          "hex": "8b4104c3",
+          "relocs": []
+        },
+        "?begin@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 14,
+          "hex": "8b018b48088b4424048908c20400",
+          "relocs": []
+        },
+        "?end@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 11,
+          "hex": "8b098b4424048908c20400",
+          "relocs": []
+        },
+        "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z": {
+          "size": 45,
+          "hex": "53568b74240c85f68bd9741c57ff760c8bcbe8000000008b7e0856e80000000085ff598bf775e65f5e5bc20400",
+          "relocs": [
+            [
+              19,
+              20,
+              "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z"
+            ],
+            [
+              28,
+              20,
+              "_free"
+            ]
+          ]
+        },
+        "?_S_key@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAABVRva00064640Record@@PAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c010c3",
+          "relocs": []
+        },
+        "?_S_key@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAABVRva00064640Record@@PAU_Rb_tree_node_base@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c010c3",
+          "relocs": []
+        },
+        "?begin@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 14,
+          "hex": "8b018b48088b4424048908c20400",
+          "relocs": []
+        },
+        "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z": {
+          "size": 137,
+          "hex": "558bec8b4514538b5d1056578bf93b1f742d837d1800750e837d0c0075218b48183b4b287219508bcfe8000000008bf089730c8b073b580c752789700ceb22508bcfe8000000008bf08973088b073bd875078970048b07ebe13b580875038970088366080083660c00895e048b0783c0045056e800000000ff47048b450859595f89305e5b5dc21400",
+          "relocs": [
+            [
+              42,
+              20,
+              "?_M_create_node@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@ABVRva00064640Record@@@Z"
+            ],
+            [
+              67,
+              20,
+              "?_M_create_node@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@ABVRva00064640Record@@@Z"
+            ],
+            [
+              116,
+              20,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z"
+            ]
+          ]
+        },
+        "?begin@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 14,
+          "hex": "8b018b48088b4424048908c20400",
+          "relocs": []
+        },
+        "?end@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 11,
+          "hex": "8b098b4424048908c20400",
+          "relocs": []
+        },
+        "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ": {
+          "size": 41,
+          "hex": "568bf1837e0400741e8b06ff7004e8000000008b068940088b06836004008b0689400c836604005ec3",
+          "relocs": [
+            [
+              15,
+              20,
+              "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z"
+            ]
+          ]
+        },
+        "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z": {
+          "size": 136,
+          "hex": "558bec538bd98b0b568b710485f6578bf9b201741e8b450c8b40183b46288bfe0f92c284d274058b7608eb038b760c85f675e884d28bc774153b790875096a00ff750c5757eb1757e800000000598b50288b4d0c3b5118731d6a005157568d450c508bcbe8000000008b088b45088908c6400401eb0b8b4d088901c64104008bc15f5e5b5dc20800",
+          "relocs": [
+            [
+              73,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              101,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ]
+          ]
+        },
+        "?insert_equal@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@ABVRva00064640Record@@@Z": {
+          "size": 60,
+          "hex": "8b118b420485c0578b7c240c7418568b77183b70288bd073058b4008eb038b400c85c075ed5e6a00575250ff742418e8000000008b4424085fc20800",
+          "relocs": [
+            [
+              48,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ]
+          ]
+        },
+        "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z": {
+          "size": 35,
+          "hex": "558bec5151ff750c8d45f850e8000000008b45088b4df889088a4dfc884804c9c20800",
+          "relocs": [
+            [
+              13,
+              20,
+              "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?clear@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ": {
+          "size": 5,
+          "hex": "e900000000",
+          "relocs": [
+            [
+              1,
+              20,
+              "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ"
+            ]
+          ]
+        },
+        "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@U32@ABVRva00064640Record@@@Z": {
+          "size": 299,
+          "hex": "558bec515153568b750c578bf98b073b70087565837f04007708ff7510e9f00000008b5d108b43188b4e283bc876076a00e98b000000720a8b45088930e9e200000056e8000000003b07597505565356eb3c8b4b183b48280f83b3000000e99100000051535050ff75088bcfe8000000008b4508e9ab0000003bf075188b400c8b50288b4d103b511873075651506a00ebd551eb7d56e8000000008b5d10598b4b183b4e280f924513807d13007417394828731233c939480c7505505350eb4251535656eba156e800000000807d1300590f94c2807d1300752e8b4b18394e280f92c284d20f844dffffff3b0774053b4828731433c9394e0c0f8564ffffff56535651e95fffffff3855130f8427ffffff538d45f88bcf50e8000000008b088b450889085f5e5bc9c20c00",
+          "relocs": [
+            [
+              68,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              109,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ],
+            [
+              151,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              200,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              281,
+              20,
+              "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?insert_equal@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@U32@ABVRva00064640Record@@@Z": {
+          "size": 255,
+          "hex": "558bec53568b750c578bf98b073b7008755333db395f040f86bb0000008b4e288b45103b4818720653505656eb4e397608750653505653eb4356e8000000003b0759740b8b50288b4d103b51187231395e0c8bcf0f859500000056ff75105653e9900000003bf0751a8b4d108b400c8b51183b502872095651506a008bcfeb7551eb5856e800000000598b4d108b4918394e280f92450f33db385d0f751b3b4828721639580c8bcf750750ff751050ebae53ff75105656eb3c56e800000000385d0f5974133b0774868b48288b55103b4a180f8377ffffffff7510ff75088bcfe8000000008b45085f5e5b5dc20c0053ff75105050ff7508e800000000ebe6",
+          "relocs": [
+            [
+              59,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              133,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              187,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              225,
+              20,
+              "?insert_equal@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@ABVRva00064640Record@@@Z"
+            ],
+            [
+              249,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ]
+          ]
+        },
+        "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z": {
+          "size": 21,
+          "hex": "558bec5151ff75088d45f850e800000000c9c20400",
+          "relocs": [
+            [
+              13,
+              20,
+              "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?DoXfer@ControlPointBlock@@QAEXPAVXfer@@@Z": {
+          "size": 162,
+          "hex": "558bec83ec2453568b75088b06578bf98bceff500884c074358b47048d4d088945088b06518bceff507c8b078b58083bd874688d43105056e80000000053e8000000008bd883c40c3b1f75e7eb4d8b068bceff500484c074428b068d4d08518bceff507c8bcfe8000000008d4ddce80000000033db395d087e218d45dc5056e80000000059598d45dc508d45f8508bcfe800000000433b5d087cdf5f5e5bc9c20400",
+          "relocs": [
+            [
+              57,
+              20,
+              "?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z"
+            ],
+            [
+              63,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              103,
+              20,
+              "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ"
+            ],
+            [
+              111,
+              20,
+              "??0Rva00064390@@QAE@XZ"
+            ],
+            [
+              128,
+              20,
+              "?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z"
+            ],
+            [
+              145,
+              20,
+              "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?rva004E12BC@Rva004E12BCOwner@@QAEXABVRva00064640Record@@@Z": {
+          "size": 8,
+          "hex": "83c10ce900000000",
+          "relocs": [
+            [
+              4,
+              20,
+              "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?rva004E149D@Rva004E149DOwner@@QAEXABVRva00064640Record@@@Z": {
+          "size": 8,
+          "hex": "83c104e900000000",
+          "relocs": [
+            [
+              4,
+              20,
+              "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z"
+            ]
+          ]
+        }
+      },
+      "undefined": [
+        "??0Rva00064390@@QAE@XZ",
+        "?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z",
+        "?_M_create_node@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@ABVRva00064640Record@@@Z",
+        "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z",
+        "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z",
+        "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+        "_free"
+      ]
+    },
+    "candidate": {
+      "matched": [
+        "0x002B60F9",
+        "0x002B70B3",
+        "0x004E12BC",
+        "0x004E149D",
+        "0x00503EE3",
+        "0x005041F6",
+        "0x00504509",
+        "0x005045A3",
+        "0x005045C6",
+        "0x005045E0"
+      ],
+      "errors": [],
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\caller\\f82b0865f9ac9f6d.obj",
+      "strict_rows": [
+        {
+          "name": "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z",
+          "rva": "0x005041F6",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z",
+          "rva": "0x00504509",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z",
+          "rva": "0x005045A3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z",
+          "rva": "0x005045C6",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "??R?$less@VRva00064640Record@@@_STL@@QBE_NABVRva00064640Record@@0@Z",
+          "rva": "0x00503EE3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z",
+          "rva": "0x002B60F9",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ",
+          "rva": "0x002B70B3",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?rva004E12BC@Rva004E12BCOwner@@QAEXABVRva00064640Record@@@Z",
+          "rva": "0x004E12BC",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?rva004E149D@Rva004E149DOwner@@QAEXABVRva00064640Record@@@Z",
+          "rva": "0x004E149D",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?DoXfer@ControlPointBlock@@QAEXPAVXfer@@@Z",
+          "rva": "0x005045E0",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        }
+      ],
+      "public_code": {
+        "??8_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z": {
+          "size": 16,
+          "hex": "8b018b4c24042b01f7d81bc040c20400",
+          "relocs": []
+        },
+        "??MRva00064640Record@@QBE_NABV0@@Z": {
+          "size": 17,
+          "hex": "8b41188b4c24043b41181bc0f7d8c20400",
+          "relocs": []
+        },
+        "?deallocate@?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@I@Z": {
+          "size": 20,
+          "hex": "837c240400740aff742404e80000000059c20800",
+          "relocs": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ]
+        },
+        "??D?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@QBEABVRva00064640Record@@XZ": {
+          "size": 6,
+          "hex": "8b0183c010c3",
+          "relocs": []
+        },
+        "??E?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@QAEAAU01@XZ": {
+          "size": 17,
+          "hex": "568bf1ff36e8000000008906598bc65ec3",
+          "relocs": [
+            [
+              6,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ]
+          ]
+        },
+        "??0?$allocator@VRva00064640Record@@@_STL@@QAE@XZ": {
+          "size": 3,
+          "hex": "8bc1c3",
+          "relocs": []
+        },
+        "??1?$allocator@VRva00064640Record@@@_STL@@QAE@XZ": {
+          "size": 1,
+          "hex": "c3",
+          "relocs": []
+        },
+        "?size@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QBEIXZ": {
+          "size": 4,
+          "hex": "8b4104c3",
+          "relocs": []
+        },
+        "??0?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@1@AB_N@Z": {
+          "size": 22,
+          "hex": "8bc18b4c24048b0989088b4c24088a09884804c20800",
+          "relocs": []
+        },
+        "??1?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ": {
+          "size": 1,
+          "hex": "c3",
+          "relocs": []
+        },
+        "?_M_root@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@XZ": {
+          "size": 6,
+          "hex": "8b0183c004c3",
+          "relocs": []
+        },
+        "?_M_leftmost@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@XZ": {
+          "size": 6,
+          "hex": "8b0183c008c3",
+          "relocs": []
+        },
+        "?_M_rightmost@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IBEAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@XZ": {
+          "size": 6,
+          "hex": "8b0183c00cc3",
+          "relocs": []
+        },
+        "?_S_color@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAA_NPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z": {
+          "size": 5,
+          "hex": "8b442404c3",
+          "relocs": []
+        },
+        "??0?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@QAE@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z": {
+          "size": 11,
+          "hex": "8bc18b4c24048908c20400",
+          "relocs": []
+        },
+        "?_S_left@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU32@@Z": {
+          "size": 8,
+          "hex": "8b44240483c008c3",
+          "relocs": []
+        },
+        "?_S_right@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU32@@Z": {
+          "size": 8,
+          "hex": "8b44240483c00cc3",
+          "relocs": []
+        },
+        "?_S_right@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU_Rb_tree_node_base@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c00cc3",
+          "relocs": []
+        },
+        "??R?$less@VRva00064640Record@@@_STL@@QBE_NABVRva00064640Record@@0@Z": {
+          "size": 21,
+          "hex": "8b4424048b40188b4c24083b41181bc0f7d8c20800",
+          "relocs": []
+        },
+        "??0?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAE@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z": {
+          "size": 11,
+          "hex": "8bc18b4c24048908c20400",
+          "relocs": []
+        },
+        "??0?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAE@ABU01@@Z": {
+          "size": 13,
+          "hex": "8bc18b4c24048b098908c20400",
+          "relocs": []
+        },
+        "??E?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAEAAU01@XZ": {
+          "size": 17,
+          "hex": "568bf1ff36e8000000008906598bc65ec3",
+          "relocs": [
+            [
+              6,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ]
+          ]
+        },
+        "??F?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@QAEAAU01@XZ": {
+          "size": 17,
+          "hex": "568bf1ff36e8000000008906598bc65ec3",
+          "relocs": [
+            [
+              6,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ]
+          ]
+        },
+        "??0?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@1@AB_N@Z": {
+          "size": 22,
+          "hex": "8bc18b4c24048b0989088b4c24088a09884804c20800",
+          "relocs": []
+        },
+        "??R?$_Identity@VRva00064640Record@@@_STL@@QBEABVRva00064640Record@@ABV2@@Z": {
+          "size": 7,
+          "hex": "8b442404c20400",
+          "relocs": []
+        },
+        "?_S_value@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAVRva00064640Record@@PAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c010c3",
+          "relocs": []
+        },
+        "??$_Destroy@VRva00064640Record@@@_STL@@YAXPAVRva00064640Record@@@Z": {
+          "size": 1,
+          "hex": "c3",
+          "relocs": []
+        },
+        "?_S_parent@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAAAPAU?$_Rb_tree_node@VRva00064640Record@@@2@PAU32@@Z": {
+          "size": 8,
+          "hex": "8b44240483c004c3",
+          "relocs": []
+        },
+        "?size@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QBEIXZ": {
+          "size": 4,
+          "hex": "8b4104c3",
+          "relocs": []
+        },
+        "?_M_empty_initialize@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXXZ": {
+          "size": 22,
+          "hex": "8b01c600008b01836004008b018940088b0989490cc3",
+          "relocs": []
+        },
+        "?begin@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 14,
+          "hex": "8b018b48088b4424048908c20400",
+          "relocs": []
+        },
+        "?end@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 11,
+          "hex": "8b098b4424048908c20400",
+          "relocs": []
+        },
+        "??1?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@XZ": {
+          "size": 1,
+          "hex": "c3",
+          "relocs": []
+        },
+        "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z": {
+          "size": 45,
+          "hex": "53568b74240c85f68bd9741c57ff760c8bcbe8000000008b7e0856e80000000085ff598bf775e65f5e5bc20400",
+          "relocs": [
+            [
+              19,
+              20,
+              "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z"
+            ],
+            [
+              28,
+              20,
+              "_free"
+            ]
+          ]
+        },
+        "?_S_key@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAABVRva00064640Record@@PAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c010c3",
+          "relocs": []
+        },
+        "?_S_key@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@KAABVRva00064640Record@@PAU_Rb_tree_node_base@2@@Z": {
+          "size": 8,
+          "hex": "8b44240483c010c3",
+          "relocs": []
+        },
+        "?begin@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 14,
+          "hex": "8b018b48088b4424048908c20400",
+          "relocs": []
+        },
+        "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z": {
+          "size": 137,
+          "hex": "558bec8b4514538b5d1056578bf93b1f742d837d1800750e837d0c0075218b48183b4b287219508bcfe8000000008bf089730c8b073b580c752789700ceb22508bcfe8000000008bf08973088b073bd875078970048b07ebe13b580875038970088366080083660c00895e048b0783c0045056e800000000ff47048b450859595f89305e5b5dc21400",
+          "relocs": [
+            [
+              42,
+              20,
+              "?_M_create_node@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@ABVRva00064640Record@@@Z"
+            ],
+            [
+              67,
+              20,
+              "?_M_create_node@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@ABVRva00064640Record@@@Z"
+            ],
+            [
+              116,
+              20,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z"
+            ]
+          ]
+        },
+        "?begin@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 14,
+          "hex": "8b018b48088b4424048908c20400",
+          "relocs": []
+        },
+        "?end@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@2@XZ": {
+          "size": 11,
+          "hex": "8b098b4424048908c20400",
+          "relocs": []
+        },
+        "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ": {
+          "size": 14,
+          "hex": "8b0185c0740750e80000000059c3",
+          "relocs": [
+            [
+              8,
+              20,
+              "_free"
+            ]
+          ]
+        },
+        "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ": {
+          "size": 41,
+          "hex": "568bf1837e0400741e8b06ff7004e8000000008b068940088b06836004008b0689400c836604005ec3",
+          "relocs": [
+            [
+              15,
+              20,
+              "?_M_erase@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VRva00064640Record@@@2@@Z"
+            ]
+          ]
+        },
+        "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z": {
+          "size": 136,
+          "hex": "558bec538bd98b0b568b710485f6578bf9b201741e8b450c8b40183b46288bfe0f92c284d274058b7608eb038b760c85f675e884d28bc774153b790875096a00ff750c5757eb1757e800000000598b50288b4d0c3b5118731d6a005157568d450c508bcbe8000000008b088b45088908c6400401eb0b8b4d088901c64104008bc15f5e5b5dc20800",
+          "relocs": [
+            [
+              73,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              101,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ]
+          ]
+        },
+        "?insert_equal@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@ABVRva00064640Record@@@Z": {
+          "size": 60,
+          "hex": "8b118b420485c0578b7c240c7418568b77183b70288bd073058b4008eb038b400c85c075ed5e6a00575250ff742418e8000000008b4424085fc20800",
+          "relocs": [
+            [
+              48,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ]
+          ]
+        },
+        "??0?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@ABU?$less@VRva00064640Record@@@1@ABV?$allocator@VRva00064640Record@@@1@@Z": {
+          "size": 42,
+          "hex": "56ff74240c8bf1e8000000008b0e33c089460488018b0e8941048b068940088b0689400c8bc65ec20800",
+          "relocs": [
+            [
+              8,
+              20,
+              "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z"
+            ]
+          ]
+        },
+        "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ": {
+          "size": 25,
+          "hex": "558bec51568d45ff508d45ff508bf1e8000000008bc65ec9c3",
+          "relocs": [
+            [
+              16,
+              20,
+              "??0?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@ABU?$less@VRva00064640Record@@@1@ABV?$allocator@VRva00064640Record@@@1@@Z"
+            ]
+          ]
+        },
+        "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z": {
+          "size": 35,
+          "hex": "558bec5151ff750c8d45f850e8000000008b45088b4df889088a4dfc884804c9c20800",
+          "relocs": [
+            [
+              13,
+              20,
+              "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?clear@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ": {
+          "size": 5,
+          "hex": "e900000000",
+          "relocs": [
+            [
+              1,
+              20,
+              "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ"
+            ]
+          ]
+        },
+        "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@U32@ABVRva00064640Record@@@Z": {
+          "size": 299,
+          "hex": "558bec515153568b750c578bf98b073b70087565837f04007708ff7510e9f00000008b5d108b43188b4e283bc876076a00e98b000000720a8b45088930e9e200000056e8000000003b07597505565356eb3c8b4b183b48280f83b3000000e99100000051535050ff75088bcfe8000000008b4508e9ab0000003bf075188b400c8b50288b4d103b511873075651506a00ebd551eb7d56e8000000008b5d10598b4b183b4e280f924513807d13007417394828731233c939480c7505505350eb4251535656eba156e800000000807d1300590f94c2807d1300752e8b4b18394e280f92c284d20f844dffffff3b0774053b4828731433c9394e0c0f8564ffffff56535651e95fffffff3855130f8427ffffff538d45f88bcf50e8000000008b088b450889085f5e5bc9c20c00",
+          "relocs": [
+            [
+              68,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              109,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ],
+            [
+              151,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              200,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              281,
+              20,
+              "?insert_unique@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?insert_equal@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@U32@ABVRva00064640Record@@@Z": {
+          "size": 255,
+          "hex": "558bec53568b750c578bf98b073b7008755333db395f040f86bb0000008b4e288b45103b4818720653505656eb4e397608750653505653eb4356e8000000003b0759740b8b50288b4d103b51187231395e0c8bcf0f859500000056ff75105653e9900000003bf0751a8b4d108b400c8b51183b502872095651506a008bcfeb7551eb5856e800000000598b4d108b4918394e280f92450f33db385d0f751b3b4828721639580c8bcf750750ff751050ebae53ff75105656eb3c56e800000000385d0f5974133b0774868b48288b55103b4a180f8377ffffffff7510ff75088bcfe8000000008b45085f5e5b5dc20c0053ff75105050ff7508e800000000ebe6",
+          "relocs": [
+            [
+              59,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              133,
+              20,
+              "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              187,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              225,
+              20,
+              "?insert_equal@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@ABVRva00064640Record@@@Z"
+            ],
+            [
+              249,
+              20,
+              "?_M_insert@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VRva00064640Record@@U?$_Nonconst_traits@VRva00064640Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVRva00064640Record@@0@Z"
+            ]
+          ]
+        },
+        "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z": {
+          "size": 21,
+          "hex": "558bec5151ff75088d45f850e800000000c9c20400",
+          "relocs": [
+            [
+              13,
+              20,
+              "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?DoXfer@ControlPointBlock@@QAEXPAVXfer@@@Z": {
+          "size": 162,
+          "hex": "558bec83ec2453568b75088b06578bf98bceff500884c074358b47048d4d088945088b06518bceff507c8b078b58083bd874688d43105056e80000000053e8000000008bd883c40c3b1f75e7eb4d8b068bceff500484c074428b068d4d08518bceff507c8bcfe8000000008d4ddce80000000033db395d087e218d45dc5056e80000000059598d45dc508d45f8508bcfe800000000433b5d087cdf5f5e5bc9c20400",
+          "relocs": [
+            [
+              57,
+              20,
+              "?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z"
+            ],
+            [
+              63,
+              20,
+              "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+            ],
+            [
+              103,
+              20,
+              "?clear@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAEXXZ"
+            ],
+            [
+              111,
+              20,
+              "??0Rva00064390@@QAE@XZ"
+            ],
+            [
+              128,
+              20,
+              "?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z"
+            ],
+            [
+              145,
+              20,
+              "?insert@?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@VRva00064640Record@@U?$_Const_traits@VRva00064640Record@@@_STL@@@_STL@@_N@2@ABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?rva004E12BC@Rva004E12BCOwner@@QAEXABVRva00064640Record@@@Z": {
+          "size": 8,
+          "hex": "83c10ce900000000",
+          "relocs": [
+            [
+              4,
+              20,
+              "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z"
+            ]
+          ]
+        },
+        "?rva004E149D@Rva004E149DOwner@@QAEXABVRva00064640Record@@@Z": {
+          "size": 8,
+          "hex": "83c104e900000000",
+          "relocs": [
+            [
+              4,
+              20,
+              "?addControlPoint@Rva005045C6@@QAEXABVRva00064640Record@@@Z"
+            ]
+          ]
+        }
+      },
+      "undefined": [
+        "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+        "??0Rva00064390@@QAE@XZ",
+        "?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z",
+        "?_M_create_node@?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VRva00064640Record@@@2@ABVRva00064640Record@@@Z",
+        "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z",
+        "?_M_increment@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z",
+        "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+        "_free"
+      ]
+    }
+  },
+  "helper_results": {
+    "tree": {
+      "name": "??0?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@ABU?$less@VRva00064640Record@@@1@ABV?$allocator@VRva00064640Record@@@1@@Z",
+      "rva": "0x004FF681",
+      "size": 42,
+      "actual_size": 42,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "hex": "56ff74240c8bf1e8000000008b0e33c089460488018b0e8941048b068940088b0689400c8bc65ec20800",
+      "relocs": [
+        [
+          8,
+          20,
+          "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z"
+        ]
+      ]
+    },
+    "set": {
+      "name": "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "rva": "0x005011C1",
+      "size": 25,
+      "actual_size": 25,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "hex": "558bec51568d45ff508d45ff508bf1e8000000008bc65ec9c3",
+      "relocs": [
+        [
+          16,
+          20,
+          "??0?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@ABU?$less@VRva00064640Record@@@1@ABV?$allocator@VRva00064640Record@@@1@@Z"
+        ]
+      ]
+    }
+  },
+  "wrong_local_storage_providers": []
+}

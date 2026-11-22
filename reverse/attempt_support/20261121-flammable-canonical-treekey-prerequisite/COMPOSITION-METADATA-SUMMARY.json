@@ -1,0 +1,46 @@
+{
+  "scope": "Diagnostic comparison only: exact three original private compiler guard names, no source/ledger/linker aliases",
+  "guard_names": {
+    "?$S14@?4??rva0048C8F9@FlammableUpdate@@QAEXXZ@4IA": "?$S17@?4??rva0048C8F9@FlammableUpdate@@QAEXXZ@4IA",
+    "?$S16@?BH@??update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ@4IA": "?$S19@?BH@??update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ@4IA",
+    "?$S15@?4??tryToIgnite@FlammableUpdate@@QAEXXZ@4IA": "?$S18@?4??tryToIgnite@FlammableUpdate@@QAEXXZ@4IA"
+  },
+  "guard_node_contract": "4-byte zero-fill .bss, static storage3, no vptr/initializer/relocs, identical full containing-function suffix",
+  "raw_unnormalized_proof_preserved": "COMPOSITION-FULL-COFF-GRAPHS.json",
+  "after_explicit_guard_correspondence": {
+    "seed": {
+      "considered": 705,
+      "mapped": 705,
+      "missing": [],
+      "edges": []
+    },
+    "donor": {
+      "considered": 672,
+      "mapped": 672,
+      "missing": [],
+      "edges": []
+    }
+  },
+  "fpo": {
+    "donor": {
+      "records": 96,
+      "missing_in_merged": []
+    },
+    "seed": {
+      "records": 122,
+      "missing_in_merged": []
+    },
+    "merged_records": 153
+  },
+  "safeseh": {
+    "seed": 6,
+    "donor": 5,
+    "merged": 11,
+    "exact_original_union": true
+  },
+  "directives_exact_seed": true,
+  "donor_directives_already_seed_subset": true,
+  "weak_exact_seed": true,
+  "vtables_exact_seed": true,
+  "crt_sections_exact_seed": true
+}

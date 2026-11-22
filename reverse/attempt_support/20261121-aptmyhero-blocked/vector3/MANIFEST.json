@@ -1,0 +1,77 @@
+{
+  "created_utc": "2026-11-21T01:24:13.286519+00:00",
+  "original_private_directory": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\aptmyhero-vector3",
+  "all_original_files_unchanged": true,
+  "original_file_sha256": {
+    "AptMyHero-canonical-inline.cpp.txt": "a70f5c197684dd18d3e884b86c9b174af4d5e36310b3a6751a323eb73511e774",
+    "AptMyHero-partial-sum.cpp.txt": "2f2daeb4f392f00891817d584fa9a3ab7c139c026d1e92d5d858f800d143b3eb",
+    "AptMyHero-ref-locals.cpp.txt": "3992945ce5f6da96409a5353b804653e2f30fcca3669c0c9ba88f4b45f592175",
+    "AptMyHero-row-reference.cpp.txt": "14ab8484a8c129cbe65f3590331d80aa319f49e0afcc5d533545cfbd8288e7bd",
+    "AptMyHero-statement-construction.cpp.txt": "3f751319e7dc5544aab3e76e12f171eb17b2291857a1e26b4e77954993dad31b",
+    "canonical-inline-body-diff.txt": "46e4b87e86c5c9295bf76af203be93e6426e1eddd2f0bffd4b4bae3ed92588d0",
+    "canonical-inline-data-footprint.json": "3e1c0057bea345e5a6c4ae44c7aee58539fa3abb8291a025456fce23f359e0b8",
+    "canonical-inline-footprint.json": "7dbba1fc2f899a94d5eaa636e996873e4e193f3850869658a392a7febd7b0374",
+    "canonical-inline-proof.json": "22faf43cf0b7cfd677425f96cd4dac186021eca4eee12e4f8a29ded63984290e",
+    "canonical-inline.patch": "5d8b65137d4002f5255b767e49b70d0416ead0a76160121fb9916d99bba08592",
+    "control-prior-body.disasm.txt": "e8d8428fbbf8a1fdfb18ef9f2f1f26d5f1adb5af7c5ae872528c3840e306e72c",
+    "HANDOFF.md": "665087e24e98a680c8e853a8da4680eaf40e3df72651e323d5ff9d65d3fbd41d",
+    "HYPOTHESIS-1.md": "e84669e2c1037afe21fef35778716903cc61deededf729ffb8b2193a1f23e97b",
+    "HYPOTHESIS-2.md": "6b7b1665466c0c7c8304314cd69157e52ab8c492b46c1d5902c67522da11cc3f",
+    "HYPOTHESIS-3.md": "7afaa35bd3d6e17a1359db738017ebe1cfc2c0ccd87d357aa6e0e7ee2d8bbbec",
+    "HYPOTHESIS-4.md": "f123cc244dfefab530079b544d45d3278856b1308bdfa4060a9436d40aec889a",
+    "HYPOTHESIS-5.md": "26b2c3421384ffa736dc89981268e5a2bb0aff31018157c96b37c363465770f4",
+    "MANIFEST.json": "9b59f49fb44384186fe2017a67222cafc4327f394cc65609be0b7e640a0ca1fd",
+    "native-input-context.json": "e52f29109c88207b3a4f65ae1432457c1e72e6aa0bc21480c3413c805bfc69ee",
+    "NATIVE-RECEIPT-COMPACT.json": "cc79d5c5ceaa7070bcc45e600d0391190334a4ea90346eeb63316cbc203f9c75",
+    "partial-sum-proof.json": "5299bfe6645826009c8897f11c9c481fb6b7592ff19252b4e799f3859aea2157",
+    "partial-sum.patch": "3da1f7a98ff242e4f71f776051bb28a0c0a7844453f6a1ce45a2e6a96e87374d",
+    "prior-body-diff.txt": "de4902fa3e8500b96c3379ebdb8698e380df160e0949223c39c672d9ee407d48",
+    "qualified-prior-body.disasm.txt": "757a85c91916812b77a9396e1877f40d2da80797134aabb380ad581a5c8c0af0",
+    "ref-locals-proof.json": "731fe921255bd481489e8054654fc96589d68656c9baf248b1dd86430a8ccd96",
+    "ref-locals.patch": "857c2171310594f9c5c5ee5b424a9264c79102e5832208fdf0791a14e51cfaaa",
+    "row-reference-proof.json": "e2ae96b575951ae3086955bf291ad2a7b7076fd6b8484a8ee1d5aa84122b8519",
+    "row-reference.patch": "e5ac70115ea81c6e6a143425efe94f50ccdf7af4442e9ac3281b15184e1d5f0f",
+    "statement-construction-proof.json": "7e6e065e7a465be61c21d486b65433edf73fef5de75055ea0959d7c7a860eee9",
+    "statement-construction.patch": "c5fe2c27f2bc2244be789842b3b5dc4ac0c5d89d7e0e8ced6bfef5357a9fb071",
+    "WORK-WINDOW.json": "7da18e40b4d0fcadc6a8b944b8751005b9d1b73db18e6d762796d1a58055020c"
+  },
+  "original_hdf_reviewed": true,
+  "correction_words": 351,
+  "root_record_characters": 558,
+  "no_new_compilation": true,
+  "no_production_git_claim_interface_row_gate_writes": true,
+  "new_credit": 0,
+  "copied_evidence": {
+    "AptMyHero-canonical-inline.cpp.txt": {
+      "original": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\aptmyhero-vector3\\AptMyHero-canonical-inline.cpp.txt",
+      "sha256": "a70f5c197684dd18d3e884b86c9b174af4d5e36310b3a6751a323eb73511e774"
+    },
+    "canonical-inline.patch": {
+      "original": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\aptmyhero-vector3\\canonical-inline.patch",
+      "sha256": "5d8b65137d4002f5255b767e49b70d0416ead0a76160121fb9916d99bba08592"
+    },
+    "canonical-inline-body-diff.txt": {
+      "original": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\aptmyhero-vector3\\canonical-inline-body-diff.txt",
+      "sha256": "46e4b87e86c5c9295bf76af203be93e6426e1eddd2f0bffd4b4bae3ed92588d0"
+    },
+    "ORIGINAL-NATIVE-RECEIPT-COMPACT.json": {
+      "original": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\aptmyhero-vector3\\NATIVE-RECEIPT-COMPACT.json",
+      "sha256": "cc79d5c5ceaa7070bcc45e600d0391190334a4ea90346eeb63316cbc203f9c75"
+    },
+    "IDENTITY-READ-RECEIPT.json": {
+      "original": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\transport\\vector3-const-return\\READ-RECEIPT.json",
+      "sha256": "a0328921faf155d18090c7100c8b2e94b2b825f9da9bfe66deeaad07f40adea7"
+    }
+  },
+  "packet_sha256": {
+    "AptMyHero-canonical-inline.cpp.txt": "a70f5c197684dd18d3e884b86c9b174af4d5e36310b3a6751a323eb73511e774",
+    "canonical-inline-body-diff.txt": "46e4b87e86c5c9295bf76af203be93e6426e1eddd2f0bffd4b4bae3ed92588d0",
+    "canonical-inline.patch": "5d8b65137d4002f5255b767e49b70d0416ead0a76160121fb9916d99bba08592",
+    "CORRECTION.md": "9091a69fe7b753117ec75a4fff04f58ce529bb8fd9360f3bc845a6a13dcab4d9",
+    "IDENTITY-READ-RECEIPT.json": "a0328921faf155d18090c7100c8b2e94b2b825f9da9bfe66deeaad07f40adea7",
+    "ORIGINAL-NATIVE-RECEIPT-COMPACT.json": "cc79d5c5ceaa7070bcc45e600d0391190334a4ea90346eeb63316cbc203f9c75",
+    "README.md": "412f71e91f679671f09556922c8d26c32b9f84235590a7ff09f0c305b89e2d9f",
+    "REVIEW-ORIGINAL-HDF.md": "0804a042195fc0cd2a2dd4081eeda90e327862d72505297aff781f6016cb3443",
+    "ROOT-RECORD-600.txt": "0082adcdb52c9edc19f3c4a81625c6f1132c141ddb91fa1305eeeba09aa046b8"
+  }
+}

@@ -1,0 +1,14 @@
+Source claims: OK (19 sources, scoped byte-verified)
+Data rows: OK (5 row(s) byte-verified)
+Compile: 16 of 19 TU(s) (deps-cache: 3 current)
+Funclet pins: 85 row(s) verified past a renumbered $L label
+    $L1253 (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreen.cpp): $L1253 was renumbered; verified parent EH data places $L12228 at 0x00795CFD
+    $L1254 (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreen.cpp): $L1254 was renumbered; verified parent EH data places $L12229 at 0x00795D05
+    $L1003 (Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolver.cpp): $L1003 was renumbered; verified parent EH data places $L56976 at 0x007A199A
+    $L1020 (Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolver.cpp): $L1020 was renumbered; verified parent EH data places $L56993 at 0x007A1986
+    $L1039 (Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolver.cpp): $L1039 was renumbered; verified parent EH data places $L57015 at 0x007A1CCF
+STLport folds: 3 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 247/247 matched across 19 source file(s)
+String-ref verify: OK (86 literals + 29 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (10 compiler literals verified)
+Import-ref verify: OK (6 named imports verified)

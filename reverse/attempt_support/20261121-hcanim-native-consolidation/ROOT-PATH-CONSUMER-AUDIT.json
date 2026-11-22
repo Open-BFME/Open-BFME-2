@@ -1,0 +1,103 @@
+{
+  "base": "3cd967299a3de54ed52af0ca02a3ddad4bd6eaff",
+  "parent": "e587ad3656865550008ac64cf8de1919a9710d53",
+  "includes_staged_native011": true,
+  "complete_outgoing_source_deletions": [
+    "D\tCode/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp",
+    "D\tCode/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp"
+  ],
+  "moved_paths": {
+    "Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp": "Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp",
+    "Code/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp": "Code/Libraries/Source/Fesl/transactor.cpp"
+  },
+  "search_command": [
+    "rg",
+    "-n",
+    "-F",
+    "-e",
+    "FeslTransactor_lookup_rva007F9530",
+    "-e",
+    "HCompressedAnimMemory",
+    "tools",
+    ".githooks",
+    ".github",
+    "Code",
+    "docs",
+    "reverse",
+    "-g",
+    "*.py",
+    "-g",
+    "*.sh",
+    "-g",
+    "*.cmd",
+    "-g",
+    "*.yml",
+    "-g",
+    "*.yaml",
+    "-g",
+    "*.cpp",
+    "-g",
+    "*.h",
+    "-g",
+    "*.txt",
+    "-g",
+    "*.cfg",
+    "-g",
+    "*.md",
+    "-g",
+    "*.json",
+    "-g",
+    "*.csv",
+    "-g",
+    "*.tsv",
+    "-g",
+    "!functions.csv",
+    "-g",
+    "!re_attempts.log",
+    "-g",
+    "!ghidra_functions.csv",
+    "-g",
+    "!exports.csv",
+    "-g",
+    "!gate_baseline.txt",
+    "-g",
+    "!reverse/attempt_support/**",
+    "-g",
+    "!reverse/class_contracts/**",
+    "-g",
+    "!reverse/bfme1_sweep/**"
+  ],
+  "remaining_mentions": [
+    "reverse\\link_status.csv:12479:Code/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp,yes,0,0,0,0,0",
+    "reverse\\link_status.csv:14511:Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp,yes,0,0,0,0,0",
+    "Code\\Libraries\\Source\\WWVegas\\WW3D2\\hcanim.cpp:1648:// ---- from Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimMemory.cpp",
+    "Code\\Libraries\\Source\\Fesl\\transactor.cpp:516:// ---- from Code/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp"
+  ],
+  "classifications": [
+    "Two documentary source provenance comments retained",
+    "Two immutable prior-census link_status entries retained; no hand-rebaseline"
+  ],
+  "active_path_consumers": 0,
+  "native_normal_build": "72/72",
+  "native_fdu_exit": 0,
+  "tu_map_change": "Exactly one source-column repoint by native merger; no regenerated approvals committed",
+  "log_receipts": {
+    "native-merge": {
+      "original_sha256": "9a92fe4888e8f6bdb73a04f6d5f0c0141933a6dc6e949467b17a17f138d83aa7",
+      "tracked_sha256": "c3eeea5b57ac036ad46c6445c4551cdfabe464081938965b1b72de30ba2dd526",
+      "text_normalization": "Only Windows CRLF to LF for tracked text; original raw receipt kept privately"
+    },
+    "normal-build": {
+      "original_sha256": "42c44a652ecc80c71d165c3ccef1651cd6c8cf1568b29f7cc8313c417b335e55",
+      "tracked_sha256": "89da51330f01e4775b79cb40aa0e77cf0ccd2d276cbbdb9c3bc312980568a8b5",
+      "text_normalization": "Only Windows CRLF to LF for tracked text; original raw receipt kept privately"
+    },
+    "final-fdu": {
+      "original_sha256": "c864a18b08dc4ec9f6645f38b403db82509d1eba0faeec088005f556980d9466",
+      "tracked_sha256": "2ac8de1aea21ef76b013b17fe1fdf5703f30225d23411cc156b7cad4c7b07202",
+      "text_normalization": "Only Windows CRLF to LF for tracked text; original raw receipt kept privately"
+    }
+  },
+  "full_image_link_for_new_source": false,
+  "new_unique_body_bytes": 0
+}

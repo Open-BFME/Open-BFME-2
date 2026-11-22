@@ -1,0 +1,17 @@
+source,ledger_rows,map_rows_by_source,evidence_rows,map_rows_with_tu
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleTemplateCopyCtorThunk.cpp,1,1,0,0
+Code/GameEngine/Source/Common/VectorDeletingDtorsV04_Unresolved.cpp,8,8,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoDtor.cpp,2,2,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoCopyCtorThunk.cpp,5,5,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleTemplateCtorThunk.cpp,1,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleTemplateCopyCtorThunk.cpp,4,2,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/GpuDrawModuleInfoDtor.cpp,1,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/GpuDrawModuleInfoCopyCtor.cpp,2,2,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/GpuDrawModuleTemplateCtorThunk.cpp,1,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/GpuDrawModuleTemplateCopyCtor.cpp,4,2,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoDtor.cpp,4,2,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleInfoCopyCtorThunk.cpp,1,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleTemplateCtorThunk.cpp,1,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleTemplateCopyCtorThunk.cpp,3,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate6CtorThunk.cpp,1,1,0,0
+Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsB.cpp,25,25,0,0

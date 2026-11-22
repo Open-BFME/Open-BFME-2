@@ -1,0 +1,78 @@
+{
+  "source_base": "55dd91d046f25ce01a961f2582867b2b620dcdcf",
+  "normal_context": {
+    "stage": "composed",
+    "files": [
+      "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp",
+      "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp"
+    ],
+    "flags": [
+      "/MD",
+      "/EHsc",
+      "/D_STLP_USE_STATIC_LIB",
+      "/Ireference/shims/bfme2_ascii",
+      "/Ireference/shims/bfmealloc"
+    ],
+    "verifier_flags": null,
+    "strategy": "union-first",
+    "drop": [
+      "ImageCollection",
+      "Vector3"
+    ],
+    "drop_all": [
+      "Vector3"
+    ],
+    "text_sha256": "10c3d60fa2be2b44f8004e31f21d1c04fa406545515b57a993908ca33a665451"
+  },
+  "replayed_text_sha256": "10c3d60fa2be2b44f8004e31f21d1c04fa406545515b57a993908ca33a665451",
+  "exact_text_replay_equal": true,
+  "normal_operator_line": 87,
+  "later_Vector3_header_line": 935,
+  "operator_chunk_correctly_preserved": "\n__forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}",
+  "first_error_original": [
+    {
+      "raw": "Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\.AptMyHero.0dd20188d6141b52.tu_skeleton.cpp(87) : error C2143: syntax error : missing ';' before '-'",
+      "code": "C2143",
+      "symbol": ";",
+      "class": null,
+      "file": "Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\.AptMyHero.0dd20188d6141b52.tu_skeleton.cpp",
+      "line": 87,
+      "column": null,
+      "message": "syntax error : missing ';' before '-'"
+    },
+    {
+      "raw": "Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\.AptMyHero.0dd20188d6141b52.tu_skeleton.cpp(87) : error C2433: 'Vector3' : '__forceinline' not permitted on data declarations",
+      "code": "C2433",
+      "symbol": "Vector3",
+      "class": null,
+      "file": "Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\.AptMyHero.0dd20188d6141b52.tu_skeleton.cpp",
+      "line": 87,
+      "column": null,
+      "message": "'Vector3' : '__forceinline' not permitted on data declarations"
+    },
+    {
+      "raw": "Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\.AptMyHero.0dd20188d6141b52.tu_skeleton.cpp(87) : error C2501: 'Vector3' : missing storage-class or type specifiers",
+      "code": "C2501",
+      "symbol": "Vector3",
+      "class": null,
+      "file": "Code\\GameEngine\\Source\\GameClient\\GUI\\GUICallbacks\\Apt\\.AptMyHero.0dd20188d6141b52.tu_skeleton.cpp",
+      "line": 87,
+      "column": null,
+      "message": "'Vector3' : missing storage-class or type specifiers"
+    }
+  ],
+  "excerpt": "84:extern \"C\" double __cdecl cos(double);\n85:inline float cosf(float _X){return ((float)cos((double)_X));}\n86:inline float sinf(float _X){return ((float)sin((double)_X));}\n87:__forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}\n88:#include \"../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h\"\n89:class Matrix3D {\n90:public:",
+  "private_replay": {
+    "matched": null,
+    "first_errors": [
+      "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-repro\\.AptMyHero.d5c224cd667bbd72.tu_skeleton.cpp(87) : error C2143: syntax error : missing ';' before '-'",
+      "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-repro\\.AptMyHero.d5c224cd667bbd72.tu_skeleton.cpp(87) : error C2433: 'Vector3' : '__forceinline' not permitted on data declarations",
+      "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-repro\\.AptMyHero.d5c224cd667bbd72.tu_skeleton.cpp(87) : error C2501: 'Vector3' : missing storage-class or type specifiers",
+      "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-repro\\.AptMyHero.d5c224cd667bbd72.tu_skeleton.cpp(87) : error C2143: syntax error : missing ',' before '&'",
+      "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-repro\\.AptMyHero.d5c224cd667bbd72.tu_skeleton.cpp(87) : error C2803: 'operator -' must have at least one formal parameter of class type",
+      "build\\agent-transport-bfme2-20261121\\aptmyhero-composer-repro\\.AptMyHero.d5c224cd667bbd72.tu_skeleton.cpp(87) : error C2065: 'a' : undeclared identifier"
+    ],
+    "profile": "// cl: /O1 /arch:SSE /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc",
+    "scope": "Original55dd source text exactly reproduced; present unchanged tool/current headers used. This is a private compiler replay, not a full merge/provider admission."
+  }
+}

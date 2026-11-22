@@ -1,0 +1,387 @@
+{
+  "evidence_kind": "current project rows and sources, not a fresh compiler/native-byte proof",
+  "source_rows": [
+    {
+      "name": "?Rva0020DFFBRegister@@YAXPBVModuleData@@@Z",
+      "target_rva": "0x0020DFFB",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "unique-register over global vector 0x00DFE1AC via rowed push_back 0x004DFCB0 with 3 callers including 0x004ABEAE"
+    },
+    {
+      "name": "?rva0020DB91@Rva0020DB91@@QAEPAXABVAsciiString@@@Z",
+      "target_rva": "0x0020DB91",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "scan ptr array with StringBase compareNoCase"
+    },
+    {
+      "name": "?Rva0020DAE0@@YAXPAX@Z",
+      "target_rva": "0x0020DAE0",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "remove ptr from global vector via erase"
+    },
+    {
+      "name": "??0LargeGroupAudio@@QAE@XZ",
+      "target_rva": "0x0020DD59",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "GameLogic::init callee; installs tables 0x007E40A0/0x007E4090; three vectors and the +0x34 holder"
+    },
+    {
+      "name": "??0Rva0020D98D@@QAE@XZ",
+      "target_rva": "0x0020D7BC",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "default ctor of the LargeGroupAudio +0x34 holder (vtable 0x007E3FF4; base Rva001E3624 inlined; key container via 0x001F81BF); new 0x1C in LargeGroupAudio ctor"
+    },
+    {
+      "name": "?rva0020D7F9@Rva0020DXXX@@QAEXXZ",
+      "target_rva": "0x0020D7F9",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "range-loop clear+flags+frame sync"
+    },
+    {
+      "name": "?rva0020D834@Rva0020DXXX@@QAEXXZ",
+      "target_rva": "0x0020D834",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "range-loop clear+frame sync"
+    },
+    {
+      "name": "?updateSubject@Rva0020DXXX@@QAEXH@Z",
+      "target_rva": "0x0020D8F1",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "guarded range apply via 0x3EDE44; wb-lead 2/callgraph: WB B50E30 LargeGroupAudio::updateSubject (LargeGroupAudio.cpp:426 not-initialized debug; same element callee 0x3EDE44)"
+    },
+    {
+      "name": "?registerSubject@Rva0020DXXX@@QAEXH@Z",
+      "target_rva": "0x0020D925",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "guarded range apply via 0x3EDF69; wb-lead 2/callgraph: WB B50F10 LargeGroupAudio::registerSubject (LargeGroupAudio.cpp:462-487; same element callee 0x3EDF69)"
+    },
+    {
+      "name": "?rva0020D959@Rva0020DXXX@@QAEXH@Z",
+      "target_rva": "0x0020D959",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "guarded range apply via 0x3EDFD8"
+    },
+    {
+      "name": "??1Rva0020DXXX@@UAE@XZ",
+      "target_rva": "0x0020D9EC",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "implicit dtor via member+base"
+    },
+    {
+      "name": "??1LargeGroupAudio@@UAE@XZ",
+      "target_rva": "0x0020DF0B",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "destructor the scalar deleting destructor 0x0020E1E1 calls (vtable 0x007E40A0 slot 0); unregisters from TheSubsystemList via 0x001B4E82 then removeOverrides then deletes each base audio map and the +0x34 holder; vectors freed through C++ free 0x00030830"
+    },
+    {
+      "name": "?getFieldParse@Rva0020D98D@@SAPBUFieldParse@@XZ",
+      "target_rva": "0x0020D7A6",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "field-table getter of the +0x34 holder (was Rva0020D7A6Get); returns the LargeGroupAudioUnusedKnownKeys table VA 0x00BE3FD4 and is inlined into parseLargeGroupAudioUnusedKnownKeysDefinition; first body of the LargeGroupAudio unit"
+    },
+    {
+      "name": "?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z",
+      "target_rva": "0x0020E027",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "INI block parser for LargeGroupAudioMap (WorldBuilder name); creates TheLargeGroupAudio on demand; looks the map up by name (case-insensitive) in the +0x10 and +0x1C vectors; creates or overrides it (INI load type 2 copies through 0x003EE3FE and chains via setNextOverride); then initFromINI with the 0x003EE6F7 field table"
+    },
+    {
+      "name": "?parseLargeGroupAudioUnusedKnownKeysDefinition@LargeGroupAudio@@SAXPAVINI@@@Z",
+      "target_rva": "0x0020DE03",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "INI block parser registered for LargeGroupAudioUnusedKnownKeys (block node VA 0x00DB98AC); creates TheLargeGroupAudio on demand; load type 2 copies the +0x34 holder through 0x0020D98D and chains it as an override; otherwise parses into the final override; field table 0x00BE3FD4 (Key into +0x10)"
+    },
+    {
+      "name": "?reset@LargeGroupAudio@@UAEXXZ",
+      "target_rva": "0x0020DFD3",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "primary vtable 0x007E40A0 slot 9 (reset); removeOverrides then rowed 0x003EDC16 over each +0x10 audio map; re-arms m_waitingForLevelLoad (+0x38)"
+    },
+    {
+      "name": "?update@LargeGroupAudio@@UAEXXZ",
+      "target_rva": "0x0020DAA5",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "primary vtable 0x007E40A0 slot 10 (update); skips while m_waitingForLevelLoad; regenerates via 0x0020D834 after a reload; rowed 0x003EDDD4 per +0x10 audio map with a local changed flag"
+    },
+    {
+      "name": "?vslot05@LargeGroupAudio@@UAE_NXZ",
+      "target_rva": "0x0020D7AC",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "primary vtable 0x007E40A0 slot 5 (SubsystemInterface vslot05); clears and reports the +0x39 reload latch rva0020DB09 sets; its je targets 0x0020D7B9 so the old 3B bool-false row there was this body's tail"
+    },
+    {
+      "name": "?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z",
+      "target_rva": "0x0020DBBF",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "slot 3 of the LargeGroupAudio Snapshot vtable 0x007E4090; WB twin 0xB514E0 same callee order; AudioMap blocks via pinned element xfer 0x003EE23C and rowed lookup 0x0020DB91; WB member names"
+    },
+    {
+      "name": "$L6239",
+      "target_rva": "0x0076D46D",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??0LargeGroupAudio@@QAE@XZ; Matched parent 0x0020DD59's EH graph is EXACT (eh_verify) and binds compiler label $L6239 to retail Unwind@00b6d46d 0x76D46D; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "$L6597",
+      "target_rva": "0x0076D481",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?parseLargeGroupAudioUnusedKnownKeysDefinition@LargeGroupAudio@@SAXPAVINI@@@Z; Matched parent 0x0020DE03's EH graph is EXACT (eh_verify) and binds compiler label $L6597 to retail Unwind@00b6d481 0x76D481; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "$L6598",
+      "target_rva": "0x0076D48B",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?parseLargeGroupAudioUnusedKnownKeysDefinition@LargeGroupAudio@@SAXPAVINI@@@Z; Matched parent 0x0020DE03's EH graph is EXACT (eh_verify) and binds compiler label $L6598 to retail Unwind@00b6d48b 0x76D48B; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "$L6732",
+      "target_rva": "0x0076D4E6",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z; Matched parent 0x0020E027's EH graph is EXACT (eh_verify) and binds compiler label $L6732 to retail Unwind@00b6d4e6 0x76D4E6; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "$L6734",
+      "target_rva": "0x0076D4F8",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z; Matched parent 0x0020E027's EH graph is EXACT (eh_verify) and binds compiler label $L6734 to retail Unwind@00b6d4f8 0x76D4F8; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "$L6736",
+      "target_rva": "0x0076D502",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z; Matched parent 0x0020E027's EH graph is EXACT (eh_verify) and binds compiler label $L6736 to retail Unwind@00b6d502 0x76D502; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "__ehhandler$??0LargeGroupAudio@@QAE@XZ",
+      "target_rva": "0x0076D477",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0020DD59; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?parseLargeGroupAudioUnusedKnownKeysDefinition@LargeGroupAudio@@SAXPAVINI@@@Z",
+      "target_rva": "0x0076D495",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0020DE03; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$??1LargeGroupAudio@@UAE@XZ",
+      "target_rva": "0x0076D4DC",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0020DF0B; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z",
+      "target_rva": "0x0076D50C",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0020E027; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z",
+      "target_rva": "0x0076D42F",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x0020DBBF; retail parent installs handler 0x0076D42F (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+    },
+    {
+      "name": "??_GLargeGroupAudio@@UAEPAXI@Z",
+      "target_rva": "0x0020E1E1",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "Native primary tableBE40A0slot0 and complete real LargeGroupAudio constructor20DD59/destructor20DF0B establish this deleting wrapper identity. Whole28B natural C++ wrapper and every destructor/delete relocation are exact. Rename and rehome the existing opaque Rva0020DF0B owner; remove its incomplete B04 view. No new coverage or pin. t=8 model=gpt-6.1-sol"
+    },
+    {
+      "name": "??_ELargeGroupAudio@@WM@AEPAXI@Z",
+      "target_rva": "0x0020DDFB",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "Native Snapshot tableBE4090slot0 and the complete constructor/destructor establish secondary base+C and receiver adjustment-C. Whole8B natural thunk tail-dispatches to the byte-and-relocation-proved same-class deleting wrapper20E1E1. Rename and rehome the old opaque owner; no new coverage or pin. t=8 model=gpt-6.1-sol"
+    },
+    {
+      "name": "?GetSnapshotName@LargeGroupAudio@@MBEPBDXZ",
+      "target_rva": "0x0020DDF5",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "Native Snapshot tableBE4090slot2 points here and returns complete LargeGroupAudio literalBE40D8. Canonical Snapshot slot2 proves the no-argument name-getter role separately from six-byte equality. Original access visibility is unknown; protected spelling follows the existing shared interface. Rename and rehome the isolated address getter to the complete real class. No new coverage or pin. t=8 model=gpt-6.1-sol"
+    },
+    {
+      "name": "?loadPostProcess@LargeGroupAudio@@MAEXXZ",
+      "target_rva": "0x000B3FD0",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-alias;Native LargeGroupAudio Snapshot tableBE4090slot1 directly names the shared empty RETB3FD0. Constructor20DD59 and complete destructor20DF0B independently establish the class and secondary Snapshot base+C; the six-byte getter names LargeGroupAudio in slot2 and xfer is slot3. Real loadPostProcess override emits the complete one-byte body with no relocations and no other address. Zero unique bytes; no pin. t=8 model=gpt-6.1-sol"
+    },
+    {
+      "name": "?rva0076D4A7@@YAXXZ",
+      "target_rva": "0x0076D4A7",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;object-symbol=$L6311;parent=??1LargeGroupAudio@@UAE@XZ;Replace20B MASM-only cleanup with actual real C++ emitted by the complete200B native parent0020DF0B. Entire native associative EH graph independently proves ownership and whole extent. Every cleanup callee is OWNER-bound. Native complete200B LargeGroupAudio destructor20DF0B and full EH graph own secondary Snapshot at+C; its existing owned destructor49B47C supplies the whole teardown. Native BE4090 slot2 returns LargeGroupAudio through the six-byte20DDF5 getter and slot1 is the shared empty post-load callback. Correct getter ABI replaces the old CRC slot; the real existing registry removeSubsystem owner replaces the address view; both deleting wrappers are now emitted by this complete class. All original parent bytes and five EH records remain exact and the class unit now links. Other registry storage fields are outside this declaration-only API repair. Containing unit passes current link predictor. No new callee pin or gen-alias; compiler label binding is admitted.20B ASM-only to C++. t=4 model=gpt-6.1-sol"
+    },
+    {
+      "name": "Unwind@00b6d439",
+      "target_rva": "0x0076D439",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??0LargeGroupAudio@@QAE@XZ;object-symbol=$L6236; Matched parent 0x0020DD59's EH graph is EXACT (eh_verify) and binds compiler label $L6236 to retail Unwind@00b6d439 (was gen_uw scaffold uw_0076d439)"
+    },
+    {
+      "name": "Unwind@00b6d441",
+      "target_rva": "0x0076D441",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??0LargeGroupAudio@@QAE@XZ;object-symbol=$L6237; Matched parent 0x0020DD59's EH graph is EXACT (eh_verify) and binds compiler label $L6237 to retail Unwind@00b6d441 (was gen_uw scaffold uw_0076d441)"
+    },
+    {
+      "name": "Unwind@00b6d49f",
+      "target_rva": "0x0076D49F",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??1LargeGroupAudio@@UAE@XZ;object-symbol=$L6310; Matched parent 0x0020DF0B's EH graph is EXACT (eh_verify) and binds compiler label $L6310 to retail Unwind@00b6d49f (was gen_uw scaffold uw_0076d49f)"
+    },
+    {
+      "name": "Unwind@00b6d4f0",
+      "target_rva": "0x0076D4F0",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z;object-symbol=$L6737; Matched parent 0x0020E027's EH graph is EXACT (eh_verify) and binds compiler label $L6737 to retail Unwind@00b6d4f0 (was gen_uw scaffold uw_0076d4f0)"
+    },
+    {
+      "name": "??1?$vector@PAVLargeGroupAudioAudioMap@@V?$allocator@PAVLargeGroupAudioAudioMap@@@_STL@@@_STL@@QAE@XZ",
+      "target_rva": "0x0007FAB3",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "fold-proof=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp; compiler-emitted destructor that retail ICF-folded with ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ at 0x0007FAB3: this unit compiles it to the same whole body; its unwind funclets call 0x0007FAB3"
+    },
+    {
+      "name": "Unwind@00b6d41f",
+      "target_rva": "0x0076D41F",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z;object-symbol=$L5853; Matched parent 0x0020DBBF's EH graph is EXACT (eh_verify) and binds compiler label $L5853 to retail Unwind@00b6d41f (was gen_uw scaffold uw_0076d41f)"
+    },
+    {
+      "name": "Unwind@00b6d427",
+      "target_rva": "0x0076D427",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z;object-symbol=$L5854; Matched parent 0x0020DBBF's EH graph is EXACT (eh_verify) and binds compiler label $L5854 to retail Unwind@00b6d427 (was gen_uw scaffold uw_0076d427)"
+    },
+    {
+      "name": "?markAsOverride@Overridable@@QAEXXZ",
+      "target_rva": "0x00248D08",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "BFME2 exact BFME1-derived ThingFactory helper; row moved home from ThingFactory.cpp; existing complete retail-exact provider"
+    },
+    {
+      "name": "$L6229",
+      "target_rva": "0x0076D44C",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??0LargeGroupAudio@@QAE@XZ; Matched parent EH graph EXACT (eh_verify) binds compiler label $L6229 to retail funclet 0x0076D44C; emitted by the parent real C++"
+    },
+    {
+      "name": "$L6230",
+      "target_rva": "0x0076D457",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??0LargeGroupAudio@@QAE@XZ; Matched parent EH graph EXACT (eh_verify) binds compiler label $L6230 to retail funclet 0x0076D457; emitted by the parent real C++"
+    },
+    {
+      "name": "$L6231",
+      "target_rva": "0x0076D462",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??0LargeGroupAudio@@QAE@XZ; Matched parent EH graph EXACT (eh_verify) binds compiler label $L6231 to retail funclet 0x0076D462; emitted by the parent real C++"
+    },
+    {
+      "name": "$L5974",
+      "target_rva": "0x0076D3B0",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??0Rva0020D98D@@QAE@XZ; Matched parent EH graph EXACT (eh_verify) binds compiler label $L5974 to retail funclet 0x0076D3B0; emitted by the parent real C++"
+    },
+    {
+      "name": "$L6303",
+      "target_rva": "0x0076D4BB",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??1LargeGroupAudio@@UAE@XZ; Matched parent EH graph EXACT (eh_verify) binds compiler label $L6303 to retail funclet 0x0076D4BB; emitted by the parent real C++"
+    },
+    {
+      "name": "$L6304",
+      "target_rva": "0x0076D4C6",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??1LargeGroupAudio@@UAE@XZ; Matched parent EH graph EXACT (eh_verify) binds compiler label $L6304 to retail funclet 0x0076D4C6; emitted by the parent real C++"
+    },
+    {
+      "name": "$L6305",
+      "target_rva": "0x0076D4D1",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "gen-funclet;parent=??1LargeGroupAudio@@UAE@XZ; Matched parent EH graph EXACT (eh_verify) binds compiler label $L6305 to retail funclet 0x0076D4D1; emitted by the parent real C++"
+    },
+    {
+      "name": "_$E1",
+      "target_rva": "0x007AD8B6",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "compiler-emitted .text$yc dynamic initializer of this unit's file-scope BlockParse node theLargeGroupAudioMapBlockParse (token LargeGroupAudioMap; node VA 0x00DB98A0; callback 0x0020E027) whose inline ctor links it onto theBlockParseList: MSVC 7.1 builds token and parse in .data so the body is only the link; retail .CRT$XCU entry; was rva007AD8B6 in Rva007ABBF6BlockParseInits.cpp"
+    },
+    {
+      "name": "_$E3",
+      "target_rva": "0x007AD8CB",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "compiler-emitted .text$yc dynamic initializer of this unit's file-scope BlockParse node theLargeGroupAudioUnusedKnownKeysBlockParse (token LargeGroupAudioUnusedKnownKeys; node VA 0x00DB98AC; callback 0x0020DE03) whose inline ctor links it onto theBlockParseList: MSVC 7.1 builds token and parse in .data so the body is only the link; retail .CRT$XCU entry; was rva007AD8CB in Rva007ABBF6BlockParseInits.cpp"
+    }
+  ],
+  "receiver_family": [
+    {
+      "name": "?rva0020D7F9@Rva0020DXXX@@QAEXXZ",
+      "target_rva": "0x0020D7F9",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "range-loop clear+flags+frame sync"
+    },
+    {
+      "name": "?rva0020D834@Rva0020DXXX@@QAEXXZ",
+      "target_rva": "0x0020D834",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "range-loop clear+frame sync"
+    },
+    {
+      "name": "?updateSubject@Rva0020DXXX@@QAEXH@Z",
+      "target_rva": "0x0020D8F1",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "guarded range apply via 0x3EDE44; wb-lead 2/callgraph: WB B50E30 LargeGroupAudio::updateSubject (LargeGroupAudio.cpp:426 not-initialized debug; same element callee 0x3EDE44)"
+    },
+    {
+      "name": "?registerSubject@Rva0020DXXX@@QAEXH@Z",
+      "target_rva": "0x0020D925",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "guarded range apply via 0x3EDF69; wb-lead 2/callgraph: WB B50F10 LargeGroupAudio::registerSubject (LargeGroupAudio.cpp:462-487; same element callee 0x3EDF69)"
+    },
+    {
+      "name": "?rva0020D959@Rva0020DXXX@@QAEXH@Z",
+      "target_rva": "0x0020D959",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "guarded range apply via 0x3EDFD8"
+    },
+    {
+      "name": "??1Rva0020DXXX@@UAE@XZ",
+      "target_rva": "0x0020D9EC",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "implicit dtor via member+base"
+    }
+  ],
+  "existing_provider_rows": [
+    {
+      "name": "??1Overridable@@UAE@XZ",
+      "target_rva": "0x001E3624",
+      "source": "Code/GameEngine/Source/Common/Overridable.cpp",
+      "notes": "opaque holder dtor: vptr reset then ::delete of the +4 polymorphic member"
+    },
+    {
+      "name": "??_GRva0020D9EC@@UAEPAXI@Z",
+      "target_rva": "0x0020D9D0",
+      "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp",
+      "notes": "opaque scalar deleting dtor (vtable 0x00BE3FF4#0); calls pinned dtor 0x0020D9EC then operator delete"
+    },
+    {
+      "name": "??0Rva0020D98D@@QAE@XZ",
+      "target_rva": "0x0020D7BC",
+      "source": "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+      "notes": "default ctor of the LargeGroupAudio +0x34 holder (vtable 0x007E3FF4; base Rva001E3624 inlined; key container via 0x001F81BF); new 0x1C in LargeGroupAudio ctor"
+    },
+    {
+      "name": "??1Rva003ED94FDtor@@QAE@XZ",
+      "target_rva": "0x003ED94F",
+      "source": "Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp",
+      "notes": "tree dtor family shape over bfmeClearMembers (shares EH record with 0x003ED879)"
+    },
+    {
+      "name": "??1Rva003ED658@@QAE@XZ",
+      "target_rva": "0x003ED94F",
+      "source": "Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp",
+      "notes": "ICF twin at 0x003ED94F of Rva003ED94FDtor::~Rva003ED94FDtor"
+    }
+  ]
+}

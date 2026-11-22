@@ -1,0 +1,7 @@
+link_check: the index is 2026-11-21 13:19 at 9a39def1d3, and 3 source file(s) under Code/ have been added, deleted or renamed since. A unit the index still holds but the tree no longer has makes its rows look like duplicates, and a unit added since is missing as a provider -- both are artefacts of the index, not of your files. Bring it to HEAD with `python3 tools/link_check.py --update-index` before trusting a duplicate or a 'no longer defines'.
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp: LINKS  LINKED 0 -> 7,698 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 7,698)
+  diagnostic  ??0MultiListObjectClass@@QAE@XZ  (codegen-like: 13 bytes against the majority copy's 16; unreferenced, not a blocker)
+  diagnostic  ?Add_Ref@RefCountClass@@QBEXXZ  (codegen-like: 5 bytes against the majority copy's 4; unreferenced, not a blocker)
+  diagnostic  ?Release_Ref@RefCountClass@@QBEXXZ  (codegen-like: 11 bytes against the majority copy's 10; unreferenced, not a blocker)
+link_check: 1 of 1 link cleanly; LINKED 0 -> 7,698 bytes (3.0s)

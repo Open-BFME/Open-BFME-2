@@ -1,0 +1,140 @@
+{
+  "native_chain": {
+    "005103A3": {
+      "current_rows": [
+        {
+          "name": "??0Rva005105D7@@QAE@HABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x005103A3",
+          "target_size": "528",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+          "status": "matched",
+          "notes": ""
+        }
+      ],
+      "relevant_native_calls": [
+        {
+          "rva": "0x5103be",
+          "target": "0x50ea74",
+          "context": [
+            "mov ebx, ecx",
+            "push dword ptr [ebp + 8]",
+            "mov dword ptr [ebp - 0x14], ebx",
+            "call 0x50ea74",
+            "lea esi, [ebx + 0x14]",
+            "xor edi, edi"
+          ]
+        }
+      ],
+      "vptr_immediate_stores": []
+    },
+    "00510B72": {
+      "current_rows": [
+        {
+          "name": "??0Rva00510CC3@@QAE@HABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x00510B72",
+          "target_size": "309",
+          "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+          "status": "matched",
+          "notes": ""
+        }
+      ],
+      "relevant_native_calls": [
+        {
+          "rva": "0x510b8d",
+          "target": "0x50ea74",
+          "context": [
+            "mov esi, ecx",
+            "push dword ptr [ebp + 8]",
+            "mov dword ptr [ebp - 0x10], esi",
+            "call 0x50ea74",
+            "lea ebx, [esi + 0x14]",
+            "xor edi, edi"
+          ]
+        }
+      ],
+      "vptr_immediate_stores": [
+        {
+          "rva": "0x510b9c",
+          "insn": "mov dword ptr [esi], 0xc65670"
+        }
+      ]
+    },
+    "00510D98": {
+      "current_rows": [
+        {
+          "name": "?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z",
+          "export_rva": "",
+          "target_rva": "0x00510D98",
+          "target_size": "308",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+          "status": "matched",
+          "notes": "static page factory ported from bank with in-TU caller; constructor pins 0x005103A3/0x00510B72"
+        }
+      ],
+      "relevant_native_calls": [
+        {
+          "rva": "0x510e07",
+          "target": "0x5103a3",
+          "context": [
+            "push dword ptr [ebp + 0xc]",
+            "mov byte ptr [ebp - 4], 1",
+            "mov dword ptr [ebp - 0x10], 1",
+            "call 0x5103a3",
+            "jmp 0x510e10",
+            "xor eax, eax"
+          ]
+        },
+        {
+          "rva": "0x510e91",
+          "target": "0x510b72",
+          "context": [
+            "push dword ptr [ebp + 0xc]",
+            "mov byte ptr [ebp - 4], 4",
+            "mov dword ptr [ebp - 0x10], 4",
+            "call 0x510b72",
+            "jmp 0x510e9a",
+            "xor eax, eax"
+          ]
+        }
+      ],
+      "vptr_immediate_stores": []
+    },
+    "00510F41": {
+      "current_rows": [
+        {
+          "name": "?OnPageSelected@Rva00510D0C@@QAEXPBD@Z",
+          "export_rva": "",
+          "target_rva": "0x00510F41",
+          "target_size": "125",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+          "status": "matched",
+          "notes": "Apt _OnPageSelected member callback bound by holder 0x57BC63 in tribute registration 0x5111FA; finds the page in the map at +0x27C (_M_find 0x1F8437) and swaps the current page at +0x288 via page vslots 1/2"
+        }
+      ],
+      "relevant_native_calls": [],
+      "vptr_immediate_stores": []
+    }
+  },
+  "supplied_control_strict_rows_read": 147,
+  "supplied_candidate_strict_rows_read": 43,
+  "strict_actual_header_consumers_rows_read": 43,
+  "control_sources": 9,
+  "actual_header_consumers": [
+    "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+    "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp"
+  ],
+  "original_page_slot5_rva": "0x000B3FD0",
+  "original_page_slot5_byte": "c3",
+  "actual_Coord2D_PE_export": [
+    {
+      "actual_PE_name": "??1Coord2D@@QAE@XZ",
+      "actual_PE_export_rva": "0xb3fd0",
+      "byte": "c3"
+    }
+  ],
+  "qualification": "Coord2D destructor authenticates an existing empty1B fold target, not the page method role/name/complete C++ return/const signature. Native receiver/call chain supplies the page-slot evidence; caller discards result. Neutral void/noarg is a supported bounded model, not an original named API claim.",
+  "reviewer_compilations": 0,
+  "reviewer_production_writes": false
+}

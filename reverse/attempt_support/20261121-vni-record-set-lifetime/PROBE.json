@@ -1,0 +1,412 @@
+{
+  "head_at_start": "83128ee0ebf3ad633d972ca4bb9bd3c909f4d1c6",
+  "source": "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp",
+  "source_sha256": "4ddc0cc82d2b16a9e2cd401feb42326018443cdd3159593a10dcfe2a6eb0337d",
+  "candidate_sha256": "e846713ec0456175e8365cfd9a9993581aa7a67addb03a612257e24f8e463a5f",
+  "private_exact_dependency_bindings": [
+    {
+      "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+      "rva": "0x0014F3C4",
+      "basis": "Independently exact real compiler provider from finalized six-body package; private dependency view only if not yet natively admitted."
+    },
+    {
+      "name": "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+      "rva": "0x00417B55",
+      "basis": "Independently exact real compiler provider from finalized six-body package; private dependency view only if not yet natively admitted."
+    },
+    {
+      "name": "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "rva": "0x002B80CE",
+      "basis": "Independently exact real compiler provider from finalized six-body package; private dependency view only if not yet natively admitted."
+    },
+    {
+      "name": "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+      "rva": "0x0007FAB3",
+      "basis": "Independently exact real compiler provider from finalized six-body package; private dependency view only if not yet natively admitted."
+    },
+    {
+      "name": "??0?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@ABU?$less@VRva00064640Record@@@1@ABV?$allocator@VRva00064640Record@@@1@@Z",
+      "rva": "0x004FF681",
+      "basis": "Independently exact real compiler provider from finalized six-body package; private dependency view only if not yet natively admitted."
+    },
+    {
+      "name": "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "rva": "0x005011C1",
+      "basis": "Independently exact real compiler provider from finalized six-body package; private dependency view only if not yet natively admitted."
+    }
+  ],
+  "rows": [
+    {
+      "name": "??0BfmeRectVNI@@QAE@ID@Z",
+      "export_rva": "",
+      "target_rva": "0x003FD64D",
+      "target_size": "67",
+      "source": "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp",
+      "status": "matched",
+      "notes": "placed by masked whole-.text search of the compiled body - single hit"
+    },
+    {
+      "name": "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z",
+      "export_rva": "",
+      "target_rva": "0x005045DB",
+      "target_size": "5",
+      "source": "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp",
+      "status": "matched",
+      "notes": "Native5045DB complete5B jumps to independently verified115B tree assignment504496; WB12CAB70 whole25B explicitly forwards its sole reference and RET4 and native56540E supplies paired interior tree receivers. Neutral tree-storage adapter delegates to the actual provider name with identical one-pointer thiscall contract; original mapped-value identity remains unresolved. All two home siblings retained; no new pin or alias binding."
+    },
+    {
+      "name": "?self@Rva005045DBTree@@QAEAAV1@XZ",
+      "export_rva": "",
+      "target_rva": "0x0047A6A9",
+      "target_size": "3",
+      "source": "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp",
+      "status": "matched",
+      "notes": "gen-alias; fold-proof=Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp; Native565402 calls shared47A6A9 on record tree0C and passes returned receiver to assignment5045DB. WB12CAB90 whole14B independently returns this with no stores or callees and WB143ADFF supplies the same role. Neutral receiver-borrow view emits all3 retail bytes with no relocations independently equal every coordinate owner; no original method or mapped-value identity asserted and no unique-byte credit."
+    }
+  ],
+  "cases": {
+    "control": {
+      "matched": [
+        "0x003FD64D",
+        "0x0047A6A9",
+        "0x005045DB"
+      ],
+      "errors": [],
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\vni-consumer-lifetime\\objects\\8b7eaea0a3e292b1.obj",
+      "strict_rows": [
+        {
+          "name": "??0BfmeRectVNI@@QAE@ID@Z",
+          "rva": "0x003FD64D",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z",
+          "rva": "0x005045DB",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?self@Rva005045DBTree@@QAEAAV1@XZ",
+          "rva": "0x0047A6A9",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        }
+      ],
+      "public_code": {
+        "??0BfmeRectVNI@@QAE@ID@Z": {
+          "size": 67,
+          "hex": "b800000000e8000000005156ff750c8bf1ff75088975f0e8000000008365fc008d4e0cc70600000000e800000000836618008b4df48bc65e64890d00000000c9c20800",
+          "relocs": [
+            [
+              1,
+              6,
+              "__ehhandler$??0BfmeRectVNI@@QAE@ID@Z"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              24,
+              20,
+              "??0BfmeBaseVNH@@QAE@ID@Z"
+            ],
+            [
+              37,
+              6,
+              "??_7BfmeRectVNI@@6B@"
+            ],
+            [
+              42,
+              20,
+              "??0BfmeVNITree@@QAE@XZ"
+            ],
+            [
+              59,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "?self@Rva005045DBTree@@QAEAAV1@XZ": {
+          "size": 3,
+          "hex": "8bc1c3",
+          "relocs": []
+        },
+        "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z": {
+          "size": 5,
+          "hex": "e900000000",
+          "relocs": [
+            [
+              1,
+              20,
+              "??4?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z"
+            ]
+          ]
+        },
+        "??_GBfmeRectVNI@@UAEPAXI@Z": {
+          "size": 28,
+          "hex": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocs": [
+            [
+              4,
+              20,
+              "??1BfmeRectVNI@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        },
+        "??1BfmeRectVNI@@UAE@XZ": {
+          "size": 5,
+          "hex": "e900000000",
+          "relocs": [
+            [
+              1,
+              20,
+              "??1BfmeBaseVNH@@UAE@XZ"
+            ]
+          ]
+        }
+      },
+      "undefined": [
+        "??0BfmeBaseVNH@@QAE@ID@Z",
+        "??0BfmeVNITree@@QAE@XZ",
+        "??1BfmeBaseVNH@@UAE@XZ",
+        "??3@YAXPAX@Z",
+        "??4?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z",
+        "??_GBfmeRectVNI@@UAEPAXI@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list",
+        "__purecall"
+      ],
+      "production_profile_command": [
+        "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+        "-nologo",
+        "-c",
+        "-O2",
+        "-GR-",
+        "-EHsc-",
+        "-O1",
+        "-arch:SSE",
+        "-G7",
+        "-DNDEBUG",
+        "-MD",
+        "-EHsc",
+        "-Fobuild/agent-thing-bfme2-20261120/vni-consumer-lifetime/objects/8b7eaea0a3e292b1.obj",
+        "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp"
+      ],
+      "effective_private_cl": "// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc"
+    },
+    "candidate": {
+      "matched": [
+        "0x003FD64D",
+        "0x0047A6A9",
+        "0x005045DB"
+      ],
+      "errors": [],
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\vni-consumer-lifetime\\objects\\42b454deed9f1c84.obj",
+      "strict_rows": [
+        {
+          "name": "??0BfmeRectVNI@@QAE@ID@Z",
+          "rva": "0x003FD64D",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z",
+          "rva": "0x005045DB",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        },
+        {
+          "name": "?self@Rva005045DBTree@@QAEAAV1@XZ",
+          "rva": "0x0047A6A9",
+          "exact": true,
+          "masked": false,
+          "unresolved": []
+        }
+      ],
+      "public_code": {
+        "??1?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ": {
+          "size": 5,
+          "hex": "e900000000",
+          "relocs": [
+            [
+              1,
+              20,
+              "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+            ]
+          ]
+        },
+        "?self@Rva005045DBTree@@QAEAAV1@XZ": {
+          "size": 3,
+          "hex": "8bc1c3",
+          "relocs": []
+        },
+        "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z": {
+          "size": 5,
+          "hex": "e900000000",
+          "relocs": [
+            [
+              1,
+              20,
+              "??4?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z"
+            ]
+          ]
+        },
+        "??0BfmeRectVNI@@QAE@ID@Z": {
+          "size": 67,
+          "hex": "b800000000e8000000005156ff750c8bf1ff75088975f0e8000000008365fc008d4e0cc70600000000e800000000836618008b4df48bc65e64890d00000000c9c20800",
+          "relocs": [
+            [
+              1,
+              6,
+              "__ehhandler$??0BfmeRectVNI@@QAE@ID@Z"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              24,
+              20,
+              "??0BfmeBaseVNH@@QAE@ID@Z"
+            ],
+            [
+              37,
+              6,
+              "??_7BfmeRectVNI@@6B@"
+            ],
+            [
+              42,
+              20,
+              "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+            ],
+            [
+              59,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "??_GBfmeRectVNI@@UAEPAXI@Z": {
+          "size": 28,
+          "hex": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocs": [
+            [
+              4,
+              20,
+              "??1BfmeRectVNI@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        },
+        "??1BfmeRectVNI@@UAE@XZ": {
+          "size": 53,
+          "hex": "b800000000e80000000051568bf18975f08365fc008d4e0ce800000000834dfcff8bcee8000000008b4df45e64890d00000000c9c3",
+          "relocs": [
+            [
+              1,
+              6,
+              "__ehhandler$??1BfmeRectVNI@@UAE@XZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              25,
+              20,
+              "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ"
+            ],
+            [
+              36,
+              20,
+              "??1BfmeBaseVNH@@UAE@XZ"
+            ],
+            [
+              47,
+              6,
+              "__except_list"
+            ]
+          ]
+        }
+      },
+      "undefined": [
+        "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+        "??0BfmeBaseVNH@@QAE@ID@Z",
+        "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+        "??1BfmeBaseVNH@@UAE@XZ",
+        "??3@YAXPAX@Z",
+        "??4?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z",
+        "??_GBfmeRectVNI@@UAEPAXI@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list",
+        "__purecall"
+      ],
+      "production_profile_command": [
+        "W:\\OpenBFME\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+        "-nologo",
+        "-c",
+        "-O2",
+        "-GR-",
+        "-EHsc-",
+        "-O1",
+        "-arch:SSE",
+        "-G7",
+        "-DNDEBUG",
+        "-MD",
+        "-EHsc",
+        "-Fobuild/agent-thing-bfme2-20261120/vni-consumer-lifetime/objects/42b454deed9f1c84.obj",
+        "Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp"
+      ],
+      "effective_private_cl": "// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc"
+    }
+  },
+  "dtor_family": {
+    "??1BfmeRectVNI@@UAE@XZ": {
+      "name": "??1BfmeRectVNI@@UAE@XZ",
+      "rva": "0x002BAEAB",
+      "size": 53,
+      "actual_size": 53,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    "??_GBfmeRectVNI@@UAEPAXI@Z": {
+      "name": "??_GBfmeRectVNI@@UAEPAXI@Z",
+      "rva": "0x002BAE8F",
+      "size": 28,
+      "actual_size": 28,
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": null
+    }
+  },
+  "limitation": "Existing two-slot C++ table/base view is preserved; native seven-slot family is not reconstructed by this narrow prerequisite.",
+  "source_still_current": true
+}

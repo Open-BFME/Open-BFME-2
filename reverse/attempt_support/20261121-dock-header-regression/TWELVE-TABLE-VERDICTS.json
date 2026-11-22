@@ -1,0 +1,250 @@
+{
+  "scope": "Native vtable_bridge name/weak slot predicates, local actual objects. No complete-family/bridge-retirement or actual-link claim.",
+  "phases": {
+    "control": {
+      "tables": 12,
+      "matching_tables": 0,
+      "slot_mismatch_count": 241
+    },
+    "candidate": {
+      "tables": 12,
+      "matching_tables": 7,
+      "slot_mismatch_count": 12,
+      "verdicts": [
+        {
+          "name": "??_7Rva004A11D4@@6BBehaviorModuleInterface@@@",
+          "native_rva": "0x851b20",
+          "expected_slots": 47,
+          "compiled_extent": 188,
+          "normal_native_slot_name_match": true,
+          "mismatches": [],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7Rva004A11D4@@6BDockUpdateInterface@@@",
+          "native_rva": "0x851c30",
+          "expected_slots": 20,
+          "compiled_extent": 80,
+          "normal_native_slot_name_match": false,
+          "mismatches": [
+            {
+              "slot": 12,
+              "name": "__purecall",
+              "ledger_rvas": [
+                243728
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4854454
+            },
+            {
+              "slot": 19,
+              "name": "?isRallyPointAfterDockType@DockUpdate@@UAE_NXZ",
+              "ledger_rvas": [
+                4695705
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 5289414
+            }
+          ],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7Rva004A11D4@@6BObjectModule@@@",
+          "native_rva": "0x851c80",
+          "expected_slots": 13,
+          "compiled_extent": 52,
+          "normal_native_slot_name_match": false,
+          "mismatches": [
+            {
+              "slot": 1,
+              "name": "?loadPostProcess@DockUpdate@@MAEXXZ",
+              "ledger_rvas": [
+                5806345
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4853319
+            },
+            {
+              "slot": 2,
+              "name": "?GetSnapshotName@UpdateModule@@MBEPBDXZ",
+              "ledger_rvas": [
+                2438093
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4854222
+            },
+            {
+              "slot": 3,
+              "name": "?xfer@DockUpdate@@MAEXPAVXfer@@@Z",
+              "ledger_rvas": [
+                5809168
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4854357
+            },
+            {
+              "slot": 4,
+              "name": "__purecall",
+              "ledger_rvas": [
+                243728
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4854260
+            }
+          ],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7Rva004A11D4@@6BUpdateModule@@@",
+          "native_rva": "0x851d68",
+          "expected_slots": 3,
+          "compiled_extent": 12,
+          "normal_native_slot_name_match": true,
+          "mismatches": [],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyCenterDockUpdate@@6BBehaviorModuleInterface@@@",
+          "native_rva": "0x851b20",
+          "expected_slots": 47,
+          "compiled_extent": 188,
+          "normal_native_slot_name_match": true,
+          "mismatches": [],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyCenterDockUpdate@@6BDockUpdateInterface@@@",
+          "native_rva": "0x851ac0",
+          "expected_slots": 20,
+          "compiled_extent": 80,
+          "normal_native_slot_name_match": false,
+          "mismatches": [
+            {
+              "slot": 12,
+              "name": "__purecall",
+              "ledger_rvas": [
+                243728
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4853421
+            }
+          ],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyCenterDockUpdate@@6BObjectModule@@@",
+          "native_rva": "0x851bdc",
+          "expected_slots": 13,
+          "compiled_extent": 52,
+          "normal_native_slot_name_match": false,
+          "mismatches": [
+            {
+              "slot": 1,
+              "name": "?loadPostProcess@DockUpdate@@MAEXXZ",
+              "ledger_rvas": [
+                5806345
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4853319
+            },
+            {
+              "slot": 2,
+              "name": "?GetSnapshotName@UpdateModule@@MBEPBDXZ",
+              "ledger_rvas": [
+                2438093
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4853254
+            },
+            {
+              "slot": 3,
+              "name": "?xfer@DockUpdate@@MAEXPAVXfer@@@Z",
+              "ledger_rvas": [
+                5809168
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4853292
+            },
+            {
+              "slot": 4,
+              "name": "__purecall",
+              "ledger_rvas": [
+                243728
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4853324
+            }
+          ],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyCenterDockUpdate@@6BUpdateModule@@@",
+          "native_rva": "0x851b10",
+          "expected_slots": 3,
+          "compiled_extent": 12,
+          "normal_native_slot_name_match": false,
+          "mismatches": [
+            {
+              "slot": 0,
+              "name": "?update@DockUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+              "ledger_rvas": [
+                5807881
+              ],
+              "relocation_kind": 6,
+              "addend": 0,
+              "retail_target_rva": 4854041
+            }
+          ],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyWarehouseDockUpdate@@6BBehaviorModuleInterface@@@",
+          "native_rva": "0x851b20",
+          "expected_slots": 47,
+          "compiled_extent": 188,
+          "normal_native_slot_name_match": true,
+          "mismatches": [],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyWarehouseDockUpdate@@6BDockUpdateInterface@@@",
+          "native_rva": "0x853740",
+          "expected_slots": 20,
+          "compiled_extent": 80,
+          "normal_native_slot_name_match": true,
+          "mismatches": [],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyWarehouseDockUpdate@@6BObjectModule@@@",
+          "native_rva": "0x853790",
+          "expected_slots": 13,
+          "compiled_extent": 52,
+          "normal_native_slot_name_match": true,
+          "mismatches": [],
+          "COMDAT_selection": 2
+        },
+        {
+          "name": "??_7SupplyWarehouseDockUpdate@@6BUpdateModule@@@",
+          "native_rva": "0x851d68",
+          "expected_slots": 3,
+          "compiled_extent": 12,
+          "normal_native_slot_name_match": true,
+          "mismatches": [],
+          "COMDAT_selection": 2
+        }
+      ]
+    }
+  }
+}

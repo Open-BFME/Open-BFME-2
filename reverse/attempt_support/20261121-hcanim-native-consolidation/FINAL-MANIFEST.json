@@ -1,0 +1,149 @@
+{
+  "created_utc": "2026-11-21T07:11:19.750162+00:00",
+  "root_normal_source_sha256": "0eabe340e3b1b7aa5ff7943685311e4df8f527e55d4764f8ee37deae881cd382",
+  "private_composition_sha256": "ae8dd23b8c909f95d121e8c4e168a7e59672fc539ab2d01eccd1601375efe614",
+  "object_hashes": {
+    "seed-control": {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-20261120\\hcanim011\\seed-control.obj",
+      "sha256": "307f2f630021c02cd8438cbddf816798b8a3d886143539deebea32e68983b267"
+    },
+    "donor-control": {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-20261120\\hcanim011\\donor-control.obj",
+      "sha256": "1c71c85527779074f9d5f5e8e5a717a59ed2a7499f92aa25b6b6e0117e328d89"
+    },
+    "composed": {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-transport-20261120\\hcanim011\\composed-first-1.obj",
+      "sha256": "3ef9cba70c8d9bcfab796c2467cdd34945f3fdd43321c70fc3d81b75f3b6c152"
+    },
+    "root-normal": {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_hcanim.obj",
+      "sha256": "64501b6f241c3e21da04b1122586b56baf35f2f9ccea0ec898431cf7eea3e9b0"
+    }
+  },
+  "files": {
+    "CLAIM-SCOPE.json": {
+      "bytes": 2827,
+      "sha256": "7430f1d30b061778757fa9d372aaa965a85472222e3395a557b033e109cae8d2"
+    },
+    "COFF-FOOTPRINT.json": {
+      "bytes": 610574,
+      "sha256": "b50bd989c6e3f99f6fc35d947c9e04c7ddbddbba1ab0a5511b40a01576d9a1a0"
+    },
+    "COMMITTED-MAP-LEADS.json": {
+      "bytes": 23348,
+      "sha256": "0dbed3afc931f56a86b49bd35740faa9595a8e91d69c05a01f6bb727640ae9a3"
+    },
+    "composed-first-0.cpp.txt": {
+      "bytes": 70326,
+      "sha256": "3c779b93e505801ce6b4e9e22474f03ae00f46bd725c46779abd5cf2076588ca"
+    },
+    "composed-first-0.effective.cpp.txt": {
+      "bytes": 70385,
+      "sha256": "3c1872b2010d4f4b2e2a79724189f94df1cf6609bfb202f6a4beb883ab456e0f"
+    },
+    "composed-first-1.cpp.txt": {
+      "bytes": 69486,
+      "sha256": "ae8dd23b8c909f95d121e8c4e168a7e59672fc539ab2d01eccd1601375efe614"
+    },
+    "composed-first-1.effective.cpp.txt": {
+      "bytes": 69545,
+      "sha256": "10f9041727ff0a6f5c08d6e08463810b74f06a0891cbf0758f5ed2bfe075967c"
+    },
+    "composed-union-first-0.cpp.txt": {
+      "bytes": 70326,
+      "sha256": "80446a23bc26912ecb654e39a6a0a46bfc7b4671ef6fb6193890e04bc199a94c"
+    },
+    "composed-union-first-0.effective.cpp.txt": {
+      "bytes": 70385,
+      "sha256": "1be276ba4f84655342fde85b9078e843fb5fea30d82e3495f18dbf27ed09e0db"
+    },
+    "composed-union-first-1.cpp.txt": {
+      "bytes": 69486,
+      "sha256": "86abd09e37747b0b732fcdef531ab23c0c802dfb8d8de1939802829ba09b7599"
+    },
+    "composed-union-first-1.effective.cpp.txt": {
+      "bytes": 69545,
+      "sha256": "eae328b08b1532ca275ecd9172f0f39402012b5cb838dc8127ff941e73ab4118"
+    },
+    "donor-control.cpp.txt": {
+      "bytes": 2019,
+      "sha256": "197d8478b459f16aeb9d64833eafbd89db7f308bc92d854f8ce8ce678b528a69"
+    },
+    "donor-control.effective.cpp.txt": {
+      "bytes": 2039,
+      "sha256": "b8597060bb365171a9d0b99cf5a08d8ff586a5902c3ad072fc29af3181e9d907"
+    },
+    "EH-AND-RENAMED-FUNCLETS.json": {
+      "bytes": 7976,
+      "sha256": "a9feb402bd6707cc253ea6725882a92f1e3c413c34f9a6f5556f49bff80902f6"
+    },
+    "FINAL-SUMMARY.json": {
+      "bytes": 4160,
+      "sha256": "074993f9e0ca30abedb06957d00ded8e5185f8013c6e586636ca3849d3c37c6f"
+    },
+    "final_graph_receipt.py": {
+      "bytes": 4930,
+      "sha256": "7e98b9cce2d06e191aa72d4ed63d847e8887ffbe38cd540ce359e402ca4512cb"
+    },
+    "HANDOFF-FINAL.md": {
+      "bytes": 5201,
+      "sha256": "714e46b38e49386c63cafc525251dd952691eb83ceca64837b4f5fe34df55706"
+    },
+    "HANDOFF.md": {
+      "bytes": 5851,
+      "sha256": "12b8cd71f2755cfbfdfff9dc3e539836d9a699e97eecca2001da505333c09e34"
+    },
+    "hcanim.whole-composed.cpp.txt": {
+      "bytes": 69486,
+      "sha256": "ae8dd23b8c909f95d121e8c4e168a7e59672fc539ab2d01eccd1601375efe614"
+    },
+    "HISTORY.json": {
+      "bytes": 29542,
+      "sha256": "d55df6c6cecb15cef76ed318ad683090c1bd60e786fa3ae0443733fac6cdc3bd"
+    },
+    "INITIAL-SCOPE.json": {
+      "bytes": 32818,
+      "sha256": "c02269a0de6f916b0b65fa2373ded2f82a9c7e444afc5ffe01ecfde22bb8c0e9"
+    },
+    "MANIFEST.json": {
+      "bytes": 1767,
+      "sha256": "10865d55bb6833c581243661293d9395cdc9478dc1bb42af53e365260dadf2c9"
+    },
+    "MERGE-SEMANTIC-GRAPH.json": {
+      "bytes": 13622,
+      "sha256": "4145d4845df4937d09c199555779df30c2889b80605ab12f41f9a04567f670ef"
+    },
+    "private_postproof.py": {
+      "bytes": 7090,
+      "sha256": "af5f428bb9e247bcc45463a427a5f9931a7f683610a54729b6ba85463277eef4"
+    },
+    "private_whole_probe.py": {
+      "bytes": 6660,
+      "sha256": "7d5ae9af6d0220b34723215732298dff4acde130bb905057f43eee55fd9778f4"
+    },
+    "PROBE.json": {
+      "bytes": 247149,
+      "sha256": "640e962cf668ea632614ec15408f85b55a5ce4d2a881c7b4b25ac2041dab1561"
+    },
+    "READONLY-TU-VIEWS.json": {
+      "bytes": 4310,
+      "sha256": "49bf4447bfdc63a11d655a6bddb843962f14e2f479463c7d18386e8343d3281b"
+    },
+    "seed-control.cpp.txt": {
+      "bytes": 68793,
+      "sha256": "e937622793c097a790f1f25467127f8d30ba1f006544c36492f70c5bc626a580"
+    },
+    "seed-control.effective.cpp.txt": {
+      "bytes": 68852,
+      "sha256": "443dc80f72fcd7c992ca4602911054457a88b4e71f49d322d46f3f54902fc976"
+    },
+    "STRICT-72-ROW-SUMMARY.json": {
+      "bytes": 14951,
+      "sha256": "5466a278966a3dc5f15378935e148dbe45753e145a408e6ebff5ad5a2523f719"
+    },
+    "STRICT-ROWS.json": {
+      "bytes": 130735,
+      "sha256": "b83ff1bd785a9a95f1ddecbed37539457c66d22b3fcd883ea012608c9a0631f7"
+    }
+  }
+}

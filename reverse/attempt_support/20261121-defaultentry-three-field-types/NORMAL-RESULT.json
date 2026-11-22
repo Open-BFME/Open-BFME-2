@@ -1,0 +1,23 @@
+{
+  "base": "12be9927a1b363cbf424ee88d8c457ccb2e8f398",
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+  "normal_sources": 19,
+  "normal_code_rows": 434,
+  "normal_data_rows": 3,
+  "fields_changed": [
+    "+00 int to const Image*",
+    "+04 int to const Image*",
+    "+94 int to unsigned int"
+  ],
+  "field_names_and_all_body_text_unchanged": true,
+  "runtime_nodes": 48,
+  "whole_actual_runtime_graph_checks": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "constructor_135_and_all_rows_original_exact": true,
+  "zero_completed_task_credit": true,
+  "full_header_adoption_still_blocked_by_macro_include": true
+}

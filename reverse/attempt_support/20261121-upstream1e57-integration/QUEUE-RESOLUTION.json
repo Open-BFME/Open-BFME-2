@@ -1,0 +1,14 @@
+[
+  {
+    "path": "reverse/exit_link_blockers.tsv",
+    "resolution": "preserve incoming native measurement verbatim",
+    "sha256": "01fe5f2732f81bc3ab8010edf93739a2ad5b23585ea665d46f20a0091ee2b3bd",
+    "measured_source": "5b758c893d2b00fa1b9f3ebc6d81b4832e9e7633"
+  },
+  {
+    "path": "reverse/vtable_bridge_queue.tsv",
+    "resolution": "preserve incoming native measurement verbatim",
+    "sha256": "a21ed54a8c9953e821dfc9ea684eeaf8fec36c5e2d8bfe38527aa052b34958cc",
+    "measured_source": "5b758c893d2b00fa1b9f3ebc6d81b4832e9e7633"
+  }
+]

@@ -6,6 +6,17 @@
 // the out-of-line copy. Record-node erasure already emits retail direct free.
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include "../../Include/Common/Rva00064640Record.h"
+
+// These actual record-tree storage providers are emitted by their existing
+// native allocator/destructor contexts, not regenerated under this TU's flags.
+namespace _STL {
+template<> _Rb_tree_base<Rva00064640Record,allocator<Rva00064640Record> >::_Rb_tree_base(
+    const allocator<Rva00064640Record>&);
+template<> _Rb_tree<Rva00064640Record,Rva00064640Record,
+    _Identity<Rva00064640Record>,less<Rva00064640Record>,
+    allocator<Rva00064640Record> >::~_Rb_tree();
+}
+
 // Retail erases this trivial payload through free, without a size argument.
 // This TU-scoped allocator specialization preserves that established path.
 namespace _STL {
@@ -110,3 +121,9 @@ void Rva004E149DOwner::rva004E149D(const Rva00064640Record &v)
 {
 	((Rva005045C6 *)((char *)this + 0x4))->addControlPoint(v);
 }
+
+// The native control-point set and its comparator/allocator initializer.
+template Rva00064640Set::set();
+template VRva00064640RecordSetTree::_Rb_tree(
+    const _STL::less<Rva00064640Record>&,
+    const _STL::allocator<Rva00064640Record>&);

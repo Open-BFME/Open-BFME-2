@@ -1,0 +1,20 @@
+{
+  "base": "9a39def1d3bc41048f8a2b1f555f8e436ea31124",
+  "status": "native-five-source-apply-and-normal-gates-passed",
+  "header": "Code/GameEngine/Include/Common/Rva001EB15A.h",
+  "header_sha256": "e3235cda746c74fcb4111b1e3ee23c7ff90cabbec5a56dd1d860efa048f469cf",
+  "sources": [
+    "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+    "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp"
+  ],
+  "code_rows": 145,
+  "native_generated_units": 5,
+  "native_queued_units": 0,
+  "record_size": 24,
+  "completed_original_unitrevival_tasks_credit": 0,
+  "committed": false,
+  "published": false
+}

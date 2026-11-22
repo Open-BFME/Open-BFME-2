@@ -1,0 +1,14 @@
+Source claims: OK (2 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 1 of 2 TU(s) (deps-cache: 1 current)
+Funclet pins: 47 row(s) verified past a renumbered $L label
+    $L8439 (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp): $L8439 was renumbered; verified parent EH data places $L28174 at 0x0077AEA0
+    uw_0077ab92 (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp): $L1700 was renumbered; verified parent EH data places $L27616 at 0x0077AB92
+    uw_00787a9c (Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp): $L6669 was renumbered; verified parent EH data places $L8045 at 0x00787A9C
+    $L6127 (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp): $L6127 was renumbered; verified parent EH data places $L27811 at 0x0077AC6C
+    $L6136 (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp): $L6136 was renumbered; verified parent EH data places $L27820 at 0x0077ACB6
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 129/129 matched across 2 source file(s)
+String-ref verify: OK (63 literals + 4 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (9 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)

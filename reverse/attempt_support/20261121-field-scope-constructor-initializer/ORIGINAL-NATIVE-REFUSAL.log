@@ -1,0 +1,3 @@
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/header_adopt_lane.py adopt --class UnitRevivalEntry --header Code/GameEngine/Include/GameLogic/UnitRevivalEntry.h --jobs 1 --apply Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
+  FAIL Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp: field renames: Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp: m_94 also appears at file scope; a token rename would reach it
+NATIVE ADOPT EXIT 1

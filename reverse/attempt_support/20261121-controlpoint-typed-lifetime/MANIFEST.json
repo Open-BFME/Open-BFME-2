@@ -1,0 +1,157 @@
+{
+  "basis_head": "40496f82be14ec699d35ea9c0100c0e3d366a7c1",
+  "created_utc": "2026-11-21T05:03:44.246443+00:00",
+  "scope": "Private three-source lifetime package; Root-only normal integration",
+  "sources": [
+    {
+      "target": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+      "original_sha256": "227aeedb19fe3bfe74fe7d58bc71c4cc661b540b983b46d3991e7f292468c165",
+      "original_still_current_at_manifest": true,
+      "candidate_artifact": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\stlport_rb_tree_copy_ctors_bfmealloc.cpp.txt",
+      "candidate_sha256": "4bb7909fbd69a0e078fc8fc57e007169e0768c556aeccc861c2a3ec3e974bf41",
+      "patch_artifact": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\base-CANDIDATE.patch",
+      "patch_sha256": "d3da12c72be1d15e39df40e267c4784e2a553dc920fa44cce81c1f434840f27b",
+      "line_endings": "LF",
+      "encoding": "UTF-8 without BOM"
+    },
+    {
+      "target": "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp",
+      "original_sha256": "b1a3ca7ca80613d3eae3efd15fc09cc78e2b71f20fa0b787accf7f3628a1ae21",
+      "original_still_current_at_manifest": true,
+      "candidate_artifact": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\stlport_int_ascii_tree_dtor.cpp.txt",
+      "candidate_sha256": "ab5134adb3ee2e86408f62ea17e936f99c642c65f872ea18b8ebfd5fa1174c4e",
+      "patch_artifact": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\dtor-CANDIDATE.patch",
+      "patch_sha256": "25fc7d1967acdef011cdba33896a02eca4df860a06f9acaf93af28fb01550d98",
+      "line_endings": "LF",
+      "encoding": "UTF-8 without BOM"
+    },
+    {
+      "target": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "original_sha256": "7ecf43889ac5ed7ba464b57e7dba641636473d0ada01616d5ef3706add27764e",
+      "original_still_current_at_manifest": true,
+      "candidate_artifact": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\Rva00064640Insert.clean.cpp.txt",
+      "candidate_sha256": "76c1bb26dba9f24d9f13f5580b7f3d5297343a08e2e791855286333fe573b810",
+      "patch_artifact": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\caller-CANDIDATE.patch",
+      "patch_sha256": "c7439954b7b0ad556b9e39bc2781d69e0b7659cdfe60d9c5ffdccb9449808188",
+      "line_endings": "LF",
+      "encoding": "UTF-8 without BOM"
+    }
+  ],
+  "evidence": {
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\HANDOFF.md": {
+      "sha256": "9affed3be0a58f6b8041980ac8ba0529d59e08b83f05faa8eef88e245dbca581",
+      "bytes": 8576
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\PROBES.json": {
+      "sha256": "f153eb7c6194a1e2a1b050e834b7cde74619c02db04746ddd242fd93a575c0cc",
+      "bytes": 103536
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\NATIVE-AND-FOOTPRINT.json": {
+      "sha256": "f1bdc730ff8565d4d0ec0135a511446b12d042c7cf7bb3097e95dac4934a938e",
+      "bytes": 46224
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\CLEAN-CALLER.json": {
+      "sha256": "99b3956ce5e87c6cec2333b4d69e035fed4d2afd0b46659a4b4976c14fdd2117",
+      "bytes": 66437
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\FINAL-COHORT.json": {
+      "sha256": "84e0d0960be4a6943c49b5aa5158b8c541377f4ec37f7db300bdfea7d805c446",
+      "bytes": 69489
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-provider-contexts\\ROOT-ONLY-ADMISSIONS.ps1.txt": {
+      "sha256": "3fd86c6ef2e3a06e55afc0674b4f23625fb1bf1a661db3326452607cd834c3a7",
+      "bytes": 4759
+    },
+    "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\controlpoint-closure\\NATIVE-TYPE-EVIDENCE.json": {
+      "sha256": "ffab2e3b9e89b15da49ff502ded49d71f1855be8645ebdde935104e8cd81db43",
+      "bytes": 25501
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\a403ebe9bb0397f2.obj": {
+      "sha256": "153137ad163037b13eddb10f3ede42807b1b2f66719b46e6ed714016f1d2bd66",
+      "role": "stlport_rb_tree_copy_ctors_bfmealloc.cpp:control"
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\base\\df545d197596ed55.obj": {
+      "sha256": "235d614d8919cc859d9d6c2acf34461db349f883643f2b2501d11c5e5ab319c2",
+      "role": "stlport_rb_tree_copy_ctors_bfmealloc.cpp:candidate"
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\dtor\\97a3be4bb02e5af6.obj": {
+      "sha256": "1ae961298b9d696acf926b9713dca3eb0b74719b58fd0b3459eae7c5af78cb85",
+      "role": "stlport_int_ascii_tree_dtor.cpp:control"
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\dtor\\e543ffbdd206f629.obj": {
+      "sha256": "e8cd356b76dc77a44761c21c8d16eaefdf13a044a9734dbae861203f9de085a0",
+      "role": "stlport_int_ascii_tree_dtor.cpp:candidate"
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\caller\\61b9782c70d57765.obj": {
+      "sha256": "35483c36dfc92a954391283b210a70d7fa52389819b2b4cd6f0c295aed288e9c",
+      "role": "Rva00064640Insert.cpp:control"
+    },
+    "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\controlpoint-provider-contexts\\objects\\caller\\f82b0865f9ac9f6d.obj": {
+      "sha256": "5ee0d045f468abf701bff5713b4cdc60b93f92a2fbbeba21418c1afd9a045864",
+      "role": "Rva00064640Insert.cpp:candidate"
+    }
+  },
+  "root_only_admissions": [
+    {
+      "kind": "proxy",
+      "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@VRva00064640Record@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@VRva00064640Record@@@_STL@@@1@PAU?$_Rb_tree_node@VRva00064640Record@@@1@@Z",
+      "rva": "0x0014F3C4",
+      "size": 11,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+      "icf_owner": "??0?$_STLP_alloc_proxy@PAU?$_List_node@PAVDrawable@@@_STL@@U12@V?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@1@PAU?$_List_node@PAVDrawable@@@1@@Z",
+      "owner_source": "Code/Libraries/Source/WWVegas/WWLib/stlport_list_drawable_base_ctor.cpp",
+      "notes": "Native control-point record-set lifetime; complete code and named relocation proof; original EH callback closure where applicable; compiler-source evidence only; no original EA name or unique-byte claim."
+    },
+    {
+      "kind": "base",
+      "name": "??0?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00064640Record@@@1@@Z",
+      "rva": "0x00417B55",
+      "size": 36,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+      "icf_owner": "??0?$_Rb_tree_base@U?$pair@$$CBHUBfmePod24@@@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z",
+      "owner_source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_ctors_bfmealloc.cpp",
+      "notes": "Native control-point record-set lifetime; complete code and named relocation proof; original EH callback closure where applicable; compiler-source evidence only; no original EA name or unique-byte claim."
+    },
+    {
+      "kind": "dtor",
+      "name": "??1?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "rva": "0x002B80CE",
+      "size": 56,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp",
+      "icf_owner": "??1?$_Rb_tree@HU?$pair@$$CBHVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ",
+      "owner_source": "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp",
+      "notes": "Native control-point record-set lifetime; complete code and named relocation proof; original EH callback closure where applicable; compiler-source evidence only; no original EA name or unique-byte claim."
+    },
+    {
+      "kind": "base-dtor",
+      "name": "??1?$_Rb_tree_base@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@QAE@XZ",
+      "rva": "0x0007FAB3",
+      "size": 14,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_int_ascii_tree_dtor.cpp",
+      "icf_owner": "??1?$_Rb_tree_base@U?$pair@$$CBHPAX@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@XZ",
+      "owner_source": "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+      "notes": "Native control-point record-set lifetime; complete code and named relocation proof; original EH callback closure where applicable; compiler-source evidence only; no original EA name or unique-byte claim."
+    },
+    {
+      "kind": "tree",
+      "name": "??0?$_Rb_tree@VRva00064640Record@@V1@U?$_Identity@VRva00064640Record@@@_STL@@U?$less@VRva00064640Record@@@3@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@ABU?$less@VRva00064640Record@@@1@ABV?$allocator@VRva00064640Record@@@1@@Z",
+      "rva": "0x004FF681",
+      "size": 42,
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "icf_owner": "??0?$_Rb_tree@HU?$pair@$$CBHUBfmePod24@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@1@@Z",
+      "owner_source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp",
+      "notes": "Native control-point record-set lifetime; complete code and named relocation proof; original EH callback closure where applicable; compiler-source evidence only; no original EA name or unique-byte claim."
+    },
+    {
+      "kind": "set",
+      "name": "??0?$set@VRva00064640Record@@U?$less@VRva00064640Record@@@_STL@@V?$allocator@VRva00064640Record@@@3@@_STL@@QAE@XZ",
+      "rva": "0x005011C1",
+      "size": 25,
+      "source": "Code/GameEngine/Source/Common/Rva00064640Insert.cpp",
+      "icf_owner": "??0?$map@HUBfmePod24@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod24@@@_STL@@@3@@_STL@@QAE@XZ",
+      "owner_source": "Code/Libraries/Source/WWVegas/WWLib/StlportIntMapDefaultCtor.cpp",
+      "notes": "Native control-point record-set lifetime; complete code and named relocation proof; original EH callback closure where applicable; compiler-source evidence only; no original EA name or unique-byte claim."
+    }
+  ],
+  "no_production_mutation_by_worker": true
+}

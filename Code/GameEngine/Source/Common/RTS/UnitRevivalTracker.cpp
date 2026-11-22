@@ -66,25 +66,11 @@ public:
 
 #include "unicode_string.h"
 
-#include "FixedStorage128.h"
+#include "../../../Include/Common/BfmeFixedStorage128.h"
 
 #include "../../../Include/Common/Rva001EAE6FHelper.h"
-// The established storage copy remains a direct member-constructor call.
-// Its default is inlined into the template constructor and calls the
-// independently rowed clear80 helper; no standalone default body is emitted.
-// ?BfmeFixedStorage128::BfmeFixedStorage128 absent-from-retail
-__forceinline BfmeFixedStorage128::BfmeFixedStorage128() {
-    reinterpret_cast<Rva001EAE6FHelper*>(this)->clear80();
-}
-struct Rva001EB15A
-{
-	int a, b, c;
-	UnicodeString wide;
-	AsciiString text;
-	bool flag;
-	__declspec(noinline) Rva001EB15A();
-	Rva001EB15A(const Rva001EB15A &);
-};
+// This constructor clears only its own real mask; the canonical mask default remains empty.
+#include "../../../Include/Common/Rva001EB15A.h"
 
 struct RevivalLevelValue
 {
@@ -242,7 +228,6 @@ public:
 	unsigned int m_9c;		// +0x9C: unsigned conversion emits retail x87/_ftol2
 	Bool m_a0;			// +0xA0
 	Bool m_a1;
-	unsigned char m_padA2[2];
 	Int m_productionID;		// +0xA4
 	int m_a8;
 	int m_ac;
@@ -454,7 +439,7 @@ Object *UnitRevivalTracker::productionSystemNewObject(unsigned int productionID,
                 reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(false);
                 reinterpret_cast<ExperienceTracker*>(object->getExperience())->rva0039B315(entry.m_experience-1.0f,false,false,false,false);
                 reinterpret_cast<Rva0039B20C*>(object->getExperience())->rva0039B227(entry.m_level);
-                *reinterpret_cast<bool*>(reinterpret_cast<char*>(object->getExperience())+0x20)=entry.m_record.flag;
+                *reinterpret_cast<bool*>(reinterpret_cast<char*>(object->getExperience())+0x20)=entry.m_record.m_14;
                 reinterpret_cast<_STL::_Base_bitset<32>*>(&object->upgrades)->_M_do_or(*reinterpret_cast<const _STL::_Base_bitset<32>*>(&entry.m_upgrades));
                 level=entry.m_rank;
                 reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(oldFlag);
@@ -553,7 +538,8 @@ struct RevivalTemplateInitView {
 UnitRevivalEntry::UnitRevivalEntry(const ThingTemplate *thingTemplate)
     : m_reviveImage(0),m_cachedImage(0),m_experience(0.0f),m_rank(1),m_level(1)
     , m_upgrades()
-    , m_94(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->cost)
+    , m_94((reinterpret_cast<Rva001EAE6FHelper*>(&m_upgrades)->clear80(),
+            reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->cost))
     , m_reviveStartFrame(-1)
     , m_9c(static_cast<unsigned int>(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->time))
     , m_a0(false),m_a1(false),m_productionID(0),m_a8(0),m_ac(0)
@@ -587,7 +573,7 @@ void UnitRevivalEntry::rva0037E473(Xfer *xfer)
     if(version.m_minimum >= 7) Rva004E12D7Parse(xfer,&m_ac);
     if(version.m_minimum >= 8) *xfer == m_a1;
     if(version.m_minimum >= 2) reinterpret_cast<Rva004E0513*>(&m_record)->rva004E0513(xfer);
-    else *xfer == m_record.a;
+    else *xfer == m_record.m_00;
     if(version.m_minimum >= 3) *xfer == m_rank;
     AsciiString imageName;
     if(xfer->IsStoring()) {
@@ -601,4 +587,9 @@ void UnitRevivalEntry::rva0037E473(Xfer *xfer)
     if(version.m_minimum >= 6) *xfer == m_factor;
     if(version.m_minimum >= 9) *xfer == m_displayName;
     if(version.m_minimum >= 10) *xfer == m_c8;
+}
+
+// Existing54B provider at001EB05E: express the same owned member teardown in its existing TU.
+Rva001EB15A::~Rva001EB15A()
+{
 }

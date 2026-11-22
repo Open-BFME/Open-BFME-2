@@ -1,0 +1,24 @@
+--- a/Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
++++ b/Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
+@@ -1,3 +1,4 @@
++// stlport
+ // cl: /O1 /G7 /MD /EHsc /arch:SSE2 /Ireference/shims/bfme2_ascii
+ // Split from AptMyHero.cpp: these definitions reference a callee with no matched body yet,
+ // so they are kept apart from the unit's bodies that already link.
+@@ -13,7 +14,7 @@
+ #include "unicode_string.h"
+ #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+ class Image;
+-class ImageCollection {public: const Image *findImageByName(const AsciiString &);};
++class ImageCollection;
+ extern ImageCollection *TheMappedImageCollection;
+ #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+@@ -41,6 +42,7 @@
+ };
+ // The rowed by-value resize 0x005FF96A is spelled on this vector view.
+ class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
++#include "../../../../../Include/GameClient/Image.h"
+ #include "../../../../../Include/GameClient/Rva005B0473View.h"
+ class Rva002195E6;
+ #include "../../../../../Include/GameLogic/CreateAHeroManager.h"

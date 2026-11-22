@@ -1,0 +1,10 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 4 row(s) verified past a renumbered $L label
+    uw_007688e0 (Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp): $L16619 was renumbered; verified parent EH data places $L17460 at 0x007688E0
+    uw_00768900 (Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp): $L16721 was renumbered; verified parent EH data places $L17553 at 0x00768900
+    uw_00768920 (Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp): $L17635 was renumbered; verified parent EH data places $L17931 at 0x00768920
+    uw_0076892b (Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp): $L17636 was renumbered; verified parent EH data places $L17932 at 0x0076892B
+Functions: OK 72/72 matched across 1 source file(s)
+String-ref verify: OK (3 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (15 compiler literals verified)
+Import-ref verify: OK (2 named imports verified)

@@ -1,0 +1,33 @@
+{
+  "original_nodes": 770,
+  "candidate_nodes": 770,
+  "identical_mapped_nodes": 770,
+  "missing_nodes": 0,
+  "extra_nodes": 0,
+  "bad_edges": [],
+  "lost_external_records": [],
+  "added_external_records": [],
+  "undefined_identical": true,
+  "directives_identical": true,
+  "weak_identical": true,
+  "vtables_identical": true,
+  "strict_rows": {
+    "control": 18,
+    "canonical-candidate": 18
+  },
+  "eh_parents": {
+    "control": {
+      "count": 5,
+      "statuses": {
+        "EXACT": 5
+      }
+    },
+    "canonical-candidate": {
+      "count": 5,
+      "statuses": {
+        "EXACT": 5
+      }
+    }
+  },
+  "all_rows_strict": true
+}

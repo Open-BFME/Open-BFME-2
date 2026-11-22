@@ -1,0 +1,23 @@
+{
+  "base": "2f0fdb6f30796aaae4bb1bde8b27d2f0278f7a05",
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+  "normal_code_rows": 432,
+  "normal_data_rows": 3,
+  "source_count": 17,
+  "runtime_nodes": 78,
+  "actual_normal_and_private_checks": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "layout_size": 216,
+  "layout_alignment": 4,
+  "field_offsets_checked": 19,
+  "private_compiles": 2,
+  "source_member_removed": "m_padA2[2]",
+  "natural_padding_bytes": 2,
+  "canonical_contract_unchanged": true,
+  "completed_credit": 0,
+  "new_unique_bytes": 0
+}

@@ -1,0 +1,24 @@
+{
+  "status": "blocked-prerequisites",
+  "whole_file_repair_ready": false,
+  "task_credit": 0,
+  "actual_cpp_pp_calls": 0,
+  "production_writes": false,
+  "claims_changed": false,
+  "global_head_snapshot_claim": false,
+  "inspected_inputs_stable": true,
+  "served_rows": 5,
+  "served_bytes_retained": 183,
+  "sibling_declaration_extent": "0x60 conditional on declared28B+36B bases,4B alignment; not CodeView measured",
+  "prior_sibling_estimate_corrected_from": "0x5C arithmetic error",
+  "prerequisites": [
+    "Real64B whole-family view without duplicate payload",
+    "Five primary getter type/name/ownership contracts, shared ICF retained",
+    "Primary slot1 contract, no unknown stub",
+    "Derived Snapshot getter plus Xfer owner convergence",
+    "Normal owning admissions/gates and next published real-link confirmation"
+  ],
+  "other_task_selected": false,
+  "bfme1_work": false,
+  "physical_whole_object_model": "28B base +36B canonical info =0x40; not a new whole-class sizeof/CodeView measurement"
+}

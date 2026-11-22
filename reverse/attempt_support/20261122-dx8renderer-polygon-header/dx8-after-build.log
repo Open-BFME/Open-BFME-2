@@ -1,0 +1,13 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Funclet pins: 21 row(s) verified past a renumbered $L label
+    uw_007662a0 (Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp): $L33058 was renumbered; verified parent EH data places $L29001 at 0x007662A0
+    uw_007662d0 (Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp): $L33073 was renumbered; verified parent EH data places $L29020 at 0x007662D0
+    uw_00766340 (Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp): $L33866 was renumbered; verified parent EH data places $L29087 at 0x00766340
+    uw_007662a8 (Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp): $L33059 was renumbered; verified parent EH data places $L29002 at 0x007662A8
+    uw_007662d8 (Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp): $L33074 was renumbered; verified parent EH data places $L29021 at 0x007662D8
+Functions: OK 91/91 matched across 1 source file(s)
+String-ref verify: OK (1 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (8 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

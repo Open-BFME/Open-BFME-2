@@ -328,6 +328,38 @@ class RedefinitionTests(unittest.TestCase):
         self.assertNotIn("struct Coord3D", gone)          # a header owns it
 
 
+class SDKMarkerCompositionTests(unittest.TestCase):
+    def test_sdk_context_survives_removing_a_seed_or_donor_view(self):
+        import build
+        for marker, reader in (("platformsdk", build.source_needs_platformsdk),
+                               ("dxsdk", build.source_needs_dxsdk)):
+            for owner in ("Seed.cpp", "Donor.cpp"):
+                for strategy in T.STRATEGIES:
+                    with self.subTest(marker=marker, owner=owner, strategy=strategy):
+                        texts = {"Seed.cpp": "int seed() { return 1; }\n",
+                                 "Donor.cpp": "int donor() { return 2; }\n"}
+                        texts[owner] = "// " + marker + "\nstruct Removed { int field; };\n" + texts[owner]
+                        out = T.compose("Seed.cpp", [], list(texts), texts, [], strategy,
+                                        drop_all=frozenset({"Removed"}))
+                        self.assertNotIn("struct Removed", out)
+                        self.assertEqual(out.count("// " + marker), 1)
+                        with tempfile.TemporaryDirectory() as folder:
+                            source = Path(folder) / "Merged.cpp"
+                            source.write_text(out, encoding="utf-8")
+                            self.assertTrue(reader(source))
+
+    def test_merge_does_not_opt_in_without_an_existing_source_marker(self):
+        import build
+        texts = {"Seed.cpp": "// prose mentions // platformsdk\nint seed() { return 1; }\n",
+                 "Donor.cpp": "// prose mentions // dxsdk\nint donor() { return 2; }\n"}
+        out = T.compose("Seed.cpp", [], list(texts), texts, [], "first")
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder) / "Merged.cpp"
+            source.write_text(out, encoding="utf-8")
+            self.assertFalse(build.source_needs_platformsdk(source))
+            self.assertFalse(build.source_needs_dxsdk(source))
+
+
 class DirectiveCompositionTests(unittest.TestCase):
     def compose(self, text, skeleton=True):
         sk = [({"rva": "0x1000", "size": "8"},
@@ -3267,6 +3299,32 @@ class NativeCompilerCase(unittest.TestCase):
         p = subprocess.run(command, env=env, capture_output=True, cwd=self.build.ROOT, timeout=600)
         self.assertEqual(p.returncode, 0, (p.stdout + p.stderr)[-400:])
         return p.stdout.decode("latin-1") if preprocess else obj
+
+
+class NativeSDKMarkerCompositionTests(NativeCompilerCase):
+    def test_removed_donor_view_keeps_the_native_platformsdk_include(self):
+        # Cursor's SDK marker was attached to a private holder declaration. A
+        # merge dropping that declaration must still find guiddef.h; merely
+        # retaining the donor's C++ body does not retain its include context.
+        texts = {"Seed.cpp": "int seed() { return 1; }\n",
+                 "Donor.cpp": "// platformsdk\nstruct Removed { int field; };\n"
+                              "#include <guiddef.h>\nint donor() { return sizeof(GUID); }\n"}
+        out = T.compose("Seed.cpp", [], list(texts), texts, [], "first",
+                        drop_all=frozenset({"Removed"}))
+        source = self.folder / "sdk_context.cpp"
+        source.write_text(out, encoding="utf-8")
+        sdk = self.build.wine_path(self.build.vc71_root() / "Vc7" / "PlatformSDK" / "Include")
+        command, env = self.build.compiler_command(source, source.with_suffix(".obj"))
+        self.assertIn(sdk, env["INCLUDE"])
+        self.run_cl("sdk_positive", out)
+        # The negative control uses the same body and ordinary command builder.
+        # SDK roots must not leak into a unit that never selected this context.
+        source.write_text(out.replace("// platformsdk\n", ""), encoding="utf-8")
+        command, env = self.build.compiler_command(source, source.with_suffix(".obj"))
+        self.assertNotIn(sdk, env["INCLUDE"])
+        result = subprocess.run(command, cwd=self.build.ROOT, env=env, capture_output=True, timeout=600)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(b"C1083", result.stdout + result.stderr)
 
 
 class NativeDeletingDtorSelectionTests(NativeCompilerCase):

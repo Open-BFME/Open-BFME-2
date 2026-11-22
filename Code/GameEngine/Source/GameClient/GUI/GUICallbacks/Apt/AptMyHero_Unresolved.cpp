@@ -30,26 +30,7 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0043DB23(Rva00222A8BTarget *,void *,const char *);
 // AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
 // and destructor, and the fields the screen reads.
-class CreateAHeroData {
-public:
- virtual ~CreateAHeroData();
-protected:
- virtual void loadPostProcess();
-public:
- virtual const char *GetSnapshotName() const;
- // Slot 3 as canonical CreateAHeroData.h spells it (AptMyHeroCtor.cpp's table, first in link
- // order since b056878e3e); both names reach retail 0x00408C11 through existing alternatenames.
- virtual void xfer(class Xfer *);
- virtual bool Update(int);
- CreateAHeroData &operator=(const CreateAHeroData &);
-protected:
- char pad04[4];
- UnicodeString heroName08;
- int field0C,field10;
- char pad14[0x138-0x14];
- const Image *image138;
- char pad13C[4];
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 // Native vector cleanup uses the game CRT allocator at00030830.
 extern "C" void __cdecl free(void *) throw(...);
 struct BfmePod8
@@ -61,10 +42,8 @@ public:
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
 #include "../../../../../Include/GameClient/Rva005B0473View.h"
-struct CreateAHeroClassRecord {char opaque[0x20];};
-struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
 class Rva002195E6;
-class CreateAHeroManager {public: const Rva002195E6 *GetViewInfo(unsigned int,unsigned int);const AsciiString &GetClassNameTag(unsigned int);const AsciiString &GetSubClassNameTag(unsigned int,unsigned int);const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int);int GetSubClassSpendableAttributePoints(unsigned int,unsigned int);void *GetBlingBinder(unsigned int);int GetBlingCount(int,const CreateAHeroHero *) const;int GetSubClassDefaultBlingId(int,unsigned int,unsigned int) const;int GetSubClassAttributeMinValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeMaxValue(unsigned int,unsigned int,unsigned int);int GetSubClassAttributeDefaultValue(unsigned int,unsigned int,unsigned int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x168-0x158];BlingBinderList binders168;char pad174[0x1E8-0x174];AsciiString field1E8,field1EC;};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 class Object;
 class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
 #include "../../../../../Include/GameClient/GameClientClass.h"
@@ -73,21 +52,11 @@ extern GameClient *TheGameClient;
 // Display keeps its +0x141 flag protected; this unit writes it through a view
 // of the real TheDisplay.
 struct DisplayFlag141View {char pad000[0x141];bool field141;};
-class GameWindowTransitionsHandler {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();
- bool isFinished();
- void reverse(AsciiString);
- void setGroup(AsciiString groupName,bool immediate);
-};
+#include "../../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../../../Include/GameClient/GameWindowTransitionsHandler.h"
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 #include "../../../../../Include/GameClient/Rva001DBB82OneSetter.h"
-class GameWindowManager {
-public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
- virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
@@ -156,16 +125,9 @@ inline float sinf(float _X){return ((float)sin((double)_X));}
 __forceinline Vector3 operator-(const Vector3 &a){return Vector3(-a.X,-a.Y,-a.Z);}
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 __forceinline float submul(const Vector4 &row,float tmp1,float tmp2,float tmp3){return row.X*tmp1+row.Y*tmp2+row.Z*tmp3;}
-class Matrix3D {
-public:
- __forceinline Matrix3D(){}
- __forceinline Matrix3D(const Vector3 &axis,float angle){Set(axis,angle);}
- __forceinline void Set(const Vector3 &axis,float angle){float c=cosf(angle);float s=sinf(angle);Set(axis,s,c);}
- void Set(const Vector3 &axis,float s,float c);
- void mul(const Matrix3D &A,const Matrix3D &B);
- Vector3 Rotate_Vector(const Vector3 &vect) const;
- Vector4 Row[3];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+__forceinline Matrix3D::Matrix3D(const Vector3 &axis,float angle){Set(axis,angle);}
+__forceinline void Matrix3D::Set(const Vector3 &axis,float angle){float c=cosf(angle);float s=sinf(angle);Set(axis,s,c);}
 __forceinline void Matrix3D::Set(const Vector3 &axis,float s,float c){
  Row[0].Set((float)(axis[0]*axis[0]+c*(1.0f-axis[0]*axis[0])),(float)(axis[0]*axis[1]*(1.0f-c)-axis[2]*s),(float)(axis[2]*axis[0]*(1.0f-c)+axis[1]*s),0.0f);
  Row[1].Set((float)(axis[0]*axis[1]*(1.0f-c)+axis[2]*s),(float)(axis[1]*axis[1]+c*(1.0f-axis[1]*axis[1])),(float)(axis[1]*axis[2]*(1.0f-c)-axis[0]*s),0.0f);
@@ -282,7 +244,7 @@ void AptMyHero::FrameUpdate() {
     if(!reinterpret_cast<const StringBase<char> &>(group).isEmpty()) {
      TheTransitionHandler->reverse(group);
      reinterpret_cast<Rva001DBB82OneSetter *>(TheTransitionHandler)->enable();
-     TheWindowManager->slot28();
+     TheWindowManager->update();
     }
     field14C=2;
    }
@@ -291,7 +253,7 @@ void AptMyHero::FrameUpdate() {
   break;
  case 2:
   if(TheTransitionHandler->isFinished()) {
-   TheTransitionHandler->slot24();TheWindowManager->slot28();field14C=0;((DisplayFlag141View *)TheDisplay)->field141=false;
+   reinterpret_cast<SubsystemInterface *>(TheTransitionHandler)->reset();TheWindowManager->update();field14C=0;((DisplayFlag141View *)TheDisplay)->field141=false;
   }
   break;
  }
@@ -303,8 +265,8 @@ void AptMyHero::FrameUpdate() {
  if(flag150) {
   rva005B0446();
   if(!TheCreateAHeroManager)return;
-  unsigned classIndex=field0C;unsigned subclassIndex=field10;
-  {AsciiString key("APT:MyHeroName");g_bfmeAptWindowManager->bfmeSetText(key,heroName08,true);}
+  unsigned classIndex=m_0c;unsigned subclassIndex=m_10;
+  {AsciiString key("APT:MyHeroName");g_bfmeAptWindowManager->bfmeSetText(key,field08,true);}
   {AsciiString key("APT:MyHeroClass");g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(TheCreateAHeroManager->GetClassNameTag(classIndex)),true);}
   {AsciiString key("APT:MyHeroType");g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(TheCreateAHeroManager->GetSubClassNameTag(classIndex,subclassIndex)),true);}
 

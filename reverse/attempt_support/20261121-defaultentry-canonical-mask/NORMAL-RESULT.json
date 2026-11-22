@@ -1,0 +1,36 @@
+{
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+  "source_base": "84a9b47452d67d808ebfe56c9b936a4286f02c3f",
+  "isolated_worktree": "W:\\OpenBFME\\worktrees\\bfme2-defaultrecord-20261121",
+  "normal_sources": 19,
+  "normal_code_rows": 434,
+  "normal_data_rows": 3,
+  "strict_provider_sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+    "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+    "Code/GameEngine/Source/Common/Rva004E04FDCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/Rva001EAE6FClear80.cpp"
+  ],
+  "runtime_nodes": 48,
+  "common_private_runtime_nodes": 47,
+  "before_matches_private": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "after_matches_private": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true
+  },
+  "primary_135_raw_and_named_relocations_unchanged": true,
+  "removed_default_extent": 12,
+  "added_default_extent": 3,
+  "local_runtime_inbounds_both": 0,
+  "global_nonuse_not_proved": true,
+  "new_body_credit": 0,
+  "completed_credit": 0,
+  "link_preview_not_measured_in_aux": true
+}

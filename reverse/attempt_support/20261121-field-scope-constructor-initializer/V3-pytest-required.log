@@ -1,0 +1,24 @@
+....................................................................................................... [  8%]
+........................................................................ [ 14%]
+........................................................................ [ 21%]
+........................................................................ [ 27%]
+........................................................................ [ 33%]
+........................................................................ [ 39%]
+........................................................................ [ 45%]
+........................................................................ [ 51%]
+........................................................................ [ 57%]
+........................................................................ [ 64%]
+........................................................................ [ 70%]
+........................................................................ [ 76%]
+........................................................................ [ 82%]
+........................................................................ [ 88%]
+................................s..................................s.... [ 94%]
+..............................................sss...s........            [100%]
+=========================== short test summary info ===========================
+SKIPPED [1] tools\tests\test_header_field_renames.py:1968: explicit isolated VC71 scalar probe
+SKIPPED [1] tools\tests\test_gate_exploits.py:455: got empty parameter set for (fixture)
+SKIPPED [1] tools\tests\test_gate_exploits.py:661: symlinks unavailable here ([WinError 1314] Dem Client fehlt ein erforderliches Recht: 'C:\\Users\\micha\\AppData\\Local\\Temp\\pytest-of-micha\\pytest-24' -> 'C:\\Users\\micha\\AppData\\Local\\Temp\\pytest-of-micha\\pytest-24\\test_a_committed_link_is_refus0\\Code\\lowerlink'): Windows needs Developer Mode or admin rights
+SKIPPED [1] tools\tests\test_gate_exploits.py:661: symlinks unavailable here ([WinError 1314] Dem Client fehlt ein erforderliches Recht: 'C:\\Users\\micha\\AppData\\Local\\Temp\\pytest-of-micha\\pytest-24' -> 'C:\\Users\\micha\\AppData\\Local\\Temp\\pytest-of-micha\\pytest-24\\test_a_committed_link_is_refus1\\reference\\open-bfme-1\\review_link'): Windows needs Developer Mode or admin rights
+SKIPPED [1] tools\tests\test_gate_exploits.py:661: symlinks unavailable here ([WinError 1314] Dem Client fehlt ein erforderliches Recht: 'C:\\Users\\micha\\AppData\\Local\\Temp\\pytest-of-micha\\pytest-24' -> 'C:\\Users\\micha\\AppData\\Local\\Temp\\pytest-of-micha\\pytest-24\\test_a_committed_link_is_refus2\\docs\\elsewhere'): Windows needs Developer Mode or admin rights
+SKIPPED [1] tools\tests\test_gate_exploits.py:661: symlinks unavailable here ([WinError 1314] Dem Client fehlt ein erforderliches Recht: 'C:\\' -> 'W:\\OpenBFME\\Open-BFME-2\\build\\test_gate_exploits_cl3\\lowerlink'): Windows needs Developer Mode or admin rights
+1166 passed, 6 skipped, 113 subtests passed in 54.59s

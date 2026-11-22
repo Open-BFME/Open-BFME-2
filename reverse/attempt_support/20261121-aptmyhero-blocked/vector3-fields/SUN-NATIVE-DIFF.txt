@@ -1,0 +1,317 @@
+--- strict-control971
++++ canonical-static-fields976
+@@ -79,159 +79,160 @@
+ 012f movss dword ptr [ebp + 0x6c], xmm2
+ 0134 addss xmm6, xmm5
+ 0138 movss dword ptr [ebp + 0xc], xmm6
+-013d movss xmm6, dword ptr [ebp + 0x4c]
+-0142 addss xmm2, xmm1
+-0146 subss xmm1, dword ptr [ebp + 0x6c]
+-014b mulss xmm6, xmm2
++013d movss xmm6, dword ptr [ebp + 0x3c]
++0142 mulss xmm6, xmm7
++0146 addss xmm2, xmm1
++014a subss xmm1, dword ptr [ebp + 0x6c]
+ 014f movaps xmm5, xmm3
+ 0152 movss dword ptr [ebp + 0x10], xmm5
+-0157 mulss xmm5, dword ptr [ebp + 0x2c]
+-015c addss xmm5, xmm6
+-0160 movss xmm6, dword ptr [ebp + 0x3c]
+-0165 mulss xmm6, xmm7
+-0169 addss xmm5, xmm6
+-016d movss dword ptr [ebp - 0x40], xmm5
+-0172 movss xmm5, dword ptr [ebp + 0xc]
+-0177 mulss xmm5, dword ptr [ebp + 0x2c]
+-017c movaps xmm6, xmm1
+-017f mulss xmm6, dword ptr [ebp + 0x4c]
+-0184 addss xmm5, xmm6
+-0188 movss xmm6, dword ptr [ebp + 0x10]
+-018d mulss xmm6, dword ptr [ebp + 0x3c]
+-0192 addss xmm5, xmm6
+-0196 movss dword ptr [ebp - 0x30], xmm5
+-019b mulss xmm3, xmm0
+-019f addss xmm3, xmm4
+-01a3 movaps xmm5, xmm1
+-01a6 mulss xmm5, dword ptr [ebp + 0x2c]
+-01ab movaps xmm6, xmm3
+-01ae mulss xmm6, dword ptr [ebp + 0x4c]
+-01b3 addss xmm5, xmm6
+-01b7 movaps xmm6, xmm2
+-01ba mulss xmm6, dword ptr [ebp + 0x3c]
+-01bf addss xmm5, xmm6
+-01c3 movss xmm6, dword ptr [ebp + 0x50]
+-01c8 movss dword ptr [ebp - 0x20], xmm5
+-01cd movss xmm5, dword ptr [ebp + 0x30]
+-01d2 mulss xmm5, dword ptr [ebp - 4]
+-01d7 mulss xmm6, xmm2
+-01db addss xmm5, xmm6
+-01df movss xmm6, dword ptr [ebp + 0x40]
+-01e4 mulss xmm6, xmm7
+-01e8 addss xmm5, xmm6
+-01ec movss dword ptr [ebp - 0x3c], xmm5
+-01f1 movss xmm5, dword ptr [ebp + 0xc]
+-01f6 mulss xmm5, dword ptr [ebp + 0x30]
+-01fb movaps xmm6, xmm1
+-01fe mulss xmm6, dword ptr [ebp + 0x50]
+-0203 addss xmm5, xmm6
+-0207 movss xmm6, dword ptr [ebp + 0x10]
+-020c mulss xmm6, dword ptr [ebp + 0x40]
+-0211 addss xmm5, xmm6
+-0215 movss dword ptr [ebp - 0x2c], xmm5
+-021a movaps xmm5, xmm3
+-021d mulss xmm5, dword ptr [ebp + 0x50]
+-0222 movaps xmm6, xmm2
+-0225 mulss xmm6, dword ptr [ebp + 0x40]
+-022a addss xmm5, xmm6
+-022e movaps xmm6, xmm1
+-0231 mulss xmm6, dword ptr [ebp + 0x30]
+-0236 addss xmm5, xmm6
+-023a movss xmm6, dword ptr [ebp + 0x54]
+-023f movss dword ptr [ebp - 0x1c], xmm5
+-0244 movss xmm5, dword ptr [ebp + 0x34]
+-0249 mulss xmm5, dword ptr [ebp - 4]
+-024e mulss xmm6, xmm2
+-0252 addss xmm5, xmm6
+-0256 movss xmm6, dword ptr [ebp + 0x44]
+-025b mulss xmm6, xmm7
+-025f addss xmm5, xmm6
+-0263 movss dword ptr [ebp - 0x38], xmm5
+-0268 movss xmm5, dword ptr [ebp + 0xc]
+-026d mulss xmm5, dword ptr [ebp + 0x34]
+-0272 movaps xmm6, xmm1
+-0275 mulss xmm6, dword ptr [ebp + 0x54]
+-027a addss xmm5, xmm6
+-027e movss xmm6, dword ptr [ebp + 0x10]
+-0283 mulss xmm6, dword ptr [ebp + 0x44]
+-0288 addss xmm5, xmm6
+-028c movss dword ptr [ebp + 0x1c], xmm1
+-0291 movss dword ptr [ebp + 0x20], xmm2
+-0296 movss dword ptr [ebp - 0x28], xmm5
+-029b movaps xmm5, xmm3
+-029e mulss xmm5, dword ptr [ebp + 0x54]
+-02a3 addss xmm3, dword ptr [ebp + 0x20]
+-02a8 addss xmm3, dword ptr [ebp + 0x1c]
+-02ad movaps xmm6, xmm2
+-02b0 mulss xmm6, dword ptr [ebp + 0x44]
+-02b5 addss xmm5, xmm6
+-02b9 movaps xmm6, xmm1
+-02bc addss xmm1, dword ptr [ebp + 0x10]
+-02c1 mulss xmm6, dword ptr [ebp + 0x34]
+-02c6 addss xmm1, dword ptr [ebp + 0xc]
+-02cb lea eax, [ebp - 0x10]
+-02ce push eax
+-02cf addss xmm2, xmm7
+-02d3 addss xmm2, dword ptr [ebp - 4]
+-02d8 lea eax, [ebp + 0x5c]
+-02db addss xmm5, xmm6
+-02df mulss xmm2, xmm0
+-02e3 mulss xmm1, xmm0
+-02e7 mulss xmm3, xmm0
+-02eb push eax
+-02ec lea ecx, [ebp - 0x40]
+-02ef movss dword ptr [ebp - 0x18], xmm5
+-02f4 movss dword ptr [ebp - 0x34], xmm2
+-02f9 movss dword ptr [ebp - 0x24], xmm1
+-02fe movss dword ptr [ebp - 0x14], xmm3
+-0303 movss dword ptr [ebp - 0x10], xmm0
+-0308 movss dword ptr [ebp - 0xc], xmm4
+-030d movss dword ptr [ebp - 8], xmm0
+-0312 call 0x317
+-0317 mov eax, dword ptr [0]
+-031c movss xmm0, dword ptr [ebp + 0x64]
+-0321 movss xmm1, dword ptr [ebp + 0x60]
+-0326 movss xmm2, dword ptr [ebp + 0x5c]
+-032b add eax, 0x920
+-0330 movss dword ptr [eax], xmm2
+-0334 movss dword ptr [eax + 4], xmm1
+-0339 movss dword ptr [eax + 8], xmm0
+-033e mov ecx, dword ptr [0]
+-0344 mov eax, dword ptr [ecx]
+-0346 lea edx, [ebp + 0x5c]
+-0349 push edx
+-034a call dword ptr [eax + 0xb8]
+-0350 xorps xmm0, xmm0
+-0353 movss xmm3, dword ptr [0]
+-035b mov ecx, dword ptr [0]
+-0361 movaps xmm1, xmm0
+-0364 subss xmm1, dword ptr [ebp + 0x5c]
+-0369 movaps xmm2, xmm0
+-036c subss xmm0, dword ptr [ebp + 0x64]
+-0371 subss xmm2, dword ptr [ebp + 0x60]
+-0376 sub esp, 0xc
+-0379 mulss xmm0, xmm3
+-037d movss dword ptr [ebp + 0x64], xmm0
+-0382 fld dword ptr [ebp + 0x64]
+-0385 fstp dword ptr [esp + 8]
+-0389 mulss xmm2, xmm3
+-038d movss dword ptr [ebp + 0x60], xmm2
+-0392 fld dword ptr [ebp + 0x60]
+-0395 fstp dword ptr [esp + 4]
+-0399 mulss xmm1, xmm3
+-039d movss dword ptr [ebp + 0x5c], xmm1
+-03a2 fld dword ptr [ebp + 0x5c]
+-03a5 fstp dword ptr [esp]
+-03a8 push 0
+-03aa call 0x3af
+-03af mov ecx, dword ptr [0]
+-03b5 mov eax, dword ptr [ecx]
+-03b7 call dword ptr [eax + 0x78]
+-03ba xor ecx, ecx
+-03bc test al, al
+-03be setne cl
+-03c1 inc ecx
+-03c2 mov eax, ecx
+-03c4 add ebp, 0x70
+-03c7 leave 
+-03c8 ret 8
++0157 movss xmm5, dword ptr [ebp + 0x4c]
++015c mulss xmm5, xmm2
++0160 addss xmm5, xmm6
++0164 movss xmm6, dword ptr [ebp - 4]
++0169 mulss xmm6, dword ptr [ebp + 0x2c]
++016e addss xmm5, xmm6
++0172 movss xmm6, dword ptr [ebp + 0xc]
++0177 mulss xmm6, dword ptr [ebp + 0x2c]
++017c movss dword ptr [ebp - 0x40], xmm5
++0181 movss xmm5, dword ptr [ebp + 0x10]
++0186 mulss xmm5, dword ptr [ebp + 0x3c]
++018b addss xmm5, xmm6
++018f movaps xmm6, xmm1
++0192 mulss xmm6, dword ptr [ebp + 0x4c]
++0197 addss xmm5, xmm6
++019b movss dword ptr [ebp - 0x30], xmm5
++01a0 mulss xmm3, xmm0
++01a4 addss xmm3, xmm4
++01a8 movaps xmm5, xmm1
++01ab mulss xmm5, dword ptr [ebp + 0x2c]
++01b0 movaps xmm6, xmm3
++01b3 mulss xmm6, dword ptr [ebp + 0x4c]
++01b8 addss xmm5, xmm6
++01bc movaps xmm6, xmm2
++01bf mulss xmm6, dword ptr [ebp + 0x3c]
++01c4 addss xmm5, xmm6
++01c8 movss xmm6, dword ptr [ebp + 0x40]
++01cd movss dword ptr [ebp - 0x20], xmm5
++01d2 movss xmm5, dword ptr [ebp + 0x50]
++01d7 mulss xmm6, xmm7
++01db mulss xmm5, xmm2
++01df addss xmm5, xmm6
++01e3 movss xmm6, dword ptr [ebp + 0x30]
++01e8 mulss xmm6, dword ptr [ebp - 4]
++01ed addss xmm5, xmm6
++01f1 movss xmm6, dword ptr [ebp + 0xc]
++01f6 mulss xmm6, dword ptr [ebp + 0x30]
++01fb movss dword ptr [ebp - 0x3c], xmm5
++0200 movss xmm5, dword ptr [ebp + 0x10]
++0205 mulss xmm5, dword ptr [ebp + 0x40]
++020a addss xmm5, xmm6
++020e movaps xmm6, xmm1
++0211 mulss xmm6, dword ptr [ebp + 0x50]
++0216 addss xmm5, xmm6
++021a movss dword ptr [ebp - 0x2c], xmm5
++021f movaps xmm5, xmm3
++0222 mulss xmm5, dword ptr [ebp + 0x50]
++0227 movaps xmm6, xmm2
++022a mulss xmm6, dword ptr [ebp + 0x40]
++022f addss xmm5, xmm6
++0233 movaps xmm6, xmm1
++0236 mulss xmm6, dword ptr [ebp + 0x30]
++023b addss xmm5, xmm6
++023f movss xmm6, dword ptr [ebp + 0x44]
++0244 movss dword ptr [ebp - 0x1c], xmm5
++0249 movss xmm5, dword ptr [ebp + 0x54]
++024e mulss xmm6, xmm7
++0252 mulss xmm5, xmm2
++0256 addss xmm5, xmm6
++025a movss xmm6, dword ptr [ebp + 0x34]
++025f mulss xmm6, dword ptr [ebp - 4]
++0264 addss xmm5, xmm6
++0268 movss xmm6, dword ptr [ebp + 0xc]
++026d mulss xmm6, dword ptr [ebp + 0x34]
++0272 movss dword ptr [ebp - 0x38], xmm5
++0277 movss xmm5, dword ptr [ebp + 0x10]
++027c mulss xmm5, dword ptr [ebp + 0x44]
++0281 addss xmm5, xmm6
++0285 movaps xmm6, xmm1
++0288 mulss xmm6, dword ptr [ebp + 0x54]
++028d movss dword ptr [ebp + 0x1c], xmm1
++0292 movss dword ptr [ebp + 0x20], xmm2
++0297 addss xmm5, xmm6
++029b movss dword ptr [ebp - 0x28], xmm5
++02a0 movaps xmm5, xmm3
++02a3 mulss xmm5, dword ptr [ebp + 0x54]
++02a8 addss xmm3, dword ptr [ebp + 0x20]
++02ad addss xmm3, dword ptr [ebp + 0x1c]
++02b2 movaps xmm6, xmm2
++02b5 mulss xmm6, dword ptr [ebp + 0x44]
++02ba addss xmm5, xmm6
++02be movaps xmm6, xmm1
++02c1 addss xmm1, dword ptr [ebp + 0x10]
++02c6 mulss xmm6, dword ptr [ebp + 0x34]
++02cb addss xmm1, dword ptr [ebp + 0xc]
++02d0 lea eax, [ebp - 0x10]
++02d3 push eax
++02d4 addss xmm2, xmm7
++02d8 addss xmm2, dword ptr [ebp - 4]
++02dd lea eax, [ebp + 0x5c]
++02e0 addss xmm5, xmm6
++02e4 mulss xmm2, xmm0
++02e8 mulss xmm1, xmm0
++02ec mulss xmm3, xmm0
++02f0 push eax
++02f1 lea ecx, [ebp - 0x40]
++02f4 movss dword ptr [ebp - 0x18], xmm5
++02f9 movss dword ptr [ebp - 0x34], xmm2
++02fe movss dword ptr [ebp - 0x24], xmm1
++0303 movss dword ptr [ebp - 0x14], xmm3
++0308 movss dword ptr [ebp - 0x10], xmm0
++030d movss dword ptr [ebp - 0xc], xmm4
++0312 movss dword ptr [ebp - 8], xmm0
++0317 call 0x31c
++031c mov eax, dword ptr [0]
++0321 movss xmm0, dword ptr [ebp + 0x64]
++0326 movss xmm1, dword ptr [ebp + 0x60]
++032b movss xmm2, dword ptr [ebp + 0x5c]
++0330 add eax, 0x920
++0335 movss dword ptr [eax], xmm2
++0339 movss dword ptr [eax + 4], xmm1
++033e movss dword ptr [eax + 8], xmm0
++0343 mov ecx, dword ptr [0]
++0349 mov eax, dword ptr [ecx]
++034b lea edx, [ebp + 0x5c]
++034e push edx
++034f call dword ptr [eax + 0xb8]
++0355 xorps xmm0, xmm0
++0358 movss xmm3, dword ptr [0]
++0360 mov ecx, dword ptr [0]
++0366 movaps xmm1, xmm0
++0369 subss xmm1, dword ptr [ebp + 0x5c]
++036e movaps xmm2, xmm0
++0371 subss xmm0, dword ptr [ebp + 0x64]
++0376 subss xmm2, dword ptr [ebp + 0x60]
++037b sub esp, 0xc
++037e mulss xmm0, xmm3
++0382 movss dword ptr [ebp + 0x64], xmm0
++0387 fld dword ptr [ebp + 0x64]
++038a fstp dword ptr [esp + 8]
++038e mulss xmm2, xmm3
++0392 movss dword ptr [ebp + 0x60], xmm2
++0397 fld dword ptr [ebp + 0x60]
++039a fstp dword ptr [esp + 4]
++039e mulss xmm1, xmm3
++03a2 movss dword ptr [ebp + 0x5c], xmm1
++03a7 fld dword ptr [ebp + 0x5c]
++03aa fstp dword ptr [esp]
++03ad push 0
++03af call 0x3b4
++03b4 mov ecx, dword ptr [0]
++03ba mov eax, dword ptr [ecx]
++03bc call dword ptr [eax + 0x78]
++03bf xor ecx, ecx
++03c1 test al, al
++03c3 setne cl
++03c6 inc ecx
++03c7 mov eax, ecx
++03c9 add ebp, 0x70
++03cc leave 
++03cd ret 8

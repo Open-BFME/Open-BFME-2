@@ -1,0 +1,82 @@
+{
+  "base": "0e57ad0395f52d3fe3c5fd36c25cef7e31bc0f08",
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+  "original_sha256": "98b70eb3898d7cfef6851254de8f38ed08620a899fc31303c5c9512f2305468f",
+  "candidate_sha256": "b52f0c0bb2e09a2fd9da6e97834e829df8013d8873750163c17d24d56d183522",
+  "native_compile_calls": 2,
+  "control_rows": 27,
+  "candidate_rows": 27,
+  "strict_unmasked_no_unresolved": true,
+  "all_applicable_EH_exact": true,
+  "primary_ctor_size_before": 135,
+  "primary_ctor_size_after": 135,
+  "primary_no_EH_frame": true,
+  "primary_raw_bytes_and_named_relocations_identical": true,
+  "original_tail_store_offsets": {
+    "C8": 104,
+    "CC": 110,
+    "D0": 118,
+    "D4": 124
+  },
+  "runtime_nodes": [
+    48,
+    48
+  ],
+  "runtime_graph_equal": true,
+  "added_runtime_nodes": 0,
+  "removed_runtime_nodes": 0,
+  "changed_runtime_nodes": 0,
+  "external_definitions_equal": true,
+  "COMDAT_selection_deltas": 0,
+  "safeseh": [
+    1,
+    1
+  ],
+  "weak_equal": true,
+  "undefined_equal": true,
+  "CRT_equal": true,
+  "debug_metadata_equal": false,
+  "debug_changed_sections": 1,
+  "opened_header_count": [
+    82,
+    82
+  ],
+  "applicable_EH": [
+    {
+      "label": "Control",
+      "parents": [
+        {
+          "rva": "0x0037F39E",
+          "name": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+          "eh": [
+            "EXACT",
+            ""
+          ],
+          "full_eh_record_preserved": true
+        }
+      ]
+    },
+    {
+      "label": "Candidate",
+      "parents": [
+        {
+          "rva": "0x0037F39E",
+          "name": "?xfer@UnitRevivalTracker@@MAEXPAVXfer@@@Z",
+          "eh": [
+            "EXACT",
+            ""
+          ],
+          "full_eh_record_preserved": true
+        }
+      ]
+    }
+  ],
+  "all_production_inputs_unchanged": true,
+  "production_source_header_registry_contract_unchanged": true,
+  "normal_admission_pending": true,
+  "native_unitentry_adoption_or_full_image_link_not_performed": true,
+  "original_three_provider_tasks_remaining": 3,
+  "new_bodies": 0,
+  "new_cpp_bytes": 0,
+  "completed_credit": 0
+}

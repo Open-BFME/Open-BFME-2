@@ -1,0 +1,10 @@
+# ROOT ONLY. Apply hash-bound candidate; six real lifetime providers must already be natively admitted.
+# Admit53 first. Then ordinary28B admission resolves its own real complete-dtor call from the native map.
+$bfmePython = 'W:/OpenBFME/.tools/python/Scripts/python3.exe'
+
+& $bfmePython 'tools/add_match.py' '??1BfmeRectVNI@@UAE@XZ' '0x002BAEAB' '53' 'Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp' '--icf-owner' '??1Rva003C2F40Owner@@QAE@XZ' '--notes' 'Native28B record-set event lifetime; exact complete body and real callee closure; observed native vtable-slot0 deleting role; no original EA class-name or full7-slot table claim.'
+if ($LASTEXITCODE -ne 0) { throw 'Normal event lifetime admission refused' }
+
+& $bfmePython 'tools/add_match.py' '??_GBfmeRectVNI@@UAEPAXI@Z' '0x002BAE8F' '28' 'Code/GameEngine/Source/Common/BfmeRectVNI_ctor.cpp' '--icf-owner' '??_GRva003C2F40Owner@@QAEPAXI@Z' '--notes' 'Native28B record-set event lifetime; exact complete body and real callee closure; observed native vtable-slot0 deleting role; no original EA class-name or full7-slot table claim.'
+if ($LASTEXITCODE -ne 0) { throw 'Normal event lifetime admission refused' }
+

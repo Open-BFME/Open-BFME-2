@@ -1,0 +1,242 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 29,
+    "runtime_nodes_after": 29,
+    "safeseh_handlers_before": 2,
+    "safeseh_handlers_after": 2,
+    "before_sha256": "3888877feb6750fd7390049c6f956fdb9d3271b3c39b2e0c1267fe67c57aa924",
+    "after_sha256": "7dee6c4a8a3130a0a9926c95a378a667381f75f9f4703de20f56b6ab8db83d50"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 48,
+    "runtime_nodes_after": 48,
+    "safeseh_handlers_before": 1,
+    "safeseh_handlers_after": 1,
+    "before_sha256": "254df4ca1a44e6a628c3a7aa7fc4dbd06096f4d078f7a70915416d66590e30ba",
+    "after_sha256": "254df4ca1a44e6a628c3a7aa7fc4dbd06096f4d078f7a70915416d66590e30ba"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 79,
+    "runtime_nodes_after": 79,
+    "safeseh_handlers_before": 8,
+    "safeseh_handlers_after": 8,
+    "before_sha256": "5e2ae8d1f238855954ff655ef102ec00e3f961becd29f1376d072f7f0465f9b1",
+    "after_sha256": "5e2ae8d1f238855954ff655ef102ec00e3f961becd29f1376d072f7f0465f9b1"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 25,
+    "runtime_nodes_after": 25,
+    "safeseh_handlers_before": 2,
+    "safeseh_handlers_after": 2,
+    "before_sha256": "6b9d3067d1ef95da3f3b7f7126bb72af3f6d4e911e596924dd197ebcde0f8c39",
+    "after_sha256": "b7af6324cb795351bd4d747cedb5dfb097bc5e5ce81b8eb7e3d0c9c2351f2168"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 34,
+    "runtime_nodes_after": 34,
+    "safeseh_handlers_before": 5,
+    "safeseh_handlers_after": 5,
+    "before_sha256": "b61aae23aa9838fc15ff7462b5d363e4d2c0c98d7b39ce17c435225f166deb77",
+    "after_sha256": "93ff5f4812ed149d0532cdadfe367955e22955c5e4a9dce917fe4380ac69aecf"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva002E2F39.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 26,
+    "runtime_nodes_after": 26,
+    "safeseh_handlers_before": 1,
+    "safeseh_handlers_after": 1,
+    "before_sha256": "8b423be706bec6af0d126617bb32db4e527d3fc017804cd195818337a62a7a19",
+    "after_sha256": "cd63bd0f940dbda7c18c9b893fe42721fa36c9216659d0733bfc60de6ebb0626"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 8,
+    "runtime_nodes_after": 8,
+    "safeseh_handlers_before": 1,
+    "safeseh_handlers_after": 1,
+    "before_sha256": "71833c0be78638a23c0e5daf7a61814c782733cdc9e2dd9234a703906189e356",
+    "after_sha256": "71833c0be78638a23c0e5daf7a61814c782733cdc9e2dd9234a703906189e356"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 92,
+    "runtime_nodes_after": 92,
+    "safeseh_handlers_before": 1,
+    "safeseh_handlers_after": 1,
+    "before_sha256": "9cf3c314d0c479c4bf3efb14453b330ec33739e6bca83128e918204a7ae69f42",
+    "after_sha256": "dd096130c68dcb99ed87939a3357cba4a9acd5f1edc2ff62795149918cd885e0"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 226,
+    "runtime_nodes_after": 226,
+    "safeseh_handlers_before": 1,
+    "safeseh_handlers_after": 1,
+    "before_sha256": "545df69817d352abd11b061143bc268f15be29e6e92cbcd4d192178518f6c6b1",
+    "after_sha256": "545df69817d352abd11b061143bc268f15be29e6e92cbcd4d192178518f6c6b1"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 37,
+    "runtime_nodes_after": 37,
+    "safeseh_handlers_before": 3,
+    "safeseh_handlers_after": 3,
+    "before_sha256": "55d8dad5f4b7874b7e1be391642090fc3e619895ead755bbee974850cf0fe64b",
+    "after_sha256": "55d8dad5f4b7874b7e1be391642090fc3e619895ead755bbee974850cf0fe64b"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 111,
+    "runtime_nodes_after": 111,
+    "safeseh_handlers_before": 5,
+    "safeseh_handlers_after": 5,
+    "before_sha256": "42763aa185fbbee35c6c4e72d89a6b80fe32e48d00ea255b0191eef0672cfeaf",
+    "after_sha256": "d848a93fc6617ba050802cf531993418a4a6f7af8f787fa554dbd561081d80d5"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 18,
+    "runtime_nodes_after": 18,
+    "safeseh_handlers_before": 1,
+    "safeseh_handlers_after": 1,
+    "before_sha256": "d5b0291d2e9180ab1b7f4d3bc905d4b08fe27ce8fadec8fe62ea25d6b4928801",
+    "after_sha256": "752631590245a8eae6ecc49f44e456636e59ace5271078f9555fb27836756e87"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 121,
+    "runtime_nodes_after": 121,
+    "safeseh_handlers_before": 10,
+    "safeseh_handlers_after": 10,
+    "before_sha256": "12c0baa5d3feb15fe126559064a0e4cad607c3a9bb6a990ea0431510d9eacaf8",
+    "after_sha256": "4e1cfd4eac12694179bfd46961b1f4fc999f67c916a90eab64e49427368afdf1"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 190,
+    "runtime_nodes_after": 190,
+    "safeseh_handlers_before": 8,
+    "safeseh_handlers_after": 8,
+    "before_sha256": "f4a5ed76e6b4d483cd0b8bc360f0931cb44ddfca841235debc32be480e9d27e4",
+    "after_sha256": "3deab1028692e08f0b1c60cf647dbd953a9e528e909dd0dec4438b6eb8a9a615"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 39,
+    "runtime_nodes_after": 39,
+    "safeseh_handlers_before": 4,
+    "safeseh_handlers_after": 4,
+    "before_sha256": "e6cdbbcc0d469bb3fc33f172821db08583ce44b5bdcc037ed7146c582f5a6206",
+    "after_sha256": "489e88062758f6cee4f6140982b0150ac0c50642f85b1e62d55d585cc635cc30"
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp",
+    "checks": {
+      "nodes": true,
+      "definitions": true,
+      "comdats": true,
+      "safeseh": true
+    },
+    "runtime_nodes_before": 70,
+    "runtime_nodes_after": 70,
+    "safeseh_handlers_before": 14,
+    "safeseh_handlers_after": 14,
+    "before_sha256": "397f5fd6b585aab33297b54e47dcb1dab3da8efc6c543c122a3b484b1a6f4113",
+    "after_sha256": "1edf8c9be1d43d6deb32dcf5d1419165d23a7b66007315ed921dc31269c3454c"
+  }
+]

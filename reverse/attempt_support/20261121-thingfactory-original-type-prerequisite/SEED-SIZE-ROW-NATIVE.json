@@ -1,0 +1,55 @@
+{
+  "row": {
+    "name": "?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ",
+    "export_rva": "",
+    "target_rva": "0x00626DF0",
+    "target_size": "25",
+    "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+    "status": "matched",
+    "notes": "ported from the Open-BFME-1 conversion"
+  },
+  "retail_bytes": "8b018b51042bd0b8abaaaa2af7eac1fa028bc2c1e81f03c2c3",
+  "retail_sha256": "da4034779f88d2fd2d0b132879b296d8eb652be435e7f478796836071e3a567d",
+  "disassembly": [
+    {
+      "rva": "0x00626DF0",
+      "instruction": "mov eax, dword ptr [ecx]"
+    },
+    {
+      "rva": "0x00626DF2",
+      "instruction": "mov edx, dword ptr [ecx + 4]"
+    },
+    {
+      "rva": "0x00626DF5",
+      "instruction": "sub edx, eax"
+    },
+    {
+      "rva": "0x00626DF7",
+      "instruction": "mov eax, 0x2aaaaaab"
+    },
+    {
+      "rva": "0x00626DFC",
+      "instruction": "imul edx"
+    },
+    {
+      "rva": "0x00626DFE",
+      "instruction": "sar edx, 2"
+    },
+    {
+      "rva": "0x00626E01",
+      "instruction": "mov eax, edx"
+    },
+    {
+      "rva": "0x00626E03",
+      "instruction": "shr eax, 0x1f"
+    },
+    {
+      "rva": "0x00626E06",
+      "instruction": "add eax, edx"
+    },
+    {
+      "rva": "0x00626E08",
+      "instruction": "ret "
+    }
+  ]
+}

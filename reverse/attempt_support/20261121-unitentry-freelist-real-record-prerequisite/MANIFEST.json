@@ -1,0 +1,155 @@
+{
+  "head": "0e57ad0395f52d3fe3c5fd36c25cef7e31bc0f08",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp",
+  "candidate_sha256": "41fdc97f7f267950a152ebabc8a8ba6774cb1123661f0281adb20730d377820d",
+  "files": [
+    {
+      "path": "DTOR-ADDRESS-CANDIDATES.json",
+      "size": 253,
+      "sha256": "f776cc8fc67cb2151110543a1b1fb05dd93077bcce716285170c29719a27af74"
+    },
+    {
+      "path": "FINAL-FENCE.json",
+      "size": 489,
+      "sha256": "5d3b224be3013bab9aa92edb666ba91383e5de19b0a2faf8febf71c229e8a8db"
+    },
+    {
+      "path": "FULL-RUNTIME-candidate.json",
+      "size": 38404,
+      "sha256": "5ced71082f398db8361077f63a015c9d4c20fc7f1d0c5bad1b80d55c58b4377b"
+    },
+    {
+      "path": "FULL-RUNTIME-original.json",
+      "size": 38404,
+      "sha256": "db80f864d75e73a55eaa5d6e21ad2989d7bf6383a0f8f26e815a7db73a313da3"
+    },
+    {
+      "path": "FreelistPool-candidate-ARGS.json",
+      "size": 4967,
+      "sha256": "232e0588e261eccaa5f649343ce508ee63b765fb3a9bbe77388af756bc8127ea"
+    },
+    {
+      "path": "FreelistPool-candidate-effective.cpp",
+      "size": 14071,
+      "sha256": "126161b6a8fa6c168270c8a9f32605e9392e632d57733aec4105ad5d0bbb3412"
+    },
+    {
+      "path": "FreelistPool-candidate.deps.json",
+      "size": 6395,
+      "sha256": "4fee0b685128958223590aa4d2f0ea356ac66d30bc6d9e2635bffde932487c79"
+    },
+    {
+      "path": "FreelistPool-candidate.obj",
+      "size": 10611,
+      "sha256": "0f94816a4bd9b641002e0a3627a644115d0e17d9314ffa331f2b16a5f5e31157"
+    },
+    {
+      "path": "FreelistPool-original-ARGS.json",
+      "size": 4967,
+      "sha256": "206f506306fec5db492619629c0d808282dea1536eb3e5b3136c9a2fc8f58fdb"
+    },
+    {
+      "path": "FreelistPool-original-effective.cpp",
+      "size": 13992,
+      "sha256": "bf7d099a75e2d182740c03ed1660550864ed863c8e708e9d85be96da1da64fe0"
+    },
+    {
+      "path": "FreelistPool-original.deps.json",
+      "size": 6395,
+      "sha256": "b6cfc87f7d7c2e5848a81abd76eacba85203dcd695ba29cf33977a5449234548"
+    },
+    {
+      "path": "FreelistPool-original.obj",
+      "size": 10570,
+      "sha256": "44b9671f4acc9123b329a6084d7dda4c0682e246bce6d79d0a1444a6d68c5f3c"
+    },
+    {
+      "path": "FreelistPool.candidate.cpp.txt",
+      "size": 14053,
+      "sha256": "41fdc97f7f267950a152ebabc8a8ba6774cb1123661f0281adb20730d377820d"
+    },
+    {
+      "path": "FreelistPool.original.cpp.txt",
+      "size": 13974,
+      "sha256": "9a50da117fef8997580ae3fbecafdcc4dec0557d5eae21d69a9946c0eb4149f6"
+    },
+    {
+      "path": "FreelistPool.patch",
+      "size": 686,
+      "sha256": "c475f0f8ccaea54dab8142b8244788d0518ab9a5e77f040a2189d6e190dfaf58"
+    },
+    {
+      "path": "HANDOFF.md",
+      "size": 5106,
+      "sha256": "02812d9d4783755d516016776e93d7456da1c36e345193b4bd8d0cc7391454c7"
+    },
+    {
+      "path": "INPUTS-BEFORE.json",
+      "size": 13125,
+      "sha256": "5ddc69f187a88d06bd7efa3acd4501afc1765e976091ff0655ecfdb4ff366abb"
+    },
+    {
+      "path": "INPUTS-FINAL.json",
+      "size": 13125,
+      "sha256": "5ddc69f187a88d06bd7efa3acd4501afc1765e976091ff0655ecfdb4ff366abb"
+    },
+    {
+      "path": "PROVIDER-ROWS.json",
+      "size": 970,
+      "sha256": "1ed2a826f570385889d7519d3e86b7e3efd3a2d6d4cad97cad07c1b6bdc63532"
+    },
+    {
+      "path": "ROOT_COMMANDS.md",
+      "size": 2685,
+      "sha256": "52046168208ecbd17d78987f727fb19919e47ff2c84efb3e76ee30010d11ae8a"
+    },
+    {
+      "path": "ROWS.json",
+      "size": 7550,
+      "sha256": "7e4793db0e8781a445cbd931a5082334ce1780434d45179d3ca032f096424710"
+    },
+    {
+      "path": "RUN-RESULT.json",
+      "size": 62436,
+      "sha256": "77843bcceded95ad8db32f0a6e5f9db1a083c678d5932ef09b6c4decb6faa2ce"
+    },
+    {
+      "path": "RUN-STARTED.json",
+      "size": 1053,
+      "sha256": "6e782095e86fb42db9b5d5df3ee72ff70e4eaf1b64efdc3a4896ad97319cf7be"
+    },
+    {
+      "path": "RUNTIME-GRAPH.json",
+      "size": 68388,
+      "sha256": "de259acc579df55cf134967e48b679064af9fd0258d7d7db5586f1f8a4c6bcc6"
+    },
+    {
+      "path": "audit_runtime.py",
+      "size": 9028,
+      "sha256": "d62473e97600467e151770768d4506b51d47340e9dcb47e04de22ec267e0519d"
+    },
+    {
+      "path": "private_facts.py",
+      "size": 2446,
+      "sha256": "ba7f7c02700f8b37edade06884e5cbf616887e08ae744e6c05bc1550c9e36da9"
+    },
+    {
+      "path": "private_graph.py",
+      "size": 3965,
+      "sha256": "282a89626a7116cddb160537b7d92810946cd2423ac3e654b4144f4a9557d381"
+    },
+    {
+      "path": "probe_support.py",
+      "size": 6312,
+      "sha256": "bfea6d3220bc3480eb2f725bb14a6cf7ea7a522c5393cebb43afd69e4fe3bad4"
+    },
+    {
+      "path": "run_native_matched.py",
+      "size": 11675,
+      "sha256": "9fd050c136a29e94d75fb7e26805cc5472a88ff4e6d6985ea458c4f64b4eb8f2"
+    }
+  ],
+  "new_bodies": 0,
+  "new_bytes": 0,
+  "new_tasks": 0
+}

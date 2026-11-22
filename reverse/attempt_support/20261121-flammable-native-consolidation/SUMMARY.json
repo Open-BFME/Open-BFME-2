@@ -1,0 +1,154 @@
+{
+  "native_prerequisite_commit": "57b5fd6c7583173a890fe10a64141cb7bc7147a2",
+  "normal_merge_approved": 61,
+  "absorbed_files": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp"
+  ],
+  "remaining_mixed_files": 5,
+  "excluded_unchanged_camera_helpers": 2,
+  "moved_rows": 18,
+  "retained_compiler_rows": [
+    {
+      "name": "__ehhandler$?rva0048C8F9@FlammableUpdate@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0078C69F",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0048C8F9; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?tryToIgnite@FlammableUpdate@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0078C6C9",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0048CB18; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?onDamage@FlammableUpdate@@UAEXPAVDamageInfo@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0078C6DB",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0048CE3E; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+      "export_rva": "",
+      "target_rva": "0x0078C721",
+      "target_size": "10",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0048D0BE; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "Unwind@00b8c697",
+      "export_rva": "",
+      "target_rva": "0x0078C697",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?rva0048C8F9@FlammableUpdate@@QAEXXZ;object-symbol=$L8008; Matched parent 0x0048C8F9's EH graph is EXACT (eh_verify) and binds compiler label $L8008 to retail Unwind@00b8c697 (was gen_uw scaffold uw_0078c697)"
+    },
+    {
+      "name": "Unwind@00b8c6d3",
+      "export_rva": "",
+      "target_rva": "0x0078C6D3",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?onDamage@FlammableUpdate@@UAEXPAVDamageInfo@@@Z;object-symbol=$L8358; Matched parent 0x0048CE3E's EH graph is EXACT (eh_verify) and binds compiler label $L8358 to retail Unwind@00b8c6d3 (was gen_uw scaffold uw_0078c6d3)"
+    },
+    {
+      "name": "Unwind@00b8c6b6",
+      "export_rva": "",
+      "target_rva": "0x0078C6B6",
+      "target_size": "11",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?tryToIgnite@FlammableUpdate@@QAEXXZ;object-symbol=$L8190; Matched parent 0x0048CB18's EH graph is EXACT (eh_verify) and binds compiler label $L8190 to retail Unwind@00b8c6b6 (was gen_uw scaffold uw_0078c6b6)"
+    },
+    {
+      "name": "Unwind@00b8c6c1",
+      "export_rva": "",
+      "target_rva": "0x0078C6C1",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?tryToIgnite@FlammableUpdate@@QAEXXZ;object-symbol=$L8191; Matched parent 0x0048CB18's EH graph is EXACT (eh_verify) and binds compiler label $L8191 to retail Unwind@00b8c6c1 (was gen_uw scaffold uw_0078c6c1)"
+    },
+    {
+      "name": "$L8165",
+      "export_rva": "",
+      "target_rva": "0x0078C68A",
+      "target_size": "13",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?rva0048C8F9@FlammableUpdate@@QAEXXZ; Exact parent 0x0048C8F9 EH graph (eh_verify EXACT) places compiler label $L8165 at native 0x0078C68A: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0078C68AClearFlag (reverse/deleted_rows.csv)"
+    },
+    {
+      "name": "$L8347",
+      "export_rva": "",
+      "target_rva": "0x0078C6A9",
+      "target_size": "13",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?tryToIgnite@FlammableUpdate@@QAEXXZ; Exact parent 0x0048CB18 EH graph (eh_verify EXACT) places compiler label $L8347 at native 0x0078C6A9: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0078C6A9ClearFlag (reverse/deleted_rows.csv)"
+    },
+    {
+      "name": "$L8252",
+      "export_rva": "",
+      "target_rva": "0x0078C714",
+      "target_size": "13",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ; Exact parent 0x0048D0BE EH graph (eh_verify EXACT) places compiler label $L8252 at native 0x0078C714: /G7 local-static guard rollback of the parent's compiler-owned guard; replaces the retired standalone Rva0078C714ClearFlag (reverse/deleted_rows.csv)"
+    },
+    {
+      "name": "$L8237",
+      "export_rva": "",
+      "target_rva": "0x0078C64B",
+      "target_size": "8",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??1FlammableUpdate@@UAE@XZ; Matched parent 0x0048C724's EH graph is EXACT (eh_verify) and binds compiler label $L8237 to retail 0x0078C64B; replaces generated uw_0078c64b; retail FuncInfo 0x0093BE14 is shared by 2 parent frames; under the __ehhandler$ row's parent the callee ??1UpdateModule@@QAE@XZ stays unresolved while this EXACT sharer resolves every relocation with full bytes"
+    }
+  ],
+  "whole_source_rows": 53,
+  "whole_source_unique_RVAs": 52,
+  "normal_area_rows": 56,
+  "new_unique_bytes": 0,
+  "new_completed_items_pending_publication": 1,
+  "tu_map_only_source_repointed_rows": 18,
+  "remaining_outgoing_reference_files": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp": 4,
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/FINAL-CURRENCY.json": 1,
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/ORIGINAL-PAIR-LIFETIME.json": 1,
+    "reverse/attempt_support/20261121-flammable-canonical-treekey-prerequisite/canonical-TreeKey-prerequisite.patch": 2,
+    "reverse/attempt_support/b2-t04-treekey-header-20261104-1242.md": 2,
+    "reverse/attempt_support/comdat-coverage-20261108/cover.units.tsv": 1,
+    "reverse/attempt_support/consolidation-gamelogic-codex2-20261025b/flammable-dryrun.txt": 1,
+    "reverse/attempt_support/fireweapon-primary-link-20261030/consumer-receipt-inventory.json": 1,
+    "reverse/attempt_support/flammable-camera-vector-20261030-codex3-merge.txt": 2,
+    "reverse/attempt_support/flammable-treekey-lifetime-20261105-codexb2.md": 1,
+    "reverse/attempt_support/header-queue-prediction-20261108.tsv": 9,
+    "reverse/attempt_support/header-queue-staleness-20261108.tsv": 1,
+    "reverse/attempt_support/terrain-header-recovery-20261105-codexb/manifest.json": 1,
+    "reverse/attempt_support/terrain-header-recovery-20261105-codexb/saved-edits.patch": 3,
+    "reverse/attempt_support/treekey-prerequisites-20261104-1242.md": 1,
+    "reverse/attempt_support/w3dterrainbackground-consolidation-20261101/include-link-after.log": 1,
+    "reverse/attempt_support/w3dterrainbackground-consolidation-20261101/include-referrers.txt": 1,
+    "reverse/class_contracts/ThingTemplate.json": 1,
+    "reverse/deleted_rows.csv": 3,
+    "reverse/header_queue.tsv": 4,
+    "reverse/link_status.csv": 1,
+    "reverse/re_attempts.log": 13,
+    "reverse/vtable_bridge_queue.tsv": 2
+  },
+  "outgoing_reference_classification": "Three stale current-location comments corrected to the merged source; original from marker retained. Other hits are immutable attempt/tombstone/class-evidence and prior census/bridge snapshots, plus prior diagnostic text in correctly transferred queue rows. No live include, row owner, approval or callable dependency still targets the deleted file.",
+  "source_sha256": "32654643595410727a905d2bf44fa2290de1cee893578b4533a7b65cc08e13a4",
+  "runtime_executed": false
+}

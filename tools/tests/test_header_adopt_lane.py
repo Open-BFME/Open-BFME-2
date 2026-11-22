@@ -11,6 +11,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import header_adopt_lane as lane  # noqa: E402
+from test_header_generation_proof import case, raw_owner_world, ordered_owner_world  # noqa: F401,E402
 
 
 @pytest.fixture(autouse=True)
@@ -3279,3 +3280,498 @@ def test_generation_new_untracked_native_dependency_cannot_enter_fresh_capture(g
     assert "new immutable native inputs" in result["problem"]
     assert lane.generation_winner({"data": result}, ["data"]) is None
     assert all((w.root / p).read_bytes() == data for p, data in w.paths.items())
+
+
+@pytest.mark.parametrize("definition", [
+    "C::C(const C &other) : field(other.field) {}",
+    "C::C(const C &other) : field(other.field), tail(0) {}",
+    "C::C(const C &other, int tag) : field(other.field), tail(tag) {}",
+    "C::C(const C *other) : field(other->field), tail(0) {}",
+    'C::C(const /* } , ; */ C &other) : field(other.field), tail("),{") {}',
+])
+def test_scoped_field_rename_proves_structural_constructor_commas(definition):
+    # As after a header swap, the class's data declarations live in its header.
+    text = "class C;\n" + definition + "\n"
+    out, why = lane.scoped_rename(text, {"C": {"field": "canonical"}})
+    assert why is None
+    assert out == text.replace("field(", "canonical(").replace("other.field", "other.canonical").replace(
+        "other->field", "other->canonical")
+
+
+@pytest.mark.parametrize("definition", [
+    "C::C(const C &other) : field((clear(), other.field)), tail(0) {}",
+    "C::C(const C &other) : field(f(other.field, 0)), tail(0) {}",
+    "C::C(const C &other) : field(other.field), tail(other) {}",
+    "C::C(const C &other) : field(other.field), tail(other.get()) {}",
+    "C::C(const C &other) : field(other.field), tail(0) { use(other); }",
+    "C::C(const C &other) : field(other.field), tail(0) { C other; use(other.field); }",
+    "C::C(Alias &other) : field(other.field), tail(0) {}",
+    "C::C(int tag, C const &other) : field(other.field), tail(tag) {}",
+    "C::C(Other &other) : field(other.field), tail(0) {}",
+    "C::C(const C &other, const C &other) : field(other.field), tail(0) {}",
+    "C::C(const C &other, int tag = 0) : field(other.field), tail(tag) {}",
+    "C::C(const C &other, Pair<A,B> tag) : field(other.field), tail(0) {}",
+    "C::C(const C &other) : field(other.nested.field), tail(0) {}",
+    "C::C(const C &other) : field(other.field), tail(0) { struct X { int field; }; }",
+    "C::C(const C &other) : field(other.field), tail(0) { auto f=[other]() { return other.field; }; }",
+    "Outer::C::C(const C &other) : field(other.field), tail(0) {}",
+])
+def test_constructor_comma_exception_keeps_expression_type_and_scope_refusals(definition):
+    out, why = lane.scoped_rename("class C; class Other;\n" + definition + "\n",
+                                  {"C": {"field": "canonical"}})
+    assert out is None and why
+
+
+@pytest.mark.parametrize("foreign", [
+    "C *p, *q; int f() { return p->field; }",
+    "int f() { C *p, *q; return p->field; }",
+    "int f(C *p) { return (touch(), p->field); }",
+    "int f(C *p) { return g(p->field, 0); }",
+    "C *other, *q;",
+    "int field;", 'extern "C" { int field; }', "namespace N { int field; }",
+])
+def test_constructor_exception_cannot_consume_foreign_declarations_or_uses(foreign):
+    ctor = "C::C(const C &other) : field(other.field), tail(0) {}\n"
+    for text in ("class C;\n" + foreign + "\n" + ctor,
+                 "class C;\n" + ctor + foreign + "\n"):
+        out, why = lane.scoped_rename(text, {"C": {"field": "canonical"}})
+        assert out is None and why
+
+
+@pytest.mark.parametrize("definition", [
+    "C::C(const C &other : field(other.field), tail(0) {}",
+    "C::C(const C &other) : field((other.field), tail(0) {}",
+    "C::C(const C &other) : field(other.field], tail(0) {}",
+    "C::C(const C &other) : field(other.field), {}",
+    "C::C(const C &other) : field(other.field), tail(0); void f() {}",
+    "C::C(const C &other) : field(other.field), tail(0) {",
+    "C::C(const C &other) : field{other.field}, tail(0) {}",
+    "C::C(const C &other) : field(other.field), tail(0) { f(]; }",
+    "C::C(const C &other) : field(other.field), tail(0) {\n#if X\n#endif\n}",
+    "C::C(const C &other) : field(other.field), tail(\n#if X\n0\n#endif\n) {}",
+])
+def test_unreadable_constructor_delimiters_never_prove_receiver_commas(definition):
+    out, why = lane.scoped_rename("class C;\n" + definition + "\n", {"C": {"field": "canonical"}})
+    assert out is None and why
+
+
+@pytest.mark.parametrize("call", [
+    "sink->send(entry.field, object)",
+    "sink.send(entry.field, 0)",
+    "object->get()->send(entry.field, 0)",
+    "reinterpret_cast<T*>(object->get())->send(entry.field-1.0f, false, true)",
+])
+def test_scoped_member_call_argument_separators_have_a_local_typed_receiver(call):
+    text = "class C; class Owner;\nvoid Owner::f(C &entry) { " + call + "; }\n"
+    out, why = lane.scoped_rename(text, {"C": {"field": "canonical"}})
+    assert why is None and out == text.replace("entry.field", "entry.canonical")
+
+
+@pytest.mark.parametrize("call", [
+    "TheScriptEngine->rva00357960(entry.m_displayName,object)",
+    "reinterpret_cast<ExperienceTracker*>(object->getExperience())->rva0039B315(entry.m_experience-1.0f,false,false,false,false)",
+])
+def test_actual_tracker_call_shapes_need_no_invented_callee_signature(call):
+    text = ("class UnitRevivalEntry; class UnitRevivalTracker; class Object;\n"
+            "Object *UnitRevivalTracker::productionSystemNewObject() {\n"
+            "UnitRevivalEntry entry(seed);\n" + call + ";\nreturn object;\n}\n")
+    mapping = {"UnitRevivalEntry": {"m_displayName": "m_fieldD0", "m_experience": "m_field08"}}
+    out, why = lane.scoped_rename(text, mapping)
+    assert why is None
+    assert out == text.replace("entry.m_displayName", "entry.m_fieldD0").replace(
+        "entry.m_experience", "entry.m_field08")
+
+
+@pytest.mark.parametrize("statement", [
+    "sink->send((touch(), entry.field), 0);",
+    "sink->send(f(entry.field, 0), 0);",
+    "sink->send((entry.field), 0);",
+    "(entry.field, 0);",
+    "(sink->send(entry.field, 0));",
+    "sink->send(entry.field, 0), touch();",
+    "sink->send(entry.field, 0) + touch();",
+    "auto result = sink->send(entry.field, 0);",
+    "return sink->send(entry.field, 0);",
+    "sink->send(entry.field, other.field);",
+    "sink->send(entry.nested.field, 0);",
+    "sink->get(unknown)->send(entry.field, 0);",
+    "sink->send(entry.field, int value);",
+    "sink->send(entry.field, return);",
+    "sink->send(entry.field, 0;",
+    "sink->send(entry.field], 0);",
+    "sink->send(entry.field, 0));",
+])
+def test_membercall_exception_keeps_operators_nested_calls_declarations_and_bad_delimiters(statement):
+    text = "class C; class Owner;\nvoid Owner::f(C &entry) { " + statement + " }\n"
+    out, why = lane.scoped_rename(text, {"C": {"field": "canonical"}})
+    assert out is None and why
+
+
+@pytest.mark.parametrize("definition", [
+    "void Owner::f() { C *entry, *q; sink->send(entry->field, 0); }",
+    "void Owner::f(C &entry) { C entry; sink->send(entry.field, 0); }",
+    "void Owner::f(C &entry) { Other entry; sink->send(entry.field, 0); }",
+    "void Owner::f(Alias &entry) { sink->send(entry.field, 0); }",
+    "void Owner::f(Other &entry) { sink->send(entry.field, 0); }",
+    "void Owner::f(C &entry = global) { sink->send(entry.field, 0); }",
+    "void Owner::f() { sink->send(entry.field, 0); }",
+    "void Owner::f(C &entry) { auto f=[&]() { sink->send(entry.field, 0); }; }",
+    "void Owner::f(C &entry) { class Local { void f() { sink->send(entry.field, 0); } }; }",
+    "void Owner::f(C &entry) { sink->send(entry.field, 0);",
+    "void f(C &entry) { sink->send(entry.field, 0); }",
+    "sink->send(entry.field, 0);",
+    "namespace N { sink->send(entry.field, 0); }",
+])
+def test_membercall_exception_keeps_binding_shadow_global_and_nested_scope_refusals(definition):
+    text = "class C; class Owner; class Other; C entry;\n" + definition + "\n"
+    out, why = lane.scoped_rename(text, {"C": {"field": "canonical"}})
+    assert out is None and why
+
+
+@pytest.mark.parametrize("definition,owner", [
+    ("Object *UnitRevivalTracker::productionSystemNewObject(unsigned id, const Coord3D *p) { return object; }", "UnitRevivalTracker"),
+    ("const Image *UnitRevivalEntry::calcButtonImage(const Player *p) { return image; }", "UnitRevivalEntry"),
+    ("const Image * const C::f() volatile { return image; }", "C"),
+])
+def test_pointer_returning_member_definition_heads_are_explicitly_proven(definition, owner):
+    prefix = "class Object; class Image; class C; class UnitRevivalTracker; class UnitRevivalEntry;\n"
+    code = lane.masked(prefix + definition)
+    ((start, end, cls),) = lane.member_spans(code, [owner])
+    assert cls == owner and code[start:].startswith(owner + "::") and code[end - 1] == "}"
+
+
+@pytest.mark.parametrize("prefix,definition", [
+    ("", "Unknown *C::f() { return p; }"),
+    ("class R;", "Box<R> *C::f() { return p; }"),
+    ("namespace N { class R; }", "R *C::f() { return p; }"),
+    ("class R; class Outer { class R; };", "R *C::f() { return p; }"),
+    ("class R; typedef Other R;", "R *C::f() { return p; }"),
+    ("class R;\n#define R Other\n", "R *C::f() { return p; }"),
+    ("class R;", "R **C::f() { return p; }"),
+    ("class R;", "R *C::f(int x]) { return p; }"),
+    ("class R;", "R *C::f() { return p;"),
+    ("class R;", "R *C::f();"),
+    ("class R;", "R *C::f() override { return p; }"),
+    ("class R;", "R *C::f() const const { return p; }"),
+    ("class R;", "R *C::f(int value = 0) { return p; }"),
+    ("class R;", "R *(C::*p)();"),
+    ("class R;", "*C::f();"),
+    ("class R;", "return *C::f();"),
+    ("class R;", "p = *C::f();"),
+    ("class R;", "if (*C::f()) {}"),
+    ("class R;", "while (*C::f()) {}"),
+    ("class R;", "R *C::f() {\n#if YES\n#endif\nreturn p; }"),
+])
+def test_pointer_return_head_branch_never_guesses_calls_aliases_or_incomplete_definitions(prefix, definition):
+    assert lane.member_spans(lane.masked("class C;\n" + prefix + "\n" + definition), ["C"]) == []
+
+
+@pytest.mark.parametrize("prefix,body", [
+    ("#define entry other\n", "sink->send(entry.field, 0);"),
+    ("#define sink other\n", "sink->send(entry.field, 0);"),
+    ("#define VALUE (touch(), 0)\n", "sink->send(entry.field, VALUE);"),
+    ("", "sink->send(entry.field, 0); // continued\\\n"),
+    ("", "sink->send(entry.field, 0); // trigraph ??/\n"),
+])
+def test_membercall_exception_does_not_expand_macros_or_ignore_original_splices(prefix, body):
+    text = prefix + "class C; class Owner;\nvoid Owner::f(C &entry) { " + body + " }\n"
+    out, why = lane.scoped_rename(text, {"C": {"field": "canonical"}})
+    assert out is None and why
+
+
+def test_structural_ctor_comma_exception_does_not_expand_receiver_macros():
+    text = ("#define other hidden\nclass C;\n"
+            "C::C(const C &other) : field(other.field), tail(0) {}\n")
+    assert lane.scoped_rename(text, {"C": {"field": "canonical"}})[0] is None
+
+
+@pytest.fixture
+def constructor_context_world(tmp_path, monkeypatch):
+    """Use the normal command/include/scope proof with a compiler-command fixture."""
+    import build
+    state = SimpleNamespace(root=tmp_path, source="u.cpp", calls=0,
+                            command=["cl.exe", "/c", "/DNDEBUG"], env={}, on_command=None)
+
+    def command(source, output):
+        state.calls += 1
+        if state.on_command:
+            state.on_command(state.calls)
+        return list(state.command), dict(state.env)
+
+    monkeypatch.setattr(build, "compiler_command", command)
+    state.text = "class C { public: int old; C(); };\nC::C() : old(0) {}\n"
+
+    def proof(text=None, headers=None, seeds=()):
+        text = state.text if text is None else text
+        for name, body in (headers or {}).items():
+            (state.root / name).write_text(body, encoding="latin-1", newline="")
+        (state.root / state.source).write_text(text, encoding="latin-1", newline="")
+        return lane.initializer_context_problem(state.source, text, {"C": {"old": "canonical"}},
+                                                 root=state.root, seeds=seeds)
+
+    state.proof = proof
+    return state
+
+
+def test_initializer_context_reads_complete_current_macro_free_inputs(constructor_context_world):
+    w = constructor_context_world
+    header = "#ifndef H\n#define H\nnamespace Other { struct D {}; }\n#endif\n"
+    text = '#include "plain.h"\n' + w.text
+    assert w.proof(text, {"plain.h": header}) is None
+    assert w.calls == 2
+
+
+@pytest.mark.parametrize("command", [
+    ["cl.exe", "/c", "/DC=D"], ["cl.exe", "/c", "-D", "C=D"],
+    ["cl.exe", "/c", "/Dold=base"], ["cl.exe", "/c", "/Dcanonical=base"],
+])
+def test_initializer_context_checks_actual_command_definitions(constructor_context_world, command):
+    w = constructor_context_world
+    w.command = command
+    assert "#define" in w.proof()
+
+
+def test_initializer_context_catches_a_late_header_class_macro(constructor_context_world):
+    w = constructor_context_world
+    text = ("class C {public:int old;C();};\nint observe(C&c){return c.old;}\n"
+            '#include "late.h"\nC::C():old(0){}\n')
+    header = ("struct Base { Base(int); int payload; }; typedef Base old;\n"
+              "typedef Base canonical; struct D : Base { D(); };\n#define C D\n")
+    assert "#define C" in w.proof(text, {"late.h": header})
+    assert lane.macro_shadow([("u.cpp", text)], {"C": {"old": "canonical"}}, text) is None
+
+
+def test_initializer_context_propagates_actual_profile_definitions_into_the_include_walk(constructor_context_world):
+    w = constructor_context_world
+    text = '#if defined(_MAC)\n#include "unread-macros.h"\n#endif\n' + w.text
+    # The ordinary profile does not define this known-absent platform branch.
+    assert w.proof(text) is None
+    # A real /D in the selected command invalidates that absence assumption,
+    # even when it did not come from this source's // cl: directive.
+    w.command.append("/D_MAC")
+    assert "unresolved include" in w.proof(text)
+
+
+@pytest.mark.parametrize("placement", ["source", "header", "command"])
+def test_initializer_context_refuses_scope_macros_even_when_no_watched_name_is_a_macro(
+        constructor_context_world, placement):
+    w = constructor_context_world
+    definitions = "#define OPEN namespace N {\n#define CLOSE }\n"
+    text = "class C {public:int old;C();};\nOPEN;\nC::C():old(0){}\nCLOSE\n"
+    headers = {}
+    if placement == "source":
+        text = definitions + text
+    elif placement == "header":
+        text = '#include "scope.h"\n' + text
+        headers["scope.h"] = definitions
+    else:
+        w.command += ["/DOPEN=namespace N {", "/DCLOSE=}"]
+    assert "macro" in w.proof(text, headers)
+    # The old watched-name check alone cannot prove scope identity here.
+    assert lane.macro_shadow([("u.cpp", text)] + list(headers.items()),
+                             {"C": {"old": "canonical"}}, text) is None
+
+
+@pytest.mark.parametrize("opener,closer", [
+    ("namespace N {\n", "}\n"), ('extern "C" {\n', "}\n"),
+    ("#if FLAG\nnamespace N {\n#endif\n", "#if FLAG\n}\n#endif\n"),
+])
+def test_initializer_context_refuses_scope_fragments_split_across_includes(
+        constructor_context_world, opener, closer):
+    w = constructor_context_world
+    text = w.text.split("C::C()")[0] + '#include "open.h"\nC::C():old(0){}\n#include "close.h"\n'
+    why = w.proof(text, {"open.h": opener, "close.h": closer})
+    assert "scope" in why and ("unbalanced" in why or "balance" in why)
+
+
+@pytest.mark.parametrize("command,env", [
+    (["cl.exe", "/c", "/FIforeign.h"], {}), (["cl.exe", "/c", "@options.rsp"], {}),
+    (["cl.exe", "/c", "/Yupch.h"], {}), (["cl.exe", "/c"], {"CL": "/DC=D"}),
+    (["cl.exe", "/c"], {"_CL_": "/DC=D"}),
+])
+def test_initializer_context_has_no_implicit_input_fallback(constructor_context_world, command, env):
+    w = constructor_context_world
+    w.command, w.env = command, env
+    assert w.proof()
+
+
+@pytest.mark.parametrize("directive", [
+    '#include "missing.h"', '#include <unread.h>', "#include MACRO_HEADER",
+    '#include <wrong.h"', '#include_next "elsewhere.h"', '#pragma include_alias("a", "b")',
+    '#pragma pop_macro("C")', "%:define C D",
+])
+def test_initializer_context_refuses_unproven_include_and_preprocessor_inputs(
+        constructor_context_world, directive):
+    w = constructor_context_world
+    assert w.proof(directive + "\n" + w.text)
+
+
+@pytest.mark.parametrize("change", ["command", "header", "resolution", "source"])
+def test_initializer_context_rechecks_command_headers_source_and_search_choices(constructor_context_world, change):
+    w = constructor_context_world
+    w.command += ["/I" + str(w.root / "elsewhere")]
+    elsewhere = w.root / "elsewhere"
+    elsewhere.mkdir()
+    headers = {"elsewhere/plain.h": "struct D {};\n"}
+    text = '#include "plain.h"\n' + w.text
+
+    def changed(call):
+        if call != 2:
+            return
+        if change == "command":
+            w.command.append("/DOTHER=1")
+        elif change == "header":
+            (elsewhere / "plain.h").write_text("struct Other {};\n", encoding="latin-1")
+        elif change == "resolution":
+            (w.root / "plain.h").write_text("struct First {};\n", encoding="latin-1")
+        else:
+            (w.root / w.source).write_text(text + "// changed\n", encoding="latin-1")
+
+    w.on_command = changed
+    assert "changed" in w.proof(text, headers)
+
+
+def test_initializer_context_includes_the_pending_canonical_header(constructor_context_world):
+    w = constructor_context_world
+    assert "#define C" in w.proof(headers={"canonical.h": "#define C D\n"}, seeds=("canonical.h",))
+
+
+@pytest.mark.parametrize("unsafe", [None, "header", "command"])
+def test_field_rename_pipeline_carries_canonical_include_and_command_context(
+        constructor_context_world, monkeypatch, unsafe):
+    w = constructor_context_world
+    monkeypatch.setattr(lane, "ROOT", w.root)
+    header = "class C { public: int canonical; C(); };\n"
+    if unsafe == "header":
+        header += "#define C D\n"
+    if unsafe == "command":
+        w.command.append("/DC=D")
+    (w.root / w.source).write_text(w.text, encoding="latin-1", newline="")
+    (w.root / "canonical.h").write_text(header, encoding="latin-1", newline="")
+
+    def layout(field):
+        return {"C": {"fwd": False, "key": "class", "size": 4, "bases": [], "statics": [],
+                      "fields": [[0, field, "int", 4]], "methods": ["C"],
+                      "virtual": [], "vslots": {}, "vfptr": False}}
+
+    def compiler(source, text):
+        return layout("old" if text is None else "canonical")
+
+    mapping, why = lane.field_renames(w.source, w.text, ["C"], "canonical.h", compiler,
+                                      header="canonical.h")
+    if unsafe:
+        assert mapping is None and why
+    else:
+        assert why is None and mapping == {"C": {"old": "canonical"}}
+
+
+@pytest.mark.parametrize("directive", [
+    "\f#define C D\n", "#define\fC D\n", "#\tdefine\vC D\n", "\v#\fdefine\vC D\n",
+    "#define\rC D\n", "\r#define C D\n", "#\rdefine C D\n",
+])
+@pytest.mark.parametrize("location", ["source", "late-header"])
+def test_initializer_context_refuses_unproven_pp_whitespace_owner_macros(
+        constructor_context_world, directive, location):
+    w = constructor_context_world
+    foreign = ("struct Base { Base(int); int payload; }; typedef Base old;\n"
+               "typedef Base canonical; struct D : Base { D(); };\n")
+    text = 'class C { public: int old; C(); };\nint observe(C &c) { return c.old; }\n'
+    header = foreign + (directive if location == "late-header" else "")
+    text += '#include "foreign.h"\n' + (directive if location == "source" else "") + 'C::C():old(0){}\n'
+    why = w.proof(text, {"foreign.h": header})
+    assert why and "whitespace" in why
+    # Bare CR must be judged from the actual bytes, even though read_path
+    # normalizes header physical line endings before ordinary include walking.
+    assert (w.root / "foreign.h").read_bytes() == header.encode('latin-1')
+
+
+@pytest.mark.parametrize("definition", ["/DUNUSED=\f", "/DUNUSED=\v", "/DUNUSED=\r", "/D\fC=D",
+                                       "/DUNUSED=\r\n", "/DUNUSED=\n"])
+def test_initializer_context_has_no_unsupported_command_whitespace_route(constructor_context_world, definition):
+    w = constructor_context_world
+    w.command.append(definition)
+    assert w.proof()
+
+
+@pytest.mark.parametrize("white", ["\f", "\v", "\r"])
+def test_nonstandard_whitespace_cannot_open_a_scope_in_either_new_syntax_path(constructor_context_world, white):
+    w = constructor_context_world
+    directive = '#' + white + 'define OPEN namespace N {\n#define CLOSE }\n'
+    text = 'class C {public:int old;C();};\n' + directive + 'OPEN; C::C():old(0){} CLOSE\n'
+    assert w.proof(text)
+    code = lane.masked(text)
+    assert lane.constructor_initializer_scopes(code, 'C') == []
+    assert lane.member_spans(code, ['C']) == []
+    out, why = lane.scoped_rename(text, {'C': {'old': 'canonical'}})
+    assert out is None and why
+
+
+@pytest.mark.parametrize("newline", ["\n", "\r\n"])
+def test_pp_whitespace_guard_keeps_real_newlines_as_separators(constructor_context_world, newline):
+    w = constructor_context_world
+    header = newline.join(['#ifndef H', '#define H', 'struct Other {};', '#endif', ''])
+    source = ('#include "plain.h"\n' + w.text).replace('\n', newline)
+    assert w.proof(source, {"plain.h": header}) is None
+    for broken in ('#define' + newline + ' C D' + newline,
+                   '#' + newline + 'define C D' + newline):
+        # No reader may quietly turn a physical newline into the required
+        # horizontal separator and attribute C to the previous directive.
+        assert not lane.unproven_pp_whitespace(broken)
+        assert lane.macro_shadow([('physical-newlines', broken)], {'C': {'old': 'canonical'}}, w.text) is None
+
+
+@pytest.mark.parametrize("prefix", ["\f#define C D\n", "#define\vC D\n", "#define\rC D\n"])
+def test_scoped_field_receiver_paths_do_not_silently_accept_pp_whitespace(prefix):
+    for body in ('C::C(const C &other):field(other.field),tail(0){}\n',
+                 'void Owner::f(C &entry){ sink->send(entry.field,0); }\n',
+                 'Object *Owner::f(C &entry){ return entry.field; }\n'):
+        text = prefix + 'class C; class Owner; class Object;\n' + body
+        out, why = lane.scoped_rename(text, {'C': {'field': 'canonical'}})
+        assert out is None and why
+
+
+@pytest.mark.parametrize("prefix", ["OPEN\n", "OPEN()\n", "UNKNOWN\n", "inline "])
+def test_constructor_initializer_heads_have_no_unproven_prefix(prefix):
+    code = lane.masked("class C;\n" + prefix + "C::C():old(0){}\n")
+    assert lane.constructor_initializer_scopes(code, "C") == []
+
+
+@pytest.mark.parametrize("witness", [True, {}, SimpleNamespace(validate_for=lambda *a: True)])
+def test_raw_owner_reader_rejects_ignore_booleans_json_and_duck_witnesses(witness):
+    text="class C { int old; C(); };\nC::C():old(0){}\n"
+    assert "paired" in lane.owner_witness_problem(witness,"u.cpp",text,{"C":{"old":"canonical"}})
+    def forbidden(*args,**kwargs):
+        pytest.fail("an unknown witness must fail before any layout or compiler boundary")
+    fields,why=lane.field_renames("u.cpp",text,["C"],"C.h",compile=forbidden,
+                                  header="C.h",owner_witness=witness)
+    assert fields is None and "paired" in why
+def test_owner_full_prospective_layout_uses_only_internal_pair_bound_builder(
+        ordered_owner_world, monkeypatch):
+    import header_generation_proof as proof
+    w = ordered_owner_world
+    pair = proof.capture_owner_pair(w.current_witness, w.prospective_path)
+    before = (w.root/w.source).read_bytes()
+    old = {'fwd':False,'key':'class','size':4,'bases':[], 'fields':[[0,'old','int',4]],
+           'statics':[], 'methods':['C','f'], 'virtual':[], 'vslots':{}, 'vfptr':False}
+    new = {**old, 'fields':[[0,'canonical','int',4]]}
+    seen = []
+    def layouts(source, builder=None, use_cache=True, **kwargs):
+        assert (w.root/w.source).read_bytes() == before
+        if source == w.source:
+            assert builder is None
+            seen.append((source, None)); return {'C':old}
+        assert source == pair.prospective and use_cache is False
+        assert type(builder) is proof._OwnerLayoutBuilder and builder.pair is pair
+        output = w.root/'build/full-prospective-layout.obj'
+        command, env = builder.compiler_command(w.root/source, output)
+        expected, expected_env = proof._normal_command(w.root, w.source, output)
+        expected[-1] = source
+        assert command == expected and env == expected_env
+        assert (w.root/source).read_bytes() == w.current_witness.plan_text().encode()
+        seen.append((source, tuple(command))); return {'C':new}
+    monkeypatch.setattr(lane.class_layouts, 'compile_layouts', layouts)
+    result = lane.prepare_unit(w.source, [w.name], w.header, 'class', owner_witness=pair)
+    assert result[1] is None and result[2] == w.current_witness.plan_text()
+    assert [entry[0] for entry in seen] == [w.source, pair.prospective]
+    assert (w.root/w.source).read_bytes() == before and len(w.calls) == 4
+

@@ -1,0 +1,168 @@
+{
+  "stage": "closed private single-candidate proof; Root normal provider refresh and owning acceptance pending",
+  "head": "57b5fd6c7583173a890fe10a64141cb7bc7147a2",
+  "source_sha256": "1d1c030af14ae42e6e450bb7a0c90dd72d19280a8d3433dfbcb961e4e3c07c3a",
+  "candidate_sha256": "1b785c93771d91ef35eaa8d8b19ea3a782783a9ed7c7414f510eb6b286907a10",
+  "new_bodies": 0,
+  "new_bytes": 0,
+  "files": [
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\after-pp.log",
+      "bytes": 17543,
+      "sha256": "8afc081e79967d753ab33b8e0403fafc2caef8e8afd90d9fcc3c20dc4e56d2b4"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\after-z7.log",
+      "bytes": 23146,
+      "sha256": "7062417cd126c795896f9f1e191d2d00128a80ceee1de9039eec21d0de064dc0"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\after.i",
+      "bytes": 496058,
+      "sha256": "c8f59570f69aac7d22e018b078c183d441bbf36a4f97a8e493c32fdce8bfc141"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\after.log",
+      "bytes": 5675,
+      "sha256": "b612be4452974213316547f86e02d7c61e37a2465cdf998c527c1110e036b822"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\audit_livingworld.py",
+      "bytes": 11752,
+      "sha256": "c7a683d4b60515170b41189f11163f7e8f9222e115f2e6536c285f6b88923e0f"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\before-pp.log",
+      "bytes": 17860,
+      "sha256": "efd2aa031c8039550a201c063996c304157d7e9de59432f4e634264d3091e48c"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\before-z7.log",
+      "bytes": 23465,
+      "sha256": "d2bd1e78edaa83d112af3cee27d83739a2160674cd3bc6f7cd32de2825f878a1"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\before.i",
+      "bytes": 497817,
+      "sha256": "ef17a5503e243f02ab73555649b334a766038e777e969c6d4502fcecd900be2c"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\before.log",
+      "bytes": 5678,
+      "sha256": "7a31a71617a904c847c6a129e6c3d60a69ccc2a74b433fbdc67298fd187656a7"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\close_runtime_livingworld.py",
+      "bytes": 9777,
+      "sha256": "82706482a162ea692a41de2056ce270dffe2f59cfb7eb6e619caea62351076b8"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\FINAL_RESULT.json",
+      "bytes": 3046,
+      "sha256": "d4ce57f5e5495c40a4b5dbcfe5f7e2f622a2301d5080f59b0903f1796797ebc4"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\finalize_probed.py",
+      "bytes": 8475,
+      "sha256": "e49627a7f0d4487b34f933ef781af9dbf7c1456dfbd047853e5a60d5fed61463"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\finalize_readonly.py",
+      "bytes": 1849,
+      "sha256": "246786b1e1881c4ffd2cb61a28936a43025cb49c418072794d93d26eaab0e981"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\HANDOFF.md",
+      "bytes": 12453,
+      "sha256": "c534f7fe5c19e5503579321aed96dd29c89102201833ffb0eab1901fe3a437b9"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\LivingWorldPlayer.cpp",
+      "bytes": 45735,
+      "sha256": "1b785c93771d91ef35eaa8d8b19ea3a782783a9ed7c7414f510eb6b286907a10"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\LivingWorldPlayer.patch",
+      "bytes": 6428,
+      "sha256": "720c4d186b43f2254ac4a75c0468463295d1dc309b2ccc595d004c1dc272d2fb"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\NORMAL_FOOTPRINT.json",
+      "bytes": 326945,
+      "sha256": "9245d6e42a533c4fe0ca902a1e25d5ee0310ce6ad390537adcb37a98f457f590"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\prepare_readonly.py",
+      "bytes": 7320,
+      "sha256": "021d24d3b18a063180c2d50036ee880f118df8a81e53ad6066ff9aa33c99e076"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\probe_livingworld.py",
+      "bytes": 6079,
+      "sha256": "411a1268c68aa80ad4cfc2babad374ba7aba35a791e08472cdf6d5fb94789ddf"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\ROOT_COMMANDS.json",
+      "bytes": 2876,
+      "sha256": "0e462a3a1f40a73e07c9bf6c58b43c80bb991db16fc1976d8b262cbec6f9ea31"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\ROOT_PROVIDER_REFRESH_SCOPE.json",
+      "bytes": 2568,
+      "sha256": "6f1c2fcb98f1ba1575332e3a52447710036cecfe37a573276da178627d896992"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\ROOT_REQUIRED_CLAIMS.json",
+      "bytes": 3024,
+      "sha256": "b3f34997030ca6a6245d39ab0b1a15c10b808accc727d735811fd4ab39aa8825"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\RUNTIME_CLOSURE.json",
+      "bytes": 19292,
+      "sha256": "1cf5549cf586242195e24c3b4ea96b7b1cbb70783aaf535da3f5171d8532803a"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\SCOPE_AND_EVIDENCE.json",
+      "bytes": 130362,
+      "sha256": "9281907c7a8f3af307f45d621a9798d746487d4021de2d2ed4c76c89d7cb7eff"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\SOURCE_CONTROL.json",
+      "bytes": 88731,
+      "sha256": "a4522a33647b57cfca5a3b1eb29d8e430e9158fa0803995c49841d25caaa1b87"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\TYPE_AND_PREPROCESS.json",
+      "bytes": 717861,
+      "sha256": "babb0f69e6172125856583119654f86f37a766be3a629faf4fce11f74fa93357"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\TYPE_GRAPH_CLOSURE.json",
+      "bytes": 40736,
+      "sha256": "a81e8019e7452ce2104745845c836f080dd8c6c741b28f864470eb2e68212058"
+    },
+    {
+      "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\bfme2-unitrevival021-readonly-20261121\\type_graph_readonly.py",
+      "bytes": 11681,
+      "sha256": "a0282904f2d6f1d8a16648cedfad0a3fc2e7cfdd466356ce917972920b57b1c9"
+    }
+  ],
+  "private_objects": [
+    {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-melee-bfme2-20261120\\unitrevival021-livingworld\\before.obj",
+      "sha256": "7a835b54fa3de07402481ae9618bad5232f53cf3b30445b7850548cab9098bf2"
+    },
+    {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-melee-bfme2-20261120\\unitrevival021-livingworld\\after.obj",
+      "sha256": "bd45c8dc0c0a4f4d05b4e316000d29b3203ec137342bb5aa3764f5d434e6203f"
+    },
+    {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-melee-bfme2-20261120\\unitrevival021-livingworld\\before-z7.obj",
+      "sha256": "eae9eb0560befcb64a83744f0b42a2a2fa0aa67c2317baf8433f98560a6314c6"
+    },
+    {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-melee-bfme2-20261120\\unitrevival021-livingworld\\after-z7.obj",
+      "sha256": "7cd431fe3f2961a37619e3fd4407b157e48d030c237a99c6766f52e252a3a084"
+    }
+  ]
+}

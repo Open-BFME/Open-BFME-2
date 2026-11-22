@@ -1,0 +1,169 @@
+{
+  "tables": [
+    {
+      "va": "0x00C4F590",
+      "rva": "0x0084F590",
+      "role": "BoredUpdateModuleData live table",
+      "slot_count": 31,
+      "sha256": "e9106f2c3bc3f5e2875cf431d1bd43f3a5dad4fd1d223017aa479bd5843bc3f5",
+      "slots_va": [
+        "0x0089699B",
+        "0x004B3FD0",
+        "0x00465212",
+        "0x0087A69C",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x0087A699",
+        "0x004B69A1",
+        "0x0087A699",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x0090B5C6"
+      ]
+    },
+    {
+      "va": "0x00C4F55C",
+      "rva": "0x0084F55C",
+      "role": "BoredUpdate primary",
+      "slot_count": 13,
+      "sha256": "46638e0df5c56cbaee9a810d625b2d509e184f08bc8c69b48c2c5a4b3dfdd8f7",
+      "slots_va": [
+        "0x008967F3",
+        "0x00897805",
+        "0x008966B3",
+        "0x008ACAAA",
+        "0x008966B9",
+        "0x004B3FD0",
+        "0x004B3FD0",
+        "0x004B3FD0",
+        "0x004B3FD0",
+        "0x0090B238",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x0062C4CB"
+      ]
+    },
+    {
+      "va": "0x00C4F550",
+      "rva": "0x0084F550",
+      "role": "BoredUpdate UpdateModuleInterface",
+      "slot_count": 3,
+      "sha256": "08d7cd924da38ca9c3fe1e971e32316b225a57584e5e31a76b35f9e2983e3871",
+      "slots_va": [
+        "0x0089680F",
+        "0x00653376",
+        "0x0084DF8D"
+      ]
+    },
+    {
+      "va": "0x00BBB554",
+      "rva": "0x007BB554",
+      "role": "Snapshot teardown",
+      "slot_count": 4,
+      "sha256": "460d7c7ccc8ea6b69bd7e89c0090d858d71f15104f22847c0685c7a07642b47e",
+      "slots_va": [
+        "0x00401750",
+        "0x0043B810",
+        "0x0043B810",
+        "0x0043B810"
+      ]
+    },
+    {
+      "va": "0x00BEFF90",
+      "rva": "0x007EFF90",
+      "role": "inherited BehaviorModuleInterface",
+      "slot_count": 47,
+      "sha256": "1a5704bf3ccfc63f9ac0e011aca9afb3c57adb9a34313e4da43fa715e53c7d9e",
+      "slots_va": [
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x006533D3",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x004D43D0",
+        "0x0087A69C",
+        "0x004B3FD0",
+        "0x0087A69C",
+        "0x0087A69C"
+      ]
+    }
+  ],
+  "existing_pins": [
+    {
+      "name": "??0Rva003623E5Filter@@QAE@XZ",
+      "address": "0x003623E5",
+      "notes": "opaque nullary thiscall filter member constructed at PickupStuffUpdateModuleData plus 0x10 and sibs; sole shape is lea plus call with no pushes"
+    },
+    {
+      "name": "??1Rva003623E5Filter@@QAE@XZ",
+      "address": "0x00360D26",
+      "notes": "Filter member teardown folding with the opaque pool-aware dtors at this address per the DynamicPortalBehaviourModuleData dtor call site"
+    },
+    {
+      "name": "??1Rva003623E5Member@@QAE@XZ",
+      "address": "0x00360D26",
+      "notes": "twin of pool-aware member dtor for DamageFieldUpdateModuleData dtor 0x0049116A filter call"
+    },
+    {
+      "name": "?construct@Rva003623E5Member@@QAEXXZ",
+      "address": "0x003623E5",
+      "notes": null
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+--- a/Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
++++ b/Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
+@@ -81,7 +81,7 @@
+ 	int a, b, c;
+ 	UnicodeString wide;
+ 	AsciiString text;
+-	bool flag;
++	bool m_14;
+ 	__declspec(noinline) Rva001EB15A();
+ 	Rva001EB15A(const Rva001EB15A &);
+ 	~Rva001EB15A();
+@@ -455,7 +455,7 @@
+                 reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(false);
+                 reinterpret_cast<ExperienceTracker*>(object->getExperience())->rva0039B315(entry.m_experience-1.0f,false,false,false,false);
+                 reinterpret_cast<Rva0039B20C*>(object->getExperience())->rva0039B227(entry.m_level);
+-                *reinterpret_cast<bool*>(reinterpret_cast<char*>(object->getExperience())+0x20)=entry.m_record.flag;
++                *reinterpret_cast<bool*>(reinterpret_cast<char*>(object->getExperience())+0x20)=entry.m_record.m_14;
+                 reinterpret_cast<_STL::_Base_bitset<32>*>(&object->upgrades)->_M_do_or(*reinterpret_cast<const _STL::_Base_bitset<32>*>(&entry.m_upgrades));
+                 level=entry.m_rank;
+                 reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(oldFlag);
+--- a/Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp
++++ b/Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp
+@@ -6,6 +6,7 @@
+ // 0x001EB15A. Callers at 0x001EBA02 0x001EBEEC 0x0040D691. Empty base with
+ // inline ctor plus declared-only dtor arms EH state 0 per ModuleData precedent.
+ #include "ascii_string.h"
++#include "unicode_string.h"
+ extern "C" const void *const __identifier("??_7CarryoverUnit@@6B@")[];
+ #include "../../Include/Common/EmptyBase.h"
+ struct BfmeFixedStorage128
+@@ -15,8 +16,15 @@
+ };
+ struct Rva001EB15A
+ {
++	int m_00;
++	int m_04;
++	int m_08;
++	UnicodeString m_wstr0C;
++	AsciiString m_str10;
++	bool m_14;
++	Rva001EB15A();
+ 	Rva001EB15A(const Rva001EB15A &o);
+-	unsigned char bytes[24];
++	~Rva001EB15A();
+ };
+ class CarryoverUnit : public EmptyBase
+ {
+--- a/Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp
+@@ -243,7 +243,18 @@
+ };
+ struct BfmePod124 { int a[31]; };
+ struct CreateMask { BitFlags<117> m_status; };
+-struct Rva001EB15A { Rva001EB15A(); ~Rva001EB15A(); unsigned char m_data[0x18]; };
++struct Rva001EB15A
++{
++	int m_00;
++	int m_04;
++	int m_08;
++	UnicodeString m_wstr0C;
++	AsciiString m_str10;
++	bool m_14;
++	Rva001EB15A();
++	Rva001EB15A(const Rva001EB15A &);
++	~Rva001EB15A();
++};
+ 
+ enum SpecialPowerType {};
+ class SpecialAbilityUpdate;

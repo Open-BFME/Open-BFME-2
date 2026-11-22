@@ -1,0 +1,47 @@
+{
+  "head": "8ceca1621406b9dac9f2ca826343fb741eea2c4a",
+  "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+  "source_sha256": "9642079319c16074a3d1485f13cf7eda9bb727e877efb75528dafba6793e67f3",
+  "candidate_sha256": "3c7711b37302cb47e2fd6dd4b0063165ba9044a889f72c39dd920c76555e034a",
+  "contract": "W:\\OpenBFME\\Open-BFME-2\\reverse\\class_contracts\\Rva001EB15A.json",
+  "contract_sha256": "b8f8ac879d69288fd82b1909733d531d39609176600555b55fcaaa2d66ae342a",
+  "declared_member_renames": {
+    "a": "m_00",
+    "b": "m_04",
+    "c": "m_08",
+    "wide": "m_wstr0C",
+    "text": "m_str10"
+  },
+  "type_proven_access": "UnitRevivalEntry::m_record is declared Rva001EB15A at source line250; its single .a access at591 is the only explicit record member access to rename.",
+  "constructor_initializers": "Rva001EB15A constructor/copy are declarations only in this TU; no direct a/b/c/wide/text initializer occurs. Enclosing m_record()/copy construction is unchanged.",
+  "edits": [
+    {
+      "line": 81,
+      "before": "\tint a, b, c;",
+      "after": "\tint m_00, m_04, m_08;"
+    },
+    {
+      "line": 82,
+      "before": "\tUnicodeString wide;",
+      "after": "\tUnicodeString m_wstr0C;"
+    },
+    {
+      "line": 83,
+      "before": "\tAsciiString text;",
+      "after": "\tAsciiString m_str10;"
+    },
+    {
+      "line": 591,
+      "before": "else *xfer == m_record.a;",
+      "after": "else *xfer == m_record.m_00;"
+    }
+  ],
+  "unrelated_source_examples_preserved": [
+    "struct RevivalLogicFlags { char pad[0x98]; bool flag; bool getFlag() const { return flag; } void setFlag(bool b) { flag=b; } };",
+    "__forceinline RevivalStaticAsciiString(const char *text) {",
+    "reinterpret_cast<AsciiString*>(this)->AsciiString::AsciiString(text);"
+  ],
+  "native_scope": "Root-held149-key class scope; no additional scope, no token-global rename.",
+  "source_names": "Offset-generated contract names, no recovered original-name claim.",
+  "compiler_invocations": 0
+}

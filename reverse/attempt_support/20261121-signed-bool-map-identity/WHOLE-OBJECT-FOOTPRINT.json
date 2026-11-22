@@ -1,0 +1,888 @@
+{
+  "code_counts": [
+    45,
+    45
+  ],
+  "new_names": [],
+  "lost_names": [],
+  "changed": [
+    {
+      "name": "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBH_N@2@@Z",
+      "before": {
+        "size": 132,
+        "raw": "558bec538bd98b0b568b710485f6578bf9b201741d8b450c8b003b46108bfe0f9cc284d274058b7608eb038b760c85f675e884d28bc774133b790875076a00ff750ceb1457e800000000598b50108b4d0c3b117d1d6a005157568d450c508bcbe8000000008b088b45088908c6400401eb0b8b4d088901c64104008bc15f5e5b5dc20800",
+        "relocations": [
+          [
+            70,
+            20,
+            "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+          ],
+          [
+            97,
+            20,
+            "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z"
+          ]
+        ]
+      },
+      "after": {
+        "size": 134,
+        "raw": "558bec538bd98b0b568b710485f6578bf9b201741d8b450c8b003b46108bfe0f9cc284d274058b7608eb038b760c85f675e884d28bc774153b790875096a00ff750c5757eb1657e800000000598b50108b4d0c3b117d1d6a005157568d450c508bcbe8000000008b088b45088908c6400401eb0b8b4d088901c64104008bc15f5e5b5dc20800",
+        "relocations": [
+          [
+            72,
+            20,
+            "?_M_decrement@?$_Rb_global@_N@_STL@@SAPAU_Rb_tree_node_base@2@PAU32@@Z"
+          ],
+          [
+            99,
+            20,
+            "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z"
+          ]
+        ]
+      }
+    }
+  ],
+  "runtime_noncode_before": [],
+  "runtime_noncode_after": [],
+  "runtime_noncode_identical": true,
+  "external_name_sets_equal": {
+    "2": true,
+    "105": true
+  },
+  "explicit_directive_weak_safeSEH_checks": [
+    {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+      "weak_defaults": [],
+      "directives": [
+        "/DEFAULTLIB:\"stlport_vc7_static.lib\" /DEFAULTLIB:\"msvcprt\" /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+      ],
+      "sxdata": [],
+      "code_selections": [
+        {
+          "names": [
+            "??2@YAPAXIPAX@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??3@YAXPAX0@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??8_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE@ABU01@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??D?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBH_N@1@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$pair@$$CBH_N@_STL@@QAE@ABHAB_N@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?key_comp@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBE?AU?$less@H@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@1@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_root@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_left@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU32@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU32@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_value@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAU?$pair@$$CBH_N@2@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??R?$_Select1st@U?$pair@$$CBH_N@_STL@@@_STL@@QBEABHABU?$pair@$$CBH_N@1@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_rightmost@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU_Rb_tree_node_base@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_key@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAABHPAU_Rb_tree_node_base@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?size@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBEIXZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??E?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEAAU01@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??F?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEAAU01@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$__default_constructed_aux@_N@_STL@@YA_NPA_NABU__true_type@0@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_leftmost@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_parent@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU32@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?begin@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@1@AB_N@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@IPBX@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@I@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$__stl_alloc_rebind@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@0@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$pair@$$CBH_N@_STL@@QAE@ABU01@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?key_comp@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBE?AU?$less@H@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?end@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_key@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAABHPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$__default_constructed@_N@_STL@@YA_NPA_N@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@I@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@I@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$_Construct@U?$pair@$$CBH_N@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBH_N@0@ABU10@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?end@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?lower_bound@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@ABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?lower_bound@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@ABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??A?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEAA_NABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        }
+      ]
+    },
+    {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\identity013\\stock-native-layout.obj",
+      "weak_defaults": [],
+      "directives": [
+        "/DEFAULTLIB:\"stlport_vc7_static.lib\" /DEFAULTLIB:\"msvcprt\" /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+      ],
+      "sxdata": [],
+      "code_selections": [
+        {
+          "names": [
+            "??2@YAPAXIPAX@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??3@YAXPAX0@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??8_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE@ABU01@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??D?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBH_N@1@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$pair@$$CBH_N@_STL@@QAE@ABHAB_N@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?key_comp@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBE?AU?$less@H@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@1@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_root@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_left@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU32@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU32@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_value@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAU?$pair@$$CBH_N@2@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??R?$_Select1st@U?$pair@$$CBH_N@_STL@@@_STL@@QBEABHABU?$pair@$$CBH_N@1@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_rightmost@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_right@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU_Rb_tree_node_base@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_key@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAABHPAU_Rb_tree_node_base@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?size@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBEIXZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??E?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEAAU01@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??F?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEAAU01@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$__default_constructed_aux@_N@_STL@@YA_NPA_NABU__true_type@0@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_leftmost@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IBEAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_parent@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAAAPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@PAU32@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?begin@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@_STL@@QAE@ABU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@1@AB_N@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@IPBX@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@_STL@@QBEXPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@I@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$__stl_alloc_rebind@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@0@AAV10@PBU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@0@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??0?$pair@$$CBH_N@_STL@@QAE@ABU01@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?key_comp@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QBE?AU?$less@H@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?end@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_S_key@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@KAABHPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$__default_constructed@_N@_STL@@YA_NPA_N@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?allocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@2@@_STL@@QAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@I@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?deallocate@?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@I@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??$_Construct@U?$pair@$$CBH_N@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBH_N@0@ABU10@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?end@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@XZ"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?lower_bound@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@ABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?lower_bound@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@ABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        },
+        {
+          "names": [
+            "??A?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEAA_NABH@Z"
+          ],
+          "selection": {
+            "selection": 2,
+            "association": 0
+          }
+        }
+      ]
+    }
+  ],
+  "directives_identical": true,
+  "weak_defaults_identical": true,
+  "safeSEH_identical": true,
+  "code_selections_identical": true
+}

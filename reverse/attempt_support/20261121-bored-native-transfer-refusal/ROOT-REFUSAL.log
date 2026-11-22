@@ -1,0 +1,6 @@
+file: Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataDtor.cpp
+tu: Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp
+candidates: 1
+carved: []
+refused_rows: {'0x004969B7': 'no definition spells its name'}
+blocked: no row could be carved

@@ -1,0 +1,58 @@
+{
+  "head": "83128ee0ebf3ad633d972ca4bb9bd3c909f4d1c6",
+  "source_sha256": "4ddc0cc82d2b16a9e2cd401feb42326018443cdd3159593a10dcfe2a6eb0337d",
+  "candidate_sha256": "e846713ec0456175e8365cfd9a9993581aa7a67addb03a612257e24f8e463a5f",
+  "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\vni-consumer-lifetime\\objects\\42b454deed9f1c84.obj",
+  "object_sha256": "a96b6e984cd9d1732bb23b0c5bcf9bd56311065ad7eababe151ad70a5d85e180",
+  "only_fresh_native_production_map": true,
+  "results": [
+    {
+      "name": "??0BfmeRectVNI@@QAE@ID@Z",
+      "rva": "0x003FD64D",
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "?assign@Rva005045DBTree@@QAEAAV1@ABV1@@Z",
+      "rva": "0x005045DB",
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": null
+    },
+    {
+      "name": "?self@Rva005045DBTree@@QAEAAV1@XZ",
+      "rva": "0x0047A6A9",
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": null
+    },
+    {
+      "name": "??1BfmeRectVNI@@UAE@XZ",
+      "rva": "0x002BAEAB",
+      "exact": true,
+      "masked": false,
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "??_GBfmeRectVNI@@UAEPAXI@Z",
+      "rva": "0x002BAE8F",
+      "exact": false,
+      "masked": false,
+      "unresolved": [
+        "??1BfmeRectVNI@@UAE@XZ"
+      ],
+      "eh": null
+    }
+  ]
+}

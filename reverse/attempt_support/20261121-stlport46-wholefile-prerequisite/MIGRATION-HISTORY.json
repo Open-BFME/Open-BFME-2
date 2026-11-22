@@ -1,0 +1,18 @@
+[
+  {
+    "line": 98307,
+    "text": "stlport46:Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp\t0x00000000\t0\tblocked\tSTLport 4.6 move: with // stlport46, adapt (18 allocator const dropped), the two 4.5.3-only _STLP_alloc_proxy<char*> allocate/deallocate specializations removed and two proxy allocate(n) calls given the hint argument, 34 of 157 rows fail (reserve, _Vector_base ctors, allocator<BfmePodNN>::allocate whose retail names are const QBE). Reverted; the unit stays on 4.5.3. t=30 model=claude-opus-5-5"
+  },
+  {
+    "line": 99170,
+    "text": "stlport46:Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp\t0x0\t0\tblocked\tWhole160-row private4.6 API-adapted candidate matches native under diagnostic const-twin relocation translation;124 exact without translation.17 oldQBE allocator rows need coherent caller/provider migration.16 outside caller sources found; SidesList.cpp held by StarkillerHDX@fleet. No fresh approved rehome established; no pin or compatibility workaround or Code edit. Current160 rows remain exact. Evidence reverse/attempt_support/stlport-pod-migration-20261103/README.md t=13 model=gpt-6"
+  },
+  {
+    "line": 125690,
+    "text": "stlport46:Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp\t0x00000000\t0\tblocked\tAt2d3b37d310 existing whole-file160/160 control passes after worktree_setup prepare restores pinned dependency. Previous complete160-row diagnostic proof remains applicable: source still explicitly instantiates17 const allocator QBE providers whereas pristine4.6 allocate is nonconst. SidesList and two broad helper scopes now claimable, so historical claim contention is not asserted; unresolved prerequisite is coherent old-name provider/caller migration and authoritative placement, not two library-trial rows. No Code/ledger edits or new migration credit. Existing handoff reverse/attempt_support/stlport-pod-migration-20261103/README.md. t=8 model=gpt-6-astra"
+  },
+  {
+    "line": 133197,
+    "text": "stlport46:Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp\t0x0\t0\tblocked\tswitching // stlport to // stlport46 fails: 4.5.3-only _STLP_alloc_proxy<char*> allocate/deallocate specializations conflict with 4.6's inline exported proxy, and 4.6 allocator<T>::allocate is non-const so ~20 explicit allocate instantiations (QBE rows) change mangling and need row respelling; whole-file migration of 160 rows exceeds the 2-row trial lead t=20 model=claude-opus-5.5"
+  }
+]

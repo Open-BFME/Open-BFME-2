@@ -1,0 +1,47 @@
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/CarryoverUnit.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
+note: Code\GameEngine\Source\Common\RTS\UnitRevivalTracker.cpp: 41 matched row(s), 2 unclaimed definition(s)
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/header_adopt_lane.py run --class Rva001EB15A --header Code/GameEngine/Include/Common/Rva001EB15A.h --generate --variants data+includes --jobs 2 --apply
+Rva001EB15A: 5 units, header Code/GameEngine/Include/Common/Rva001EB15A.h (generated)
+  variant data+includes  5/5 pass  (13s)
+Rva001EB15A: winner data+includes: 5/5 pass (100%), 0 queued
+  failures: {}
+  applied: 5 units rewritten, 0 queued in reverse/header_queue.tsv
+  after the apply commit is pushed: python3 tools/header_adopt_lane.py release --class Rva001EB15A
+RUN bash build.sh Code/GameEngine/Source/Common/CarryoverUnit.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
+Source claims: OK (5 sources, scoped byte-verified)
+Compile: 0 of 5 TU(s) (deps-cache: 5 current)
+Funclet pins: 61 row(s) verified past a renumbered $L label
+    $L10046 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10046 was renumbered; verified parent EH data places $L16015 at 0x007747FF
+    $L10047 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10047 was renumbered; verified parent EH data places $L16016 at 0x0077480D
+    $L10051 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10051 was renumbered; verified parent EH data places $L16020 at 0x00774845
+    $L10056 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10056 was renumbered; verified parent EH data places $L16025 at 0x0077488B
+    $L10060 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10060 was renumbered; verified parent EH data places $L16029 at 0x007748AA
+Functions: OK 145/145 matched across 5 source file(s)
+String-ref verify: OK (22 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (8 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/link_check.py Code/GameEngine/Source/Common/CarryoverUnit.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/CarryoverUnit.cpp: LINKS  LINKED 475 -> 491 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 491)
+Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp: LINKS  LINKED 3,049 -> 3,049 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 3,049)
+Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp: LINKS  LINKED 119 -> 119 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 119)
+Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp: LINKS  LINKED 3,717 -> 3,717 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 3,717)
+Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp: LINKS  LINKED 676 -> 676 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 676)
+link_check: 5 of 5 link cleanly; LINKED 8,036 -> 8,052 bytes (5.0s)
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/hatch_counters.py --update
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/check_csv.py
+check_csv: OK (functions.csv 102436 rows, symbols.csv 8536 rows, data_rows.csv 2361 rows)
+{"base": "9a39def1d3bc41048f8a2b1f555f8e436ea31124", "status": "native-five-source-apply-and-normal-gates-passed", "header": "Code/GameEngine/Include/Common/Rva001EB15A.h", "header_sha256": "e3235cda746c74fcb4111b1e3ee23c7ff90cabbec5a56dd1d860efa048f469cf", "sources": ["Code/GameEngine/Source/Common/CarryoverUnit.cpp", "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp", "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp", "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp", "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp"], "code_rows": 145, "native_generated_units": 5, "native_queued_units": 0, "record_size": 24, "completed_original_unitrevival_tasks_credit": 0, "committed": false, "published": false}

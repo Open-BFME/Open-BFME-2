@@ -1,0 +1,101 @@
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/CarryoverUnit.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
+note: Code\GameEngine\Source\Common\RTS\UnitRevivalTracker.cpp: 41 matched row(s), 2 unclaimed definition(s)
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/Rva002E2F39.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp
+note: Code\GameEngine\Source\GameLogic\System\LivingWorld\LivingWorldPlayer.cpp: 86 matched row(s), 1 unclaimed definition(s)
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp
+All defined functions are already matched.
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/find_declared_unmatched.py Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp
+All defined functions are already matched.
+RUN bash build.sh Code/GameEngine/Source/Common/CarryoverUnit.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp Code/GameEngine/Source/Common/Rva002E2F39.cpp Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp
+Source claims: OK (16 sources, scoped byte-verified)
+Data rows: OK (3 row(s) byte-verified)
+Compile: 0 of 16 TU(s) (deps-cache: 16 current)
+Funclet pins: 183 row(s) verified past a renumbered $L label
+    $L5159 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5159 was renumbered; verified parent EH data places $L5685 at 0x007787A0
+    $L5124 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5124 was renumbered; verified parent EH data places $L5647 at 0x007669C7
+    $L5189 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5189 was renumbered; verified parent EH data places $L5721 at 0x00790256
+    $L5204 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5204 was renumbered; verified parent EH data places $L5736 at 0x007931AF
+    $L5219 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5219 was renumbered; verified parent EH data places $L5751 at 0x00793BE2
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 429/429 matched across 16 source file(s)
+String-ref verify: OK (56 literals + 5 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (29 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+RUN bash build.sh Code/GameEngine/Source/Common/CarryoverUnit.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp Code/GameEngine/Source/Common/Rva002E2F39.cpp Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp
+Source claims: OK (16 sources, scoped byte-verified)
+Data rows: OK (3 row(s) byte-verified)
+Compile: 9 of 16 TU(s) (deps-cache: 7 current)
+Funclet pins: 183 row(s) verified past a renumbered $L label
+    $L5159 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5159 was renumbered; verified parent EH data places $L5983 at 0x007787A0
+    $L5124 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5124 was renumbered; verified parent EH data places $L5945 at 0x007669C7
+    $L5189 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5189 was renumbered; verified parent EH data places $L6019 at 0x00790256
+    $L5204 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5204 was renumbered; verified parent EH data places $L6034 at 0x007931AF
+    $L5219 (Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp): $L5219 was renumbered; verified parent EH data places $L6049 at 0x00793BE2
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 429/429 matched across 16 source file(s)
+String-ref verify: OK (56 literals + 5 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (29 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/link_check.py Code/GameEngine/Source/Common/CarryoverUnit.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp Code/GameEngine/Source/Common/Rva002E2F39.cpp Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/CarryoverUnit.cpp: LINKS  LINKED 475 -> 491 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 491)
+Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp: LINKS  LINKED 1,955 -> 1,955 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 1,955)
+Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp: LINKS  LINKED 3,049 -> 3,049 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 3,049)
+Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp: LINKS  LINKED 80 -> 80 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 80)
+Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp: LINKS  LINKED 111 -> 111 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 111)
+Code/GameEngine/Source/Common/Rva002E2F39.cpp: LINKS  LINKED 10 -> 10 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 10)
+Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp: LINKS  LINKED 119 -> 119 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 119)
+Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp: LINKS  LINKED 3,289 -> 3,289 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 3,289)
+Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp: LINKS  LINKED 3,717 -> 3,717 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 3,717)
+Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp: LINKS  LINKED 676 -> 676 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 676)
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp: LINKS  LINKED 22,970 -> 22,970 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 22,970)
+Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp: LINKS  LINKED 312 -> 312 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 312)
+Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp: LINKS  LINKED 2,838 -> 2,838 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 2,838)
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp: LINKS  LINKED 4,765 -> 4,765 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 4,765)
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp: LINKS  LINKED 1,183 -> 1,183 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 1,183)
+Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp: LINKS  LINKED 819 -> 819 bytes (census 2026-11-21 13:19 at 9a39def1d3; file's own bytes 819)
+link_check: 16 of 16 link cleanly; LINKED 46,368 -> 46,384 bytes (5.6s)
+RUN W:\OpenBFME\.tools\python\Scripts\python3.exe tools/check_csv.py
+check_csv: OK (functions.csv 102436 rows, symbols.csv 8536 rows, data_rows.csv 2361 rows)
+{"base": "248c77599fe1201efa19cb0d098d4bc2657af27f", "header": "Code/GameEngine/Include/GameLogic/UnitRevivalEntry.h", "header_sha256": "e43c1d95c7b966abb8ce0d5b079c0b28c5e0af15712dfd8d020a4fc816973280", "status": "normal16-source-header-gates-passed-awaiting-review", "sources": ["Code/GameEngine/Source/Common/CarryoverUnit.cpp", "Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp", "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp", "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerCtorBFME2.cpp", "Code/GameEngine/Source/Common/RTS/UnitRevivalTrackerRva0037F2C0Finish.cpp", "Code/GameEngine/Source/Common/Rva002E2F39.cpp", "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp", "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp", "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp", "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp", "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp", "Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp", "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp", "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp", "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp", "Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp"], "normal_code_rows": 429, "normal_data_rows": 3, "header_dependents": 11, "runtime_graph_equal_all_sources": true, "runtime_sources_with_deltas": [], "saved_outer_contract_unchanged_and_undecided": 27, "original_provider_units_remaining": 3, "completed_credit": 0, "committed": false, "published": false}

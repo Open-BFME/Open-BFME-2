@@ -1,0 +1,131 @@
+{
+  "head": "423e9fba37c7ac26790a3c6dbad42b0474df2d27",
+  "observed_utc": "2026-11-21T08:12:24.881679+00:00",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "8aa79d1736730ba48195bb913d2402596d7b2887e6e3270073d9bf371e9e1eae",
+      "bytes": 10993
+    },
+    {
+      "path": "docs/consolidation.md",
+      "sha256": "375ab0739049154ffeb0cdaf3fda30efa96d2603726cc0aa006337153779c84d",
+      "bytes": 114081
+    },
+    {
+      "path": "docs/naming.md",
+      "sha256": "d4aff52d9143ce8edbee068b4cf3182944c993f8943eb8372405821c9aa70174",
+      "bytes": 152985
+    },
+    {
+      "path": "reverse/flag_overrides.csv",
+      "sha256": "a09d22a9223efbb3f99f5f5855a6f7c8c3071ff840b88f687c16b54d69c83521",
+      "bytes": 61678
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/ThingFactory.h",
+      "sha256": "e14b51ee78348a7c2bd69a8648400f032f943784abf80a588d832a281710873d",
+      "bytes": 4035
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/ThingTemplate.h",
+      "sha256": "5e04764715e30af1888008540af591501c63386c985ea2499784c5360999290a",
+      "bytes": 17606
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/Overridable.h",
+      "sha256": "cb701abbc6c6eb887036f10c369d6b0639cd5d5a515b0d600d971143fadd987e",
+      "bytes": 2914
+    },
+    {
+      "path": "Code/Libraries/Source/subsystem/SubsystemInterface.h",
+      "sha256": "03fdd4c783b4c2f7ee192b40e94238b8b6d0cc6d4b73c1f1f22bd26ec69c47f2",
+      "bytes": 2647
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/ModuleInfoClass.h",
+      "sha256": "a8d7b9e8f8f91848863fb7755d0619acb9e423dfa27aea917f095f6538b6751a",
+      "bytes": 3523
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/BfmeStringRecord002CF5B1.h",
+      "sha256": "bc7fe575a81d89e971fe2b08c5e9b7c5bd51c673dc8cc2e2382b9841bed75d8d",
+      "bytes": 1695
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/BfmeVciAnchorElem.h",
+      "sha256": "1ff8d95fb0bb3023f77bb3ab84481cb88f03e314a5e94ba6e01f54dc8a704775",
+      "bytes": 418
+    },
+    {
+      "path": "Code/GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h",
+      "sha256": "3fac16da46c610763fcee3ffa27c1a36f20f09c4c9aaba290323eb786a1e8950",
+      "bytes": 467
+    },
+    {
+      "path": "reference/shims/nat/Common/AsciiString.h",
+      "sha256": "39f8a327dd8a9f3d25138402bfaa2b0ab8f814130a865d4d8f62f833cda0dbe5",
+      "bytes": 18704
+    },
+    {
+      "path": "reference/shims/bfme2_ascii/ascii_string.h",
+      "sha256": "47d6f3c9a787d89c0b734356c22e365b47575a5766126504c5cc1a90cfbdcd24",
+      "bytes": 12912
+    },
+    {
+      "path": "reference/shims/bfme2_ascii/string_base.h",
+      "sha256": "90fc082abfd264be1eea8316990c589be68ba42793edceb310c5b42b7ffc2dfe",
+      "bytes": 8835
+    },
+    {
+      "path": "reference/shims/sweep/PreRTS.h",
+      "sha256": "123d152934f5e108760a65b46b3893f353c2c6e4232fc4379539984c1fbd9cd4",
+      "bytes": 2392
+    },
+    {
+      "path": "reference/shims/sweep/Common/SubsystemInterface.h",
+      "sha256": "556c11b41be28bd11a1b138bb497f8a4c462233dd72f9df70f042b8b45bf269b",
+      "bytes": 6905
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ThingFactory.h",
+      "sha256": "aac9ce5c89d20b888d6b2d8ae6cd0d84b5188951353a1ec660b8415a05ba745e",
+      "bytes": 5700
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ThingTemplate.h",
+      "sha256": "e92770c0a27fdb92557b016f5c8e008724c86a39f0b7c2f5dd8274028bef2048",
+      "bytes": 36593
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ProductionPrerequisite.h",
+      "sha256": "22a5d2bd5f7aefd01b6d2e397df771a22a6b9d499b5992286efe6da69f64b2a3",
+      "bytes": 4520
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h",
+      "sha256": "4b2b8237502d2328094d3f92e3521601febf96f37595f56ad88613ec794e68a2",
+      "bytes": 3914
+    },
+    {
+      "path": "reverse/attempt_support/production-prerequisite-identity-contract-seat2-20261023/readme.md",
+      "sha256": "b2493cc012b547ae53ce61fb50f140fdf749b475b0c16cf379a43a7c06ab3e03",
+      "bytes": 8464
+    },
+    {
+      "path": "reverse/attempt_support/thingfactory-header-cohort-20261120-root20.md",
+      "sha256": "d81dc5257c208034dd28569bc94ded825f64ec49e7f967141aee6d5ae469f9ef",
+      "bytes": 4630
+    },
+    {
+      "path": "reverse/attempt_support/factory-header-cohort-20261102/audit-prep.md",
+      "sha256": "1a37d172827991eea68f59489a19ff7185a41a57638eb444e21362e2743e642e",
+      "bytes": 3009
+    },
+    {
+      "path": "reverse/attempt_support/thingfactory-releasebuffer-20261106-noro.md",
+      "sha256": "829140294141fdbf915500b783b259b99fd2c3bf8283c6edbc8af64358610616",
+      "bytes": 1727
+    }
+  ]
+}

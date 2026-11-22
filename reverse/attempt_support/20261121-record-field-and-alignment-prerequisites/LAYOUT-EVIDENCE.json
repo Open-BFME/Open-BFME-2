@@ -1,0 +1,157 @@
+{
+  "mode": "Actual compile-time typedef assertions in the6authorized native calls; no diagnostic compiler flags or extra compiler calls",
+  "records": [
+    {
+      "label": "Tracker",
+      "source": "Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp",
+      "actual_nonemitting_assertion_results": [
+        {
+          "phase": "original",
+          "rows": 41,
+          "eh_parent_count": 8,
+          "all_eh_exact": true,
+          "layout_assertions_compiled": true,
+          "assertion_count": 18,
+          "exact_assertions": "\n// Private nonemitting compile-time layout evidence; excluded from production candidate.\n\ttypedef char stagea_20261121_record_size[(sizeof(Rva001EB15A) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_record_alignment[(__alignof(Rva001EB15A) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_a_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->a) == 0) ? 1 : -1];\n\ttypedef char stagea_20261121_record_a_width[(sizeof(((Rva001EB15A *)0)->a) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_b_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->b) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_b_width[(sizeof(((Rva001EB15A *)0)->b) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_c_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->c) == 8) ? 1 : -1];\n\ttypedef char stagea_20261121_record_c_width[(sizeof(((Rva001EB15A *)0)->c) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_wide_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->wide) == 12) ? 1 : -1];\n\ttypedef char stagea_20261121_record_wide_width[(sizeof(((Rva001EB15A *)0)->wide) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_text_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->text) == 16) ? 1 : -1];\n\ttypedef char stagea_20261121_record_text_width[(sizeof(((Rva001EB15A *)0)->text) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_flag_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->flag) == 20) ? 1 : -1];\n\ttypedef char stagea_20261121_record_flag_width[(sizeof(((Rva001EB15A *)0)->flag) == 1) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_entry_size[(sizeof(UnitRevivalEntry) == 0xD8) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_entry_record_at[((int)&reinterpret_cast<const volatile char &>(((UnitRevivalEntry *)0)->m_record) == 0xB0) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_object_view_size[(sizeof(Object) == 0x480) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_object_record_at[((int)&reinterpret_cast<const volatile char &>(((Object *)0)->record) == 0x468) ? 1 : -1];\n",
+          "object_sha256": "96ccaf6cb51d42766c5b3a1d6919d7dc1b12047d85b07530be5d9ed7ae5918d1",
+          "sidecar_sha256": "268edcaad95a2d8d454dd8907394063464fba7c27dfa1a70eeee2c94d7e1f0e5",
+          "native_scratch_object_retained": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\b69b4386f15eee26.obj",
+          "source_hash_without_diagnostic_assertions": "f3bca6209180dce456ccce6820850fc0b16c2b5202c2169e413c8b70f73d836d"
+        },
+        {
+          "phase": "candidate",
+          "rows": 41,
+          "eh_parent_count": 8,
+          "all_eh_exact": true,
+          "layout_assertions_compiled": true,
+          "assertion_count": 18,
+          "exact_assertions": "\n// Private nonemitting compile-time layout evidence; excluded from production candidate.\n\ttypedef char stagea_20261121_record_size[(sizeof(Rva001EB15A) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_record_alignment[(__alignof(Rva001EB15A) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_a_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->a) == 0) ? 1 : -1];\n\ttypedef char stagea_20261121_record_a_width[(sizeof(((Rva001EB15A *)0)->a) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_b_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->b) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_b_width[(sizeof(((Rva001EB15A *)0)->b) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_c_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->c) == 8) ? 1 : -1];\n\ttypedef char stagea_20261121_record_c_width[(sizeof(((Rva001EB15A *)0)->c) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_wide_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->wide) == 12) ? 1 : -1];\n\ttypedef char stagea_20261121_record_wide_width[(sizeof(((Rva001EB15A *)0)->wide) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_text_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->text) == 16) ? 1 : -1];\n\ttypedef char stagea_20261121_record_text_width[(sizeof(((Rva001EB15A *)0)->text) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_14_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_14) == 20) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_14_width[(sizeof(((Rva001EB15A *)0)->m_14) == 1) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_entry_size[(sizeof(UnitRevivalEntry) == 0xD8) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_entry_record_at[((int)&reinterpret_cast<const volatile char &>(((UnitRevivalEntry *)0)->m_record) == 0xB0) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_object_view_size[(sizeof(Object) == 0x480) ? 1 : -1];\n\ttypedef char stagea_20261121_tracker_object_record_at[((int)&reinterpret_cast<const volatile char &>(((Object *)0)->record) == 0x468) ? 1 : -1];\n",
+          "object_sha256": "d8ecc1f6c9b3fee5cb3033d0529348ac7ef37e6270c071a915f16445be752343",
+          "sidecar_sha256": "5f27987b139d521224b4dd5949988d3d5a045f2ee9335bad08eaedda2936bfcc",
+          "native_scratch_object_retained": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\ee94a710cae80ff6.obj",
+          "source_hash_without_diagnostic_assertions": "9642079319c16074a3d1485f13cf7eda9bb727e877efb75528dafba6793e67f3"
+        }
+      ],
+      "record_size": 24,
+      "record_alignment_before": 4,
+      "record_alignment_after": 4,
+      "parent_facts": {
+        "UnitRevivalEntry.size": 216,
+        "UnitRevivalEntry.m_record": 176,
+        "local_Object_view.size": 1152,
+        "local_Object_view.record": 1128
+      }
+    },
+    {
+      "label": "CarryoverCopy",
+      "source": "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp",
+      "actual_nonemitting_assertion_results": [
+        {
+          "phase": "original",
+          "rows": 3,
+          "eh_parent_count": 1,
+          "all_eh_exact": true,
+          "layout_assertions_compiled": true,
+          "assertion_count": 7,
+          "exact_assertions": "\t// Private nonemitting evidence; legal member access in existing constructor.\n\ttypedef char stagea_20261121_parent_size[(sizeof(CarryoverUnit) == 0xAC) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_at[((int)&reinterpret_cast<const volatile char &>(((CarryoverUnit *)0)->m_94) == 0x94) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_width[(sizeof(((CarryoverUnit *)0)->m_94) == 24) ? 1 : -1];\n\n// Private nonemitting compile-time layout evidence; excluded from production candidate.\n\ttypedef char stagea_20261121_record_size[(sizeof(Rva001EB15A) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_record_alignment[(__alignof(Rva001EB15A) == 1) ? 1 : -1];\n\ttypedef char stagea_20261121_raw_field_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->bytes) == 0) ? 1 : -1];\n\ttypedef char stagea_20261121_raw_field_width[(sizeof(((Rva001EB15A *)0)->bytes) == 24) ? 1 : -1];\n",
+          "object_sha256": "1f1e9d894f76979b4b8a1581e5a96901bb54a954fc30188a37c356c9a46a58eb",
+          "sidecar_sha256": "cef36bb6ef87a538fb970987bb68a4793f781930e4eea6f3a6d5553e8a2a35ae",
+          "native_scratch_object_retained": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\cf274110583c1a76.obj",
+          "source_hash_without_diagnostic_assertions": "6cc281de86f4f8f88dee778d2da65ede4e5a6b2b191d192e32d39b6b71126f52"
+        },
+        {
+          "phase": "candidate",
+          "rows": 3,
+          "eh_parent_count": 1,
+          "all_eh_exact": true,
+          "layout_assertions_compiled": true,
+          "assertion_count": 17,
+          "exact_assertions": "\t// Private nonemitting evidence; legal member access in existing constructor.\n\ttypedef char stagea_20261121_parent_size[(sizeof(CarryoverUnit) == 0xAC) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_at[((int)&reinterpret_cast<const volatile char &>(((CarryoverUnit *)0)->m_94) == 0x94) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_width[(sizeof(((CarryoverUnit *)0)->m_94) == 24) ? 1 : -1];\n\n// Private nonemitting compile-time layout evidence; excluded from production candidate.\n\ttypedef char stagea_20261121_record_size[(sizeof(Rva001EB15A) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_record_alignment[(__alignof(Rva001EB15A) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_00_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_00) == 0) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_00_width[(sizeof(((Rva001EB15A *)0)->m_00) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_04_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_04) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_04_width[(sizeof(((Rva001EB15A *)0)->m_04) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_08_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_08) == 8) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_08_width[(sizeof(((Rva001EB15A *)0)->m_08) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_wstr0C_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_wstr0C) == 12) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_wstr0C_width[(sizeof(((Rva001EB15A *)0)->m_wstr0C) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_str10_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_str10) == 16) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_str10_width[(sizeof(((Rva001EB15A *)0)->m_str10) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_14_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_14) == 20) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_14_width[(sizeof(((Rva001EB15A *)0)->m_14) == 1) ? 1 : -1];\n",
+          "object_sha256": "7a7f2afee904539b1e1d4b2e42b9b5f5e14bb1bbbc2030bc58c361f1503ef69e",
+          "sidecar_sha256": "6c3729516d44057f12f9ea98775bdd67039d274a0688eaaf614f939efce89123",
+          "native_scratch_object_retained": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\e9c4d140b9e00242.obj",
+          "source_hash_without_diagnostic_assertions": "2edd2d544378da38062a26e71bcf2a7924f261c3e9526594f42199454c07c5c2"
+        }
+      ],
+      "record_size": 24,
+      "record_alignment_before": 1,
+      "record_alignment_after": 4,
+      "parent_facts": {
+        "CarryoverUnit.size": 172,
+        "CarryoverUnit.m_94": 148
+      }
+    },
+    {
+      "label": "ObjectConstructor",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+      "actual_nonemitting_assertion_results": [
+        {
+          "phase": "original",
+          "rows": 67,
+          "eh_parent_count": 1,
+          "all_eh_exact": true,
+          "layout_assertions_compiled": true,
+          "assertion_count": 8,
+          "exact_assertions": "\t// Private nonemitting evidence; legal member access in existing constructor.\n\ttypedef char stagea_20261121_parent_size[(sizeof(Object) == 0x4D8) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_at[((int)&reinterpret_cast<const volatile char &>(((Object *)0)->m_468) == 0x468) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_width[(sizeof(((Object *)0)->m_468) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_next_at[((int)&reinterpret_cast<const volatile char &>(((Object *)0)->m_480) == 0x480) ? 1 : -1];\n\n// Private nonemitting compile-time layout evidence; excluded from production candidate.\n\ttypedef char stagea_20261121_record_size[(sizeof(Rva001EB15A) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_record_alignment[(__alignof(Rva001EB15A) == 1) ? 1 : -1];\n\ttypedef char stagea_20261121_raw_field_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_data) == 0) ? 1 : -1];\n\ttypedef char stagea_20261121_raw_field_width[(sizeof(((Rva001EB15A *)0)->m_data) == 24) ? 1 : -1];\n",
+          "object_sha256": "b0e499ff89c9fcf0e424057f32565ae9aa88e4f81b6b271d374728eb7a2da969",
+          "sidecar_sha256": "562352938049399f130e1ae048e04ba4952c41d1f40a12f2eb73081a7c320b11",
+          "native_scratch_object_retained": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\4729569968aa0225.obj",
+          "source_hash_without_diagnostic_assertions": "b046b64066706816e2ab18516895b0b7534c91a611f5042d86637a14bdcffb0b"
+        },
+        {
+          "phase": "candidate",
+          "rows": 67,
+          "eh_parent_count": 1,
+          "all_eh_exact": true,
+          "layout_assertions_compiled": true,
+          "assertion_count": 18,
+          "exact_assertions": "\t// Private nonemitting evidence; legal member access in existing constructor.\n\ttypedef char stagea_20261121_parent_size[(sizeof(Object) == 0x4D8) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_at[((int)&reinterpret_cast<const volatile char &>(((Object *)0)->m_468) == 0x468) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_record_width[(sizeof(((Object *)0)->m_468) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_parent_next_at[((int)&reinterpret_cast<const volatile char &>(((Object *)0)->m_480) == 0x480) ? 1 : -1];\n\n// Private nonemitting compile-time layout evidence; excluded from production candidate.\n\ttypedef char stagea_20261121_record_size[(sizeof(Rva001EB15A) == 24) ? 1 : -1];\n\ttypedef char stagea_20261121_record_alignment[(__alignof(Rva001EB15A) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_00_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_00) == 0) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_00_width[(sizeof(((Rva001EB15A *)0)->m_00) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_04_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_04) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_04_width[(sizeof(((Rva001EB15A *)0)->m_04) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_08_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_08) == 8) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_08_width[(sizeof(((Rva001EB15A *)0)->m_08) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_wstr0C_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_wstr0C) == 12) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_wstr0C_width[(sizeof(((Rva001EB15A *)0)->m_wstr0C) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_str10_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_str10) == 16) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_str10_width[(sizeof(((Rva001EB15A *)0)->m_str10) == 4) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_14_at[((int)&reinterpret_cast<const volatile char &>(((Rva001EB15A *)0)->m_14) == 20) ? 1 : -1];\n\ttypedef char stagea_20261121_record_m_14_width[(sizeof(((Rva001EB15A *)0)->m_14) == 1) ? 1 : -1];\n",
+          "object_sha256": "b6865ceb4955b6bbff747af2ae19dc05ddbc8028d7d25261e200e162ed15cc5d",
+          "sidecar_sha256": "a5a7f276e11250247297389f11c9942a03e1c421747761bdc2aec4ce1943b3af",
+          "native_scratch_object_retained": "W:\\OpenBFME\\Open-BFME-2\\build\\tu_skeleton\\7e4a066491974af0.obj",
+          "source_hash_without_diagnostic_assertions": "b91ef478da0ec3620e96d9a6359079dabf7a0f06f190e3abef40d7c0462cff62"
+        }
+      ],
+      "record_size": 24,
+      "record_alignment_before": 1,
+      "record_alignment_after": 4,
+      "parent_facts": {
+        "Object.size": 1240,
+        "Object.m_468": 1128,
+        "Object.m_480": 1152
+      }
+    }
+  ],
+  "historical_size_lead_only": {
+    "path": "W:\\OpenBFME\\Open-BFME-2\\build\\class_layouts\\types_3bf7e828dabc2cc63a65b352c5a21ba412535e2649fbbfe519769b44c905403e_7b02a0f493b9bf81.json",
+    "sha256": "d21fb5b82722253121ea22f70734821402bacd752dfaca43ea90a05f762ad23b",
+    "Object.size": 1240,
+    "Rva001EB15A": {
+      "fwd": false,
+      "key": "struct",
+      "size": 24,
+      "bases": [],
+      "fields": [
+        [
+          0,
+          "m_data",
+          "uchar[24]",
+          24
+        ]
+      ],
+      "statics": [],
+      "methods": [
+        "Rva001EB15A",
+        "__vecDelDtor",
+        "~Rva001EB15A"
+      ],
+      "virtual": [],
+      "vslots": {},
+      "vfptr": false
+    },
+    "current_receipt_claimed": false,
+    "use": "Bound the Object.size assertion number; both new original/candidate compile successes now independently confirm it."
+  },
+  "no_full_CodeView_typestream_measurement_added": true,
+  "private_typedefs_are_excluded_from_bank_snapshots": true
+}

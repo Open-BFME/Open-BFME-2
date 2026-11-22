@@ -1,0 +1,149 @@
+{
+  "scope": "Native private _prove_body on explicit output; owner objects rechecked current; public fold admission not run, no shared compile or register write.",
+  "owner_currency": {
+    "Code/GameEngine/Source/Common/Rva0046AC52.cpp": {
+      "current": true,
+      "source_sha256": "b5964ec12a261efc6590d15ee4c119359d31a3d58a024e1b978ca5a41c6eabb9",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0046^a^c52.obj",
+      "object_sha256": "72cdd93317b6ea82c976f4e90cc633edbb71a7f50d22478a1800a7951eb76bb4"
+    },
+    "Code/GameEngine/Source/Common/Rva005C6CCC.cpp": {
+      "current": true,
+      "source_sha256": "3d5d23813eece11339b262ec8e0cfc4d1d614029efedbddbd368ef4c9fc36806",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva005^c6^c^c^c.obj",
+      "object_sha256": "743b7be63a30e8f9adbd53beac85d0453ef4f852eded3c3ad7e2b415a24c7b21"
+    },
+    "Code/GameEngine/Source/Common/System/FileSystem.cpp": {
+      "current": true,
+      "source_sha256": "d54961e8ff060652ac96f04db70e0835591931b5dfe0cd4e37f05bf1edb60f3a",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^system_^file^system.obj",
+      "object_sha256": "c4b4cb9eb26542ab452d75e43cdbc34ed42d2c1904f4e144e79e041b9e55e3cd"
+    },
+    "Code/GameEngine/Source/Common/System/GameMemory.cpp": {
+      "current": true,
+      "source_sha256": "ebcbddf067980a2adf6a815f617a4dc25ff73d31448994b3bd977e5701326ebe",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^system_^game^memory.obj",
+      "object_sha256": "5610ea2b6cf652a82be6b8cd72a773d3c65a06b5727d8f4f6fcdbf3fe4b23ce3"
+    },
+    "Code/GameEngine/Source/GameClient/MessageStream/SelectionIDMap.cpp": {
+      "current": true,
+      "source_sha256": "a6237ba953acc85f38e905d7e41558424cdfdc4456a8887bfcab5a5f9bf8420d",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^message^stream_^selection^i^d^map.obj",
+      "object_sha256": "b5a287602d23d9ea0b6858cebb1dbb10396e1dbc81cd394b9cbe92715fb5a87d"
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp": {
+      "current": true,
+      "source_sha256": "1a847cb9cbec46b3050a8ee6ae227feff677cec1c665af8a762a5b5a5d53807b",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain.obj",
+      "object_sha256": "8ef182e3517e9a786183b56c367628e8689f6ca44e5f87eb51f071884a4ced91"
+    },
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp": {
+      "current": true,
+      "source_sha256": "154d32c09914ff8f56cd77ea52fa980468502d5073c3929c759ee68b42308aa2",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^locomotor^set^map^subscript.obj",
+      "object_sha256": "d71b81bfe6eade1b8b1bc46ebc7559c7b3b2e90adfb5347381c32189bcbf730d"
+    },
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp": {
+      "current": true,
+      "source_sha256": "6c0ba624135c0978716ab828e59c6623bfc26407247a5267e3cd389352162e2b",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^unit^builder_^a^i^unit^builder^rva00598^d7^a.obj",
+      "object_sha256": "ce1a1a2ab41c349f9cf543f0d128f465f732906d554f268e489d0c90402b76c0"
+    },
+    "Code/Libraries/Source/CRT/CxxThrowExceptionImport.cpp": {
+      "current": true,
+      "source_sha256": "b8828c5255da9ef626f2bb45da65ba263c1706483de0b1fe6510911fdbb2a244",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^cxx^throw^exception^import.obj",
+      "object_sha256": "731c950e5fcbe2cc9391c096fda898dc07d29c84d1a0765bb87631123d2447a6"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00384ED4.cpp": {
+      "current": true,
+      "source_sha256": "846eb36ff76c040471ed089f6cf69fb13730db636ba9cbe5d825c099827e543c",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva00384^e^d4.obj",
+      "object_sha256": "73945abe4ec0294709a4589166351ab3e81588078c22b034e1e8e33d4920d6f7"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00439862.cpp": {
+      "current": true,
+      "source_sha256": "12675eff42f6e0b49027b7d40712e4ac05dcd85a407ff48f1316884ea5c708a4",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w4^rva00439862.obj",
+      "object_sha256": "c62428dae3f33b05ea05c1fb08581c608c213e64f43b1f21bf214afc0620ee40"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp": {
+      "current": true,
+      "source_sha256": "b9426f506499660946ddcf81654ba86396968d190a04168fd42cd098d4dcfccd",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_deque_int.obj",
+      "object_sha256": "f2991ae33b7a61b20c73d3cd61f9954fe2499fe64dce1316d872fecf2e3ef8f3"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp": {
+      "current": true,
+      "source_sha256": "2094f52450838ad52ba090b473325f3f428fb73fad28a7c38f14ca4282698e17",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+      "object_sha256": "78e3b3246e078d261424df0ead9915a66be8bce3a08ae9e038e9ab856635dbce"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp": {
+      "current": true,
+      "source_sha256": "7a1984324a396eb25cb8d10f711fa10ce5449b1312dd2081dcd86c2978a8e07f",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_int_int.obj",
+      "object_sha256": "d08aa332733dedd05d5ac869001f066e1ef6aac11640f6253c29d754e6b7c097"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp": {
+      "current": true,
+      "source_sha256": "b127a7f2ea286c305f50928db5640507b39eb557ef78902f06b1abe1fe17d308",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_int_int_os.obj",
+      "object_sha256": "ce9cbd8ee93a93a15a73b84b2a44524aac88714f5a290af34780649663a4b690"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_node_uintbool.cpp": {
+      "current": true,
+      "source_sha256": "03b2bbd968cb30e854dca288080997034af9d7868239045937ffde08a2bee632",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_rb_tree_create_node_uintbool.obj",
+      "object_sha256": "15f547517db38348c0edae6e0fe3411f4bd6da8ee73a640cd57e7416e98767b3"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_increment.cpp": {
+      "current": true,
+      "source_sha256": "522a7c5f59f15355384589e8f9c250d89d638e1f35d8d29ebd7ce049b89af27b",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_rb_tree_increment.obj",
+      "object_sha256": "b798c8e0d1b786de3b2cf0ceb6b69e374961256d55a6c0ac27c2b23d431bac10"
+    },
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance.cpp": {
+      "current": true,
+      "source_sha256": "3f058d3ba001dc982ff0ce6f0e9cdecd951316933713c373d6a78c9f4abe1fb6",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_rb_tree_rebalance.obj",
+      "object_sha256": "eab74b809df0a6607e5b0decdcdb8076f02fe16c080dba1deb6443d5280ad237"
+    }
+  },
+  "arms": [
+    {
+      "name": "original-negative-control",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_map_bool_subscript.obj",
+      "object_sha256": "78e3b3246e078d261424df0ead9915a66be8bce3a08ae9e038e9ab856635dbce",
+      "problems": [
+        "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp compiles ?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBH_N@2@@Z to 132 bytes; the ledger body at 0x002D563D is 134"
+      ],
+      "diagnostic_bindings": {
+        "?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z": "0x0046F0A5",
+        "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z": "0x0046E563",
+        "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z": "0x0046AC52",
+        "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABU?$pair@$$CBH_N@2@@Z": "0x002D464E"
+      },
+      "not_admission": true
+    },
+    {
+      "name": "existing-native-layout-branch",
+      "object": "W:\\OpenBFME\\Open-BFME-2\\build\\agent-thing-bfme2-20261120\\identity013\\stock-native-layout.obj",
+      "object_sha256": "fe04400aa5f1496dda7b385c36cbc837101df91c00ac2757c144ae58fe7c7615",
+      "problems": [],
+      "diagnostic_bindings": {
+        "?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z": "0x0046F0A5",
+        "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z": "0x0046E563",
+        "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z": "0x0046AC52",
+        "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABU?$pair@$$CBH_N@2@@Z": "0x002D464E",
+        "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBH_N@2@@Z": "0x002D563D"
+      },
+      "not_admission": true
+    }
+  ],
+  "retained69": {
+    "exact": true,
+    "masked": false,
+    "unresolved": []
+  }
+}

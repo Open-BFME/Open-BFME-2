@@ -243,7 +243,7 @@ struct CameraMarker
 };
 struct BfmePod124 { int a[31]; };
 struct CreateMask { BitFlags<117> m_status; };
-struct Rva001EB15A { Rva001EB15A(); ~Rva001EB15A(); unsigned char m_data[0x18]; };
+#include "../../../Include/Common/Rva001EB15A.h"
 
 enum SpecialPowerType {};
 class SpecialAbilityUpdate;

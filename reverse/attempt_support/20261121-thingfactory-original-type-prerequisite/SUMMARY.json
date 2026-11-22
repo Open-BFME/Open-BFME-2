@@ -1,0 +1,21 @@
+{
+  "head": "423e9fba37c7ac26790a3c6dbad42b0474df2d27",
+  "result": "blocked on unchanged documented identity/context prerequisites; no new source candidate",
+  "native_plan": {
+    "exit": 0,
+    "approved_rows": 134,
+    "donor_files_including_seed": 63,
+    "mixed_files": 29,
+    "refused_files": 0
+  },
+  "served": {
+    "rows": 106,
+    "unique_rvas": 105,
+    "files": 63,
+    "data_rows": 2
+  },
+  "new_scope_requested": [],
+  "compile_run": false,
+  "production_writes": false,
+  "credit": 0
+}

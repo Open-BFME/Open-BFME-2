@@ -1,0 +1,23 @@
+{
+  "source_commit": "4305841cd07753da1d65672d12c90d7a123ece88",
+  "errors": {
+    "total": 5,
+    "unresolved": 0,
+    "not_measured": null,
+    "unresolved_classes": {},
+    "unresolved_detail": {},
+    "duplicates": 0,
+    "duplicate_classes": {},
+    "unresolved_exclusive_to_omitted": []
+  },
+  "link_exit": 0,
+  "vtable_bridge_tables": 2896,
+  "slots": 41698,
+  "refused": 27,
+  "executed": false,
+  "hosted_ci": false,
+  "successful_image_claim": true,
+  "credit": "No served-item credit before normal publication.",
+  "page009_source_table_correct": true,
+  "page009_slots": 6
+}

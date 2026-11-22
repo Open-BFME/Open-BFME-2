@@ -1,0 +1,281 @@
+{
+  "status": "blocked; no production change; zero task credit",
+  "head": "55dd91d046f25ce01a961f2582867b2b620dcdcf",
+  "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp",
+  "source_sha256": "0b7f226bec8cc35e0ffdaea8c8f20bedb7fd908fc1a790052ae93f9ad0a82a3a",
+  "public_destructor": {
+    "rva": "0x005B190D",
+    "symbol": "??1AptMyHero@@UAE@XZ",
+    "target_extent": 250,
+    "candidate_extent": 246,
+    "original_row": {
+      "name": "??1AptMyHero@@UAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x005B190D",
+      "target_size": "250",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp",
+      "status": "matched",
+      "notes": "AptMyHero destructor (vtable 0x00C72A80 slot 0 via scalar deleting dtor 0x005B1A50); native 5B190D..5B1A07 EH states 2-3-2-1-0; five slots x Base/Cur/Max keys from rowed 5B0A53 dropped from holder +0x140 registry +0x228 (rowed 5241DF) then Cah::Portrait key cleared (rowed 223A94) then rowed 5B1830; members: bling vectors +0x174 x2 via ehvec_dtor (vector dtor 0x47FAB3) then location map +0x15C freed then ~CreateAHeroData 409285; view now derives from CreateAHeroData; full 250B exact"
+    },
+    "body_evidence": {
+      "before": {
+        "size": 250,
+        "hex": "b800000000e800000000515153568bf1578975ecc70600000000c745fc0200000033dbbf28020000536800000000e80000000059598b8e400100005003cfe800000000536800000000e80000000059598b8e400100005003cfe800000000536800000000e80000000059598b8e400100005003cfe8000000004383fb057ca968000000008d4df0e8000000008b0d000000008d45f050c645fc03e8000000008d4df0c645fc02e8000000008bcee80000000068000000006a026a0c8d867401000050c645fc01e8000000008b865c01000085c0c645fc00740750e80000000059834dfcff8bcee8000000008b4df45f5e5b64890d00000000c9c3",
+        "relocs": [
+          [
+            1,
+            6,
+            "__ehhandler$??1AptMyHero@@UAE@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            22,
+            6,
+            "??_7AptMyHero@@6B@"
+          ],
+          [
+            42,
+            6,
+            "??_C@_04NGEJNKEG@Base?$AA@"
+          ],
+          [
+            47,
+            20,
+            "?rva005B0A53@@YAABVAsciiString@@PBDH@Z"
+          ],
+          [
+            63,
+            20,
+            "?rva005241DF@Rva005241DF@@QAEXABV?$StringBase@D@@@Z"
+          ],
+          [
+            69,
+            6,
+            "??_C@_03BICJGGPP@Cur?$AA@"
+          ],
+          [
+            74,
+            20,
+            "?rva005B0A53@@YAABVAsciiString@@PBDH@Z"
+          ],
+          [
+            90,
+            20,
+            "?rva005241DF@Rva005241DF@@QAEXABV?$StringBase@D@@@Z"
+          ],
+          [
+            96,
+            6,
+            "??_C@_03BJDGPCOK@Max?$AA@"
+          ],
+          [
+            101,
+            20,
+            "?rva005B0A53@@YAABVAsciiString@@PBDH@Z"
+          ],
+          [
+            117,
+            20,
+            "?rva005241DF@Rva005241DF@@QAEXABV?$StringBase@D@@@Z"
+          ],
+          [
+            128,
+            6,
+            "??_C@_0O@MHLDFOHG@Cah?3?3Portrait?$AA@"
+          ],
+          [
+            136,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ],
+          [
+            142,
+            6,
+            "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A"
+          ],
+          [
+            155,
+            20,
+            "?rva00223A94@Rva00223A94@@QAEHPBVAsciiString@@@Z"
+          ],
+          [
+            167,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ],
+          [
+            174,
+            20,
+            "?rva005B1830@Rva005B1830@@QAEXXZ"
+          ],
+          [
+            179,
+            6,
+            "??1MyHeroBlingBlock@@QAE@XZ"
+          ],
+          [
+            199,
+            20,
+            "??_M@YGXPAXIHP6EX0@Z@Z"
+          ],
+          [
+            219,
+            20,
+            "_free"
+          ],
+          [
+            231,
+            20,
+            "??1CreateAHeroData@@UAE@XZ"
+          ],
+          [
+            244,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "after": {
+        "size": 246,
+        "hex": "b800000000e800000000515153568bf1578975ecc70600000000c745fc0200000033dbbf28020000536800000000e80000000059598b8e400100005003cfe800000000536800000000e80000000059598b8e400100005003cfe800000000536800000000e80000000059598b8e400100005003cfe8000000004383fb057ca968000000008d4df0e8000000008b0d000000008d45f050c645fc03e8000000008d4df0c645fc02e8000000008bcee80000000068000000006a026a0c8d867401000050c645fc01e8000000008b865c01000085c0740750e80000000059834dfcff8bcee8000000008b4df45f5e5b64890d00000000c9c3",
+        "relocs": [
+          [
+            1,
+            6,
+            "__ehhandler$??1AptMyHero@@UAE@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            22,
+            6,
+            "??_7AptMyHero@@6B@"
+          ],
+          [
+            42,
+            6,
+            "??_C@_04NGEJNKEG@Base?$AA@"
+          ],
+          [
+            47,
+            20,
+            "?rva005B0A53@@YAABVAsciiString@@PBDH@Z"
+          ],
+          [
+            63,
+            20,
+            "?rva005241DF@Rva005241DF@@QAEXABV?$StringBase@D@@@Z"
+          ],
+          [
+            69,
+            6,
+            "??_C@_03BICJGGPP@Cur?$AA@"
+          ],
+          [
+            74,
+            20,
+            "?rva005B0A53@@YAABVAsciiString@@PBDH@Z"
+          ],
+          [
+            90,
+            20,
+            "?rva005241DF@Rva005241DF@@QAEXABV?$StringBase@D@@@Z"
+          ],
+          [
+            96,
+            6,
+            "??_C@_03BJDGPCOK@Max?$AA@"
+          ],
+          [
+            101,
+            20,
+            "?rva005B0A53@@YAABVAsciiString@@PBDH@Z"
+          ],
+          [
+            117,
+            20,
+            "?rva005241DF@Rva005241DF@@QAEXABV?$StringBase@D@@@Z"
+          ],
+          [
+            128,
+            6,
+            "??_C@_0O@MHLDFOHG@Cah?3?3Portrait?$AA@"
+          ],
+          [
+            136,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ],
+          [
+            142,
+            6,
+            "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A"
+          ],
+          [
+            155,
+            20,
+            "?rva00223A94@Rva00223A94@@QAEHPBVAsciiString@@@Z"
+          ],
+          [
+            167,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ],
+          [
+            174,
+            20,
+            "?rva005B1830@Rva005B1830@@QAEXXZ"
+          ],
+          [
+            179,
+            6,
+            "??1MyHeroBlingBlock@@QAE@XZ"
+          ],
+          [
+            199,
+            20,
+            "??_M@YGXPAXIHP6EX0@Z@Z"
+          ],
+          [
+            215,
+            20,
+            "_free"
+          ],
+          [
+            227,
+            20,
+            "??1CreateAHeroData@@UAE@XZ"
+          ],
+          [
+            240,
+            6,
+            "__except_list"
+          ]
+        ]
+      }
+    }
+  },
+  "timing": {
+    "first_probe_log_creation_utc": "2026-11-21T00:59:02.971906+00:00",
+    "last_probe_receipt_write_utc": "2026-11-21T01:02:10.791773+00:00",
+    "elapsed_artifact_window_seconds": 187.81986665725708,
+    "evidence_lower_bound_minutes": 3,
+    "meaning": "Floor of observed first-probe-log creation to last-probe-receipt write. Total/active effort unknown; not estimated."
+  },
+  "artifacts_sha256": {
+    "early-BLOCKED.cpp.txt": "627961ff061844e4287de81d82e59dda3c9e09422fc16e21eaa0c1e082745352",
+    "early-BLOCKED.patch": "f703bb2f1b6fa745f17f2c136299d46de697860c3c7c3098e921bdeafccf732e",
+    "late-BLOCKED.cpp.txt": "937c66e157098fa8741f5283e6c124bc34417abae6d4d9b79516a0bf00cef5a6",
+    "late-BLOCKED.patch": "7f44976e9c12cbeb63911f72317eb5ecfe551921fa07e539d4105188a199c681",
+    "image-probe.json": "fcdf45cab428a971331eb51b48a49bd87b79daf09b67a737cab327579d1ddffc",
+    "image-probe-late.json": "bb64f27ceb760fe0159daf03a93546b161a65f280ed9323de3c11ad76a0ae1d7",
+    "image-code-audit.json": "a3a3b3a471834e219f64290bafd0377803e09756eef55032a81ac8a41ad86354"
+  }
+}

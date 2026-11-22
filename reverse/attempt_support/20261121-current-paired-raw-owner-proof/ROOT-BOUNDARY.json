@@ -1,0 +1,56 @@
+{
+  "base": "2a37d041bfee1467c5ed2e69086cc9a6544a7a2c",
+  "reviewed_version": "V5",
+  "exact_six_files": {
+    "tools/header_adopt_lane.py": {
+      "base_sha256": "6d410821b151f29f8792897e526af7d5c6fd2e7a846623a21390d19144c888e8",
+      "base_size": 481516,
+      "candidate_sha256": "b126cd75305213ab77507ae8db076220de4b78432707eb0404885ab539962a70",
+      "candidate_size": 491247,
+      "v4_candidate_sha256": "b126cd75305213ab77507ae8db076220de4b78432707eb0404885ab539962a70"
+    },
+    "tools/header_generation_proof.py": {
+      "base_sha256": "36ae5b25347a91a6207c69539a30b8f36d9fbb137a76304b13ab842486777b79",
+      "base_size": 30533,
+      "candidate_sha256": "3644b2327bf3fbf72facf6e1bcd34219c71160fba86766b92a08743cab44d16d",
+      "candidate_size": 66451,
+      "v4_candidate_sha256": "2bb07cbcdde0eaeda5d062e03079168843598631957d43d280b85328780e63be"
+    },
+    "tools/tests/test_header_adopt_lane.py": {
+      "base_sha256": "a3c9ba6b41ebf157b8d31908e94b8e84f3d0df043ffb0ce8434cf116ce879acc",
+      "base_size": 208086,
+      "candidate_sha256": "11e25b63d432f65e54e84b4d4188f113404586e0c3e07e2ea765b46c2b52e109",
+      "candidate_size": 208742,
+      "v4_candidate_sha256": "11e25b63d432f65e54e84b4d4188f113404586e0c3e07e2ea765b46c2b52e109"
+    },
+    "tools/tests/test_header_generation_proof.py": {
+      "base_sha256": "7398be708a640ca1975cb8ad8aa4c01e09295a7d28d67a0c87d112411742b4d1",
+      "base_size": 35565,
+      "candidate_sha256": "6b8f56ba5b026b05dcaceaa15df98846ae85da7238795587a3d1308aea8e017e",
+      "candidate_size": 72715,
+      "v4_candidate_sha256": "62606ed2d436b283736b052529ce2eb12b3ba83a123f64eb60d457383846e008"
+    },
+    "tools/tests/test_tu_views.py": {
+      "base_sha256": "7726b8ed2685405e67701d9fdc61273f93d7579b6fa976415010af3c3ee8208f",
+      "base_size": 56691,
+      "candidate_sha256": "95efac68c464f739e62591e5038f3c49c41d4d9a0d7feba70bb3481afd53d3a5",
+      "candidate_size": 57568,
+      "v4_candidate_sha256": "95efac68c464f739e62591e5038f3c49c41d4d9a0d7feba70bb3481afd53d3a5"
+    },
+    "tools/tu_views.py": {
+      "base_sha256": "10120bd3edd8619955d71f898961a63cf028739c6ad440c9e1d2e8c04be787cf",
+      "base_size": 85560,
+      "candidate_sha256": "7b87aee5ec822e48437f97665a6737508d371d4068a14e226bf4da08d3802d07",
+      "candidate_size": 85966,
+      "v4_candidate_sha256": "7b87aee5ec822e48437f97665a6737508d371d4068a14e226bf4da08d3802d07"
+    }
+  },
+  "independent_review": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\b2-raw-owner-witness-v5-final-review-20261121\\HANDOFF.md",
+  "independent_review_sha": "f1df4e930b58c02666c71d98217cdc3b91d0407f84beb239a5db18b36f16b2ed",
+  "source_header_ledger_queue_unchanged": true,
+  "actual_native_owner_capture": false,
+  "native_tracker_acceptance": false,
+  "body_credit": 0,
+  "task_credit": 0,
+  "published": false
+}

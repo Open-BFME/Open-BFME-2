@@ -1,0 +1,3208 @@
+[
+  {
+    "name": "??_7SupplyCenterDockUpdate@@6BObjectModule@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BBehaviorModule@@@",
+        "rva": 8723420,
+        "slots": [
+          {
+            "name": "??_GSupplyCenterDockUpdate@@UAEPAXI@Z",
+            "rva": 4853393,
+            "source": "Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj"
+          },
+          {
+            "name": "?loadPostProcess@MonsterDockUpdate@@MAEXXZ",
+            "rva": 4853319,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update.obj"
+          },
+          {
+            "name": "?Rva004A0E06Get@@YAHXZ",
+            "rva": 4853254,
+            "source": "Code/GameEngine/Source/Common/ConstIntGetters4.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^const^int^getters4.obj"
+          },
+          {
+            "name": "?xfer@SupplyCenterDockUpdate@@MAEXPAVXfer@@@Z",
+            "rva": 4853292,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ",
+            "rva": 4853324,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "?Add_Dependencies_To_List@ParticleEmitterClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+            "rva": 5288504,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_emt.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+            "rva": 2278603,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^dumb^projectile^behavior.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 0,
+            "name": "?behaviorModuleAnchor@BehaviorModule@@UAEXXZ",
+            "ledger_rvas": [],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4853393
+          },
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4853319,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4853254,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4853292,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4853324,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 9,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5288504,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 10,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 11,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 12,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 2278603,
+            "reason": "missing-source-slot"
+          }
+        ],
+        "reason": null
+      },
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BObjectModule@@@",
+        "rva": 8723420,
+        "slots": [
+          {
+            "name": "??_GSupplyCenterDockUpdate@@UAEPAXI@Z",
+            "rva": 4853393,
+            "source": "Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj"
+          },
+          {
+            "name": "?loadPostProcess@MonsterDockUpdate@@MAEXXZ",
+            "rva": 4853319,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update.obj"
+          },
+          {
+            "name": "?Rva004A0E06Get@@YAHXZ",
+            "rva": 4853254,
+            "source": "Code/GameEngine/Source/Common/ConstIntGetters4.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^const^int^getters4.obj"
+          },
+          {
+            "name": "?xfer@SupplyCenterDockUpdate@@MAEXPAVXfer@@@Z",
+            "rva": 4853292,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?getModuleNameKey@SupplyCenterDockUpdate@@UBE?AW4NameKeyType@@XZ",
+            "rva": 4853324,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "?Add_Dependencies_To_List@ParticleEmitterClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+            "rva": 5288504,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_emt.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+            "rva": 2278603,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^dumb^projectile^behavior.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 1,
+            "name": "?loadPostProcess@DockUpdate@@MAEXXZ",
+            "ledger_rvas": [
+              5806345
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4853319
+          },
+          {
+            "slot": 2,
+            "name": "?GetSnapshotName@UpdateModule@@MBEPBDXZ",
+            "ledger_rvas": [
+              2438093
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4853254
+          },
+          {
+            "slot": 3,
+            "name": "?xfer@DockUpdate@@MAEXPAVXfer@@@Z",
+            "ledger_rvas": [
+              5809168
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4853292
+          },
+          {
+            "slot": 4,
+            "name": "__purecall",
+            "ledger_rvas": [
+              243728
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4853324
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7SupplyCenterDockUpdate@@6BBehaviorModuleInterface@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "correct",
+        "name": "??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7Rva004A11D4@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyCenterDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyWarehouseDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BSupplyCenterDockUpdateIface1@@@",
+        "rva": 8723232,
+        "slots": [
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?getBody@BodyModule@@UAEPAVBodyModuleInterface@@XZ",
+            "rva": 2438099,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^body_^body^module^ctor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?get@Rva004543A9LeaNegSbbField@@UBEHXZ",
+            "rva": 4539305,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^getting^built^behavior.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 0,
+            "name": "?supplyCenterDockUpdateIface1Anchor@SupplyCenterDockUpdateIface1@@UAEXXZ",
+            "ledger_rvas": [],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 869328
+          },
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 9,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 2438099,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 10,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 11,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 12,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 13,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 14,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 15,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 16,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 17,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 18,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 19,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 20,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 21,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 22,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4539305,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 23,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 24,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 25,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 26,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 27,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 28,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 29,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 30,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 31,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 32,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 33,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 34,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 35,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 36,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 37,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 38,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 39,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 40,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 41,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 42,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 43,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 44,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 45,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 46,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7SupplyCenterDockUpdate@@6BUpdateModule@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BSupplyCenterDockUpdateIface2@@@",
+        "rva": 8723216,
+        "slots": [
+          {
+            "name": "?update@SupplyCenterDockUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+            "rva": 4854041,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ",
+            "rva": 2438006,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^update^module^set^wake^frame.obj"
+          },
+          {
+            "name": "?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z",
+            "rva": 4513677,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^update^module^set^wake^frame.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 2438006,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4513677,
+            "reason": "missing-source-slot"
+          }
+        ],
+        "reason": null
+      },
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BUpdateModule@@@",
+        "rva": 8723216,
+        "slots": [
+          {
+            "name": "?update@SupplyCenterDockUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+            "rva": 4854041,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?getDisabledTypesToProcess@UpdateModule@@UBE?AV?$BitFlags@$0L@@@XZ",
+            "rva": 2438006,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^update^module^set^wake^frame.obj"
+          },
+          {
+            "name": "?rva0044DF8D@UpdateModule@@UAEXW4UpdateSleepTime@@@Z",
+            "rva": 4513677,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^update^module^set^wake^frame.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 0,
+            "name": "?update@DockUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+            "ledger_rvas": [
+              5807881
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4854041
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7SupplyCenterDockUpdate@@6BDockUpdateInterface@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BDockUpdateInterface@@@",
+        "rva": 8723136,
+        "slots": [
+          {
+            "name": "?isClearToApproach@DockUpdate@@UBE_NPBVObject@@@Z",
+            "rva": 5805785,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?reserveApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoord3D@@PAH@Z",
+            "rva": 5808545,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?advanceApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoord3D@@PAH@Z",
+            "rva": 5807422,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?isClearToEnter@DockUpdate@@UBE_NPBVObject@@@Z",
+            "rva": 5805647,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?isClearToAdvance@DockUpdate@@UBE_NPBVObject@@H@Z",
+            "rva": 5806367,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getEnterPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806450,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getDockPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806571,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getExitPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806670,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onApproachReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5806769,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onEnterReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5807581,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onDockReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5805858,
+            "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^f.obj"
+          },
+          {
+            "name": "?onExitReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5805951,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?action@SupplyCenterDockUpdate@@UAE_NPAVObject@@0@Z",
+            "rva": 4853421,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?cancelDock@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5807735,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?get@Rva004A0DF8ByteField@@QBEEXZ",
+            "rva": 4853240,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?setDockOpen@DockUpdate@@UAEX_N@Z",
+            "rva": 4853244,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^railed^transport^dock^update.obj"
+          },
+          {
+            "name": "?Cast_Ray@RenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
+            "rva": 6076927,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^status^circle^constructor.obj"
+          },
+          {
+            "name": "?setDockCrippled@DockUpdate@@UAEX_N@Z",
+            "rva": 5805665,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?get@Rva005896D2ByteChaseField@@QBEEXZ",
+            "rva": 5805778,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?IsCRC@Xfer@@UBE_NXZ",
+            "rva": 4695705,
+            "source": "Code/GameEngine/Source/Common/System/Xfer.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^system_^xfer.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 12,
+            "name": "__purecall",
+            "ledger_rvas": [
+              243728
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4853421
+          }
+        ],
+        "reason": null
+      },
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BSupplyCenterDockUpdateIface3@@@",
+        "rva": 8723136,
+        "slots": [
+          {
+            "name": "?isClearToApproach@DockUpdate@@UBE_NPBVObject@@@Z",
+            "rva": 5805785,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?reserveApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoord3D@@PAH@Z",
+            "rva": 5808545,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?advanceApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoord3D@@PAH@Z",
+            "rva": 5807422,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?isClearToEnter@DockUpdate@@UBE_NPBVObject@@@Z",
+            "rva": 5805647,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?isClearToAdvance@DockUpdate@@UBE_NPBVObject@@H@Z",
+            "rva": 5806367,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getEnterPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806450,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getDockPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806571,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getExitPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806670,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onApproachReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5806769,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onEnterReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5807581,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onDockReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5805858,
+            "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^f.obj"
+          },
+          {
+            "name": "?onExitReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5805951,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?action@SupplyCenterDockUpdate@@UAE_NPAVObject@@0@Z",
+            "rva": 4853421,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?cancelDock@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5807735,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?get@Rva004A0DF8ByteField@@QBEEXZ",
+            "rva": 4853240,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?setDockOpen@DockUpdate@@UAEX_N@Z",
+            "rva": 4853244,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^railed^transport^dock^update.obj"
+          },
+          {
+            "name": "?Cast_Ray@RenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
+            "rva": 6076927,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^status^circle^constructor.obj"
+          },
+          {
+            "name": "?setDockCrippled@DockUpdate@@UAEX_N@Z",
+            "rva": 5805665,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?get@Rva005896D2ByteChaseField@@QBEEXZ",
+            "rva": 5805778,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?IsCRC@Xfer@@UBE_NXZ",
+            "rva": 4695705,
+            "source": "Code/GameEngine/Source/Common/System/Xfer.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^system_^xfer.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 0,
+            "name": "?supplyCenterDockUpdateIface3Anchor@SupplyCenterDockUpdateIface3@@UAEXXZ",
+            "ledger_rvas": [],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 5805785
+          },
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5808545,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5807422,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5805647,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5806367,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5806450,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5806571,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5806670,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5806769,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 9,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5807581,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 10,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5805858,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 11,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5805951,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 12,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4853421,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 13,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5807735,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 14,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4853240,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 15,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4853244,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 16,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 6076927,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 17,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5805665,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 18,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 5805778,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 19,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695705,
+            "reason": "missing-source-slot"
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7Rva004A11D4@@6BObjectModule@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "entries",
+        "name": "??_7Rva004A11D4@@6BObjectModule@@@",
+        "rva": 8723584,
+        "slots": [
+          {
+            "name": "??_GRva004A11D4@@UAEPAXI@Z",
+            "rva": 4854329,
+            "source": "Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj"
+          },
+          {
+            "name": "?loadPostProcess@MonsterDockUpdate@@MAEXXZ",
+            "rva": 4853319,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^monster^dock^update.obj"
+          },
+          {
+            "name": "?Rva004A11CEGet@@YAHXZ",
+            "rva": 4854222,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RepairDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^repair^dock^update.obj"
+          },
+          {
+            "name": "?xfer@RepairDockUpdate@@MAEXPAVXfer@@@Z",
+            "rva": 4854357,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RepairDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^repair^dock^update.obj"
+          },
+          {
+            "name": "?getModuleNameKey@RepairDockUpdate@@UBE?AW4NameKeyType@@XZ",
+            "rva": 4854260,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RepairDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^repair^dock^update.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "?Add_Dependencies_To_List@ParticleEmitterClass@@MAEXAAV?$DynamicVectorClass@VStringClass@@@@_N@Z",
+            "rva": 5288504,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_part_emt.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+            "rva": 2278603,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^dumb^projectile^behavior.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 1,
+            "name": "?loadPostProcess@DockUpdate@@MAEXXZ",
+            "ledger_rvas": [
+              5806345
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4853319
+          },
+          {
+            "slot": 2,
+            "name": "?GetSnapshotName@UpdateModule@@MBEPBDXZ",
+            "ledger_rvas": [
+              2438093
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4854222
+          },
+          {
+            "slot": 3,
+            "name": "?xfer@DockUpdate@@MAEXPAVXfer@@@Z",
+            "ledger_rvas": [
+              5809168
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4854357
+          },
+          {
+            "slot": 4,
+            "name": "__purecall",
+            "ledger_rvas": [
+              243728
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4854260
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7Rva004A11D4@@6BBehaviorModuleInterface@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "correct",
+        "name": "??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7Rva004A11D4@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyCenterDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyWarehouseDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BSupplyCenterDockUpdateIface1@@@",
+        "rva": 8723232,
+        "slots": [
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?getBody@BodyModule@@UAEPAVBodyModuleInterface@@XZ",
+            "rva": 2438099,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^body_^body^module^ctor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?get@Rva004543A9LeaNegSbbField@@UBEHXZ",
+            "rva": 4539305,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^getting^built^behavior.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 0,
+            "name": "?supplyCenterDockUpdateIface1Anchor@SupplyCenterDockUpdateIface1@@UAEXXZ",
+            "ledger_rvas": [],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 869328
+          },
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 9,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 2438099,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 10,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 11,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 12,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 13,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 14,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 15,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 16,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 17,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 18,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 19,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 20,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 21,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 22,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4539305,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 23,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 24,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 25,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 26,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 27,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 28,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 29,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 30,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 31,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 32,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 33,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 34,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 35,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 36,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 37,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 38,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 39,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 40,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 41,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 42,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 43,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 44,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 45,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 46,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7Rva004A11D4@@6BUpdateModule@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "correct",
+        "name": "??_7DockUpdate@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7MonsterDockUpdate@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7Rva004A11D4@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyWarehouseDockUpdate@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7Rva004A11D4@@6BDockUpdateInterface@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "entries",
+        "name": "??_7Rva004A11D4@@6BDockUpdateInterface@@@",
+        "rva": 8723504,
+        "slots": [
+          {
+            "name": "?isClearToApproach@DockUpdate@@UBE_NPBVObject@@@Z",
+            "rva": 5805785,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?reserveApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoord3D@@PAH@Z",
+            "rva": 5808545,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?advanceApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoord3D@@PAH@Z",
+            "rva": 5807422,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?isClearToEnter@DockUpdate@@UBE_NPBVObject@@@Z",
+            "rva": 5805647,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?isClearToAdvance@DockUpdate@@UBE_NPBVObject@@H@Z",
+            "rva": 5806367,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getEnterPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806450,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getDockPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806571,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?getExitPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z",
+            "rva": 5806670,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onApproachReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5806769,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onEnterReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5807581,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?onDockReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5805858,
+            "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^f.obj"
+          },
+          {
+            "name": "?onExitReached@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5805951,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?action@RepairDockUpdate@@UAE_NPAVObject@@0@Z",
+            "rva": 4854454,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RepairDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^repair^dock^update.obj"
+          },
+          {
+            "name": "?cancelDock@DockUpdate@@UAEXPAVObject@@@Z",
+            "rva": 5807735,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?get@Rva004A0DF8ByteField@@QBEEXZ",
+            "rva": 4853240,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^supply^center^dock^update.obj"
+          },
+          {
+            "name": "?setDockOpen@DockUpdate@@UAEX_N@Z",
+            "rva": 4853244,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva0058^a0^f4^derived.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^railed^transport^dock^update.obj"
+          },
+          {
+            "name": "?Cast_Ray@RenderObjClass@@UAE_NAAVRayCollisionTestClass@@@Z",
+            "rva": 6076927,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^status^circle^constructor.obj"
+          },
+          {
+            "name": "?setDockCrippled@DockUpdate@@UAEX_N@Z",
+            "rva": 5805665,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?get@Rva005896D2ByteChaseField@@QBEEXZ",
+            "rva": 5805778,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^dock^update_^dock^update.obj"
+          },
+          {
+            "name": "?Is_Vertex_Processor@LightClass@@UAE_NXZ",
+            "rva": 5289414,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/LightClassCopyCtor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^light^class^copy^ctor.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 12,
+            "name": "__purecall",
+            "ledger_rvas": [
+              243728
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 4854454
+          },
+          {
+            "slot": 19,
+            "name": "?isRallyPointAfterDockType@DockUpdate@@UAE_NXZ",
+            "ledger_rvas": [
+              4695705
+            ],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 5289414
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7SupplyWarehouseDockUpdate@@6BObjectModule@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "correct",
+        "name": "??_7SupplyWarehouseDockUpdate@@6BObjectModule@@@",
+        "rva": 8730512,
+        "slots": 13,
+        "source_slot_mismatches": [],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7SupplyWarehouseDockUpdate@@6BBehaviorModuleInterface@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "correct",
+        "name": "??_7MonsterDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7Rva004A11D4@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyCenterDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyWarehouseDockUpdate@@6BBehaviorModuleInterface@@@",
+        "rva": 8723232,
+        "slots": 47,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "entries",
+        "name": "??_7SupplyCenterDockUpdate@@6BSupplyCenterDockUpdateIface1@@@",
+        "rva": 8723232,
+        "slots": [
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?getBody@BodyModule@@UAEPAVBodyModuleInterface@@XZ",
+            "rva": 2438099,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleCtor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^body_^body^module^ctor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?get@Rva004543A9LeaNegSbbField@@UBEHXZ",
+            "rva": 4539305,
+            "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^getting^built^behavior.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Clone@BaseHeightMapRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+            "rva": 869328,
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          },
+          {
+            "name": "??1?$_STLP_alloc_proxy@PAPAVObject@@PAV1@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+            "rva": 737232,
+            "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^game^engine^init.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^waypoint^pick.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          },
+          {
+            "name": "?Capture_Bone@RenderObjClass@@UAEXH@Z",
+            "rva": 4695708,
+            "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+            "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^base^height^map^constructor.obj",
+            "twin_of": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^class^lifetime.obj"
+          }
+        ],
+        "source_slot_mismatches": [
+          {
+            "slot": 0,
+            "name": "?supplyCenterDockUpdateIface1Anchor@SupplyCenterDockUpdateIface1@@UAEXXZ",
+            "ledger_rvas": [],
+            "relocation_kind": 6,
+            "addend": 0,
+            "retail_target_rva": 869328
+          },
+          {
+            "slot": 1,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 2,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 3,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 4,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 5,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 6,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 7,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 8,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 9,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 2438099,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 10,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 11,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 12,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 13,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 14,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 15,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 16,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 17,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 18,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 19,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 20,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 21,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 22,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4539305,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 23,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 24,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 25,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 26,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 27,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 28,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 29,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 30,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 31,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 32,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 33,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 34,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 35,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 36,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 37,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 38,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 39,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 40,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 41,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 42,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 869328,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 43,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 44,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 737232,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 45,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          },
+          {
+            "slot": 46,
+            "name": "",
+            "ledger_rvas": [],
+            "retail_target_rva": 4695708,
+            "reason": "missing-source-slot"
+          }
+        ],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7SupplyWarehouseDockUpdate@@6BUpdateModule@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "correct",
+        "name": "??_7DockUpdate@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7MonsterDockUpdate@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7Rva004A11D4@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      },
+      {
+        "status": "correct",
+        "name": "??_7SupplyWarehouseDockUpdate@@6BUpdateModule@@@",
+        "rva": 8723816,
+        "slots": 3,
+        "source_slot_mismatches": [],
+        "reason": null
+      }
+    ]
+  },
+  {
+    "name": "??_7SupplyWarehouseDockUpdate@@6BDockUpdateInterface@@@",
+    "actual_current_plan_entries": [
+      {
+        "status": "correct",
+        "name": "??_7SupplyWarehouseDockUpdate@@6BDockUpdateInterface@@@",
+        "rva": 8730432,
+        "slots": 20,
+        "source_slot_mismatches": [],
+        "reason": null
+      }
+    ]
+  }
+]

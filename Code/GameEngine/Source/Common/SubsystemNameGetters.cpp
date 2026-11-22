@@ -103,7 +103,12 @@ const char *GeometryInfo::GetSnapshotName()
 {
 	return "GeometryInfo";
 }
-BFME_LITERAL_NAME_GETTER(MilesAudioManager, "MilesAudioManager")
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
+
+const char *MilesAudioManager::GetSnapshotName() const
+{
+	return "MilesAudioManager";
+}
 BFME_LITERAL_NAME_GETTER(Rva0008BC8BNamed, "View")
 BFME_LITERAL_NAME_GETTER(Rva00226309Named, "SaveMapPreview")
 BFME_LITERAL_NAME_GETTER(Rva002296E6Named, "GameSlot")

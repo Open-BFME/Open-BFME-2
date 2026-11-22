@@ -1,0 +1,13 @@
+# Private raw-owner witness V5 — ready for final independent review
+
+V5 addresses only V4's indexed control-domain case-spelling omission. The implementation adds an explicit refusal for noncanonical spellings of the five existing authoritative domain prefixes in the Git index. Case folding detects an unsupported spelling and REFUSES; it is never used to merge, alias or resolve two files. Thus a tracked Reverse/... cannot escape the missing-file lower bound on Windows, and distinct POSIX paths are not silently equated. Canonical prefixes and unrelated adjacent directory names retain their prior behavior. Untracked controls remain fully observed according to actual filesystem behavior.
+
+All V4 enumeration/lstat/known-index/population/metadata/HEAD/output/generation and Current→Pair→gate→apply barriers remain unchanged, as do all underlying normal layout/type/field/scoped-token/CPP/byte/EH/data/provider/link gates. No source-name exception, permission adjustment, ignore list, source/header/contract/registry writer or generator/registration right was added. V4 and all final independent reviews are intact, with every frozen V4 manifest file and every review SHA checked again after testing.
+
+Results:1037 passed,2 native opt-in skips,113 subtests,exit0 across the same three full suites plus SIX UNCHANGED independent review files/22 cases, including the real Windows case-equivalence repro and all prior21 controls/refusals. The focused run passed13 case-related tests. Every non-Git subprocess was audit-denied;0CPP/PP/link and0forbidden attempts. Tests ran on the actual Windows host. The conditional case-sensitive-host control is present but its POSIX branch was not executed here; no POSIX runtime proof is claimed.
+
+No live source/tools/header/metadata/Git/claims/shared objects were written. Task/body/coverage/runtime credit:0. This is only the prerequisite for Root's single remaining Tracker header task; no other task starts. PC stays on.
+
+Review SIX-FILE-MANIFEST.json and SIX-FILE.patch; V4-TO-V5.patch isolates the tiny implementation change and its tests. The6live base hashes still match. Root most recently reported Main2a37; no global current/clean snapshot or actual Tracker owner pass is asserted here. The broad control-hash cost and generation-preserving-rename constraint remain documented conservative limits from V3/V4. Historical5789/157-token diagnostics are never a new-head witness.
+
+After an independent review of these exact bytes, Root alone may integrate a normal tooling commit with Verifier-Change and then separately perform authorized final-head Current/Pair captures, layout/byte/whole-source/header acceptance/provider/link/publication checks. This package executes none of those native actions and applies nothing.

@@ -1,0 +1,3698 @@
+{
+  "created_utc": "2026-11-21T08:03:08.412579+00:00",
+  "scope": "Read-only original/current full raw COFF comparison. No masking; same-index and exact section/value/type/storage graph; explicit local-name changes only.",
+  "original": {
+    "path": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\bfme2\\aptspell015-original.obj",
+    "sha256": "1ce98e2af3e7eec7db3d74bc63fc2549e388b92e824b42a694faa9b105b3711b",
+    "size": 20211
+  },
+  "new": {
+    "path": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+    "sha256": "ca22c4eb4528efaa7df97a2e9e71a5328d0facd2c7b4140f32a24ee072ce530b",
+    "size": 20211
+  },
+  "raw_objects_equal": false,
+  "header_timestamp_original": 1795229771,
+  "header_timestamp_new": 1795247897,
+  "raw_byte_difference_offsets": [
+    4,
+    5,
+    13738,
+    13756,
+    13771,
+    13772,
+    13773,
+    13774,
+    13792,
+    13810,
+    13828,
+    13846,
+    13863,
+    13864,
+    13881,
+    13882,
+    13900,
+    13936,
+    14817,
+    14818,
+    14836
+  ],
+  "complete_raw_reconstruction_using_only_timestamp_and_proved_local_name_fields": true,
+  "section_count": 98,
+  "symbol_count_without_aux": 218,
+  "symbol_count_including_aux": 321,
+  "all_section_structures_raw_and_relocation_records_identical": true,
+  "all_symbol_address_type_storage_records_identical": true,
+  "all_aux_records_identical": true,
+  "all_COMDAT_selection_association_records_identical": true,
+  "weak_defaults_before": [
+    {
+      "name": "??_EAptSpellStore@@UAEPAXI@Z",
+      "tag": 241,
+      "default": {
+        "index": 241,
+        "name": "??_GAptSpellStore@@UAEPAXI@Z",
+        "value": 0,
+        "section": 0,
+        "type": 32,
+        "storage": 2
+      },
+      "search": 2
+    }
+  ],
+  "weak_defaults_after": [
+    {
+      "name": "??_EAptSpellStore@@UAEPAXI@Z",
+      "tag": 241,
+      "default": {
+        "index": 241,
+        "name": "??_GAptSpellStore@@UAEPAXI@Z",
+        "value": 0,
+        "section": 0,
+        "type": 32,
+        "storage": 2
+      },
+      "search": 2
+    }
+  ],
+  "all_weak_defaults_identical": true,
+  "external_symbols_identical": true,
+  "code_functions_before_after": [
+    56,
+    56
+  ],
+  "explicit_local_label_mapping": [
+    {
+      "symbol_index": 246,
+      "old_name": "$L13005",
+      "new_name": "$L13002",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 92,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 84,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 247,
+      "old_name": "$L13003",
+      "new_name": "$L13000",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 84,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 76,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 248,
+      "old_name": "$L13001",
+      "new_name": "$L12998",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 76,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 68,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 249,
+      "old_name": "$L12999",
+      "new_name": "$L12996",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 68,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 60,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 250,
+      "old_name": "$L12997",
+      "new_name": "$L12994",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 60,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 52,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 251,
+      "old_name": "$L12995",
+      "new_name": "$L12992",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 52,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 44,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 252,
+      "old_name": "$L12993",
+      "new_name": "$L12990",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 44,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 36,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 253,
+      "old_name": "$L12991",
+      "new_name": "$L12988",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 36,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 28,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 254,
+      "old_name": "$L12990",
+      "new_name": "$L12987",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 22,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 20,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 255,
+      "old_name": "$L12989",
+      "new_name": "$L12986",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 8,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 12,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 257,
+      "old_name": "$L12988",
+      "new_name": "$L12985",
+      "section": 83,
+      "section_name": ".text$x",
+      "offset": 0,
+      "storage": 3,
+      "type": 32,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 4,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 306,
+      "old_name": "$T13172",
+      "new_name": "$T13169",
+      "section": 94,
+      "section_name": ".xdata$x",
+      "offset": 88,
+      "storage": 3,
+      "type": 0,
+      "incoming": [
+        {
+          "source_section": 83,
+          "section_name": ".text$x",
+          "offset": 101,
+          "reloc_type": 6
+        }
+      ]
+    },
+    {
+      "symbol_index": 307,
+      "old_name": "$T13176",
+      "new_name": "$T13173",
+      "section": 94,
+      "section_name": ".xdata$x",
+      "offset": 0,
+      "storage": 3,
+      "type": 0,
+      "incoming": [
+        {
+          "source_section": 94,
+          "section_name": ".xdata$x",
+          "offset": 96,
+          "reloc_type": 6
+        }
+      ]
+    }
+  ],
+  "constructor_EH": {
+    "parent": {
+      "index": 230,
+      "name": "??0AptSpellStore@@QAE@PAX@Z",
+      "value": 0,
+      "section": 82,
+      "type": 32,
+      "storage": 2
+    },
+    "handler": {
+      "index": 302,
+      "name": "__ehhandler$??0AptSpellStore@@QAE@PAX@Z",
+      "value": 100,
+      "section": 83,
+      "type": 32,
+      "storage": 3
+    },
+    "FuncInfo": {
+      "index": 306,
+      "name": "$T13172",
+      "value": 88,
+      "section": 94,
+      "type": 0,
+      "storage": 3
+    },
+    "unwind_map": {
+      "index": 307,
+      "name": "$T13176",
+      "value": 0,
+      "section": 94,
+      "type": 0,
+      "storage": 3
+    },
+    "magic": "0x19930520",
+    "count": 11,
+    "associative_parent": 82,
+    "states": [
+      {
+        "state": 0,
+        "previous": -1,
+        "map_section": 94,
+        "map_entry_offset": 0,
+        "action_index": 257,
+        "old_action": "$L12988",
+        "new_action": "$L12985",
+        "action_section": 83,
+        "action_offset": 0,
+        "full_action_size": 8,
+        "full_action_raw": "8b4df0e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 256,
+            "old_target": "??1_bfme_AptGameWindow@@UAE@XZ",
+            "new_target": "??1_bfme_AptGameWindow@@UAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 1,
+        "previous": 0,
+        "map_section": 94,
+        "map_entry_offset": 8,
+        "action_index": 255,
+        "old_action": "$L12989",
+        "new_action": "$L12986",
+        "action_section": 83,
+        "action_offset": 8,
+        "full_action_size": 14,
+        "full_action_raw": "8b4df081c17c020000e900000000",
+        "outgoing": [
+          {
+            "offset": 10,
+            "kind": 20,
+            "target_index": 196,
+            "old_target": "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+            "new_target": "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 2,
+        "previous": 1,
+        "map_section": 94,
+        "map_entry_offset": 16,
+        "action_index": 254,
+        "old_action": "$L12990",
+        "new_action": "$L12987",
+        "action_section": 83,
+        "action_offset": 22,
+        "full_action_size": 14,
+        "full_action_raw": "8b4df081c188020000e900000000",
+        "outgoing": [
+          {
+            "offset": 10,
+            "kind": 20,
+            "target_index": 143,
+            "old_target": "??1Rva0043D16F@@QAE@XZ",
+            "new_target": "??1Rva0043D16F@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 3,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 24,
+        "action_index": 253,
+        "old_action": "$L12991",
+        "new_action": "$L12988",
+        "action_section": 83,
+        "action_offset": 36,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 4,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 32,
+        "action_index": 252,
+        "old_action": "$L12993",
+        "new_action": "$L12990",
+        "action_section": 83,
+        "action_offset": 44,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 5,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 40,
+        "action_index": 251,
+        "old_action": "$L12995",
+        "new_action": "$L12992",
+        "action_section": 83,
+        "action_offset": 52,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 6,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 48,
+        "action_index": 250,
+        "old_action": "$L12997",
+        "new_action": "$L12994",
+        "action_section": 83,
+        "action_offset": 60,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 7,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 56,
+        "action_index": 249,
+        "old_action": "$L12999",
+        "new_action": "$L12996",
+        "action_section": 83,
+        "action_offset": 68,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 8,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 64,
+        "action_index": 248,
+        "old_action": "$L13001",
+        "new_action": "$L12998",
+        "action_section": 83,
+        "action_offset": 76,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 9,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 72,
+        "action_index": 247,
+        "old_action": "$L13003",
+        "new_action": "$L13000",
+        "action_section": 83,
+        "action_offset": 84,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      },
+      {
+        "state": 10,
+        "previous": 2,
+        "map_section": 94,
+        "map_entry_offset": 80,
+        "action_index": 246,
+        "old_action": "$L13005",
+        "new_action": "$L13002",
+        "action_section": 83,
+        "action_offset": 92,
+        "full_action_size": 8,
+        "full_action_raw": "8d4d08e900000000",
+        "outgoing": [
+          {
+            "offset": 4,
+            "kind": 20,
+            "target_index": 19,
+            "old_target": "??1AsciiString@@QAE@XZ",
+            "new_target": "??1AsciiString@@QAE@XZ"
+          }
+        ]
+      }
+    ]
+  },
+  "complete_sections": [
+    {
+      "section": 1,
+      "name": ".drectve",
+      "size": 659,
+      "flags": "0x100a00",
+      "alignment": 1,
+      "raw_sha256": "f1d5729c5fee0996e2c5b64e301527386ff4300c602e796fd9dbfd26214d76b9",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 0,
+        "association": 0
+      }
+    },
+    {
+      "section": 2,
+      "name": ".debug$S",
+      "size": 174,
+      "flags": "0x42100040",
+      "alignment": 1,
+      "raw_sha256": "b5f128d6b3cb4bbee2c42392b583f173fbbcbb9a86db65eab52ebe0742136f19",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 0,
+        "association": 0
+      }
+    },
+    {
+      "section": 3,
+      "name": ".text",
+      "size": 18,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "1cfc432c9161c8ac51e5671c0f85cb4d061592e34b7e2367129a2cf1e96b9824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 8,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 4,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ea1d9144e1cebdf1f820eed823b7bbcc05e39be721ebb7c639e38b7830010824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 13,
+          "type": 7,
+          "old_name": "??0AsciiString@@QAE@PBD@Z",
+          "new_name": "??0AsciiString@@QAE@PBD@Z",
+          "target_section": 3,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 3
+      }
+    },
+    {
+      "section": 5,
+      "name": ".text",
+      "size": 5,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 6,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "2031367a1357af6f1d85fbb9652128dd3ba2ebaf241173e032694f2e913e2811",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 19,
+          "type": 7,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 5
+      }
+    },
+    {
+      "section": 7,
+      "name": ".text",
+      "size": 28,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "b1f2dfffceac86ab8070b4d17a9fcf4af9f50f15a3b19837426400bbb57a3a22",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "symbol_index": 27,
+          "type": 20,
+          "old_name": "??1Rva0043D193@@QAE@XZ",
+          "new_name": "??1Rva0043D193@@QAE@XZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 17,
+          "symbol_index": 26,
+          "type": 20,
+          "old_name": "??3@YAXPAX@Z",
+          "new_name": "??3@YAXPAX@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 8,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "e5810b2d29eb5fff424a12dc9a307fe3ab14b70cb00df4aedbdd0cbdba53c542",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 25,
+          "type": 7,
+          "old_name": "??_GRva0043D193@@QAEPAXI@Z",
+          "new_name": "??_GRva0043D193@@QAEPAXI@Z",
+          "target_section": 7,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 7
+      }
+    },
+    {
+      "section": 9,
+      "name": ".text",
+      "size": 25,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "f003bdf7fb2d06734c702c8148a786c116772e66fb7cc322fd4224f2eae2b840",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 10,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "a6aa2536f77bc632507b85a7e1e98ed68482c438b0d14761a3700f18a114edcf",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 32,
+          "type": 7,
+          "old_name": "??0FunctorBinding@@QAE@P8FunctorTarget@@AEXXZPAV1@@Z",
+          "new_name": "??0FunctorBinding@@QAE@P8FunctorTarget@@AEXXZPAV1@@Z",
+          "target_section": 9,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 9
+      }
+    },
+    {
+      "section": 11,
+      "name": ".text",
+      "size": 42,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "babdd9ab8dd161b96d1a31865a9daf85c5f8d614a0f69983b61c6ec57723d7a6",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 12,
+      "name": ".text",
+      "size": 105,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "420e9fea6f9bec0632e37f42637d15fc975641a3c0ed9b857b90c03cbd2dcf15",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol_index": 49,
+          "type": 6,
+          "old_name": "?TheGameLogic@@3PAVGameLogic@@A",
+          "new_name": "?TheGameLogic@@3PAVGameLogic@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 21,
+          "symbol_index": 48,
+          "type": 6,
+          "old_name": "?TheInGameUI@@3PAVInGameUI@@A",
+          "new_name": "?TheInGameUI@@3PAVInGameUI@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 45,
+          "symbol_index": 47,
+          "type": 6,
+          "old_name": "??_C@_05LGELBCGM@Close?$AA@",
+          "new_name": "??_C@_05LGELBCGM@Close?$AA@",
+          "target_section": 13,
+          "target_offset": 0
+        },
+        {
+          "offset": 51,
+          "symbol_index": 44,
+          "type": 20,
+          "old_name": "?GetLevelIndex@AptPlayer@@SAHPAVGameWindow@@@Z",
+          "new_name": "?GetLevelIndex@AptPlayer@@SAHPAVGameWindow@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 58,
+          "symbol_index": 43,
+          "type": 6,
+          "old_name": "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A",
+          "new_name": "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 64,
+          "symbol_index": 42,
+          "type": 20,
+          "old_name": "?invoke@Rva00222A8BTarget@@QAEHPAXPBDH10000@Z",
+          "new_name": "?invoke@Rva00222A8BTarget@@QAEHPAXPBDH10000@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 87,
+          "symbol_index": 43,
+          "type": 6,
+          "old_name": "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A",
+          "new_name": "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 93,
+          "symbol_index": 41,
+          "type": 20,
+          "old_name": "?rva00222F55@Rva00222A8BTarget@@QAEX_N@Z",
+          "new_name": "?rva00222F55@Rva00222A8BTarget@@QAEX_N@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 1,
+        "association": 0
+      }
+    },
+    {
+      "section": 13,
+      "name": ".rdata",
+      "size": 6,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "99e01fb5fac51c255e570467284642d3ea1fdff8548d8441dc242fb8be166b7c",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 14,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "91973464ebe621e2df8538d973279857a625734f3648b31c59a7b9b18610b065",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 40,
+          "type": 7,
+          "old_name": "?rva0043C7C9@Rva0043D3DA@@QAEXH@Z",
+          "new_name": "?rva0043C7C9@Rva0043D3DA@@QAEXH@Z",
+          "target_section": 12,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 12
+      }
+    },
+    {
+      "section": 15,
+      "name": ".text",
+      "size": 42,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "0328a350e5427da27e1a09e35a9312049c22f15b0486baf42f3838ded71128f2",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 10,
+          "symbol_index": 57,
+          "type": 6,
+          "old_name": "?TheScienceStore@@3PAVScienceStore@@A",
+          "new_name": "?TheScienceStore@@3PAVScienceStore@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 15,
+          "symbol_index": 56,
+          "type": 20,
+          "old_name": "?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z",
+          "new_name": "?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 30,
+          "symbol_index": 55,
+          "type": 20,
+          "old_name": "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z",
+          "new_name": "?push_back@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXABW4ScienceType@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 1,
+        "association": 0
+      }
+    },
+    {
+      "section": 16,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "87d313a2f149b3d6961296b6c56c5e62255c3c456abab6d23d0b487f8e28272d",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 54,
+          "type": 7,
+          "old_name": "?rva0043D5CB@Rva0043D3A8@@QAEXW4ScienceType@@@Z",
+          "new_name": "?rva0043D5CB@Rva0043D3A8@@QAEXW4ScienceType@@@Z",
+          "target_section": 15,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 15
+      }
+    },
+    {
+      "section": 17,
+      "name": ".text",
+      "size": 34,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 18,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "014394662ff9289532a3681de3ab765de0452b386a573cde8256f2d1b57eb8ae",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 62,
+          "type": 7,
+          "old_name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+          "new_name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+          "target_section": 17,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 17
+      }
+    },
+    {
+      "section": 19,
+      "name": ".text",
+      "size": 3,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "58367ffa2a0179375018fa0f5c26da24391e42ebe0ed8fdda35a21fc7bdc396f",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 20,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "4d54cb4fd26419c02dc666840a7381d3d555ac3d223d77bf1a6060183af2865e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 67,
+          "type": 7,
+          "old_name": "??0?$allocator@PBVModuleData@@@_STL@@QAE@XZ",
+          "new_name": "??0?$allocator@PBVModuleData@@@_STL@@QAE@XZ",
+          "target_section": 19,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 19
+      }
+    },
+    {
+      "section": 21,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 22,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "c363a7bc246a6180ed9330821f26c31b9a43d94a8462e5d95d8d6face2253822",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 72,
+          "type": 7,
+          "old_name": "??1?$allocator@PBVModuleData@@@_STL@@QAE@XZ",
+          "new_name": "??1?$allocator@PBVModuleData@@@_STL@@QAE@XZ",
+          "target_section": 21,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 21
+      }
+    },
+    {
+      "section": 23,
+      "name": ".text",
+      "size": 18,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "1cfc432c9161c8ac51e5671c0f85cb4d061592e34b7e2367129a2cf1e96b9824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 8,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 24,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ea1d9144e1cebdf1f820eed823b7bbcc05e39be721ebb7c639e38b7830010824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 77,
+          "type": 7,
+          "old_name": "??0?$AptRef@VAptCommandMap@@@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0?$AptRef@VAptCommandMap@@@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 23,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 23
+      }
+    },
+    {
+      "section": 25,
+      "name": ".text",
+      "size": 12,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "cc2b9e15b34473193e17dbbcc5ffd546fcafbdbcf8749198cf70faeb349b09cc",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 7,
+          "symbol_index": 84,
+          "type": 20,
+          "old_name": "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+          "new_name": "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 26,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "02e678aec3c85a09905dacf00f30750045a9d40e26f69d8c36f6e9ca95b7bf10",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 83,
+          "type": 7,
+          "old_name": "??1?$AptRef@VAptCommandMap@@@@QAE@XZ",
+          "new_name": "??1?$AptRef@VAptCommandMap@@@@QAE@XZ",
+          "target_section": 25,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 25
+      }
+    },
+    {
+      "section": 27,
+      "name": ".text",
+      "size": 18,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "1cfc432c9161c8ac51e5671c0f85cb4d061592e34b7e2367129a2cf1e96b9824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 8,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 28,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ea1d9144e1cebdf1f820eed823b7bbcc05e39be721ebb7c639e38b7830010824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 89,
+          "type": 7,
+          "old_name": "??0?$AptRef@VAptExternHandler@@@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0?$AptRef@VAptExternHandler@@@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 27,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 27
+      }
+    },
+    {
+      "section": 29,
+      "name": ".text",
+      "size": 12,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "cc2b9e15b34473193e17dbbcc5ffd546fcafbdbcf8749198cf70faeb349b09cc",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 7,
+          "symbol_index": 84,
+          "type": 20,
+          "old_name": "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+          "new_name": "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 30,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "02e678aec3c85a09905dacf00f30750045a9d40e26f69d8c36f6e9ca95b7bf10",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 94,
+          "type": 7,
+          "old_name": "??1?$AptRef@VAptExternHandler@@@@QAE@XZ",
+          "new_name": "??1?$AptRef@VAptExternHandler@@@@QAE@XZ",
+          "target_section": 29,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 29
+      }
+    },
+    {
+      "section": 31,
+      "name": ".text",
+      "size": 3,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "19d200194d49b34530548575f37a1bb4203ee60f18d42f0084e86b7a8c899faa",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 32,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "5405ffa3a17ecbc674c5476dfaa0042a9a1435c9c008d5c4d6088aac50d757e8",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 99,
+          "type": 7,
+          "old_name": "?begin@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ",
+          "new_name": "?begin@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ",
+          "target_section": 31,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 31
+      }
+    },
+    {
+      "section": 33,
+      "name": ".text",
+      "size": 4,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "f7e0208f5e988ae39c7a45dfddbd12921d02f9c3deb5695d4c534c8ab0ccdb0f",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 34,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "6cf1da47c99da9dde2d4d5ae5ab2cce927bfaa86ebe5d00cb72cd06cb2142ae8",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 104,
+          "type": 7,
+          "old_name": "?end@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ",
+          "new_name": "?end@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ",
+          "target_section": 33,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 33
+      }
+    },
+    {
+      "section": 35,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 36,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "c363a7bc246a6180ed9330821f26c31b9a43d94a8462e5d95d8d6face2253822",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 109,
+          "type": 7,
+          "old_name": "??1?$_STLP_alloc_proxy@PAPBVModuleData@@PBV1@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "new_name": "??1?$_STLP_alloc_proxy@PAPBVModuleData@@PBV1@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "target_section": 35,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 35
+      }
+    },
+    {
+      "section": 37,
+      "name": ".text",
+      "size": 5,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "e58773679e693e79ccf3a079b2d7c66b6103cf65bb691bf2e5991ab2eaa2769d",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 38,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "688ab2dc32811e89be285db2c5c0794690145890a7f400131908fde49e03b080",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 114,
+          "type": 7,
+          "old_name": "??0?$allocator@PBVModuleData@@@_STL@@QAE@ABV01@@Z",
+          "new_name": "??0?$allocator@PBVModuleData@@@_STL@@QAE@ABV01@@Z",
+          "target_section": 37,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 37
+      }
+    },
+    {
+      "section": 39,
+      "name": ".text",
+      "size": 21,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "8ce4d9bf309fdf6943518e286b0db5fd2934edd2ddda983f29e9815d9970913e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 13,
+          "symbol_index": 120,
+          "type": 20,
+          "old_name": "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z",
+          "new_name": "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 40,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "a88ee12f1ab272d22396750e8ce3324fe4aa2a3353ef6273947b5d05092eddb1",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 119,
+          "type": 7,
+          "old_name": "??$__copy_ptrs@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00U__true_type@0@@Z",
+          "new_name": "??$__copy_ptrs@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00U__true_type@0@@Z",
+          "target_section": 39,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 39
+      }
+    },
+    {
+      "section": 41,
+      "name": ".text",
+      "size": 42,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "7e8a22199910f9b9430f438e02f69bf11dedcb686e08c384925d0c9a7b5d4495",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 42,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 43,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ec4324bd763580dbd85e940749a3dad101ec339be3efe7dcec433288be77ebf4",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 128,
+          "type": 7,
+          "old_name": "??$__destroy_aux@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0ABU__true_type@0@@Z",
+          "new_name": "??$__destroy_aux@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0ABU__true_type@0@@Z",
+          "target_section": 42,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 42
+      }
+    },
+    {
+      "section": 44,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 45,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ec4324bd763580dbd85e940749a3dad101ec339be3efe7dcec433288be77ebf4",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 133,
+          "type": 7,
+          "old_name": "??$__destroy_aux@PAPAX@_STL@@YAXPAPAX0ABU__true_type@0@@Z",
+          "new_name": "??$__destroy_aux@PAPAX@_STL@@YAXPAPAX0ABU__true_type@0@@Z",
+          "target_section": 44,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 44
+      }
+    },
+    {
+      "section": 46,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 47,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "7605713c8dae56537c6f3beb182bfc4efa2ae399d80004a20a45425fd1b25762",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 138,
+          "type": 7,
+          "old_name": "??$_Destroy@W4ScienceType@@@_STL@@YAXPAW4ScienceType@@@Z",
+          "new_name": "??$_Destroy@W4ScienceType@@@_STL@@YAXPAW4ScienceType@@@Z",
+          "target_section": 46,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 46
+      }
+    },
+    {
+      "section": 48,
+      "name": ".text",
+      "size": 5,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol_index": 27,
+          "type": 20,
+          "old_name": "??1Rva0043D193@@QAE@XZ",
+          "new_name": "??1Rva0043D193@@QAE@XZ",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 49,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "2031367a1357af6f1d85fbb9652128dd3ba2ebaf241173e032694f2e913e2811",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 143,
+          "type": 7,
+          "old_name": "??1Rva0043D16F@@QAE@XZ",
+          "new_name": "??1Rva0043D16F@@QAE@XZ",
+          "target_section": 48,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 48
+      }
+    },
+    {
+      "section": 50,
+      "name": ".text",
+      "size": 11,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "3fa318550366b41a29ef33e6da57566a7a0c4da3c67bbdc6af35b122a798fca6",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 51,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "6a4cb3ec63482c5d0cf5674b76e5579217f1ed02db6bc97629835ba0878f9ca7",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 148,
+          "type": 7,
+          "old_name": "??0?$_STLP_alloc_proxy@PAPBVModuleData@@PBV1@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@PAPBVModuleData@@@Z",
+          "new_name": "??0?$_STLP_alloc_proxy@PAPBVModuleData@@PBV1@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@PAPBVModuleData@@@Z",
+          "target_section": 50,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 50
+      }
+    },
+    {
+      "section": 52,
+      "name": ".text",
+      "size": 29,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "dfbf82d17be0b63eb9dae996b6d3a5bb785a2769de48511b343911d677190857",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 20,
+          "symbol_index": 125,
+          "type": 20,
+          "old_name": "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "new_name": "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "target_section": 41,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 53,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 54,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ec4324bd763580dbd85e940749a3dad101ec339be3efe7dcec433288be77ebf4",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 156,
+          "type": 7,
+          "old_name": "??$__destroy@PAPBVModuleData@@PBV1@@_STL@@YAXPAPBVModuleData@@00@Z",
+          "new_name": "??$__destroy@PAPBVModuleData@@PBV1@@_STL@@YAXPAPBVModuleData@@00@Z",
+          "target_section": 53,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 53
+      }
+    },
+    {
+      "section": 55,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 56,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ec4324bd763580dbd85e940749a3dad101ec339be3efe7dcec433288be77ebf4",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 161,
+          "type": 7,
+          "old_name": "??$__destroy@PAPAXPAX@_STL@@YAXPAPAX00@Z",
+          "new_name": "??$__destroy@PAPAXPAX@_STL@@YAXPAPAX00@Z",
+          "target_section": 55,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 55
+      }
+    },
+    {
+      "section": 57,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 58,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ec4324bd763580dbd85e940749a3dad101ec339be3efe7dcec433288be77ebf4",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 166,
+          "type": 7,
+          "old_name": "??$__destroy_aux@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0ABU__false_type@0@@Z",
+          "new_name": "??$__destroy_aux@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0ABU__false_type@0@@Z",
+          "target_section": 57,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 57
+      }
+    },
+    {
+      "section": 59,
+      "name": ".text",
+      "size": 29,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "8753d03787cb01b594ad83729060817e2fada75916d482866139d32dae143ab2",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 19,
+          "symbol_index": 148,
+          "type": 20,
+          "old_name": "??0?$_STLP_alloc_proxy@PAPBVModuleData@@PBV1@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@PAPBVModuleData@@@Z",
+          "new_name": "??0?$_STLP_alloc_proxy@PAPBVModuleData@@PBV1@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@PAPBVModuleData@@@Z",
+          "target_section": 50,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 60,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "c6ebbe656cab94c027a26a3d407329079ed8dbe9b3c1dfe2851f6443a82112cc",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 171,
+          "type": 7,
+          "old_name": "??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "new_name": "??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "target_section": 59,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 59
+      }
+    },
+    {
+      "section": 61,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 62,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "efe2c042c81255fbec73d9d083d93e017d6b2bc31d556cc7905aa9091158d96d",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 176,
+          "type": 7,
+          "old_name": "??$_Destroy@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0@Z",
+          "new_name": "??$_Destroy@PAPBVModuleData@@@_STL@@YAXPAPBVModuleData@@0@Z",
+          "target_section": 61,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 61
+      }
+    },
+    {
+      "section": 63,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 64,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "efe2c042c81255fbec73d9d083d93e017d6b2bc31d556cc7905aa9091158d96d",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 181,
+          "type": 7,
+          "old_name": "??$_Destroy@PAPAX@_STL@@YAXPAPAX0@Z",
+          "new_name": "??$_Destroy@PAPAX@_STL@@YAXPAPAX0@Z",
+          "target_section": 63,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 63
+      }
+    },
+    {
+      "section": 65,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 66,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ec4324bd763580dbd85e940749a3dad101ec339be3efe7dcec433288be77ebf4",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 186,
+          "type": 7,
+          "old_name": "??$__destroy@PAW4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@00@Z",
+          "new_name": "??$__destroy@PAW4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@00@Z",
+          "target_section": 65,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 65
+      }
+    },
+    {
+      "section": 67,
+      "name": ".text",
+      "size": 18,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "1cfc432c9161c8ac51e5671c0f85cb4d061592e34b7e2367129a2cf1e96b9824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 8,
+          "symbol_index": 171,
+          "type": 20,
+          "old_name": "??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "new_name": "??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "target_section": 59,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 68,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "ea1d9144e1cebdf1f820eed823b7bbcc05e39be721ebb7c639e38b7830010824",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 191,
+          "type": 7,
+          "old_name": "??0?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "new_name": "??0?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "target_section": 67,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 67
+      }
+    },
+    {
+      "section": 69,
+      "name": ".text",
+      "size": 5,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol_index": 197,
+          "type": 20,
+          "old_name": "??1?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "new_name": "??1?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 70,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "2031367a1357af6f1d85fbb9652128dd3ba2ebaf241173e032694f2e913e2811",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 196,
+          "type": 7,
+          "old_name": "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "new_name": "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "target_section": 69,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 69
+      }
+    },
+    {
+      "section": 71,
+      "name": ".text",
+      "size": 34,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae8d80ca6416ab75e7d63557eab2331a46ebbbf837b20b5365d5b7c5ea0c3112",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 16,
+          "symbol_index": 120,
+          "type": 20,
+          "old_name": "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z",
+          "new_name": "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 72,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "bc849d86c11454b7abf129633dfb856c581cec4d7f3f61d49488d88edff08c45",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 202,
+          "type": 7,
+          "old_name": "?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z",
+          "new_name": "?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z",
+          "target_section": 71,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 71
+      }
+    },
+    {
+      "section": 73,
+      "name": ".text",
+      "size": 1,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 74,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "efe2c042c81255fbec73d9d083d93e017d6b2bc31d556cc7905aa9091158d96d",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 207,
+          "type": 7,
+          "old_name": "??$_Destroy@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0@Z",
+          "new_name": "??$_Destroy@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0@Z",
+          "target_section": 73,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 73
+      }
+    },
+    {
+      "section": 75,
+      "name": ".text",
+      "size": 41,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "21eeb35418d06b80b765367d5126d2b4a80b8da97550759eedd4efdd7e42c2d2",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 23,
+          "symbol_index": 125,
+          "type": 20,
+          "old_name": "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "new_name": "??$__copy@PAW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z",
+          "target_section": 41,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 76,
+      "name": ".text",
+      "size": 11,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "eb2c9939bed1385a417bddfc941bb608a9d925968f96223408de64609ad120e0",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 6,
+          "symbol_index": 212,
+          "type": 20,
+          "old_name": "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z",
+          "new_name": "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z",
+          "target_section": 75,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 77,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "99dbd07a7e49211a654cf51f69fcdba65e158329743fa645278ef9d5cfff0e38",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 215,
+          "type": 7,
+          "old_name": "?clear@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXXZ",
+          "new_name": "?clear@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXXZ",
+          "target_section": 76,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 76
+      }
+    },
+    {
+      "section": 78,
+      "name": ".text",
+      "size": 22,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "9fc9891a598b435f3b87f5ebc96beb6bae5fb41098482c6e5e453df4a01856ad",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 12,
+          "symbol_index": 212,
+          "type": 20,
+          "old_name": "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z",
+          "new_name": "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z",
+          "target_section": 75,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 1,
+        "association": 0
+      }
+    },
+    {
+      "section": 79,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "579f53763a7f51cee4d99ddaa18ded8fc004916c6e9610b9b4b5280408af1828",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 220,
+          "type": 7,
+          "old_name": "?rva0043D3A8@Rva0043D3A8@@QAEXXZ",
+          "new_name": "?rva0043D3A8@Rva0043D3A8@@QAEXXZ",
+          "target_section": 78,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 78
+      }
+    },
+    {
+      "section": 80,
+      "name": ".text",
+      "size": 68,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "83f1cee3792f61357788f7edb550bf9400208ce7541f13ee268003e9abb545ad",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol_index": 49,
+          "type": 6,
+          "old_name": "?TheGameLogic@@3PAVGameLogic@@A",
+          "new_name": "?TheGameLogic@@3PAVGameLogic@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 18,
+          "symbol_index": 48,
+          "type": 6,
+          "old_name": "?TheInGameUI@@3PAVInGameUI@@A",
+          "new_name": "?TheInGameUI@@3PAVInGameUI@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 44,
+          "symbol_index": 220,
+          "type": 20,
+          "old_name": "?rva0043D3A8@Rva0043D3A8@@QAEXXZ",
+          "new_name": "?rva0043D3A8@Rva0043D3A8@@QAEXXZ",
+          "target_section": 78,
+          "target_offset": 0
+        },
+        {
+          "offset": 60,
+          "symbol_index": 202,
+          "type": 20,
+          "old_name": "?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z",
+          "new_name": "?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z",
+          "target_section": 71,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 1,
+        "association": 0
+      }
+    },
+    {
+      "section": 81,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "138d87f6d157e43ecf3a88674d77cecc37572b6352354fca69541e24d78ecb56",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 225,
+          "type": 7,
+          "old_name": "?rva0043D3DA@Rva0043D3DA@@QAEXH@Z",
+          "new_name": "?rva0043D3DA@Rva0043D3DA@@QAEXH@Z",
+          "target_section": 80,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 80
+      }
+    },
+    {
+      "section": 82,
+      "name": ".text",
+      "size": 917,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "7fce47d4bc3f6f6e19838c96b43ba7bbef614e545ef8a29ef713e177b20bb440",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 1,
+          "symbol_index": 302,
+          "type": 6,
+          "old_name": "__ehhandler$??0AptSpellStore@@QAE@PAX@Z",
+          "new_name": "__ehhandler$??0AptSpellStore@@QAE@PAX@Z",
+          "target_section": 83,
+          "target_offset": 100
+        },
+        {
+          "offset": 6,
+          "symbol_index": 309,
+          "type": 20,
+          "old_name": "__EH_prolog",
+          "new_name": "__EH_prolog",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 25,
+          "symbol_index": 301,
+          "type": 20,
+          "old_name": "??0_bfme_AptGameWindow@@QAE@PAX@Z",
+          "new_name": "??0_bfme_AptGameWindow@@QAE@PAX@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 46,
+          "symbol_index": 300,
+          "type": 6,
+          "old_name": "??_7AptSpellStore@@6BGameWindow@@@",
+          "new_name": "??_7AptSpellStore@@6BGameWindow@@@",
+          "target_section": 93,
+          "target_offset": 0
+        },
+        {
+          "offset": 56,
+          "symbol_index": 297,
+          "type": 6,
+          "old_name": "??_7AptSpellStore@@6BRva005248D0@@@",
+          "new_name": "??_7AptSpellStore@@6BRva005248D0@@@",
+          "target_section": 92,
+          "target_offset": 0
+        },
+        {
+          "offset": 61,
+          "symbol_index": 171,
+          "type": 20,
+          "old_name": "??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "new_name": "??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z",
+          "target_section": 59,
+          "target_offset": 0
+        },
+        {
+          "offset": 72,
+          "symbol_index": 294,
+          "type": 20,
+          "old_name": "??0Rva0043D16F@@QAE@XZ",
+          "new_name": "??0Rva0043D16F@@QAE@XZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 77,
+          "symbol_index": 293,
+          "type": 6,
+          "old_name": "??0PlayingAudioUnknown0C@@QAE@XZ",
+          "new_name": "??0PlayingAudioUnknown0C@@QAE@XZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 131,
+          "symbol_index": 62,
+          "type": 20,
+          "old_name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+          "new_name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+          "target_section": 17,
+          "target_offset": 0
+        },
+        {
+          "offset": 177,
+          "symbol_index": 292,
+          "type": 6,
+          "old_name": "??_C@_0BN@NJKGCFEG@AptSpellStore?3?3OnInitialized?$AA@",
+          "new_name": "??_C@_0BN@NJKGCFEG@AptSpellStore?3?3OnInitialized?$AA@",
+          "target_section": 91,
+          "target_offset": 0
+        },
+        {
+          "offset": 186,
+          "symbol_index": 289,
+          "type": 6,
+          "old_name": "?g_Va00E03314@@3HA",
+          "new_name": "?g_Va00E03314@@3HA",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 191,
+          "symbol_index": 288,
+          "type": 6,
+          "old_name": "?OnInitialized@AptSpellStore@@QAEXPBD@Z",
+          "new_name": "?OnInitialized@AptSpellStore@@QAEXPBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 196,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 234,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 249,
+          "symbol_index": 287,
+          "type": 20,
+          "old_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "new_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 261,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 266,
+          "symbol_index": 286,
+          "type": 6,
+          "old_name": "??_C@_0BI@ICECPDIN@AptSpellStore?3?3OnClosed?$AA@",
+          "new_name": "??_C@_0BI@ICECPDIN@AptSpellStore?3?3OnClosed?$AA@",
+          "target_section": 90,
+          "target_offset": 0
+        },
+        {
+          "offset": 274,
+          "symbol_index": 283,
+          "type": 6,
+          "old_name": "?OnClosed@AptSpellStore@@QAEXPBD@Z",
+          "new_name": "?OnClosed@AptSpellStore@@QAEXPBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 281,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 319,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 334,
+          "symbol_index": 287,
+          "type": 20,
+          "old_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "new_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 346,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 351,
+          "symbol_index": 282,
+          "type": 6,
+          "old_name": "??_C@_0BL@FNFBECOD@AptSpellStore?3?3OnBttnClose?$AA@",
+          "new_name": "??_C@_0BL@FNFBECOD@AptSpellStore?3?3OnBttnClose?$AA@",
+          "target_section": 89,
+          "target_offset": 0
+        },
+        {
+          "offset": 359,
+          "symbol_index": 40,
+          "type": 6,
+          "old_name": "?rva0043C7C9@Rva0043D3DA@@QAEXH@Z",
+          "new_name": "?rva0043C7C9@Rva0043D3DA@@QAEXH@Z",
+          "target_section": 12,
+          "target_offset": 0
+        },
+        {
+          "offset": 366,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 404,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 419,
+          "symbol_index": 287,
+          "type": 20,
+          "old_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "new_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 431,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 436,
+          "symbol_index": 279,
+          "type": 6,
+          "old_name": "??_C@_0BL@MJHGOFFJ@AptSpellStore?3?3OnBttnReset?$AA@",
+          "new_name": "??_C@_0BL@MJHGOFFJ@AptSpellStore?3?3OnBttnReset?$AA@",
+          "target_section": 88,
+          "target_offset": 0
+        },
+        {
+          "offset": 444,
+          "symbol_index": 225,
+          "type": 6,
+          "old_name": "?rva0043D3DA@Rva0043D3DA@@QAEXH@Z",
+          "new_name": "?rva0043D3DA@Rva0043D3DA@@QAEXH@Z",
+          "target_section": 80,
+          "target_offset": 0
+        },
+        {
+          "offset": 451,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 489,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 504,
+          "symbol_index": 287,
+          "type": 20,
+          "old_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "new_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 516,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 521,
+          "symbol_index": 276,
+          "type": 6,
+          "old_name": "??_C@_0BL@FCJCIFJL@AptSpellStore?3?3OnBttnSpell?$AA@",
+          "new_name": "??_C@_0BL@FCJCIFJL@AptSpellStore?3?3OnBttnSpell?$AA@",
+          "target_section": 87,
+          "target_offset": 0
+        },
+        {
+          "offset": 529,
+          "symbol_index": 273,
+          "type": 6,
+          "old_name": "?OnBttnSpell@AptSpellStore@@QAEXPBD@Z",
+          "new_name": "?OnBttnSpell@AptSpellStore@@QAEXPBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 536,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 574,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 589,
+          "symbol_index": 287,
+          "type": 20,
+          "old_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "new_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 601,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 606,
+          "symbol_index": 272,
+          "type": 6,
+          "old_name": "??_C@_0CD@ODKMJIFP@AptSpellStore?3?3OnRollOverBttnSpe@",
+          "new_name": "??_C@_0CD@ODKMJIFP@AptSpellStore?3?3OnRollOverBttnSpe@",
+          "target_section": 86,
+          "target_offset": 0
+        },
+        {
+          "offset": 614,
+          "symbol_index": 269,
+          "type": 6,
+          "old_name": "?OnRollOverBttnSpell@AptSpellStore@@QAEXPBD@Z",
+          "new_name": "?OnRollOverBttnSpell@AptSpellStore@@QAEXPBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 621,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 659,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 674,
+          "symbol_index": 287,
+          "type": 20,
+          "old_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "new_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 686,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 691,
+          "symbol_index": 268,
+          "type": 6,
+          "old_name": "??_C@_0CC@DDJEIMGF@AptSpellStore?3?3OnRollOutBttnSpel@",
+          "new_name": "??_C@_0CC@DDJEIMGF@AptSpellStore?3?3OnRollOutBttnSpel@",
+          "target_section": 85,
+          "target_offset": 0
+        },
+        {
+          "offset": 699,
+          "symbol_index": 265,
+          "type": 6,
+          "old_name": "?OnRollOutBttnSpell@AptSpellStore@@QAEXPBD@Z",
+          "new_name": "?OnRollOutBttnSpell@AptSpellStore@@QAEXPBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 706,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 744,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 759,
+          "symbol_index": 287,
+          "type": 20,
+          "old_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "new_name": "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 771,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 776,
+          "symbol_index": 264,
+          "type": 6,
+          "old_name": "?InputEnabled@AptSpellStore@@QAEXHPAD_N@Z",
+          "new_name": "?InputEnabled@AptSpellStore@@QAEXHPAD_N@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 781,
+          "symbol_index": 263,
+          "type": 6,
+          "old_name": "??_C@_0BM@EBOMLMOH@AptSpellStore?3?3InputEnabled?$AA@",
+          "new_name": "??_C@_0BM@EBOMLMOH@AptSpellStore?3?3InputEnabled?$AA@",
+          "target_section": 84,
+          "target_offset": 0
+        },
+        {
+          "offset": 791,
+          "symbol_index": 14,
+          "type": 20,
+          "old_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "new_name": "??0?$StringBase@D@@AAE@PBD@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 829,
+          "symbol_index": 78,
+          "type": 20,
+          "old_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "new_name": "??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 846,
+          "symbol_index": 260,
+          "type": 20,
+          "old_name": "?AddExternHandler@AptExternHandlerAdder@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z",
+          "new_name": "?AddExternHandler@AptExternHandlerAdder@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 858,
+          "symbol_index": 20,
+          "type": 20,
+          "old_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "new_name": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 873,
+          "symbol_index": 43,
+          "type": 6,
+          "old_name": "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A",
+          "new_name": "?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 880,
+          "symbol_index": 259,
+          "type": 20,
+          "old_name": "?rva002233A6@Rva00222A8BTarget@@QAEXH@Z",
+          "new_name": "?rva002233A6@Rva00222A8BTarget@@QAEXH@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 894,
+          "symbol_index": 258,
+          "type": 20,
+          "old_name": "?rva0043C9FD@AptSpellStore@@QAEXXZ",
+          "new_name": "?rva0043C9FD@AptSpellStore@@QAEXXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 908,
+          "symbol_index": 308,
+          "type": 6,
+          "old_name": "__except_list",
+          "new_name": "__except_list",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 1,
+        "association": 0
+      }
+    },
+    {
+      "section": 83,
+      "name": ".text$x",
+      "size": 110,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "59b8eab25bce8bfb4197400f0077aff9b5ee75f102926420b4bbcedf9421bf06",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "symbol_index": 256,
+          "type": 20,
+          "old_name": "??1_bfme_AptGameWindow@@UAE@XZ",
+          "new_name": "??1_bfme_AptGameWindow@@UAE@XZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 18,
+          "symbol_index": 196,
+          "type": 20,
+          "old_name": "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "new_name": "??1?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@XZ",
+          "target_section": 69,
+          "target_offset": 0
+        },
+        {
+          "offset": 32,
+          "symbol_index": 143,
+          "type": 20,
+          "old_name": "??1Rva0043D16F@@QAE@XZ",
+          "new_name": "??1Rva0043D16F@@QAE@XZ",
+          "target_section": 48,
+          "target_offset": 0
+        },
+        {
+          "offset": 40,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 48,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 56,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 64,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 72,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 80,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 88,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 96,
+          "symbol_index": 19,
+          "type": 20,
+          "old_name": "??1AsciiString@@QAE@XZ",
+          "new_name": "??1AsciiString@@QAE@XZ",
+          "target_section": 5,
+          "target_offset": 0
+        },
+        {
+          "offset": 101,
+          "symbol_index": 306,
+          "type": 6,
+          "old_name": "$T13172",
+          "new_name": "$T13169",
+          "target_section": 94,
+          "target_offset": 88
+        },
+        {
+          "offset": 106,
+          "symbol_index": 303,
+          "type": 20,
+          "old_name": "___CxxFrameHandler",
+          "new_name": "___CxxFrameHandler",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 82
+      }
+    },
+    {
+      "section": 84,
+      "name": ".rdata",
+      "size": 28,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "e1ae7ede36f85e569bff4f84eaeb6c7a2489fec9ac9fc617315819e58df87f76",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 85,
+      "name": ".rdata",
+      "size": 34,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "0d69f297cb25271f6f39b190ea3a9af9feecf29129d257dce07c68901bcfb489",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 86,
+      "name": ".rdata",
+      "size": 35,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "07ab624edf826a8e8a557c7d15c3d0bb37d6ee8997cfb318cf3945f96a8a9350",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 87,
+      "name": ".rdata",
+      "size": 27,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "6dec0efb111cd4ab0cee7d1c8140df2eb115c1ac843df9f382f91845537e1301",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 88,
+      "name": ".rdata",
+      "size": 27,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "4e843657b9c26347f965cedf92babbe0337e7671ec46572a649106dd732732a2",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 89,
+      "name": ".rdata",
+      "size": 27,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "4892048f43424f387d476c6f7c14d8ee3a565b3f610cf4470c919f1821a77068",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 90,
+      "name": ".rdata",
+      "size": 24,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "da6615e1a506d80eb2ea37f472675cdc50d781af5867fc4a45cc7925bf292ac2",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 91,
+      "name": ".rdata",
+      "size": 29,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "522f17afb225f95ba6343a030c5ff1548c4d8806abba24619e53d105d0baf53b",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 92,
+      "name": ".rdata",
+      "size": 4,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 320,
+          "type": 6,
+          "old_name": "??_EAptSpellStore@@WCBI@AEPAXI@Z",
+          "new_name": "??_EAptSpellStore@@WCBI@AEPAXI@Z",
+          "target_section": 98,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 93,
+      "name": ".rdata",
+      "size": 44,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "85759b3811ff7dc47b03792ac85317be51431a3f9e01dcafce317ed736a391b0",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 242,
+          "type": 6,
+          "old_name": "??_EAptSpellStore@@UAEPAXI@Z",
+          "new_name": "??_EAptSpellStore@@UAEPAXI@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 4,
+          "symbol_index": 240,
+          "type": 6,
+          "old_name": "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+          "new_name": "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 8,
+          "symbol_index": 239,
+          "type": 6,
+          "old_name": "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+          "new_name": "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 12,
+          "symbol_index": 238,
+          "type": 6,
+          "old_name": "?draw@GameWindow@@UAEHPAX@Z",
+          "new_name": "?draw@GameWindow@@UAEHPAX@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 16,
+          "symbol_index": 237,
+          "type": 6,
+          "old_name": "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z",
+          "new_name": "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 20,
+          "symbol_index": 236,
+          "type": 6,
+          "old_name": "?rva0009FD78@GameWindow@@UAEHXZ",
+          "new_name": "?rva0009FD78@GameWindow@@UAEHXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 24,
+          "symbol_index": 235,
+          "type": 6,
+          "old_name": "?vslot6@GameWindow@@UBE_NXZ",
+          "new_name": "?vslot6@GameWindow@@UBE_NXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 28,
+          "symbol_index": 234,
+          "type": 6,
+          "old_name": "__purecall",
+          "new_name": "__purecall",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 32,
+          "symbol_index": 233,
+          "type": 6,
+          "old_name": "?vslot8@GameWindow@@UBE_NXZ",
+          "new_name": "?vslot8@GameWindow@@UBE_NXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 36,
+          "symbol_index": 232,
+          "type": 6,
+          "old_name": "?vslot9@GameWindow@@UBE_NXZ",
+          "new_name": "?vslot9@GameWindow@@UBE_NXZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 40,
+          "symbol_index": 231,
+          "type": 6,
+          "old_name": "?vslot10@GameWindow@@UAE_NXZ",
+          "new_name": "?vslot10@GameWindow@@UAE_NXZ",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 94,
+      "name": ".xdata$x",
+      "size": 116,
+      "flags": "0x40301040",
+      "alignment": 3,
+      "raw_sha256": "e352b4e9d99729824308d5c5164f5529a1a51047a889b222abd3a0d3cbc3b650",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "symbol_index": 257,
+          "type": 6,
+          "old_name": "$L12988",
+          "new_name": "$L12985",
+          "target_section": 83,
+          "target_offset": 0
+        },
+        {
+          "offset": 12,
+          "symbol_index": 255,
+          "type": 6,
+          "old_name": "$L12989",
+          "new_name": "$L12986",
+          "target_section": 83,
+          "target_offset": 8
+        },
+        {
+          "offset": 20,
+          "symbol_index": 254,
+          "type": 6,
+          "old_name": "$L12990",
+          "new_name": "$L12987",
+          "target_section": 83,
+          "target_offset": 22
+        },
+        {
+          "offset": 28,
+          "symbol_index": 253,
+          "type": 6,
+          "old_name": "$L12991",
+          "new_name": "$L12988",
+          "target_section": 83,
+          "target_offset": 36
+        },
+        {
+          "offset": 36,
+          "symbol_index": 252,
+          "type": 6,
+          "old_name": "$L12993",
+          "new_name": "$L12990",
+          "target_section": 83,
+          "target_offset": 44
+        },
+        {
+          "offset": 44,
+          "symbol_index": 251,
+          "type": 6,
+          "old_name": "$L12995",
+          "new_name": "$L12992",
+          "target_section": 83,
+          "target_offset": 52
+        },
+        {
+          "offset": 52,
+          "symbol_index": 250,
+          "type": 6,
+          "old_name": "$L12997",
+          "new_name": "$L12994",
+          "target_section": 83,
+          "target_offset": 60
+        },
+        {
+          "offset": 60,
+          "symbol_index": 249,
+          "type": 6,
+          "old_name": "$L12999",
+          "new_name": "$L12996",
+          "target_section": 83,
+          "target_offset": 68
+        },
+        {
+          "offset": 68,
+          "symbol_index": 248,
+          "type": 6,
+          "old_name": "$L13001",
+          "new_name": "$L12998",
+          "target_section": 83,
+          "target_offset": 76
+        },
+        {
+          "offset": 76,
+          "symbol_index": 247,
+          "type": 6,
+          "old_name": "$L13003",
+          "new_name": "$L13000",
+          "target_section": 83,
+          "target_offset": 84
+        },
+        {
+          "offset": 84,
+          "symbol_index": 246,
+          "type": 6,
+          "old_name": "$L13005",
+          "new_name": "$L13002",
+          "target_section": 83,
+          "target_offset": 92
+        },
+        {
+          "offset": 96,
+          "symbol_index": 307,
+          "type": 6,
+          "old_name": "$T13176",
+          "new_name": "$T13173",
+          "target_section": 94,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 82
+      }
+    },
+    {
+      "section": 95,
+      "name": ".sxdata",
+      "size": 4,
+      "flags": "0x300200",
+      "alignment": 3,
+      "raw_sha256": "3610f59833246958fff7d5cbc5b23f8c99496c3c8fda3f5606f5b198713cbb95",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [],
+      "comdat": {
+        "selection": 0,
+        "association": 0
+      }
+    },
+    {
+      "section": 96,
+      "name": ".text",
+      "size": 28,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "b1f2dfffceac86ab8070b4d17a9fcf4af9f50f15a3b19837426400bbb57a3a22",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 4,
+          "symbol_index": 315,
+          "type": 20,
+          "old_name": "??1AptSpellStore@@UAE@XZ",
+          "new_name": "??1AptSpellStore@@UAE@XZ",
+          "target_section": 0,
+          "target_offset": 0
+        },
+        {
+          "offset": 17,
+          "symbol_index": 26,
+          "type": 20,
+          "old_name": "??3@YAXPAX@Z",
+          "new_name": "??3@YAXPAX@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    },
+    {
+      "section": 97,
+      "name": ".debug$F",
+      "size": 16,
+      "flags": "0x42101040",
+      "alignment": 1,
+      "raw_sha256": "e5810b2d29eb5fff424a12dc9a307fe3ab14b70cb00df4aedbdd0cbdba53c542",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 0,
+          "symbol_index": 241,
+          "type": 7,
+          "old_name": "??_GAptSpellStore@@UAEPAXI@Z",
+          "new_name": "??_GAptSpellStore@@UAEPAXI@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 5,
+        "association": 96
+      }
+    },
+    {
+      "section": 98,
+      "name": ".text",
+      "size": 11,
+      "flags": "0x60101020",
+      "alignment": 1,
+      "raw_sha256": "c5cb19acc93ba032ef1a810089d033d1b7266f28b95e7e1a1cc6aebc98edee39",
+      "raw_identical": true,
+      "relocations_identical": true,
+      "relocations": [
+        {
+          "offset": 7,
+          "symbol_index": 242,
+          "type": 20,
+          "old_name": "??_EAptSpellStore@@UAEPAXI@Z",
+          "new_name": "??_EAptSpellStore@@UAEPAXI@Z",
+          "target_section": 0,
+          "target_offset": 0
+        }
+      ],
+      "comdat": {
+        "selection": 2,
+        "association": 0
+      }
+    }
+  ],
+  "method_limits": "Normal Root16/16 build is external prior evidence. This comparator proves original/new COFF graph equality and explains raw difference; it is not a new link/runtime/census result. Historical false raw comparator is unchanged.",
+  "current_source_sha256": "0f19945c8ec6296b6276f94cda4770b82ec33579ecd4c0f660395299d8df6e92",
+  "source_matches_prepared_candidate": true
+}

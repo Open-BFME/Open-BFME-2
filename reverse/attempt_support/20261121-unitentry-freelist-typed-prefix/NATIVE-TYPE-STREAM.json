@@ -1,0 +1,15 @@
+{
+  "native_pure_api": "class_layouts.type_stream",
+  "additional_compiler_calls": 0,
+  "facts": [
+    {
+      "phase": "original",
+      "type_stream_length": 0
+    },
+    {
+      "phase": "candidate",
+      "type_stream_length": 0
+    }
+  ],
+  "layout_verdict": "unavailable in these ordinary objects; no extra /Z7 compile performed"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "python3 -B -m pytest -q -rs -p no:cacheprovider tools/tests/test_tu_views.py tools/tests/test_header_adopt_lane.py tools/tests/test_header_field_renames.py tools/tests/test_gate_exploits.py",
+  "cwd": "W:\\OpenBFME\\Open-BFME-2",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "BFME_OBJSTORE": "off",
+    "LINK_CENSUS_MEMO": "off",
+    "BFME_GATE_LOADS": "removed"
+  },
+  "exit": 0,
+  "passed": 1166,
+  "skipped": 6,
+  "subtests": 113,
+  "elapsed_seconds": 54.59,
+  "skips": {
+    "explicit_native_opt_in": 1,
+    "empty_parameter_set": 1,
+    "Windows1314_symlink": 4
+  },
+  "targeted_development": {
+    "passed": 87,
+    "subtests": 62,
+    "exit": 0,
+    "log": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\thing\\ctor-v3-development-final.log"
+  },
+  "historical_broader_stage_a_exit1": "Unchanged Windows1314 failure before symlink guard; never relabeled green or rerun here"
+}

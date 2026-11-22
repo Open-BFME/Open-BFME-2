@@ -1,0 +1,61 @@
+{
+  "required_model": "Root must supply actual BFME_MODEL; no private admissions were run",
+  "order_reason": "callees before callers so ordinary native resolution never needs an invented binding",
+  "entries": [
+    {
+      "name": "?_M_create_node@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBH_N@_STL@@@2@ABU?$pair@$$CBH_N@2@@Z",
+      "target_rva": "0x002D464E",
+      "target_size": 34,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp",
+      "icf_owner": "?_M_create_node@?$_Rb_tree@IU?$pair@$$CBI_N@_STL@@U?$_Select1st@U?$pair@$$CBI_N@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBI_N@_STL@@@2@ABU?$pair@$$CBI_N@2@@Z",
+      "icf_owner_source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_node_uintbool.cpp",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp; target-derived signed-key bool insertion graph; unchanged native ABI and all-owner relocations",
+      "credit": "0 unique retail bytes; existing owner retained"
+    },
+    {
+      "name": "?_M_insert@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBH_N@2@0@Z",
+      "target_rva": "0x0046AC52",
+      "target_size": 136,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp",
+      "icf_owner": "?rva0046AC52@Rva0046AC52@@QAE?AURva0046AC52Iter@@PAURva0046AC52Node@@0ABURva0046AC52Key@@0@Z",
+      "icf_owner_source": "Code/GameEngine/Source/Common/Rva0046AC52.cpp",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp; target-derived signed-key bool insertion graph; unchanged native ABI and all-owner relocations",
+      "credit": "0 unique retail bytes; existing owner retained"
+    },
+    {
+      "name": "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBH_N@2@@Z",
+      "target_rva": "0x002D563D",
+      "target_size": 134,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp",
+      "icf_owner": "?rva002D563D@Rva0046AC52@@QAE?AURva0046AC52Pair@@ABURva0046AC52Key@@@Z",
+      "icf_owner_source": "Code/GameEngine/Source/Common/Rva0046AC52.cpp",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp; target-derived signed-key bool insertion graph; unchanged native ABI and all-owner relocations",
+      "credit": "0 unique retail bytes; existing owner retained"
+    },
+    {
+      "name": "?insert_unique@?$_Rb_tree@HU?$pair@$$CBH_N@_STL@@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z",
+      "target_rva": "0x0046E563",
+      "target_size": 294,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp",
+      "icf_owner": "?rva0046E563@Rva0046AC52@@QAE?AURva0046AC52Iter@@U2@ABURva0046AC52Key@@@Z",
+      "icf_owner_source": "Code/GameEngine/Source/Common/Rva0046AC52.cpp",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp; target-derived signed-key bool insertion graph; unchanged native ABI and all-owner relocations",
+      "credit": "0 unique retail bytes; existing owner retained"
+    },
+    {
+      "name": "?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z",
+      "target_rva": "0x0046F0A5",
+      "target_size": 29,
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp",
+      "icf_owner": "?rva0046F0A5@Rva0046AC52@@QAE?AURva0046AC52Iter@@PAURva0046AC52Node@@ABURva0046AC52Key@@@Z",
+      "icf_owner_source": "Code/GameEngine/Source/Common/Rva0046AC52.cpp",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp; target-derived signed-key bool insertion graph; unchanged native ABI and all-owner relocations",
+      "credit": "0 unique retail bytes; existing owner retained"
+    }
+  ],
+  "final_pass": [
+    "./build.sh Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp",
+    "python3 tools/repair_queue.py retire identity Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp"
+  ],
+  "retain_source": "Code/GameEngine/Source/Common/Rva0046AC52.cpp unchanged; all4 existing rows retained"
+}

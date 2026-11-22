@@ -1,0 +1,2322 @@
+{
+  "scope": "Original copied8B payload/+4 string lifetime; neutral canonical fields; no original application name/typegraph claimed",
+  "inputs": [
+    {
+      "path": "Code\\Libraries\\Source\\WWVegas\\WWLib\\TreeKey00242F5E.h",
+      "sha256": "4f0cedc9ca47203c6cf1a16111f59a8a4f0505a7ae7af22f43e0ab7dd53612b5"
+    },
+    {
+      "path": "reference\\shims\\bfme2_ascii\\ascii_string.h",
+      "sha256": "47d6f3c9a787d89c0b734356c22e365b47575a5766126504c5cc1a90cfbdcd24"
+    }
+  ],
+  "original_functions": [
+    {
+      "row": {
+        "name": "??0TreeKey00242F5E@@QAE@ABU0@@Z",
+        "export_rva": "",
+        "target_rva": "0x000CF475",
+        "target_size": "29",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp",
+        "status": "matched",
+        "notes": "STLport reference; signed-integer and AsciiString key and proven raw mapped dword copy; complete body strict exact; unknown application type remains opaque"
+      },
+      "raw": "8b442404568bf18b0883c004890e508d4e04e86471f6ff8bc65ec20400",
+      "sha256": "7dc362989c9cc7894c31be2440c524ce19853cd27d3fd101fa01fe0340506db9",
+      "instructions": [
+        {
+          "rva": "0x000CF475",
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [esp + 4]"
+        },
+        {
+          "rva": "0x000CF479",
+          "bytes": "56",
+          "mnemonic": "push",
+          "op_str": "esi"
+        },
+        {
+          "rva": "0x000CF47A",
+          "bytes": "8bf1",
+          "mnemonic": "mov",
+          "op_str": "esi, ecx"
+        },
+        {
+          "rva": "0x000CF47C",
+          "bytes": "8b08",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [eax]"
+        },
+        {
+          "rva": "0x000CF47E",
+          "bytes": "83c004",
+          "mnemonic": "add",
+          "op_str": "eax, 4"
+        },
+        {
+          "rva": "0x000CF481",
+          "bytes": "890e",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi], ecx"
+        },
+        {
+          "rva": "0x000CF483",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x000CF484",
+          "bytes": "8d4e04",
+          "mnemonic": "lea",
+          "op_str": "ecx, [esi + 4]"
+        },
+        {
+          "rva": "0x000CF487",
+          "bytes": "e86471f6ff",
+          "mnemonic": "call",
+          "op_str": "0x4365f0"
+        },
+        {
+          "rva": "0x000CF48C",
+          "bytes": "8bc6",
+          "mnemonic": "mov",
+          "op_str": "eax, esi"
+        },
+        {
+          "rva": "0x000CF48E",
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "op_str": "esi"
+        },
+        {
+          "rva": "0x000CF48F",
+          "bytes": "c20400",
+          "mnemonic": "ret",
+          "op_str": "4"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1CameraMarker@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/CameraMarkerListFind.cpp",
+        "status": "matched",
+        "notes": "unclaimed_scan exact modulo relocations at its pinned call-site address;abuts claimed neighbours"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??0TreeKey00242F5E@@QAE@IVAsciiString@@@Z",
+        "export_rva": "",
+        "target_rva": "0x000A780A",
+        "target_size": "63",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5ECtor.cpp",
+        "status": "matched",
+        "notes": "callers 0xA7E9E 0xA8127 to set insert layout id plus AsciiString"
+      },
+      "raw": "b8a00ab600e874195800568bf18b45088365fc0089068d450c8d4e0450e8c4edf8ff834dfcff8d4d0ce8d8ebf8ff8b4df48bc65e64890d00000000c9c20800",
+      "sha256": "873a3a5fc0ac7820577756d52df3c775185045b8e21be409cf657711d625a7d8",
+      "instructions": [
+        {
+          "rva": "0x000A780A",
+          "bytes": "b8a00ab600",
+          "mnemonic": "mov",
+          "op_str": "eax, 0xb60aa0"
+        },
+        {
+          "rva": "0x000A780F",
+          "bytes": "e874195800",
+          "mnemonic": "call",
+          "op_str": "0xa29188"
+        },
+        {
+          "rva": "0x000A7814",
+          "bytes": "56",
+          "mnemonic": "push",
+          "op_str": "esi"
+        },
+        {
+          "rva": "0x000A7815",
+          "bytes": "8bf1",
+          "mnemonic": "mov",
+          "op_str": "esi, ecx"
+        },
+        {
+          "rva": "0x000A7817",
+          "bytes": "8b4508",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": "0x000A781A",
+          "bytes": "8365fc00",
+          "mnemonic": "and",
+          "op_str": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x000A781E",
+          "bytes": "8906",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi], eax"
+        },
+        {
+          "rva": "0x000A7820",
+          "bytes": "8d450c",
+          "mnemonic": "lea",
+          "op_str": "eax, [ebp + 0xc]"
+        },
+        {
+          "rva": "0x000A7823",
+          "bytes": "8d4e04",
+          "mnemonic": "lea",
+          "op_str": "ecx, [esi + 4]"
+        },
+        {
+          "rva": "0x000A7826",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x000A7827",
+          "bytes": "e8c4edf8ff",
+          "mnemonic": "call",
+          "op_str": "0x4365f0"
+        },
+        {
+          "rva": "0x000A782C",
+          "bytes": "834dfcff",
+          "mnemonic": "or",
+          "op_str": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "rva": "0x000A7830",
+          "bytes": "8d4d0c",
+          "mnemonic": "lea",
+          "op_str": "ecx, [ebp + 0xc]"
+        },
+        {
+          "rva": "0x000A7833",
+          "bytes": "e8d8ebf8ff",
+          "mnemonic": "call",
+          "op_str": "0x436410"
+        },
+        {
+          "rva": "0x000A7838",
+          "bytes": "8b4df4",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x000A783B",
+          "bytes": "8bc6",
+          "mnemonic": "mov",
+          "op_str": "eax, esi"
+        },
+        {
+          "rva": "0x000A783D",
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "op_str": "esi"
+        },
+        {
+          "rva": "0x000A783E",
+          "bytes": "64890d00000000",
+          "mnemonic": "mov",
+          "op_str": "dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x000A7845",
+          "bytes": "c9",
+          "mnemonic": "leave",
+          "op_str": ""
+        },
+        {
+          "rva": "0x000A7846",
+          "bytes": "c20800",
+          "mnemonic": "ret",
+          "op_str": "8"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "?tryToIgnite@FlammableUpdate@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0048CB18",
+        "target_size": "781",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+        "status": "matched",
+        "notes": "ZH tryToIgnite plus BFME2 AFLAME Lua dispatch 0x3360D2 and FireFX list at module data +0x28 via bone transform 0x272835 doFXPos 0x94C29 doFXObj 0xB2235 and special condition 0x28AEB2 with setDisabledUntil 0x290114; FireSpreadUpdate start row 0x48B938"
+      },
+      "raw": "b8c9c6b800e866c6190081ec94000000568bf1837e24000f85e3020000538b5e085733ff47576a0a8bcbe8c70fdbff8b8b540200008b01ff5028b800400000858314010000750d0983140100008bcbe801e3dfff8bcee84cfcfffff6054039e000017523093d4039e0008b0da436df008365fc0068f054bf00e884c2cbff834dfcffa33c39e000ff353c39e0008b4e08e829ebdfff85c074078bc8e880edffff8d8d60ffffff897e24e8c5a1c2ff8b0dbc1de0008d8560ffffff50536a0a897dfce8f494eaffa18ce7df008b7e048b48408b470c85c0760703c1894628eb07c74628ffffff3f8b470885c0740403c1eb0233c089462c8b471085c0740403c1eb0233c08bce894630e8e8f8ffff50ff76088bcee84113fcff807f3500741ab800000040858320010000750d0983200100008bcbe81de2dfff807f3700741ab800000080858320010000750d0983200100008bcbe8fde1dfff807f35007506807f370074106a018bcbe85d3c0c008bc8e8ea74deff8b47283b472c8945f00f840c010000eb038b45f0508d4de8e8cc27c4ff8b45ec85c0c645fc020f84c200000066837804000f84b70000008b4e08e8173c0c0085c00f84a70000000f57c0f30f100dd8b8bb008b45ec85c0f30f114db8f30f1145bcf30f1145c0f30f1145c4f30f1145c8f30f114dccf30f1145d0f30f1145d4f30f1145d8f30f1145dcf30f114de0f30f1145e4740583c008eb05b81cacbb008b4e088d55b85250e8aa3b0c008bc8e8f65adeffd9eef30f1045c46a0051d91c248d45b8508d45acf30f1145acf30f1045d450ff75e8f30f1145b0f30f1045e4f30f1145b4e8b47ec0ff83c414eb118b46086a0050ff75e8e8ad54c2ff83c40c8345f0088d4decc645fc01e87596baff8b45f03b472c0f85f6feffff8b475085c0764150ff774c8bcbe8f9e0dfffa18ce7df008b4f508b40408d4401ff506a048bcbe84233e0ffa18ce7df008b40408b4f5003c86a01894e446a528bcbe8210ddbffeb0ba18ce7df008b40408946448b46086a01508bcee86a11fcff834dfcff8d8d60ffffffe8bc9fc2ff5f5b8b4df45e64890d00000000c9c3",
+      "sha256": "316b8725961d720f969a30d5cc2d85347fa48a5b08c2baaa297b0382d7d696b1",
+      "instructions": [
+        {
+          "rva": "0x0048CB18",
+          "bytes": "b8c9c6b800",
+          "mnemonic": "mov",
+          "op_str": "eax, 0xb8c6c9"
+        },
+        {
+          "rva": "0x0048CB1D",
+          "bytes": "e866c61900",
+          "mnemonic": "call",
+          "op_str": "0xa29188"
+        },
+        {
+          "rva": "0x0048CB22",
+          "bytes": "81ec94000000",
+          "mnemonic": "sub",
+          "op_str": "esp, 0x94"
+        },
+        {
+          "rva": "0x0048CB28",
+          "bytes": "56",
+          "mnemonic": "push",
+          "op_str": "esi"
+        },
+        {
+          "rva": "0x0048CB29",
+          "bytes": "8bf1",
+          "mnemonic": "mov",
+          "op_str": "esi, ecx"
+        },
+        {
+          "rva": "0x0048CB2B",
+          "bytes": "837e2400",
+          "mnemonic": "cmp",
+          "op_str": "dword ptr [esi + 0x24], 0"
+        },
+        {
+          "rva": "0x0048CB2F",
+          "bytes": "0f85e3020000",
+          "mnemonic": "jne",
+          "op_str": "0x88ce18"
+        },
+        {
+          "rva": "0x0048CB35",
+          "bytes": "53",
+          "mnemonic": "push",
+          "op_str": "ebx"
+        },
+        {
+          "rva": "0x0048CB36",
+          "bytes": "8b5e08",
+          "mnemonic": "mov",
+          "op_str": "ebx, dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x0048CB39",
+          "bytes": "57",
+          "mnemonic": "push",
+          "op_str": "edi"
+        },
+        {
+          "rva": "0x0048CB3A",
+          "bytes": "33ff",
+          "mnemonic": "xor",
+          "op_str": "edi, edi"
+        },
+        {
+          "rva": "0x0048CB3C",
+          "bytes": "47",
+          "mnemonic": "inc",
+          "op_str": "edi"
+        },
+        {
+          "rva": "0x0048CB3D",
+          "bytes": "57",
+          "mnemonic": "push",
+          "op_str": "edi"
+        },
+        {
+          "rva": "0x0048CB3E",
+          "bytes": "6a0a",
+          "mnemonic": "push",
+          "op_str": "0xa"
+        },
+        {
+          "rva": "0x0048CB40",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CB42",
+          "bytes": "e8c70fdbff",
+          "mnemonic": "call",
+          "op_str": "0x63db0e"
+        },
+        {
+          "rva": "0x0048CB47",
+          "bytes": "8b8b54020000",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [ebx + 0x254]"
+        },
+        {
+          "rva": "0x0048CB4D",
+          "bytes": "8b01",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x0048CB4F",
+          "bytes": "ff5028",
+          "mnemonic": "call",
+          "op_str": "dword ptr [eax + 0x28]"
+        },
+        {
+          "rva": "0x0048CB52",
+          "bytes": "b800400000",
+          "mnemonic": "mov",
+          "op_str": "eax, 0x4000"
+        },
+        {
+          "rva": "0x0048CB57",
+          "bytes": "858314010000",
+          "mnemonic": "test",
+          "op_str": "dword ptr [ebx + 0x114], eax"
+        },
+        {
+          "rva": "0x0048CB5D",
+          "bytes": "750d",
+          "mnemonic": "jne",
+          "op_str": "0x88cb6c"
+        },
+        {
+          "rva": "0x0048CB5F",
+          "bytes": "098314010000",
+          "mnemonic": "or",
+          "op_str": "dword ptr [ebx + 0x114], eax"
+        },
+        {
+          "rva": "0x0048CB65",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CB67",
+          "bytes": "e801e3dfff",
+          "mnemonic": "call",
+          "op_str": "0x68ae6d"
+        },
+        {
+          "rva": "0x0048CB6C",
+          "bytes": "8bce",
+          "mnemonic": "mov",
+          "op_str": "ecx, esi"
+        },
+        {
+          "rva": "0x0048CB6E",
+          "bytes": "e84cfcffff",
+          "mnemonic": "call",
+          "op_str": "0x88c7bf"
+        },
+        {
+          "rva": "0x0048CB73",
+          "bytes": "f6054039e00001",
+          "mnemonic": "test",
+          "op_str": "byte ptr [0xe03940], 1"
+        },
+        {
+          "rva": "0x0048CB7A",
+          "bytes": "7523",
+          "mnemonic": "jne",
+          "op_str": "0x88cb9f"
+        },
+        {
+          "rva": "0x0048CB7C",
+          "bytes": "093d4039e000",
+          "mnemonic": "or",
+          "op_str": "dword ptr [0xe03940], edi"
+        },
+        {
+          "rva": "0x0048CB82",
+          "bytes": "8b0da436df00",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [0xdf36a4]"
+        },
+        {
+          "rva": "0x0048CB88",
+          "bytes": "8365fc00",
+          "mnemonic": "and",
+          "op_str": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x0048CB8C",
+          "bytes": "68f054bf00",
+          "mnemonic": "push",
+          "op_str": "0xbf54f0"
+        },
+        {
+          "rva": "0x0048CB91",
+          "bytes": "e884c2cbff",
+          "mnemonic": "call",
+          "op_str": "0x548e1a"
+        },
+        {
+          "rva": "0x0048CB96",
+          "bytes": "834dfcff",
+          "mnemonic": "or",
+          "op_str": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "rva": "0x0048CB9A",
+          "bytes": "a33c39e000",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [0xe0393c], eax"
+        },
+        {
+          "rva": "0x0048CB9F",
+          "bytes": "ff353c39e000",
+          "mnemonic": "push",
+          "op_str": "dword ptr [0xe0393c]"
+        },
+        {
+          "rva": "0x0048CBA5",
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x0048CBA8",
+          "bytes": "e829ebdfff",
+          "mnemonic": "call",
+          "op_str": "0x68b6d6"
+        },
+        {
+          "rva": "0x0048CBAD",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CBAF",
+          "bytes": "7407",
+          "mnemonic": "je",
+          "op_str": "0x88cbb8"
+        },
+        {
+          "rva": "0x0048CBB1",
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "op_str": "ecx, eax"
+        },
+        {
+          "rva": "0x0048CBB3",
+          "bytes": "e880edffff",
+          "mnemonic": "call",
+          "op_str": "0x88b938"
+        },
+        {
+          "rva": "0x0048CBB8",
+          "bytes": "8d8d60ffffff",
+          "mnemonic": "lea",
+          "op_str": "ecx, [ebp - 0xa0]"
+        },
+        {
+          "rva": "0x0048CBBE",
+          "bytes": "897e24",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi + 0x24], edi"
+        },
+        {
+          "rva": "0x0048CBC1",
+          "bytes": "e8c5a1c2ff",
+          "mnemonic": "call",
+          "op_str": "0x4b6d8b"
+        },
+        {
+          "rva": "0x0048CBC6",
+          "bytes": "8b0dbc1de000",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [0xe01dbc]"
+        },
+        {
+          "rva": "0x0048CBCC",
+          "bytes": "8d8560ffffff",
+          "mnemonic": "lea",
+          "op_str": "eax, [ebp - 0xa0]"
+        },
+        {
+          "rva": "0x0048CBD2",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CBD3",
+          "bytes": "53",
+          "mnemonic": "push",
+          "op_str": "ebx"
+        },
+        {
+          "rva": "0x0048CBD4",
+          "bytes": "6a0a",
+          "mnemonic": "push",
+          "op_str": "0xa"
+        },
+        {
+          "rva": "0x0048CBD6",
+          "bytes": "897dfc",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [ebp - 4], edi"
+        },
+        {
+          "rva": "0x0048CBD9",
+          "bytes": "e8f494eaff",
+          "mnemonic": "call",
+          "op_str": "0x7360d2"
+        },
+        {
+          "rva": "0x0048CBDE",
+          "bytes": "a18ce7df00",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [0xdfe78c]"
+        },
+        {
+          "rva": "0x0048CBE3",
+          "bytes": "8b7e04",
+          "mnemonic": "mov",
+          "op_str": "edi, dword ptr [esi + 4]"
+        },
+        {
+          "rva": "0x0048CBE6",
+          "bytes": "8b4840",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [eax + 0x40]"
+        },
+        {
+          "rva": "0x0048CBE9",
+          "bytes": "8b470c",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [edi + 0xc]"
+        },
+        {
+          "rva": "0x0048CBEC",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CBEE",
+          "bytes": "7607",
+          "mnemonic": "jbe",
+          "op_str": "0x88cbf7"
+        },
+        {
+          "rva": "0x0048CBF0",
+          "bytes": "03c1",
+          "mnemonic": "add",
+          "op_str": "eax, ecx"
+        },
+        {
+          "rva": "0x0048CBF2",
+          "bytes": "894628",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi + 0x28], eax"
+        },
+        {
+          "rva": "0x0048CBF5",
+          "bytes": "eb07",
+          "mnemonic": "jmp",
+          "op_str": "0x88cbfe"
+        },
+        {
+          "rva": "0x0048CBF7",
+          "bytes": "c74628ffffff3f",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi + 0x28], 0x3fffffff"
+        },
+        {
+          "rva": "0x0048CBFE",
+          "bytes": "8b4708",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [edi + 8]"
+        },
+        {
+          "rva": "0x0048CC01",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CC03",
+          "bytes": "7404",
+          "mnemonic": "je",
+          "op_str": "0x88cc09"
+        },
+        {
+          "rva": "0x0048CC05",
+          "bytes": "03c1",
+          "mnemonic": "add",
+          "op_str": "eax, ecx"
+        },
+        {
+          "rva": "0x0048CC07",
+          "bytes": "eb02",
+          "mnemonic": "jmp",
+          "op_str": "0x88cc0b"
+        },
+        {
+          "rva": "0x0048CC09",
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CC0B",
+          "bytes": "89462c",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi + 0x2c], eax"
+        },
+        {
+          "rva": "0x0048CC0E",
+          "bytes": "8b4710",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [edi + 0x10]"
+        },
+        {
+          "rva": "0x0048CC11",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CC13",
+          "bytes": "7404",
+          "mnemonic": "je",
+          "op_str": "0x88cc19"
+        },
+        {
+          "rva": "0x0048CC15",
+          "bytes": "03c1",
+          "mnemonic": "add",
+          "op_str": "eax, ecx"
+        },
+        {
+          "rva": "0x0048CC17",
+          "bytes": "eb02",
+          "mnemonic": "jmp",
+          "op_str": "0x88cc1b"
+        },
+        {
+          "rva": "0x0048CC19",
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CC1B",
+          "bytes": "8bce",
+          "mnemonic": "mov",
+          "op_str": "ecx, esi"
+        },
+        {
+          "rva": "0x0048CC1D",
+          "bytes": "894630",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi + 0x30], eax"
+        },
+        {
+          "rva": "0x0048CC20",
+          "bytes": "e8e8f8ffff",
+          "mnemonic": "call",
+          "op_str": "0x88c50d"
+        },
+        {
+          "rva": "0x0048CC25",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CC26",
+          "bytes": "ff7608",
+          "mnemonic": "push",
+          "op_str": "dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x0048CC29",
+          "bytes": "8bce",
+          "mnemonic": "mov",
+          "op_str": "ecx, esi"
+        },
+        {
+          "rva": "0x0048CC2B",
+          "bytes": "e84113fcff",
+          "mnemonic": "call",
+          "op_str": "0x84df71"
+        },
+        {
+          "rva": "0x0048CC30",
+          "bytes": "807f3500",
+          "mnemonic": "cmp",
+          "op_str": "byte ptr [edi + 0x35], 0"
+        },
+        {
+          "rva": "0x0048CC34",
+          "bytes": "741a",
+          "mnemonic": "je",
+          "op_str": "0x88cc50"
+        },
+        {
+          "rva": "0x0048CC36",
+          "bytes": "b800000040",
+          "mnemonic": "mov",
+          "op_str": "eax, 0x40000000"
+        },
+        {
+          "rva": "0x0048CC3B",
+          "bytes": "858320010000",
+          "mnemonic": "test",
+          "op_str": "dword ptr [ebx + 0x120], eax"
+        },
+        {
+          "rva": "0x0048CC41",
+          "bytes": "750d",
+          "mnemonic": "jne",
+          "op_str": "0x88cc50"
+        },
+        {
+          "rva": "0x0048CC43",
+          "bytes": "098320010000",
+          "mnemonic": "or",
+          "op_str": "dword ptr [ebx + 0x120], eax"
+        },
+        {
+          "rva": "0x0048CC49",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CC4B",
+          "bytes": "e81de2dfff",
+          "mnemonic": "call",
+          "op_str": "0x68ae6d"
+        },
+        {
+          "rva": "0x0048CC50",
+          "bytes": "807f3700",
+          "mnemonic": "cmp",
+          "op_str": "byte ptr [edi + 0x37], 0"
+        },
+        {
+          "rva": "0x0048CC54",
+          "bytes": "741a",
+          "mnemonic": "je",
+          "op_str": "0x88cc70"
+        },
+        {
+          "rva": "0x0048CC56",
+          "bytes": "b800000080",
+          "mnemonic": "mov",
+          "op_str": "eax, 0x80000000"
+        },
+        {
+          "rva": "0x0048CC5B",
+          "bytes": "858320010000",
+          "mnemonic": "test",
+          "op_str": "dword ptr [ebx + 0x120], eax"
+        },
+        {
+          "rva": "0x0048CC61",
+          "bytes": "750d",
+          "mnemonic": "jne",
+          "op_str": "0x88cc70"
+        },
+        {
+          "rva": "0x0048CC63",
+          "bytes": "098320010000",
+          "mnemonic": "or",
+          "op_str": "dword ptr [ebx + 0x120], eax"
+        },
+        {
+          "rva": "0x0048CC69",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CC6B",
+          "bytes": "e8fde1dfff",
+          "mnemonic": "call",
+          "op_str": "0x68ae6d"
+        },
+        {
+          "rva": "0x0048CC70",
+          "bytes": "807f3500",
+          "mnemonic": "cmp",
+          "op_str": "byte ptr [edi + 0x35], 0"
+        },
+        {
+          "rva": "0x0048CC74",
+          "bytes": "7506",
+          "mnemonic": "jne",
+          "op_str": "0x88cc7c"
+        },
+        {
+          "rva": "0x0048CC76",
+          "bytes": "807f3700",
+          "mnemonic": "cmp",
+          "op_str": "byte ptr [edi + 0x37], 0"
+        },
+        {
+          "rva": "0x0048CC7A",
+          "bytes": "7410",
+          "mnemonic": "je",
+          "op_str": "0x88cc8c"
+        },
+        {
+          "rva": "0x0048CC7C",
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "op_str": "1"
+        },
+        {
+          "rva": "0x0048CC7E",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CC80",
+          "bytes": "e85d3c0c00",
+          "mnemonic": "call",
+          "op_str": "0x9508e2"
+        },
+        {
+          "rva": "0x0048CC85",
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "op_str": "ecx, eax"
+        },
+        {
+          "rva": "0x0048CC87",
+          "bytes": "e8ea74deff",
+          "mnemonic": "call",
+          "op_str": "0x674176"
+        },
+        {
+          "rva": "0x0048CC8C",
+          "bytes": "8b4728",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [edi + 0x28]"
+        },
+        {
+          "rva": "0x0048CC8F",
+          "bytes": "3b472c",
+          "mnemonic": "cmp",
+          "op_str": "eax, dword ptr [edi + 0x2c]"
+        },
+        {
+          "rva": "0x0048CC92",
+          "bytes": "8945f0",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [ebp - 0x10], eax"
+        },
+        {
+          "rva": "0x0048CC95",
+          "bytes": "0f840c010000",
+          "mnemonic": "je",
+          "op_str": "0x88cda7"
+        },
+        {
+          "rva": "0x0048CC9B",
+          "bytes": "eb03",
+          "mnemonic": "jmp",
+          "op_str": "0x88cca0"
+        },
+        {
+          "rva": "0x0048CC9D",
+          "bytes": "8b45f0",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [ebp - 0x10]"
+        },
+        {
+          "rva": "0x0048CCA0",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CCA1",
+          "bytes": "8d4de8",
+          "mnemonic": "lea",
+          "op_str": "ecx, [ebp - 0x18]"
+        },
+        {
+          "rva": "0x0048CCA4",
+          "bytes": "e8cc27c4ff",
+          "mnemonic": "call",
+          "op_str": "0x4cf475"
+        },
+        {
+          "rva": "0x0048CCA9",
+          "bytes": "8b45ec",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [ebp - 0x14]"
+        },
+        {
+          "rva": "0x0048CCAC",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CCAE",
+          "bytes": "c645fc02",
+          "mnemonic": "mov",
+          "op_str": "byte ptr [ebp - 4], 2"
+        },
+        {
+          "rva": "0x0048CCB2",
+          "bytes": "0f84c2000000",
+          "mnemonic": "je",
+          "op_str": "0x88cd7a"
+        },
+        {
+          "rva": "0x0048CCB8",
+          "bytes": "6683780400",
+          "mnemonic": "cmp",
+          "op_str": "word ptr [eax + 4], 0"
+        },
+        {
+          "rva": "0x0048CCBD",
+          "bytes": "0f84b7000000",
+          "mnemonic": "je",
+          "op_str": "0x88cd7a"
+        },
+        {
+          "rva": "0x0048CCC3",
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x0048CCC6",
+          "bytes": "e8173c0c00",
+          "mnemonic": "call",
+          "op_str": "0x9508e2"
+        },
+        {
+          "rva": "0x0048CCCB",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CCCD",
+          "bytes": "0f84a7000000",
+          "mnemonic": "je",
+          "op_str": "0x88cd7a"
+        },
+        {
+          "rva": "0x0048CCD3",
+          "bytes": "0f57c0",
+          "mnemonic": "xorps",
+          "op_str": "xmm0, xmm0"
+        },
+        {
+          "rva": "0x0048CCD6",
+          "bytes": "f30f100dd8b8bb00",
+          "mnemonic": "movss",
+          "op_str": "xmm1, dword ptr [0xbbb8d8]"
+        },
+        {
+          "rva": "0x0048CCDE",
+          "bytes": "8b45ec",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [ebp - 0x14]"
+        },
+        {
+          "rva": "0x0048CCE1",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CCE3",
+          "bytes": "f30f114db8",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x48], xmm1"
+        },
+        {
+          "rva": "0x0048CCE8",
+          "bytes": "f30f1145bc",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x44], xmm0"
+        },
+        {
+          "rva": "0x0048CCED",
+          "bytes": "f30f1145c0",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x40], xmm0"
+        },
+        {
+          "rva": "0x0048CCF2",
+          "bytes": "f30f1145c4",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x3c], xmm0"
+        },
+        {
+          "rva": "0x0048CCF7",
+          "bytes": "f30f1145c8",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x38], xmm0"
+        },
+        {
+          "rva": "0x0048CCFC",
+          "bytes": "f30f114dcc",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x34], xmm1"
+        },
+        {
+          "rva": "0x0048CD01",
+          "bytes": "f30f1145d0",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x30], xmm0"
+        },
+        {
+          "rva": "0x0048CD06",
+          "bytes": "f30f1145d4",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x2c], xmm0"
+        },
+        {
+          "rva": "0x0048CD0B",
+          "bytes": "f30f1145d8",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x28], xmm0"
+        },
+        {
+          "rva": "0x0048CD10",
+          "bytes": "f30f1145dc",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x24], xmm0"
+        },
+        {
+          "rva": "0x0048CD15",
+          "bytes": "f30f114de0",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x20], xmm1"
+        },
+        {
+          "rva": "0x0048CD1A",
+          "bytes": "f30f1145e4",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x1c], xmm0"
+        },
+        {
+          "rva": "0x0048CD1F",
+          "bytes": "7405",
+          "mnemonic": "je",
+          "op_str": "0x88cd26"
+        },
+        {
+          "rva": "0x0048CD21",
+          "bytes": "83c008",
+          "mnemonic": "add",
+          "op_str": "eax, 8"
+        },
+        {
+          "rva": "0x0048CD24",
+          "bytes": "eb05",
+          "mnemonic": "jmp",
+          "op_str": "0x88cd2b"
+        },
+        {
+          "rva": "0x0048CD26",
+          "bytes": "b81cacbb00",
+          "mnemonic": "mov",
+          "op_str": "eax, 0xbbac1c"
+        },
+        {
+          "rva": "0x0048CD2B",
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x0048CD2E",
+          "bytes": "8d55b8",
+          "mnemonic": "lea",
+          "op_str": "edx, [ebp - 0x48]"
+        },
+        {
+          "rva": "0x0048CD31",
+          "bytes": "52",
+          "mnemonic": "push",
+          "op_str": "edx"
+        },
+        {
+          "rva": "0x0048CD32",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CD33",
+          "bytes": "e8aa3b0c00",
+          "mnemonic": "call",
+          "op_str": "0x9508e2"
+        },
+        {
+          "rva": "0x0048CD38",
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "op_str": "ecx, eax"
+        },
+        {
+          "rva": "0x0048CD3A",
+          "bytes": "e8f65adeff",
+          "mnemonic": "call",
+          "op_str": "0x672835"
+        },
+        {
+          "rva": "0x0048CD3F",
+          "bytes": "d9ee",
+          "mnemonic": "fldz",
+          "op_str": ""
+        },
+        {
+          "rva": "0x0048CD41",
+          "bytes": "f30f1045c4",
+          "mnemonic": "movss",
+          "op_str": "xmm0, dword ptr [ebp - 0x3c]"
+        },
+        {
+          "rva": "0x0048CD46",
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "op_str": "0"
+        },
+        {
+          "rva": "0x0048CD48",
+          "bytes": "51",
+          "mnemonic": "push",
+          "op_str": "ecx"
+        },
+        {
+          "rva": "0x0048CD49",
+          "bytes": "d91c24",
+          "mnemonic": "fstp",
+          "op_str": "dword ptr [esp]"
+        },
+        {
+          "rva": "0x0048CD4C",
+          "bytes": "8d45b8",
+          "mnemonic": "lea",
+          "op_str": "eax, [ebp - 0x48]"
+        },
+        {
+          "rva": "0x0048CD4F",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CD50",
+          "bytes": "8d45ac",
+          "mnemonic": "lea",
+          "op_str": "eax, [ebp - 0x54]"
+        },
+        {
+          "rva": "0x0048CD53",
+          "bytes": "f30f1145ac",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x54], xmm0"
+        },
+        {
+          "rva": "0x0048CD58",
+          "bytes": "f30f1045d4",
+          "mnemonic": "movss",
+          "op_str": "xmm0, dword ptr [ebp - 0x2c]"
+        },
+        {
+          "rva": "0x0048CD5D",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CD5E",
+          "bytes": "ff75e8",
+          "mnemonic": "push",
+          "op_str": "dword ptr [ebp - 0x18]"
+        },
+        {
+          "rva": "0x0048CD61",
+          "bytes": "f30f1145b0",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x50], xmm0"
+        },
+        {
+          "rva": "0x0048CD66",
+          "bytes": "f30f1045e4",
+          "mnemonic": "movss",
+          "op_str": "xmm0, dword ptr [ebp - 0x1c]"
+        },
+        {
+          "rva": "0x0048CD6B",
+          "bytes": "f30f1145b4",
+          "mnemonic": "movss",
+          "op_str": "dword ptr [ebp - 0x4c], xmm0"
+        },
+        {
+          "rva": "0x0048CD70",
+          "bytes": "e8b47ec0ff",
+          "mnemonic": "call",
+          "op_str": "0x494c29"
+        },
+        {
+          "rva": "0x0048CD75",
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "op_str": "esp, 0x14"
+        },
+        {
+          "rva": "0x0048CD78",
+          "bytes": "eb11",
+          "mnemonic": "jmp",
+          "op_str": "0x88cd8b"
+        },
+        {
+          "rva": "0x0048CD7A",
+          "bytes": "8b4608",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x0048CD7D",
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "op_str": "0"
+        },
+        {
+          "rva": "0x0048CD7F",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CD80",
+          "bytes": "ff75e8",
+          "mnemonic": "push",
+          "op_str": "dword ptr [ebp - 0x18]"
+        },
+        {
+          "rva": "0x0048CD83",
+          "bytes": "e8ad54c2ff",
+          "mnemonic": "call",
+          "op_str": "0x4b2235"
+        },
+        {
+          "rva": "0x0048CD88",
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "op_str": "esp, 0xc"
+        },
+        {
+          "rva": "0x0048CD8B",
+          "bytes": "8345f008",
+          "mnemonic": "add",
+          "op_str": "dword ptr [ebp - 0x10], 8"
+        },
+        {
+          "rva": "0x0048CD8F",
+          "bytes": "8d4dec",
+          "mnemonic": "lea",
+          "op_str": "ecx, [ebp - 0x14]"
+        },
+        {
+          "rva": "0x0048CD92",
+          "bytes": "c645fc01",
+          "mnemonic": "mov",
+          "op_str": "byte ptr [ebp - 4], 1"
+        },
+        {
+          "rva": "0x0048CD96",
+          "bytes": "e87596baff",
+          "mnemonic": "call",
+          "op_str": "0x436410"
+        },
+        {
+          "rva": "0x0048CD9B",
+          "bytes": "8b45f0",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [ebp - 0x10]"
+        },
+        {
+          "rva": "0x0048CD9E",
+          "bytes": "3b472c",
+          "mnemonic": "cmp",
+          "op_str": "eax, dword ptr [edi + 0x2c]"
+        },
+        {
+          "rva": "0x0048CDA1",
+          "bytes": "0f85f6feffff",
+          "mnemonic": "jne",
+          "op_str": "0x88cc9d"
+        },
+        {
+          "rva": "0x0048CDA7",
+          "bytes": "8b4750",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [edi + 0x50]"
+        },
+        {
+          "rva": "0x0048CDAA",
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "op_str": "eax, eax"
+        },
+        {
+          "rva": "0x0048CDAC",
+          "bytes": "7641",
+          "mnemonic": "jbe",
+          "op_str": "0x88cdef"
+        },
+        {
+          "rva": "0x0048CDAE",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CDAF",
+          "bytes": "ff774c",
+          "mnemonic": "push",
+          "op_str": "dword ptr [edi + 0x4c]"
+        },
+        {
+          "rva": "0x0048CDB2",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CDB4",
+          "bytes": "e8f9e0dfff",
+          "mnemonic": "call",
+          "op_str": "0x68aeb2"
+        },
+        {
+          "rva": "0x0048CDB9",
+          "bytes": "a18ce7df00",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [0xdfe78c]"
+        },
+        {
+          "rva": "0x0048CDBE",
+          "bytes": "8b4f50",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [edi + 0x50]"
+        },
+        {
+          "rva": "0x0048CDC1",
+          "bytes": "8b4040",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [eax + 0x40]"
+        },
+        {
+          "rva": "0x0048CDC4",
+          "bytes": "8d4401ff",
+          "mnemonic": "lea",
+          "op_str": "eax, [ecx + eax - 1]"
+        },
+        {
+          "rva": "0x0048CDC8",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CDC9",
+          "bytes": "6a04",
+          "mnemonic": "push",
+          "op_str": "4"
+        },
+        {
+          "rva": "0x0048CDCB",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CDCD",
+          "bytes": "e84233e0ff",
+          "mnemonic": "call",
+          "op_str": "0x690114"
+        },
+        {
+          "rva": "0x0048CDD2",
+          "bytes": "a18ce7df00",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [0xdfe78c]"
+        },
+        {
+          "rva": "0x0048CDD7",
+          "bytes": "8b4040",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [eax + 0x40]"
+        },
+        {
+          "rva": "0x0048CDDA",
+          "bytes": "8b4f50",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [edi + 0x50]"
+        },
+        {
+          "rva": "0x0048CDDD",
+          "bytes": "03c8",
+          "mnemonic": "add",
+          "op_str": "ecx, eax"
+        },
+        {
+          "rva": "0x0048CDDF",
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "op_str": "1"
+        },
+        {
+          "rva": "0x0048CDE1",
+          "bytes": "894e44",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi + 0x44], ecx"
+        },
+        {
+          "rva": "0x0048CDE4",
+          "bytes": "6a52",
+          "mnemonic": "push",
+          "op_str": "0x52"
+        },
+        {
+          "rva": "0x0048CDE6",
+          "bytes": "8bcb",
+          "mnemonic": "mov",
+          "op_str": "ecx, ebx"
+        },
+        {
+          "rva": "0x0048CDE8",
+          "bytes": "e8210ddbff",
+          "mnemonic": "call",
+          "op_str": "0x63db0e"
+        },
+        {
+          "rva": "0x0048CDED",
+          "bytes": "eb0b",
+          "mnemonic": "jmp",
+          "op_str": "0x88cdfa"
+        },
+        {
+          "rva": "0x0048CDEF",
+          "bytes": "a18ce7df00",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [0xdfe78c]"
+        },
+        {
+          "rva": "0x0048CDF4",
+          "bytes": "8b4040",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [eax + 0x40]"
+        },
+        {
+          "rva": "0x0048CDF7",
+          "bytes": "894644",
+          "mnemonic": "mov",
+          "op_str": "dword ptr [esi + 0x44], eax"
+        },
+        {
+          "rva": "0x0048CDFA",
+          "bytes": "8b4608",
+          "mnemonic": "mov",
+          "op_str": "eax, dword ptr [esi + 8]"
+        },
+        {
+          "rva": "0x0048CDFD",
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "op_str": "1"
+        },
+        {
+          "rva": "0x0048CDFF",
+          "bytes": "50",
+          "mnemonic": "push",
+          "op_str": "eax"
+        },
+        {
+          "rva": "0x0048CE00",
+          "bytes": "8bce",
+          "mnemonic": "mov",
+          "op_str": "ecx, esi"
+        },
+        {
+          "rva": "0x0048CE02",
+          "bytes": "e86a11fcff",
+          "mnemonic": "call",
+          "op_str": "0x84df71"
+        },
+        {
+          "rva": "0x0048CE07",
+          "bytes": "834dfcff",
+          "mnemonic": "or",
+          "op_str": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "rva": "0x0048CE0B",
+          "bytes": "8d8d60ffffff",
+          "mnemonic": "lea",
+          "op_str": "ecx, [ebp - 0xa0]"
+        },
+        {
+          "rva": "0x0048CE11",
+          "bytes": "e8bc9fc2ff",
+          "mnemonic": "call",
+          "op_str": "0x4b6dd2"
+        },
+        {
+          "rva": "0x0048CE16",
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "op_str": "edi"
+        },
+        {
+          "rva": "0x0048CE17",
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "op_str": "ebx"
+        },
+        {
+          "rva": "0x0048CE18",
+          "bytes": "8b4df4",
+          "mnemonic": "mov",
+          "op_str": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x0048CE1B",
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "op_str": "esi"
+        },
+        {
+          "rva": "0x0048CE1C",
+          "bytes": "64890d00000000",
+          "mnemonic": "mov",
+          "op_str": "dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x0048CE23",
+          "bytes": "c9",
+          "mnemonic": "leave",
+          "op_str": ""
+        },
+        {
+          "rva": "0x0048CE24",
+          "bytes": "c3",
+          "mnemonic": "ret",
+          "op_str": ""
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva00286297@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+        "status": "matched",
+        "notes": "Fire material releases canonical AsciiString at +4; complete byte and relocation twin of CameraMarker destructor; native vector callback in FireLogicSystem teardown"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1SnapshotBlock@GameState@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/System/SaveGame/GameStateConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-alias; native GameState constructor and array unwind path independently prove this specialization; complete body and every relocation equal existing retail owner; no unique-byte gain."
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva00200E95Second@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/INI/INIWater.cpp",
+        "status": "matched",
+        "notes": "gen-alias; complete8B and releaseBuffer relocation are a byte-and-relocation twin of existing CameraMarker owner; native200E95 whole EH graph places secondary-base cleanup76C45C and independently calls this exact body; existing neutral int-plus-AsciiString base view retained without asserting CameraMarker type identity"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva0020182BSecond@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Rva0020182BDtor.cpp",
+        "status": "matched",
+        "notes": "Native complete79B20182B destructor and exact FuncInfo911C44 two-state EH graph establish8B secondary base at+10 with owned AsciiString at+4. Full existing real C++ implicit8B destructor and all existing owner relocations match target29D7C2; neutral base name does not assert CameraMarker identity. Whole owning file read; no pin alias mask or label manipulation."
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva00523DB7@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp",
+        "status": "matched",
+        "notes": "Native complete152B2A9140 int-key default-string insertion and exact two-state EH graph bind destruction of its8B record temporary to native29D7C2. Independent29B constructor523DB7 and comparison523EFF establish int0 and owned string4. Actual implicit C++ destructor and all existing owner relocations match full8B; whole source read; neutral record name asserts no CameraMarker identity; no pin alias mask or label manipulation."
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva000D3A8AElemA@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp",
+        "status": "matched",
+        "notes": "gen-alias;Native157B D3A8A constructor explicitly supplies568BD5/29D7C2 callbacks for ten12B records at +18. Complete129B D3996 destructor independently releases the first resource pointer;13B ctor zeros pointer0 and string4 plus byte flag8. Implicit8B destructor of canonical record releases owned char-string4 through36410 with every byte and owner relocation equal. Neutral record name retained; name field label inherited from prior BFME1 road-buffer view and not asserted original. Remove stale present-unmatched marker. Zero unique bytes or pin. t=6 model=gpt-6.1-sol"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1?$pair@HVAsciiString@@@_STL@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole 8B body; 3 retail unwind funclets in 3 unit(s) call 0x0029D7C2 for it"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva0039627D@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorModuleDataRva0039981E.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorModuleDataRva0039981E.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva00368270@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateXfer.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1BfmeStringRecord0040360E@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateXfer.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva000CF83CElement@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1?$pair@$$CBUTreeKey00242F5E@@UTreeOpaqueMapped242F5E@@@_STL@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00242f5e.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva0023E887@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameLogic/System/GameLogicDoXfer.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameLogic/System/GameLogicDoXfer.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1EmbeddedPortalInfo@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/DrawableXfer.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameClient/DrawableXfer.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva002898ACElement@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva0048C8C6@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1StringEntry@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineEventTableFind.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineEventTableFind.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1MyRecord@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/Common/Thing/Rva0033E102Rebuild.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1?$pair@$$CBGVAsciiString@@@_STL@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Helper005C4D4B@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva0008A234@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroRefreshCamera.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroRefreshCamera.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1Rva00200D38@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1S4SortElem12@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Rva002E0BC0PopHeap12_Rva00331dae.cpp",
+        "status": "matched",
+        "notes": "fold-proof=Code/GameEngine/Source/Common/Rva002E0BC0PopHeap12_Rva00331dae.cpp; compiler-emitted destructor that retail ICF-folded with ??1CameraMarker@@QAE@XZ at 0x0029D7C2: this unit compiles it to the same whole body; its unwind funclets call 0x0029D7C2; migrated=stlport-4.6"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1?$pair@$$CBHURva00463E09Record@@@_STL@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp",
+        "status": "matched",
+        "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added;lowers the unit's link place with no code or data COMDAT content change against the objects it passes"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "??1?$pair@$$CBHVAsciiString@@@_STL@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0029D7C2",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp",
+        "status": "matched",
+        "notes": "ICF fold: this unit's own copy has the bytes and call targets of the rowed body at this address (owner in CameraMarkerListFind.cpp); its unwind funclets call it; fold-proof=Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp"
+      },
+      "raw": "83c104e9468cd9ff",
+      "sha256": "5dbd7866add3eccb2ee7e050b35acac6b99eab59265fb245094c1065468b64d8",
+      "instructions": [
+        {
+          "rva": "0x0029D7C2",
+          "bytes": "83c104",
+          "mnemonic": "add",
+          "op_str": "ecx, 4"
+        },
+        {
+          "rva": "0x0029D7C5",
+          "bytes": "e9468cd9ff",
+          "mnemonic": "jmp",
+          "op_str": "0x436410"
+        }
+      ]
+    }
+  ]
+}

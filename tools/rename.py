@@ -7083,13 +7083,111 @@ def object_link_names(ctx, rel):
     return set(defined), dict(alternate)
 
 
+def object_compiler_weak_dtor_slots(ctx, rel, retired=()):
+    """Proved object-local MSVC ??_E -> ??_G vftable slots, not weak aliases.
+
+    The ordinary verification just rebuilt this unit. Bind its source/command/
+    dependencies and exact COFF bytes to that compile receipt, then require the
+    existing native deleting-dtor proof AND a complete strict local scalar body.
+    No global binding is installed, no unrelated weak search default is used,
+    and the strict-before-table exemption remains a separate check.
+    """
+    import build
+    import data_rows
+    import reloc_ledger
+    path = _source_object(ctx, rel, current=False)
+    if path is None:
+        return set()
+    try:
+        source = ctx.path(rel)
+        data = path.read_bytes()
+        receipt = build._deps_sidecar(path)
+        receipt_bytes = receipt.read_bytes()
+        meta = json.loads(receipt_bytes)
+        if (data[:2] != b"\x4c\x01" or meta.get("path") != build._root_key(source)
+                or meta.get("object") != hashlib.md5(data).hexdigest()
+                or not build.compile_is_current(source, path)):
+            return set()
+        sections, symbols = reloc_ledger.parse_coff(data)
+        references = []
+        for table in symbols.values():
+            if not table["name"].startswith("??_7") or table["section"] <= 0:
+                continue
+            section = sections[table["section"] - 1]
+            if data_rows._vftable_size(section, symbols, table) is None:
+                continue
+            for offset, index, kind in section["relocs"]:
+                target = symbols.get(index)
+                if (kind == 6 and section["body"][offset:offset + 4] == bytes(4)
+                        and target is not None and target["storage"] == 105
+                        and target["name"].startswith("??_E")
+                        and target["name"].endswith("@@UAEPAXI@Z")):
+                    references.append((table["name"], offset // 4, target["name"]))
+        if not references:
+            return set()
+        rows = ctx.rows()
+        context_row = next((r for r in rows if r.get("source") == rel and r.get("status") == "matched"), None)
+        if context_row is None:
+            return set()
+        symbol_map = build.load_symbol_map()
+        coff_symbols = build.read_object_symbols(data)
+        proven = set()
+        retired = set(retired)
+        for name in {name for _, _, name in references}:
+            default = "??_G" + name[4:]
+            if name in retired or default in retired:
+                continue
+            owners = [r for r in rows if r["name"] == default]
+            if len(owners) != 1:
+                continue
+            owner = owners[0]
+            if (owner.get("status") != "matched" or build.ledger_object_symbol(owner) != default
+                    or build.is_alias_row(owner) or build.is_scaffold_row(owner)
+                    or "gen-alias" in build.notes_tokens(owner)):
+                continue
+            definitions = [s for s in coff_symbols if s["name"] == default and s["section"] > 0]
+            if (len(definitions) != 1 or definitions[0].get("storage") != 2
+                    or (definitions[0].get("type", 0) & 0x30) != 0x20
+                    or not sections[definitions[0]["section"] - 1]["flags"] & 0x20000000):
+                continue
+            address, size = int(owner["target_rva"], 16), int(owner["target_size"])
+            if not build.proven_weak_dtor_default(context_row, name, address, path, symbol_map):
+                continue
+            body, relocs = build.read_object_symbol_bytes(path, default, code_only=True)
+            if len(body) != size or size <= 0:
+                continue
+            covered, valid = set(), True
+            for offset, kind, _target in relocs:
+                sites = set(range(offset, offset + 4))
+                if (kind not in (6, 20) or offset < 0 or offset + 4 > size
+                        or covered.intersection(sites)
+                        or (kind == 20 and body[offset:offset + 4] != bytes(4))):
+                    valid = False
+                    break
+                covered.update(sites)
+            if not valid:
+                continue
+            patch = build.compile_function(owner, symbol_map, path, allow_weak=False)
+            if not patch["masked"] and not patch["unresolved"] and patch["bytes"] == patch["target"]:
+                proven.add(name)
+        if (path.read_bytes() != data or receipt.read_bytes() != receipt_bytes
+                or not build.compile_is_current(source, path)):
+            return set()
+        return {(table, slot, name) for table, slot, name in references if name in proven}
+    except (OSError, ValueError, KeyError, IndexError, struct.error, SystemExit):
+        return set()
+
+
 def to_class_dangling_problems(ctx, check):
     """Slot names a rebuilt vftable of the plan's units (`check['units']`, every ledger source it rebuilds) gained
     that nothing defines: [] when every name a compiled ??_7 holds after ./build.sh is one it held before the plan
     (`check['vtables']`, read at planning only from objects current in every dependency, object_fresh), or
     resolves: a moved
     name, a row or pin, a symbol the unit's object defines, __purecall, or an /alternatename of the object's own
-    directives (object_link_names; never a weak external's default) whose target resolves. A name the plan retires (`check['retired']`: the old names of its
+    directives (object_link_names; arbitrary weak defaults remain no aliases) whose target resolves.
+    A compiler deleting-dtor slot may also use its same-object scalar definition, but only through
+    object_compiler_weak_dtor_slots's current receipt, native E/G/RVA proof and complete strict code check.
+    A name the plan retires (`check['retired']`: the old names of its
     rows and pins, which the context's ledgers may still hold) resolves only through the object. Renaming a slot a
     base view shares (`State::slot02` to
     `GetSnapshotName`) for some of its derived classes leaves the others' tables naming a symbol only the link
@@ -7104,6 +7202,7 @@ def to_class_dangling_problems(ctx, check):
             continue
         before = (check.get("vtables") or {}).get(rel)
         defined, aliases = object_link_names(ctx, rel) or (set(), {})
+        compiler_dtors = None
 
         def resolves(name, seen=()):
             if name in defined or (name not in retired and name in known):
@@ -7114,6 +7213,10 @@ def to_class_dangling_problems(ctx, check):
         for symbol, names in sorted(tables.items()):
             for slot, name in enumerate(names):
                 if not name or resolves(name):
+                    continue
+                if compiler_dtors is None:
+                    compiler_dtors = object_compiler_weak_dtor_slots(ctx, rel, retired)
+                if (symbol, slot, name) in compiler_dtors:
                     continue
                 if name not in retired and before is not None and name in before:
                     continue

@@ -1,0 +1,18 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp",
+  "runtime_nodes_before": 236,
+  "runtime_nodes_after": 236,
+  "checks_equal": {
+    "nodes": true,
+    "definitions": true,
+    "comdats": true,
+    "safeseh": true,
+    "weak_bindings": true,
+    "undefined_externals": true
+  },
+  "before_sha256": "1e29f987a56b3c8332f90f937d8eddfd004df1767141c984a5d7c3fa5ec54dbf",
+  "after_sha256": "c688c0cf92582c1a24874683d34e20ecbd8e6bd4e0b61bfeae1e3a485b087b2f",
+  "markers_equal": true,
+  "header_unchanged": true,
+  "limits": "Ordinary native nondebug runtime bytes/relocations/extern definitions/COMDAT/SafeSEH equivalence under explicit unique section identities; not image link or runtime proof."
+}

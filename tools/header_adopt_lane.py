@@ -911,7 +911,8 @@ masked_once = functools.lru_cache(maxsize=2048)(masked)
 comment_splice_once = functools.lru_cache(maxsize=2048)(header_comment_splice)
 
 
-def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_roots=None):
+def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_roots=None,
+                 root=None, complete=False, compiler_macros=()):
     """Scan the complete quoted include closure once, from `source` (its `text`) and each of `seeds` (ROOT
     paths, read from disk: a canonical header walked in its unit's closure, by its own identity and its own
     text, never as a line appended to the unit's), refusing unorderable cycles and a quoted include
@@ -921,8 +922,13 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
     in such a branch, which may define any). Given `compiler_roots`, every directory the compiler searches for
     the unit (build._include_search_roots), an angle include none of them holds is no such header: the compile
     stops there (C1083) wherever it is reached, so it defines nothing in any compile that succeeds. A cycle is
-    orderable through an include guard that stays defined or a `#pragma once` (pragma_once_first)."""
-    start = (ROOT / source).resolve()
+    orderable through an include guard that stays defined or a `#pragma once` (pragma_once_first).
+    `complete` additionally refuses nonliteral include operands and unread active angle inputs;
+    `root` lets a TU-scoped caller retain its actual checkout identity (tests use private trees).
+    `compiler_macros` supplies the actual command definitions as well as the source flag line;
+    a default/profile /D must never be mistaken for an absent conditional macro."""
+    root = ROOT if root is None else Path(root)
+    start = (root / source).resolve()
     cache = {} if cache is None else cache
     seen, active, out = set(), set(), []
     graph, guards, invalidated, once = {}, {}, set(), {}
@@ -931,10 +937,10 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
     unread = []                          # (path, include, logical text, offset): an angle include found nowhere
     loose = []                           # (path, include, {files read for it}): a quoted include not beside path
     logicals = {}                        # path: its logical, masked text (literals kept)
-    never = NEVER_DEFINED - compiler_defines(text)
+    never = NEVER_DEFINED - compiler_defines(text) - set(compiler_macros)
     stack = []
     for seed in reversed(seeds):
-        path = (ROOT / seed).resolve()
+        path = (root / seed).resolve()
         if path not in cache:
             cache[path] = read_path(path)
         stack.append((path, cache[path], False))
@@ -987,11 +993,18 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
             return out, f"{path}:{line}: trigraph or continued line comment in include input"
         children = []
         scan = literal_code                      # logical lines: a continued directive is one
+        if complete:
+            # This stricter caller needs every preprocessing input, rather than
+            # only the ordinary quoted-header closure. Do not guess an expanded
+            # include operand or treat an unread system header as macro-free.
+            for directive in re.finditer(r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*include\b([^\n]*)', scan):
+                if not re.fullmatch(r'[ \t]*(?:<[^>"\n]+>|"[^"<>\n]+")[ \t\r]*', directive[1]):
+                    return out, f"{path}: include operand has no complete literal-input proof"
         for m in re.finditer(r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*include[ \t]*([<"])([^>"\n]+)[>"]', scan):
             # MSVC reads `\` in an include operand as a separator (`<sub\outside.h>`)
             angle, name = m.group(1) == "<", m.group(2).replace("\\", "/")
             # a quoted include not beside its includer may come from any includer's directory before the roots
-            bases = (path.parent, ROOT, ROOT / "Code", *include_roots) + (
+            bases = (path.parent, root, root / "Code", *include_roots) + (
                 () if angle else tuple(p.parent for p in active if p != path))
             candidates = [(base / name).resolve() for base in bases]
             if os.name != "nt":
@@ -1000,8 +1013,8 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
                               if (resolved := build._case_resolve(str(p))) is not None]
             targets = list(dict.fromkeys(p for p in candidates if p.is_file()))
             if angle:
-                if not targets and not (compiler_roots is not None and not any(
-                        found_in(root, name) for root in compiler_roots)):
+                if not targets and (complete or not (compiler_roots is not None and not any(
+                        found_in(root, name) for root in compiler_roots))):
                     unread.append((path, name, scan, m.start()))
                 children.extend(targets)
                 continue
@@ -1034,7 +1047,7 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
     # ... or a header the walk cannot read in a branch that can be compiled: it may define any of them. A
     # macro the closure defines only in branches never compiled, and the unit's flags do not, is absent too
     # for this (Rpc.h's __RPC_MAC__, under `defined(MAC) || defined(_MAC)`, guards `#include <rpcerr.h>`)
-    derived, flagged = frozenset(), compiler_defines(text) | COMPILER_PREDEFINED
+    derived, flagged = frozenset(), compiler_defines(text) | COMPILER_PREDEFINED | set(compiler_macros)
     while unread:
         found = closure_defines(logicals, never | derived)
         more = {m for m, compiled in found.items() if not compiled and m not in flagged} - never - derived
@@ -1042,6 +1055,8 @@ def include_walk(source, text, include_roots=(), cache=None, seeds=(), compiler_
             break
         derived |= more
     incomplete = [name for _, name, scan, at in unread if never_compiled(scan, at, never | derived) is None]
+    if complete and incomplete:
+        return out, f"{source}: unread include <{incomplete[0]}>; preprocessing context is incomplete"
     if incomplete:
         never = frozenset()
     for path, name, scan, at in skipped:
@@ -1281,6 +1296,16 @@ def name_shadow(sources, name):
     return None
 
 
+def unproven_pp_whitespace(text):
+    """This raw-token scope reader has no FF/VT or bare-CR preprocessing proof.
+
+    Do not let the several deliberately small directive readers disagree about
+    a class/scope macro. CRLF is an ordinary physical line ending; no check
+    joins tokens across it (nor across LF).
+    """
+    return re.search(r"[\f\v]|\r(?!\n)", text) is not None
+
+
 def macro_shadow(sources, mappings, text, extra=()):
     """Why a `#define` in the unit or an include makes a rename unsafe, or None: a macro that
     names a receiver, an old or new field, or the class itself rewrites the tokens around it."""
@@ -1291,6 +1316,8 @@ def macro_shadow(sources, mappings, text, extra=()):
                  for m in re.finditer(r"([A-Za-z_]\w*)\s*(?:->|\.)\s*" + re.escape(old) + r"\b", code)}
     watched = olds | news | set(mappings) | receivers | set(extra)
     for where, body in sources:
+        if unproven_pp_whitespace(body):
+            return f"{where}: unsupported preprocessing whitespace; macro ownership is unproven"
         for m in re.finditer(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)", masked(body)):
             if m.group(1) in watched:
                 return (f"{where}: `#define {m.group(1)}` names a receiver, field or class this rename "
@@ -1536,13 +1563,14 @@ def storage_alignment(name, index, measured, original):
     return offset
 
 
-def storage_command_macros(source):
+def storage_command_macros(source, command=None):
     """Command-line definitions join the token corpus; forced headers stay unproven."""
     import build
-    try:
-        command, _env = build.compiler_command(ROOT / source, ROOT / "build" / "header_adopt_storage.obj")
-    except (SystemExit, OSError, ValueError, RuntimeError) as exc:
-        return None, f"unused byte storage: compiler preprocessing inputs cannot be read: {exc}"
+    if command is None:
+        try:
+            command, _env = build.compiler_command(ROOT / source, ROOT / "build" / "header_adopt_storage.obj")
+        except (SystemExit, OSError, ValueError, RuntimeError) as exc:
+            return None, f"unused byte storage: compiler preprocessing inputs cannot be read: {exc}"
     definitions, index = [], 0
     while index < len(command):
         flag = command[index]
@@ -1559,6 +1587,129 @@ def storage_command_macros(source):
             definitions.append(f"#define {parts[0]} {parts[1] if len(parts) == 2 else '1'}\n")
         index += 1
     return "".join(definitions), None
+
+
+def owner_witness_problem(witness, source, text, mappings, root=None, seeds=()):
+    """Validate only an issued pair; never capture, compile or preprocess here."""
+    import header_generation_proof as proof
+    if type(witness) is not proof.PairedOwnerWitness:
+        return "constructor scope: a revalidated paired owner witness is required"
+    try:
+        witness.validate_for(source, text, mappings, ROOT if root is None else root, seeds)
+    except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+        return f"constructor scope: raw owner pair refused: {exc}"
+    return None
+
+
+def initializer_context_problem(source, text, mappings, root=None, seeds=(), owner_witness=None):
+    """Why a constructor's raw-token owner is unproven in its current inputs.
+
+    No preprocessor is run. This deliberately narrow proof uses the ordinary
+    compiler command and complete include walker, and declines used macros or
+    include fragments whose scopes would require expansion. A fresh second
+    capture binds the proof to the source, headers, search choices and command;
+    an old View or a partial/missing context cannot grant a token-rename exception.
+    """
+    if owner_witness is not None:
+        return owner_witness_problem(owner_witness, source, text, mappings, root, seeds)
+    import build
+    root = ROOT if root is None else Path(root)
+    path = (root / source).resolve()
+
+    def capture():
+        try:
+            if path.read_bytes().decode("latin-1") != text:
+                return None, "source text is stale or differs from the current compiler input"
+            if unproven_pp_whitespace(text):
+                return None, "unsupported preprocessing whitespace in the actual source input"
+            command, env = build.compiler_command(path, root / "build" / "header_adopt_scope.obj")
+        except (SystemExit, OSError, ValueError, RuntimeError) as exc:
+            return None, f"compiler preprocessing inputs cannot be read: {exc}"
+        if not isinstance(command, (list, tuple)) or not command \
+                or not all(isinstance(flag, str) for flag in command) or not isinstance(env, dict):
+            return None, "compiler command/environment have no complete provenance"
+        if any(unproven_pp_whitespace(flag) or "\r" in flag or "\n" in flag for flag in command):
+            # A raw CR at the end of /D's value must not be hidden when the
+            # synthetic #define corpus appends its ordinary LF separator.
+            return None, "unsupported preprocessing whitespace/newline in a raw compiler argument"
+        if env.get("CL") or env.get("_CL_") or any(
+                flag.startswith(("@", "/Yu", "-Yu", "/Yc", "-Yc")) for flag in command):
+            return None, "implicit, response-file or precompiled-header options have no complete scope proof"
+        macros, why = storage_command_macros(source, command)
+        if why:
+            return None, why
+        if unproven_pp_whitespace(macros):
+            return None, "unsupported preprocessing whitespace in compiler definitions"
+        roots = build._include_search_roots(path, command, env)
+        if roots is None:
+            return None, "compiler include roots cannot be derived"
+        defined = set(re.findall(r"(?m)^#define ([A-Za-z_]\w*)", macros))
+        inputs, why = include_walk(source, text, roots, seeds=seeds, compiler_roots=roots,
+                                   root=root, complete=True, compiler_macros=defined)
+        if why:
+            return None, why
+        hashes = []
+        for where, body in inputs:
+            try:
+                raw = Path(where).read_bytes()
+            except OSError as exc:
+                return None, f"{where}: preprocessing input cannot be read: {exc}"
+            current = raw.decode("latin-1")
+            if unproven_pp_whitespace(current):
+                # read_path/include_walk normalize physical header line endings.
+                # The proof must inspect the original bytes, especially bare CR,
+                # before treating a normalized header as a macro corpus.
+                return None, f"{where}: unsupported preprocessing whitespace in raw header/source bytes"
+            if (current if Path(where) == path else current.replace("\r\n", "\n").replace("\r", "\n")) != body:
+                return None, f"{where}: preprocessing input changed during the scope proof"
+            hashes.append((where, hashlib.sha256(raw).hexdigest()))
+        preprocessing_env = tuple((key, env.get(key, "")) for key in ("CL", "_CL_", "INCLUDE"))
+        return (tuple(command), preprocessing_env, tuple(map(str, roots)), tuple(inputs),
+                tuple(hashes), macros), None
+
+    before, why = capture()
+    if why:
+        return f"constructor scope: {why}"
+    inputs = list(before[3]) + [(str(path) + ".compiler-macros", before[5])]
+    for name in mappings:
+        why = name_shadow(inputs, name)
+        if why:
+            return f"constructor scope: {why}"
+    why = macro_shadow(inputs, mappings, text)
+    if why:
+        return f"constructor scope: {why}"
+    macros = COMPILER_PREDEFINED | {m[1] for _where, body in inputs
+              for m in re.finditer(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)", masked(body))}
+    for where, body in inputs[:-1]:
+        if SPLICE.search(body) or RAW_STRING.search(body) or re.search(r"\?\?[=/'()!<>-]|<%|%>|%:", body):
+            return f"constructor scope: {where}: nonliteral preprocessing/scope spelling"
+        code_mask = [False] * len(body)
+        for kind, start, end in _lex(body):
+            if kind == "code":
+                code_mask[start:end] = [True] * (end - start)
+        directives = _pp_directives(body, code_mask)
+        scope_mask = list(code_mask)
+        for start, end, word, operand in directives:
+            if word not in {"include", "define", "undef", "if", "ifdef", "ifndef", "elif", "else", "endif"} \
+                    and not (word == "pragma" and operand.strip() == "once"):
+                return f"constructor scope: {where}: #{word} has no literal scope proof"
+            scope_mask[start:end] = [False] * (end - start)
+        plain = "".join(ch if kept else " " for ch, kept in zip(body, scope_mask))
+        used = macros & set(re.findall(r"\b[A-Za-z_]\w*\b", plain))
+        if used:
+            return (f"constructor scope: {where}: macro {sorted(used)[0]} is used in code; "
+                    "its expanded scope is unproven")
+        why = _preprocessor_scope_refusal(body, code_mask, scope_mask, directives, len(body), where)
+        if why:
+            return f"constructor scope: {why}"
+        try:
+            _brace_scopes(body, scope_mask, where)
+        except RekeyRefused as exc:
+            return f"constructor scope: {exc}"
+    after, why = capture()
+    if why or after != before:
+        return f"constructor scope: {why or 'compiler/include inputs changed during the scope proof'}"
+    return None
 
 
 def storage_union_problem(sources, names):
@@ -1695,7 +1846,7 @@ def storage_expansion_problem(source, text, probe, names, before_family, after_f
     return None
 
 
-def field_renames(source, text, strip, include, compile=None, header=None):
+def field_renames(source, text, strip, include, compile=None, header=None, owner_witness=None):
     """({class: {private field: canonical field}}, None) for the unit's views of the
     `strip` classes, or (None, why) when a private field has no canonical field of its
     offset and size, several canonical fields share that offset and size (a union) and
@@ -1719,6 +1870,41 @@ def field_renames(source, text, strip, include, compile=None, header=None):
     {class: layout} (text None: the unit as it stands); `header` is the canonical header,
     whose class bodies prove the new names hide nothing (refused when it cannot be read)."""
     import tu_views
+    if owner_witness is not None:
+        import header_generation_proof as proof
+        if type(owner_witness) is not proof.PairedOwnerWitness:
+            return None, "field renames require a paired owner witness; current proof is planning only"
+        active_strip = [name for name in strip if body_span(text, name)]
+        if (header != owner_witness.current.header or active_strip != [owner_witness.current.name]
+                or source != owner_witness.current.source):
+            return None, "field renames owner pair belongs to another source/header/class"
+        try:
+            owner_witness.validate_for(source, text,
+                {owner_witness.current.name: dict(owner_witness.current.mapping)}, ROOT, (header,))
+        except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+            return None, f"field renames owner pair refused: {exc}"
+    if owner_witness is not None and compile is None:
+        def paired_layout(source, proposed):
+            why = owner_witness_problem(owner_witness, source, text,
+                {owner_witness.current.name: dict(owner_witness.current.mapping)}, ROOT, (header,))
+            if why:
+                raise RuntimeError(why)
+            if proposed is None:
+                result = class_layouts.compile_layouts(source)
+            elif proposed == probe_text(text, strip, include):
+                # Use the complete already-real bound candidate; never write a
+                # truncated layout probe over the captured original source.
+                import header_generation_proof as proof
+                result = class_layouts.compile_layouts(owner_witness.prospective,
+                    builder=proof._owner_layout_builder(owner_witness), use_cache=False)
+            else:
+                raise RuntimeError("paired owner route has no proof for this additional layout probe")
+            why = owner_witness_problem(owner_witness, source, text,
+                {owner_witness.current.name: dict(owner_witness.current.mapping)}, ROOT, (header,))
+            if why:
+                raise RuntimeError(why)
+            return result
+        compile = paired_layout
     compile = compile or compile_text
     try:
         every = compile(source, None)
@@ -1732,7 +1918,8 @@ def field_renames(source, text, strip, include, compile=None, header=None):
         if not lay or lay.get("fwd") or not lay.get("fields") or not body_span(text, name):
             continue                                    # no view, or nothing in the unit lays it out
         try:
-            view = tu_views.View(source, text, name, lay, every)
+            view = tu_views.View(source, text, name, lay, every,
+                                 include_seeds=(header,) if header else (), owner_witness=owner_witness)
         except tu_views.Refused as exc:
             return None, str(exc)
         # Inline uses count too. The shared PAD heuristic is intentionally unchanged:
@@ -2095,14 +2282,101 @@ def starts_declaration(code, at):
     return bool(word) and (word.group(1) in TYPE_WORDS or word.group(1) not in STATEMENT_WORDS)
 
 
+def _scope_group_end(code, at, body=False):
+    """A complete masked delimiter group and its outer comma positions, or None."""
+    pairs, stack, commas = {"(": ")", "[": "]", "{": "}"}, [], []
+    for i in range(at, len(code)):
+        ch = code[i]
+        if ch == "#" or (not body and ch in "{};"):
+            return None
+        if ch == "," and len(stack) == 1:
+            commas.append(i)
+        if ch in pairs:
+            stack.append(pairs[ch])
+        elif ch in ")]}":
+            if not stack or stack.pop() != ch:
+                return None
+            if not stack:
+                return i + 1, commas
+    return None
+
+
+def constructor_initializer_scopes(code, cls):
+    """Strictly read simple out-of-line constructors, their delimiters and body in masked code.
+
+    Only parenthesized initializers are supported. An unreadable list or body
+    grants no range: never scan past a delimiter error to a later definition.
+    """
+    if unproven_pp_whitespace(code):
+        return []
+
+    def skip_space(at):
+        while at < len(code) and code[at].isspace():
+            at += 1
+        return at
+
+    scopes = []
+    identifier = re.compile(r"[A-Za-z_]\w*")
+    head = re.compile(r"\b" + re.escape(cls) + r"\s*::\s*" + re.escape(cls) + r"\s*\(")
+    for match in head.finditer(code):
+        before = max(code.rfind(ch, 0, match.start()) for ch in ";{}") + 1
+        prefix = re.sub(r"(?m)^[ \t]*#[^\n]*", "", code[before:match.start()])
+        if code.count("{", 0, match.start()) != code.count("}", 0, match.start()) \
+                or prefix.strip() or not starts_declaration(code, match.start()):
+            continue
+        parameters = _scope_group_end(code, match.end() - 1)
+        if parameters is None:
+            continue
+        if "=" in code[match.end():parameters[0] - 1]:
+            continue                                  # default-expression scope is not modeled
+        end, commas = parameters
+        at = skip_space(end)
+        if code[at:at + 1] != ":" or code[at:at + 2] == "::":
+            continue
+        start, arguments = at, []
+        while True:
+            at = skip_space(at + 1)                   # the colon or an initializer separator
+            name = identifier.match(code, at)
+            if name is None:
+                break
+            at = skip_space(name.end())
+            if code[at:at + 1] != "(":
+                break
+            argument = _scope_group_end(code, at)
+            if argument is None:
+                break
+            end, _inside_commas = argument
+            arguments.append((at, end))
+            at = skip_space(end)
+            if code[at:at + 1] == ",":
+                commas.append(at)
+                continue
+            body = _scope_group_end(code, at, body=True) if code[at:at + 1] == "{" else None
+            if body is not None:
+                scopes.append({"class": cls, "start": match.start(),
+                               "parameters": (match.end() - 1, parameters[0]),
+                               "initializers": (start, at), "arguments": arguments,
+                               "body": (at, body[0]), "structural_commas": sorted(commas)})
+            break
+    return scopes
+
+
 def member_spans(code, classes):
     """[(start, end, class)]: the out-of-line member function definitions of `classes` in the
     masked unit, from the qualified name through the closing brace (initializer list
     included). A call that happens to spell `Class::name(` is not a definition."""
+    if unproven_pp_whitespace(code):
+        return []
     spans = []
     for cls in classes:
+        constructors = {scope["start"]: scope for scope in constructor_initializer_scopes(code, cls)}
         for m in re.finditer(r"\b" + re.escape(cls) + r"\s*::\s*~?[A-Za-z_]\w*\s*\(", code):
-            if not starts_declaration(code, m.start()):
+            before = max(code.rfind(ch, 0, m.start()) for ch in ";{}") + 1
+            pointer_head = "*" in code[before:m.start()]
+            if pointer_head:
+                if not _pointer_member_definition_head(code, before, m.start()):
+                    continue
+            elif not starts_declaration(code, m.start()):
                 continue
             depth, i = 0, m.end() - 1
             while i < len(code):                        # the parameter list
@@ -2115,6 +2389,25 @@ def member_spans(code, classes):
                 j += 1
             if j >= len(code) or code[j] != "{":
                 continue                                # a declaration or a call
+            if pointer_head:
+                parameters = _scope_group_end(code, m.end() - 1)
+                qualifiers = code[i:j].split()
+                body = _scope_group_end(code, j, body=True)
+                if parameters is None or parameters[0] != i or body is None \
+                        or "=" in code[m.end():i - 1] \
+                        or any(q not in {"const", "volatile"} for q in qualifiers) \
+                        or len(qualifiers) != len(set(qualifiers)):
+                    continue
+                spans.append((m.start(), body[0], cls))
+                continue
+            constructor = re.fullmatch(re.escape(cls) + r"\s*::\s*" + re.escape(cls) + r"\s*\(", m.group())
+            if constructor and ":" in code[i:j]:
+                # The first brace might be a braced initializer or lambda,
+                # not the body. An unreadable initializer list grants no scope.
+                scope = constructors.get(m.start())
+                if scope is not None:
+                    spans.append((m.start(), scope["body"][1], cls))
+                continue
             depth, k = 0, j
             while k < len(code):
                 depth += (code[k] == "{") - (code[k] == "}")
@@ -2123,6 +2416,31 @@ def member_spans(code, classes):
                     break
             spans.append((m.start(), k, cls))
     return spans
+
+
+def _pointer_member_definition_head(code, start, end):
+    """Only an explicit simple pointer return type at global declaration scope.
+
+    This is deliberately separate from starts_declaration: call expressions and
+    its other users gain no general pointer-prefix allowance.
+    """
+    if code.count("{", 0, end) != code.count("}", 0, end):
+        return False
+    head = re.fullmatch(r"\s*((?:(?:const|volatile)\s+)*)?([A-Za-z_]\w*)\s*\*\s*"
+                        r"((?:(?:const|volatile)\b\s*)*)", code[start:end])
+    if head is None:
+        return False
+    if any(len(words.split()) != len(set(words.split())) for words in (head[1] or "", head[3])):
+        return False
+    name = head[2]
+    if re.search(r"(?m)^[ \t]*#[ \t]*define[ \t]+" + re.escape(name) + r"\b", code) \
+            or re.search(r"\b(?:typedef|using)\b[^;{}]*\b" + re.escape(name) + r"\b", code):
+        return False
+    if name in {"void", "int", "char", "short", "long", "float", "double", "bool", "wchar_t"}:
+        return True
+    declarations = list(re.finditer(r"\b(?:class|struct)\s+" + re.escape(name) + r"\b", code))
+    return bool(declarations) and all(code.count("{", 0, d.start()) == code.count("}", 0, d.start())
+                                      for d in declarations)
 
 
 NESTED_SCOPE = re.compile(r"(?:\b(?:class|struct|union)\b[^{;]*[^)\s]"
@@ -2198,6 +2516,121 @@ def declared_class(code, name):
     return bool(re.search(r"\b(?:class|struct)\s+(?:__declspec\([^)]*\)\s*)*" + re.escape(name) + r"\b", code))
 
 
+def _constructor_receiver_commas(code, start, end, receiver, scopes):
+    """Only structural ctor separators may accompany one proven parameter receiver.
+
+    Expression/call commas, defaults, complex parameter spellings and body uses
+    keep the ordinary refusal. The later owner and nested-scope checks still run.
+    """
+    word = re.compile(r"\b" + re.escape(receiver) + r"\b")
+    macros = set(re.findall(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)", code))
+    if macros & set(re.findall(r"[A-Za-z_]\w*", code[start:end])):
+        return False
+    commas = {at for at in range(start, end) if code[at] == ","}
+    for scope in scopes:
+        init_start, body_start = scope["initializers"]
+        if not start <= scope["start"] < end or body_start != end \
+                or code[start:scope["start"]].strip() \
+                or not commas <= set(scope["structural_commas"]):
+            continue
+        param_start, param_end = scope["parameters"]
+        params = code[param_start + 1:param_end - 1]
+        if any(ch in params for ch in "=<>#") or len(word.findall(params)) != 1:
+            continue
+        separators = [at for at in scope["structural_commas"] if param_start < at < param_end]
+        bounds = [param_start] + separators + [param_end - 1]
+        binding = re.compile(r"\s*(?:const\s+)?" + re.escape(scope["class"])
+                             + r"(?:\s+const)?\s*[*&]\s*" + re.escape(receiver) + r"\s*")
+        if sum(bool(binding.fullmatch(code[a + 1:b])) for a, b in zip(bounds, bounds[1:])) != 1:
+            continue
+        if word.search(code[scope["body"][0]:scope["body"][1]]):
+            continue                                  # no local shadow or receiver flow in the body
+        proven = True
+        for match in word.finditer(code, start, end):
+            at = match.start()
+            if param_start < at < param_end:
+                continue                              # the unique complete typed binding above
+            if not init_start <= at < body_start \
+                    or not any(a < at < b for a, b in scope["arguments"]) \
+                    or code[:at].rstrip().endswith((".", "->", "::")):
+                proven = False
+                break
+            field = re.match(r"\s*(?:->|\.)\s*[A-Za-z_]\w*", code[match.end():])
+            if field is None or code[match.end() + field.end():].lstrip().startswith("("):
+                proven = False
+                break
+        if proven:
+            return True
+    return False
+
+
+def _member_call_receiver_commas(code, start, end, receiver, mappings, spans):
+    """A complete narrow member-call statement with one locally typed field receiver.
+
+    Callee syntax bounds argument separators; it establishes no callee signature.
+    Arguments are simple values or this receiver's direct fields with an optional
+    numeric adjustment. Nested calls, casts, operators and declarations do not
+    borrow this exception. A niladic getter chain may only form the callee.
+    """
+    ident = r"[A-Za-z_]\w*"
+    macros = set(re.findall(r"(?m)^[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)", code))
+    if macros & set(re.findall(ident, code[start:end])):
+        return False
+    link = r"\s*(?:->|\.)\s*" + ident
+    chain = ident + r"(?:" + link + r"\s*\(\s*\))*"
+    cast_type = r"(?:" + ident + r"\s*::\s*)*" + ident + r"\s*\*"
+    callee = r"(?:" + chain + r"|reinterpret_cast\s*<\s*" + cast_type + r"\s*>\s*\(\s*" + chain + r"\s*\))"
+    head = re.match(r"\s*" + callee + link + r"\s*\(", code[start:end])
+    if head is None:
+        return False
+    opening = start + head.end() - 1
+    arguments = _scope_group_end(code, opening)
+    if arguments is None or arguments[0] > end or code[arguments[0]:end].strip():
+        return False
+    if {at for at in range(start, end) if code[at] == ","} != set(arguments[1]):
+        return False
+    number = r"[+-]?(?:0[xX][0-9A-Fa-f]+|\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)[uUlLfF]*"
+    direct = re.escape(receiver) + r"\s*(?:->|\.)\s*" + ident
+    value = re.compile(r"\s*(?:" + ident + r"|" + number + r"|" + direct
+                       + r"(?:\s*[+-]\s*" + number + r")?)\s*")
+    bounds = [opening] + arguments[1] + [arguments[0] - 1]
+    for a, b in zip(bounds, bounds[1:]):
+        arg = code[a + 1:b]
+        if not value.fullmatch(arg) or arg.strip() in (TYPE_WORDS | STATEMENT_WORDS) - {"true", "false"}:
+            return False
+    types = declaration_types(code, receiver)
+    if len(types) != 1 or next(iter(types)) not in mappings:
+        return False
+    cls = next(iter(types))
+    word = re.compile(r"\b" + re.escape(receiver) + r"\b")
+    for begin, finish, _owner in spans:
+        if not begin <= start < end <= finish or unsafe_scope(code, begin, start):
+            continue
+        params = code.find("(", begin)
+        parameters = _scope_group_end(code, params)
+        if parameters is None:
+            continue
+        if "=" in code[params + 1:parameters[0] - 1] \
+                or macros & set(re.findall(ident, code[begin:parameters[0]])):
+            continue
+        body = code.find("{", parameters[0], finish)
+        complete = _scope_group_end(code, body, body=True) if body >= 0 else None
+        if body >= start or complete is None or complete[0] != finish:
+            continue
+        declarations = [(match.start(), decl_type_before(code, match.start()))
+                        for match in word.finditer(code, begin, finish)]
+        declarations = [(at, typ) for at, typ in declarations if typ]
+        if len(declarations) != 1 or declarations[0][0] >= start or declarations[0][1] != cls:
+            continue                                  # a parameter/local, never a global or shadow
+        if any(not opening < match.start() < arguments[0]
+               or code[:match.start()].rstrip().endswith((".", "->", "::"))
+               or not re.match(r"\s*(?:->|\.)\s*" + ident, code[match.end():])
+               for match in word.finditer(code, start, end)):
+            continue
+        return True
+    return False
+
+
 def scoped_rename(text, mappings):
     """(text with every reference to a renamed field rewritten, None), or (None, why) when an
     occurrence of an old name is not proven to be a member of a class it is renamed in, or of
@@ -2209,6 +2642,8 @@ def scoped_rename(text, mappings):
     olds = {old for m in mappings.values() for old in m}
     if not olds:
         return text, None
+    if unproven_pp_whitespace(text):
+        return None, "unsupported preprocessing whitespace; field ownership is unproven"
     if re.search(r"\\\r?\n|\?\?[=/'()!<>-]", text):
         return None, "line splice or trigraph in unit"
     spliced = spliced_identifiers(text) & olds
@@ -2219,11 +2654,26 @@ def scoped_rename(text, mappings):
     for cls in mappings:
         if re.search(r"\b[A-Za-z_]\w*\s*::\s*" + re.escape(cls) + r"\s*::", code):
             return None, f"qualified member definition or reference of {cls}"
-    # Conservatively refuse every comma-containing statement mentioning a receiver.
+    # Conservatively refuse comma-containing statements mentioning a receiver;
+    # only fully read constructor separators with a typed parameter are different.
     receivers = set(re.findall(r"\b([A-Za-z_]\w*)\s*(?:->|\.)\s*(?:" + "|".join(map(re.escape, olds)) + r")\b", code))
+    constructor_scopes = None
+    call_spans = None
     for receiver in receivers:
-        for statement in re.split(r"[;{}]", code):
+        for match in re.finditer(r"[^;{}]+", code):
+            statement = match.group()
             if "," in statement and re.search(r"\b" + re.escape(receiver) + r"\b", statement):
+                if constructor_scopes is None:
+                    constructor_scopes = [scope for cls in mappings
+                                          for scope in constructor_initializer_scopes(code, cls)]
+                if _constructor_receiver_commas(code, match.start(), match.end(), receiver,
+                                                constructor_scopes):
+                    continue
+                if call_spans is None:
+                    classes = set(mappings) | set(re.findall(r"\b(?:class|struct)\s+([A-Za-z_]\w*)", code))
+                    call_spans = member_spans(code, sorted(classes))
+                if _member_call_receiver_commas(code, match.start(), match.end(), receiver, mappings, call_spans):
+                    continue
                 return None, f"{receiver} occurs in a comma declaration or expression"
     derived = re.compile(r"\b(?:class|struct)\s+(\w+)\s*:[^{;]*\b(?:" + "|".join(map(re.escape, mappings)) + r")\b")
     heirs = {m.group(1) for m in derived.finditer(code)}
@@ -6457,7 +6907,7 @@ def acceptance_dependencies(sources, base="HEAD"):
     return adoption_dependencies(items, before, after)
 
 
-def prepare_unit(source, strip, header, key):
+def prepare_unit(source, strip, header, key, owner_witness=None):
     """Prepare a swap without writing source/ledger files or running the byte gate."""
     path = ROOT / source
     original = path.read_bytes()
@@ -6468,7 +6918,8 @@ def prepare_unit(source, strip, header, key):
     swapped = swap(text, strip, include)
     if swapped is None:
         return source, "no private view found", None, []
-    fields, why = field_renames(source, text, strip, include, header=header)
+    options = {"owner_witness": owner_witness} if owner_witness is not None else {}
+    fields, why = field_renames(source, text, strip, include, header=header, **options)
     if why:
         return source, f"field renames: {why}", None, []
     if fields:
@@ -6476,6 +6927,12 @@ def prepare_unit(source, strip, header, key):
         if why:
             return source, f"field renames: {why}", None, []
         FIELD_RENAMES[source] = {f"{cls}::{old}": new for cls, m in fields.items() for old, new in m.items()}
+    if owner_witness is not None:
+        why = owner_witness_problem(owner_witness, source, text, fields, ROOT, (header,))
+        if why:
+            return source, why, None, []
+        if swapped != owner_witness.current.plan_text():
+            return source, "paired owner candidate differs from the actual prospective source", None, []
     renames, why = ledger_renames(source, strip[0], key) if view_key != key else ([], None)
     if why:
         return source, f"class-key {view_key}: {why}", None, []
@@ -6500,13 +6957,57 @@ def try_unit(source, strip, header, key):
     return source, why, swapped, renames
 
 
-def try_units(sources, strip, header, key, jobs=1, dependency_plan=None):
+def _try_owner_unit(sources, strip, header, key, witness, outputs, dependency_plan):
+    """One source, unchanged class-key/ledger, exact paired CAS transaction only."""
+    import header_generation_proof as proof
+    def refused(why):
+        return [(s, why, None, []) for s in sources]
+    if (type(witness) is not proof.PairedOwnerWitness or len(sources) != 1
+            or witness.current.name not in strip or sources[0] != witness.current.source
+            or header != witness.current.header or not isinstance(outputs, dict)):
+        return refused("owned source trial requires one exact paired source/class/header scope")
+    source = sources[0]
+    try:
+        original = (ROOT / source).read_text(encoding="latin-1")
+        if [name for name in strip if body_span(original, name)] != [witness.current.name]:
+            return refused("owned source trial cannot remove any additional private class")
+        old = body_span(original, strip[0])
+        new = body_span((ROOT / header).read_text(encoding="latin-1"), strip[0])
+        if not old or not new or old[2] != key or new[2] != key:
+            return refused("owned source trial has no transaction for class-key/ledger renames")
+        prospective = prospective_renames(sources, strip[0], key)
+        if any(item[3] for item in prospective):
+            return refused("owned source trial cannot change ledger names")
+        plan = adoption_dependencies(prospective)
+        blocked = {**key_backref_blockers(sources, strip[0], key), **key_metadata_blockers(prospective),
+                   **dependency_blockers(plan, sources)}
+        if blocked:
+            return refused(blocked.get(source, "owned source dependency scope is incomplete"))
+        prepared = prepare_unit(source, strip, header, key, owner_witness=witness)
+        if prepared[1] or prepared[3]:
+            return [prepared] if prepared[1] else refused("owned source trial cannot change ledger names")
+        actual = adoption_dependencies([prepared])
+        if dependency_plan is not None:
+            dependency_plan.update(actual)
+        blocked = dependency_blockers(actual, sources)
+        if blocked:
+            return refused(blocked[source])
+        token = proof.verify_owner_trial(witness)
+        outputs[source] = token
+        return [prepared]
+    except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+        return refused(f"owned source transaction refused: {exc}")
+
+
+def try_units(sources, strip, header, key, jobs=1, dependency_plan=None, owner_witness=None, owner_outputs=None):
     """Trial a whole variant in one source/ledger state, always restoring both.
 
     Preparation errors remain per-file failures. Byte failures are isolated by
     gate_many; class-key renames share one temporary ledger instead of races.
     """
     sources = list(dict.fromkeys(sources))
+    if owner_witness is not None:
+        return _try_owner_unit(sources, strip, header, key, owner_witness, owner_outputs, dependency_plan)
     if not BFME2:
         with cf.ThreadPoolExecutor(jobs) as pool:
             got = list(pool.map(lambda s: try_unit(s, strip, header, key), sources))
@@ -7161,7 +7662,7 @@ def accept(name, sources, header=None, gate=None, providers=()):
     return bad
 
 
-def adopt(name, header, sources, apply=False, jobs=1):
+def adopt(name, header, sources, apply=False, jobs=1, owner_witness=None):
     """Adopt `header` in the given units without registering `name`: staged adoption for a
     class whose merge donors still mostly carry private views (registering would make
     class_gate refuse their merges). Each unit is swapped as the tournament swaps it, field
@@ -7175,14 +7676,25 @@ def adopt(name, header, sources, apply=False, jobs=1):
         raise SystemExit(f"{header} does not define {name}")
     strip = [name] + STRIP_WITH.get(name, [])
     strip += [c for c in header_classes(header) if c not in strip]
-    got = try_units(sources, strip, header, span[2], jobs)
+    owner_outputs = {}
+    options = {"owner_witness": owner_witness, "owner_outputs": owner_outputs} if owner_witness is not None else {}
+    got = try_units(sources, strip, header, span[2], jobs, **options)
     failed = 0
     for source, why, text, renames in got:
+        if why is None and apply and owner_witness is not None:
+            import header_generation_proof as proof
+            try:
+                token = owner_outputs.get(source)
+                if type(token) is not proof.OwnerGateOutputWitness:
+                    raise ValueError("missing sealed ordinary gate output")
+                token.apply()
+            except (ValueError, OSError, RuntimeError, SystemExit, AttributeError, TypeError) as exc:
+                why = f"owned final apply refused: {exc}"
         fields = FIELD_RENAMES.get(source, {})
         print(f"  {'PASS' if why is None else 'FAIL'} {source}" + (f": {why}" if why else "")
               + (" (fields: " + ", ".join(f"{a} -> {b}" for a, b in sorted(fields.items())) + ")" if fields else ""))
         failed += why is not None
-        if why is None and apply:
+        if why is None and apply and owner_witness is None:
             (ROOT / source).write_bytes(text.encode("latin-1"))
             rewrite_ledger(renames)
     return failed
@@ -7256,12 +7768,31 @@ class GenerationRefused(ValueError):
 
 class GenerationWrites:
     """Restore only bytes this trial last wrote; never clobber an intervening edit."""
-    def __init__(self, frozen=None):
+    def __init__(self, frozen=None, *, owned_generations=None):
         self.before, self.written = {}, {}
         self.frozen = dict(frozen or {})
+        # Opt-in owner transactions need the actual generation, including when
+        # the first read AFTER a successful replace raises or is interrupted.
+        # Ordinary registered-generation callers retain their existing route.
+        self.initial_generations = None if owned_generations is None else dict(owned_generations)
+        self.generations = {}
+
+    @staticmethod
+    def generation(path):
+        import header_generation_inputs as inputs
+        if path.is_symlink() or not path.is_file():
+            raise GenerationRefused(f"owned source is not an ordinary file: {path}")
+        return tuple(inputs._stamp(path.stat()))
+
+    def _known_generation(self, path):
+        return self.generations.get(path, self.initial_generations.get(path))
 
     def current(self, path):
+        before = self.generation(path) if self.initial_generations is not None else None
         current = path.read_bytes() if path.exists() else None
+        if self.initial_generations is not None:
+            if before != self.generation(path) or before != self._known_generation(path):
+                raise GenerationRefused(f"intervening source generation: {path}")
         if path not in self.before and path in self.frozen:
             expected = self.frozen[path]
             if ((current is None) != (expected is None) or
@@ -7280,12 +7811,31 @@ class GenerationWrites:
             self.written[path] = None
             path.unlink(missing_ok=True)
         else:
-            temporary = None
+            temporary, preflight = None, None
             try:
-                with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".header-generation-", delete=False) as handle:
+                owner_mode = self.initial_generations is not None
+                with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".header-generation-",
+                                                suffix=".cpp" if owner_mode else "", delete=False) as handle:
                     temporary = Path(handle.name)
                     handle.write(data)
                     handle.flush()
+                if owner_mode:
+                    generation = self.generation(temporary)
+                    # Refuse filesystems with a rename-changing generation
+                    # BEFORE replacing the real source. These own .cpp paths
+                    # do not change the native header search inventory.
+                    with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".header-generation-",
+                                                    suffix=".cpp", delete=False) as handle:
+                        preflight = Path(handle.name)
+                    os.replace(temporary, preflight)
+                    temporary = preflight
+                    if self.generation(temporary) != generation:
+                        raise GenerationRefused("owned atomic rename does not preserve a provable generation")
+                    if self.current(path) != current:
+                        raise GenerationRefused(f"intervening input before replacement: {path}")
+                    # Record BEFORE final replace, independently of a fallible
+                    # read of its destination and without blessing foreign bytes.
+                    self.generations[path] = generation
                 # Record before the atomic replacement: cancellation immediately
                 # after replace still leaves a recognizable owned generation.
                 self.written[path] = data
@@ -7293,12 +7843,14 @@ class GenerationWrites:
                     os.replace(temporary, path)
                 except BaseException:
                     actual = path.read_bytes() if path.exists() else None
-                    if actual == current:
+                    if actual == current and not owner_mode:
                         self.written[path] = current
                     raise
             finally:
                 if temporary is not None:
                     temporary.unlink(missing_ok=True)
+                if preflight is not None:
+                    preflight.unlink(missing_ok=True)
 
     def observe(self, path):
         """Record an owning ledger/registry writer's result, after saving its input."""
@@ -7329,6 +7881,14 @@ class GenerationWrites:
             if path not in self.written:
                 continue
             if current == original:
+                continue
+            if self.initial_generations is not None:
+                if current != self.written[path] or self.generation(path) != self.generations.get(path):
+                    drift.append(str(path))
+                    continue
+                # This write remains generation-CAS guarded too. A foreign
+                # same-bytes replacement is never mistaken for our generation.
+                self.write(path, original)
                 continue
             if current != self.written[path]:
                 drift.append(str(path))

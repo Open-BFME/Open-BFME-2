@@ -153,29 +153,13 @@ private:
 	unsigned char m_pad14[0x20 - 0x14];
 };
 
-class UnitRevivalEntry
-{
-public:
-	~UnitRevivalEntry();
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
+#include "../../../../Include/Common/Rva001EB15A.h"
 
-private:
-	unsigned char m_pad00[0xB0];
-	Rva001EB05E m_B0;			// +0xB0
-	AsciiString m_D0;			// +0xD0
-	AsciiString m_D4;			// +0xD4
-};
+class Image;
 
-struct Rva001EB15A
-{
-	int m_00;
-	int m_04;
-	int m_08;
-	UnicodeString m_wstr0C;
-	AsciiString m_str10;
-	unsigned char m_14;
-	Rva001EB15A();
-	Rva001EB15A(const Rva001EB15A &other);
-};
+#include "../../../../Include/GameLogic/UnitRevivalEntry.h"
+
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva001EB10CImulAddField, 0x24)
 

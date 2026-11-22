@@ -1,0 +1,12 @@
+Source claims: OK (2 sources, scoped byte-verified)
+Compile: 0 of 2 TU(s) (deps-cache: 2 current)
+Funclet pins: 20 row(s) verified past a renumbered $L label
+    uw_00763857 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp): $L403 was renumbered; verified parent EH data places $L16838 at 0x00763857
+    uw_00763887 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp): $L968 was renumbered; verified parent EH data places $L5229 at 0x00763887
+    $L410 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp): $L410 was renumbered; verified parent EH data places $L16839 at 0x00763865
+    $L408 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp): $L408 was renumbered; verified parent EH data places $L16837 at 0x00763839
+    ?rva007638A1@@YAXXZ (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp): $L4512 was renumbered; verified parent EH data places $L16879 at 0x007638A1
+Functions: OK 61/61 matched across 2 source file(s)
+String-ref verify: OK (7 literals + 9 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (21 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

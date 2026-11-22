@@ -1,0 +1,5780 @@
+{
+  "retail_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "image_base": "00400000",
+  "functions": {
+    "0050E7BB": {
+      "rows": [
+        {
+          "name": "?show@Rva0050EA74@@UAEXXZ",
+          "export_rva": "",
+          "target_rva": "0x0050E7BB",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+          "status": "matched",
+          "notes": "Disp8 byte one-setter"
+        }
+      ],
+      "hex": "c6411001c3",
+      "instructions": [
+        {
+          "va": "0090E7BB",
+          "hex": "c6411001",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ecx + 0x10], 1"
+        },
+        {
+          "va": "0090E7BF",
+          "hex": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    "0050E7C0": {
+      "rows": [
+        {
+          "name": "?hide@Rva0050EA74@@UAEXXZ",
+          "export_rva": "",
+          "target_rva": "0x0050E7C0",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+          "status": "matched",
+          "notes": "Disp8 byte zero-setter"
+        }
+      ],
+      "hex": "c6411000c3",
+      "instructions": [
+        {
+          "va": "0090E7C0",
+          "hex": "c6411000",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ecx + 0x10], 0"
+        },
+        {
+          "va": "0090E7C4",
+          "hex": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    "0050EA22": {
+      "rows": [
+        {
+          "name": "??1Rva0050EA74@@UAE@XZ",
+          "export_rva": "",
+          "target_rva": "0x0050EA22",
+          "target_size": "54",
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "status": "matched",
+          "notes": "dual-vtable via empty inline base plus AsciiString release"
+        }
+      ],
+      "hex": "b8e747b900e85ca7110051568bf18975f0c7061c55c6008365fc008d4e0ce8cb79b2ff8b4df4c706206fbc005e64890d00000000c9c3",
+      "instructions": [
+        {
+          "va": "0090EA22",
+          "hex": "b8e747b900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb947e7"
+        },
+        {
+          "va": "0090EA27",
+          "hex": "e85ca71100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "0090EA2C",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "0090EA2D",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EA2E",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "0090EA30",
+          "hex": "8975f0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], esi"
+        },
+        {
+          "va": "0090EA33",
+          "hex": "c7061c55c600",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi], 0xc6551c"
+        },
+        {
+          "va": "0090EA39",
+          "hex": "8365fc00",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "va": "0090EA3D",
+          "hex": "8d4e0c",
+          "mnemonic": "lea",
+          "operands": "ecx, [esi + 0xc]"
+        },
+        {
+          "va": "0090EA40",
+          "hex": "e8cb79b2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "0090EA45",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "0090EA48",
+          "hex": "c706206fbc00",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi], 0xbc6f20"
+        },
+        {
+          "va": "0090EA4E",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EA4F",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "0090EA56",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "0090EA57",
+          "hex": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    "0050EA58": {
+      "rows": [
+        {
+          "name": "??_GRva0050EA74@@UAEPAXI@Z",
+          "export_rva": "",
+          "target_rva": "0x0050EA58",
+          "target_size": "28",
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "status": "matched",
+          "notes": "auto-emitted deleting dtor over rowed 0x0050EA22"
+        }
+      ],
+      "hex": "568bf1e8c2fffffff644240801740756e8f312b2ff598bc65ec20400",
+      "instructions": [
+        {
+          "va": "0090EA58",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EA59",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "0090EA5B",
+          "hex": "e8c2ffffff",
+          "mnemonic": "call",
+          "operands": "0x90ea22"
+        },
+        {
+          "va": "0090EA60",
+          "hex": "f644240801",
+          "mnemonic": "test",
+          "operands": "byte ptr [esp + 8], 1"
+        },
+        {
+          "va": "0090EA65",
+          "hex": "7407",
+          "mnemonic": "je",
+          "operands": "0x90ea6e"
+        },
+        {
+          "va": "0090EA67",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EA68",
+          "hex": "e8f312b2ff",
+          "mnemonic": "call",
+          "operands": "0x42fd60"
+        },
+        {
+          "va": "0090EA6D",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "0090EA6E",
+          "hex": "8bc6",
+          "mnemonic": "mov",
+          "operands": "eax, esi"
+        },
+        {
+          "va": "0090EA70",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EA71",
+          "hex": "c20400",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    },
+    "0050EA74": {
+      "rows": [
+        {
+          "name": "??0Rva0050EA74@@QAE@HABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x0050EA74",
+          "target_size": "69",
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "status": "matched",
+          "notes": "ctor via base m04 plus vtable plus StringBase copy"
+        }
+      ],
+      "hex": "b8e747b900e80aa7110051568bf1836604008975f08b4508ff750c8365fc008d4e0cc7061c55c600894608e84c7bb2ff8b4df4c64610008bc65e64890d00000000c9c20800",
+      "instructions": [
+        {
+          "va": "0090EA74",
+          "hex": "b8e747b900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb947e7"
+        },
+        {
+          "va": "0090EA79",
+          "hex": "e80aa71100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "0090EA7E",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "0090EA7F",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EA80",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "0090EA82",
+          "hex": "83660400",
+          "mnemonic": "and",
+          "operands": "dword ptr [esi + 4], 0"
+        },
+        {
+          "va": "0090EA86",
+          "hex": "8975f0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], esi"
+        },
+        {
+          "va": "0090EA89",
+          "hex": "8b4508",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0090EA8C",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0090EA8F",
+          "hex": "8365fc00",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "va": "0090EA93",
+          "hex": "8d4e0c",
+          "mnemonic": "lea",
+          "operands": "ecx, [esi + 0xc]"
+        },
+        {
+          "va": "0090EA96",
+          "hex": "c7061c55c600",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi], 0xc6551c"
+        },
+        {
+          "va": "0090EA9C",
+          "hex": "894608",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi + 8], eax"
+        },
+        {
+          "va": "0090EA9F",
+          "hex": "e84c7bb2ff",
+          "mnemonic": "call",
+          "operands": "0x4365f0"
+        },
+        {
+          "va": "0090EAA4",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "0090EAA7",
+          "hex": "c6461000",
+          "mnemonic": "mov",
+          "operands": "byte ptr [esi + 0x10], 0"
+        },
+        {
+          "va": "0090EAAB",
+          "hex": "8bc6",
+          "mnemonic": "mov",
+          "operands": "eax, esi"
+        },
+        {
+          "va": "0090EAAD",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EAAE",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "0090EAB5",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "0090EAB6",
+          "hex": "c20800",
+          "mnemonic": "ret",
+          "operands": "8"
+        }
+      ]
+    },
+    "0050EBC5": {
+      "rows": [
+        {
+          "name": "?rva0050EBC5@Rva00510D0C@@QAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x0050EBC5",
+          "target_size": "95",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+          "status": "matched",
+          "notes": "vtable 0x00C6568C slot 1 input handler of the same screen: page vslot 3 first then key message 0x15 keys 1/0x0F return to game else the rowed base handler 0x005748AD; name unknown"
+        }
+      ],
+      "hex": "558bec568bf18d86880200008338007417ff75108b00ff750c8b10ff75088bc8ff520c83f801742f837d0815750c0fb6450c48741783e80e7412ff75108bceff750cff7508e89e5c0600eb0ef64510017405e8b7fdffff33c0405e5dc20c00",
+      "instructions": [
+        {
+          "va": "0090EBC5",
+          "hex": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "va": "0090EBC6",
+          "hex": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "va": "0090EBC8",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EBC9",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "0090EBCB",
+          "hex": "8d8688020000",
+          "mnemonic": "lea",
+          "operands": "eax, [esi + 0x288]"
+        },
+        {
+          "va": "0090EBD1",
+          "hex": "833800",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [eax], 0"
+        },
+        {
+          "va": "0090EBD4",
+          "hex": "7417",
+          "mnemonic": "je",
+          "operands": "0x90ebed"
+        },
+        {
+          "va": "0090EBD6",
+          "hex": "ff7510",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0x10]"
+        },
+        {
+          "va": "0090EBD9",
+          "hex": "8b00",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [eax]"
+        },
+        {
+          "va": "0090EBDB",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0090EBDE",
+          "hex": "8b10",
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [eax]"
+        },
+        {
+          "va": "0090EBE0",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0090EBE3",
+          "hex": "8bc8",
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "va": "0090EBE5",
+          "hex": "ff520c",
+          "mnemonic": "call",
+          "operands": "dword ptr [edx + 0xc]"
+        },
+        {
+          "va": "0090EBE8",
+          "hex": "83f801",
+          "mnemonic": "cmp",
+          "operands": "eax, 1"
+        },
+        {
+          "va": "0090EBEB",
+          "hex": "742f",
+          "mnemonic": "je",
+          "operands": "0x90ec1c"
+        },
+        {
+          "va": "0090EBED",
+          "hex": "837d0815",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [ebp + 8], 0x15"
+        },
+        {
+          "va": "0090EBF1",
+          "hex": "750c",
+          "mnemonic": "jne",
+          "operands": "0x90ebff"
+        },
+        {
+          "va": "0090EBF3",
+          "hex": "0fb6450c",
+          "mnemonic": "movzx",
+          "operands": "eax, byte ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0090EBF7",
+          "hex": "48",
+          "mnemonic": "dec",
+          "operands": "eax"
+        },
+        {
+          "va": "0090EBF8",
+          "hex": "7417",
+          "mnemonic": "je",
+          "operands": "0x90ec11"
+        },
+        {
+          "va": "0090EBFA",
+          "hex": "83e80e",
+          "mnemonic": "sub",
+          "operands": "eax, 0xe"
+        },
+        {
+          "va": "0090EBFD",
+          "hex": "7412",
+          "mnemonic": "je",
+          "operands": "0x90ec11"
+        },
+        {
+          "va": "0090EBFF",
+          "hex": "ff7510",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0x10]"
+        },
+        {
+          "va": "0090EC02",
+          "hex": "8bce",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "va": "0090EC04",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0090EC07",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0090EC0A",
+          "hex": "e89e5c0600",
+          "mnemonic": "call",
+          "operands": "0x9748ad"
+        },
+        {
+          "va": "0090EC0F",
+          "hex": "eb0e",
+          "mnemonic": "jmp",
+          "operands": "0x90ec1f"
+        },
+        {
+          "va": "0090EC11",
+          "hex": "f6451001",
+          "mnemonic": "test",
+          "operands": "byte ptr [ebp + 0x10], 1"
+        },
+        {
+          "va": "0090EC15",
+          "hex": "7405",
+          "mnemonic": "je",
+          "operands": "0x90ec1c"
+        },
+        {
+          "va": "0090EC17",
+          "hex": "e8b7fdffff",
+          "mnemonic": "call",
+          "operands": "0x90e9d3"
+        },
+        {
+          "va": "0090EC1C",
+          "hex": "33c0",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "0090EC1E",
+          "hex": "40",
+          "mnemonic": "inc",
+          "operands": "eax"
+        },
+        {
+          "va": "0090EC1F",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "0090EC20",
+          "hex": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "va": "0090EC21",
+          "hex": "c20c00",
+          "mnemonic": "ret",
+          "operands": "0xc"
+        }
+      ]
+    },
+    "0050F5DF": {
+      "rows": [
+        {
+          "name": "?rva0050F5DF@Rva00510D0C@@QAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x0050F5DF",
+          "target_size": "124",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+          "status": "matched",
+          "notes": "vtable 0x00C6568C slot 2 current page plus map plus base 0x0051274F"
+        }
+      ],
+      "hex": "558bec568bf183be88020000007419ff75108b8e88020000ff750c8b01ff7508ff501083f801744a538b9e7c020000578b7b08eb278b4f143b8e880200007413ff75108b01ff750cff7508ff501083f801742457e8184cb1ff598bf83bfb75d5ff75108bceff750cff7508e8003100005f5b5e5dc20c0033c040ebf4",
+      "instructions": [
+        {
+          "va": "0090F5DF",
+          "hex": "55",
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "va": "0090F5E0",
+          "hex": "8bec",
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "va": "0090F5E2",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090F5E3",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "0090F5E5",
+          "hex": "83be8802000000",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [esi + 0x288], 0"
+        },
+        {
+          "va": "0090F5EC",
+          "hex": "7419",
+          "mnemonic": "je",
+          "operands": "0x90f607"
+        },
+        {
+          "va": "0090F5EE",
+          "hex": "ff7510",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0x10]"
+        },
+        {
+          "va": "0090F5F1",
+          "hex": "8b8e88020000",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi + 0x288]"
+        },
+        {
+          "va": "0090F5F7",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0090F5FA",
+          "hex": "8b01",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "va": "0090F5FC",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0090F5FF",
+          "hex": "ff5010",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "va": "0090F602",
+          "hex": "83f801",
+          "mnemonic": "cmp",
+          "operands": "eax, 1"
+        },
+        {
+          "va": "0090F605",
+          "hex": "744a",
+          "mnemonic": "je",
+          "operands": "0x90f651"
+        },
+        {
+          "va": "0090F607",
+          "hex": "53",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "va": "0090F608",
+          "hex": "8b9e7c020000",
+          "mnemonic": "mov",
+          "operands": "ebx, dword ptr [esi + 0x27c]"
+        },
+        {
+          "va": "0090F60E",
+          "hex": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "va": "0090F60F",
+          "hex": "8b7b08",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [ebx + 8]"
+        },
+        {
+          "va": "0090F612",
+          "hex": "eb27",
+          "mnemonic": "jmp",
+          "operands": "0x90f63b"
+        },
+        {
+          "va": "0090F614",
+          "hex": "8b4f14",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [edi + 0x14]"
+        },
+        {
+          "va": "0090F617",
+          "hex": "3b8e88020000",
+          "mnemonic": "cmp",
+          "operands": "ecx, dword ptr [esi + 0x288]"
+        },
+        {
+          "va": "0090F61D",
+          "hex": "7413",
+          "mnemonic": "je",
+          "operands": "0x90f632"
+        },
+        {
+          "va": "0090F61F",
+          "hex": "ff7510",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0x10]"
+        },
+        {
+          "va": "0090F622",
+          "hex": "8b01",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "va": "0090F624",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0090F627",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0090F62A",
+          "hex": "ff5010",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "va": "0090F62D",
+          "hex": "83f801",
+          "mnemonic": "cmp",
+          "operands": "eax, 1"
+        },
+        {
+          "va": "0090F630",
+          "hex": "7424",
+          "mnemonic": "je",
+          "operands": "0x90f656"
+        },
+        {
+          "va": "0090F632",
+          "hex": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "va": "0090F633",
+          "hex": "e8184cb1ff",
+          "mnemonic": "call",
+          "operands": "0x424250"
+        },
+        {
+          "va": "0090F638",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "0090F639",
+          "hex": "8bf8",
+          "mnemonic": "mov",
+          "operands": "edi, eax"
+        },
+        {
+          "va": "0090F63B",
+          "hex": "3bfb",
+          "mnemonic": "cmp",
+          "operands": "edi, ebx"
+        },
+        {
+          "va": "0090F63D",
+          "hex": "75d5",
+          "mnemonic": "jne",
+          "operands": "0x90f614"
+        },
+        {
+          "va": "0090F63F",
+          "hex": "ff7510",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0x10]"
+        },
+        {
+          "va": "0090F642",
+          "hex": "8bce",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "va": "0090F644",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0090F647",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "0090F64A",
+          "hex": "e800310000",
+          "mnemonic": "call",
+          "operands": "0x91274f"
+        },
+        {
+          "va": "0090F64F",
+          "hex": "5f",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "va": "0090F650",
+          "hex": "5b",
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "va": "0090F651",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "0090F652",
+          "hex": "5d",
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "va": "0090F653",
+          "hex": "c20c00",
+          "mnemonic": "ret",
+          "operands": "0xc"
+        },
+        {
+          "va": "0090F656",
+          "hex": "33c0",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "0090F658",
+          "hex": "40",
+          "mnemonic": "inc",
+          "operands": "eax"
+        },
+        {
+          "va": "0090F659",
+          "hex": "ebf4",
+          "mnemonic": "jmp",
+          "operands": "0x90f64f"
+        }
+      ]
+    },
+    "0050F65B": {
+      "rows": [
+        {
+          "name": "?rva0050F65B@Rva00510D0C@@QAEHXZ",
+          "export_rva": "",
+          "target_rva": "0x0050F65B",
+          "target_size": "47",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+          "status": "matched",
+          "notes": "tribute screen vtable tail: every page in the map gets vslot 5 then base 0x910FB; WB 135B2E0 tribute page-map iteration; hand-ported from the permute --pins win"
+        }
+      ],
+      "hex": "53568bd9578bbb7c0200008b7708eb118b4e148b01ff501456e8d74bb1ff598bf03bf775eb5f5e8bcb5be9711ab8ff",
+      "instructions": [
+        {
+          "va": "0090F65B",
+          "hex": "53",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "va": "0090F65C",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090F65D",
+          "hex": "8bd9",
+          "mnemonic": "mov",
+          "operands": "ebx, ecx"
+        },
+        {
+          "va": "0090F65F",
+          "hex": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "va": "0090F660",
+          "hex": "8bbb7c020000",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [ebx + 0x27c]"
+        },
+        {
+          "va": "0090F666",
+          "hex": "8b7708",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [edi + 8]"
+        },
+        {
+          "va": "0090F669",
+          "hex": "eb11",
+          "mnemonic": "jmp",
+          "operands": "0x90f67c"
+        },
+        {
+          "va": "0090F66B",
+          "hex": "8b4e14",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi + 0x14]"
+        },
+        {
+          "va": "0090F66E",
+          "hex": "8b01",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "va": "0090F670",
+          "hex": "ff5014",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x14]"
+        },
+        {
+          "va": "0090F673",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "0090F674",
+          "hex": "e8d74bb1ff",
+          "mnemonic": "call",
+          "operands": "0x424250"
+        },
+        {
+          "va": "0090F679",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "0090F67A",
+          "hex": "8bf0",
+          "mnemonic": "mov",
+          "operands": "esi, eax"
+        },
+        {
+          "va": "0090F67C",
+          "hex": "3bf7",
+          "mnemonic": "cmp",
+          "operands": "esi, edi"
+        },
+        {
+          "va": "0090F67E",
+          "hex": "75eb",
+          "mnemonic": "jne",
+          "operands": "0x90f66b"
+        },
+        {
+          "va": "0090F680",
+          "hex": "5f",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "va": "0090F681",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "0090F682",
+          "hex": "8bcb",
+          "mnemonic": "mov",
+          "operands": "ecx, ebx"
+        },
+        {
+          "va": "0090F684",
+          "hex": "5b",
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "va": "0090F685",
+          "hex": "e9711ab8ff",
+          "mnemonic": "jmp",
+          "operands": "0x4910fb"
+        }
+      ]
+    },
+    "005101C0": {
+      "rows": [
+        {
+          "name": "?rva005101C0@Rva005101C0@@QAEHIPAVGameWindow@@I@Z",
+          "export_rva": "",
+          "target_rva": "0x005101C0",
+          "target_size": "34",
+          "source": "Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp",
+          "status": "matched",
+          "notes": "vtable slot; 1 when +0x24 object's rowed 0x0050FF7F answers 1 else 0; no Ghidra entry"
+        }
+      ],
+      "hex": "8b492485c97416ff74240cff74240cff74240ce8a7fdffff83f801740233c0c20c00",
+      "instructions": [
+        {
+          "va": "009101C0",
+          "hex": "8b4924",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ecx + 0x24]"
+        },
+        {
+          "va": "009101C3",
+          "hex": "85c9",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "va": "009101C5",
+          "hex": "7416",
+          "mnemonic": "je",
+          "operands": "0x9101dd"
+        },
+        {
+          "va": "009101C7",
+          "hex": "ff74240c",
+          "mnemonic": "push",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "va": "009101CB",
+          "hex": "ff74240c",
+          "mnemonic": "push",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "va": "009101CF",
+          "hex": "ff74240c",
+          "mnemonic": "push",
+          "operands": "dword ptr [esp + 0xc]"
+        },
+        {
+          "va": "009101D3",
+          "hex": "e8a7fdffff",
+          "mnemonic": "call",
+          "operands": "0x90ff7f"
+        },
+        {
+          "va": "009101D8",
+          "hex": "83f801",
+          "mnemonic": "cmp",
+          "operands": "eax, 1"
+        },
+        {
+          "va": "009101DB",
+          "hex": "7402",
+          "mnemonic": "je",
+          "operands": "0x9101df"
+        },
+        {
+          "va": "009101DD",
+          "hex": "33c0",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "009101DF",
+          "hex": "c20c00",
+          "mnemonic": "ret",
+          "operands": "0xc"
+        }
+      ]
+    },
+    "005101E2": {
+      "rows": [
+        {
+          "name": "?rva005101E2@Rva005101C0@@QAEXXZ",
+          "export_rva": "",
+          "target_rva": "0x005101E2",
+          "target_size": "81",
+          "source": "Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp",
+          "status": "matched",
+          "notes": "Native005101E2..00510233 complete81B RET0 and tail child refresh; Ghidra125B extent includes independent wrappers at00510233/238/24F. Unnamed WB1359980 vtable body AptPlayerTribute.cpp pairs to this head. Target level8/prefix0C/enabled20/child24 confirm receiver view beside existing005101C0 router. Rowed can-transfer predicate23D339 then SetState _enabled via5FB5E6 and child50FFC0. Original identity unknown; all81B exact."
+        }
+      ],
+      "hex": "568bf1807e2000753ae849d1d2ff84c074318b460c85c0740583c008eb05b81cacbb0068cc55c6006804c7c30050ff7608ff35cce4df00e8c8b30e0083c414c64620018b4e2485c95e7405e98efdffffc3",
+      "instructions": [
+        {
+          "va": "009101E2",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "009101E3",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "009101E5",
+          "hex": "807e2000",
+          "mnemonic": "cmp",
+          "operands": "byte ptr [esi + 0x20], 0"
+        },
+        {
+          "va": "009101E9",
+          "hex": "753a",
+          "mnemonic": "jne",
+          "operands": "0x910225"
+        },
+        {
+          "va": "009101EB",
+          "hex": "e849d1d2ff",
+          "mnemonic": "call",
+          "operands": "0x63d339"
+        },
+        {
+          "va": "009101F0",
+          "hex": "84c0",
+          "mnemonic": "test",
+          "operands": "al, al"
+        },
+        {
+          "va": "009101F2",
+          "hex": "7431",
+          "mnemonic": "je",
+          "operands": "0x910225"
+        },
+        {
+          "va": "009101F4",
+          "hex": "8b460c",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [esi + 0xc]"
+        },
+        {
+          "va": "009101F7",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "009101F9",
+          "hex": "7405",
+          "mnemonic": "je",
+          "operands": "0x910200"
+        },
+        {
+          "va": "009101FB",
+          "hex": "83c008",
+          "mnemonic": "add",
+          "operands": "eax, 8"
+        },
+        {
+          "va": "009101FE",
+          "hex": "eb05",
+          "mnemonic": "jmp",
+          "operands": "0x910205"
+        },
+        {
+          "va": "00910200",
+          "hex": "b81cacbb00",
+          "mnemonic": "mov",
+          "operands": "eax, 0xbbac1c"
+        },
+        {
+          "va": "00910205",
+          "hex": "68cc55c600",
+          "mnemonic": "push",
+          "operands": "0xc655cc"
+        },
+        {
+          "va": "0091020A",
+          "hex": "6804c7c300",
+          "mnemonic": "push",
+          "operands": "0xc3c704"
+        },
+        {
+          "va": "0091020F",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910210",
+          "hex": "ff7608",
+          "mnemonic": "push",
+          "operands": "dword ptr [esi + 8]"
+        },
+        {
+          "va": "00910213",
+          "hex": "ff35cce4df00",
+          "mnemonic": "push",
+          "operands": "dword ptr [0xdfe4cc]"
+        },
+        {
+          "va": "00910219",
+          "hex": "e8c8b30e00",
+          "mnemonic": "call",
+          "operands": "0x9fb5e6"
+        },
+        {
+          "va": "0091021E",
+          "hex": "83c414",
+          "mnemonic": "add",
+          "operands": "esp, 0x14"
+        },
+        {
+          "va": "00910221",
+          "hex": "c6462001",
+          "mnemonic": "mov",
+          "operands": "byte ptr [esi + 0x20], 1"
+        },
+        {
+          "va": "00910225",
+          "hex": "8b4e24",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi + 0x24]"
+        },
+        {
+          "va": "00910228",
+          "hex": "85c9",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "va": "0091022A",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "0091022B",
+          "hex": "7405",
+          "mnemonic": "je",
+          "operands": "0x910232"
+        },
+        {
+          "va": "0091022D",
+          "hex": "e98efdffff",
+          "mnemonic": "jmp",
+          "operands": "0x90ffc0"
+        },
+        {
+          "va": "00910232",
+          "hex": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    "005103A3": {
+      "rows": [
+        {
+          "name": "??0Rva005105D7@@QAE@HABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x005103A3",
+          "target_size": "528",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+          "status": "matched",
+          "notes": ""
+        }
+      ],
+      "hex": "b8314ab900e8db8d110083ec54535657ff750c8bd9ff7508895dece8b1e6ffff8d731433ff8bce897dfce86228dcff68b9ea90006839a864006a086a0c8d437050c645fc01c7030456c600c7060056c600897b6ce816911100897d08ff73088d450868f455c60050c645fc03e83c7db2ff8d430c8945e883c40c8d450c5068e855c6008d45e4508d45b48d4d0850bef7fa9000894de4e8bf98bfff83c40c8bc8e803f3ffff8975cc897dd0895dc48d75c48d7dd4a5a551a58d45d48965f08bcc50c645fc04a5e8f5b706008d450c8d4b1850e8144101008d4d0cc645fc03e88a5fb2ff8d45088945e4be82ef900033ff8d430c8945e88d450c5068d855c6008d45e4508d45a450e84e98bfff83c40c8bc8e892f2ffff8975cc897dd0895dc48d75c48d7dd4a5a551a58d45d48965f08bcc50c645fc05a5e884b706008d450c508d4b18e8a34001008d4d0cc645fc03e8195fb2ff33d2895dc48955d0b923e89000894dcc8d75c48d7db4a5a5a58d45088945dc8d430ca589550c8945e08d73248d45f0508b450cff34851055c6008d45dc6a5f508d45c850e895e8ffff83c40c508d45a050e875aa080083c40c8bc8e85df2ffff518d45b48965e88bcc50c645fc06e8f9b60600ff750c8d45f0508bcee87b4001008d4df0c645fc03e88c5eb2ffff450c837d0c027c968bcbe848e9ffff8d4d08c645fc02e8705eb2ff8b4df45f5e8bc364890d000000005bc9c20800",
+      "instructions": [
+        {
+          "va": "009103A3",
+          "hex": "b8314ab900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb94a31"
+        },
+        {
+          "va": "009103A8",
+          "hex": "e8db8d1100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "009103AD",
+          "hex": "83ec54",
+          "mnemonic": "sub",
+          "operands": "esp, 0x54"
+        },
+        {
+          "va": "009103B0",
+          "hex": "53",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "va": "009103B1",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "009103B2",
+          "hex": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "va": "009103B3",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "009103B6",
+          "hex": "8bd9",
+          "mnemonic": "mov",
+          "operands": "ebx, ecx"
+        },
+        {
+          "va": "009103B8",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "009103BB",
+          "hex": "895dec",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x14], ebx"
+        },
+        {
+          "va": "009103BE",
+          "hex": "e8b1e6ffff",
+          "mnemonic": "call",
+          "operands": "0x90ea74"
+        },
+        {
+          "va": "009103C3",
+          "hex": "8d7314",
+          "mnemonic": "lea",
+          "operands": "esi, [ebx + 0x14]"
+        },
+        {
+          "va": "009103C6",
+          "hex": "33ff",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "va": "009103C8",
+          "hex": "8bce",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "va": "009103CA",
+          "hex": "897dfc",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], edi"
+        },
+        {
+          "va": "009103CD",
+          "hex": "e86228dcff",
+          "mnemonic": "call",
+          "operands": "0x6d2c34"
+        },
+        {
+          "va": "009103D2",
+          "hex": "68b9ea9000",
+          "mnemonic": "push",
+          "operands": "0x90eab9"
+        },
+        {
+          "va": "009103D7",
+          "hex": "6839a86400",
+          "mnemonic": "push",
+          "operands": "0x64a839"
+        },
+        {
+          "va": "009103DC",
+          "hex": "6a08",
+          "mnemonic": "push",
+          "operands": "8"
+        },
+        {
+          "va": "009103DE",
+          "hex": "6a0c",
+          "mnemonic": "push",
+          "operands": "0xc"
+        },
+        {
+          "va": "009103E0",
+          "hex": "8d4370",
+          "mnemonic": "lea",
+          "operands": "eax, [ebx + 0x70]"
+        },
+        {
+          "va": "009103E3",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "009103E4",
+          "hex": "c645fc01",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 1"
+        },
+        {
+          "va": "009103E8",
+          "hex": "c7030456c600",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebx], 0xc65604"
+        },
+        {
+          "va": "009103EE",
+          "hex": "c7060056c600",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi], 0xc65600"
+        },
+        {
+          "va": "009103F4",
+          "hex": "897b6c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebx + 0x6c], edi"
+        },
+        {
+          "va": "009103F7",
+          "hex": "e816911100",
+          "mnemonic": "call",
+          "operands": "0xa29512"
+        },
+        {
+          "va": "009103FC",
+          "hex": "897d08",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp + 8], edi"
+        },
+        {
+          "va": "009103FF",
+          "hex": "ff7308",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebx + 8]"
+        },
+        {
+          "va": "00910402",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910405",
+          "hex": "68f455c600",
+          "mnemonic": "push",
+          "operands": "0xc655f4"
+        },
+        {
+          "va": "0091040A",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0091040B",
+          "hex": "c645fc03",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 3"
+        },
+        {
+          "va": "0091040F",
+          "hex": "e83c7db2ff",
+          "mnemonic": "call",
+          "operands": "0x438150"
+        },
+        {
+          "va": "00910414",
+          "hex": "8d430c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebx + 0xc]"
+        },
+        {
+          "va": "00910417",
+          "hex": "8945e8",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x18], eax"
+        },
+        {
+          "va": "0091041A",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "0091041D",
+          "hex": "8d450c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0xc]"
+        },
+        {
+          "va": "00910420",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910421",
+          "hex": "68e855c600",
+          "mnemonic": "push",
+          "operands": "0xc655e8"
+        },
+        {
+          "va": "00910426",
+          "hex": "8d45e4",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x1c]"
+        },
+        {
+          "va": "00910429",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0091042A",
+          "hex": "8d45b4",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x4c]"
+        },
+        {
+          "va": "0091042D",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910430",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910431",
+          "hex": "bef7fa9000",
+          "mnemonic": "mov",
+          "operands": "esi, 0x90faf7"
+        },
+        {
+          "va": "00910436",
+          "hex": "894de4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x1c], ecx"
+        },
+        {
+          "va": "00910439",
+          "hex": "e8bf98bfff",
+          "mnemonic": "call",
+          "operands": "0x509cfd"
+        },
+        {
+          "va": "0091043E",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "00910441",
+          "hex": "8bc8",
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "va": "00910443",
+          "hex": "e803f3ffff",
+          "mnemonic": "call",
+          "operands": "0x90f74b"
+        },
+        {
+          "va": "00910448",
+          "hex": "8975cc",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x34], esi"
+        },
+        {
+          "va": "0091044B",
+          "hex": "897dd0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x30], edi"
+        },
+        {
+          "va": "0091044E",
+          "hex": "895dc4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x3c], ebx"
+        },
+        {
+          "va": "00910451",
+          "hex": "8d75c4",
+          "mnemonic": "lea",
+          "operands": "esi, [ebp - 0x3c]"
+        },
+        {
+          "va": "00910454",
+          "hex": "8d7dd4",
+          "mnemonic": "lea",
+          "operands": "edi, [ebp - 0x2c]"
+        },
+        {
+          "va": "00910457",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "00910458",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "00910459",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "0091045A",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "0091045B",
+          "hex": "8d45d4",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x2c]"
+        },
+        {
+          "va": "0091045E",
+          "hex": "8965f0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], esp"
+        },
+        {
+          "va": "00910461",
+          "hex": "8bcc",
+          "mnemonic": "mov",
+          "operands": "ecx, esp"
+        },
+        {
+          "va": "00910463",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910464",
+          "hex": "c645fc04",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 4"
+        },
+        {
+          "va": "00910468",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "00910469",
+          "hex": "e8f5b70600",
+          "mnemonic": "call",
+          "operands": "0x97bc63"
+        },
+        {
+          "va": "0091046E",
+          "hex": "8d450c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0xc]"
+        },
+        {
+          "va": "00910471",
+          "hex": "8d4b18",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebx + 0x18]"
+        },
+        {
+          "va": "00910474",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910475",
+          "hex": "e814410100",
+          "mnemonic": "call",
+          "operands": "0x92458e"
+        },
+        {
+          "va": "0091047A",
+          "hex": "8d4d0c",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 0xc]"
+        },
+        {
+          "va": "0091047D",
+          "hex": "c645fc03",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 3"
+        },
+        {
+          "va": "00910481",
+          "hex": "e88a5fb2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910486",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910489",
+          "hex": "8945e4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x1c], eax"
+        },
+        {
+          "va": "0091048C",
+          "hex": "be82ef9000",
+          "mnemonic": "mov",
+          "operands": "esi, 0x90ef82"
+        },
+        {
+          "va": "00910491",
+          "hex": "33ff",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "va": "00910493",
+          "hex": "8d430c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebx + 0xc]"
+        },
+        {
+          "va": "00910496",
+          "hex": "8945e8",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x18], eax"
+        },
+        {
+          "va": "00910499",
+          "hex": "8d450c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0xc]"
+        },
+        {
+          "va": "0091049C",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0091049D",
+          "hex": "68d855c600",
+          "mnemonic": "push",
+          "operands": "0xc655d8"
+        },
+        {
+          "va": "009104A2",
+          "hex": "8d45e4",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x1c]"
+        },
+        {
+          "va": "009104A5",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "009104A6",
+          "hex": "8d45a4",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x5c]"
+        },
+        {
+          "va": "009104A9",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "009104AA",
+          "hex": "e84e98bfff",
+          "mnemonic": "call",
+          "operands": "0x509cfd"
+        },
+        {
+          "va": "009104AF",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "009104B2",
+          "hex": "8bc8",
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "va": "009104B4",
+          "hex": "e892f2ffff",
+          "mnemonic": "call",
+          "operands": "0x90f74b"
+        },
+        {
+          "va": "009104B9",
+          "hex": "8975cc",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x34], esi"
+        },
+        {
+          "va": "009104BC",
+          "hex": "897dd0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x30], edi"
+        },
+        {
+          "va": "009104BF",
+          "hex": "895dc4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x3c], ebx"
+        },
+        {
+          "va": "009104C2",
+          "hex": "8d75c4",
+          "mnemonic": "lea",
+          "operands": "esi, [ebp - 0x3c]"
+        },
+        {
+          "va": "009104C5",
+          "hex": "8d7dd4",
+          "mnemonic": "lea",
+          "operands": "edi, [ebp - 0x2c]"
+        },
+        {
+          "va": "009104C8",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "009104C9",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "009104CA",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "009104CB",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "009104CC",
+          "hex": "8d45d4",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x2c]"
+        },
+        {
+          "va": "009104CF",
+          "hex": "8965f0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], esp"
+        },
+        {
+          "va": "009104D2",
+          "hex": "8bcc",
+          "mnemonic": "mov",
+          "operands": "ecx, esp"
+        },
+        {
+          "va": "009104D4",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "009104D5",
+          "hex": "c645fc05",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 5"
+        },
+        {
+          "va": "009104D9",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "009104DA",
+          "hex": "e884b70600",
+          "mnemonic": "call",
+          "operands": "0x97bc63"
+        },
+        {
+          "va": "009104DF",
+          "hex": "8d450c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0xc]"
+        },
+        {
+          "va": "009104E2",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "009104E3",
+          "hex": "8d4b18",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebx + 0x18]"
+        },
+        {
+          "va": "009104E6",
+          "hex": "e8a3400100",
+          "mnemonic": "call",
+          "operands": "0x92458e"
+        },
+        {
+          "va": "009104EB",
+          "hex": "8d4d0c",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 0xc]"
+        },
+        {
+          "va": "009104EE",
+          "hex": "c645fc03",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 3"
+        },
+        {
+          "va": "009104F2",
+          "hex": "e8195fb2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "009104F7",
+          "hex": "33d2",
+          "mnemonic": "xor",
+          "operands": "edx, edx"
+        },
+        {
+          "va": "009104F9",
+          "hex": "895dc4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x3c], ebx"
+        },
+        {
+          "va": "009104FC",
+          "hex": "8955d0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x30], edx"
+        },
+        {
+          "va": "009104FF",
+          "hex": "b923e89000",
+          "mnemonic": "mov",
+          "operands": "ecx, 0x90e823"
+        },
+        {
+          "va": "00910504",
+          "hex": "894dcc",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x34], ecx"
+        },
+        {
+          "va": "00910507",
+          "hex": "8d75c4",
+          "mnemonic": "lea",
+          "operands": "esi, [ebp - 0x3c]"
+        },
+        {
+          "va": "0091050A",
+          "hex": "8d7db4",
+          "mnemonic": "lea",
+          "operands": "edi, [ebp - 0x4c]"
+        },
+        {
+          "va": "0091050D",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "0091050E",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "0091050F",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "00910510",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910513",
+          "hex": "8945dc",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x24], eax"
+        },
+        {
+          "va": "00910516",
+          "hex": "8d430c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebx + 0xc]"
+        },
+        {
+          "va": "00910519",
+          "hex": "a5",
+          "mnemonic": "movsd",
+          "operands": "dword ptr es:[edi], dword ptr [esi]"
+        },
+        {
+          "va": "0091051A",
+          "hex": "89550c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp + 0xc], edx"
+        },
+        {
+          "va": "0091051D",
+          "hex": "8945e0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x20], eax"
+        },
+        {
+          "va": "00910520",
+          "hex": "8d7324",
+          "mnemonic": "lea",
+          "operands": "esi, [ebx + 0x24]"
+        },
+        {
+          "va": "00910523",
+          "hex": "8d45f0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x10]"
+        },
+        {
+          "va": "00910526",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910527",
+          "hex": "8b450c",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0091052A",
+          "hex": "ff34851055c600",
+          "mnemonic": "push",
+          "operands": "dword ptr [eax*4 + 0xc65510]"
+        },
+        {
+          "va": "00910531",
+          "hex": "8d45dc",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x24]"
+        },
+        {
+          "va": "00910534",
+          "hex": "6a5f",
+          "mnemonic": "push",
+          "operands": "0x5f"
+        },
+        {
+          "va": "00910536",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910537",
+          "hex": "8d45c8",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x38]"
+        },
+        {
+          "va": "0091053A",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "0091053B",
+          "hex": "e895e8ffff",
+          "mnemonic": "call",
+          "operands": "0x90edd5"
+        },
+        {
+          "va": "00910540",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "00910543",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910544",
+          "hex": "8d45a0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x60]"
+        },
+        {
+          "va": "00910547",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910548",
+          "hex": "e875aa0800",
+          "mnemonic": "call",
+          "operands": "0x99afc2"
+        },
+        {
+          "va": "0091054D",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "00910550",
+          "hex": "8bc8",
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "va": "00910552",
+          "hex": "e85df2ffff",
+          "mnemonic": "call",
+          "operands": "0x90f7b4"
+        },
+        {
+          "va": "00910557",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910558",
+          "hex": "8d45b4",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x4c]"
+        },
+        {
+          "va": "0091055B",
+          "hex": "8965e8",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x18], esp"
+        },
+        {
+          "va": "0091055E",
+          "hex": "8bcc",
+          "mnemonic": "mov",
+          "operands": "ecx, esp"
+        },
+        {
+          "va": "00910560",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910561",
+          "hex": "c645fc06",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 6"
+        },
+        {
+          "va": "00910565",
+          "hex": "e8f9b60600",
+          "mnemonic": "call",
+          "operands": "0x97bc63"
+        },
+        {
+          "va": "0091056A",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "0091056D",
+          "hex": "8d45f0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x10]"
+        },
+        {
+          "va": "00910570",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910571",
+          "hex": "8bce",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "va": "00910573",
+          "hex": "e87b400100",
+          "mnemonic": "call",
+          "operands": "0x9245f3"
+        },
+        {
+          "va": "00910578",
+          "hex": "8d4df0",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x10]"
+        },
+        {
+          "va": "0091057B",
+          "hex": "c645fc03",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 3"
+        },
+        {
+          "va": "0091057F",
+          "hex": "e88c5eb2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910584",
+          "hex": "ff450c",
+          "mnemonic": "inc",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "00910587",
+          "hex": "837d0c02",
+          "mnemonic": "cmp",
+          "operands": "dword ptr [ebp + 0xc], 2"
+        },
+        {
+          "va": "0091058B",
+          "hex": "7c96",
+          "mnemonic": "jl",
+          "operands": "0x910523"
+        },
+        {
+          "va": "0091058D",
+          "hex": "8bcb",
+          "mnemonic": "mov",
+          "operands": "ecx, ebx"
+        },
+        {
+          "va": "0091058F",
+          "hex": "e848e9ffff",
+          "mnemonic": "call",
+          "operands": "0x90eedc"
+        },
+        {
+          "va": "00910594",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910597",
+          "hex": "c645fc02",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 2"
+        },
+        {
+          "va": "0091059B",
+          "hex": "e8705eb2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "009105A0",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "009105A3",
+          "hex": "5f",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "va": "009105A4",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "009105A5",
+          "hex": "8bc3",
+          "mnemonic": "mov",
+          "operands": "eax, ebx"
+        },
+        {
+          "va": "009105A7",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "009105AE",
+          "hex": "5b",
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "va": "009105AF",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "009105B0",
+          "hex": "c20800",
+          "mnemonic": "ret",
+          "operands": "8"
+        }
+      ]
+    },
+    "00510B72": {
+      "rows": [
+        {
+          "name": "??0Rva00510CC3@@QAE@HABVAsciiString@@@Z",
+          "export_rva": "",
+          "target_rva": "0x00510B72",
+          "target_size": "309",
+          "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+          "status": "matched",
+          "notes": ""
+        }
+      ],
+      "hex": "b8474bb900e80c86110083ec34535657ff750c8bf1ff75088975f0e8e2deffff8d5e1433ff8bcb897dfcc7067056c600e81876ceffc6462000897e24897d0cff76088d450c68f455c60050c645fc03e88a75b2ff8d450c8945e883c40c8d450850685856c6008d45e8508d45d08d7e0c50897dece81291bfff83c40c8bc8e856ebffffb8eb089100518945e48d45e08965ec8bcc50c645fc048975e0e8349206008d4508508bcbe8703901008d4d08c645fc03e8e657b2ff8d450c8945e08d450850683c56c6008d45e0508d45c050897de4e8b490bfff83c40c8bc8e8f8eaffffb833029100c645fc058975e08945e4518d45e08965ec8bcc50e8d69106008d4508508bcbe8123901008d4d08c645fc03e88857b2ff8d4d0cc645fc02e87c57b2ff8b4df45f8bc65e64890d000000005bc9c20800",
+      "instructions": [
+        {
+          "va": "00910B72",
+          "hex": "b8474bb900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb94b47"
+        },
+        {
+          "va": "00910B77",
+          "hex": "e80c861100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "00910B7C",
+          "hex": "83ec34",
+          "mnemonic": "sub",
+          "operands": "esp, 0x34"
+        },
+        {
+          "va": "00910B7F",
+          "hex": "53",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "va": "00910B80",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "00910B81",
+          "hex": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "va": "00910B82",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "00910B85",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "00910B87",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "00910B8A",
+          "hex": "8975f0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], esi"
+        },
+        {
+          "va": "00910B8D",
+          "hex": "e8e2deffff",
+          "mnemonic": "call",
+          "operands": "0x90ea74"
+        },
+        {
+          "va": "00910B92",
+          "hex": "8d5e14",
+          "mnemonic": "lea",
+          "operands": "ebx, [esi + 0x14]"
+        },
+        {
+          "va": "00910B95",
+          "hex": "33ff",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "va": "00910B97",
+          "hex": "8bcb",
+          "mnemonic": "mov",
+          "operands": "ecx, ebx"
+        },
+        {
+          "va": "00910B99",
+          "hex": "897dfc",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], edi"
+        },
+        {
+          "va": "00910B9C",
+          "hex": "c7067056c600",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi], 0xc65670"
+        },
+        {
+          "va": "00910BA2",
+          "hex": "e81876ceff",
+          "mnemonic": "call",
+          "operands": "0x5f81bf"
+        },
+        {
+          "va": "00910BA7",
+          "hex": "c6462000",
+          "mnemonic": "mov",
+          "operands": "byte ptr [esi + 0x20], 0"
+        },
+        {
+          "va": "00910BAB",
+          "hex": "897e24",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi + 0x24], edi"
+        },
+        {
+          "va": "00910BAE",
+          "hex": "897d0c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp + 0xc], edi"
+        },
+        {
+          "va": "00910BB1",
+          "hex": "ff7608",
+          "mnemonic": "push",
+          "operands": "dword ptr [esi + 8]"
+        },
+        {
+          "va": "00910BB4",
+          "hex": "8d450c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0xc]"
+        },
+        {
+          "va": "00910BB7",
+          "hex": "68f455c600",
+          "mnemonic": "push",
+          "operands": "0xc655f4"
+        },
+        {
+          "va": "00910BBC",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910BBD",
+          "hex": "c645fc03",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 3"
+        },
+        {
+          "va": "00910BC1",
+          "hex": "e88a75b2ff",
+          "mnemonic": "call",
+          "operands": "0x438150"
+        },
+        {
+          "va": "00910BC6",
+          "hex": "8d450c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0xc]"
+        },
+        {
+          "va": "00910BC9",
+          "hex": "8945e8",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x18], eax"
+        },
+        {
+          "va": "00910BCC",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "00910BCF",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910BD2",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910BD3",
+          "hex": "685856c600",
+          "mnemonic": "push",
+          "operands": "0xc65658"
+        },
+        {
+          "va": "00910BD8",
+          "hex": "8d45e8",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x18]"
+        },
+        {
+          "va": "00910BDB",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910BDC",
+          "hex": "8d45d0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x30]"
+        },
+        {
+          "va": "00910BDF",
+          "hex": "8d7e0c",
+          "mnemonic": "lea",
+          "operands": "edi, [esi + 0xc]"
+        },
+        {
+          "va": "00910BE2",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910BE3",
+          "hex": "897dec",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x14], edi"
+        },
+        {
+          "va": "00910BE6",
+          "hex": "e81291bfff",
+          "mnemonic": "call",
+          "operands": "0x509cfd"
+        },
+        {
+          "va": "00910BEB",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "00910BEE",
+          "hex": "8bc8",
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "va": "00910BF0",
+          "hex": "e856ebffff",
+          "mnemonic": "call",
+          "operands": "0x90f74b"
+        },
+        {
+          "va": "00910BF5",
+          "hex": "b8eb089100",
+          "mnemonic": "mov",
+          "operands": "eax, 0x9108eb"
+        },
+        {
+          "va": "00910BFA",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910BFB",
+          "hex": "8945e4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x1c], eax"
+        },
+        {
+          "va": "00910BFE",
+          "hex": "8d45e0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x20]"
+        },
+        {
+          "va": "00910C01",
+          "hex": "8965ec",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x14], esp"
+        },
+        {
+          "va": "00910C04",
+          "hex": "8bcc",
+          "mnemonic": "mov",
+          "operands": "ecx, esp"
+        },
+        {
+          "va": "00910C06",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910C07",
+          "hex": "c645fc04",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 4"
+        },
+        {
+          "va": "00910C0B",
+          "hex": "8975e0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x20], esi"
+        },
+        {
+          "va": "00910C0E",
+          "hex": "e834920600",
+          "mnemonic": "call",
+          "operands": "0x979e47"
+        },
+        {
+          "va": "00910C13",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910C16",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910C17",
+          "hex": "8bcb",
+          "mnemonic": "mov",
+          "operands": "ecx, ebx"
+        },
+        {
+          "va": "00910C19",
+          "hex": "e870390100",
+          "mnemonic": "call",
+          "operands": "0x92458e"
+        },
+        {
+          "va": "00910C1E",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910C21",
+          "hex": "c645fc03",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 3"
+        },
+        {
+          "va": "00910C25",
+          "hex": "e8e657b2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910C2A",
+          "hex": "8d450c",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0xc]"
+        },
+        {
+          "va": "00910C2D",
+          "hex": "8945e0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x20], eax"
+        },
+        {
+          "va": "00910C30",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910C33",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910C34",
+          "hex": "683c56c600",
+          "mnemonic": "push",
+          "operands": "0xc6563c"
+        },
+        {
+          "va": "00910C39",
+          "hex": "8d45e0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x20]"
+        },
+        {
+          "va": "00910C3C",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910C3D",
+          "hex": "8d45c0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x40]"
+        },
+        {
+          "va": "00910C40",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910C41",
+          "hex": "897de4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x1c], edi"
+        },
+        {
+          "va": "00910C44",
+          "hex": "e8b490bfff",
+          "mnemonic": "call",
+          "operands": "0x509cfd"
+        },
+        {
+          "va": "00910C49",
+          "hex": "83c40c",
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "00910C4C",
+          "hex": "8bc8",
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "va": "00910C4E",
+          "hex": "e8f8eaffff",
+          "mnemonic": "call",
+          "operands": "0x90f74b"
+        },
+        {
+          "va": "00910C53",
+          "hex": "b833029100",
+          "mnemonic": "mov",
+          "operands": "eax, 0x910233"
+        },
+        {
+          "va": "00910C58",
+          "hex": "c645fc05",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 5"
+        },
+        {
+          "va": "00910C5C",
+          "hex": "8975e0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x20], esi"
+        },
+        {
+          "va": "00910C5F",
+          "hex": "8945e4",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x1c], eax"
+        },
+        {
+          "va": "00910C62",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910C63",
+          "hex": "8d45e0",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x20]"
+        },
+        {
+          "va": "00910C66",
+          "hex": "8965ec",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x14], esp"
+        },
+        {
+          "va": "00910C69",
+          "hex": "8bcc",
+          "mnemonic": "mov",
+          "operands": "ecx, esp"
+        },
+        {
+          "va": "00910C6B",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910C6C",
+          "hex": "e8d6910600",
+          "mnemonic": "call",
+          "operands": "0x979e47"
+        },
+        {
+          "va": "00910C71",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910C74",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910C75",
+          "hex": "8bcb",
+          "mnemonic": "mov",
+          "operands": "ecx, ebx"
+        },
+        {
+          "va": "00910C77",
+          "hex": "e812390100",
+          "mnemonic": "call",
+          "operands": "0x92458e"
+        },
+        {
+          "va": "00910C7C",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910C7F",
+          "hex": "c645fc03",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 3"
+        },
+        {
+          "va": "00910C83",
+          "hex": "e88857b2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910C88",
+          "hex": "8d4d0c",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 0xc]"
+        },
+        {
+          "va": "00910C8B",
+          "hex": "c645fc02",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 2"
+        },
+        {
+          "va": "00910C8F",
+          "hex": "e87c57b2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910C94",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "00910C97",
+          "hex": "5f",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "va": "00910C98",
+          "hex": "8bc6",
+          "mnemonic": "mov",
+          "operands": "eax, esi"
+        },
+        {
+          "va": "00910C9A",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "00910C9B",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "00910CA2",
+          "hex": "5b",
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "va": "00910CA3",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "00910CA4",
+          "hex": "c20800",
+          "mnemonic": "ret",
+          "operands": "8"
+        }
+      ]
+    },
+    "00510CA7": {
+      "rows": [
+        {
+          "name": "??_GRva00510CC3@@UAEPAXI@Z",
+          "export_rva": "",
+          "target_rva": "0x00510CA7",
+          "target_size": "28",
+          "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+          "status": "matched",
+          "notes": "virtual scalar deleting dtor (retail vtable 865670 slot 0) emitted by the page ctor unit over rowed dtor"
+        }
+      ],
+      "hex": "568bf1e814000000f644240801740756e8a4f0b1ff598bc65ec20400",
+      "instructions": [
+        {
+          "va": "00910CA7",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "00910CA8",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "00910CAA",
+          "hex": "e814000000",
+          "mnemonic": "call",
+          "operands": "0x910cc3"
+        },
+        {
+          "va": "00910CAF",
+          "hex": "f644240801",
+          "mnemonic": "test",
+          "operands": "byte ptr [esp + 8], 1"
+        },
+        {
+          "va": "00910CB4",
+          "hex": "7407",
+          "mnemonic": "je",
+          "operands": "0x910cbd"
+        },
+        {
+          "va": "00910CB6",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "00910CB7",
+          "hex": "e8a4f0b1ff",
+          "mnemonic": "call",
+          "operands": "0x42fd60"
+        },
+        {
+          "va": "00910CBC",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910CBD",
+          "hex": "8bc6",
+          "mnemonic": "mov",
+          "operands": "eax, esi"
+        },
+        {
+          "va": "00910CBF",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "00910CC0",
+          "hex": "c20400",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    },
+    "00510CC3": {
+      "rows": [
+        {
+          "name": "??1Rva00510CC3@@UAE@XZ",
+          "export_rva": "",
+          "target_rva": "0x00510CC3",
+          "target_size": "68",
+          "source": "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp",
+          "status": "matched",
+          "notes": "dtor holder clear plus member dtors with EH 1 0"
+        }
+      ],
+      "hex": "b8644bb900e8bb84110051568bf18975f08d4e24c745fc01000000e8cae9ffff8d4e14c645fc00e84f340100834dfcff8bcee828ddffff8b4df45e64890d00000000c9c3",
+      "instructions": [
+        {
+          "va": "00910CC3",
+          "hex": "b8644bb900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb94b64"
+        },
+        {
+          "va": "00910CC8",
+          "hex": "e8bb841100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "00910CCD",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910CCE",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "00910CCF",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "00910CD1",
+          "hex": "8975f0",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], esi"
+        },
+        {
+          "va": "00910CD4",
+          "hex": "8d4e24",
+          "mnemonic": "lea",
+          "operands": "ecx, [esi + 0x24]"
+        },
+        {
+          "va": "00910CD7",
+          "hex": "c745fc01000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], 1"
+        },
+        {
+          "va": "00910CDE",
+          "hex": "e8cae9ffff",
+          "mnemonic": "call",
+          "operands": "0x90f6ad"
+        },
+        {
+          "va": "00910CE3",
+          "hex": "8d4e14",
+          "mnemonic": "lea",
+          "operands": "ecx, [esi + 0x14]"
+        },
+        {
+          "va": "00910CE6",
+          "hex": "c645fc00",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 0"
+        },
+        {
+          "va": "00910CEA",
+          "hex": "e84f340100",
+          "mnemonic": "call",
+          "operands": "0x92413e"
+        },
+        {
+          "va": "00910CEF",
+          "hex": "834dfcff",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "va": "00910CF3",
+          "hex": "8bce",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "va": "00910CF5",
+          "hex": "e828ddffff",
+          "mnemonic": "call",
+          "operands": "0x90ea22"
+        },
+        {
+          "va": "00910CFA",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "00910CFD",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "00910CFE",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "00910D05",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "00910D06",
+          "hex": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    "00510D98": {
+      "rows": [
+        {
+          "name": "?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z",
+          "export_rva": "",
+          "target_rva": "0x00510D98",
+          "target_size": "308",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+          "status": "matched",
+          "notes": "static page factory ported from bank with in-TU caller; constructor pins 0x005103A3/0x00510B72"
+        }
+      ],
+      "hex": "b8d44bb900e8e683110083ec0c8365f00068d056c600ff7508e88beaffff85c05959757768d0000000e8daefb1ff598945e88365fc0085c0743c8b0685c0740583c008eb05b81cacbb0050e85d1af0ff59508d4dece8ae6db2ff8b4de88d45ec50ff750cc645fc01c745f001000000e897f5ffffeb0233c085c089077403ff4004834df002834dfcfff645f0010f84930000008d4dece98100000068c456c600ff7508e801eaffff85c0595975756a28e853efb1ff598945ec85c0c745fc03000000743c8b0685c0740583c008eb05b81cacbb0050e8d319f0ff59508d4de8e8246db2ff8b4dec8d45e850ff750cc645fc04c745f004000000e8dcfcffffeb0233c085c089077403ff4004834df002834dfcfff645f004740d8d4de8e85755b2ffeb038327008b4df48bc764890d00000000c9c3",
+      "instructions": [
+        {
+          "va": "00910D98",
+          "hex": "b8d44bb900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb94bd4"
+        },
+        {
+          "va": "00910D9D",
+          "hex": "e8e6831100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "00910DA2",
+          "hex": "83ec0c",
+          "mnemonic": "sub",
+          "operands": "esp, 0xc"
+        },
+        {
+          "va": "00910DA5",
+          "hex": "8365f000",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 0x10], 0"
+        },
+        {
+          "va": "00910DA9",
+          "hex": "68d056c600",
+          "mnemonic": "push",
+          "operands": "0xc656d0"
+        },
+        {
+          "va": "00910DAE",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "00910DB1",
+          "hex": "e88beaffff",
+          "mnemonic": "call",
+          "operands": "0x90f841"
+        },
+        {
+          "va": "00910DB6",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910DB8",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910DB9",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910DBA",
+          "hex": "7577",
+          "mnemonic": "jne",
+          "operands": "0x910e33"
+        },
+        {
+          "va": "00910DBC",
+          "hex": "68d0000000",
+          "mnemonic": "push",
+          "operands": "0xd0"
+        },
+        {
+          "va": "00910DC1",
+          "hex": "e8daefb1ff",
+          "mnemonic": "call",
+          "operands": "0x42fda0"
+        },
+        {
+          "va": "00910DC6",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910DC7",
+          "hex": "8945e8",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x18], eax"
+        },
+        {
+          "va": "00910DCA",
+          "hex": "8365fc00",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "va": "00910DCE",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910DD0",
+          "hex": "743c",
+          "mnemonic": "je",
+          "operands": "0x910e0e"
+        },
+        {
+          "va": "00910DD2",
+          "hex": "8b06",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [esi]"
+        },
+        {
+          "va": "00910DD4",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910DD6",
+          "hex": "7405",
+          "mnemonic": "je",
+          "operands": "0x910ddd"
+        },
+        {
+          "va": "00910DD8",
+          "hex": "83c008",
+          "mnemonic": "add",
+          "operands": "eax, 8"
+        },
+        {
+          "va": "00910DDB",
+          "hex": "eb05",
+          "mnemonic": "jmp",
+          "operands": "0x910de2"
+        },
+        {
+          "va": "00910DDD",
+          "hex": "b81cacbb00",
+          "mnemonic": "mov",
+          "operands": "eax, 0xbbac1c"
+        },
+        {
+          "va": "00910DE2",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910DE3",
+          "hex": "e85d1af0ff",
+          "mnemonic": "call",
+          "operands": "0x812845"
+        },
+        {
+          "va": "00910DE8",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910DE9",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910DEA",
+          "hex": "8d4dec",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x14]"
+        },
+        {
+          "va": "00910DED",
+          "hex": "e8ae6db2ff",
+          "mnemonic": "call",
+          "operands": "0x437ba0"
+        },
+        {
+          "va": "00910DF2",
+          "hex": "8b4de8",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0x18]"
+        },
+        {
+          "va": "00910DF5",
+          "hex": "8d45ec",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x14]"
+        },
+        {
+          "va": "00910DF8",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910DF9",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "00910DFC",
+          "hex": "c645fc01",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 1"
+        },
+        {
+          "va": "00910E00",
+          "hex": "c745f001000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], 1"
+        },
+        {
+          "va": "00910E07",
+          "hex": "e897f5ffff",
+          "mnemonic": "call",
+          "operands": "0x9103a3"
+        },
+        {
+          "va": "00910E0C",
+          "hex": "eb02",
+          "mnemonic": "jmp",
+          "operands": "0x910e10"
+        },
+        {
+          "va": "00910E0E",
+          "hex": "33c0",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910E10",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910E12",
+          "hex": "8907",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edi], eax"
+        },
+        {
+          "va": "00910E14",
+          "hex": "7403",
+          "mnemonic": "je",
+          "operands": "0x910e19"
+        },
+        {
+          "va": "00910E16",
+          "hex": "ff4004",
+          "mnemonic": "inc",
+          "operands": "dword ptr [eax + 4]"
+        },
+        {
+          "va": "00910E19",
+          "hex": "834df002",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 0x10], 2"
+        },
+        {
+          "va": "00910E1D",
+          "hex": "834dfcff",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "va": "00910E21",
+          "hex": "f645f001",
+          "mnemonic": "test",
+          "operands": "byte ptr [ebp - 0x10], 1"
+        },
+        {
+          "va": "00910E25",
+          "hex": "0f8493000000",
+          "mnemonic": "je",
+          "operands": "0x910ebe"
+        },
+        {
+          "va": "00910E2B",
+          "hex": "8d4dec",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x14]"
+        },
+        {
+          "va": "00910E2E",
+          "hex": "e981000000",
+          "mnemonic": "jmp",
+          "operands": "0x910eb4"
+        },
+        {
+          "va": "00910E33",
+          "hex": "68c456c600",
+          "mnemonic": "push",
+          "operands": "0xc656c4"
+        },
+        {
+          "va": "00910E38",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "00910E3B",
+          "hex": "e801eaffff",
+          "mnemonic": "call",
+          "operands": "0x90f841"
+        },
+        {
+          "va": "00910E40",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910E42",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910E43",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910E44",
+          "hex": "7575",
+          "mnemonic": "jne",
+          "operands": "0x910ebb"
+        },
+        {
+          "va": "00910E46",
+          "hex": "6a28",
+          "mnemonic": "push",
+          "operands": "0x28"
+        },
+        {
+          "va": "00910E48",
+          "hex": "e853efb1ff",
+          "mnemonic": "call",
+          "operands": "0x42fda0"
+        },
+        {
+          "va": "00910E4D",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910E4E",
+          "hex": "8945ec",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x14], eax"
+        },
+        {
+          "va": "00910E51",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910E53",
+          "hex": "c745fc03000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], 3"
+        },
+        {
+          "va": "00910E5A",
+          "hex": "743c",
+          "mnemonic": "je",
+          "operands": "0x910e98"
+        },
+        {
+          "va": "00910E5C",
+          "hex": "8b06",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [esi]"
+        },
+        {
+          "va": "00910E5E",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910E60",
+          "hex": "7405",
+          "mnemonic": "je",
+          "operands": "0x910e67"
+        },
+        {
+          "va": "00910E62",
+          "hex": "83c008",
+          "mnemonic": "add",
+          "operands": "eax, 8"
+        },
+        {
+          "va": "00910E65",
+          "hex": "eb05",
+          "mnemonic": "jmp",
+          "operands": "0x910e6c"
+        },
+        {
+          "va": "00910E67",
+          "hex": "b81cacbb00",
+          "mnemonic": "mov",
+          "operands": "eax, 0xbbac1c"
+        },
+        {
+          "va": "00910E6C",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910E6D",
+          "hex": "e8d319f0ff",
+          "mnemonic": "call",
+          "operands": "0x812845"
+        },
+        {
+          "va": "00910E72",
+          "hex": "59",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910E73",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910E74",
+          "hex": "8d4de8",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x18]"
+        },
+        {
+          "va": "00910E77",
+          "hex": "e8246db2ff",
+          "mnemonic": "call",
+          "operands": "0x437ba0"
+        },
+        {
+          "va": "00910E7C",
+          "hex": "8b4dec",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0x14]"
+        },
+        {
+          "va": "00910E7F",
+          "hex": "8d45e8",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp - 0x18]"
+        },
+        {
+          "va": "00910E82",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910E83",
+          "hex": "ff750c",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "va": "00910E86",
+          "hex": "c645fc04",
+          "mnemonic": "mov",
+          "operands": "byte ptr [ebp - 4], 4"
+        },
+        {
+          "va": "00910E8A",
+          "hex": "c745f004000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], 4"
+        },
+        {
+          "va": "00910E91",
+          "hex": "e8dcfcffff",
+          "mnemonic": "call",
+          "operands": "0x910b72"
+        },
+        {
+          "va": "00910E96",
+          "hex": "eb02",
+          "mnemonic": "jmp",
+          "operands": "0x910e9a"
+        },
+        {
+          "va": "00910E98",
+          "hex": "33c0",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910E9A",
+          "hex": "85c0",
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "00910E9C",
+          "hex": "8907",
+          "mnemonic": "mov",
+          "operands": "dword ptr [edi], eax"
+        },
+        {
+          "va": "00910E9E",
+          "hex": "7403",
+          "mnemonic": "je",
+          "operands": "0x910ea3"
+        },
+        {
+          "va": "00910EA0",
+          "hex": "ff4004",
+          "mnemonic": "inc",
+          "operands": "dword ptr [eax + 4]"
+        },
+        {
+          "va": "00910EA3",
+          "hex": "834df002",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 0x10], 2"
+        },
+        {
+          "va": "00910EA7",
+          "hex": "834dfcff",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "va": "00910EAB",
+          "hex": "f645f004",
+          "mnemonic": "test",
+          "operands": "byte ptr [ebp - 0x10], 4"
+        },
+        {
+          "va": "00910EAF",
+          "hex": "740d",
+          "mnemonic": "je",
+          "operands": "0x910ebe"
+        },
+        {
+          "va": "00910EB1",
+          "hex": "8d4de8",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0x18]"
+        },
+        {
+          "va": "00910EB4",
+          "hex": "e85755b2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910EB9",
+          "hex": "eb03",
+          "mnemonic": "jmp",
+          "operands": "0x910ebe"
+        },
+        {
+          "va": "00910EBB",
+          "hex": "832700",
+          "mnemonic": "and",
+          "operands": "dword ptr [edi], 0"
+        },
+        {
+          "va": "00910EBE",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "00910EC1",
+          "hex": "8bc7",
+          "mnemonic": "mov",
+          "operands": "eax, edi"
+        },
+        {
+          "va": "00910EC3",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "00910ECA",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "00910ECB",
+          "hex": "c3",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    "00510ECC": {
+      "rows": [
+        {
+          "name": "?OnPageUnloaded@Rva00510D0C@@QAEXPBD@Z",
+          "export_rva": "",
+          "target_rva": "0x00510ECC",
+          "target_size": "117",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+          "status": "matched",
+          "notes": "Apt _OnPageUnloaded member callback bound by holder 0x57BC63 in tribute registration 0x5111FA; finds the page in the map at +0x27C (_M_find 0x1F8437) and erases via 0x50F6C7"
+        }
+      ],
+      "hex": "b8e64bb900e8b2821100535657ff75088bf18d4d08e8ba6cb2ff8365fc008d45088d9e7c020000508bcbe83c75ceff8bf83b3b74238b471481c6880200008b0e3bc875088b01ff5008832600518bc48bcb8938e8a3e7ffff834dfcff8d4d08e8e054b2ff8b4df45f5e64890d000000005bc9c20400",
+      "instructions": [
+        {
+          "va": "00910ECC",
+          "hex": "b8e64bb900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb94be6"
+        },
+        {
+          "va": "00910ED1",
+          "hex": "e8b2821100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "00910ED6",
+          "hex": "53",
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "va": "00910ED7",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "00910ED8",
+          "hex": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "va": "00910ED9",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "00910EDC",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "00910EDE",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910EE1",
+          "hex": "e8ba6cb2ff",
+          "mnemonic": "call",
+          "operands": "0x437ba0"
+        },
+        {
+          "va": "00910EE6",
+          "hex": "8365fc00",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "va": "00910EEA",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910EED",
+          "hex": "8d9e7c020000",
+          "mnemonic": "lea",
+          "operands": "ebx, [esi + 0x27c]"
+        },
+        {
+          "va": "00910EF3",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910EF4",
+          "hex": "8bcb",
+          "mnemonic": "mov",
+          "operands": "ecx, ebx"
+        },
+        {
+          "va": "00910EF6",
+          "hex": "e83c75ceff",
+          "mnemonic": "call",
+          "operands": "0x5f8437"
+        },
+        {
+          "va": "00910EFB",
+          "hex": "8bf8",
+          "mnemonic": "mov",
+          "operands": "edi, eax"
+        },
+        {
+          "va": "00910EFD",
+          "hex": "3b3b",
+          "mnemonic": "cmp",
+          "operands": "edi, dword ptr [ebx]"
+        },
+        {
+          "va": "00910EFF",
+          "hex": "7423",
+          "mnemonic": "je",
+          "operands": "0x910f24"
+        },
+        {
+          "va": "00910F01",
+          "hex": "8b4714",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [edi + 0x14]"
+        },
+        {
+          "va": "00910F04",
+          "hex": "81c688020000",
+          "mnemonic": "add",
+          "operands": "esi, 0x288"
+        },
+        {
+          "va": "00910F0A",
+          "hex": "8b0e",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "va": "00910F0C",
+          "hex": "3bc8",
+          "mnemonic": "cmp",
+          "operands": "ecx, eax"
+        },
+        {
+          "va": "00910F0E",
+          "hex": "7508",
+          "mnemonic": "jne",
+          "operands": "0x910f18"
+        },
+        {
+          "va": "00910F10",
+          "hex": "8b01",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "va": "00910F12",
+          "hex": "ff5008",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 8]"
+        },
+        {
+          "va": "00910F15",
+          "hex": "832600",
+          "mnemonic": "and",
+          "operands": "dword ptr [esi], 0"
+        },
+        {
+          "va": "00910F18",
+          "hex": "51",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "va": "00910F19",
+          "hex": "8bc4",
+          "mnemonic": "mov",
+          "operands": "eax, esp"
+        },
+        {
+          "va": "00910F1B",
+          "hex": "8bcb",
+          "mnemonic": "mov",
+          "operands": "ecx, ebx"
+        },
+        {
+          "va": "00910F1D",
+          "hex": "8938",
+          "mnemonic": "mov",
+          "operands": "dword ptr [eax], edi"
+        },
+        {
+          "va": "00910F1F",
+          "hex": "e8a3e7ffff",
+          "mnemonic": "call",
+          "operands": "0x90f6c7"
+        },
+        {
+          "va": "00910F24",
+          "hex": "834dfcff",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "va": "00910F28",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910F2B",
+          "hex": "e8e054b2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910F30",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "00910F33",
+          "hex": "5f",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "va": "00910F34",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "00910F35",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "00910F3C",
+          "hex": "5b",
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "va": "00910F3D",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "00910F3E",
+          "hex": "c20400",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    },
+    "00510F41": {
+      "rows": [
+        {
+          "name": "?OnPageSelected@Rva00510D0C@@QAEXPBD@Z",
+          "export_rva": "",
+          "target_rva": "0x00510F41",
+          "target_size": "125",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+          "status": "matched",
+          "notes": "Apt _OnPageSelected member callback bound by holder 0x57BC63 in tribute registration 0x5111FA; finds the page in the map at +0x27C (_M_find 0x1F8437) and swaps the current page at +0x288 via page vslots 1/2"
+        }
+      ],
+      "hex": "b8e64bb900e83d8211005657ff75088bf18d4d08e8466cb2ff8365fc008d45088dbe7c020000508bcfe8c874ceff81c6880200003b078b0e741b8b78143bf9742085c974058b01ff5008893e8b078bcfff5004eb0c85c974058b01ff5008832600834dfcff8d4d08e86254b2ff8b4df45f5e64890d00000000c9c20400",
+      "instructions": [
+        {
+          "va": "00910F41",
+          "hex": "b8e64bb900",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb94be6"
+        },
+        {
+          "va": "00910F46",
+          "hex": "e83d821100",
+          "mnemonic": "call",
+          "operands": "0xa29188"
+        },
+        {
+          "va": "00910F4B",
+          "hex": "56",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "va": "00910F4C",
+          "hex": "57",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "va": "00910F4D",
+          "hex": "ff7508",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "va": "00910F50",
+          "hex": "8bf1",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "va": "00910F52",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910F55",
+          "hex": "e8466cb2ff",
+          "mnemonic": "call",
+          "operands": "0x437ba0"
+        },
+        {
+          "va": "00910F5A",
+          "hex": "8365fc00",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "va": "00910F5E",
+          "hex": "8d4508",
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "va": "00910F61",
+          "hex": "8dbe7c020000",
+          "mnemonic": "lea",
+          "operands": "edi, [esi + 0x27c]"
+        },
+        {
+          "va": "00910F67",
+          "hex": "50",
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "va": "00910F68",
+          "hex": "8bcf",
+          "mnemonic": "mov",
+          "operands": "ecx, edi"
+        },
+        {
+          "va": "00910F6A",
+          "hex": "e8c874ceff",
+          "mnemonic": "call",
+          "operands": "0x5f8437"
+        },
+        {
+          "va": "00910F6F",
+          "hex": "81c688020000",
+          "mnemonic": "add",
+          "operands": "esi, 0x288"
+        },
+        {
+          "va": "00910F75",
+          "hex": "3b07",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [edi]"
+        },
+        {
+          "va": "00910F77",
+          "hex": "8b0e",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "va": "00910F79",
+          "hex": "741b",
+          "mnemonic": "je",
+          "operands": "0x910f96"
+        },
+        {
+          "va": "00910F7B",
+          "hex": "8b7814",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [eax + 0x14]"
+        },
+        {
+          "va": "00910F7E",
+          "hex": "3bf9",
+          "mnemonic": "cmp",
+          "operands": "edi, ecx"
+        },
+        {
+          "va": "00910F80",
+          "hex": "7420",
+          "mnemonic": "je",
+          "operands": "0x910fa2"
+        },
+        {
+          "va": "00910F82",
+          "hex": "85c9",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "va": "00910F84",
+          "hex": "7405",
+          "mnemonic": "je",
+          "operands": "0x910f8b"
+        },
+        {
+          "va": "00910F86",
+          "hex": "8b01",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "va": "00910F88",
+          "hex": "ff5008",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 8]"
+        },
+        {
+          "va": "00910F8B",
+          "hex": "893e",
+          "mnemonic": "mov",
+          "operands": "dword ptr [esi], edi"
+        },
+        {
+          "va": "00910F8D",
+          "hex": "8b07",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [edi]"
+        },
+        {
+          "va": "00910F8F",
+          "hex": "8bcf",
+          "mnemonic": "mov",
+          "operands": "ecx, edi"
+        },
+        {
+          "va": "00910F91",
+          "hex": "ff5004",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 4]"
+        },
+        {
+          "va": "00910F94",
+          "hex": "eb0c",
+          "mnemonic": "jmp",
+          "operands": "0x910fa2"
+        },
+        {
+          "va": "00910F96",
+          "hex": "85c9",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "va": "00910F98",
+          "hex": "7405",
+          "mnemonic": "je",
+          "operands": "0x910f9f"
+        },
+        {
+          "va": "00910F9A",
+          "hex": "8b01",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "va": "00910F9C",
+          "hex": "ff5008",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 8]"
+        },
+        {
+          "va": "00910F9F",
+          "hex": "832600",
+          "mnemonic": "and",
+          "operands": "dword ptr [esi], 0"
+        },
+        {
+          "va": "00910FA2",
+          "hex": "834dfcff",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "va": "00910FA6",
+          "hex": "8d4d08",
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp + 8]"
+        },
+        {
+          "va": "00910FA9",
+          "hex": "e86254b2ff",
+          "mnemonic": "call",
+          "operands": "0x436410"
+        },
+        {
+          "va": "00910FAE",
+          "hex": "8b4df4",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "va": "00910FB1",
+          "hex": "5f",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "va": "00910FB2",
+          "hex": "5e",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "va": "00910FB3",
+          "hex": "64890d00000000",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "va": "00910FBA",
+          "hex": "c9",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "va": "00910FBB",
+          "hex": "c20400",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    },
+    "005748AD": {
+      "rows": [
+        {
+          "name": "?rva005748AD@Rva005748AD@@QAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/VtableConstantPredicates.cpp",
+          "status": "matched",
+          "notes": "unnamed vtable slot target; identity not recoverable so address-derived class name; returns Int 0 with three args; exact match"
+        },
+        {
+          "name": "?rva005748AD_5@Rva005B414FBase@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroPowers.cpp",
+          "status": "matched",
+          "notes": "gen-alias; own complete emitted body and relocations twin the existing shared owner; native base table VA 0x00C72B74 slot 5"
+        },
+        {
+          "name": "?rva005748AD_6@Rva005B414FBase@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroPowers.cpp",
+          "status": "matched",
+          "notes": "gen-alias; own complete emitted body and relocations twin the existing shared owner; native base table VA 0x00C72B74 slot 6"
+        },
+        {
+          "name": "?slot03@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot04@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot05@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot06@UserInputTranslator@@UAEHABURva005CBC95Pixel@@0H@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot07@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot08@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot09@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot10@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot11@UserInputTranslator@@UAEHABURva005CBC95Pixel@@0H@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot12@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot13@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot14@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot15@UserInputTranslator@@UAEHABURva005CBC95Pixel@@0H@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot16@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot17@UserInputTranslator@@UAEHABURva005CBC95Pixel@@HH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD: emitted with ??_7PhaseTranslator00576DF1@@6B@ in this unit; whole 5B body and every relocation target equal retail and the owner ?rva005748AD@Rva005748AD@@QAEHHHH@Z (LINK-514 lk67); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?v03@Rva0050EA74@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD; native table 0x0086551C slot3 returns zero and pops three dwords; complete5B matches retail; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?v04@Rva0050EA74@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+          "status": "matched",
+          "notes": "ICF twin at 0x005748AD; native table 0x0086551C slot4 shares the complete zero-return three-dword-pop body with slot3; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@HPBVVector3@@@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+          "status": "matched",
+          "notes": "ICF alias: the virtual ??_7MeshClass@@6BRefCountClass@@@ holds in this slot compiles to the body retail has at this address (rowed as ?rva005748AD@Rva005748AD@@QAEHHHH@Z); fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot0C@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot10@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot14@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot18@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot1C@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot20@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot24@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot28@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot2C@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot30@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot34@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot38@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot3C@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot40@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        },
+        {
+          "name": "?slot44@Rva005748A4@@UAEHHHH@Z",
+          "export_rva": "",
+          "target_rva": "0x005748AD",
+          "target_size": "5",
+          "source": "Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp",
+          "status": "matched",
+          "notes": "ICF alias: a slot of Rva005748A4's own retail vftable holds the folded 5-byte body; fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+        }
+      ],
+      "hex": "33c0c20c00",
+      "instructions": [
+        {
+          "va": "009748AD",
+          "hex": "33c0",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "va": "009748AF",
+          "hex": "c20c00",
+          "mnemonic": "ret",
+          "operands": "0xc"
+        }
+      ]
+    }
+  },
+  "tables": {
+    "page": {
+      "rva": "0086551C",
+      "va": "00C6551C",
+      "hex": "58ea9000bbe79000c0e79000ad489700ad489700d03f4b00",
+      "slots": [
+        "0050EA58",
+        "0050E7BB",
+        "0050E7C0",
+        "005748AD",
+        "005748AD",
+        "000B3FD0"
+      ],
+      "following16": "4150543a5f6c6576656c25752e25735f"
+    },
+    "base": {
+      "rva": "007C6F20",
+      "va": "00BC6F20",
+      "hex": "eee54700",
+      "slots": [
+        "0007E5EE"
+      ],
+      "following16": "f2df470010b84300c3455f0064365500"
+    },
+    "derived-page": {
+      "rva": "00865670",
+      "va": "00C65670",
+      "hex": "a70c9100bbe79000c0e79000ad489700c0019100e2019100",
+      "slots": [
+        "00510CA7",
+        "0050E7BB",
+        "0050E7C0",
+        "005748AD",
+        "005101C0",
+        "005101E2"
+      ],
+      "following16": "8d0d910031109100c5eb9000dff59000"
+    }
+  },
+  "scoped_rows": {
+    "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp": [
+      {
+        "name": "??1Rva00510CC3@@UAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x00510CC3",
+        "target_size": "68",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp",
+        "status": "matched",
+        "notes": "dtor holder clear plus member dtors with EH 1 0"
+      },
+      {
+        "name": "?OnEnabledContentUnloaded@Rva00510CC3@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x00510233",
+        "target_size": "11",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp",
+        "status": "matched",
+        "notes": "Native510233..51023E11B RET4; member pointer510C54 follows _OnEnabledContentUnloaded literalRVA86563C in this page constructor; existing rowed Rva00510CC3 dtor proves holder24 and provider50F6AD; independent boundary between81Bupdate and17Btree erase; whole2body home verified79B"
+      },
+      {
+        "name": "__ehhandler$??1Rva00510CC3@@UAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x00794B64",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp",
+        "status": "matched",
+        "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x00510CC3; retail parent installs handler 0x00794B64 (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+      },
+      {
+        "name": "$L1199",
+        "export_rva": "",
+        "target_rva": "0x00794B51",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??1Rva00510CC3@@UAE@XZ; Matched parent 0x00510CC3's EH graph is EXACT (eh_verify) and binds compiler label $L1199 to retail Unwind@00b94b51 0x794B51; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "uw_00794b59",
+        "export_rva": "",
+        "target_rva": "0x00794B59",
+        "target_size": "11",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Dtor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??1Rva00510CC3@@UAE@XZ;object-symbol=$L1200"
+      }
+    ],
+    "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp": [
+      {
+        "name": "??0Rva0050EA74@@QAE@HABVAsciiString@@@Z",
+        "export_rva": "",
+        "target_rva": "0x0050EA74",
+        "target_size": "69",
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "status": "matched",
+        "notes": "ctor via base m04 plus vtable plus StringBase copy"
+      },
+      {
+        "name": "??1Rva0050EA74@@UAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0050EA22",
+        "target_size": "54",
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "status": "matched",
+        "notes": "dual-vtable via empty inline base plus AsciiString release"
+      },
+      {
+        "name": "??_GRva0050EA74@@UAEPAXI@Z",
+        "export_rva": "",
+        "target_rva": "0x0050EA58",
+        "target_size": "28",
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "status": "matched",
+        "notes": "auto-emitted deleting dtor over rowed 0x0050EA22"
+      },
+      {
+        "name": "__ehhandler$??0Rva0050EA74@@QAE@HABVAsciiString@@@Z",
+        "export_rva": "",
+        "target_rva": "0x007947E7",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "status": "matched",
+        "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0050EA74; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+      },
+      {
+        "name": "??_GRva0050EA74Base@@UAEPAXI@Z",
+        "export_rva": "",
+        "target_rva": "0x0007E5EE",
+        "target_size": "29",
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "status": "matched",
+        "notes": "ICF twin at 0x0007E5EE; scalar deleting destructor in native base table 0x007C6F20; restores the empty base vptr and conditionally deletes this; whole29B and all relocation targets equal retail;fold-proof=Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp"
+      },
+      {
+        "name": "?v03@Rva0050EA74@@UAEHHHH@Z",
+        "export_rva": "",
+        "target_rva": "0x005748AD",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "status": "matched",
+        "notes": "ICF twin at 0x005748AD; native table 0x0086551C slot3 returns zero and pops three dwords; complete5B matches retail; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+      },
+      {
+        "name": "?v04@Rva0050EA74@@UAEHHHH@Z",
+        "export_rva": "",
+        "target_rva": "0x005748AD",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Rva0050EA74Ctor.cpp",
+        "status": "matched",
+        "notes": "ICF twin at 0x005748AD; native table 0x0086551C slot4 shares the complete zero-return three-dword-pop body with slot3; opaque slot role retained from existing page views;fold-proof=Code/GameEngine/Source/Common/VtableConstantPredicates.cpp"
+      }
+    ],
+    "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp": [
+      {
+        "name": "?enable@Rva000D4A7COneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x000D4A7C",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva001DBB82OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x001DBB82",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?disable@Rva001DBB87ZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x001DBB87",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?disable@Rva00420B2AZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00420B2A",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?enable@Rva00050D06OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00050D06",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?disable@Rva00050D0BZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00050D0B",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?enable@Rva000664EFOneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x000664EF",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva00090753OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00090753",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva0009D6E8OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0009D6E8",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?disable@Rva0009D6F5ZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0009D6F5",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?enable@Rva00131075OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00131075",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva00238D92OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00238D92",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?disable@Rva002886A2ZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x002886A2",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?enable@Rva0028A813OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0028A813",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva0028AA1COneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0028AA1C",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva002B2361OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x002B2361",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva003860FAOneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x003860FA",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva00428DBCOneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00428DBC",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva00433D22OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00433D22",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?disable@Rva0045F37DZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0045F37D",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?disable@Rva0039ABE6ZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0039ABE6",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?enable@Rva004A18C0OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x004A18C0",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva00050CDCOneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00050CDC",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva00050CFCOneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00050CFC",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?disable@Rva00050D01ZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00050D01",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?set@Rva0026FC9ETwoSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0026FC9E",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte two-setter"
+      },
+      {
+        "name": "?enable@Rva004D9362OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x004D9362",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?enable@Rva004F5FA7OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x004F5FA7",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?show@Rva0050EA74@@UAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0050E7BB",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?hide@Rva0050EA74@@UAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0050E7C0",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?disable@Rva0056B119ZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0056B119",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?enable@Rva005C399EOneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x005C399E",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter"
+      },
+      {
+        "name": "?disable@Rva006005D0ZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x006005D0",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter"
+      },
+      {
+        "name": "?disable@Rva00238D8DZeroSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00238D8D",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte zero-setter; pair of claimed 238D92 one-setter at same disp 0x6C"
+      },
+      {
+        "name": "?enable@Rva006005CBOneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x006005CB",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "Disp8 byte one-setter; pair of claimed 6005D0 zero-setter at same disp 0x0C"
+      },
+      {
+        "name": "?enable@Rva00050CF7OneSetter@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x00050CF7",
+        "target_size": "5",
+        "source": "Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp",
+        "status": "matched",
+        "notes": "disp8 one-setter at +0x50 in the setter run 0x00050CA9..0x00050D14"
+      }
+    ],
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp": [
+      {
+        "name": "?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z",
+        "export_rva": "",
+        "target_rva": "0x00510D98",
+        "target_size": "308",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "static page factory ported from bank with in-TU caller; constructor pins 0x005103A3/0x00510B72"
+      },
+      {
+        "name": "$L5114",
+        "export_rva": "",
+        "target_rva": "0x00794B8E",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z; Matched parent 0x00510D98's EH graph is EXACT (eh_verify) and binds compiler label $L5114 to retail Unwind@00b94b8e 0x794B8E; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "$L5121",
+        "export_rva": "",
+        "target_rva": "0x00794BB1",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z; Matched parent 0x00510D98's EH graph is EXACT (eh_verify) and binds compiler label $L5121 to retail Unwind@00b94bb1 0x794BB1; whole 10B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "__ehhandler$?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z",
+        "export_rva": "",
+        "target_rva": "0x00794BD4",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x00510D98; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+      },
+      {
+        "name": "?OnPageLoaded@Rva00510D0C@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x00511108",
+        "target_size": "242",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "Apt tribute screen _OnPageLoaded; page factory result kept in the dead params slot; ref assignment through the rowed 0x2174A4 twin; release reloads the pointer; map operator[] via decl-only specialization replaces the alternatename alias"
+      },
+      {
+        "name": "__ehhandler$?OnPageLoaded@Rva00510D0C@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x00794C48",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "Compiler-emitted C++ EH handler of rowed parent 0x00511108; retail parent installs handler 0x00794C48 (EH prologue immediate); parent object defines __ehhandler"
+      },
+      {
+        "name": "?rva00794b98@@YAXXZ",
+        "export_rva": "",
+        "target_rva": "0x00794B98",
+        "target_size": "25",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;object-symbol=$L5127;parent=?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z;converted from EHStateCleanupRange38.asm: the parent unit emits this funclet"
+      },
+      {
+        "name": "?rva00794bbb@@YAXXZ",
+        "export_rva": "",
+        "target_rva": "0x00794BBB",
+        "target_size": "25",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;object-symbol=$L5133;parent=?Rva00510D98CreatePage@@YA?AUTreeHintRef0051030C@@ABVAsciiString@@H0@Z;converted from EHStateCleanupRange38.asm: the parent unit emits this funclet"
+      },
+      {
+        "name": "Unwind@00b94c30",
+        "export_rva": "",
+        "target_rva": "0x00794C30",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?OnPageLoaded@Rva00510D0C@@QAEXPBD@Z;object-symbol=$L4724; Matched parent 0x00511108's EH graph is EXACT (eh_verify) and binds compiler label $L4724 to retail Unwind@00b94c30 (was gen_uw scaffold uw_00794c30)"
+      },
+      {
+        "name": "Unwind@00b94c38",
+        "export_rva": "",
+        "target_rva": "0x00794C38",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?OnPageLoaded@Rva00510D0C@@QAEXPBD@Z;object-symbol=$L4725; Matched parent 0x00511108's EH graph is EXACT (eh_verify) and binds compiler label $L4725 to retail Unwind@00b94c38 (was gen_uw scaffold uw_00794c38)"
+      },
+      {
+        "name": "Unwind@00b94c40",
+        "export_rva": "",
+        "target_rva": "0x00794C40",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?OnPageLoaded@Rva00510D0C@@QAEXPBD@Z;object-symbol=$L4726; Matched parent 0x00511108's EH graph is EXACT (eh_verify) and binds compiler label $L4726 to retail Unwind@00b94c40 (was gen_uw scaffold uw_00794c40)"
+      }
+    ],
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp": [
+      {
+        "name": "??1AptRowListRow@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0050EAB9",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "AptRowListRow implicit dtor (add ecx 8; jmp movie member dtor 0x000AD6F4); kept COMDAT copy of AptRowListConstructor.cpp; also emitted by AptRowListCallbacks.cpp; was the placeholder Rva0050EAB9::rva0050EAB9"
+      },
+      {
+        "name": "??0Rva005105D7@@QAE@HABVAsciiString@@@Z",
+        "export_rva": "",
+        "target_rva": "0x005103A3",
+        "target_size": "528",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": ""
+      },
+      {
+        "name": "??H@YA?AURva0050F23E@@ABUAsciiStringPlusStringChar@@PBD@Z",
+        "export_rva": "",
+        "target_rva": "0x0059AFC2",
+        "target_size": "57",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "ICF twin of Rva0059AFC2Copy: the typed concat the row-list ctor 0x005103A3 calls"
+      },
+      {
+        "name": "$L1835",
+        "export_rva": "",
+        "target_rva": "0x007949E8",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva005105D7@@QAE@HABVAsciiString@@@Z; Matched parent 0x005103A3's EH graph is EXACT (eh_verify) and binds compiler label $L1835 to retail Unwind@00b949e8 0x7949E8; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "$L1836",
+        "export_rva": "",
+        "target_rva": "0x007949F0",
+        "target_size": "11",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva005105D7@@QAE@HABVAsciiString@@@Z; Matched parent 0x005103A3's EH graph is EXACT (eh_verify) and binds compiler label $L1836 to retail Unwind@00b949f0 0x7949F0; whole 11B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "$L1837",
+        "export_rva": "",
+        "target_rva": "0x007949FB",
+        "target_size": "22",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva005105D7@@QAE@HABVAsciiString@@@Z; Matched parent 0x005103A3's EH graph is EXACT (eh_verify) and binds compiler label $L1837 to retail Unwind@00b949fb 0x7949FB; whole 22B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "??_ERva005105D7@@WBE@AEPAXI@Z",
+        "export_rva": "",
+        "target_rva": "0x005105B3",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "deleting-dtor adjustor thunk (this-0x14); jumps to the rowed ??_GRva005105D7@@UAEPAXI@Z 0x005105BB through the ??_E weak-alias pin; emitted with this TU's vftables"
+      },
+      {
+        "name": "__ehhandler$??0Rva005105D7@@QAE@HABVAsciiString@@@Z",
+        "export_rva": "",
+        "target_rva": "0x00794A31",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "Compiler-emitted C++ EH handler of rowed parent 0x005103A3; retail parent installs handler 0x00794A31 (EH prologue immediate); parent object defines __ehhandler"
+      },
+      {
+        "name": "Unwind@00b94a11",
+        "export_rva": "",
+        "target_rva": "0x00794A11",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva005105D7@@QAE@HABVAsciiString@@@Z;object-symbol=$L1818; Matched parent 0x005103A3's EH graph is EXACT (eh_verify) and binds compiler label $L1818 to retail Unwind@00b94a11 (was gen_uw scaffold uw_00794a11)"
+      },
+      {
+        "name": "Unwind@00b94a19",
+        "export_rva": "",
+        "target_rva": "0x00794A19",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva005105D7@@QAE@HABVAsciiString@@@Z;object-symbol=$L1819; Matched parent 0x005103A3's EH graph is EXACT (eh_verify) and binds compiler label $L1819 to retail Unwind@00b94a19 (was gen_uw scaffold uw_00794a19)"
+      },
+      {
+        "name": "Unwind@00b94a21",
+        "export_rva": "",
+        "target_rva": "0x00794A21",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva005105D7@@QAE@HABVAsciiString@@@Z;object-symbol=$L1821; Matched parent 0x005103A3's EH graph is EXACT (eh_verify) and binds compiler label $L1821 to retail Unwind@00b94a21 (was gen_uw scaffold uw_00794a21)"
+      },
+      {
+        "name": "Unwind@00b94a29",
+        "export_rva": "",
+        "target_rva": "0x00794A29",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva005105D7@@QAE@HABVAsciiString@@@Z;object-symbol=$L1823; Matched parent 0x005103A3's EH graph is EXACT (eh_verify) and binds compiler label $L1823 to retail Unwind@00b94a29 (was gen_uw scaffold uw_00794a29)"
+      }
+    ],
+    "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp": [
+      {
+        "name": "??_GRva00510CC3@@UAEPAXI@Z",
+        "export_rva": "",
+        "target_rva": "0x00510CA7",
+        "target_size": "28",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": "virtual scalar deleting dtor (retail vtable 865670 slot 0) emitted by the page ctor unit over rowed dtor"
+      },
+      {
+        "name": "??0Rva00510CC3@@QAE@HABVAsciiString@@@Z",
+        "export_rva": "",
+        "target_rva": "0x00510B72",
+        "target_size": "309",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": ""
+      },
+      {
+        "name": "__ehhandler$??0Rva00510CC3@@QAE@HABVAsciiString@@@Z",
+        "export_rva": "",
+        "target_rva": "0x00794B47",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x00510B72; retail parent installs handler 0x00794B47 (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+      },
+      {
+        "name": "$L1595",
+        "export_rva": "",
+        "target_rva": "0x00794B11",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva00510CC3@@QAE@HABVAsciiString@@@Z; Matched parent 0x00510B72's EH graph is EXACT (eh_verify) and binds compiler label $L1595 to retail Unwind@00b94b11 0x794B11; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "$L1596",
+        "export_rva": "",
+        "target_rva": "0x00794B19",
+        "target_size": "11",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva00510CC3@@QAE@HABVAsciiString@@@Z; Matched parent 0x00510B72's EH graph is EXACT (eh_verify) and binds compiler label $L1596 to retail Unwind@00b94b19 0x794B19; whole 11B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "Unwind@00b94b2f",
+        "export_rva": "",
+        "target_rva": "0x00794B2F",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva00510CC3@@QAE@HABVAsciiString@@@Z;object-symbol=$L1598; Matched parent 0x00510B72's EH graph is EXACT (eh_verify) and binds compiler label $L1598 to retail Unwind@00b94b2f (was gen_uw scaffold uw_00794b2f)"
+      },
+      {
+        "name": "Unwind@00b94b37",
+        "export_rva": "",
+        "target_rva": "0x00794B37",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva00510CC3@@QAE@HABVAsciiString@@@Z;object-symbol=$L1599; Matched parent 0x00510B72's EH graph is EXACT (eh_verify) and binds compiler label $L1599 to retail Unwind@00b94b37 (was gen_uw scaffold uw_00794b37)"
+      },
+      {
+        "name": "Unwind@00b94b3f",
+        "export_rva": "",
+        "target_rva": "0x00794B3F",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??0Rva00510CC3@@QAE@HABVAsciiString@@@Z;object-symbol=$L1601; Matched parent 0x00510B72's EH graph is EXACT (eh_verify) and binds compiler label $L1601 to retail Unwind@00b94b3f (was gen_uw scaffold uw_00794b3f)"
+      }
+    ],
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp": [
+      {
+        "name": "??0AptRowListRow@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x0024A839",
+        "target_size": "14",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "StatusPage row ctor {-1 0 null movie}; inline ctor whose address the page ctor 0x005103A3 passes to the eh vector ctor iterator at 0x005103D7 beside row dtor 0x0050EAB9; sole reference to the body"
+      },
+      {
+        "name": "?rva0050EEDC@Rva005105D7@@QAEXXZ",
+        "export_rva": "",
+        "target_rva": "0x0050EEDC",
+        "target_size": "166",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "StatusPage row fill: one row per occupied GameInfo slot whose player name resolves via NameKeyGenerator and PlayerList; called at the end of ctor 0x005103A3"
+      },
+      {
+        "name": "??1Rva005105D7@@UAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x005105D7",
+        "target_size": "86",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "StatusPage implicit dtor: eh vector dtor over the eight rows at +0x70 then the registry base 0x005248D0 at +0x14 and the page base 0x0050EA22; no vptr reset"
+      },
+      {
+        "name": "?OnRowHidden@Rva005105D7@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x0050EF82",
+        "target_size": "122",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "Apt callback bound as _level<n>._OnRowHidden by the row list constructor 0x005103A3 (binding at 0x0051048D); clears the indexed row movie through the rowed Rva000AD6F4 clear"
+      },
+      {
+        "name": "?OnRowShown@Rva005105D7@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x0050FAF7",
+        "target_size": "349",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "Apt callback bound as _level<n>._OnRowShown by the row list constructor 0x005103A3 (binding at 0x00510432); builds the indexed row movie (pinned ctor 0x0050F909) through the rowed 0x00575674; parameters read by the pinned 0x004128F0"
+      },
+      {
+        "name": "?rva0050E823@Rva005105D7@@QAEXHPAD_N@Z",
+        "export_rva": "",
+        "target_rva": "0x0050E823",
+        "target_size": "102",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "indexed Apt query bound by the row list constructor 0x005103A3 (binding at 0x005104FF) over the name table 0x00C65510 (NumOfPlayers and InSkirmish); name unknown"
+      },
+      {
+        "name": "$L2053",
+        "export_rva": "",
+        "target_rva": "0x00794A3B",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=??1Rva005105D7@@UAE@XZ; Matched parent 0x005105D7's EH graph is EXACT (eh_verify) and binds compiler label $L2053 to retail Unwind@00b94a3b 0x794A3B; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+      },
+      {
+        "name": "__ehhandler$?OnRowShown@Rva005105D7@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x00794914",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x0050FAF7; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+      },
+      {
+        "name": "__ehhandler$??1Rva005105D7@@UAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x00794A57",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x005105D7; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+      },
+      {
+        "name": "uw_007948f1",
+        "export_rva": "",
+        "target_rva": "0x007948F1",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?OnRowShown@Rva005105D7@@QAEXPBD@Z;object-symbol=$L1858"
+      },
+      {
+        "name": "?rva00794a43@@YAXXZ",
+        "export_rva": "",
+        "target_rva": "0x00794A43",
+        "target_size": "20",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;object-symbol=$L2038;parent=??1Rva005105D7@@UAE@XZ;Replace20B MASM-only masked-add cleanup with real C++ destruction of the callback-registry base at14 from the complete86B implicit row-list destructor5105D7. Native entire associative EH graph independently proves parent ownership and whole extent; target masked adjustment14 agrees with consumed two-base layout. Actual Rva005248D0 destructor5248D0 is rowed and OWNER-bound. Original row callbacks and constructor string evidence support list purpose separately from this target lifetime/layout proof; no new identity claim or pin.20B ASM-only to C++. t=6 model=gpt-6.1-sol"
+      },
+      {
+        "name": "?rva007948fb@@YAXXZ",
+        "export_rva": "",
+        "target_rva": "0x007948FB",
+        "target_size": "25",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;object-symbol=$L1848;parent=?OnRowShown@Rva005105D7@@QAEXPBD@Z;converted from EHStateCleanupRange38.asm: the parent unit emits this funclet"
+      },
+      {
+        "name": "Unwind@00b948e1",
+        "export_rva": "",
+        "target_rva": "0x007948E1",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?OnRowShown@Rva005105D7@@QAEXPBD@Z;object-symbol=$L1844; Matched parent 0x0050FAF7's EH graph is EXACT (eh_verify) and binds compiler label $L1844 to retail Unwind@00b948e1 (was gen_uw scaffold uw_007948e1)"
+      },
+      {
+        "name": "Unwind@00b948e9",
+        "export_rva": "",
+        "target_rva": "0x007948E9",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListCallbacks.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?OnRowShown@Rva005105D7@@QAEXPBD@Z;object-symbol=$L1845; Matched parent 0x0050FAF7's EH graph is EXACT (eh_verify) and binds compiler label $L1845 to retail Unwind@00b948e9 (was gen_uw scaffold uw_007948e9)"
+      }
+    ],
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp": [
+      {
+        "name": "?rva0050F5DF@Rva00510D0C@@QAEHHHH@Z",
+        "export_rva": "",
+        "target_rva": "0x0050F5DF",
+        "target_size": "124",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "vtable 0x00C6568C slot 2 current page plus map plus base 0x0051274F"
+      },
+      {
+        "name": "?OnPageSelected@Rva00510D0C@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x00510F41",
+        "target_size": "125",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "Apt _OnPageSelected member callback bound by holder 0x57BC63 in tribute registration 0x5111FA; finds the page in the map at +0x27C (_M_find 0x1F8437) and swaps the current page at +0x288 via page vslots 1/2"
+      },
+      {
+        "name": "?OnPageUnloaded@Rva00510D0C@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x00510ECC",
+        "target_size": "117",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "Apt _OnPageUnloaded member callback bound by holder 0x57BC63 in tribute registration 0x5111FA; finds the page in the map at +0x27C (_M_find 0x1F8437) and erases via 0x50F6C7"
+      },
+      {
+        "name": "?ReturnToGame@Rva00510D0C@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x0050EBBD",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "Apt callback bound as _level<n>_ReturnToGame by the screen registration 0x005111FA (binding at 0x005112A4); calls the rowed one-shot enabler 0x0050E9D3 on this screen's instance"
+      },
+      {
+        "name": "?TributeEnabled@Rva00510D0C@@QAEXHPAD_N@Z",
+        "export_rva": "",
+        "target_rva": "0x0050E98A",
+        "target_size": "67",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "Apt query bound as _level<n>_TributeEnabled by the screen registration 0x005111FA (vtable 0x00C6568C slot 12; binding at 0x00511444); answers the local player's bfmeAskRV; class named by its rowed deleting destructor ??_GRva00510D0C"
+      },
+      {
+        "name": "?rva0050EBC5@Rva00510D0C@@QAEHHHH@Z",
+        "export_rva": "",
+        "target_rva": "0x0050EBC5",
+        "target_size": "95",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "vtable 0x00C6568C slot 1 input handler of the same screen: page vslot 3 first then key message 0x15 keys 1/0x0F return to game else the rowed base handler 0x005748AD; name unknown"
+      },
+      {
+        "name": "?rva0050F65B@Rva00510D0C@@QAEHXZ",
+        "export_rva": "",
+        "target_rva": "0x0050F65B",
+        "target_size": "47",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "tribute screen vtable tail: every page in the map gets vslot 5 then base 0x910FB; WB 135B2E0 tribute page-map iteration; hand-ported from the permute --pins win"
+      },
+      {
+        "name": "__ehhandler$?OnPageUnloaded@Rva00510D0C@@QAEXPBD@Z",
+        "export_rva": "",
+        "target_rva": "0x00794BE6",
+        "target_size": "10",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x00510ECC; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+      },
+      {
+        "name": "?erase@?$map@VAsciiString@@UTreeHintRef0051030C@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef0051030C@@@_STL@@@4@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintRef0051030C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintRef0051030C@@@_STL@@@2@@2@@Z",
+        "export_rva": "",
+        "target_rva": "0x0051023E",
+        "target_size": "17",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "unit already emits this body; masked bytes and every known relocation agree with retail at this unclaimed address"
+      },
+      {
+        "name": "$L5558",
+        "export_rva": "",
+        "target_rva": "0x00794BDE",
+        "target_size": "8",
+        "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageCallbacks.cpp",
+        "status": "matched",
+        "notes": "gen-funclet;parent=?OnPageUnloaded@Rva00510D0C@@QAEXPBD@Z; Matched parent 0x00510ECC's EH graph is EXACT (eh_verify) and binds compiler label $L5558 to retail 0x00794BDE; replaces generated uw_00794bde; retail FuncInfo 0x00947EC4 is shared by 2 parent frames; parent is the one the section's existing __ehhandler$ row names"
+      }
+    ]
+  },
+  "existing_empty_fold_rows_count": 449,
+  "selected_empty_owner": {
+    "name": "??1Coord2D@@QAE@XZ",
+    "export_rva": "0x000B3FD0",
+    "target_rva": "0x000B3FD0",
+    "target_size": "1",
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+    "status": "matched",
+    "notes": ""
+  },
+  "empty_target_hex": "c3"
+}

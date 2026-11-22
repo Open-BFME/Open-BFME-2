@@ -1,0 +1,17 @@
+# Sealed owner-source compilation context — private authoring plan
+
+Only four private files: header_generation_proof.py + its test, header_adopt_lane.py + its test. class_layouts.py remains unchanged and its normal builder argument is used internally. No live writes, claims, compiler/PP/link calls or new agents. V5 and independent review files remain immutable.
+
+Cause: flag_defaults.apply prepends region-managed tokens for the rowed original TU. The adjacent unrowed file has no voting-region source key and preserves its raw //cl token order. Compiler/Env/search inputs are otherwise equal in the recorded diagnostic. A free-standing adjacent command is not the original logical TU context.
+
+Introduce an internal immutable context issued only from a real sealed Current, for exactly its adjacent prospective file and exact pure plan. Reconstruct the original ordinary compiler_command freshly; require exactly one original Source operand in the final position, then replace only that operand. Do not sort flags, change source directives, select a different region/override/compiler or add a free profile API. Keep full command/Env/inventory equality and Source/Header/policy/metadata binding. Retain prospective ordinary compiler/environment/include observations as conservative checks where they prove physical-input context; no independently selected profile becomes admission authority.
+
+Use the same context during initial paired capture, every _capture_owner_context revalidation and _OwnerState profile check. Own gate/apply revalidation must honor only the already sealed exact source_record transition and two object/deps outputs, never pretend the original cached object remains current after the gate.
+
+Root's additional boundary: freshly observe the ordinary standalone prospective command too. Require the same compiler prefix, complete Env/search inventory and full literal option multiset after validating/removing exactly its Source/Fo operands. This is only a conservative rejection check, never a claim of flag-order semantics. Execute and seal exclusively the exact ordered Origincommand. Missing/new/duplicate/D/FI/I option changes still refuse; old '-DOTHER' author test remains negative unchanged. The ordinary fake command fixture must honor requested output paths just like real compiler_command, with explicit wrong-output negative controls.
+
+A private Pair-bound layout builder serves only exact Pair.prospective and derives the same origin command. Existing class_layouts.compile_layouts still supplies its normal -Z7 and private output handling. Pair/header/real prospective Source and context inputs validate before and after layout; arbitrary builders/origins are not accepted by adoption.
+
+Tests: exact option-order case, wrong/duplicate/missing Source operand, changed origin/profile/Env/include inventory, foreign/current-only witness, prospective mutations and replay, identical PP/layout context; unchanged old V5 independent review cases. Existing author tests that treated the unrowed standalone command as authoritative require explicit scrutiny because the intended origin-context route supersedes that assumption; do not silently weaken them or independent repros.
+
+After fixtures pass, run the same three full suites + immutable independent repros, freeze exact four-file patch/hashes/logs, request independent review. No actual native capture/adoption is authorized by this package.

@@ -1,0 +1,644 @@
+{
+  "removed_provider": "??0BfmeFixedStorage128@@QAE@ABU0@@Z",
+  "removed_runtime_section": 12,
+  "all_other_runtime_sections_and_relocations_exact": true,
+  "all_other_external_definitions_exact": true,
+  "comdat_selection_and_associations_exact_after_removal": true,
+  "undefined_graph_exact_expected_change": true,
+  "weak_bindings_unchanged": true,
+  "directives_unchanged": true,
+  "native_dir32_row_pairs": [
+    {
+      "label": "before",
+      "pairs": {
+        "?GetSnapshotName@Rva002E2AAE@@UBEPBDXZ": [],
+        "?RemoveUpgrade@LivingWorldPlayer@@QAEXPAX@Z": [],
+        "?AddUpgrade@LivingWorldPlayer@@QAEXPAX_N@Z": [],
+        "?GetNumRegionsOwned@LivingWorldPlayer@@QAEHXZ": [
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ]
+        ],
+        "?ParseLivingWorldPlayer@LivingWorldPlayer@@SAXPAVINI@@PAX@Z": [
+          [
+            "__TI1?AVINIException@@",
+            13624060
+          ],
+          [
+            "?g_00C049D8@@3QBUFieldParse@@B",
+            12601816
+          ],
+          [
+            "?TheLivingWorldPlayerTemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14676144
+          ],
+          [
+            "?TheLivingWorldAITemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14692672
+          ],
+          [
+            "__except_list",
+            0
+          ],
+          [
+            "__TI1?AVINIException@@",
+            13624060
+          ]
+        ],
+        "??_GRva002E2AAE@@UAEPAXI@Z": [],
+        "?GetConflictResolveType@LivingWorldPlayer@@QAEHXZ": [],
+        "?loadPostProcess@Rva002E2AAE@@UAEXXZ": [
+          [
+            "?TheLivingWorldAITemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14692672
+          ]
+        ],
+        "?OnUnitDequeued@LivingWorldPlayer@@QAEXPAVSpawnArmy@@@Z": [],
+        "?RemoveArmy@LivingWorldPlayer@@QAEPAPAXAAPAPAX@Z": [
+          [
+            "?TheGameLogic@@3PAVGameLogic@@A",
+            14673804
+          ]
+        ],
+        "??1Rva002E2AAE@@UAE@XZ": [
+          [
+            "??_7Rva002E2AAE@@6B@",
+            12602192
+          ],
+          [
+            "??_9@$BM@AE [vcall-slot+0x0C]",
+            10269285
+          ],
+          [
+            "??_7Snapshot@@6B@",
+            12301652
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "?AddArmy@LivingWorldPlayer@@QAEXPAULivingWorldArmy@@@Z": [
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheGameLogic@@3PAVGameLogic@@A",
+            14673804
+          ]
+        ],
+        "?CalcRevivalCostsForEntry@@YAXAAVUnitRevivalEntry@@@Z": [],
+        "?ExtractRevivalUnitDataForCurrentMap@LivingWorldPlayer@@QAEXPAV?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@@Z": [
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ],
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ],
+          [
+            "?TheCampaignManager@@3PAVRva00E02D6C@@A",
+            14691692
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "?FindArmyWithHero@LivingWorldPlayer@@QAEPAXPAXH@Z": [],
+        "?GetRevivalUnitData@LivingWorldPlayer@@QAEXHPAULivingWorldRevivalUnitDataView@@@Z": [],
+        "?RemoveRevivalUnit@LivingWorldPlayer@@QAEXH@Z": [],
+        "?SetColorIndex@LivingWorldPlayer@@QAEXH@Z": [
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ]
+        ],
+        "?rva002E0B30@LivingWorldPlayer@@QAE_NXZ": [],
+        "?rva002E12F3@LivingWorldPlayer@@QAE_NH@Z": [],
+        "?rva002E14E9@LivingWorldPlayer@@QAEXABUBfmeFixedStorage128@@@Z": [
+          [
+            "?TheUpgradeCenter@@3PAVUpgradeCenter@@A",
+            14674784
+          ]
+        ],
+        "?rva002E199E@LivingWorldPlayer@@QAEHPBX@Z": [],
+        "?xfer@Rva002E2AAE@@UAEXPAVXfer@@@Z": [
+          [
+            "?TheLivingWorldPlayerTemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14676144
+          ],
+          [
+            "__TI1?AVINIException@@",
+            13624060
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "$L1801": [],
+        "$L1802": [],
+        "$L1808": [],
+        "$L1809": [],
+        "$L1810": [],
+        "??0Rva002E2AAE@@QAE@PAURva002BA8F1Input@@PAX@Z": [
+          [
+            "??_7Rva002E2AAE@@6B@",
+            12602192
+          ],
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "??0Rva002E2AAE@@QAE@XZ": [
+          [
+            "??_7Rva002E2AAE@@6B@",
+            12602192
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "??1PlayerPointerArray@@QAE@XZ": [],
+        "??1Rva002E1F83@@QAE@XZ": [],
+        "?MarkUnitsForUpgrades@LivingWorldPlayer@@QAEXPAX@Z": [
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "__ehhandler$?ParseLivingWorldPlayer@LivingWorldPlayer@@SAXPAVINI@@PAX@Z": [],
+        "__ehhandler$?MarkUnitsForUpgrades@LivingWorldPlayer@@QAEXPAX@Z": [],
+        "__ehhandler$??1Rva002E2AAE@@UAE@XZ": [],
+        "__ehhandler$?xfer@Rva002E2AAE@@UAEXPAVXfer@@@Z": [],
+        "__ehhandler$??0Rva002E2AAE@@QAE@PAURva002BA8F1Input@@PAX@Z": [],
+        "__ehhandler$??0Rva002E2AAE@@QAE@XZ": [],
+        "$L9397": [],
+        "$L9398": [],
+        "$L8754": [],
+        "$L9808": [],
+        "$L9810": [],
+        "$L9811": [],
+        "$L9817": [],
+        "$L9818": [],
+        "$L9700": [],
+        "$L9709": [],
+        "$L9710": [],
+        "uw_007787f8": [],
+        "uw_00778873": [],
+        "uw_0077887e": [],
+        "uw_00778a8d": [],
+        "__ehhandler$?ExtractRevivalUnitDataForCurrentMap@LivingWorldPlayer@@QAEXPAV?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@@Z": [],
+        "?Rva002E25D9XferScienceVec@@YAXPAVXfer@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z": [],
+        "?rva002E1155@LivingWorldPlayer@@QAE_NPAVSpawnArmy@@@Z": [],
+        "$L9727": [],
+        "$L9728": [],
+        "$L9730": [],
+        "$L9733": [],
+        "$L9734": [],
+        "$L9735": [],
+        "$L9736": [],
+        "$L9737": [],
+        "$L9835": [],
+        "$L9836": [],
+        "$L9838": [],
+        "$L9841": [],
+        "$L9842": [],
+        "$L9843": [],
+        "$L9844": [],
+        "$L9845": [],
+        "$L9425": [],
+        "$L9428": [],
+        "$L9431": [],
+        "$L9432": [],
+        "$L9433": [],
+        "$L9434": [],
+        "$L9435": [],
+        "$L8767": [],
+        "$L8768": [],
+        "Unwind@00b78a6b": [],
+        "Unwind@00b78a73": [],
+        "Unwind@00b78a7b": []
+      },
+      "failures": []
+    },
+    {
+      "label": "after",
+      "pairs": {
+        "?GetSnapshotName@Rva002E2AAE@@UBEPBDXZ": [],
+        "?RemoveUpgrade@LivingWorldPlayer@@QAEXPAX@Z": [],
+        "?AddUpgrade@LivingWorldPlayer@@QAEXPAX_N@Z": [],
+        "?GetNumRegionsOwned@LivingWorldPlayer@@QAEHXZ": [
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ]
+        ],
+        "?ParseLivingWorldPlayer@LivingWorldPlayer@@SAXPAVINI@@PAX@Z": [
+          [
+            "__TI1?AVINIException@@",
+            13624060
+          ],
+          [
+            "?g_00C049D8@@3QBUFieldParse@@B",
+            12601816
+          ],
+          [
+            "?TheLivingWorldPlayerTemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14676144
+          ],
+          [
+            "?TheLivingWorldAITemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14692672
+          ],
+          [
+            "__except_list",
+            0
+          ],
+          [
+            "__TI1?AVINIException@@",
+            13624060
+          ]
+        ],
+        "??_GRva002E2AAE@@UAEPAXI@Z": [],
+        "?GetConflictResolveType@LivingWorldPlayer@@QAEHXZ": [],
+        "?loadPostProcess@Rva002E2AAE@@UAEXXZ": [
+          [
+            "?TheLivingWorldAITemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14692672
+          ]
+        ],
+        "?OnUnitDequeued@LivingWorldPlayer@@QAEXPAVSpawnArmy@@@Z": [],
+        "?RemoveArmy@LivingWorldPlayer@@QAEPAPAXAAPAPAX@Z": [
+          [
+            "?TheGameLogic@@3PAVGameLogic@@A",
+            14673804
+          ]
+        ],
+        "??1Rva002E2AAE@@UAE@XZ": [
+          [
+            "??_7Rva002E2AAE@@6B@",
+            12602192
+          ],
+          [
+            "??_9@$BM@AE [vcall-slot+0x0C]",
+            10269285
+          ],
+          [
+            "??_7Snapshot@@6B@",
+            12301652
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "?AddArmy@LivingWorldPlayer@@QAEXPAULivingWorldArmy@@@Z": [
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheGameLogic@@3PAVGameLogic@@A",
+            14673804
+          ]
+        ],
+        "?CalcRevivalCostsForEntry@@YAXAAVUnitRevivalEntry@@@Z": [],
+        "?ExtractRevivalUnitDataForCurrentMap@LivingWorldPlayer@@QAEXPAV?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@@Z": [
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ],
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ],
+          [
+            "?TheCampaignManager@@3PAVRva00E02D6C@@A",
+            14691692
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "?FindArmyWithHero@LivingWorldPlayer@@QAEPAXPAXH@Z": [],
+        "?GetRevivalUnitData@LivingWorldPlayer@@QAEXHPAULivingWorldRevivalUnitDataView@@@Z": [],
+        "?RemoveRevivalUnit@LivingWorldPlayer@@QAEXH@Z": [],
+        "?SetColorIndex@LivingWorldPlayer@@QAEXH@Z": [
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ],
+          [
+            "?TheMultiplayerSettings@@3PAVMultiplayerSettings@@A",
+            14689012
+          ]
+        ],
+        "?rva002E0B30@LivingWorldPlayer@@QAE_NXZ": [],
+        "?rva002E12F3@LivingWorldPlayer@@QAE_NH@Z": [],
+        "?rva002E14E9@LivingWorldPlayer@@QAEXABUBfmeFixedStorage128@@@Z": [
+          [
+            "?TheUpgradeCenter@@3PAVUpgradeCenter@@A",
+            14674784
+          ]
+        ],
+        "?rva002E199E@LivingWorldPlayer@@QAEHPBX@Z": [],
+        "?xfer@Rva002E2AAE@@UAEXPAVXfer@@@Z": [
+          [
+            "?TheLivingWorldPlayerTemplateStore@@3PAVRva002E18C3Lookup@@A",
+            14676144
+          ],
+          [
+            "__TI1?AVINIException@@",
+            13624060
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "$L1801": [],
+        "$L1802": [],
+        "$L1808": [],
+        "$L1809": [],
+        "$L1810": [],
+        "??0Rva002E2AAE@@QAE@PAURva002BA8F1Input@@PAX@Z": [
+          [
+            "??_7Rva002E2AAE@@6B@",
+            12602192
+          ],
+          [
+            "?TheLivingWorldLogic@@3PAVLivingWorldLogic@@A",
+            14675728
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "??0Rva002E2AAE@@QAE@XZ": [
+          [
+            "??_7Rva002E2AAE@@6B@",
+            12602192
+          ],
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "??1PlayerPointerArray@@QAE@XZ": [],
+        "??1Rva002E1F83@@QAE@XZ": [],
+        "?MarkUnitsForUpgrades@LivingWorldPlayer@@QAEXPAX@Z": [
+          [
+            "__except_list",
+            0
+          ]
+        ],
+        "__ehhandler$?ParseLivingWorldPlayer@LivingWorldPlayer@@SAXPAVINI@@PAX@Z": [],
+        "__ehhandler$?MarkUnitsForUpgrades@LivingWorldPlayer@@QAEXPAX@Z": [],
+        "__ehhandler$??1Rva002E2AAE@@UAE@XZ": [],
+        "__ehhandler$?xfer@Rva002E2AAE@@UAEXPAVXfer@@@Z": [],
+        "__ehhandler$??0Rva002E2AAE@@QAE@PAURva002BA8F1Input@@PAX@Z": [],
+        "__ehhandler$??0Rva002E2AAE@@QAE@XZ": [],
+        "$L9397": [],
+        "$L9398": [],
+        "$L8754": [],
+        "$L9808": [],
+        "$L9810": [],
+        "$L9811": [],
+        "$L9817": [],
+        "$L9818": [],
+        "$L9700": [],
+        "$L9709": [],
+        "$L9710": [],
+        "uw_007787f8": [],
+        "uw_00778873": [],
+        "uw_0077887e": [],
+        "uw_00778a8d": [],
+        "__ehhandler$?ExtractRevivalUnitDataForCurrentMap@LivingWorldPlayer@@QAEXPAV?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@@Z": [],
+        "?Rva002E25D9XferScienceVec@@YAXPAVXfer@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z": [],
+        "?rva002E1155@LivingWorldPlayer@@QAE_NPAVSpawnArmy@@@Z": [],
+        "$L9727": [],
+        "$L9728": [],
+        "$L9730": [],
+        "$L9733": [],
+        "$L9734": [],
+        "$L9735": [],
+        "$L9736": [],
+        "$L9737": [],
+        "$L9835": [],
+        "$L9836": [],
+        "$L9838": [],
+        "$L9841": [],
+        "$L9842": [],
+        "$L9843": [],
+        "$L9844": [],
+        "$L9845": [],
+        "$L9425": [],
+        "$L9428": [],
+        "$L9431": [],
+        "$L9432": [],
+        "$L9433": [],
+        "$L9434": [],
+        "$L9435": [],
+        "$L8767": [],
+        "$L8768": [],
+        "Unwind@00b78a6b": [],
+        "Unwind@00b78a73": [],
+        "Unwind@00b78a7b": []
+      },
+      "failures": []
+    }
+  ],
+  "native_dir32_pairs_equal": true,
+  "compiler_sizeof128_witnesses": [
+    {
+      "label": "before",
+      "symbol": "g_00C049D8",
+      "coff_symbol": "?g_00C049D8@@3QBUFieldParse@@B",
+      "type_index": "0x1b1a",
+      "compiler_type_name": "FieldParse[8]",
+      "compiler_size": 128,
+      "debug_data_symbol_relocations": [
+        [
+          1921,
+          "?g_00C049D8@@3QBUFieldParse@@B",
+          11
+        ],
+        [
+          1925,
+          "?g_00C049D8@@3QBUFieldParse@@B",
+          10
+        ]
+      ]
+    },
+    {
+      "label": "after",
+      "symbol": "g_00C049D8",
+      "coff_symbol": "?g_00C049D8@@3QBUFieldParse@@B",
+      "type_index": "0x1b27",
+      "compiler_type_name": "FieldParse[8]",
+      "compiler_size": 128,
+      "debug_data_symbol_relocations": [
+        [
+          1917,
+          "?g_00C049D8@@3QBUFieldParse@@B",
+          11
+        ],
+        [
+          1921,
+          "?g_00C049D8@@3QBUFieldParse@@B",
+          10
+        ]
+      ]
+    }
+  ],
+  "existing_copy_provider": {
+    "source": "W:\\OpenBFME\\Open-BFME-2\\Code\\Libraries\\Source\\WWVegas\\WWLib\\Object260Copy.cpp",
+    "source_sha256": "0d4120c49205515aad0e1ab1957dc19345d99b2c77bf116fdd7bdd406945065d",
+    "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^object260^copy.obj",
+    "object_exists": true,
+    "old_local_body": {
+      "body": "566880000000ff74240c8bf156e80000000083c40c8bc65ec20400",
+      "size": 27,
+      "relocations": [
+        [
+          14,
+          20,
+          "_memcpy",
+          32,
+          2,
+          0
+        ]
+      ]
+    },
+    "object_sha256": "e658c4e2fb38af5c3bf8fae4dae87f8ae95004be45e469c3085feedf18bd79dc",
+    "normal_object_current": false,
+    "normal_object_non_strict_current": true,
+    "normal_body": {
+      "body": "566880000000ff74240c8bf156e80000000083c40c8bc65ec20400",
+      "size": 27,
+      "relocations": [
+        [
+          14,
+          20,
+          "_memcpy",
+          32,
+          2,
+          0
+        ]
+      ]
+    },
+    "old_local_equals_normal_provider_body_and_relocations": true,
+    "normal_row_matches_retail": true,
+    "normal_row_masked": false,
+    "read_only_existing_census": {
+      "path": "W:\\OpenBFME\\Open-BFME-2\\build\\link_census\\link_index.pkl",
+      "sha256": "a6e997404b4762fd69e6645dd5d9c1847c0478427c1ec29423284ba2593af8e7",
+      "head": null,
+      "keys": [
+        "alternates",
+        "blockers",
+        "bytes",
+        "comdat",
+        "common",
+        "common_schema",
+        "digests",
+        "excuses",
+        "forgotten",
+        "meta",
+        "objects",
+        "references",
+        "selection",
+        "strong",
+        "touches"
+      ],
+      "holders_in_link_order": [
+        {
+          "position": 806,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^object260^copy.obj",
+          "kind": "comdat",
+          "digest": "c629fed2eba4",
+          "verdict": "retail"
+        },
+        {
+          "position": 7563,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player.obj",
+          "kind": "comdat",
+          "digest": "c629fed2eba4",
+          "verdict": "retail"
+        },
+        {
+          "position": 7592,
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^unit^revival^tracker.obj",
+          "kind": "comdat",
+          "digest": "c629fed2eba4",
+          "verdict": "retail"
+        },
+        {
+          "position": 12502,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^owned^record900^copy.obj",
+          "kind": "comdat",
+          "digest": "c629fed2eba4",
+          "verdict": "retail"
+        }
+      ],
+      "specific_actual_map_exception": "not recorded",
+      "currency_or_new_acceptance_claimed": false
+    }
+  },
+  "constructor_emission": [
+    {
+      "label": "before",
+      "defined": [
+        "??0BfmeFixedStorage128@@QAE@ABU0@@Z"
+      ],
+      "undefined": [
+        "??0UnitRevivalEntry@@QAE@ABV0@@Z",
+        "??0UnitRevivalEntry@@QAE@XZ"
+      ],
+      "unit_destructor_defined": false
+    },
+    {
+      "label": "after",
+      "defined": [],
+      "undefined": [
+        "??0BfmeFixedStorage128@@QAE@ABU0@@Z",
+        "??0UnitRevivalEntry@@QAE@ABV0@@Z",
+        "??0UnitRevivalEntry@@QAE@XZ"
+      ],
+      "unit_destructor_defined": false
+    }
+  ]
+}

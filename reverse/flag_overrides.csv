@@ -294,7 +294,6 @@ Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,,2,1,region default los
 Code/GameEngine/Source/GameNetwork/FeslConnectionHandlerRva007F9D00.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/FeslMessage_send_rva007F93E0.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/FeslTransactor_lookup_rva007F9530.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/GameSpy/Chat.cpp,,3,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatCrypt.c,,3,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/GameSpy/ghttp/ghttpProcess.c,,14,2,region default loses rows
@@ -508,7 +507,7 @@ Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,,7,7,region defa
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,4,4,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,16,15,region default loses rows
 Code/Libraries/Source/Fesl/servicehub.cpp,-O2,3,3,region default loses rows
-Code/Libraries/Source/Fesl/transactor.cpp,,2,2,region default loses rows
+Code/Libraries/Source/Fesl/transactor.cpp,,3,3,region default loses rows
 Code/Libraries/Source/Fesl/util.cpp,,4,4,region default loses rows
 Code/Libraries/Source/Lua/lapi.c,,51,1,region default loses rows
 Code/Libraries/Source/Lua/lauxlib.c,,20,1,region default loses rows

@@ -1,0 +1,26 @@
+{
+  "reviewed_version": "V3",
+  "base": "d2e90ccf3b5a6826bce9c68df830c23a38e1b7ad",
+  "independent_review": "W:\\OpenBFME\\diagnostics\\continue-20261120-body-recovery-1656\\agents\\melee\\b2-ctor-scope-v3-independent-review-20261121\\HANDOFF.md",
+  "independent_review_sha": "0f90f9b423a00ba9c3eb973441d31532bd00b6e9a96dc9c8ecdd6e129a9d9c7b",
+  "reviewed_file_hashes": {
+    "tools/tu_views.py": "10120bd3edd8619955d71f898961a63cf028739c6ad440c9e1d2e8c04be787cf",
+    "tools/tests/test_tu_views.py": "7726b8ed2685405e67701d9fdc61273f93d7579b6fa976415010af3c3ee8208f",
+    "tools/header_adopt_lane.py": "fd188b52966d2d802303f7ec56c3e97b0e4d6df26d17cb9c322db350a704c61b",
+    "tools/tests/test_header_adopt_lane.py": "a3c9ba6b41ebf157b8d31908e94b8e84f3d0df043ffb0ce8434cf116ce879acc"
+  },
+  "banked_file_hashes": {
+    "tools/tu_views.py": "10120bd3edd8619955d71f898961a63cf028739c6ad440c9e1d2e8c04be787cf",
+    "tools/tests/test_tu_views.py": "7726b8ed2685405e67701d9fdc61273f93d7579b6fa976415010af3c3ee8208f",
+    "tools/header_adopt_lane.py": "6d410821b151f29f8792897e526af7d5c6fd2e7a846623a21390d19144c888e8",
+    "tools/tests/test_header_adopt_lane.py": "a3c9ba6b41ebf157b8d31908e94b8e84f3d0df043ffb0ce8434cf116ce879acc"
+  },
+  "root_comment_only_repair_ast_equal": true,
+  "tests": 1166,
+  "subtests": 113,
+  "skipped_existing": 6,
+  "actual_tracker_complete_macro_owner_provenance": "UNPROVEN; normal adoption may still refuse",
+  "actual_game_source_mutated": false,
+  "completed_credit": 0,
+  "new_body_credit": 0
+}

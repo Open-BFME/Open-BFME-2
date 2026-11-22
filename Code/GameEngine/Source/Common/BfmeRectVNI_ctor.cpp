@@ -1,3 +1,6 @@
+// stlport46
+#include <set>
+#include "../../Include/Common/Rva00064640Record.h"
 // cl: /DNDEBUG /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's
@@ -25,22 +28,29 @@ public:
 };
 
 
-// The tree at +0x0C uses the existing STLport constructor at 0x005011C1.
-struct BfmePod24;
-namespace _STL
+struct BfmeVNINode
 {
-template <class T> struct less;
-template <class T> class allocator;
-template <class A, class B> struct pair;
-template <class Key, class Value, class Compare, class Allocator> class map
-{
-public:
-	map();
-private:
-	char m_pad[12];
+	char color;
+	int *parent;
+	BfmeVNINode *left;
+	BfmeVNINode *right;
 };
+
+
+
+// Native event slots reach the canonical 28-byte time-keyed Record set.
+typedef _STL::set<Rva00064640Record,_STL::less<Rva00064640Record>,
+    _STL::allocator<Rva00064640Record> > BfmeVNITree;
+namespace _STL {
+template<> set<Rva00064640Record,less<Rva00064640Record>,
+    allocator<Rva00064640Record> >::set();
+template<> _Rb_tree_base<Rva00064640Record,allocator<Rva00064640Record> >::_Rb_tree_base(
+    const allocator<Rva00064640Record>&);
+template<> _Rb_tree_base<Rva00064640Record,allocator<Rva00064640Record> >::~_Rb_tree_base();
+template<> _Rb_tree<Rva00064640Record,Rva00064640Record,
+    _Identity<Rva00064640Record>,less<Rva00064640Record>,
+    allocator<Rva00064640Record> >::~_Rb_tree();
 }
-typedef _STL::map<int, BfmePod24, _STL::less<int>, _STL::allocator<_STL::pair<const int, BfmePod24> > > BfmeVNITree;
 
 class BfmeRectVNI : public BfmeBaseVNH
 {
@@ -76,14 +86,18 @@ Rva005045DBTree&Rva005045DBTree::self(){return *this;}
 // These forward declarations name the actual provider exactly; the borrowed
 // tree storage has no asserted original mapped-value identity.
 class AsciiString;
-namespace _STL {
-template<class T>struct _Select1st;
-template<class K,class V,class Extract,class Compare,class Alloc>class _Rb_tree{
-public:_Rb_tree&operator=(const _Rb_tree&);
-};
-}
+
 typedef _STL::pair<const int,AsciiString> TreePair;
 typedef _STL::_Rb_tree<int,TreePair,_STL::_Select1st<TreePair>,_STL::less<int>,_STL::allocator<TreePair> > ExistingTreeAssignment;
+// Preserve only the existing external callable spelling of the borrowed
+// assignment provider; no new mapped-value identity is asserted here.
+namespace _STL {
+template<> ExistingTreeAssignment& ExistingTreeAssignment::operator=(const ExistingTreeAssignment&);
+}
+
 Rva005045DBTree&Rva005045DBTree::assign(const Rva005045DBTree&other){
  return reinterpret_cast<Rva005045DBTree&>(reinterpret_cast<ExistingTreeAssignment&>(*this).operator=(reinterpret_cast<const ExistingTreeAssignment&>(other)));
 }
+
+typedef char NativeControlPointSetSize[sizeof(BfmeVNITree)==12?1:-1];
+typedef char NativeEventSize[sizeof(BfmeRectVNI)==28?1:-1];
