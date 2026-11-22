@@ -24308,3 +24308,4 @@ Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialP
 Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialPowerModule@0x00C5E080|16,8a90edae45933131d18368f9,claude-opus-5.5,spm-slots2,w-3a8c5530b63e,2026-11-21
 Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialPowerModule@0x00C5E080|8,02f2153531340eac2d992907,claude-opus-5.5,spm-slots2,w-3a8c5530b63e,2026-11-21
 Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleClass.h|slot|SpecialPowerModule@0x00C5E080|4,ef0ad0cbaa3050541b9acf5e,claude-opus-5.5,spm-slots2,w-3a8c5530b63e,2026-11-21
+Code/GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h|slot|MilesAudioManager@0x00BC559C|2,8d1f89451254de938d83c4ee,claude-opus-5.5,miles-slot,w-3a8c5530b63e,2026-11-22
