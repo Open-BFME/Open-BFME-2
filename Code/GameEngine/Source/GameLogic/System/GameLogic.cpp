@@ -1668,22 +1668,7 @@ extern class AI *TheAI;
 #include "../../../Include/GameClient/Drawable.h"
 // sendObjectDestroyed reaches GameClient::destroyDrawable through slot 0x74 of
 // TheGameClient (0x00DFE77C).
-class GameClient
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
-	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
-	virtual void s28();
-	virtual void destroyDrawable( Drawable *draw );
-	virtual void s30(); virtual void s31();
-	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
-	virtual void s36(); // 0x90
-};
+#include "../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
@@ -4423,7 +4408,7 @@ void GameLogic::destroyAllObjectsImmediate()
 	}
 	processDestroyList();
 	if (TheGameClient)
-		TheGameClient->s36();
+		TheGameClient->rva00239911();
 }
 
 // ?rva00240EBC@GameLogic@@QAEXXZ @ 0x00240EBC (51B): retail walks the

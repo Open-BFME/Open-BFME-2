@@ -55,24 +55,7 @@ extern InGameUI *TheInGameUI;
 
 extern HeaderTemplateManager *TheHeaderTemplateManager;
 
-class GameClient
-{
-public:
-	virtual ~GameClient();
-
-	void rva00239759();
-
-private:
-	unsigned char m_pad004[0xC9 - 0x04];
-	bool m_displayModeChangePending; // +0xC9
-	bool m_rememberDisplayMode; // +0xCA
-	unsigned int m_newXResolution; // +0xCC
-	unsigned int m_newYResolution; // +0xD0
-	unsigned int m_newBitDepth; // +0xD4
-	unsigned int m_oldXResolution; // +0xD8
-	unsigned int m_oldYResolution; // +0xDC
-	unsigned int m_oldBitDepth; // +0xE0
-};
+#include "../../Include/GameClient/GameClientClass.h"
 
 // Retail 0x00239759, 440 bytes.
 void GameClient::rva00239759()

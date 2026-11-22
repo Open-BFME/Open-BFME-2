@@ -75,12 +75,7 @@ class AptScreenInitGadgets;
 
 extern GameTextInterface *TheGameText;
 
-class GameClient
-{
-public:
-	unsigned char m_pad000[0xCA];
-	bool m_CA; // +0xCA
-};
+#include "../../../../../Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 
@@ -626,7 +621,7 @@ AptMainMenu::AptMainMenu(void *context)
 	  m_280(false),
 	  m_281(false),
 	  m_282(false),
-	  m_288(TheGameClient && TheGameClient->m_CA ? 8 : 0),
+	  m_288(TheGameClient && TheGameClient->m_rememberDisplayMode ? 8 : 0),
 	  m_28C(0),
 	  m_2A8('E')
 {

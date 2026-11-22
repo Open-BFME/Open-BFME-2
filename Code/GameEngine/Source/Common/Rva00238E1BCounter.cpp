@@ -40,23 +40,14 @@ int Rva00238E1B::rva00238E1B()
 	return id;
 }
 
-class GameClient
-{
-public:
-	virtual void registerDrawable(Drawable *draw);
-private:
-	int m_pad[4];
-	Rva002714E6 *m_head;
-	int m_pad2[5];
-	int m_counter;
-};
+#include "../../Include/GameClient/GameClientClass.h"
 
 void GameClient::registerDrawable(Drawable *draw)
 {
-	int old = m_counter;
-	m_counter = old + 1;
+	int old = m_nextDrawableID;
+	m_nextDrawableID = old + 1;
 	draw->setID((void *)old);
-	((Rva002714E6 *)draw)->rva002714E6(&m_head);
+	((Rva002714E6 *)draw)->rva002714E6((Rva002714E6 **)&m_drawableList);
 }
 
 void Rva00238E1B::rva00238F91(int a, int b, int c)

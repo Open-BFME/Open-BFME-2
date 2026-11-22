@@ -141,24 +141,7 @@ virtual void slot91();
 virtual void slot92();
 virtual unsigned slot93();
 char prefix[0x8B0];int mode;};extern InGameUI*TheInGameUI;
-class GameClient {public:
-virtual void slot0();
-virtual void slot1();
-virtual void slot2();
-virtual void slot3();
-virtual void slot4();
-virtual void slot5();
-virtual void slot6();
-virtual void slot7();
-virtual void slot8();
-virtual void slot9();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void slot15();
-virtual DrawableView*lookup(unsigned);};extern GameClient*TheGameClient;
+#include "../../Include/GameClient/GameClientClass.h"
 class Rva000E0123 {public:void rva000E0123(float);void rva000E00C0(float);};
 class Rva000E07F4Host {public:void rva000E0584(Rva000E07F4Obj*);};
 int rva000E07F4(Rva000E07F4Obj*,Rva000E07F4Host*);
@@ -185,7 +168,7 @@ void Rva000E0856::render(RenderContext*ctx){
  int mode=TheInGameUI->mode;
  if(TheInGameUI->mode==1||mode==2){
   unsigned selected=TheInGameUI->slot93();
-  if(selected){DrawableView*drawableView=TheGameClient->lookup(selected);
+  if(selected){DrawableView*drawableView=(DrawableView*)TheGameClient->findDrawableByID((DrawableID)selected);
    if(drawableView){Rva000E07F4Obj*o=drawableView->object;
     if(o&&((((unsigned char*)o->inner)[0x10D]&0x80)==0) ){Player*local=ThePlayerList->m_local;if(((Object*)o)->getControllingPlayer()==local){
      Object*adjusted=((Object*)o)->rva002931F5(false);if(adjusted)o=(Rva000E07F4Obj*)adjusted;

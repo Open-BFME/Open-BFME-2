@@ -107,16 +107,7 @@ public:
 
 enum CommandEvaluateType { DO_COMMAND, DO_HINT, DO_EVALUATE };
 
-class GameClient
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual Int evaluateContextCommand(Drawable *draw, const Coord3D *pos, CommandEvaluateType type);   // +0x48
-};
+#include "../../../../Include/GameClient/GameClientClass.h"
 
 
 #include "../../../../Include/GameClient/View.h"
@@ -263,7 +254,7 @@ WindowMsgHandledType LeftHUDInput( GameWindow *window, UnsignedInt msg,
 					&& (command->getOptions() & NEED_TARGET_POS)
 					&& (command->getCommandType() == 0x18 || command->getCommandType() == 0x20 || command->getCommandType() == 0x26) )
 				{
-					TheGameClient->evaluateContextCommand( 0, &world, DO_COMMAND );
+					TheGameClient->vslot18( 0, &world, DO_COMMAND );
 				}
 				else if( command && command->getCommandType() == 0x0A )
 				{

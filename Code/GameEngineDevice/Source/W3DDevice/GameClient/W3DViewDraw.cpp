@@ -99,15 +99,7 @@ public:
 extern TerrainLogic *TheTerrainLogic;
 
 typedef void (*GameClientFuncPtr)(Drawable *draw, void *userData);
-class GameClient {
-public:
-	SLOTS16(a) SLOTS4(b) SLOTS4(c) virtual void d0(); virtual void d1(); virtual void d2();
-	virtual void iterateDrawables(GameClientFuncPtr func, void *userData);
-	char m_pad04[0xC4 - 4];
-	int m_renderedObjectCount;
-	void resetRenderedObjectCount() { m_renderedObjectCount = 0; }
-	void flushLayer(int layer) { ((Drawable *)this)->rva0023998E(layer); }
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 class Rva00085FA8
@@ -472,10 +464,10 @@ void W3DView::draw( void )
 	}  // end if, show debug AI
 
 	TheGameClient->resetRenderedObjectCount();
-	TheGameClient->iterateDrawables( drawablePostDraw, this );
+	TheGameClient->rva00238EBF( drawablePostDraw, this );
 
 	for (Int layer = 0; layer < 10; layer++)
-		TheGameClient->flushLayer(layer);
+		((Drawable *)TheGameClient)->rva0023998E(layer);
 
 	// Render 2D scene
 	W3DDisplay::m_2DScene->doRender( m_2DCamera );
