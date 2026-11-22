@@ -19,16 +19,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class AttributeModifierUpgradeModuleData
-{
-public:
-	AttributeModifierUpgradeModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x11C];
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierUpgradeModuleData.h"
 
 // ?friend_newModuleData@AttributeModifierUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *AttributeModifierUpgradeModuleData::friend_newModuleData(INI *ini)

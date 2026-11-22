@@ -6,11 +6,7 @@ class ModuleData;
 #include "ascii_string.h"
 typedef bool Bool;
 #include "../object.h"
-struct AttributeModifierUpgradeModuleData
-{
-	unsigned char m_pad00[0x118];
-	AsciiString m_name; // +0x118
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierUpgradeModuleData.h"
 #include "../../../../Include/GameLogic/Module/ObjectModuleBase.h"
 // UpgradeMux interface at +0x10: slot 0 isAlreadyUpgraded, slot 8
 // upgradeRemovalImplementation, slot 9 setUpgradeExecuted, slot 10
@@ -58,7 +54,7 @@ void AttributeModifierUpgrade::loadPostProcess()
 void AttributeModifierUpgrade::upgradeImplementation()
 {
 	rva004CE4A0();
-	getObject()->addAttributeModifierToPool(getData()->m_name, -1);
+	getObject()->addAttributeModifierToPool(getData()->m_attributeModifierName, -1);
 }
 
 void AttributeModifierUpgrade::upgradeRemovalImplementation()
@@ -66,7 +62,7 @@ void AttributeModifierUpgrade::upgradeRemovalImplementation()
 	if (isAlreadyUpgraded())
 	{
 		rva004CE4A8();
-		getObject()->removeAttributeModifierFromPool(getData()->m_name);
+		getObject()->removeAttributeModifierFromPool(getData()->m_attributeModifierName);
 		setUpgradeExecuted(false);
 	}
 }
