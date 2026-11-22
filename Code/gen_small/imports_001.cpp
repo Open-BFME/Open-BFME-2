@@ -41,17 +41,11 @@ extern "C" __declspec(dllimport) void frexp();
 extern "C" __declspec(dllimport) void fscanf();
 extern "C" __declspec(dllimport) void fwprintf();
 extern "C" __declspec(dllimport) void ldexp();
-extern "C" __declspec(dllimport) void lstrcmpi();
-extern "C" __declspec(dllimport) void lstrcpy();
-extern "C" __declspec(dllimport) void lstrcpyn();
-extern "C" __declspec(dllimport) void lstrlen();
 extern "C" __declspec(dllimport) void pow();
 extern "C" __declspec(dllimport) void swprintf();
 extern "C" __declspec(dllimport) void wsprintfA();
 
-void ji_00006d7e() { lstrlen(); }
 
-void ji_00006dcc() { lstrcmpi(); }
 
 void ji_006297c0() { _finite(); }
 void ji_006297c6() { _fpclass(); }
@@ -98,8 +92,6 @@ void ji_00629d14() { InitCommonControls(); }
 void ji_00655652() { WinVerifyTrust(); }
 void ji_00655658() { InternetCrackUrlA(); }
 
-void ji_00687f54() { lstrcpy(); }
-void ji_00687f5a() { lstrcpyn(); }
 
 void ji_00688062() { wsprintfA(); }
 

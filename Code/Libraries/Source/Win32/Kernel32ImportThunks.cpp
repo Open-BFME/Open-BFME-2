@@ -96,6 +96,17 @@ int WINAPI MultiByteToWideChar(UINT CodePage, DWORD dwFlags, LPCSTR lpMultiByteS
  return __identifier("_imp__MultiByteToWideChar@24")(CodePage, dwFlags, lpMultiByteStr, cbMultiByte, lpWideCharStr, cchWideChar);
 }
 
+// _lstrlen@4
+// WinBase.h maps lstrlen to lstrlenA; retail imports the legacy undecorated
+// export, declared here with the header's ANSI signature.
+#undef lstrlen
+int WINAPI lstrlen(LPCSTR lpString);
+typedef int (WINAPI *PFN_lstrlen)(LPCSTR);
+extern PFN_lstrlen __identifier("_imp__lstrlen@4");
+int WINAPI lstrlen(LPCSTR lpString) {
+ return __identifier("_imp__lstrlen@4")(lpString);
+}
+
 // _CloseHandle@4
 typedef BOOL (WINAPI *PFN_CloseHandle)(HANDLE);
 extern PFN_CloseHandle __identifier("_imp__CloseHandle@4");
@@ -178,6 +189,17 @@ typedef DWORD (WINAPI *PFN_GetVersion)(VOID);
 extern PFN_GetVersion __identifier("_imp__GetVersion@0");
 DWORD WINAPI GetVersion(VOID) {
  return __identifier("_imp__GetVersion@0")();
+}
+
+// _lstrcmpi@8
+// WinBase.h maps lstrcmpi to lstrcmpiA; retail imports the legacy undecorated
+// export, declared here with the header's ANSI signature.
+#undef lstrcmpi
+int WINAPI lstrcmpi(LPCSTR lpString1, LPCSTR lpString2);
+typedef int (WINAPI *PFN_lstrcmpi)(LPCSTR, LPCSTR);
+extern PFN_lstrcmpi __identifier("_imp__lstrcmpi@8");
+int WINAPI lstrcmpi(LPCSTR lpString1, LPCSTR lpString2) {
+ return __identifier("_imp__lstrcmpi@8")(lpString1, lpString2);
 }
 
 // _lstrlenW@4
@@ -892,6 +914,28 @@ typedef BOOL (WINAPI *PFN_GetExitCodeProcess)(HANDLE, LPDWORD);
 extern PFN_GetExitCodeProcess __identifier("_imp__GetExitCodeProcess@8");
 BOOL WINAPI GetExitCodeProcess(HANDLE hProcess, LPDWORD lpExitCode) {
  return __identifier("_imp__GetExitCodeProcess@8")(hProcess, lpExitCode);
+}
+
+// _lstrcpy@8
+// WinBase.h maps lstrcpy to lstrcpyA; retail imports the legacy undecorated
+// export, declared here with the header's ANSI signature.
+#undef lstrcpy
+LPSTR WINAPI lstrcpy(LPSTR lpString1, LPCSTR lpString2);
+typedef LPSTR (WINAPI *PFN_lstrcpy)(LPSTR, LPCSTR);
+extern PFN_lstrcpy __identifier("_imp__lstrcpy@8");
+LPSTR WINAPI lstrcpy(LPSTR lpString1, LPCSTR lpString2) {
+ return __identifier("_imp__lstrcpy@8")(lpString1, lpString2);
+}
+
+// _lstrcpyn@12
+// WinBase.h maps lstrcpyn to lstrcpynA; retail imports the legacy undecorated
+// export, declared here with the header's ANSI signature.
+#undef lstrcpyn
+LPSTR WINAPI lstrcpyn(LPSTR lpString1, LPCSTR lpString2, int iMaxLength);
+typedef LPSTR (WINAPI *PFN_lstrcpyn)(LPSTR, LPCSTR, int);
+extern PFN_lstrcpyn __identifier("_imp__lstrcpyn@12");
+LPSTR WINAPI lstrcpyn(LPSTR lpString1, LPCSTR lpString2, int iMaxLength) {
+ return __identifier("_imp__lstrcpyn@12")(lpString1, lpString2, iMaxLength);
 }
 
 // _GetTempFileNameA@16
