@@ -274,6 +274,7 @@ private:
     int iterateCellsAlongLine(ICoord2D const *,ICoord2D const *,PathfindLayerEnum,Rva002F600CInfo *);
     int rva002E8251(ICoord2D const *,ICoord2D const *,PathfindLayerEnum,Rva002E7ED6Info *);
     int rva002E8145(ICoord2D const *,ICoord2D const *,PathfindLayerEnum,Rva002E8145Info *);
+    friend class Rva002E7388Owner;
     int iterateCellsAlongLine(ICoord2D const *,ICoord2D const *,PathfindLayerEnum,Rva002E85ADInfo *);
     int iterateCellsAlongLine(ICoord2D const *,ICoord2D const *,PathfindLayerEnum,Rva002F4491Info *);
 

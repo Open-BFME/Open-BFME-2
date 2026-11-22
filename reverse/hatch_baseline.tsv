@@ -3317,7 +3317,6 @@ class_gate_allow	Code/GameEngine/Source/GameLogic/Object/ObjectInitObject.cpp	Ga
 class_gate_allow	Code/GameEngine/Source/GameLogic/Object/ScoredKillTrackerCopyCtor.cpp	ScoredKillTracker	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp	Coord3D	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAttackView.cpp	Coord3D	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E916AFootprintCheck.cpp	ICoord2D	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp	GameLogic	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp	SubsystemInterface	1

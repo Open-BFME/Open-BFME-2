@@ -13,18 +13,13 @@
 // Field names remain structural.
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-// class-gate: allow ICoord2D TU-local view: the canonical header lacks the ICoord2DBase base and operator!=, and retail calls the rowed out-of-line ICoord2D::operator!= at 0x00004CC9.
-#include "../../../Include/Common/ICoord2DBase.h"
-struct ICoord2D:public ICoord2DBase {bool operator!=(const ICoord2DBase&)const;};
+#define ICOORD2D_VIEW_MATH_METHODS
+#include "../../../../Libraries/Include/Lib/ICoord2DBase.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Include/Common/Enums/PathfindLayerEnum.h"
 #include "../../../Include/GameLogic/PathfindCell.h"
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct Rva002E8145Info {int opaque,skipX,skipY;};
-class Rva002E7388Owner;
-class Pathfinder {
-public:PathfindCell *getCell(PathfindLayerEnum,int,int);
-private:friend class Rva002E7388Owner;
- int rva002E8145(const ICoord2D*,const ICoord2D*,PathfindLayerEnum,Rva002E8145Info*);
-};
 #include "../../../Include/Common/Rva002E6DC4.h"
 int Rva002E6E8AGet(int);
 bool Rva001E3679(int);
@@ -64,7 +59,7 @@ bool Rva002E7388Owner::rva002E916A(int x,int y)
  int requested=requestedLayer;
  if((unsigned char)isGroundOrBridgeLayer(requested)) {
   const ICoord2D *skip=&skipped;
-  if(current!=*skip) {
+  if(current!=*(const ICoord2DBase *)skip) {
    Rva002E8145Info info;info.opaque=(int)pathfinder;info.skipX=skip->x;info.skipY=skip->y;
    if(pathfinder->rva002E8145(&current,skip,(PathfindLayerEnum)requested,&info))return false;
   }
