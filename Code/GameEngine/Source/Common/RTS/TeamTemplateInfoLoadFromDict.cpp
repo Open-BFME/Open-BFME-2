@@ -44,12 +44,7 @@ static __forceinline void copyHome(Coord3D &destination, const Coord3D &source)
 {
  destination = source;
 }
-class Waypoint { public:
- char prefix[8]; AsciiString name; Coord3D m_location; int m_18; Waypoint *m_pNext;
- const AsciiString &getName() const { return name; }
- const Coord3D *getLocation() const { return &m_location; }
- Waypoint *getNext() const { return m_pNext; }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct TCreateUnitsInfo {

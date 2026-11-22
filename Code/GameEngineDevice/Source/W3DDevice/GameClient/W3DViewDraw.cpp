@@ -87,21 +87,7 @@ void drawablePostDraw(Drawable *draw, void *userData);
 #include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class Waypoint {
-public:
-	char m_pad00[0xC];
-	Coord3D m_location;
-	char m_pad18[4];
-	Waypoint *m_next;
-	char m_pad20[0x44 - 0x20];
-	Waypoint *m_link44;
-	char m_pad48[4];
-	int m_numLinks;
-	const Coord3D *getLocation() const { return &m_location; }
-	Waypoint *getNext() const { return m_next; }
-	int getNumLinks() const { return m_numLinks; }
-	Waypoint *getLink(int index) const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Waypoint.h"
 
 class TerrainLogic {
 public:
@@ -409,7 +395,7 @@ void W3DView::draw( void )
 			{
 				for (Int i = -1; i < way->getNumLinks(); i++)
 				{
-					Waypoint *link = (i < 0) ? way->m_link44 : way->getLink(i);
+					Waypoint *link = (i < 0) ? way->m_field44 : way->getLink(i);
 					if (!link)
 						continue;
 					Coord3D s, e, delta;

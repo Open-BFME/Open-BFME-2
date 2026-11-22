@@ -2417,15 +2417,7 @@ public:
 	NameKeyType nameToKey(const char *name);
 };
 
-class Waypoint
-{
-public:
-	const Coord3D *getLocation_(void) const { return &m_location; }
-
-private:
-	char m_pad00[0xc];
-	Coord3D m_location;
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString &name);
 
@@ -2530,9 +2522,9 @@ void GameLogic::rva00248278(bool loadingSaveGame)
 	Waypoint *way = Rva00506CC3FindWaypoint(startingCamName);
 	if (way) {
 		Coord3D pos;
-		pos.x = way->getLocation_()->x;
-		pos.y = way->getLocation_()->y;
-		pos.z = way->getLocation_()->z;
+		pos.x = way->getLocation()->x;
+		pos.y = way->getLocation()->y;
+		pos.z = way->getLocation()->z;
 		TheTacticalView->lookAtPosition(&pos, 0, 0.0f, 0.0f);
 	} else {
 		Coord3D pos;
@@ -2767,7 +2759,7 @@ void GameLogic::startNewGame_PlaceMPBuildings(bool loadingSaveGame, int *progres
 			waypointName.format("Player_%d_Start", i + 1);
 			Waypoint *waypoint = Rva00506CC3FindWaypoint(waypointName);
 			if (waypoint)
-				addCoord(&center, waypoint->getLocation_());
+				addCoord(&center, waypoint->getLocation());
 		}
 
 		for (int i = 0; i < 8; ++i) {

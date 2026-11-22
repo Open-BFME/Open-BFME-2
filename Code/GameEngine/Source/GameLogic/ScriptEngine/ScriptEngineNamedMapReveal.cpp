@@ -28,12 +28,7 @@ unsigned long Rva003ECA13Get(const AsciiString &name);
 
 #include "../../../Include/Common/FloatRect0073CE30.h"
 
-class Waypoint
-{
-public:
-	char m_pad00[0x0C];
-	Pair00739BE0 m_location;	// +0x0C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../Include/GameLogic/PolygonTrigger.h"
 
@@ -83,7 +78,7 @@ void ScriptEngine::doNamedMapReveal(const AsciiString &revealName)
 				{
 					Waypoint *way = TheTerrainLogic->getWaypointByName(it->m_name);
 					if (way)
-						((Rva00739A30 *)TheShroudManager)->rva00739A30(&way->m_location, it->m_radius, mask);
+						((Rva00739A30 *)TheShroudManager)->rva00739A30((Pair00739BE0 *)&way->m_location, it->m_radius, mask);
 					break;
 				}
 				case 1:
@@ -119,7 +114,7 @@ void ScriptEngine::undoNamedMapReveal(const AsciiString &revealName)
 				{
 					Waypoint *way = TheTerrainLogic->getWaypointByName(it->m_name);
 					if (way)
-						((Rva00739BE0 *)TheShroudManager)->rva00739BE0(&way->m_location, it->m_radius, mask);
+						((Rva00739BE0 *)TheShroudManager)->rva00739BE0((Pair00739BE0 *)&way->m_location, it->m_radius, mask);
 					break;
 				}
 				case 1:

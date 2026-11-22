@@ -368,7 +368,7 @@ struct LivingBuildingTemplate {char pad[0xC];AsciiString name;};
 #include "../../../Include/GameLogic/LivingWorldBuilding.h"
 static __forceinline const AsciiString &LivingWorldBuildingName(const LivingWorldBuilding *building){const LivingBuildingTemplate &d=*reinterpret_cast<const LivingBuildingTemplate *>(building->field28);return d.name;}
 class LivingWorldRegion {public:char pad[0x13C];int owner;int GetOwner()const{return owner;} int rva003F05CE();LivingWorldBuilding *GetBuildingByIndex(int)const;};
-class Waypoint {public:Waypoint(unsigned,AsciiString,const Coord3D*,AsciiString,AsciiString,AsciiString,bool,int,AsciiString);virtual ~Waypoint();char pad[8];Coord3D position;char rest[0xC0-0x18];};
+#include "../../../Include/GameLogic/Waypoint.h"
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString&);
 void ValidateLivingWorldBuildPlotWaypoints(Waypoint*,int);
 class PlayerTemplate;
@@ -412,7 +412,7 @@ static void PlaceLivingWorldObjectsForPlayer(Player *player,const PlayerTemplate
   waypointName.format("Player_1_BuildPlot_%d",i+1);
   Waypoint *waypoint=Rva00506CC3FindWaypoint(waypointName);
   if(!waypoint) continue;
-  Coord3D pos; pos.x=waypoint->position.x;pos.y=waypoint->position.y;pos.z=waypoint->position.z;
+  Coord3D pos; pos.x=waypoint->m_location.x;pos.y=waypoint->m_location.y;pos.z=waypoint->m_location.z;
   Object *obj=placeObjectAtPosition(slot,name,&pos,player,pt);
   if(!obj) continue;
   player->onStructureCreated(0,obj);
@@ -3089,7 +3089,7 @@ void ValidateLivingWorldBuildPlotWaypoints(Waypoint*starting,int count){
   name.format("Player_1_BuildPlot_%d",i+1);
   Waypoint *waypoint=Rva00506CC3FindWaypoint(name);
   if(!waypoint){
-   Coord3D pos;pos.x=starting->position.x;pos.y=starting->position.y;pos.z=starting->position.z;
+   Coord3D pos;pos.x=starting->m_location.x;pos.y=starting->m_location.y;pos.z=starting->m_location.z;
    switch(i%4){case 0:pos.y+=280.0f;break;case 1:pos.x+=280.0f;break;case 2:pos.y-=280.0f;break;case 3:pos.x-=280.0f;break;}
    new Waypoint(0x7FFFFFFE,name,&pos,AsciiString::TheEmptyString,AsciiString::TheEmptyString,AsciiString::TheEmptyString,false,0,AsciiString::TheEmptyString);
   }
@@ -3306,7 +3306,7 @@ void placeNetworkBuildingsForPlayer(int slotNum,const GameSlot *slot,Player *pla
  Waypoint *start=Rva00506CC3FindWaypoint(waypointName);
  Waypoint *rally=Rva00506CC3FindWaypoint(rallyName);
  if(!start)return;
- Coord3D pos;pos.x=start->position.x;pos.y=start->position.y;pos.z=start->position.z;
+ Coord3D pos;pos.x=start->m_location.x;pos.y=start->m_location.y;pos.z=start->m_location.z;
  pos.z=TheTerrainLogic->getGroundHeight(pos.x,pos.y,0);
  if(TheGameLogic->m_114!=3){PlaceLivingWorldObjectsForPlayer(player,pt,startPos+1,slotNum,rally?rally:start);return;}
  AsciiString buildingName(pt->startingBuilding);
@@ -3329,8 +3329,8 @@ void placeNetworkBuildingsForPlayer(int slotNum,const GameSlot *slot,Player *pla
   pos.y-=view->getWidth()/2.0f;
   pos.z=TheTerrainLogic->getGroundHeight(pos.x,pos.y,0);
  }
- if(rally){pos=rally->position;pos.z=TheTerrainLogic->getGroundHeight(pos.x,pos.y,0);}
- Coord3D origin;origin.x=start->position.x;origin.y=start->position.y;origin.z=start->position.z;
+ if(rally){pos=rally->m_location;pos.z=TheTerrainLogic->getGroundHeight(pos.x,pos.y,0);}
+ Coord3D origin;origin.x=start->m_location.x;origin.y=start->m_location.y;origin.z=start->m_location.z;
  Object *savedYard=yard;if(savedYard)origin=*reinterpret_cast<const Coord3D*>((const char*)savedYard+0x38);
  for(int i=0;i<10;++i) {
   const AsciiString &unitTemplate=*reinterpret_cast<const AsciiString*>(reinterpret_cast<Rva001FD19E*>(const_cast<PlayerTemplate*>(pt))->rva001FD19E(i));
