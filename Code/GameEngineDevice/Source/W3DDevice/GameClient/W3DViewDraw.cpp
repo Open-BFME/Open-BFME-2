@@ -73,14 +73,9 @@ bool ClipLine2D(ICoord2D *p1, ICoord2D *p2, ICoord2D *c1, ICoord2D *c2, IRegion2
 class Rva003F3FCEDwordField { public: int get() const; };
 #include "../../../../GameEngine/Include/GameLogic/Rva003EFDD7LeaField.h"
 #include "../../../../GameEngine/Include/GameLogic/BridgeClass.h"
-class Pathfinder {
-public:
-	char m_pad00[0x5C];
-	Bridge *m_firstBridge;
-	Path *getDebugPath() { return (Path *)((Rva003F3FCEDwordField *)this)->get(); }
-	const Coord3D *getDebugPathPosition() { return (const Coord3D *)((Rva003EFDD7LeaField *)this)->get(); }
-	Bridge *getFirstBridge() { return m_firstBridge; }
-};
+#include "../../../../GameEngine/Include/GameLogic/AIPathfind.h"
+static inline Path *getDebugPath(Pathfinder *pf) { return (Path *)((Rva003F3FCEDwordField *)pf)->get(); }
+static inline const Coord3D *getDebugPathPosition(Pathfinder *pf) { return (const Coord3D *)((Rva003EFDD7LeaField *)pf)->get(); }
 
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;
@@ -317,11 +312,11 @@ void W3DView::draw( void )
 		clipRegion.hi.x = getWidth();
 		clipRegion.hi.y = getHeight();
 
-		if (TheAI->pathfinder()->getDebugPath())
+		if (getDebugPath(TheAI->pathfinder()))
 		{
 			UnsignedInt color = 0xFFFFFF00;  //0xAARRGGBB
 			ICoord2D start, end;
-			PathNode *prevNode = TheAI->pathfinder()->getDebugPath()->getFirstNode();
+			PathNode *prevNode = getDebugPath(TheAI->pathfinder())->getFirstNode();
 
 			if (worldToScreenTriReturn( prevNode->getPosition(), &start ) == 0) {
 				drawDisplayLine( TheDisplay, start.x-3, start.y-3, start.x+3, start.y-3, 1.0f, color );
@@ -379,7 +374,7 @@ void W3DView::draw( void )
 				drawDisplayLine( TheDisplay, start.x, start.y-4, start.x, start.y+3, 1.0f, color );
 			}
 			color = 0xFFFF0000;  //0xAARRGGBB
-			const Coord3D *debugPos = TheAI->pathfinder()->getDebugPathPosition();
+			const Coord3D *debugPos = getDebugPathPosition(TheAI->pathfinder());
 			if (worldToScreenTriReturn( debugPos, &start ) == 0) {
 				drawDisplayLine( TheDisplay, start.x-3, start.y, start.x+3, start.y, 1.0f, color );
 				drawDisplayLine( TheDisplay, start.x, start.y-3, start.x, start.y+3, 1.0f, color );
