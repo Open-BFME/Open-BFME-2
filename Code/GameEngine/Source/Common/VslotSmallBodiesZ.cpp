@@ -60,15 +60,7 @@ struct Rva003F468DEntry
 	Rva003F468DRecords m_records; // +0x04
 	char m_pad0C[0x10];
 };
-class Rva003F468D
-{
-public:
-	Int rva003F468D(Int entryIndex, Int recordIndex);
-	Int rva003F4DAE(Int entryIndex);
-private:
-	char m_pad00[0x18];
-	Rva003F468DEntry *m_18;
-};
+#include "../../Include/Common/Rva003F468D.h"
 Int Rva003F468D::rva003F468D(Int entryIndex, Int recordIndex)
 {
 	return m_18[entryIndex].m_records.m_begin[recordIndex].m_00;
