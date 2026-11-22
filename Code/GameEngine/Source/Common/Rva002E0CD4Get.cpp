@@ -8,28 +8,7 @@
 // Evidence: 7 UNCLAIMED callers incl 0x002D4748 0x002E112A 0x002E1155;
 // prev 0x002E0856 Disp8DivMov getter and next 0x002E18C3 lookup share /O1.
 
-struct Rva002E0CD4Inner
-{
-	char m_pad[8];
-	int m_8;
-	int m_C;
-	int m_10;
-	int m_14;
-};
-
-struct Rva002E0CD4
-{
-	char m_pad[0x40];
-	Rva002E0CD4Inner *m_40;
-	char m_pad2[0x260 - 0x44];
-	int m_260;
-	char m_pad3[0x290 - 0x264];
-	int m_290;
-	int m_294;
-	int rva002E0CAC() const;
-	int get() const;
-	int rva002E14DD() const;
-};
+#include "../../Include/Common/Rva002E0CD4.h"
 
 // ?rva002E0CAC@Rva002E0CD4@@QBEHXZ @0x002E0CAC 40B.
 int Rva002E0CD4::rva002E0CAC() const
