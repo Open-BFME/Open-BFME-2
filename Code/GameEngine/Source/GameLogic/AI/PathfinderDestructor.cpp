@@ -19,7 +19,7 @@
 #include "ascii_string.h"
 #include "../../../Include/GameLogic/PathfindLayer.h"
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-class Rva002EE9B7 {public: ~Rva002EE9B7(); private:char storage[8];};
+#include "../../../Include/GameLogic/Rva002EE9B7.h"
 struct PathfinderAllocation { void *pointer; ~PathfinderAllocation(){if(pointer)free(pointer);} };
 class PathfindServicesInterface {public: virtual void slot0()=0;virtual void slot1()=0;virtual void slot2()=0;virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;};
 class Pathfinder : public PathfindServicesInterface, public Snapshot {
@@ -36,7 +36,6 @@ private:
  AsciiString strings[64];
  char unknown1C0BC[0x1C1C0-0x1C0BC];
  Rva002EE9B7 tree;
- char unknown1C1C8[4];
  PathfinderAllocation allocation1;
  char unknown1C1D0[0x1D1F0-0x1C1D0];
  PathfinderAllocation allocation2;
