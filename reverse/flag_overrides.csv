@@ -445,6 +445,7 @@ Code/Libraries/Source/Benchmark/nbench0.cpp,-O2,4,1,region default loses rows
 Code/Libraries/Source/Benchmark/nbench1.cpp,-O2,62,11,region default loses rows
 Code/Libraries/Source/COM/_com_error.cpp,-O2 -G6,5,2,region default loses rows
 Code/Libraries/Source/COM/_com_util.cpp,-O2 -G6,1,1,region default loses rows
+Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp,-O2 -G7,130,1,region default loses rows
 Code/Libraries/Source/Compression/EAC/huffencode.cpp,,13,1,region default loses rows
 Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Lz.cpp,,13,1,region default loses rows
 Code/Libraries/Source/Compression/ZLib/deflate.c,,17,4,region default loses rows

@@ -14,7 +14,6 @@ extern "C" __declspec(dllimport) void __p__commode();
 extern "C" __declspec(dllimport) void __p__fmode();
 extern "C" __declspec(dllimport) void __set_app_type();
 extern "C" __declspec(dllimport) void __setusermatherr();
-extern "C" __declspec(dllimport) void _beginthreadex();
 extern "C" __declspec(dllimport) void _copysign();
 extern "C" __declspec(dllimport) void _ecvt();
 extern "C" __declspec(dllimport) void _fcvt();
@@ -23,16 +22,11 @@ extern "C" __declspec(dllimport) void _fpclass();
 extern "C" __declspec(dllimport) void _gcvt();
 extern "C" __declspec(dllimport) void _i64toa();
 extern "C" __declspec(dllimport) void _isnan();
-extern "C" __declspec(dllimport) void _makepath();
 extern "C" __declspec(dllimport) void _open();
 extern "C" __declspec(dllimport) void _snprintf();
 extern "C" __declspec(dllimport) void _splitpath();
-extern "C" __declspec(dllimport) void _strcmpi();
 extern "C" __declspec(dllimport) void _ui64toa();
 extern "C" __declspec(dllimport) void _wopen();
-extern "C" __declspec(dllimport) void _wsplitpath();
-extern "C" __declspec(dllimport) void bsearch();
-extern "C" __declspec(dllimport) void clock();
 extern "C" __declspec(dllimport) void fprintf();
 extern "C" __declspec(dllimport) void frexp();
 extern "C" __declspec(dllimport) void fscanf();
@@ -59,11 +53,9 @@ void ji_00629910() { _ui64toa(); }
 
 void ji_00629946() { _splitpath(); }
 
-void ji_006299b2() { _makepath(); }
 
 void ji_00629a54() { pow(); }
 
-void ji_00629a6c() { _wsplitpath(); }
 
 void ji_00629ab4() { fwprintf(); }
 
@@ -74,10 +66,7 @@ void ji_00629b20() { _open(); }
 
 void ji_00629b32() { _wopen(); }
 
-void ji_00629b50() { clock(); }
-void ji_00629b56() { _beginthreadex(); }
 
-void ji_00629b68() { bsearch(); }
 
 void ji_00629bea() { __getmainargs(); }
 void ji_00629c90() { __setusermatherr(); }
@@ -89,7 +78,6 @@ void ji_00629ca2() { __set_app_type(); }
 
 void ji_00688062() { wsprintfA(); }
 
-void ji_0075a596() { _strcmpi(); }
 
 void ji_0075ac3e() { fscanf(); }
 void ji_0075ac44() { frexp(); }

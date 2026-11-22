@@ -477,6 +477,13 @@ FILE * __cdecl _wfopen(const wchar_t * filename, const wchar_t * mode) {
  return _imp___wfopen(filename, mode);
 }
 
+// __makepath
+typedef void (__cdecl *PFN__makepath)(char *, const char *, const char *, const char *, const char *);
+extern PFN__makepath _imp___makepath;
+void __cdecl _makepath(char * path, const char * drive, const char * dir, const char * fname, const char * ext) {
+ _imp___makepath(path, drive, dir, fname, ext);
+}
+
 // __access
 typedef int (__cdecl *PFN__access)(const char *, int);
 extern PFN__access _imp___access;
@@ -531,6 +538,13 @@ typedef wchar_t * (__cdecl *PFN_wcstok)(wchar_t *, const wchar_t *);
 extern PFN_wcstok _imp__wcstok;
 wchar_t * __cdecl wcstok(wchar_t * strToken, const wchar_t * strDelimit) {
  return _imp__wcstok(strToken, strDelimit);
+}
+
+// __wsplitpath
+typedef void (__cdecl *PFN__wsplitpath)(const wchar_t *, wchar_t *, wchar_t *, wchar_t *, wchar_t *);
+extern PFN__wsplitpath _imp___wsplitpath;
+void __cdecl _wsplitpath(const wchar_t * path, wchar_t * drive, wchar_t * dir, wchar_t * fname, wchar_t * ext) {
+ _imp___wsplitpath(path, drive, dir, fname, ext);
 }
 
 // _wcsncpy
@@ -722,6 +736,20 @@ void __cdecl qsort(void * base, size_t num, size_t width, int (__cdecl * compare
  _imp__qsort(base, num, width, compare);
 }
 
+// _clock
+typedef clock_t (__cdecl *PFN_clock)(void);
+extern PFN_clock _imp__clock;
+clock_t __cdecl clock(void) {
+ return _imp__clock();
+}
+
+// __beginthreadex
+typedef uintptr_t (__cdecl *PFN__beginthreadex)(void *, unsigned, unsigned (__stdcall *)(void *), void *, unsigned, unsigned *);
+extern PFN__beginthreadex _imp___beginthreadex;
+uintptr_t __cdecl _beginthreadex(void * security, unsigned stack_size, unsigned (__stdcall * start_address)(void *), void * arglist, unsigned initflag, unsigned * thrdaddr) {
+ return _imp___beginthreadex(security, stack_size, start_address, arglist, initflag, thrdaddr);
+}
+
 // _strspn
 typedef size_t (__cdecl *PFN_strspn)(const char *, const char *);
 extern PFN_strspn _imp__strspn;
@@ -734,6 +762,13 @@ typedef int * (__cdecl *PFN__errno)(void);
 extern PFN__errno _imp___errno;
 int * __cdecl _errno(void) {
  return _imp___errno();
+}
+
+// _bsearch
+typedef void * (__cdecl *PFN_bsearch)(const void *, const void *, size_t, size_t, int (__cdecl *)(const void *, const void *));
+extern PFN_bsearch _imp__bsearch;
+void * __cdecl bsearch(const void * key, const void * base, size_t num, size_t width, int (__cdecl * compare)(const void *, const void *)) {
+ return _imp__bsearch(key, base, num, width, compare);
 }
 
 // __beginthread
@@ -769,6 +804,13 @@ typedef int (__cdecl *PFN__fstat)(int, struct _stat *);
 extern PFN__fstat _imp___fstat;
 int __cdecl _fstat(int fd, struct _stat * buffer) {
  return _imp___fstat(fd, buffer);
+}
+
+// __strcmpi
+typedef int (__cdecl *PFN__strcmpi)(const char *, const char *);
+extern PFN__strcmpi _imp___strcmpi;
+int __cdecl _strcmpi(const char * string1, const char * string2) {
+ return _imp___strcmpi(string1, string2);
 }
 
 // __wcsicmp

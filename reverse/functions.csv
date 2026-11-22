@@ -72466,24 +72466,18 @@ uw_0079b44d,,0x0079B44D,8,Code/GameEngine/Source/Common/Rva005765D1Ctor.cpp,matc
 ?ji_0062990a@@YAXXZ,,0x0062990A,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA594;dll=msvcr71.dll;import=_i64toa;target=_i64toa
 ?ji_00629910@@YAXXZ,,0x00629910,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA590;dll=msvcr71.dll;import=_ui64toa;target=_ui64toa
 ?ji_00629946@@YAXXZ,,0x00629946,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA56C;dll=msvcr71.dll;import=_splitpath;target=_splitpath
-?ji_006299b2@@YAXXZ,,0x006299B2,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA524;dll=msvcr71.dll;import=_makepath;target=_makepath
 ?ji_00629a54@@YAXXZ,,0x00629A54,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA4FC;dll=msvcr71.dll;import=pow;target=pow
-?ji_00629a6c@@YAXXZ,,0x00629A6C,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA4EC;dll=msvcr71.dll;import=_wsplitpath;target=_wsplitpath
 ?ji_00629ab4@@YAXXZ,,0x00629AB4,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA4BC;dll=msvcr71.dll;import=fwprintf;target=fwprintf
 ?ji_00629b02@@YAXXZ,,0x00629B02,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA48C;dll=msvcr71.dll;import=swprintf;target=swprintf
 ?ji_00629b08@@YAXXZ,,0x00629B08,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA488;dll=msvcr71.dll;import=_gcvt;target=_gcvt
 ?ji_00629b20@@YAXXZ,,0x00629B20,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA3F8;dll=msvcr71.dll;import=_open;target=_open
 ?ji_00629b32@@YAXXZ,,0x00629B32,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA404;dll=msvcr71.dll;import=_wopen;target=_wopen
-?ji_00629b50@@YAXXZ,,0x00629B50,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA418;dll=msvcr71.dll;import=clock;target=clock
-?ji_00629b56@@YAXXZ,,0x00629B56,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA41C;dll=msvcr71.dll;import=_beginthreadex;target=_beginthreadex
-?ji_00629b68@@YAXXZ,,0x00629B68,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA428;dll=msvcr71.dll;import=bsearch;target=bsearch
 ?ji_00629bea@@YAXXZ,,0x00629BEA,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA45C;dll=msvcr71.dll;import=__getmainargs;target=__getmainargs
 ?ji_00629c90@@YAXXZ,,0x00629C90,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA464;dll=msvcr71.dll;import=__setusermatherr;target=__setusermatherr
 ?ji_00629c96@@YAXXZ,,0x00629C96,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA46C;dll=msvcr71.dll;import=__p__commode;target=__p__commode
 ?ji_00629c9c@@YAXXZ,,0x00629C9C,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA470;dll=msvcr71.dll;import=__p__fmode;target=__p__fmode
 ?ji_00629ca2@@YAXXZ,,0x00629CA2,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA474;dll=msvcr71.dll;import=__set_app_type;target=__set_app_type
 ?ji_00688062@@YAXXZ,,0x00688062,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA7EC;dll=user32.dll;import=wsprintfA;target=wsprintfA
-?ji_0075a596@@YAXXZ,,0x0075A596,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA6F4;dll=msvcr71.dll;import=_strcmpi;target=_strcmpi
 ?ji_0075ac3e@@YAXXZ,,0x0075AC3E,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA720;dll=msvcr71.dll;import=fscanf;target=fscanf
 ?ji_0075ac44@@YAXXZ,,0x0075AC44,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA724;dll=msvcr71.dll;import=frexp;target=frexp
 ?ji_0075ac4a@@YAXXZ,,0x0075AC4A,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA728;dll=msvcr71.dll;import=ldexp;target=ldexp
@@ -102454,3 +102448,9 @@ _lstrcpyn@12,,0x00687F5A,6,Code/Libraries/Source/Win32/Kernel32ImportThunks.cpp,
 _InitCommonControls@0,,0x00629D14,6,Code/Libraries/Source/Win32/Comctl32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__InitCommonControls@0 using VS2003 __identifier; retail IAT slot 0x00BBA070 names comctl32.dll!InitCommonControls (gen-import row); complete 6B tail
 _InternetCrackUrlA@16,,0x00655658,6,Code/Libraries/Source/Win32/WininetImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__InternetCrackUrlA@16 using VS2003 __identifier; retail IAT slot 0x00BBA90C names wininet.dll!InternetCrackUrlA (gen-import row); complete 6B tail
 _WinVerifyTrust@12,,0x00655652,6,Code/Libraries/Source/Win32/WintrustImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__WinVerifyTrust@12 using VS2003 __identifier; retail IAT slot 0x00BBA924 names wintrust.dll!WinVerifyTrust (gen-import row); complete 6B tail
+_clock,,0x00629B50,6,Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp,matched,Typed SDK cdecl forwarding through the genuine __imp__clock using VS2003 __identifier; retail IAT slot 0x00BBA418 names msvcr71.dll!clock (gen-import row); complete 6B tail
+__strcmpi,,0x0075A596,6,Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp,matched,Typed SDK cdecl forwarding through the genuine __imp___strcmpi using VS2003 __identifier; retail IAT slot 0x00BBA6F4 names msvcr71.dll!_strcmpi (gen-import row); complete 6B tail
+__makepath,,0x006299B2,6,Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp,matched,Typed SDK cdecl forwarding through the genuine __imp___makepath using VS2003 __identifier; retail IAT slot 0x00BBA524 names msvcr71.dll!_makepath (gen-import row); complete 6B tail
+__wsplitpath,,0x00629A6C,6,Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp,matched,Typed SDK cdecl forwarding through the genuine __imp___wsplitpath using VS2003 __identifier; retail IAT slot 0x00BBA4EC names msvcr71.dll!_wsplitpath (gen-import row); complete 6B tail
+__beginthreadex,,0x00629B56,6,Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp,matched,Typed SDK cdecl forwarding through the genuine __imp___beginthreadex using VS2003 __identifier; retail IAT slot 0x00BBA41C names msvcr71.dll!_beginthreadex (gen-import row); complete 6B tail
+_bsearch,,0x00629B68,6,Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp,matched,Typed SDK cdecl forwarding through the genuine __imp__bsearch using VS2003 __identifier; retail IAT slot 0x00BBA428 names msvcr71.dll!bsearch (gen-import row); complete 6B tail
