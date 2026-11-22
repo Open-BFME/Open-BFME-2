@@ -385,23 +385,7 @@ struct LocalTree {
     __forceinline ~LocalTree() { ((Rva00372F00 *)this)->~Rva00372F00(); }
 };
 
-class Waypoint
-{
-public:
-	Waypoint(unsigned int id, AsciiString name, const Coord3D *pLoc, AsciiString label1, AsciiString label2, AsciiString label3, bool biDirectional, int bfmeType, AsciiString bfmeName);
-	__forceinline int getID() const { return id; }
-	void addLink(Waypoint *other);
-	char m_pad00[0x4];
-	int id; // +0x04
-	char m_pad08[0x40];
-	unsigned char m_48; // +0x48
-	char m_pad49[0x5F];
-	unsigned char m_A8; // +0xA8
-	unsigned char m_A9; // +0xA9
-	char m_padAA[0x6];
-	int m_B0; // +0xB0
-	char m_padB4[0xC];
-};
+#include "../../../../Include/GameLogic/Waypoint.h"
 
 struct NetGroup : public _STL::vector<ObjectID> { bool changed; };
 
@@ -982,10 +966,10 @@ Waypoint *MineshaftPortalBehaviour::rva00372DFA(const Coord3D *pos)
 	Waypoint *wp = new Waypoint(0x7FFFFFFE, AsciiString("#mineshaftportal_wp"), pos,
 		AsciiString::TheEmptyString, AsciiString::TheEmptyString, AsciiString::TheEmptyString,
 		false, 8, AsciiString::TheEmptyString);
-	wp->m_B0 = m_object->m_id;
-	wp->m_A8 = data->m_trailingFlag0;
-	wp->m_A9 = data->m_trailingFlag1;
-	wp->m_48 = 0;
+	wp->m_fieldB0 = m_object->m_id;
+	wp->m_fieldA8 = data->m_trailingFlag0;
+	wp->m_fieldA9 = data->m_trailingFlag1;
+	wp->m_field48 = 0;
 	return wp;
 }
 
@@ -1002,7 +986,7 @@ void MineshaftPortalNetworkManager::addWaypoint(Waypoint *waypoint, Player *play
         int lookupKey = player->m_playerIndex;
         it = ((NetworkMap *)&m_map)->find(lookupKey);
     }
-    ObjectID id = (ObjectID)waypoint->id;
+    ObjectID id = (ObjectID)waypoint->m_id;
     ((_STL::vector<ObjectID> *)&it->second->m_vec)->push_back(id);
     it->second->changed = true;
 }
