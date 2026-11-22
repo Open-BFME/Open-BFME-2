@@ -1,0 +1,11 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp",
+  "header": "Code/Libraries/Source/WWVegas/WW3D2/dx8polygonrendererClass.h",
+  "object": "W:\\OpenBFME\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_dx8renderer.obj",
+  "before_object": "W:\\OpenBFME\\diagnostics\\one-per-project-20261122-followup\\bfme2\\dx8-before.obj",
+  "before_object_sha256": "1e29f987a56b3c8332f90f937d8eddfd004df1767141c984a5d7c3fa5ec54dbf",
+  "source_before_sha256": "44d3620a32d67aca57fd3b17b1f7267d4b40278088ad59fec4e4d8fb4bcc591c",
+  "header_sha256": "d2defacdfc53d92b19bfed7d2bba8ab6849f1986fd8180fa11250c0889e43728",
+  "physical_prerequisite": "Use existing independently evidenced4-byte words at24/28 before canonical adoption; fixes strip2C/pass30 and extent34 without inventing semantic fields.",
+  "stale_contract_unchanged": true
+}

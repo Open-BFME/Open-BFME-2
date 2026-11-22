@@ -132,48 +132,7 @@ public:
 #define DX8_POLYGON_RENDERER_H
 class DX8PolygonRendererClass;
 class DX8TextureCategoryClass;
-class DX8PolygonRendererClass : public MultiListObjectClass
-{
-	MeshModelClass *				mmc;
-	DX8TextureCategoryClass *	texture_category;
-	unsigned							index_offset;				// absolute index of index 0 for our parent mesh
-	unsigned							vertex_offset;				// absolute index of vertex 0 for our parent mesh
-	unsigned							index_count;				// number of indices
-	unsigned							min_vertex_index;			// relative index of the first vertex our polys reference
-	unsigned							vertex_index_range;		// range to the last vertex our polys reference
-	bool								strip;						// is this a strip?
-	unsigned							pass;					// rendering pass
-
-public:
-	DX8PolygonRendererClass(
-		unsigned index_count,
-		MeshModelClass* mmc_,
-		DX8TextureCategoryClass* tex_cat,
-		unsigned vertex_offset,
-		unsigned index_offset,
-		bool strip,
-		unsigned pass);
-	DX8PolygonRendererClass(const DX8PolygonRendererClass& src,MeshModelClass* mmc_);
-	~DX8PolygonRendererClass();
-
-	void								Render(/*const Matrix3D & tm,*/int base_vertex_offset);
-	void								Render_Sorted(/*const Matrix3D & tm,*/int base_vertex_offset,const SphereClass & bounding_sphere);
-	void								Set_Vertex_Index_Range(unsigned min_vertex_index_,unsigned vertex_index_range_)
-	{
-		min_vertex_index=min_vertex_index_;
-		vertex_index_range=vertex_index_range_;
-	}
-
-	unsigned							Get_Vertex_Offset(void)	{ return vertex_offset; }
-	unsigned							Get_Index_Offset(void)	{ return index_offset; }
-	inline unsigned						Get_Pass(void)	{ return pass; }
-
-	MeshModelClass*				Get_Mesh_Model_Class() { return mmc; }
-	DX8TextureCategoryClass*	Get_Texture_Category() { return texture_category; }
-	void								Set_Texture_Category(DX8TextureCategoryClass* tc) { texture_category=tc; }
-
-	void Log();
-};
+#include "dx8polygonrendererClass.h"
 #include "dx8vertexbuffer.h"
 #include "dx8indexbuffer.h"
 #include "dx8fvf.h"

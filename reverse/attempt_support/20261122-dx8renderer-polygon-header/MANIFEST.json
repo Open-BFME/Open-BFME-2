@@ -1,0 +1,50 @@
+{
+  "dx8-after-build.log": {
+    "sha256": "feb66e5705fae0759b55d3b8a8c2850b6f5385b1550a6fb9f2a924a588429141",
+    "bytes": 1204
+  },
+  "dx8-after-link.log": {
+    "sha256": "e92268b324b24451f091d3961d2e9a1c75d0e8e4752782997345774d4896f779",
+    "bytes": 1111
+  },
+  "DX8-BASELINE.json": {
+    "sha256": "c857bfdf564cdd3ed178f242ab535123da6b1da305650bb556f8d90a5967353f",
+    "bytes": 875
+  },
+  "dx8-before-build.log": {
+    "sha256": "a18e8769c665b8757ebbecad2781d2ea6b98ba82aa04a87e31ba9a100795702a",
+    "bytes": 1204
+  },
+  "dx8-before-link.log": {
+    "sha256": "e92268b324b24451f091d3961d2e9a1c75d0e8e4752782997345774d4896f779",
+    "bytes": 1111
+  },
+  "dx8-fdu-after.log": {
+    "sha256": "115baf3122d0d37c03577381d2b47480ed0fefd85000ba60002b53b51ded5d85",
+    "bytes": 149
+  },
+  "dx8-fdu-before.log": {
+    "sha256": "115baf3122d0d37c03577381d2b47480ed0fefd85000ba60002b53b51ded5d85",
+    "bytes": 149
+  },
+  "dx8-native-accept.log": {
+    "sha256": "958febc46bdf05003e233c4caa6f685144bdfaeebfbd7c130f84bb8c5f1d19a0",
+    "bytes": 139
+  },
+  "dx8-native-adopt.log": {
+    "sha256": "1b11557cfa2c383cd82613c17cd8fb44b5e383a7a15c7ab2016a30b6c22b1745",
+    "bytes": 60
+  },
+  "DX8-OBJECT-GRAPH.json": {
+    "sha256": "ac3bdf4f99a40f5550309a616e11b3d4206360f115d51b0d890e7f7e30379200",
+    "bytes": 732
+  },
+  "layout-prerequisite.patch": {
+    "sha256": "7fd90bed1ff9c03ea474df8b6e06515a9223f35daaff88fa21cec24ad82e6d1f",
+    "bytes": 517
+  },
+  "README.md": {
+    "sha256": "2e7b23c1b40d08851c02ba1fee2c77fd02523f2e2fb703640e859ca83e7c04be",
+    "bytes": 2636
+  }
+}
