@@ -27,49 +27,74 @@
   "witness_offsets": [],
   "zh": {}
  },
- "fields": [],
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_34",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_begin50",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ObjectID*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_end54",
+   "name_by": "majority",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ObjectID*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_begin74",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ObjectID*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_end78",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ObjectID*",
+   "views": 1,
+   "witness": null
+  }
+ ],
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
- "outliers": [
-  {
-   "offset": 52,
-   "sources": [
-    "Code/GameEngine/Source/Common/Rva003971BFFinish.cpp"
-   ],
-   "views": 1
-  },
-  {
-   "offset": 80,
-   "sources": [
-    "Code/GameEngine/Source/Common/Rva003971BFFinish.cpp"
-   ],
-   "views": 1
-  },
-  {
-   "offset": 84,
-   "sources": [
-    "Code/GameEngine/Source/Common/Rva003971BFFinish.cpp"
-   ],
-   "views": 1
-  },
-  {
-   "offset": 116,
-   "sources": [
-    "Code/GameEngine/Source/Common/Rva003971BFFinish.cpp"
-   ],
-   "views": 1
-  },
-  {
-   "offset": 120,
-   "sources": [
-    "Code/GameEngine/Source/Common/Rva003971BFFinish.cpp"
-   ],
-   "views": 1
-  }
- ],
+ "outliers": [],
  "queue": [],
- "size": 1,
- "size_by": "majority",
+ "size": 124,
+ "size_by": "bytes",
  "vslots": {}
 }

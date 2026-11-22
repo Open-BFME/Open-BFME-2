@@ -39,14 +39,24 @@
  "key": "class",
  "key_by": "majority",
  "ledger_keys": {},
+ "native_lifetime_evidence": {
+  "target_facts": [
+   "Own table 0x00C7528C (stored by the inlined base ctor in 0x005D0C31 and by 0x005CFB81) is one slot: the empty RET 0Ch 0x004D1407; 0x00C75290 starts another table.",
+   "Rva005D078B's +0x10 table 0x00C75570 slot 0 is its override 0x005D0034 (int,int,int), with no destructor slot.",
+   "The derived ctor 0x005D0C31 enters EH state 1 after the +0x10 base is built, so the base has a nonvirtual, nontrivial destructor."
+  ],
+  "special_members": [
+   "Declare the inline nonvirtual destructor and the inline empty slot-0 virtual."
+  ]
+ },
  "outliers": [],
  "queue": [],
  "size": 4,
  "size_by": "majority",
  "vslots": {
   "0": {
-   "decided_by": "majority",
-   "member": "__vecDelDtor(uint)"
+   "decided_by": "retail-vtable",
+   "member": "rva005D0034(int,int,int)"
   }
  }
 }

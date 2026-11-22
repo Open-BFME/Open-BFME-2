@@ -19,32 +19,16 @@ class Object {public:bool rva0028AFBB()const;void *vtable;RectTemplateView *temp
 class Rva0028B984ByteField {public:unsigned char get()const;};
 bool Rva002EBBFBIsOdd(void *);
 struct Rva002ED236Pos {float x,y,z;Rva002ED236Pos(const Coord3D &p){x=p.x;y=p.y;z=p.z;}~Rva002ED236Pos(){}};
-class Rva0036666B
-{
-public:
-	bool rva0036666B();
-	bool rva0036736E(bool flag);
-	char m_pad00[0x34];
-	int m_a34; // +0x34
-	int m_b38; // +0x38
-};
-struct BridgeLayerEntry {Rva0036666B check;int height;};
+#include "../../../Include/Common/Rva0036666B.h"
 struct BridgeLayerCell {char pad00[0xC];unsigned int flags;};
-class Pathfinder {
-public:
- PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos);
- bool rva002ED313(Object *);
- class PathfindCell *getCell(PathfindLayerEnum,int,int);
- void *rva001E3647Pos(int,const Coord3D *);
- char pad00[0xE0];BridgeLayerEntry entries[14];
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 PathfindLayerEnum Pathfinder::rva002ED236(Object *obj,Rva002ED236Pos pos)
 {
  if(obj) {
   if(((Rva0028B984ByteField *)obj)->get())return GROUND_LAYER;
   if(!Rva002EBBFBIsOdd(obj)) {pos.x+=5.0f;pos.y+=5.0f;}
  }
- int layer=2;int *enabled=&entries[0].check.m_b38;
+ int layer=2;int *enabled=(int *)&m_layers[2].m_triggers;
  for(;;) {
   Rva0036666B *check=(Rva0036666B *)(enabled-14);
   if(check->rva0036666B() && *enabled) {

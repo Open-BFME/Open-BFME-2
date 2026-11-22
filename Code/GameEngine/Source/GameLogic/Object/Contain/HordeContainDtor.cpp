@@ -104,7 +104,7 @@ typedef _STL::_Rb_tree<int, IntPtrPair, _STL::_Select1st<IntPtrPair>, _STL::less
 
 class Rva0046A915 { public: ~Rva0046A915(); private: void *m_ptr; int m_flag; };
 class Rva0046AB7D { public: ~Rva0046AB7D(); private: void *m_ptr; int m_flag; };
-class Rva002EE9B7 { public: ~Rva002EE9B7(); private: void *m_ptr; int m_flag; };
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
 // map<ObjectID, int>: the tree family dtor 0x00286852 -> clear 0x00286656 ->
 // erase 0x00286183 (one instantiation: the self-recursive erase is not ICF-folded;
@@ -120,7 +120,6 @@ public:
 private:
 	unsigned char m_pad120[0x170 - 0x120];
 	Rva002EE9B7 m_170;
-	int m_pad174;
 	ObjectIDIntTree m_17C;
 	FreeHolder m_188;
 	int m_pad18C[2];

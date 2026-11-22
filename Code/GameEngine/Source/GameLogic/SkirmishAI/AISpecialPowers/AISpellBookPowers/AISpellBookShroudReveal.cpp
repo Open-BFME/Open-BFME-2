@@ -35,16 +35,7 @@ class Player;
 
 #include "../../../Object/object.h"
 
-class Waypoint
-{
-public:
-	const Coord3D *getLocation() const { return &m_location; }
-	unsigned int m_unknown00, m_id04;
-	StringBase<char> m_name08;
-	Coord3D m_location;	// +0x0C
-	unsigned int m_unknown18;
-	Waypoint *m_next1c;
-};
+#include "../../../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../../../Include/GameLogic/TerrainLogic.h"
 
@@ -122,7 +113,7 @@ bool AISpellBookShroudReveal::shouldActivate(Object *source)
 Waypoint *findWaypointByName(AsciiString key)
 {
 	Waypoint *waypoint = TheTerrainLogic->getFirstWaypoint();
-	for (; waypoint; waypoint = waypoint->m_next1c)
-		if (waypoint->m_name08.compare(*(const StringBase<char> *)&key) == 0) break;
+	for (; waypoint; waypoint = waypoint->m_pNext)
+		if (((const StringBase<char> &)waypoint->m_name).compare(*(const StringBase<char> *)&key) == 0) break;
 	return waypoint;
 }

@@ -3386,6 +3386,10 @@ eight units shifted, and the gates verified every funclet row through the parent
   OnRollOver, 6 = 0x005E0D9C) and a per-class click override at slot 1. Slot 5 is rowed under
   StrategicHUD::CommandButtonMovieClipWithHelp while about 20 views spell Rva005E12D1, so the class identity comes
   first. 10 tables.
+  - Retail table 0x00C78010 (the +8 subobject of `Rva005E92F7`) holds 0x005E92B1 at slot 1 and 0x005E94A7 at slot
+    7, which are rowed as `StrategicInGameUI::BuildBuildingButton::OnLeftClicked` and `CreateHelp`. The
+    ctor/dtor/`??_G` (0x005E92F7..0x005E948B) lie between them, so Rva005E92F7 is BuildBuildingButton (2026-11-22).
+    After the base identity, that bridge also needs a class fold before `--to-class`.
 - 0x005CE7BF: the Rva005E67FE family (base 0x00C77E28, Rva005CE804/874 0x00C75184) needs eight default slots in the
   base, but PlanningPhaseBuildingSelection's slot 7 override is rowed `int(int)` over the base's `bool(int)` default.
   It needs a return respell, for which the rename tool has no route (as with lk102's slot43). 3 tables.

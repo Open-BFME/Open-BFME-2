@@ -80,17 +80,7 @@ public:
 };
 
 // The +0x8C set (set ctor 0x000D3A71; rowed reset 0x002EE9B7).
-class Rva002EE9B7
-{
-public:
-	Rva002EE9B7();
-	~Rva002EE9B7();
-	void rva002EE9B7();
-private:
-	void *m_header;
-	Int m_count;
-	Int m_compare;
-};
+#include "../../../../Include/GameLogic/Rva002EE9B7.h"
 
 // The +0xA0 map (map ctor 0x0033C432).
 class Rva00395CEB

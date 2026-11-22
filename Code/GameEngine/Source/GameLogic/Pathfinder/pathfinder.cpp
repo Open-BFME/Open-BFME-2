@@ -131,12 +131,7 @@ class Pathfinder;
 #include "../../../Include/GameLogic/PathNode.h"
 struct Rva002EDEABArg;
 #include "../../../Include/Common/Rva002E93A7Info.h"
-class Waypoint { public:
- Bool isValidUnitType(Object *); Waypoint *getLink(Int) const;
- Int word0,id;void *name;Coord3D location;Int word18;Waypoint *next;
- char pad20[0x44-0x20];Waypoint *chainNext;Int word48,linkCount;
- char pad50[0x60-0x50];Int type;
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 class PathfindCell;
 class Path
 {
@@ -2536,18 +2531,18 @@ void Pathfinder::PrependCells(Path *path,const Coord3D *fromPos,PathfindCell *go
   } else {if(prevCell && prevCell->getType()==2)canOptimize=false;}
   if(cell->getParentWaypoint()) {
    Waypoint *parent=cell->getParentWaypoint();
-   Int id=parent->id;pos=parent->location;
+   Int id=parent->m_id;pos=parent->m_location;
    if(id!=0x7fffffff) {
     if(cell->waypoint) {
-     if(path->firstNode){path->firstNode->m_portalID=cell->waypoint->id;path->firstNode->m_canOptimize=false;}
-     path->prependNode(&cell->waypoint->location,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);
+     if(path->firstNode){path->firstNode->m_portalID=cell->waypoint->m_id;path->firstNode->m_canOptimize=false;}
+     path->prependNode(&cell->waypoint->m_location,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);
     }
-    Waypoint *link=cell->getParentWaypoint()->chainNext;
+    Waypoint *link=cell->getParentWaypoint()->m_field44;
     while(link) {
-     if(path->firstNode){path->firstNode->m_portalID=link->id;path->firstNode->m_canOptimize=false;}
-     path->prependNode(&link->location,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);
-     if(link->linkCount!=0)break;
-     link=link->chainNext;
+     if(path->firstNode){path->firstNode->m_portalID=link->m_id;path->firstNode->m_canOptimize=false;}
+     path->prependNode(&link->m_location,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);
+     if(link->m_numLinks!=0)break;
+     link=link->m_field44;
     }
     if(path->firstNode){path->firstNode->m_portalID=id;path->firstNode->m_canOptimize=false;}
    }
@@ -5869,14 +5864,14 @@ Path *Pathfinder::internal_findHierarchicalPath(Bool isHuman,
  HierarchyPoint originalTo(adjustTo);
  if(((MineshaftPortalNetworkManager *)TheMineshaftPortalNetworkManager)->hasUsableNetwork(obj->getControllingPlayer())) {
   float startDistance=0.0f,endDistance=0.0f;
-  for(Waypoint *way=((HierarchyTerrain *)TheTerrainLogic)->getFirstWaypoint();way;way=way->next) {
-   switch(way->type) { case 8: if((unsigned char)((Rva002E6ECA *)way)->get() && way->isValidUnitType(obj)) {
-    if(rva001E3647Pos(TheTerrainLogic->getLayerForDestination(0,&way->location),&way->location)) {
-     HierarchyPoint delta(way->location);
+  for(Waypoint *way=((HierarchyTerrain *)TheTerrainLogic)->getFirstWaypoint();way;way=way->m_pNext) {
+   switch(way->m_field60) { case 8: if((unsigned char)((Rva002E6ECA *)way)->get() && way->isValidUnitType(obj)) {
+    if(rva001E3647Pos(TheTerrainLogic->getLayerForDestination(0,&way->m_location),&way->m_location)) {
+     HierarchyPoint delta(way->m_location);
      delta.x-=obj->position[0];float dy=delta.y-obj->position[1];delta.z-=obj->position[2];
      float dist=delta.x*delta.x+dy*dy;
      if(!m_srcMineshaft || dist<startDistance) {m_srcMineshaft=(PathfinderMineshaft *)way;startDistance=dist;}
-     delta=way->location;
+     delta=way->m_location;
      delta.x-=rawTo->x;delta.y-=rawTo->y;delta.z-=rawTo->z;
      dist=delta.x*delta.x+delta.y*delta.y;
      if(!m_destMineshaft || dist<endDistance) {m_destMineshaft=(PathfinderMineshaft *)way;endDistance=dist;}
@@ -6005,12 +6000,12 @@ Path *Pathfinder::internal_findHierarchicalPath(Bool isHuman,
    Int i=0;
    for(Waypoint *wp=(Waypoint *)m_zoneManager.GetPortal(parentCell->getXIndex(),parentCell->getYIndex(),i);
        wp;wp=(Waypoint *)m_zoneManager.GetPortal(parentCell->getXIndex(),parentCell->getYIndex(),++i)) {
-    if(wp->type==8 && !wasMineshaft)continue;
+    if(wp->m_field60==8 && !wasMineshaft)continue;
     if(!wp->isValidUnitType(obj))continue;
-    ICoord2D ndx;Rva002E7875WorldToCell(&ndx,true,&wp->location);
-    for(Int j=0;j<wp->linkCount;++j) {
+    ICoord2D ndx;Rva002E7875WorldToCell(&ndx,true,&wp->m_location);
+    for(Int j=0;j<wp->m_numLinks;++j) {
      Waypoint *link=wp->getLink(j);if(!link)continue;
-     ICoord2D toNdx;Rva002E7875WorldToCell(&toNdx,true,&link->location);
+     ICoord2D toNdx;Rva002E7875WorldToCell(&toNdx,true,&link->m_location);
      HierarchyLayerView *bridge=(HierarchyLayerView *)&m_layers[i];
      if(ndx.x/16!=blockX || ndx.y/16!=blockY) {toNdx=bridge->start;ndx=bridge->end;}
      if(ndx.x<0 || ndx.y<0)continue;
@@ -6029,7 +6024,7 @@ Path *Pathfinder::internal_findHierarchicalPath(Bool isHuman,
        if(!hierarchyClosed(start) && !hierarchyOpen(start))start->PutOnClosedList(&m_closedList);
       }
       end->allocateInfo((In002E6BA1 *)&toNdx);hierarchySetParent(end,start,wp);++cellCount;
-      Int curCost=0;if(wp->type==8)curCost=500;else curCost=end->CalcCostToHierGoal(start);
+      Int curCost=0;if(wp->m_field60==8)curCost=500;else curCost=end->CalcCostToHierGoal(start);
       Int remCost=end->CalcCostToHierGoal(goalCell);
       end->m_pathInfo->costSoFar=(unsigned short)(start->m_pathInfo->costSoFar+curCost);
       end->m_pathInfo->totalCost=(unsigned short)(end->m_pathInfo->costSoFar+remCost);
@@ -6639,13 +6634,13 @@ Bool Pathfinder::rva002F4115(Object *obj, Int startZone, Int goalZone, Locomotor
 
 	ZoneWaypointMap zoneWaypoints;
 	WaypointZoneMap waypointZones;
-	for (Waypoint *wp = ((HierarchyTerrain *)TheTerrainLogic)->getFirstWaypoint(); wp; wp = wp->next) {
+	for (Waypoint *wp = ((HierarchyTerrain *)TheTerrainLogic)->getFirstWaypoint(); wp; wp = wp->m_pNext) {
 		if (!(unsigned char)reinterpret_cast<Rva002E6ECA *>(wp)->get())
 			continue;
 		if (!wp->isValidUnitType(obj))
 			continue;
 		PathfindCell *cell = (PathfindCell *)rva001E3647Pos(
-			TheTerrainLogic->getLayerForDestination(0, &wp->location), &wp->location);
+			TheTerrainLogic->getLayerForDestination(0, &wp->m_location), &wp->m_location);
 		if (!cell)
 			continue;
 		Int zone = ((Rva002E99F9Sub460 *)&m_zoneManager)->rva0053241F(&query, cell->quickZone());
@@ -6673,7 +6668,7 @@ Bool Pathfinder::rva002F4115(Object *obj, Int startZone, Int goalZone, Locomotor
 		for (FoldZoneInsertMap::iterator it = reinterpret_cast<FoldZoneInsertMap::iterator &>(range.first); it != last; ) {
 			Waypoint *wp = (Waypoint *)(*it).second.a;
 			++it;
-			for (Int i = 0; i < wp->linkCount; ++i) {
+			for (Int i = 0; i < wp->m_numLinks; ++i) {
 				Waypoint *link = wp->getLink(i);
 				unsigned int key = (unsigned int)link;
 				FoldWayFindMap::iterator found = reinterpret_cast<FoldWayFindMap *>(&waypointZones)->find(key);

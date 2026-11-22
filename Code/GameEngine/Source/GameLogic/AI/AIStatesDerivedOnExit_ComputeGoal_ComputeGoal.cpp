@@ -90,7 +90,7 @@
 // try-one-more-repath; computePath is State slot 17.
 // AIFollowWaypointPathState::computeGoal, retail 0x00345D00 (545 bytes):
 // pinned non-virtual callee of the wander/panic/follow-waypoint updates and
-// onEnters. Target facts: waypoint links at +0x1C (count +0x4C), the
+// onEnters. Target facts: the waypoint read at +0x1C (canonical m_pNext; count +0x4C), the
 // object's formation id at +0x410, the group offset at +0x4C, TerrainLogic
 // getGroundHeight/getMaximumPathfindExtent at slots 6/12, the three critter
 // desync lines 51/52/53, and the pinned rotation helper 0x0036CBF9. Body
@@ -162,23 +162,7 @@ enum
 {
 	NO_MAX_SHOTS_LIMIT = 0x7FFFFFFF
 };
-class Waypoint
-{
-public:
-	enum { MAX_LINKS = 12 };
-	UnsignedInt getID() const { return m_id; }
-	const Coord3D *getLocation() const { return &m_location; }
-	__declspec(dllimport) __forceinline Int getNumLinks() const { return m_numLinks; }
-	__declspec(dllimport) __forceinline Waypoint *getLink(Int ndx) const { return m_links[ndx]; }
-private:
-	unsigned char m_pad00[4];
-	UnsignedInt m_id; // +0x04
-	unsigned char m_pad08[0x0C - 0x08];
-	Coord3D m_location; // +0x0C
-	unsigned char m_pad18[0x1C - 0x18];
-	Waypoint *m_links[MAX_LINKS]; // +0x1C
-	Int m_numLinks; // +0x4C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 #include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
 class Rva0036E346
@@ -706,10 +690,10 @@ void AIFollowWaypointPathState::computeGoal(Bool useGroupOffsets)
 		{
 			farPoint = *m_priorWaypoint->getLocation();
 		}
-		else if (m_currentWaypoint->getLink(0))
+		else if (m_currentWaypoint->getNext())
 		{
 			farPoint = nearPoint;
-			nearPoint = *m_currentWaypoint->getLink(0)->getLocation();
+			nearPoint = *m_currentWaypoint->getNext()->getLocation();
 		}
 		AIGroup::rotateOffset(&farPoint, &nearPoint, &groupOffset);
 	}

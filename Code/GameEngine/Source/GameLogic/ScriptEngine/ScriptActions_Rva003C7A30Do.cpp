@@ -25,14 +25,7 @@ class Parameter;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class Waypoint
-{
-public:
-	char m_pad00[0x0C];
-	float m_x;
-	float m_y;
-	float m_z;
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 class TerrainLogic
 {
@@ -77,10 +70,10 @@ void ScriptActions::Rva003C7A30Do(Parameter *parameter, int id)
 	if (wp == 0)
 		return;
 	Coord3D pos;
-	pos.x = wp->m_x;
+	pos.x = wp->m_location.x;
 	AIUpdateInterface *ai = obj->m_ai;
-	pos.y = wp->m_y;
-	pos.z = wp->m_z;
+	pos.y = wp->m_location.y;
+	pos.z = wp->m_location.z;
 	if (ai == 0)
 		return;
 	ai->rva0026295E();

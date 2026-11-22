@@ -8,16 +8,7 @@
 #define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
 class Object;
 class Rva002CA9CA;
-class Rva00507823
-{
-public:
-	Rva00507823();
-	virtual ~Rva00507823();
-	virtual unsigned char rva005075D6(const void *obj, Object *arg);		// 0x005075D6
-	virtual void rva00507877();		// slot 8 of 0x00864010, 0x00507877
-private:
-	unsigned char m_pad[0x128 - 4];
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 class Made002CC7DE : public Rva00507823
 {
 public:

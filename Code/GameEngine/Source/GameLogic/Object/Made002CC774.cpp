@@ -94,13 +94,7 @@ struct Input005093C6
 
 };
 
-class Rva00507823
-{
-public:
-	Rva00507823();
-	virtual ~Rva00507823();
-	char m_pad04[0x124];
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class Made002CC774 : public Rva00507823
 {

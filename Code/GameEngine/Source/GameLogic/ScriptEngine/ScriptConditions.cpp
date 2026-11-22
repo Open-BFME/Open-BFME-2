@@ -623,12 +623,7 @@ struct Arg3971BF
 {
 };
 #include "../../../Include/GameLogic/Rva003971BF.h"
-class Waypoint
-{
-public:
-	char m_pad[0x0c]; // +0x00
-	Coord3D m_0c; // +0x0C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
@@ -2826,7 +2821,7 @@ bool ScriptConditions::evaluateNamedCanPathToWaypoint(Parameter *parameter, Para
 	if (!way)
 		return false;
 	Pathfinder *pf = TheAI->m_pathfinder;
-	return pf->QuickDoesPathExist(object, &object->m_pos, &way->m_0c, 0);
+	return pf->QuickDoesPathExist(object, &object->m_pos, &way->m_location, 0);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E5105.cpp
@@ -3682,7 +3677,7 @@ bool ScriptConditions::evaluateTeamCanPathToWaypoint(Parameter *parameter, Param
 	if (!way)
 		return false;
 	Pathfinder *pf = TheAI->m_pathfinder;
-	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &way->m_0c, 0);
+	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &way->m_location, 0);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamCanPathToNamed.cpp

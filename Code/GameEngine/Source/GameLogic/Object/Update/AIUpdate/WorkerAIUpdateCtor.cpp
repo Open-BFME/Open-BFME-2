@@ -144,6 +144,8 @@
 // in the donor), with the donor's seven trace lines to the logic random log
 // file. The member-wise position copies give retail's movss loads (a struct
 // copy of the canonical Coord3D block-copies).
+// The unit's Snapshot base spells retail slot 2 GetSnapshotName.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "ascii_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -277,23 +279,8 @@ public:
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	// BehaviorModuleInterface slot 9 (retail VA 0x00BFA3C0): UpdateModule's override,
-	// rowed at 0x002533D3 (header-inline in UpdateModule.h).
-	virtual UpdateModuleInterface *getUpdate();
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_reserved1C; // +0x1C
-};
 
 enum CommandSourceType
 {
@@ -319,6 +306,7 @@ public:
 };
 
 #include "../../../../../Include/Common/AIUpdateInterface24.h"
+#include "../../../../../Include/Common/BitFlags11.h"
 
 class Xfer;
 enum NameKeyType;
@@ -333,6 +321,12 @@ public:
 	virtual CollideModuleInterface *getCollide();
 	virtual AIUpdateInterface *getAIUpdateInterface();
 	virtual void onCollide(Object *obj, const Coord3D *loc, const Coord3D *normal);
+	// UpdateModuleInterface slot 1 (retail VA 0x00854184): rowed at 0x004A2D67
+	// (header-inline in AIUpdate.h; SupplyTruckAIUpdateCtor.cpp).
+	virtual DisabledMaskType getDisabledTypesToProcess() const
+	{
+		return DisabledMaskType(DisabledMaskType::kInit, 3);
+	}
 	// Primary vtable slots 1-8 (slot 0 is the destructor).
 protected:
 	virtual void loadPostProcess();

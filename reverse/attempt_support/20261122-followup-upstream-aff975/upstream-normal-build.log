@@ -1,0 +1,14 @@
+Source claims: OK (40 sources, scoped byte-verified)
+Data rows: OK (17 row(s) byte-verified)
+Compile: 31 of 40 TU(s) (deps-cache: 9 current)
+Funclet pins: 352 row(s) verified past a renumbered $L label
+    $L20926 (Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp): $L20926 was renumbered; verified parent EH data places $L29655 at 0x0077103D
+    $L23239 (Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp): $L23239 was renumbered; verified parent EH data places $L31502 at 0x00771147
+    $L21821 (Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp): $L21821 was renumbered; verified parent EH data places $L31265 at 0x0077156C
+    $L21823 (Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp): $L21823 was renumbered; verified parent EH data places $L31267 at 0x00771576
+    $L21825 (Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp): $L21825 was renumbered; verified parent EH data places $L31269 at 0x00771580
+STLport folds: 6 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 1060/1060 matched across 40 source file(s)
+String-ref verify: OK (381 literals + 36 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (226 compiler literals verified)
+Import-ref verify: OK (47 named imports verified)

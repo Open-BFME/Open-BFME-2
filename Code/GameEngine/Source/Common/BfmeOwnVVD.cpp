@@ -234,40 +234,7 @@ public:
  unsigned char m_c0;
 };
 
-class GameClient { public:
-virtual void c0();
-virtual void c1();
-virtual void c2();
-virtual void c3();
-virtual void c4();
-virtual void c5();
-virtual void c6();
-virtual void c7();
-virtual void c8();
-virtual void c9();
-virtual void c10();
-virtual void c11();
-virtual void c12();
-virtual void c13();
-virtual void c14();
-virtual void c15();
-virtual void c16();
-virtual void c17();
-virtual void c18();
-virtual void c19();
-virtual void c20();
-virtual void c21();
-virtual void c22();
-virtual void c23();
-virtual void c24();
-virtual void c25();
-virtual void c26();
-virtual void c27();
-virtual void c28();
-virtual void c29();
-virtual void c30();
-virtual unsigned int c31();
-};
+#include "../../Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 
@@ -532,7 +499,7 @@ int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
   const Rva001EDD80Pair &a=msg->getArgument(0)->pixel; m_20=a.x; m_24=a.y;
   const Rva001EDD80Pair &b=msg->getArgument(0)->pixel; m_28=b.x; m_2c=b.y;
   const Rva001EDD80Pair &c=msg->getArgument(0)->pixel; m_30=c.x; m_34=c.y;
-  m_40=TheGameClient->c31();
+  m_40=TheGameClient->getFrame();
   if(!m_38) ((TacticalView *)TheTacticalView)->t105(1);
   break;
  }
@@ -542,7 +509,7 @@ int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
   int dx=m_30-m_28; if(dx<0) dx=-dx;
   int dy=m_34-m_2c;
   bool moved=(unsigned int)dx>5 || (unsigned int)dy>5;
-  if(!moved && TheGameClient->c31()-m_40<5) ((TacticalView *)TheTacticalView)->t50(0,0,0,0);
+  if(!moved && TheGameClient->getFrame()-m_40<5) ((TacticalView *)TheTacticalView)->t50(0,0,0,0);
   break;
  }
  case 3: {

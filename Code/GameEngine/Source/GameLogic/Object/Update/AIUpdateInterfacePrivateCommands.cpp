@@ -307,18 +307,7 @@ extern ControlBar *TheControlBar;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
 // ZH's Waypoint: the location at +0x0C and the first link at +0x20.
-class Waypoint
-{
-public:
-	const Coord3D *getLocation() const { return &m_location; }
-	__declspec(dllimport) __forceinline Waypoint *getLink(Int i) const { return m_links[i]; }
-
-private:
-	unsigned char m_unmodelled_00[0x0C];
-	Coord3D m_location;							// +0x0C
-	unsigned char m_unmodelled_18[0x20 - 0x18];
-	Waypoint *m_links[1];						// +0x20
-};
+#include "../../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../../Include/GameLogic/PolygonTrigger.h"
 
@@ -1583,8 +1572,8 @@ void AIUpdateInterface::bfmePrivateCommand31(Int value, CommandSourceType comman
 // The end of the path that starts at w.
 static __forceinline const Waypoint *lastWaypoint(const Waypoint *waypoint)
 {
-	while (waypoint && waypoint->getLink(0))
-		waypoint = waypoint->getLink(0);
+	while (waypoint && waypoint->m_links[0])
+		waypoint = waypoint->m_links[0];
 	return waypoint;
 }
 

@@ -175,15 +175,7 @@ public:
 	unsigned char m_16;
 };
 
-class GameClient
-{
-public:
-	virtual void vf00(); virtual void vf04(); virtual void vf08(); virtual void vf0C();
-	virtual void vf10(); virtual void vf14(); virtual void vf18(); virtual void vf1C();
-	virtual void vf20(); virtual void vf24(); virtual void vf28(); virtual void vf2C();
-	virtual void vf30(); virtual void vf34(); virtual void vf38(); virtual void vf3C();
-	virtual Drawable *findDrawableByID(int id);	// +0x40
-};
+#include "../../../../Include/GameClient/GameClientClass.h"
 
 extern InGameUI *TheInGameUI;
 extern GameClient *TheGameClient;
@@ -330,7 +322,7 @@ void ControlBar::rva0031D230()
 		// whose selection actually consists of varied units
 		// but is represented in the UI as a single unit,
 		// so we must isolate and evaluate only the Nexus
-		drawToEvaluateFor = TheGameClient->findDrawableByID(TheInGameUI->getSoloNexusSelectedDrawableID());
+		drawToEvaluateFor = TheGameClient->findDrawableByID((DrawableID)TheInGameUI->getSoloNexusSelectedDrawableID());
 		multiSelect = (drawToEvaluateFor == 0);
 	}
 	else // get the first and only drawble in the selection list

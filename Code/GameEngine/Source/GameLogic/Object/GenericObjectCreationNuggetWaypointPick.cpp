@@ -48,19 +48,7 @@ template <> inline __declspec(noinline) vector<Object *>::~vector() { _Destroy(t
 
 template _STL::_Vector_base<Object *, _STL::allocator<Object *> >::~_Vector_base();
 
-class Waypoint
-{
-public:
-	const StringBase<char> &getName() const { return m_name; }
-	const Coord3D *getLocation() const { return &m_location; }
-	Waypoint *getNext() const { return m_next; }
-private:
-	char m_pad00[8];
-	StringBase<char> m_name;	// +0x08
-	Coord3D m_location;	// +0x0C
-	char m_pad18[4];
-	Waypoint *m_next;	// +0x1C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 
@@ -89,7 +77,7 @@ void GenericObjectCreationNugget::rva001F21E8(Coord3D *position) const
 {
 	_STL::vector<Object *> matches;
 	for (Object *way = (Object *)TheTerrainLogic->getFirstWaypoint(); way; way = (Object *)((Waypoint *)way)->getNext()) {
-		if (((Waypoint *)way)->getName().startsWith(m_waypointNamePrefix))
+		if (((const StringBase<char> &)((Waypoint *)way)->getName()).startsWith(m_waypointNamePrefix))
 			matches.push_back(way);
 	}
 	int count = matches.size();

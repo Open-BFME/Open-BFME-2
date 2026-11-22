@@ -85,77 +85,40 @@ private:
 	unsigned m_handle;
 };
 
-enum { MAX_LINKS = 8 };
-
-class Waypoint
-{
-public:
-	virtual ~Waypoint();
-
-	bool isValidUnitType(Object *obj);
-
-private:
-	int m_id;				// +0x04
-	AsciiString m_name;			// +0x08
-	Coord3D m_location;			// +0x0C
-	Waypoint *m_prev;			// +0x18
-	Waypoint *m_next;			// +0x1C
-	Waypoint *m_links[MAX_LINKS];		// +0x20
-	Waypoint *m_linkSource;			// +0x40
-	int m_intermediate;			// +0x44
-	bool m_flag48;				// +0x48
-	int m_numLinks;				// +0x4C
-	AsciiString m_pathLabel1;		// +0x50
-	AsciiString m_pathLabel2;		// +0x54
-	AsciiString m_pathLabel3;		// +0x58
-	bool m_biDirectional;			// +0x5C
-	int m_type;				// +0x60
-	AsciiString m_typeOption;		// +0x64
-	bool m_hasIncludeMask;			// +0x68
-	Rva0024C7B3Member m_includeMask;	// +0x6C
-	bool m_hasExcludeMask;			// +0x88
-	Rva0024C7B3Member m_excludeMask;	// +0x8C
-	bool m_flagA8;				// +0xA8
-	bool m_flagA9;				// +0xA9
-	int m_portalCell;			// +0xAC
-	ObjectID m_fieldB0;			// +0xB0, object whose allies may use this waypoint
-	unsigned int m_fieldB4;			// +0xB4, first usable logic frame
-	bool m_flagB8;				// +0xB8
-	Rva003623E5Member m_memberBC;		// +0xBC
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 bool Waypoint::isValidUnitType(Object *obj)
 {
-	if (m_fieldB0 != INVALID_OBJECT_ID)
+	if ((ObjectID)m_fieldB0 != INVALID_OBJECT_ID)
 	{
-		Object *linked = TheGameLogic->findObjectByID(m_fieldB0);
-		if (!m_flagA8)
+		Object *linked = TheGameLogic->findObjectByID((ObjectID)m_fieldB0);
+		if (!m_fieldA8)
 		{
 			if (linked == 0 || linked->getRelationship(obj) != ALLIES)
 				return false;
 		}
-		if (!m_flagA9)
+		if (!m_fieldA9)
 		{
 			if (!obj->getControllingPlayer()->rva002AA245())
 				return false;
 			if (TheSkirmishAIManager->rva002A8AB1(obj->getControllingPlayer()) == 0)
 				return false;
 		}
-		if (m_type == 7)
+		if (m_field60 == 7)
 		{
 			if (obj->m_owner258 == 0 || obj->m_owner258->m_flag3CF)
 				return false;
 		}
 	}
-	if (m_flagB8 && !m_memberBC.accepts(obj, 0))
+	if (m_fieldB8 && !((Rva003623E5Member *)&m_fieldBC)->accepts(obj, 0))
 		return false;
-	if (m_hasIncludeMask && !obj->isAnyKindOf(*(const BitFlags<69> *)&m_includeMask))
+	if (m_field68 && !obj->isAnyKindOf(*(const BitFlags<69> *)m_field6C))
 		return false;
-	if (m_hasExcludeMask)
+	if (m_field88)
 	{
-		if (obj->isAnyKindOf(*(const BitFlags<69> *)&m_excludeMask))
+		if (obj->isAnyKindOf(*(const BitFlags<69> *)m_field8C))
 			return false;
-		if (m_excludeMask.test(9) && obj->testStatusBit22())
+		if (((const Rva0024C7B3Member *)m_field8C)->test(9) && obj->testStatusBit22())
 			return false;
 	}
 	if (m_fieldB4 > 0 && TheGameLogic->getFrame() < m_fieldB4)

@@ -73,14 +73,9 @@ bool ClipLine2D(ICoord2D *p1, ICoord2D *p2, ICoord2D *c1, ICoord2D *c2, IRegion2
 class Rva003F3FCEDwordField { public: int get() const; };
 #include "../../../../GameEngine/Include/GameLogic/Rva003EFDD7LeaField.h"
 #include "../../../../GameEngine/Include/GameLogic/BridgeClass.h"
-class Pathfinder {
-public:
-	char m_pad00[0x5C];
-	Bridge *m_firstBridge;
-	Path *getDebugPath() { return (Path *)((Rva003F3FCEDwordField *)this)->get(); }
-	const Coord3D *getDebugPathPosition() { return (const Coord3D *)((Rva003EFDD7LeaField *)this)->get(); }
-	Bridge *getFirstBridge() { return m_firstBridge; }
-};
+#include "../../../../GameEngine/Include/GameLogic/AIPathfind.h"
+static inline Path *getDebugPath(Pathfinder *pf) { return (Path *)((Rva003F3FCEDwordField *)pf)->get(); }
+static inline const Coord3D *getDebugPathPosition(Pathfinder *pf) { return (const Coord3D *)((Rva003EFDD7LeaField *)pf)->get(); }
 
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;
@@ -92,21 +87,7 @@ void drawablePostDraw(Drawable *draw, void *userData);
 #include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class Waypoint {
-public:
-	char m_pad00[0xC];
-	Coord3D m_location;
-	char m_pad18[4];
-	Waypoint *m_next;
-	char m_pad20[0x44 - 0x20];
-	Waypoint *m_link44;
-	char m_pad48[4];
-	int m_numLinks;
-	const Coord3D *getLocation() const { return &m_location; }
-	Waypoint *getNext() const { return m_next; }
-	int getNumLinks() const { return m_numLinks; }
-	Waypoint *getLink(int index) const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Waypoint.h"
 
 class TerrainLogic {
 public:
@@ -118,15 +99,7 @@ public:
 extern TerrainLogic *TheTerrainLogic;
 
 typedef void (*GameClientFuncPtr)(Drawable *draw, void *userData);
-class GameClient {
-public:
-	SLOTS16(a) SLOTS4(b) SLOTS4(c) virtual void d0(); virtual void d1(); virtual void d2();
-	virtual void iterateDrawables(GameClientFuncPtr func, void *userData);
-	char m_pad04[0xC4 - 4];
-	int m_renderedObjectCount;
-	void resetRenderedObjectCount() { m_renderedObjectCount = 0; }
-	void flushLayer(int layer) { ((Drawable *)this)->rva0023998E(layer); }
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 class Rva00085FA8
@@ -317,11 +290,11 @@ void W3DView::draw( void )
 		clipRegion.hi.x = getWidth();
 		clipRegion.hi.y = getHeight();
 
-		if (TheAI->pathfinder()->getDebugPath())
+		if (getDebugPath(TheAI->pathfinder()))
 		{
 			UnsignedInt color = 0xFFFFFF00;  //0xAARRGGBB
 			ICoord2D start, end;
-			PathNode *prevNode = TheAI->pathfinder()->getDebugPath()->getFirstNode();
+			PathNode *prevNode = getDebugPath(TheAI->pathfinder())->getFirstNode();
 
 			if (worldToScreenTriReturn( prevNode->getPosition(), &start ) == 0) {
 				drawDisplayLine( TheDisplay, start.x-3, start.y-3, start.x+3, start.y-3, 1.0f, color );
@@ -379,7 +352,7 @@ void W3DView::draw( void )
 				drawDisplayLine( TheDisplay, start.x, start.y-4, start.x, start.y+3, 1.0f, color );
 			}
 			color = 0xFFFF0000;  //0xAARRGGBB
-			const Coord3D *debugPos = TheAI->pathfinder()->getDebugPathPosition();
+			const Coord3D *debugPos = getDebugPathPosition(TheAI->pathfinder());
 			if (worldToScreenTriReturn( debugPos, &start ) == 0) {
 				drawDisplayLine( TheDisplay, start.x-3, start.y, start.x+3, start.y, 1.0f, color );
 				drawDisplayLine( TheDisplay, start.x, start.y-3, start.x, start.y+3, 1.0f, color );
@@ -414,7 +387,7 @@ void W3DView::draw( void )
 			{
 				for (Int i = -1; i < way->getNumLinks(); i++)
 				{
-					Waypoint *link = (i < 0) ? way->m_link44 : way->getLink(i);
+					Waypoint *link = (i < 0) ? way->m_field44 : way->getLink(i);
 					if (!link)
 						continue;
 					Coord3D s, e, delta;
@@ -491,10 +464,10 @@ void W3DView::draw( void )
 	}  // end if, show debug AI
 
 	TheGameClient->resetRenderedObjectCount();
-	TheGameClient->iterateDrawables( drawablePostDraw, this );
+	TheGameClient->rva00238EBF( drawablePostDraw, this );
 
 	for (Int layer = 0; layer < 10; layer++)
-		TheGameClient->flushLayer(layer);
+		((Drawable *)TheGameClient)->rva0023998E(layer);
 
 	// Render 2D scene
 	W3DDisplay::m_2DScene->doRender( m_2DCamera );

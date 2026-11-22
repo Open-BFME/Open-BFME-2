@@ -32,14 +32,7 @@ extern ControlBar *TheControlBar;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Waypoint
-{
-public:
-	char m_pad00[0x0C];
-	float m_x;
-	float m_y;
-	float m_z;
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 class TerrainLogic
 {
@@ -96,7 +89,7 @@ void ScriptActions::Rva003C58C9Do(Parameter *unit, const AsciiString &ability, i
 			if (!button->getName().isEmpty())
 			{
 				if (button->getName() == ability)
-					obj->doCommandButtonAtPosition(button, (const Coord3D *)&way->m_x, 1, 0);
+					obj->doCommandButtonAtPosition(button, &way->m_location, 1, 0);
 			}
 		}
 	}
