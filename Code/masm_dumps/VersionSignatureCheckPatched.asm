@@ -9,7 +9,7 @@
 ; This assembly body receives no authored-C++ coverage credit.
 
 EXTERN _memset:PROC
-EXTERN ?ji_00655652@@YAXXZ:PROC
+EXTERN _WinVerifyTrust@12:PROC
 EXTERN __imp__GetCommandLineW@0:DWORD
 EXTERN __imp__CommandLineToArgvW@8:DWORD
 EXTERN __imp__LocalFree@4:DWORD
@@ -77,7 +77,7 @@ PUBLIC ?Rva00237D3DCheck@@YAHXZ
     mov dword ptr [ebp - 030h], ebx
     mov dword ptr [ebp - 02ch], ebx
     mov dword ptr [ebp - 028h], 0210h
-    call ?ji_00655652@@YAXXZ
+    call _WinVerifyTrust@12
     ; Release argv, retain the patched-out test's dead status save.
     push esi
     mov ebx, eax
