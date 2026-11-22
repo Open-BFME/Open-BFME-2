@@ -41,20 +41,7 @@ struct Arg3971BF
 	unsigned char m_flag110;
 };
 
-class Rva003971BF
-{
-public:
-	bool rva003971BF(Arg3971BF *arg);
-private:
-	char m_pad00[0x34];
-	int m_34;
-	char m_pad38[0x50 - 0x38];
-	ObjectID *m_begin50;
-	ObjectID *m_end54;
-	char m_pad58[0x74 - 0x58];
-	ObjectID *m_begin74;
-	ObjectID *m_end78;
-};
+#include "../../Include/GameLogic/Rva003971BF.h"
 
 bool Rva003971BF::rva003971BF(Arg3971BF *arg)
 {
