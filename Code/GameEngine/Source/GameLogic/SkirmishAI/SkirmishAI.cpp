@@ -36,9 +36,7 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-
 #include "../../../Include/Common/XferVersion.h"
-
 // The +0x17C AsciiString -> int variable map; its rowed STLport spelling
 // (clear 0x001F8927, operator[] 0x002C6F8C) keeps the established payload
 // name from Rva002C717EMethod.cpp.
@@ -48,24 +46,15 @@ struct TreeHintPayload001F8ACB
 	TreeHintPayload001F8ACB() : m_val(0) {}
 	TreeHintPayload001F8ACB(const TreeHintPayload001F8ACB &o) : m_val(o.m_val) {}
 };
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<AsciiString const ,TreeHintPayload001F8ACB>,_Nonconst_traits<pair<AsciiString const ,TreeHintPayload001F8ACB> > >,bool> _Rb_tree<AsciiString,pair<AsciiString const ,TreeHintPayload001F8ACB>,_Select1st<pair<AsciiString const ,TreeHintPayload001F8ACB> >,less<AsciiString>,allocator<pair<AsciiString const ,TreeHintPayload001F8ACB> > >::insert_unique(pair<AsciiString const ,TreeHintPayload001F8ACB> const &); }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> _Rb_tree_node<pair<AsciiString const ,TreeHintPayload001F8ACB> > * _Rb_tree<AsciiString,pair<AsciiString const ,TreeHintPayload001F8ACB>,_Select1st<pair<AsciiString const ,TreeHintPayload001F8ACB> >,less<AsciiString>,allocator<pair<AsciiString const ,TreeHintPayload001F8ACB> > >::_M_create_node(pair<AsciiString const ,TreeHintPayload001F8ACB> const &); }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> _Rb_tree<AsciiString,pair<AsciiString const ,TreeHintPayload001F8ACB>,_Select1st<pair<AsciiString const ,TreeHintPayload001F8ACB> >,less<AsciiString>,allocator<pair<AsciiString const ,TreeHintPayload001F8ACB> > >::~_Rb_tree(); }
-
 typedef _STL::pair<const AsciiString, TreeHintPayload001F8ACB> TreeHintPair001F8ACB;
-
 typedef _STL::map<AsciiString, TreeHintPayload001F8ACB, _STL::less<AsciiString>, _STL::allocator<TreeHintPair001F8ACB> > Map001F8ACB;
-
-// Rowed byte getter at 0x002AA22A reads Player+0x734; rowed dword getter at
-// 0x005C4AF5 reads Team+0x40 (next team in the prototype's instance list).
 #include "../../../Include/Common/Rva002AA22AByteField.h"
-
 template<int NUMBITS>
 class BitFlags
 {
@@ -79,20 +68,14 @@ public:
 		unsigned char m_bytes[0x24];
 	};
 };
-
 class Team;
-
-// TeamPrototype view: instance-list head is TeamFactory's +0x334 pattern
-// (TeamFactoryFindTeam/TeamPrototypeTeamIterators precedent).
 #include "../../../Include/Common/Team.h"
-
 struct ListNode
 {
 	ListNode *m_next;				// +0x00
 	ListNode *m_prev;				// +0x04
 	TeamPrototype *m_value;			// +0x08
 };
-
 // Player view: rva002AE2ED (rowed) grants this player the other player's
 // sciences; +0x24 is copied from the dying AI's player (retail-measured).
 // +0x2EC is the destination team (TeamDidPartialEnter 0x0039E9FD precedent);
@@ -117,9 +100,7 @@ private:
 	unsigned char m_pad04[0x0C - 0x04];
 	float m_value;						// +0x0C
 };
-
 class Rva002C5FD9;
-
 class Player : public Rva002AA22AByteField
 {
 private:
@@ -145,22 +126,11 @@ private:
 	char m_pad2F0[0x3C];
 	ListNode *m_listHead32C; // +0x32C +0x32C list sentinel
 };
-
 #include "../../../Include/Common/PlayerList.h"
-
 extern PlayerList *ThePlayerList;
-
 class Object;
-
-// Team view: transferKindOfUnitsTo is the rowed kind-filtered twin at
-// 0x0039E6D1 (TeamDidPartialEnter.cpp); the +0x40 next link is the rowed
-// DLINK accessor Team::dlink_next_TeamInstanceList (0x005C4AF5), reached
-// through a member pointer as the DLINK iterator does, so the call stays
-// indirect like retail's.
 #include "../../../Include/Common/TeamBFME2.h"
-
 typedef Team *(Team::*TeamNext)() const;
-
 // SkirmishAI's AIBuilder base sits at offset 0; its onUnitCreated (WB name,
 // unrowed 0x004EC3AC) takes the new unit, an object and a horde flag.
 class AIBuilder
@@ -174,21 +144,13 @@ public:
 private:
 	unsigned char m_prefix[0x15C];
 };
-
 #include "../../../Include/Common/Rva004E93A8.h"
-
 class Rva004E9600;
-
 struct Rva002A8B59Data;
-
 struct Rva002A8AB1Record;
-
 #include "../../../Include/GameLogic/Rva002A8F24.h"
-
 extern Rva002A8F24 *TheSkirmishAIManager;
-
 #include "../../../Include/GameLogic/Rva00506B1B.h"
-
 // Native TacticalAI +0x10 is the tactics generator. WB names the two
 // forwarding members; their retail tails reach its established Team methods.
 class AITacticsGenerator
@@ -197,7 +159,6 @@ public:
     void Register(Team *team);
     void UnRegister(Team *team);
 };
-
 class TacticalAI
 {
 public:
@@ -208,14 +169,12 @@ private:
     unsigned char m_pad00[0x10];
     AITacticsGenerator *m_generator;
 };
-
 class Rva002C60E4 {
 public:
  Rva002C60E4(void *, bool);
 private:
  unsigned char m_storage[0x2C];
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002C6845@Rva002C6845@@QAEXXZ @0x002C6845 52B
 // Leaf with pinned name; skips when flag at +0x168 set, otherwise refreshes via rowed 0x004EBF93, runs rowed 0x002C5F65 on object at +0x164, then sets byte at +4 of that object when global +0x85D flag set.
@@ -225,15 +184,12 @@ class Rva004EBF93
 public:
 	void rva004EBF93();
 };
-
 class Rva002C5F65
 {
 public:
 	void rva002C5F65();
 };
-
 class Rva002A8F24;
-
 class Rva002C6845
 {
 public:
@@ -243,16 +199,13 @@ private:
 	void *m_ptr164;
 	unsigned char m_flag168;
 };
-
 struct Rva002A8B59Data
 {
 	char m_pad[0xA4];
 	float m_a4;
 	float m_a8;
 };
-
 extern float g_secondsPerLogicFrame;
-
 struct Rva002A8AB1Record
 {
 public:
@@ -264,23 +217,18 @@ private:
 public:
 	int m_178; // +0x178
 };
-
 struct Rva002C67DC15C
 {
 	char m_pad[0x54];
 	int m_54;
 };
-
 class SkirmishAI;
-
 struct ListNode;
-
 struct Rva002C68CE15C
 {
 	char m_pad[0x54];
 	int m_54;
 };
-
 class SkirmishAI : public AIBuilder
 {
 public:
@@ -311,25 +259,19 @@ private:
 	Int m_masterPlayerIndex;				// +0x178
 	Map001F8ACB m_values17C;				// +0x17C (size at +0x180)
 };
-
 // ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ @0x002C6ACB 47B
 // Evidence: pin Rva002A8AB1Record; callers in Rva005A9ACDTactic and Rva005AD6F5Finish; callees rowed 0x002A8B24 and 0x004E93E8 plus pinned 0x002A8AB1 plus rowed tail 0x002C5FD9; global TheSkirmishAIManager; member plus 0x15C.
 class Rva003A2BD4M08;
-
 class Player;
-
 class Rva002C5FD9
 {
 public:
 	Player *rva002C5FD9();
 };
-
 #include "../../../Include/Common/AIGameTeam.h"
-
 class Rva004E9600 : public AIGameTeam
 {
 };
-
 class Rva002C6EA4
 {
 public:
@@ -339,7 +281,6 @@ private:
 	char m_pad[0x17C];
 	_STL::map<AsciiString, AsciiString> m_map;
 };
-
 //
 // Embedded-member forwarders: each body offsets this to an object embedded at a
 // fixed field (add ecx, <field>) and tail-jumps a rowed member of it. The
@@ -347,21 +288,13 @@ private:
 // beside their definitions. Owners are unknown; names are address-derived and
 // no referencing site was found for these in this pass.
 struct Coord3D;
-
 class ArmySummarySystem;
-
 #include "../../../Include/GameLogic/Rva003B24C7.h"
-
 class AIBaseBuilder { public: void rva00506B96(const Coord3D *point); bool rva00506C39(void *arg); };
-
 #include "../../../Include/Common/QuadStrip2D.h"
-
 class Rva005382A6 { public: void *rva005382A6(int i, int off); };
-
 #include "../../../Include/Common/Rva005D40A6.h"
-
 #include "../../../Include/Common/Rva004E7B0CHolder.h"
-
 #include "../../../Include/Common/UnitRevivalTracker.h"
 
 // 0x00203595: this + 0x10 -> Rva003B24C7::rva003B24C7
@@ -371,6 +304,39 @@ class Rva002C6AC3Owner
 public:
 	void rva002C6AC3(const Coord3D *point);
 };
+
+struct TreeHintPayload001F8ACB;
+
+class Rva002C6E4EPointee
+{
+public:
+	virtual void *destroy(int flag);
+};
+
+class Rva002C6E4E : public AIBuilder
+{
+public:
+	~Rva002C6E4E();
+private:
+	char m_pad15C[0x164 - 0x15C];
+	Rva002C6E4EPointee *m_164;
+	char m_pad168[0x17C - 0x168];
+	Map001F8ACB m_17C;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
+
+// Rowed byte getter at 0x002AA22A reads Player+0x734; rowed dword getter at
+// 0x005C4AF5 reads Team+0x40 (next team in the prototype's instance list).
+
+// TeamPrototype view: instance-list head is TeamFactory's +0x334 pattern
+// (TeamFactoryFindTeam/TeamPrototypeTeamIterators precedent).
+
+// Team view: transferKindOfUnitsTo is the rowed kind-filtered twin at
+// 0x0039E6D1 (TeamDidPartialEnter.cpp); the +0x40 next link is the rowed
+// DLINK accessor Team::dlink_next_TeamInstanceList (0x005C4AF5), reached
+// through a member pointer as the DLINK iterator does, so the call stays
+// indirect like retail's.
 
 // 0x004EC0B9: this + 0x4 -> AIBaseBuilder::rva00506C39
 // 0x0030BBF9: this + 0x68 -> QuadStrip2D::rva0053892C
@@ -754,10 +720,6 @@ bool Rva002C6EA4::rva002C6EA4(const AsciiString &key)
 	return m_map.find(key) != m_map.end();
 }
 
-// tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6A4E 17B ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp
 
 void Rva002C6AC3Owner::rva002C6AC3(const Coord3D *point)
@@ -765,21 +727,34 @@ void Rva002C6AC3Owner::rva002C6AC3(const Coord3D *point)
 	((AIBaseBuilder *)((char *)this + 0x4))->rva00506B96(point);
 }
 
+// tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6A4E 17B ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
+
 // tu-skeleton: 0x002C6C8E 5B ?clear@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x002C6C93 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
 
-// tu-skeleton: 0x002C6E4E 86B ??1Rva002C6E4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp
+
+// ??1Rva002C6E4E@@QAE@XZ @0x002C6E4E 86B (the opaque pin spelling; scalar
+// deleting dtor 0x004E938C). A non-polymorphic AIBuilder derivative with an
+// owned pointee at +0x164 whose slot 0 (flag 0) result goes to operator
+// delete and the map<AsciiString, TreeHintPayload001F8ACB> at +0x17C (tree
+// dtor 0x001F8C23, declared as a member specialisation so the call stays
+// out of line); AIBuilder::~AIBuilder 0x004EC59A runs last. The class
+// and pointee identities are unproven.
+
+Rva002C6E4E::~Rva002C6E4E()
+{
+	Rva002C6E4EPointee *p = m_164;
+	if (p)
+		operator delete(p->destroy(0));
+}
 
 // tu-skeleton: 0x002C6EC3 29B ?insert@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
 
 // tu-skeleton: 0x002C6F8C 124B ??A?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEAAUTreeHintPayload001F8ACB@@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapSubscriptFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00776EFA 8B $L4132 -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00776F02 14B $L4133 -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00776F10 10B __ehhandler$??1Rva002C6E4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00776F44 8B $L8128 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapSubscriptFamily.cpp (not merged yet)
 

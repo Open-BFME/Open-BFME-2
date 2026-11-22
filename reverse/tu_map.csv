@@ -22002,7 +22002,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C6BFF,143,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6C8E,5,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6C93,Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp
 0x002C6C93,443,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6E4E,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp
-0x002C6E4E,86,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EA4,Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp
+0x002C6E4E,86,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EA4,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6EA4,31,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EC3,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6EC3,29,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C6BFF..0x002C6EE0,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp
 0x002C6EE0,172,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
@@ -71493,9 +71493,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00776EDC,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp,approved,P,P=0x002C63A1@FuncInfo0x0091E90C,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
 0x00776EE6,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp,approved,P,P=0x002C64D0@FuncInfo0x0091E930,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
 0x00776EF0,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp,approved,P,P=0x002C64D0@FuncInfo0x0091E930,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
-0x00776EFA,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6E4E@FuncInfo0x0091E95C,Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp
-0x00776F02,14,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6E4E@FuncInfo0x0091E95C,Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp
-0x00776F10,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6E4E@FuncInfo0x0091E95C,Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp
+0x00776EFA,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6E4E@FuncInfo0x0091E95C,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
+0x00776F02,14,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6E4E@FuncInfo0x0091E95C,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
+0x00776F10,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6E4E@FuncInfo0x0091E95C,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x00776F1A,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6EE0@FuncInfo0x0091E990,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x00776F22,14,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6EE0@FuncInfo0x0091E990,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x00776F30,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,P,P=0x002C6EE0@FuncInfo0x0091E990,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
