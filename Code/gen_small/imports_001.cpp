@@ -9,7 +9,6 @@
 // The ghidra inventory never covered these thunk tables (they sit in the
 // inventory's gaps), so tools/gen_small.py gen-imports could not see them.
 
-extern "C" __declspec(dllimport) void InitCommonControls();
 extern "C" __declspec(dllimport) void InternetCrackUrlA();
 extern "C" __declspec(dllimport) void WinVerifyTrust();
 extern "C" __declspec(dllimport) void __getmainargs();
@@ -87,7 +86,6 @@ void ji_00629c90() { __setusermatherr(); }
 void ji_00629c96() { __p__commode(); }
 void ji_00629c9c() { __p__fmode(); }
 void ji_00629ca2() { __set_app_type(); }
-void ji_00629d14() { InitCommonControls(); }
 
 void ji_00655652() { WinVerifyTrust(); }
 void ji_00655658() { InternetCrackUrlA(); }
