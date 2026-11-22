@@ -50,3 +50,23 @@ and it queues:
 4. Add the slot 1/2/7 inline overrides in `Made002CC7DE.cpp` and admit them with
    `add_match --icf-owner` (fold-proofs: `VslotSmallBodiesAD_Rva00349D02.cpp`,
    `Made002CC5E1Rva00507991.cpp`, `System/Xfer.cpp`).
+
+## Sibling: `??_7Made002CC774@@6B@` (0x00864520, DamageFieldNugget)
+
+Same blocker, same contract QUEUE lines (`bases`, `inherited@0x104/0x108`) from
+`WeaponNuggetParse.cpp`. `Made002CC774.cpp` already adopts the canonical base (b695d80).
+These are target facts from the retail table 0x864520:
+- slot 1: 0x005092D4. Rowed as placeholder `?rva005092D4@Rva005092D4@@QAE_NPBXPAVObject@@@Z`
+  in `VslotSmallBodiesAD.cpp`.
+- slot 2: 0x00507943. ICF; rowed as `DamageNugget` and `Made002CCBCA` overrides.
+- slots 3-4: 0x0050B238. Same as the base.
+- slot 5: 0x00509307. Rowed as `BfmeAimAAE::bfmeFireAAE`, `BfmeConv2116.cpp`.
+- slot 6: 0x005093C6. This is the unit's own `Made002CC774::rva005093C6`, which is
+  non-virtual in source.
+- slots 7, 12, 13: 0x0047A699, the Xfer ICF.
+- slot 8: 0x005092B2. Rowed as `Rva005092B2Resolve.cpp`.
+- slot 9: 0x00509367. Rowed in `VslotSmallBodiesL.cpp`.
+- slots 10-11: 0x000D43D0.
+
+After step 1 above, register `Made002CC774`. Then move slots 1, 5, 8 and 9 with
+`--to-class`, make slot 6 virtual, and add the ICF slot 2/7 inline overrides.
