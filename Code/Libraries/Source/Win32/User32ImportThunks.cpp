@@ -52,6 +52,20 @@ BOOL WINAPI ClipCursor(CONST RECT * lpRect) {
  return __identifier("_imp__ClipCursor@4")(lpRect);
 }
 
+// _DefWindowProcA@16
+typedef LRESULT (WINAPI *PFN_DefWindowProcA)(HWND, UINT, WPARAM, LPARAM);
+extern PFN_DefWindowProcA __identifier("_imp__DefWindowProcA@16");
+LRESULT WINAPI DefWindowProcA(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+ return __identifier("_imp__DefWindowProcA@16")(hWnd, Msg, wParam, lParam);
+}
+
+// _DefWindowProcW@16
+typedef LRESULT (WINAPI *PFN_DefWindowProcW)(HWND, UINT, WPARAM, LPARAM);
+extern PFN_DefWindowProcW __identifier("_imp__DefWindowProcW@16");
+LRESULT WINAPI DefWindowProcW(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) {
+ return __identifier("_imp__DefWindowProcW@16")(hWnd, Msg, wParam, lParam);
+}
+
 // _IsWindowUnicode@4
 typedef BOOL (WINAPI *PFN_IsWindowUnicode)(HWND);
 extern PFN_IsWindowUnicode __identifier("_imp__IsWindowUnicode@4");
@@ -122,6 +136,13 @@ ATOM WINAPI RegisterClassW(CONST WNDCLASSW * lpWndClass) {
  return __identifier("_imp__RegisterClassW@4")(lpWndClass);
 }
 
+// _LoadImageA@24
+typedef HANDLE (WINAPI *PFN_LoadImageA)(HINSTANCE, LPCSTR, UINT, int, int, UINT);
+extern PFN_LoadImageA __identifier("_imp__LoadImageA@24");
+HANDLE WINAPI LoadImageA(HINSTANCE hInst, LPCSTR name, UINT type, int cx, int cy, UINT fuLoad) {
+ return __identifier("_imp__LoadImageA@24")(hInst, name, type, cx, cy, fuLoad);
+}
+
 // _FindWindowW@8
 typedef HWND (WINAPI *PFN_FindWindowW)(LPCWSTR, LPCWSTR);
 extern PFN_FindWindowW __identifier("_imp__FindWindowW@8");
@@ -183,6 +204,13 @@ typedef BOOL (WINAPI *PFN_EnumThreadWindows)(DWORD, WNDENUMPROC, LPARAM);
 extern PFN_EnumThreadWindows __identifier("_imp__EnumThreadWindows@12");
 BOOL WINAPI EnumThreadWindows(DWORD dwThreadId, WNDENUMPROC lpfn, LPARAM lParam) {
  return __identifier("_imp__EnumThreadWindows@12")(dwThreadId, lpfn, lParam);
+}
+
+// _wvsprintfA@12
+typedef int (WINAPI *PFN_wvsprintfA)(LPSTR, LPCSTR, va_list);
+extern PFN_wvsprintfA __identifier("_imp__wvsprintfA@12");
+int WINAPI wvsprintfA(LPSTR lpOutput, LPCSTR lpFmt, va_list arglist) {
+ return __identifier("_imp__wvsprintfA@12")(lpOutput, lpFmt, arglist);
 }
 
 // _CloseClipboard@0

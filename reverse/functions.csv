@@ -72457,9 +72457,6 @@ uw_007921b4,,0x007921B4,11,Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp,mat
 uw_0079b44d,,0x0079B44D,8,Code/GameEngine/Source/Common/Rva005765D1Ctor.cpp,matched,gen-funclet;parent=??0Rva005765D1@@QAE@PAXHH@Z;object-symbol=$L403
 ?ji_00006d7e@@YAXXZ,,0x00006D7E,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA1EC;dll=kernel32.dll;import=lstrlen;target=lstrlen
 ?ji_00006dcc@@YAXXZ,,0x00006DCC,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA150;dll=kernel32.dll;import=lstrcmpi;target=lstrcmpi
-?ji_00006e26@@YAXXZ,,0x00006E26,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA8CC;dll=user32.dll;import=DefWindowProcA;target=DefWindowProcA
-?ji_00006e2c@@YAXXZ,,0x00006E2C,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA8D0;dll=user32.dll;import=DefWindowProcW;target=DefWindowProcW
-?ji_00006e6e@@YAXXZ,,0x00006E6E,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA8FC;dll=user32.dll;import=LoadImageA;target=LoadImageA
 ?ji_006297c0@@YAXXZ,,0x006297C0,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA678;dll=msvcr71.dll;import=_finite;target=_finite
 ?ji_006297c6@@YAXXZ,,0x006297C6,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA674;dll=msvcr71.dll;import=_fpclass;target=_fpclass
 ?ji_006297cc@@YAXXZ,,0x006297CC,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA670;dll=msvcr71.dll;import=_copysign;target=_copysign
@@ -72493,7 +72490,6 @@ uw_0079b44d,,0x0079B44D,8,Code/GameEngine/Source/Common/Rva005765D1Ctor.cpp,matc
 ?ji_00687f54@@YAXXZ,,0x00687F54,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA304;dll=kernel32.dll;import=lstrcpy;target=lstrcpy
 ?ji_00687f5a@@YAXXZ,,0x00687F5A,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA308;dll=kernel32.dll;import=lstrcpyn;target=lstrcpyn
 ?ji_00688062@@YAXXZ,,0x00688062,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA7EC;dll=user32.dll;import=wsprintfA;target=wsprintfA
-?ji_00688068@@YAXXZ,,0x00688068,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA7E8;dll=user32.dll;import=wvsprintfA;target=wvsprintfA
 ?ji_0075a596@@YAXXZ,,0x0075A596,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA6F4;dll=msvcr71.dll;import=_strcmpi;target=_strcmpi
 ?ji_0075ac3e@@YAXXZ,,0x0075AC3E,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA720;dll=msvcr71.dll;import=fscanf;target=fscanf
 ?ji_0075ac44@@YAXXZ,,0x0075AC44,6,Code/gen_small/imports_001.cpp,matched,gen-import;slot=0x00BBA724;dll=msvcr71.dll;import=frexp;target=frexp
@@ -102454,3 +102450,7 @@ $L13350,,0x00792D4D,13,Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp,matched,
 ?GetSnapshotName@GiantBirdAttackMoveToState@@MBEPBDXZ,,0x00367839,6,Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp,matched,Native GiantBird state table slot 2 returns its existing name string; fold-proof=Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 ?xfer@AIAttackSwoopThenIdleStateMachine@@MAEXPAVXfer@@@Z,,0x0033FB0B,21,Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp,matched,Native Swoop state-machine table slot 3 calls the base transfer then Version1; fold-proof=Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp
 ?_bfme_state_slot9@GiantBirdAttackMoveToState@@EBE_NXZ,,0x003678D6,33,Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp,matched,Native GiantBird state table slot 9 tests the current state through its linked machine; fold-proof=Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
+_DefWindowProcA@16,,0x00006E26,6,Code/Libraries/Source/Win32/User32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__DefWindowProcA@16 using VS2003 __identifier; retail IAT slot 0x00BBA8CC names user32.dll!DefWindowProcA (gen-import row); complete 6B tail
+_DefWindowProcW@16,,0x00006E2C,6,Code/Libraries/Source/Win32/User32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__DefWindowProcW@16 using VS2003 __identifier; retail IAT slot 0x00BBA8D0 names user32.dll!DefWindowProcW (gen-import row); complete 6B tail
+_LoadImageA@24,,0x00006E6E,6,Code/Libraries/Source/Win32/User32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__LoadImageA@24 using VS2003 __identifier; retail IAT slot 0x00BBA8FC names user32.dll!LoadImageA (gen-import row); complete 6B tail
+_wvsprintfA@12,,0x00688068,6,Code/Libraries/Source/Win32/User32ImportThunks.cpp,matched,Typed SDK stdcall forwarding through the genuine __imp__wvsprintfA@12 using VS2003 __identifier; retail IAT slot 0x00BBA7E8 names user32.dll!wvsprintfA (gen-import row); complete 6B tail

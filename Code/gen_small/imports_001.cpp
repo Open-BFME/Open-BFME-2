@@ -9,11 +9,8 @@
 // The ghidra inventory never covered these thunk tables (they sit in the
 // inventory's gaps), so tools/gen_small.py gen-imports could not see them.
 
-extern "C" __declspec(dllimport) void DefWindowProcA();
-extern "C" __declspec(dllimport) void DefWindowProcW();
 extern "C" __declspec(dllimport) void InitCommonControls();
 extern "C" __declspec(dllimport) void InternetCrackUrlA();
-extern "C" __declspec(dllimport) void LoadImageA();
 extern "C" __declspec(dllimport) void WinVerifyTrust();
 extern "C" __declspec(dllimport) void __getmainargs();
 extern "C" __declspec(dllimport) void __p__commode();
@@ -51,16 +48,10 @@ extern "C" __declspec(dllimport) void lstrlen();
 extern "C" __declspec(dllimport) void pow();
 extern "C" __declspec(dllimport) void swprintf();
 extern "C" __declspec(dllimport) void wsprintfA();
-extern "C" __declspec(dllimport) void wvsprintfA();
 
 void ji_00006d7e() { lstrlen(); }
 
 void ji_00006dcc() { lstrcmpi(); }
-
-void ji_00006e26() { DefWindowProcA(); }
-void ji_00006e2c() { DefWindowProcW(); }
-
-void ji_00006e6e() { LoadImageA(); }
 
 void ji_006297c0() { _finite(); }
 void ji_006297c6() { _fpclass(); }
@@ -111,7 +102,6 @@ void ji_00687f54() { lstrcpy(); }
 void ji_00687f5a() { lstrcpyn(); }
 
 void ji_00688062() { wsprintfA(); }
-void ji_00688068() { wvsprintfA(); }
 
 void ji_0075a596() { _strcmpi(); }
 
