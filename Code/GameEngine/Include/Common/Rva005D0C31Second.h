@@ -6,7 +6,8 @@
 
 class Rva005D0C31Second {
 public:
-    virtual ~Rva005D0C31Second() {}
+    ~Rva005D0C31Second() {}
+    virtual void rva005D0034(int a, int b, int c) {}
 };
 
 typedef char canonical_Rva005D0C31Second_8674fc2a_sizeof[sizeof(Rva005D0C31Second) == 4 ? 1 : -1];

@@ -61,11 +61,7 @@ protected:
 	char m_pad08[0x10 - 8];
 };
 
-class Rva005D0C31Second
-{
-public:
-	virtual void rva005D0034(int a, int b, int c) = 0;
-};
+#include "../../../Include/Common/Rva005D0C31Second.h"
 
 class Rva005D078B : public Rva005CF8A1, public Rva005D0C31Second
 {
