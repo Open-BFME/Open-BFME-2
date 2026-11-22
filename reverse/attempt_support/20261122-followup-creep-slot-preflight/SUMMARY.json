@@ -1,0 +1,17 @@
+{
+  "status": "blocked-family-prerequisites",
+  "task_credit": 0,
+  "actual_cpp_pp_calls": 0,
+  "production_writes": false,
+  "claims_changed": false,
+  "source_rows": 52,
+  "source_bytes": 4429,
+  "native_slots": 11,
+  "local_slots": 10,
+  "slot3": "existing virtual50B owner; local incorrectly pure",
+  "slot4": "real4B +5C getter, generic signed/const carrier vs derived contract",
+  "slot8": "existing41B nonvirtual rva004EDDAA, not unrowed body; shared virtual-name convergence required",
+  "slot10": "canonical Offensive bool false; guarded native owning ICF admission/provider needed",
+  "pass": "next published real-link bridge retirement, not performed",
+  "further_targets_selected": false
+}

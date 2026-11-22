@@ -1,0 +1,494 @@
+{
+  "reported_head": "4c9fb6b261 +aff975 (Root)",
+  "table": [
+    "0x5ab993",
+    "0x5ac011",
+    "0x5abc81",
+    "0x4ece61",
+    "0x8bb81",
+    "0x5ab843",
+    "0x5abaf6",
+    "0x5ac549",
+    "0x4eddaa",
+    "0x5ab9af",
+    "0x47a699"
+  ],
+  "selected_rows": [
+    {
+      "name": "?IsCRC@Xfer@@UBE_NXZ",
+      "target_rva": "0x0047A699",
+      "target_size": "3",
+      "source": "Code/GameEngine/Source/Common/System/Xfer.cpp",
+      "status": "matched",
+      "notes": "BFME1 mode predicate transferred; BFME2 retail folds to xor eax eax / ret"
+    },
+    {
+      "name": "?get@Rva0008BB81DwordField@@QBEHXZ",
+      "target_rva": "0x0008BB81",
+      "target_size": "4",
+      "source": "Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp",
+      "status": "matched",
+      "notes": "Disp8 dword getter; address-derived opaque holder"
+    },
+    {
+      "name": "?initializeTeamTemplate@AITactic@@UAE_NPAXH@Z",
+      "target_rva": "0x004ECE61",
+      "target_size": "50",
+      "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+      "status": "matched",
+      "notes": "slot3 callers forwarding rowed GetGameLogicRandomValue; AITactic vtable slot 3 (wb-lead 6/vtable at this address; WorldBuilder names slot 3 initializeTeamTemplate in every overriding tactic, and three overrides call this base); AITactic.cpp literal line 386"
+    },
+    {
+      "name": "?rva004EDDAA@AITactic@@QAEXXZ",
+      "target_rva": "0x004EDDAA",
+      "target_size": "41",
+      "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp",
+      "status": "matched",
+      "notes": "Complete41B4EDDAA..4EDDD3; named AITactic combat query4ECF41 and coordinate38 plus owned tail4EDA60 establish owner. Negative float result guard uses native FCOMIP under regionalG7/SSE; existing neutral provider4ECE93 takes word ABI carrying coordinate pointer; its original parameter spelling and this method semantic name remain unknown; no new pins"
+    }
+  ],
+  "served_rows": [
+    {
+      "name": "??__FAIStructureCreep_IsRunning@@YAXXZ",
+      "target_rva": "0x007B9644",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "object-symbol=_$E2;TU-local atexit cleanup of the AIStructureCreep_IsRunning AsciiString key at 0x00E06418 registered by the 0x007B458D initializer"
+    },
+    {
+      "name": "??__Eg_00E06424@@YAXXZ",
+      "target_rva": "0x007B45CE",
+      "target_size": "11",
+      "status": "matched",
+      "notes": "object-symbol=_$E8;TU-local dynamic initializer: 0x00E06424 = g_Va00DBA4E4"
+    },
+    {
+      "name": "??__Eg_00E0641C@@YAXXZ",
+      "target_rva": "0x007B45A8",
+      "target_size": "25",
+      "status": "matched",
+      "notes": "object-symbol=_$E4;TU-local dynamic initializer: 0x00E0641C = g_Va00DBA4E4 * 30.0f (/arch:SSE cvtsi2ss)"
+    },
+    {
+      "name": "??__Eg_00E06420@@YAXXZ",
+      "target_rva": "0x007B45C1",
+      "target_size": "13",
+      "status": "matched",
+      "notes": "object-symbol=_$E6;TU-local dynamic initializer: 0x00E06420 = g_Va00DBA4E4 * 2"
+    },
+    {
+      "name": "??__Eg_00E06428@@YAXXZ",
+      "target_rva": "0x007B45D9",
+      "target_size": "14",
+      "status": "matched",
+      "notes": "object-symbol=_$E10;TU-local dynamic initializer: 0x00E06428 = g_Va00DBA4E4 * 5 (/G7 imul)"
+    },
+    {
+      "name": "??__EAIStructureCreep_IsRunning@@YAXXZ",
+      "target_rva": "0x007B458D",
+      "target_size": "27",
+      "status": "matched",
+      "notes": "object-symbol=_$E1;TU-local dynamic initializer constructing the AIStructureCreep_IsRunning AsciiString key at 0x00E06418 through AsciiString(const char *) 0x0000654A and registering the rowed atexit cleanup 0x007B9644"
+    },
+    {
+      "name": "??0AIStructureCreepTactic@@QAE@XZ",
+      "target_rva": "0x005AB91D",
+      "target_size": "118",
+      "status": "matched",
+      "notes": "StructureCreep tactic ctor: base 0x005DCC0A with the StructureCreep name then five -1 and six zero fields; dtor 0x005AB7E5 create 0x005AB9AF news 0x80; class name from WorldBuilder (Rva005AB7E5=AIStructureCreepTactic)"
+    },
+    {
+      "name": "?getMyZone@@YAPAURva005ABEA2Site@@PAVPlayer@@H@Z",
+      "target_rva": "0x005AB7C4",
+      "target_size": "33",
+      "status": "matched",
+      "notes": "StructureCreep: the owner record's +0x164 site with the given id (0x002C5FE8); called by slot 7 and the placement helpers; wb-lead 2/callgraph: WB AIStructureCreepTactic.cpp:53-54 getMyZone; AI player then tactical AI 0x002C5FE8 as here"
+    },
+    {
+      "name": "??1AIStructureCreepTactic@@UAE@XZ",
+      "target_rva": "0x005AB7E5",
+      "target_size": "94",
+      "status": "matched",
+      "notes": "StructureCreep dtor: abandon the +0x60 build order (0x0055ADBA) and ::delete it then the Rva005DCC24 base dtor; class name from WorldBuilder (Rva005AB7E5=AIStructureCreepTactic)"
+    },
+    {
+      "name": "??_GAIStructureCreepTactic@@UAEPAXI@Z",
+      "target_rva": "0x005AB993",
+      "target_size": "28",
+      "status": "matched",
+      "notes": "StructureCreep scalar deleting dtor (slot 0 of vtable 0x008722EC) emitted by this TU; class name from WorldBuilder (Rva005AB7E5=AIStructureCreepTactic)"
+    },
+    {
+      "name": "?xfer@AIStructureCreepTactic@@UAEXPAVXfer@@@Z",
+      "target_rva": "0x005AB843",
+      "target_size": "218",
+      "status": "matched",
+      "notes": "StructureCreep slot 5: the AITactic xfer then the +0x58 ObjectID and three counters then the has-order flag and the order (restarted on load when unstarted); class name from WorldBuilder (Rva005AB7E5=AIStructureCreepTactic)"
+    },
+    {
+      "name": "?findBestInterestZone@AIStructureCreepTactic@@QAE_NXZ",
+      "target_rva": "0x005ABEA2",
+      "target_size": "367",
+      "status": "matched",
+      "notes": "StructureCreep: pick the last record site (+0x164 +0x20 vector; state below 2) whose radius holds more than 15 alive allied kind-3/90 non-kind-7 objects; first BFME2 body over the PartitionFilter link chain (Rva000421C8) and the refcounted range-query result; wb-lead 5/callgraph: WB AIStructureCreepTactic::findBestInterestZone (callgraph); class from its own WorldBuilder source"
+    },
+    {
+      "name": "?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z",
+      "target_rva": "0x005AC0B5",
+      "target_size": "479",
+      "status": "matched",
+      "notes": "StructureCreep: may this structure name go up at the +0x68 site - alive allied kind-7 objects within twice the site radius; fewer than three creep structures and a kind-8 template or a name not yet among theirs; wb-lead 2/callgraph: WB AIStructureCreepTactic::validateTemplateName (callgraph); class from its own WorldBuilder source"
+    },
+    {
+      "name": "?isOffensiveBuilding@AIStructureCreepTactic@@QAE_NPAVObject@@@Z",
+      "target_rva": "0x005AB9EE",
+      "target_size": "107",
+      "status": "matched",
+      "notes": "StructureCreep: is the object's template name one of the owner record's creep structure names (+0x160 then +0x98 vector of AsciiString); wb-lead 2/callgraph: WB AIStructureCreepTactic::isOffensiveBuilding (callgraph); class from its own WorldBuilder source"
+    },
+    {
+      "name": "?cleanUp@AIStructureCreepTactic@@UAEXXZ",
+      "target_rva": "0x005ABC81",
+      "target_size": "125",
+      "status": "matched",
+      "notes": "StructureCreep slot 2: clear AIStructureCreep_IsRunning and set the next run to frame + 0x00E06428 when +0x79; then give the +0x58 structure to its controller's +0x2EC team and the owner record +0x140 list (0x00599825); class name from WorldBuilder (Rva005AB7E5=AIStructureCreepTactic); AITactic vtable slot 2 override; WorldBuilder names that slot cleanUp across the tactic classes; wb lead AIStructureCreepTactic::cleanUp (callgraph)"
+    },
+    {
+      "name": "?getBuildTemplateName@AIStructureCreepTactic@@QAE?AVAsciiString@@XZ",
+      "target_rva": "0x005ABA59",
+      "target_size": "157",
+      "status": "matched",
+      "notes": "StructureCreep next creep structure name from the owner record +0x160 list: random first (AIStructureCreepTactic.cpp line 368) then round-robin in +0x6C; class name from WorldBuilder (Rva005AB7E5=AIStructureCreepTactic); wb-lead 1/callgraph: WB AIStructureCreepTactic::getBuildTemplateName; 0x002A8AB1 AI record, GetGameLogicRandomValue with the AIStructureCreepTactic.cpp literal, AsciiString copy agree"
+    },
+    {
+      "name": "?canRun@AIStructureCreepTactic@@UAE_NPAX@Z",
+      "target_rva": "0x005AC011",
+      "target_size": "164",
+      "status": "matched",
+      "notes": "StructureCreep slot 1 canRun; wb-lead AIStructureCreepTactic::canRun; stats local frees esi for this"
+    },
+    {
+      "name": "?run@AIStructureCreepTactic@@UAEXXZ",
+      "target_rva": "0x005ABAF6",
+      "target_size": "395",
+      "status": "matched",
+      "notes": "WB StructureCreep run; native395B membername2C/id30 owner24; int map-result local and fresh postformat ID preserve CMP EBX and factory scheduling; existing owned helpers"
+    },
+    {
+      "name": "__ehhandler$??0AIStructureCreepTactic@@QAE@XZ",
+      "target_rva": "0x0079E90B",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "gen-ehstub;Compiler-emitted C++ EH handler of rowed parent 0x005AB91D; retail parent installs handler 0x0079E90B (EH prologue immediate); parent object defines __ehhandler$<parent>; mov FuncInfo + jmp __CxxFrameHandler thunk 0x629182; no adjacency inference"
+    },
+    {
+      "name": "__ehhandler$??1AIStructureCreepTactic@@UAE@XZ",
+      "target_rva": "0x0079E8DD",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x005AB7E5; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?xfer@AIStructureCreepTactic@@UAEXPAVXfer@@@Z",
+      "target_rva": "0x0079E8F1",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x005AB843; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?run@AIStructureCreepTactic@@UAEXXZ",
+      "target_rva": "0x0079E91D",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x005ABAF6; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?findBestInterestZone@AIStructureCreepTactic@@QAE_NXZ",
+      "target_rva": "0x0079E952",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x005ABEA2; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "__ehhandler$?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z",
+      "target_rva": "0x0079E98F",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of the rowed parent 0x005AC0B5; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler"
+    },
+    {
+      "name": "$L7693",
+      "target_rva": "0x0079E94A",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?findBestInterestZone@AIStructureCreepTactic@@QAE_NXZ; Matched parent 0x005ABEA2's EH graph is EXACT (eh_verify) and binds compiler label $L7693 to retail Unwind@00b9e94a 0x79E94A; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "$L8614",
+      "target_rva": "0x0079E977",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z; Matched parent 0x005AC0B5's EH graph is EXACT (eh_verify) and binds compiler label $L8614 to retail Unwind@00b9e977 0x79E977; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "$L8616",
+      "target_rva": "0x0079E987",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z; Matched parent 0x005AC0B5's EH graph is EXACT (eh_verify) and binds compiler label $L8616 to retail Unwind@00b9e987 0x79E987; whole 8B Ghidra boundary with bytes masked-equal pre-link; emitted by the parent's existing real C++; no alias or pin"
+    },
+    {
+      "name": "?update@AIStructureCreepTactic@@UAEXXZ",
+      "target_rva": "0x005AC549",
+      "target_size": "664",
+      "status": "matched",
+      "notes": "StructureCreep slot 7 update in WB AIStructureCreepTactic::update shape; visible findObjectByID and order predicate 0x004E9378 keep TheGameLogic in EDI"
+    },
+    {
+      "name": "?getBuildPos@AIStructureCreepTactic@@QAE_NPAUCoord3DBase@@ABVAsciiString@@@Z",
+      "target_rva": "0x005ABCFE",
+      "target_size": "420",
+      "status": "matched",
+      "notes": "WB 0x015215B0 AIStructureCreepTactic::getBuildPos; WB-shaped Vector3 -= / Normalize / Scale(Vector3) then Coord3D copy plus add; build-assistant slot 16 check"
+    },
+    {
+      "name": "?rva005AC294@AIStructureCreepTactic@@QAE_NXZ",
+      "target_rva": "0x005AC294",
+      "target_size": "376",
+      "status": "matched",
+      "notes": "WB twin 0x01520AF0 shape: template-name scan over the record +0x160 names then build-order creation via getBuildPos 0x005ABCFE; inline getNames/setName/setTarget/getOwner accessors give retail's zero-in-EBX allocation and per-iteration +0x160 reload"
+    },
+    {
+      "name": "?moveDozerAway@AIStructureCreepTactic@@QAEXXZ",
+      "target_rva": "0x005AC40C",
+      "target_size": "317",
+      "status": "matched",
+      "notes": "WB AIStructureCreepTactic::moveDozerAway (0x01521E80): idle then move 500 away from the record reference point; getBuildPos Vector3 shape with a block-scoped destination built from dir plus a fresh position copy"
+    },
+    {
+      "name": "__ehhandler$?update@AIStructureCreepTactic@@UAEXXZ",
+      "target_rva": "0x0079E9E0",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "Compiler-emitted C++ EH handler of rowed parent 0x005AC549; retail parent installs handler 0x0079E9E0 (EH prologue immediate); parent object defines __ehhandler"
+    },
+    {
+      "name": "uw_0079e9a9",
+      "target_rva": "0x0079E9A9",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?rva005AC294@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L9242"
+    },
+    {
+      "name": "__ehhandler$?rva005AC294@AIStructureCreepTactic@@QAE_NXZ",
+      "target_rva": "0x0079E9B3",
+      "target_size": "10",
+      "status": "matched",
+      "notes": "Naturally emitted compiler EH handler of verified 376B parent 0x005AC294: the parent's EH prologue is the only site loading this handler address; whole 10B MOV FuncInfo plus JMP to the __CxxFrameHandler thunk 0x00629182 byte-verified through the parent's own unit"
+    },
+    {
+      "name": "$L1800",
+      "target_rva": "0x0079E8FB",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AIStructureCreepTactic@@QAE@XZ;exact matched parent EH graph places this emitted label at the complete native action"
+    },
+    {
+      "name": "$L1801",
+      "target_rva": "0x0079E903",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??0AIStructureCreepTactic@@QAE@XZ;exact matched parent EH graph places this emitted label at the complete native action"
+    },
+    {
+      "name": "Unwind@00b9e8d5",
+      "target_rva": "0x0079E8D5",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=??1AIStructureCreepTactic@@UAE@XZ;object-symbol=$L7843; Matched parent 0x005AB7E5's EH graph is EXACT (eh_verify) and binds compiler label $L7843 to retail Unwind@00b9e8d5 (was gen_uw scaffold uw_0079e8d5)"
+    },
+    {
+      "name": "Unwind@00b9e927",
+      "target_rva": "0x0079E927",
+      "target_size": "11",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?findBestInterestZone@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L8175; Matched parent 0x005ABEA2's EH graph is EXACT (eh_verify) and binds compiler label $L8175 to retail Unwind@00b9e927 (was gen_uw scaffold uw_0079e927)"
+    },
+    {
+      "name": "Unwind@00b9e932",
+      "target_rva": "0x0079E932",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?findBestInterestZone@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L8176; Matched parent 0x005ABEA2's EH graph is EXACT (eh_verify) and binds compiler label $L8176 to retail Unwind@00b9e932 (was gen_uw scaffold uw_0079e932)"
+    },
+    {
+      "name": "Unwind@00b9e93a",
+      "target_rva": "0x0079E93A",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?findBestInterestZone@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L8177; Matched parent 0x005ABEA2's EH graph is EXACT (eh_verify) and binds compiler label $L8177 to retail Unwind@00b9e93a (was gen_uw scaffold uw_0079e93a)"
+    },
+    {
+      "name": "Unwind@00b9e942",
+      "target_rva": "0x0079E942",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?findBestInterestZone@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L8178; Matched parent 0x005ABEA2's EH graph is EXACT (eh_verify) and binds compiler label $L8178 to retail Unwind@00b9e942 (was gen_uw scaffold uw_0079e942)"
+    },
+    {
+      "name": "Unwind@00b9e95c",
+      "target_rva": "0x0079E95C",
+      "target_size": "11",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z;object-symbol=$L8831; Matched parent 0x005AC0B5's EH graph is EXACT (eh_verify) and binds compiler label $L8831 to retail Unwind@00b9e95c (was gen_uw scaffold uw_0079e95c)"
+    },
+    {
+      "name": "Unwind@00b9e967",
+      "target_rva": "0x0079E967",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z;object-symbol=$L8832; Matched parent 0x005AC0B5's EH graph is EXACT (eh_verify) and binds compiler label $L8832 to retail Unwind@00b9e967 (was gen_uw scaffold uw_0079e967)"
+    },
+    {
+      "name": "Unwind@00b9e96f",
+      "target_rva": "0x0079E96F",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z;object-symbol=$L8833; Matched parent 0x005AC0B5's EH graph is EXACT (eh_verify) and binds compiler label $L8833 to retail Unwind@00b9e96f (was gen_uw scaffold uw_0079e96f)"
+    },
+    {
+      "name": "Unwind@00b9e97f",
+      "target_rva": "0x0079E97F",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?validateTemplateName@AIStructureCreepTactic@@QAE_NABVAsciiString@@@Z;object-symbol=$L8835; Matched parent 0x005AC0B5's EH graph is EXACT (eh_verify) and binds compiler label $L8835 to retail Unwind@00b9e97f (was gen_uw scaffold uw_0079e97f)"
+    },
+    {
+      "name": "Unwind@00b9e915",
+      "target_rva": "0x0079E915",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?run@AIStructureCreepTactic@@UAEXXZ;object-symbol=$L7944; Matched parent 0x005ABAF6's EH graph is EXACT (eh_verify) and binds compiler label $L7944 to retail Unwind@00b9e915 (was gen_uw scaffold uw_0079e915)"
+    },
+    {
+      "name": "Unwind@00b9e9bd",
+      "target_rva": "0x0079E9BD",
+      "target_size": "11",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?update@AIStructureCreepTactic@@UAEXXZ;object-symbol=$L9278; Matched parent 0x005AC549's EH graph is EXACT (eh_verify) and binds compiler label $L9278 to retail Unwind@00b9e9bd (was gen_uw scaffold uw_0079e9bd)"
+    },
+    {
+      "name": "Unwind@00b9e9c8",
+      "target_rva": "0x0079E9C8",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?update@AIStructureCreepTactic@@UAEXXZ;object-symbol=$L9279; Matched parent 0x005AC549's EH graph is EXACT (eh_verify) and binds compiler label $L9279 to retail Unwind@00b9e9c8 (was gen_uw scaffold uw_0079e9c8)"
+    },
+    {
+      "name": "Unwind@00b9e9d0",
+      "target_rva": "0x0079E9D0",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?update@AIStructureCreepTactic@@UAEXXZ;object-symbol=$L9280; Matched parent 0x005AC549's EH graph is EXACT (eh_verify) and binds compiler label $L9280 to retail Unwind@00b9e9d0 (was gen_uw scaffold uw_0079e9d0)"
+    },
+    {
+      "name": "Unwind@00b9e9d8",
+      "target_rva": "0x0079E9D8",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?update@AIStructureCreepTactic@@UAEXXZ;object-symbol=$L9281; Matched parent 0x005AC549's EH graph is EXACT (eh_verify) and binds compiler label $L9281 to retail Unwind@00b9e9d8 (was gen_uw scaffold uw_0079e9d8)"
+    },
+    {
+      "name": "Unwind@00b9e999",
+      "target_rva": "0x0079E999",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?rva005AC294@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L9223; Matched parent 0x005AC294's EH graph is EXACT (eh_verify) and binds compiler label $L9223 to retail Unwind@00b9e999 (was gen_uw scaffold uw_0079e999)"
+    },
+    {
+      "name": "Unwind@00b9e9a1",
+      "target_rva": "0x0079E9A1",
+      "target_size": "8",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?rva005AC294@AIStructureCreepTactic@@QAE_NXZ;object-symbol=$L9224; Matched parent 0x005AC294's EH graph is EXACT (eh_verify) and binds compiler label $L9224 to retail Unwind@00b9e9a1 (was gen_uw scaffold uw_0079e9a1)"
+    }
+  ],
+  "bodies": [
+    {
+      "rva": "0x8bb81",
+      "size": 4,
+      "raw": "8b415cc3",
+      "asm": [
+        "0008BB81 mov eax, dword ptr [ecx + 0x5c]",
+        "0008BB84 ret "
+      ]
+    },
+    {
+      "rva": "0x47a699",
+      "size": 3,
+      "raw": "32c0c3",
+      "asm": [
+        "0047A699 xor al, al",
+        "0047A69B ret "
+      ]
+    },
+    {
+      "rva": "0x4ece61",
+      "size": 50,
+      "raw": "8b412085c074268378040075206882010000686829c6006a056a03e87371d4ff8b4c241483c4108981d4020000b001c20800",
+      "asm": [
+        "004ECE61 mov eax, dword ptr [ecx + 0x20]",
+        "004ECE64 test eax, eax",
+        "004ECE66 je 0x4ece8e",
+        "004ECE68 cmp dword ptr [eax + 4], 0",
+        "004ECE6C jne 0x4ece8e",
+        "004ECE6E push 0x182",
+        "004ECE73 push 0xc62968",
+        "004ECE78 push 5",
+        "004ECE7A push 3",
+        "004ECE7C call 0x233ff4",
+        "004ECE81 mov ecx, dword ptr [esp + 0x14]",
+        "004ECE85 add esp, 0x10",
+        "004ECE88 mov dword ptr [ecx + 0x2d4], eax",
+        "004ECE8E mov al, 1",
+        "004ECE90 ret 8"
+      ]
+    },
+    {
+      "rva": "0x4eddaa",
+      "size": 41,
+      "raw": "568bf1e88ff1ffff84c0751b8d4638508bcee8d2f0ffffd9eedff1ddd876088bce5ee98ffcffff5ec3",
+      "asm": [
+        "004EDDAA push esi",
+        "004EDDAB mov esi, ecx",
+        "004EDDAD call 0x4ecf41",
+        "004EDDB2 test al, al",
+        "004EDDB4 jne 0x4eddd1",
+        "004EDDB6 lea eax, [esi + 0x38]",
+        "004EDDB9 push eax",
+        "004EDDBA mov ecx, esi",
+        "004EDDBC call 0x4ece93",
+        "004EDDC1 fldz ",
+        "004EDDC3 fcompi st(1)",
+        "004EDDC5 fstp st(0)",
+        "004EDDC7 jbe 0x4eddd1",
+        "004EDDC9 mov ecx, esi",
+        "004EDDCB pop esi",
+        "004EDDCC jmp 0x4eda60",
+        "004EDDD1 pop esi",
+        "004EDDD2 ret "
+      ]
+    }
+  ],
+  "input_hashes": {
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp": "17481c29d5b46beee6987a4c90ec151f3761f875f8f6222f934de8ca461652fd",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp": "38d4de148ba63dfc1ef1ec0c07594948dae9d0bb1a4e453d2331a638e1174b63",
+    "Code/GameEngine/Include/Common/AITactic.h": "83bdfe8b5c9b9c4c8da493baa9666b63be6032eb798fd65ff8e92c169a255018",
+    "Code/GameEngine/Include/Common/AITacticOffensive.h": "ab0eb09e3bf82ce5c29aec2c74f4a1ab5a28993413f509eddd7ec06f1faff638",
+    "docs/linking_obstacles/link-649-aitacticsiege-s-real-table-needs-rows-for-aitactic-s-v4-and-vsl.md": "56c4b32ad60ea003f5b23cfeabbc067b0057a5aaac0eb09df6083136546afd47"
+  },
+  "actual_cpp_pp_calls": 0,
+  "production_writes": false,
+  "task_credit": 0,
+  "global_snapshot_claim": false
+}

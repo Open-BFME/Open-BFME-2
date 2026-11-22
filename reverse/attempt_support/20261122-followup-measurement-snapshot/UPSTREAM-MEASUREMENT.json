@@ -1,0 +1,26 @@
+{
+  "checked_date_local": "2026-11-22",
+  "latest_completed_real_link": {
+    "run_id": 45006114241,
+    "job_id": 137157978917,
+    "commit": "535ac49e0d85c587c9a77cc833c4eb2e4300c089",
+    "url": "https://github.com/Open-BFME/Open-BFME-2/actions/runs/45006114241",
+    "when_utc": "2026-11-22 09:53 UTC",
+    "authoritative": true,
+    "refusal": null,
+    "linker_exit": 0,
+    "image_written": true,
+    "unresolved": 0,
+    "duplicates": 0,
+    "objects": 17477,
+    "initializers_bridged": 431,
+    "vtables_bridged": 2865,
+    "vtable_slots_bridged": 41249,
+    "omitted_funclets": [],
+    "source": "Actual Real link step scoreboard in the measure job log, before the distinct diagnostic link section."
+  },
+  "newer_real_link_observed": {"run_id": 45012175933, "commit": "a0fc6db52859702d1d2c03d9fbc656b9a8f5e98c", "status": "in_progress"},
+  "latest_master_retail_observed": {"run_id": 45013058006, "commit": "aff975ad9c5fc2ad88916e94b0a2f29f8c1eb141", "status": "in_progress"},
+  "last_completed_retail_observed": {"run_id": 45012282761, "commit": "863eeaa97d8bc720918b7d8b254826ae51d405bf", "conclusion": "success"},
+  "limits": "Historical upstream measurements, not the feature head or current task. No game-queue/runtime receipt established; bridge counts must accompany apparent link success. No measurement, smoke or workflow was started."
+}
