@@ -7876,7 +7876,19 @@ void MilesAudioManager::unselectProvider(void)
 	m_selectedProvider = 0xffffffff;
 }
 
-// tu-skeleton: 0x000537F4 96B ?rva000537F4@MilesAudioManager@@UAEXMMMMMH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000537F4.cpp (not merged yet)
+void MilesAudioManager::rva000537F4(float a, float b, float c, float d, float e, int index)
+{
+    // The original calls the guard destructor only on normal return.
+    union
+    {
+        char bytes[sizeof(MilesMutexGuard)];
+        void *alignment;
+    } storage;
+    MilesMutexGuard *guard = reinterpret_cast<MilesMutexGuard *>(storage.bytes);
+    guard->MilesMutexGuard::MilesMutexGuard(&m_mutex, 0);
+    reinterpret_cast<Rva0005230D *>(&m_volumeData[index])->rva0005230D(a, b, c, d, e);
+    guard->~MilesMutexGuard();
+}
 
 // tu-skeleton: 0x00053A1F 219B ?rva00053A1F@MilesAudioManager@@QAEMPAX@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerDistanceRva00053A1F.cpp (not merged yet)
 
