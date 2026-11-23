@@ -142,14 +142,12 @@ public:
 	virtual int Mapper_ID( void ) const;																			///< slot 2
 };
 
-class VertexMaterialClass
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
+
+inline TextureMapperClass *VertexMaterialClass::Peek_Mapper( int stage )
 {
-public:
-	TextureMapperClass *Peek_Mapper( int stage = 0 ) { return Mapper[ stage ]; }
-private:
-	char m_unrecovered00[ 0x20 ];
-	TextureMapperClass *Mapper[ 2 ];																					///< 0x20
-};
+	return Mapper[ stage ];
+}
 
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 

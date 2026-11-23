@@ -38,15 +38,12 @@ private:
 	Vector2 UVOffsetDeltaPerMS;
 };
 
-class VertexMaterialClass
-{
-public:
-	TextureMapperClass *Peek_Mapper(void) { return Mapper; }
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-private:
-	unsigned char m_pad00[0x20];
-	TextureMapperClass *Mapper;
-};
+inline TextureMapperClass *VertexMaterialClass::Peek_Mapper(int stage)
+{
+	return Mapper[stage];
+}
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/MaterialInfoClass.h"
 
