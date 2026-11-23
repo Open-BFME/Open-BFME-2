@@ -677,7 +677,8 @@ struct AudioSettings {
     int m_outputChannels;
     int m_at64;                          // +0x64, with +0x68 init()'s loop-buffer count
     int m_sampleCount3D;                          // +0x68
-    char at6C[0x74 - 0x6C];
+    int m_streamCount;
+    char at70[0x74 - 0x70];
     int m_globalMaxRange;
     int m_timeToFadeAudio;                          // +0x78, compared with a loop's +0x30 (0x59CE6)
     int m_ambientStreamHysteresisVolume;
@@ -717,7 +718,9 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_effects_level(
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_occlusion(void *sample3D, float occlusion);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_playback_rate(void *sample);
 typedef void (__stdcall *MilesSampleCallback)(void *sample);
+extern "C" __declspec(dllimport) void * __stdcall AIL_allocate_sample_handle(void *driver);
 extern "C" __declspec(dllimport) void __stdcall AIL_init_sample(void *sample);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_user_data(void *sample, int index, unsigned int value);
 extern "C" __declspec(dllimport) int __stdcall AIL_set_3D_sample_info(void *sample3D, const MilesSoundInfo *info);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_type(void *sample, int format, unsigned int flags);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_address(void *sample, const void *start, unsigned int len);
@@ -8011,7 +8014,23 @@ bool MilesAudioManager::rva000562FA(int key, BfmeEventPositionView *output)
 
 // tu-skeleton: 0x000566B6 144B ?init3DSamplePools@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInit3DSamplePools.cpp (not merged yet)
 
-// tu-skeleton: 0x00056746 127B ?initSamplePools@MilesAudioManager@@AAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInitSamplePools.cpp (not merged yet)
+void MilesAudioManager::initSamplePools(void)
+{
+    // The retail append for these four-byte handles uses list<int> at 0x0005548F.
+    _STL::list<int> &samples = reinterpret_cast<_STL::list<int> &>(m_availableSamples);
+    while (samples.size() < static_cast<unsigned int>(m_audioSettings->m_at64))
+    {
+        register void *sample = AIL_allocate_sample_handle(m_at9DC);
+        if (!sample)
+            break;
+        AIL_init_sample(sample);
+        AIL_set_sample_user_data(sample, 0, static_cast<unsigned int>(samples.size()) + 1);
+        samples.push_back(reinterpret_cast<const int &>(sample));
+        ++m_at67C;
+    }
+
+    m_at68C = m_audioSettings->m_streamCount;
+}
 
 // tu-skeleton: 0x000567C5 47B ?rva000567C5@MilesAudioManager@@QAEXI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerQueueRequest.cpp (not merged yet)
 
