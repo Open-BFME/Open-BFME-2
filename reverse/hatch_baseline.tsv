@@ -617,7 +617,6 @@ address_global	Code/GameEngine/Source/Common/System/GlobalChainCleanup.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DC17CCNames	4
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DC85C4Names	4
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DD263CNames	4
-address_global	Code/GameEngine/Source/Common/System/Rva0005CE32Method.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp	g_Va00BBB8D8	13
 address_global	Code/GameEngine/Source/Common/System/Rva00318ABBFieldParse.cpp	g_Va00E01CF0	2
 address_global	Code/GameEngine/Source/Common/System/Rva00318ABBFieldParse.cpp	g_Va00E01CF4	2
@@ -1006,6 +1005,7 @@ address_global	Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp	g_Rva013
 address_global	Code/GameEngine/Source/GameNetwork/Y4FeslBuddyRequests.cpp	g_Rva012C3BC4	2
 address_global	Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp	g_Va0130A588	5
 address_global	Code/GameEngine/Source/Main/AudioManagerFocusVolume.cpp	g_Va00BBB8D8	2
+address_global	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	g_Va00DE0878	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	g_Va00DE1D00	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	g_Va00DE1D60	2

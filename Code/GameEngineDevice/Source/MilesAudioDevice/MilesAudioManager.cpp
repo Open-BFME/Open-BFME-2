@@ -8562,7 +8562,38 @@ void MilesAudioManager::rva0005CB90(int volumeType, float volume)
 
 // tu-skeleton: 0x0005CD41 241B ?xferUnicodeStringVector@@YAPAVXfer@@PAV1@PAV?$vector@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/Common/System/XferUnicodeStringVector.cpp (not merged yet)
 
-// tu-skeleton: 0x0005CE32 65B ?rva0005CE32@Rva0005CE32@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva0005CE32Method.cpp (not merged yet)
+extern float g_Va00BBB8D8;
+
+namespace _STL
+{
+template <>
+unsigned int _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>,
+    less<AsciiString>, allocator<AsciiString> >::erase(const AsciiString &name);
+}
+
+typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>,
+    _STL::less<AsciiString>, _STL::allocator<AsciiString> > Rva0005CE32Tree;
+
+class Rva0005CE32
+{
+public:
+    void rva0005CE32(const AsciiString &name);
+};
+
+void Rva0005CE32::rva0005CE32(const AsciiString &name)
+{
+    MilesAudioManager::GlobalVolumeData *volume =
+        reinterpret_cast<MilesAudioManager::GlobalVolumeData *>(this);
+    Rva0005CE32Tree *names = reinterpret_cast<Rva0005CE32Tree *>(&volume->m_names);
+    if (names->erase(name) <= 0)
+        return;
+    if (volume->m_at9C == g_Va00BBB8D8)
+        return;
+
+    unsigned int *state = reinterpret_cast<unsigned int *>(volume->atC5 + (0x188 - 0xC5));
+    for (int i = 0; i < 12; ++i)
+        state[i] = 0x02020202;
+}
 
 // tu-skeleton: 0x0005CE73 11B ?rva0005CE73@Rva0005CE73@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE31.cpp (not merged yet)
 
@@ -8581,12 +8612,6 @@ void MilesAudioManager::rva0005CB90(int volumeType, float volume)
 // tu-skeleton: 0x0005DACF 23B ?rva0005DACF@MilesAudioManager@@UAEXABH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp (not merged yet)
 
 // tu-skeleton: 0x0005DAE6 22B ?resumeAudioEvent@MilesAudioManager@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp (not merged yet)
-
-class Rva0005CE32
-{
-public:
-    void rva0005CE32(const AsciiString &name);
-};
 
 void MilesAudioManager::rva0005E168(const AsciiString &name, int index)
 {
