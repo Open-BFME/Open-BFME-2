@@ -4112,7 +4112,15 @@ bool MilesAudioManager::rva0005538C(void)
     }
     return false;
 }
-class Rva0005C892 { public: void rva0005C892(void); };
+class Rva0005C892
+{
+public:
+    void rva0005C892(void);
+
+private:
+    char at00[0x90];
+    float m_vol90;
+};
 // Retail 0x0005DAFC (address-derived): under the mutex, switches the active
 // view type (+0x678) and refreshes the reverb, the microphone and the 0x5C892
 // state; +0x6A5 marks the change.
@@ -8462,7 +8470,12 @@ bool MilesAudioManager::isPlayingLowerPriority(AudioEventRTS *event)
     return false;
 }
 
-// tu-skeleton: 0x0005C892 41B ?rva0005C892@Rva0005C892@@QAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C892.cpp (not merged yet)
+void Rva0005C892::rva0005C892(void)
+{
+    m_vol90 = 0.0f;
+    Rva00052B3D streams;
+    reinterpret_cast<MilesAudioManager *>(this)->processPlayingList(&streams);
+}
 
 // tu-skeleton: 0x0005C8BB 118B ?rva0005C8BB@MilesAudioManager@@UAEXMH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp (not merged yet)
 
