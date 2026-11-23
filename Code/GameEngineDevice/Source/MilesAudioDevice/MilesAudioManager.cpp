@@ -689,6 +689,7 @@ struct AudioSettings {
     float factorsC4[26];                 // +0xC4, one multiplier per room type
     MicrophoneSettings m_microphoneSettings[3]; // +0x12C
 };
+extern "C" __declspec(dllimport) void *__stdcall AIL_open_3D_listener(unsigned int provider);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_room_type(unsigned int provider);
 extern "C" __declspec(dllimport) int __stdcall AIL_sample_playback_rate(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_processor(void *sample, int effect, void *provider);
@@ -7796,7 +7797,14 @@ void MilesAudioManager::rva000530DF()
 
 // tu-skeleton: 0x00053A1F 219B ?rva00053A1F@MilesAudioManager@@QAEMPAX@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerDistanceRva00053A1F.cpp (not merged yet)
 
-// tu-skeleton: 0x00053B63 62B ?createListener@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerCreateListener.cpp (not merged yet)
+void MilesAudioManager::createListener()
+{
+	if (!(rva0005164F(4) && m_selectedProvider < m_providerCount))
+		return;
+
+	m_listener = AIL_open_3D_listener(reinterpret_cast<unsigned int>(m_provider3D[m_selectedProvider].id));
+	m_at6AB = true;
+}
 
 // tu-skeleton: 0x00053CE1 69B ?rva00053CE1@MilesAudioManager@@UAEXMHH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00053CE1.cpp (not merged yet)
 
