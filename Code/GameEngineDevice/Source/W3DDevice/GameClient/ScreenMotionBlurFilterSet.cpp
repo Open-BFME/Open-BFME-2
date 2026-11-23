@@ -17,21 +17,7 @@
 #include "Lib/Coord2D.h"
 #include "Lib/Coord3D.h"
 
-class StringClass {
- char *m_Buffer;
- static char *m_EmptyString; static char m_NullChar;
- void Get_String(int,bool); void Free_String();
-public:
- StringClass(int n=0,bool temp=false):m_Buffer(m_EmptyString) { Get_String(n,temp); m_Buffer[0]=m_NullChar; }
- __forceinline ~StringClass() { Free_String(); }
-};
-class VertexMaterialClass {
-public:
- virtual void Delete_This(); mutable int refs;
- enum PresetType {PRELIT_DIFFUSE};
- static VertexMaterialClass *Get_Preset(PresetType);
- void Release_Ref() { if (!--refs) Delete_This(); }
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 class TextureClass { public: void Release_Ref(); };
 class TextureBaseClass;
 class TextureHandle {
@@ -61,7 +47,7 @@ public:
  }
  // Inline at the setter; the out-of-line body belongs to HeightMap.cpp.
  static __declspec(dllimport) __forceinline void Set_Material(const VertexMaterialClass *vmat) {
-  if(vmat) ++vmat->refs;
+  if(vmat) const_cast<VertexMaterialClass *>(vmat)->Add_Ref();
   if(DX8Wrapper::render_state.material) DX8Wrapper::render_state.material->Release_Ref();
   DX8Wrapper::render_state.material=(VertexMaterialClass *)vmat;
   render_state_changed |= 0x4000;
