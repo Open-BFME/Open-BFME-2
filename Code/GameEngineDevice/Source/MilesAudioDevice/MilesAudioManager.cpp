@@ -7729,7 +7729,20 @@ int MilesAudioManager::rva00052917()
 
 // tu-skeleton: 0x00052F4C 84B ?getGlobalReverbMultiplier@MilesAudioManager@@QAEMXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getGlobalReverbMultiplier.cpp (not merged yet)
 
-// tu-skeleton: 0x000530DF 52B ?rva000530DF@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000530DF.cpp (not merged yet)
+void MilesAudioManager::rva000530DF()
+{
+    // Match the retail guard calls without registering unwind cleanup.
+    union
+    {
+        char bytes[sizeof(MilesMutexGuard)];
+        void *alignment;
+    } storage;
+    MilesMutexGuard *guard = reinterpret_cast<MilesMutexGuard *>(storage.bytes);
+    guard->MilesMutexGuard::MilesMutexGuard(&m_mutex, 0);
+    m_reverbRoomType = 0;
+    internalSetReverbRoomType(0);
+    guard->~MilesMutexGuard();
+}
 
 // tu-skeleton: 0x000531F6 25B ?rva000531F6@MilesAudioManager@@UAE_NXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp (not merged yet)
 
