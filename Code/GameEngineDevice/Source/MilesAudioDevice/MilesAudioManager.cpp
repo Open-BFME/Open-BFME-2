@@ -692,6 +692,7 @@ struct AudioSettings {
 };
 extern "C" __declspec(dllimport) void *__stdcall AIL_open_3D_listener(unsigned int provider);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_room_type(unsigned int provider);
+extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_3D_providers(void **next, void **provider, char **name);
 extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_filters(void **next, void **provider, char **name);
 extern "C" __declspec(dllimport) int __stdcall AIL_sample_playback_rate(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_processor(void *sample, int effect, void *provider);
@@ -1232,6 +1233,7 @@ public:
 
 private:
     // Provider teardown at 0x00053352 and selection at 0x000604A3.
+    void buildProviderList(void);
     void unselectProvider(void);
     void selectProvider(bool accelerated);
 public:
@@ -7645,7 +7647,20 @@ void MilesAudioManager::rva0005168C(unsigned char val, unsigned char flags)
 
 // tu-skeleton: 0x000516EF 85B ?rva000516EF@MilesAudioManager@@UAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp (not merged yet)
 
-// tu-skeleton: 0x00051744 73B ?buildProviderList@MilesAudioManager@@AAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerBuildProviderList.cpp (not merged yet)
+void MilesAudioManager::buildProviderList(void)
+{
+	void *next = 0;
+	char *name;
+	unsigned int index = 0;
+
+	while (index < sizeof(m_provider3D) / sizeof(m_provider3D[0]) && AIL_enumerate_3D_providers(
+		&next, &m_provider3D[index].id, &name)) {
+		m_provider3D[index].name.set(name);
+		++index;
+	}
+
+	m_providerCount = index;
+}
 
 void MilesAudioManager::initDelayFilter(void)
 {
