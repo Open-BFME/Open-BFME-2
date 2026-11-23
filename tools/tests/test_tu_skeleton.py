@@ -4046,15 +4046,46 @@ class MapGuardOnEveryDeletingPathTests(unittest.TestCase):
                     self.assertIn("this move would cost the map approvals", report["blocked"])
                     write.assert_not_called()
 
-    def merge_with_applier(self, deletes_donor, why="lost approval", dry_run=False):
+    def merge_with_applier(self, deletes_donor, why="lost approval", dry_run=False, guard=None, verifier=None):
         don = {self.TU: [{"target_rva": "0x00001000"}], self.DONOR: [{"target_rva": "0x00001010"}]}
         applied = []
-        with patch.object(T, "Verifier", self.Verifier), \
+        with patch.object(T, "Verifier", verifier or self.Verifier), \
                 patch.object(T, "map_regressions", return_value=why) as check:
             out = T._merge(self.TU, [], don, {"accepted": [], "rejected": {}}, dry_run, texts={f: "x" for f in don},
-                           applier=lambda tu, acc, text: applied.append(acc) or {}, guard=self.Guard(),
+                           applier=lambda tu, acc, text: applied.append(acc) or {}, guard=guard or self.Guard(),
                            fixed_text="prepared", deletes_donor=deletes_donor)
         return out, check, applied
+
+    def test_prepared_text_checks_the_link_with_the_donor_replaced(self):
+        files = [self.TU, self.DONOR]
+        guard = self.Guard()
+        with patch.object(guard, "judge", side_effect=lambda obj, group, text:
+                          [] if group == files else ["duplicate donor definition"]) as judge:
+            out, check, applied = self.merge_with_applier(True, why=None, guard=guard)
+        self.assertNotIn("blocked", out)
+        self.assertTrue(judge.call_args_list)
+        self.assertTrue(all(call.args[1] == files for call in judge.call_args_list))
+        check.assert_called_once_with(self.TU, files)
+        self.assertEqual(applied, [files])
+
+    def test_prepared_text_cannot_fall_back_to_a_subset(self):
+        guard = self.Guard()
+        with patch.object(guard, "judge", side_effect=lambda obj, group, text:
+                          ["lost link provider"] if self.DONOR in group else []):
+            out, check, applied = self.merge_with_applier(True, why=None, guard=guard)
+        self.assertIn("lost link provider", out["blocked"])
+        check.assert_not_called()
+        self.assertEqual(applied, [])
+
+    def test_prepared_text_must_match_every_moved_row(self):
+        class MissingDonorRow(self.Verifier):
+            def matched(self, text, rows):
+                return super().matched(text, rows) - {"0x00001010"}
+
+        out, check, applied = self.merge_with_applier(True, why=None, verifier=MissingDonorRow)
+        self.assertIn("bytes", out["blocked"])
+        check.assert_not_called()
+        self.assertEqual(applied, [])
 
     def test_only_an_applier_that_deletes_its_donors_is_judged(self):
         for dry_run in (True, False):

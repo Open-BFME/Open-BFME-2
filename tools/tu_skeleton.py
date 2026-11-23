@@ -3354,8 +3354,8 @@ def view_hint(report, tu, don):
 @compiler_receipt
 def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None, deletes_donor=False,
            moved_rows=None, provider=None):
-    """... `fixed_text`: the TU's final text is given (a split's --prepared), never composed:
-    every accepted set is judged in it, under the same verifier, guard and applier.
+    """... `fixed_text`: the TU's final text is given (a split's --prepared), never composed.
+    Its complete file set is verified and applied together.
     `deletes_donor`: `applier` deletes the accepted donors as a merge does (a prepared split's
     absorb), so the map is judged as for a merge (map_regressions). `moved_rows` {file: rvas}: what an
     `applier` that leaves its file in place moves, judged row by row."""
@@ -3392,7 +3392,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
     # A flag override travels with its donor (carry()): the merge is verified under its
     # flags, the TU's when the TU has one, else the most rows'; a donor overridden with
     # other flags stays out (split path: the carve keeps its own flag handling).
-    ov = {} if applier else {f: e for f in don if (e := v.fd.overrides().get(f))}
+    ov = {} if applier or fixed_text is not None else {f: e for f in don if (e := v.fd.overrides().get(f))}
     if ov:
         weight = collections.Counter()
         for e in ov.values():
@@ -3405,6 +3405,11 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         ov = {f: e for f, e in ov.items() if f in don}
     base, baseline_errors = {}, {}
     for f in don:
+        if fixed_text is not None and f != tu:
+            # The prepared text contains every moved body. Require each row in the
+            # combined compile, with both the seed and donor rows selecting flags.
+            base[f] = {r["target_rva"] for r in don[f]}
+            continue
         got = v.matched(texts[f], don[f])
         base[f] = got or set()
         if got is None:
@@ -3677,8 +3682,21 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         seed_set = stl_static([x for x in own if not x.lower().startswith(("/i", "-i"))
                                and not v.fd.MANAGED.match(x.replace("/", "-", 1) if x.startswith("/") else x)] + incs)
         first_sets = [seed_set] + [f for f in first_sets if f != seed_set]
-    trial(first_sets)
-    if best is None and tu in good:
+    if fixed_text is not None:
+        # Probing the seed alone leaves the original donor in the link beside
+        # definitions that the prepared text already moved out of it.
+        files = ([tu] if tu in don else []) + [f for f in don if f != tu]
+        flags = flags_of(fixed_text)
+        res, errors = tried_attempt(files, flags)
+        if res in ("compile", "bytes", "link"):
+            reason = reject_reason(res, errors, files, files[-1], flags)
+            report["rejected"][files[-1]] = reason
+            report["blocked"] = f"the prepared split failed verification: {reason[:300]}"
+            return report
+        best = (sum(len(base[f]) for f in files), files, {}, flags)
+    else:
+        trial(first_sets)
+    if fixed_text is None and best is None and tu in good:
         # The popular flag sets are a donor majority's, and a donor's include dir
         # (a shim such as bfmealloc, which needs /D_STLP_USE_STATIC_LIB) can break
         # a seed whose flags lack what that shim expects. Try the seed's own flags
