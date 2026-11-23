@@ -4620,12 +4620,12 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
         return report
     donor_text, residual = cv.donor, cv.residual
     report.update(copies=[head_names(spans[i][2]) for i in cv.copies], data_moved=cv.data_moved, externs=cv.externs)
-    moved_hatches = (hatch_move(path, text, residual, tu, donor_text) if prepared is None
-                     else prepared_hatches(path, text, residual, tu, prepared))
-    if moved_hatches is None:
-        report["blocked"] = "an escape-hatch count would grow (hatch_counters rule 3): a copied helper or datum carries one"
-        return report
-    report["hatches_move"] = bool(moved_hatches)
+    if prepared is None:
+        moved_hatches = hatch_move(path, text, residual, tu, donor_text)
+        if moved_hatches is None:
+            report["blocked"] = "an escape-hatch count would grow (hatch_counters rule 3): a copied helper or datum carries one"
+            return report
+        report["hatches_move"] = bool(moved_hatches)
     donor_text = relocate_includes(donor_text, posixpath.dirname(path), posixpath.dirname(tu))
     # the residual first: it is the cheaper compile and the commoner failure
     v = Verifier(path)
@@ -4746,6 +4746,12 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
     # a prepared text is the TU's final text: the carved rows are judged in it, not appended
     texts = {path: donor_text if prepared is None else prepared}
     whole = prepared is not None and not keep          # nothing stays: the donor is absorbed
+    if prepared is not None:
+        moved_hatches = prepared_hatches(path, text, "" if whole else residual, tu, prepared)
+        if moved_hatches is None:
+            report["blocked"] = "an escape-hatch count would grow (hatch_counters rule 3): a copied helper or datum carries one"
+            return report
+        report["hatches_move"] = bool(moved_hatches)
     inputs = merge_plan_inputs(sk, don, texts, {"residual": residual,
                               "data_moved": cv.data_moved, "hatches_move": report["hatches_move"]})
     guard = (LinkGuard(tu) if whole else

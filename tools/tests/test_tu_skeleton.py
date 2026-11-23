@@ -3110,7 +3110,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, cache, clear=True), \
                 patch.object(T, "refusal", return_value=None), patch.object(T, "included_by", return_value=[]), \
                 patch.object(T, "data_rowed_idents", return_value=set()), patch.object(T, "debt_keys", return_value=set()), \
-                patch.object(T, "hatch_move", return_value={}), patch.object(T, "prepared_hatches", return_value={}), \
+                patch.object(T, "hatch_move", return_value={}), \
                 patch.object(T, "skeleton", return_value=[]), patch.object(T, "Verifier", Verifier), \
                 patch.object(T, "SplitLinkGuard"), patch.object(T, "LinkGuard"), \
                 patch.object(T, "vtable_symbols", side_effect=vtables), patch.object(T, "_merge", side_effect=merge), \
@@ -3141,6 +3141,33 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         report, seen = self.split(dtor=False)
         self.assertNotIn("blocked", report)
         self.assertEqual(seen["applier"].__name__, "absorb")
+
+    def test_prepared_split_counts_the_residual_only_when_the_donor_stays(self):
+        prepared = "extern float g_Va00BBB8D8;\nvoid move() { (void)g_Va00BBB8D8; }\n"
+        # An unresolved include prevents the carve from proving the residual extern unused.
+        donor = '#include "unknown-fixture.h"\n' + prepared + "void stay() {}\n"
+        (self.root / self.SOURCE).write_bytes(donor.encode("ascii"))
+        for dtor in (False, True):
+            with self.subTest(dtor=dtor):
+                report, seen = self.split(prepared=prepared, dtor=dtor)
+                self.assertNotIn("blocked", report)
+                self.assertIs(report["hatches_move"], True)
+                self.assertIs(seen["deletes_donor"], True)
+                self.assertEqual(report.get("riders", []), ["0x7000"] if dtor else [])
+
+        report, seen = self.split(prepared=prepared, stay=True)
+        self.assertIn("escape-hatch count would grow", report["blocked"])
+        self.assertFalse(seen)
+
+    def test_prepared_whole_donor_still_refuses_growth_of_any_protected_token(self):
+        before = "extern float g_Va00BBB8D8;\nvoid move() { (void)g_Va00BBB8D8; }\n"
+        (self.root / self.SOURCE).write_bytes(before.encode("ascii"))
+        for prepared in (before + "extern float g_Va00BBB8D8;\n",
+                         before.replace("g_Va00BBB8D8", "g_Va00BBB8DC")):
+            with self.subTest(prepared=prepared):
+                report, seen = self.split(prepared=prepared, dtor=False)
+                self.assertIn("escape-hatch count would grow", report["blocked"])
+                self.assertFalse(seen)
 
     def test_a_partial_split_with_a_prepared_text_keeps_the_split_applier(self):
         report, seen = self.split(stay=True)
