@@ -8325,9 +8325,24 @@ void MilesAudioManager::rva000581FA(const Rva0005BA08InfoRef &info, int type)
 
 // tu-skeleton: 0x00059A13 18B ??0Rva00059A13@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00059A13.cpp (not merged yet)
 
-// tu-skeleton: 0x00059A25 87B ?rva00059A25@MilesAudioManager@@UAEXABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00059A25Method.cpp (not merged yet)
+class Rva000591A3
+{
+public:
+    void rva000591A3(const AsciiString &name);
+    void rva000591EF(void);
+};
 
-// tu-skeleton: 0x00059A7C 84B ?rva00059A7C@MilesAudioManager@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00059A25Method.cpp (not merged yet)
+void MilesAudioManager::rva00059A25(const AsciiString &name, int index)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    reinterpret_cast<Rva000591A3 *>(&m_volumeData[index])->rva000591A3(name);
+}
+
+void MilesAudioManager::rva00059A7C(int index)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    reinterpret_cast<Rva000591A3 *>(&m_volumeData[index])->rva000591EF();
+}
 
 // tu-skeleton: 0x00059AD0 534B ?rva00059AD0@MilesAudioManager@@QAEMPAXH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerScaledValue.cpp (not merged yet)
 
@@ -8706,10 +8721,6 @@ void MilesAudioManager::openDevice(void)
 // tu-skeleton: 0x0075D834 11B uw_0075d834 -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva000532B7EventXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D83F 10B __ehhandler$?rva000532B7@MilesAudioManager@@QAEHPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva000532B7EventXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D849 8B $L342 -- matched in Code/GameEngine/Source/Common/Rva00059A25Method.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D851 10B __ehhandler$?rva00059A25@MilesAudioManager@@UAEXABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00059A25Method.cpp (not merged yet)
 
 // tu-skeleton: 0x0075D875 8B $L459 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_aux.cpp (not merged yet)
 
