@@ -7571,9 +7571,21 @@ void Rva00053D89::clear()
 
 // tu-skeleton: 0x000514E4 7B ?inc@Rva000514E4DwordCounter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordFieldIncDec.cpp (not merged yet)
 
-// tu-skeleton: 0x000514EB 16B ?notifyOf2DSampleCompletion@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/MilesAudioManager.cpp (not merged yet)
+void MilesAudioManager::notifyOf2DSampleCompletion()
+{
+	unsigned *p = (unsigned *)((char *)this + 0x684);
+	if (*p <= 0u)
+		return;
+	--(*p);
+}
 
-// tu-skeleton: 0x000514FB 16B ?notifyOf3DSampleCompletion@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/MilesAudioManager.cpp (not merged yet)
+void MilesAudioManager::notifyOf3DSampleCompletion()
+{
+	unsigned *p = (unsigned *)((char *)this + 0x688);
+	if (*p <= 0u)
+		return;
+	--(*p);
+}
 
 // tu-skeleton: 0x0005150B 13B ?rva0005150B@Rva0005150B@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE25.cpp (not merged yet)
 
