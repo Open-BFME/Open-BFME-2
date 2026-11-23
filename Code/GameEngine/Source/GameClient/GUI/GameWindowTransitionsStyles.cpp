@@ -182,32 +182,7 @@ public:
 	Real m_percent;			// +0x28
 	Int m_drawState;		// +0x2c
 };
-#include "../../../Include/GameClient/WinDrawData.h"
-class WinInstanceData
-{
-public:
-	unsigned char m_unreconstructed_000[0x18];
-	WinDrawData m_enabledDrawData[9]; // retail this+0x18
-	unsigned char m_unreconstructed_084[0xF8];
-	ICoord2D m_imageOffset; // retail this+0x17c
-};
-class GameWindow
-{
-public:
-	int winGetSize(int *width, int *height);
-	int winSetEnabledImage(int index, const Image *image);
-	int winGetScreenPosition(int *x, int *y);
-	int winHide(bool hide);
-	bool winIsHidden(void);
-	WinInstanceData *winGetInstanceData(void);
-	const Image *winGetEnabledImage(int index)
-	{
-		return m_instData.m_enabledDrawData[index].image;
-	}
-private:
-	unsigned char m_unreconstructed_00[0x30]; // +0x00
-	WinInstanceData m_instData; // +0x30 retail this+0x30
-};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class TextOnFrameTransition : public Rva001DBAA4
 {
 public:
@@ -1547,17 +1522,17 @@ Rva0035E00F::Rva0035E00F()
 
 inline const Image *GadgetButtonGetLeftEnabledImage(GameWindow *window)
 {
-	return window->winGetEnabledImage(0);
+	return window->m_instData.m_enabledDrawData[0].image;
 }
 
 inline const Image *GadgetButtonGetMiddleEnabledImage(GameWindow *window)
 {
-	return window->winGetEnabledImage(5);
+	return window->m_instData.m_enabledDrawData[5].image;
 }
 
 inline const Image *GadgetButtonGetRightEnabledImage(GameWindow *window)
 {
-	return window->winGetEnabledImage(6);
+	return window->m_instData.m_enabledDrawData[6].image;
 }
 
 void ButtonFlashTransition::update(Int frame)
@@ -1774,8 +1749,9 @@ void ButtonFlashTransition::update(Int frame)
 		window->winGetScreenPosition(&origin.x, &origin.y);
 		window->winGetSize(&size.x, &size.y);
 
-		xOffset = instData->m_imageOffset.x;
-		yOffset = instData->m_imageOffset.y;
+		// The transition draw reads the image offset pair at +0x17C.
+		xOffset = *reinterpret_cast<const Int *>(&instData->m_opaque17C[0]);
+		yOffset = *reinterpret_cast<const Int *>(&instData->m_opaque17C[sizeof(Int)]);
 
 		leftImage = GadgetButtonGetLeftEnabledImage(window);
 		rightImage = GadgetButtonGetRightEnabledImage(window);
