@@ -55,3 +55,16 @@ OwnedPointerResets now refers to the cleanup by RVA. The source marker and
 link census retain the retired path for provenance. The fresh in-memory TU
 plan supplied the move approval, and the committed map was only repointed.
 The merge link guard used the older census index.
+
+2026-11-23 (LatchRestore consolidation)
+The official TU tool moved the LatchRestore<bool> constructor and both
+destructors from LatchRestoreCtor.cpp into MilesAudioManager.cpp. The native
+bodies and the four-byte vtable preserve all payload bytes and relocations.
+The destination passed 426 function rows, one data row and 80 EXACT EH
+records. Approval came from the fresh in-memory plan.
+
+The outgoing audit after 63fa17fe899 covers the template alignment and move.
+The tool repointed the single Doxygen source entry. The source marker and
+old census record retain the original path. No live include, build or tooling
+consumer references the retired file. The link guard used the older census
+index.

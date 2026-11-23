@@ -3004,10 +3004,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000519BD,25,code,Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/BfmePoolRef10.cpp noncontiguous,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x000519D6,9,code,,,-,,Code/GameEngine/Source/Common/Disp8SubImm32DwordFieldGetters.cpp
 0x000519DF,29,code,,,-,,Code/GameEngine/Source/Common/Rva000519DF.cpp
-0x000519FC,31,code,,,-,,Code/GameEngine/Source/Common/System/SaveGame/LatchRestoreCtor.cpp
-0x00051A1B,15,code,,,-,,Code/GameEngine/Source/Common/System/SaveGame/LatchRestoreCtor.cpp
+0x000519FC,31,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+0x00051A1B,15,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051A2A,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp
-0x00051A46,37,code,,,-,,Code/GameEngine/Source/Common/System/SaveGame/LatchRestoreCtor.cpp
+0x00051A46,37,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051A6B,14,code,,,-,,Code/GameEngine/Source/Common/Disp8DivMovDwordGetters.cpp
 0x00051A79,31,code,,,-,,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00051A98,43,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp
