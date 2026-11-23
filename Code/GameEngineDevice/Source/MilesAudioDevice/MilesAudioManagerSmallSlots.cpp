@@ -2,9 +2,9 @@
 // platformsdk
 //
 // Small MilesAudioManager vtable slots (vtable VA 0x00BC55B0, which also holds
-// stopAudio and the rows of MilesAudioManagerRva0005168C.cpp) that had no
-// ledger owner. Byte fields +0x69E..+0x6A2 are the ones that sibling's setter
-// stores under the same flag bits; the getter here reads them back.
+// stopAudio and the setter at 0x0005168C) that had no ledger owner.
+// The getter reads back the byte fields at +0x69E..+0x6A2 that the setter
+// writes under the same flag bits.
 //
 // The two AIL preference updates and the AIL_serve slot are the BFME2 copies
 // of Open-BFME-1's Rva006962A0PreferenceProduct.cpp bodies (donor source,

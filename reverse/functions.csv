@@ -26210,7 +26210,7 @@ _FreeGame,,0x00606EE0,101,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gsta
 ?Rva00326DE9Disable@@YAXPAVGameWindow@@@Z,,0x00326DE9,56,Code/GameEngine/Source/GameClient/GUI/GadgetListBoxDisableInput.cpp,matched,listbox teardown frees array restores input func
 ??$__copy@PAVRva00403927@@PAV1@H@_STL@@YAPAVRva00403927@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x004039E0,50,Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp,matched,unlock via rowed operator= 0x00403927 idiv stride 0x14
 ??$copy@PAVRva00403927@@PAV1@@_STL@@YAPAVRva00403927@@PAV1@00@Z,,0x00403BD2,29,Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp,matched,chain via rowed __copy 0x004039E0 tag plus NULL
-?rva0005168C@MilesAudioManager@@UAEXEE@Z,,0x0005168C,99,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp,matched,guarded flag gated byte stores
+?rva0005168C@MilesAudioManager@@UAEXEE@Z,,0x0005168C,99,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,guarded flag gated byte stores
 ?rva006F6AC0@Rva006F6AC0@@QAEXHPAPAX0@Z,,0x006F6AC0,188,Code/Libraries/Source/Apt/AptDisplayList.cpp,matched,AptDisplayList depth lookup ppPrev ppItem nDepth
 ?DisplayListItem@AptDisplayListState@@QAEXPAX@Z,,0x006F6D30,45,Code/Libraries/Source/Apt/AptDisplayList.cpp,matched,GC mark walk next 0x54 triple get setGCMark slot34
 ?updateVotes@DisconnectMenu@@QAEXHH@Z,,0x0051318E,140,Code/GameEngine/Source/GameClient/GUI/DisconnectMenu/DisconnectMenu.cpp,matched,DisconnectMenu::updateVotes: votes update via Apt format and bfmeSetText; callers load TheDisconnectMenu 0x00E048D0 into ecx (ZH donor updateVotes slot votes); was Rva0051318ESet

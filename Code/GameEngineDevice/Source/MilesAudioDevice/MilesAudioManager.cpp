@@ -1265,7 +1265,8 @@ private:
     unsigned int m_musicPausedViewTypes;                // +0x694, view types whose music is paused for affect bit 0x20 (0x583BA)
     unsigned int m_at698;                // +0x698, per-view-type bits processAudioCompletion clears
     unsigned short m_maxAmbientStreams;  // +0x69C
-    bool m_at69E, m_at69F, m_at6A0, m_at6A1, m_at6A2, m_at6A3;
+    unsigned char m_at69E, m_at69F, m_at6A0, m_at6A1, m_at6A2; // Written as bytes by rva0005168C.
+    bool m_at6A3;
     bool m_at6A4;                        // +0x6A4
     bool m_viewTypeChanged;                        // +0x6A5, marks a view-type change (0x5DAFC, xfer)
     bool m_forceHeadphones;             // +0x6A6, provider speaker override
@@ -7613,7 +7614,20 @@ void MilesAudioManager::notifyOf3DSampleCompletion()
 
 // tu-skeleton: 0x0005164F 61B ?rva0005164F@MilesAudioManager@@UAEEE@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x0005168C 99B ?rva0005168C@MilesAudioManager@@UAEXEE@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp (not merged yet)
+void MilesAudioManager::rva0005168C(unsigned char val, unsigned char flags)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    if (flags & 1)
+        m_at6A1 = val;
+    if (flags & 0x10)
+        m_at6A2 = val;
+    if (flags & 2)
+        m_at69F = val;
+    if (flags & 4)
+        m_at6A0 = val;
+    if (flags & 8)
+        m_at69E = val;
+}
 
 // tu-skeleton: 0x000516EF 85B ?rva000516EF@MilesAudioManager@@UAE_NPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp (not merged yet)
 
