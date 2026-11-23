@@ -43167,7 +43167,7 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?Rva00339A13_ParseUpgradeKeyList@INI@@SAXPAV1@PAX1PBX@Z,,0x00339A13,93,Code/GameEngine/Source/Common/INI/INIUpgradeListParsers.cpp,matched,address-derived FieldParse; calls rowed nameToKey 0x00148E1A and findUpgradeByKey 0x0026EEB8; retail throw-info 0x00CFEEE4 passed to _CxxThrowException 0x00629094
 ?Rva005CE3F9Create@@YA?AVRva005CE3F9@@PBUPayload@Rva005CE327@@@Z,,0x005CE3F9,50,Code/GameEngine/Source/Common/Rva005CE3F9Create.cpp,matched,
 ?Rva005CE2A1Create@@YA?AVRva005CE2A1@@PBUPayload@Rva005CE259@@@Z,,0x005CE2A1,50,Code/GameEngine/Source/Common/Rva005CE2A1Create.cpp,matched,address-derived creator; target calls 0x005CE259 then stores and increments refcount; asm only for retail temp clear
-?rva0005F279@Rva0005F279Host@@QAEXXZ,,0x0005F279,66,Code/GameEngine/Source/Common/Rva0005F279Bodies.cpp,matched,dump range 1 stride-0x48 loop via pinned element test and host process; recomputed element twice
+?rva0005F279@Rva0005F279Host@@QAEXXZ,,0x0005F279,66,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,dump range 1 stride-0x48 loop via pinned element test and host process; recomputed element twice
 ?rva0007E90E@Rva0007E90EHost@@QAEXH@Z,,0x0007E90E,68,Code/GameEngine/Source/Common/Rva0007E90EBodies.cpp,matched,dump range 1 marker loop via pinned 0xFF5E6 plus rowed release; flag 0xA0
 ?rva000C144A@W3DScriptedModelDraw@@QAEHXZ,,0x000C144A,35,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
 ?getPlayingAnimationNameKey@W3DScriptedModelDraw@@QAEPAXH@Z,,0x000C14BD,56,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,

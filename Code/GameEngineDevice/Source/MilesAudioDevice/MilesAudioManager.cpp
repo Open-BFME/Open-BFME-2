@@ -889,7 +889,13 @@ public:
 };
 #include "../../Include/Rva001F8437.h"
 // Rowed at 0x0005F279 under its address-derived host.
-class Rva0005F279Host { public: void rva0005F279(void); };
+class Rva0005F279Host {
+public:
+    void rva0005F279(void);
+    unsigned char m_pad[0xBD4];
+    void *m_base;
+    int m_count;
+};
 // MilesAudioManager's primary base: the vftable at +0x00 starts with the
 // scalar deleting destructor (0x00061AA1), and the Snapshot subobject sits at
 // +0x0C (its vftable holds the 0x0005D41D destructor thunk, loadPostProcess
@@ -8367,7 +8373,19 @@ bool MilesAudioManager::isPlayingLowerPriority(AudioEventRTS *event)
 
 // tu-skeleton: 0x0005E959 53B ?createAudioManager@Win32GameEngine@@UAEPAXXZ -- matched in Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp (not merged yet)
 
-// tu-skeleton: 0x0005F279 66B ?rva0005F279@Rva0005F279Host@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0005F279Bodies.cpp (not merged yet)
+void Rva0005F279Host::rva0005F279()
+{
+	int i = 0;
+	int off = 0;
+	if (m_count <= 0)
+		return;
+	do {
+		if (((Rva0005F279Elem *)((char *)m_base + off))->rva0005106A())
+			((MilesAudioManager *)this)->cleanUpLoopBuffer((MilesAudioManager::LoopBuffer *)((char *)m_base + off));
+		++i;
+		off += 0x48;
+	} while (i < m_count);
+}
 
 // tu-skeleton: 0x000615DA 166B ?killAudioEventImmediately@MilesAudioManager@@UAE_NI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp (not merged yet)
 
