@@ -7717,7 +7717,13 @@ template class LatchRestore<bool>;
 
 // tu-skeleton: 0x00052857 19B ?rva00052857@Rva00052857@@QBEIPBUGapFlagsOwner@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE25.cpp (not merged yet)
 
-// tu-skeleton: 0x00052917 51B ?rva00052917@MilesAudioManager@@UAEHXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00052917.cpp (not merged yet)
+int MilesAudioManager::rva00052917()
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    const unsigned int handle = m_nextHandle;
+    m_nextHandle = handle + 1;
+    return static_cast<int>(handle);
+}
 
 // tu-skeleton: 0x0005294A 499B ?getScreenToTerrainPositions@MilesAudioManager@@UAEXPAVScreenToTerrainSet@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getScreenToTerrainPositions.cpp (not merged yet)
 
