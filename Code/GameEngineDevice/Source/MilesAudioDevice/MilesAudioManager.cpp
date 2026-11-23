@@ -7846,7 +7846,13 @@ template class LatchRestore<bool>;
 
 // tu-skeleton: 0x0005276C 16B ??1ScreenToTerrainSet@@QAE@XZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioArray0005276C.cpp (not merged yet)
 
-// tu-skeleton: 0x000527C7 27B ?deleteAudioRequest@MilesAudioManager@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_deleteAudioRequest.cpp (not merged yet)
+void MilesAudioManager::deleteAudioRequest(void *request)
+{
+    if (request) {
+        static_cast<Rva00A86CE *>(request)->Rva00A86CE::~Rva00A86CE();
+        ::operator delete(request);
+    }
+}
 
 // tu-skeleton: 0x000527E2 25B ?rva000527E2@MilesAudioManager@@UAE_NPBURva000527E2Event@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp (not merged yet)
 
