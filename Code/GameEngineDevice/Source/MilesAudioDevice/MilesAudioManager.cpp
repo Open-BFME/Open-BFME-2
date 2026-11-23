@@ -55,6 +55,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <vector>
 #include <limits>
 #undef free
+#include <string.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
@@ -691,6 +692,7 @@ struct AudioSettings {
 };
 extern "C" __declspec(dllimport) void *__stdcall AIL_open_3D_listener(unsigned int provider);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_room_type(unsigned int provider);
+extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_filters(void **next, void **provider, char **name);
 extern "C" __declspec(dllimport) int __stdcall AIL_sample_playback_rate(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_processor(void *sample, int effect, void *provider);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_filter_sample_preference(void *sample, const char *name, float *value);
@@ -1231,6 +1233,7 @@ public:
     void init3DSamplePools();
     void createListener();
 protected:
+    void initDelayFilter(void);
     virtual void loadPostProcess(void);
 public:
     virtual void xfer(Xfer *transfer);
@@ -7638,7 +7641,23 @@ void MilesAudioManager::rva0005168C(unsigned char val, unsigned char flags)
 
 // tu-skeleton: 0x00051744 73B ?buildProviderList@MilesAudioManager@@AAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerBuildProviderList.cpp (not merged yet)
 
-// tu-skeleton: 0x0005178D 83B ?initDelayFilter@MilesAudioManager@@IAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_initDelayFilter.cpp (not merged yet)
+void MilesAudioManager::initDelayFilter(void)
+{
+	if (m_at9E4 != 0) {
+		return;
+	}
+
+	char *filterName;
+	void *enumFLTs = 0;
+	void *currentProvider;
+
+	while (AIL_enumerate_filters(&enumFLTs, &currentProvider, &filterName)) {
+		if (strcmp(filterName, "Mono Delay Filter") == 0) {
+			m_at9E4 = reinterpret_cast<int>(currentProvider);
+			break;
+		}
+	}
+}
 
 // tu-skeleton: 0x000517E0 17B ?rva000517E0@Rva000517E0@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE25.cpp (not merged yet)
 
