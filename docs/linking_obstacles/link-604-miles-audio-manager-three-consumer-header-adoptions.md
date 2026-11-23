@@ -75,3 +75,14 @@ The reset's exact EH graph places its compiler-emitted rollback at
 are retired. The update rollback at `0x0075E4D4` has equivalent placement
 evidence and retains its matched data row while the data verifier refuses its
 compiler-local symbol. [Guard ownership and verifier evidence](../../reverse/attempt_support/miles-static-guard-ownership-20261123.md)
+
+2026-11-23 (room-type multiplier move)
+The approved device TU, `MilesAudioManager.cpp`, now owns the multiplier at
+`0x00052F4C`. The original header-adoption entry above records the retired
+donor. The destination uses the 26-float table at offset `0xC4` established
+by the native settings constructor at `0x00041589`.
+
+The native build verified 432 functions and one data row. The moved function
+preserved all 84 bytes and all three relocations, including the Miles import
+and both float constants. The path audit found no active source, build, or
+tooling consumer of the retired file.

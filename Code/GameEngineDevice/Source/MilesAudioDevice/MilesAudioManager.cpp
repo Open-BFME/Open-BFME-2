@@ -685,9 +685,10 @@ struct AudioSettings {
     bool m_disableOcclusion;                         // +0xBC, disables occlusion
     char atBD[0xC0 - 0xBD];
     float m_occlusionFloor;                        // +0xC0, occlusion floor
-    char atC4[0x12C - 0xC4];
+    float factorsC4[26];                 // +0xC4, one multiplier per room type
     MicrophoneSettings m_microphoneSettings[3]; // +0x12C
 };
+extern "C" __declspec(dllimport) int __stdcall AIL_3D_room_type(unsigned int provider);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void *sample, float maxDistance, float minDistance);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_position(void *sample, float x, float y, float z);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_orientation(void *obj, float xFace, float yFace, float zFace, float xUp, float yUp, float zUp);
@@ -7727,7 +7728,20 @@ int MilesAudioManager::rva00052917()
 
 // tu-skeleton: 0x0005294A 499B ?getScreenToTerrainPositions@MilesAudioManager@@UAEXPAVScreenToTerrainSet@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getScreenToTerrainPositions.cpp (not merged yet)
 
-// tu-skeleton: 0x00052F4C 84B ?getGlobalReverbMultiplier@MilesAudioManager@@QAEMXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getGlobalReverbMultiplier.cpp (not merged yet)
+float MilesAudioManager::getGlobalReverbMultiplier()
+{
+	unsigned int sel = m_selectedProvider;
+	if (sel >= m_providerCount)
+		return 0.0f;
+	int room = AIL_3D_room_type(reinterpret_cast<unsigned int>(m_provider3D[sel].id));
+	if (m_at6A7 && room != -1)
+	{
+		if (room < 0 || (unsigned int)room >= 26)
+			return 1.0f;
+		return m_audioSettings->factorsC4[room];
+	}
+	return 0.0f;
+}
 
 void MilesAudioManager::rva000530DF()
 {
