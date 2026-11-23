@@ -1109,6 +1109,7 @@ public:
     float rva00059AD0(void *event, int a);
     void unmapPhysicalHandle(unsigned int handle);  // WorldBuilder name (0x000578B3)
     void mapLogicalHandleToPhysicalHandle(unsigned int logical, unsigned int physical);
+    void rva000567C5(unsigned int value);
     void rva00057948(const void *input);
     void rva000577E3(unsigned int affect, unsigned int viewMask, bool value);
     // Ledger rows name it (refreshAll/rva00052048 share its this).
@@ -8058,7 +8059,15 @@ void MilesAudioManager::initSamplePools(void)
     m_at68C = m_audioSettings->m_streamCount;
 }
 
-// tu-skeleton: 0x000567C5 47B ?rva000567C5@MilesAudioManager@@QAEXI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerQueueRequest.cpp (not merged yet)
+void MilesAudioManager::rva000567C5(unsigned int value)
+{
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_at08 = value;
+    request->m_request = 1;
+    // The retail append for these four-byte pointers uses list<int> at 0x0005548F.
+    reinterpret_cast<_STL::list<int> &>(m_audioRequests).push_back(
+        reinterpret_cast<const int &>(request));
+}
 
 // tu-skeleton: 0x00056AC6 5B ??1?$list@UOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_opaqueref_erase.cpp (not merged yet)
 
@@ -8116,7 +8125,21 @@ void MilesAudioManager::initSamplePools(void)
 
 // tu-skeleton: 0x000575CE 385B ?rva000575CE@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp (not merged yet)
 
-// tu-skeleton: 0x00057787 92B ?rva00057787@MilesAudioManager@@UAEXI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerQueueRequest.cpp (not merged yet)
+void MilesAudioManager::rva00057787(unsigned int id)
+{
+    if (id < 5)
+        return;
+
+    MilesKeyAliases::iterator it = m_handleAliases.find(id);
+    if (it == m_handleAliases.end()) {
+        rva000567C5(id);
+        return;
+    }
+    do {
+        rva000567C5(it->second);
+        ++it;
+    } while (it != m_handleAliases.end() && it->first == id);
+}
 
 // tu-skeleton: 0x000578B3 149B ?unmapPhysicalHandle@MilesAudioManager@@QAEXI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp (not merged yet)
 
