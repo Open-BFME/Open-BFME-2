@@ -557,17 +557,7 @@ private:
 };
 // WorldBuilder names both overloads requestFile (MilesAudioCache.cpp); the
 // by-name one (0x000A7EFA) clamps its priority argument to 0..2.
-class AudioFileCache {
-public:
-    // Rowed constructor 0x000A8531 (0x54 bytes) takes the manager's mutex.
-    AudioFileCache(void *mutex);
-    ~AudioFileCache();                   // rowed 0x000A7CF3
-    Rva00690FF0Handle requestFile(const BfmePoolRef10 &event, int shortSound);
-    Rva00690FF0Handle requestFile(const AsciiString &fileName, int priority);
-    void rva000A77B3(void);             // rowed 0x000A77B3: stop the loader thread
-private:
-    char m_body[0x54];                   // native operator new(0x54) at 0x0005D3DA
-};
+#include "../../Include/MilesAudioDevice/AudioFileCache.h"
 // The file handle's ready (+0x44) and failed (+0x4C) checks, rowed at
 // 0x00050DBD and 0x00050DD0 under address-derived names.
 class Rva00050DBD { public: bool rva00050DBD(); };
