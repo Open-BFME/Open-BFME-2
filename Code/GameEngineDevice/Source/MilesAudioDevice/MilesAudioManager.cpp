@@ -1120,6 +1120,7 @@ public:
         static void setGlobalSystemVolume(int volumeType, float volume);
         void setVolumes(float volume, unsigned char flags);
         void rva000522DF(float volume);
+        void rva0005A3FA(void *slot, float value);
         void reset(void);
         void rva00052048(int index);
         void rva00052098(int channel);
@@ -8499,9 +8500,22 @@ void MilesAudioManager::rva0005C8BB(float volume, int flags)
     reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
 }
 
-// tu-skeleton: 0x0005CA03 114B ?rva0005CA03@MilesAudioManager@@UAEXPAXMH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp (not merged yet)
+extern const float g_00BBB9AC;
+extern unsigned int g_Va00DE0878;
 
-// tu-skeleton: 0x0005CA75 109B ?rva0005CA75@MilesAudioManager@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp (not merged yet)
+void MilesAudioManager::rva0005CA03(void *slot, float value, int index)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    reinterpret_cast<GlobalVolumeData *>(&m_volumeData[index])->rva0005A3FA(slot, value);
+    rva0005BE59(slot, value, reinterpret_cast<void *>(index));
+}
+
+void MilesAudioManager::rva0005CA75(int index)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    reinterpret_cast<GlobalVolumeData *>(&m_volumeData[index])->m_at1B8.rva00057B74();
+    rva0005BE59(&g_Va00DE0878, g_00BBB9AC, reinterpret_cast<void *>(index));
+}
 
 void MilesAudioManager::rva0005CAE2(void)
 {
