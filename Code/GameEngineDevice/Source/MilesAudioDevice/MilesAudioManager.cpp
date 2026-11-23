@@ -3927,7 +3927,12 @@ extern "C" __declspec(dllimport) void __stdcall AIL_resume_sample(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_quick_shutdown(void);
 extern "C" __declspec(dllimport) void __stdcall AIL_shutdown(void);
 // Rowed at 0x00053D89; clears the holder at +0xB90.
-class Rva00053D89 { public: void clear(void); };
+class Rva00053D89
+{
+public:
+    Rva00A897D *m_ptr;
+    void clear();
+};
 // Native 00060309..000603ED (WorldBuilder twin 0x00797100, unnamed). Under
 // the mutex every loop buffer's sample is stopped, then each is invalidated
 // and, when still bound, cleaned up; all view types are then stopped
