@@ -3264,7 +3264,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00056CF8,53,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056D2D,Code/Libraries/Source/WWVegas/WWLib/Rva00056CF8Erase.cpp
 0x00056D2D,117,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056DA2,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp
 0x00056DA2,73,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056DEB,Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp
-0x00056DEB,41,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056E14,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00056DEB.cpp
+0x00056DEB,41,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056E14,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 0x00056E14,63,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056E53,Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp
 0x00056E53,37,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056E78,Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_hint_00058ead.cpp
 0x00056E78,20,code,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,approved,C,C=0x000569A8..0x00056E8C,Code/GameEngine/Source/Common/GapBodiesGE29.cpp

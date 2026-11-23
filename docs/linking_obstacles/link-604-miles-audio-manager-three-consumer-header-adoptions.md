@@ -26,3 +26,18 @@ INCONCLUSIVE: index `ec61e5dbe7` predates outgoing base `2decb620eba`, and
 19 affected source objects lack current receipts (first: Common/BuildingNuggetParse.cpp).
 Carry that wider consumer/provider scope into the next scheduled census;
 the scoped checks do not establish a full-image link or runtime result.
+
+2026-11-23 (MilesAudioManager consolidation)
+The canonical AudioFileCache declaration retired one header-queue entry at
+2f583e2b903. The 421 function rows, one data row and 80 EH records verified.
+Comparing the exact parent and candidate receipts preserved all 1,589 external
+definition payloads and relocations after normalizing compiler-local labels.
+
+The official TU tool moved the 41-byte deque range teardown at 0x00056DEB from
+StlSweepW5Rva00056DEB.cpp into its approved MilesAudioManager.cpp. The combined
+build verified 422 functions, one data row and 80 EXACT EH rows. The outgoing
+AudioFileCache and deque-move batch has one retired path. The source marker
+retains its provenance, the census retains its snapshot, and the row and name
+provenance moved to the destination. The path audit found no active include,
+build or tooling consumer. The merge link guard used an older index. A fresh
+whole-image link and runtime measurement are pending.
