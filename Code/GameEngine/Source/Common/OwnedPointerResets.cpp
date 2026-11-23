@@ -4,7 +4,7 @@
 // Owning-pointer resets: 26-byte members that take the pointer at +0, null
 // the slot, and if it was set run the pointee's destructor and free it through
 // operator delete 0x0002FD60, the shape of the rowed ?clear@Rva00053D89@@QAEXXZ
-// (Rva00053D89Clear.cpp). Each holder is named after its reset's address and
+// at 0x00053D89. Each holder is named after its reset's address and
 // each pointee after the destructor address the retail call proves. The
 // 0x004E668E destructor is defined below from its own boundary; other names
 // remain address-derived. Owner and pointee type identities are not recovered.

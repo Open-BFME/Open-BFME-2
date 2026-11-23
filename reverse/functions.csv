@@ -21947,7 +21947,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva00293330@Rva00293330@@QAEPAXI@Z,,0x00293330,63,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,Map lookup at 0x268 via rowed find 0x357180 with begin fallback callers prove owner
 ?rva000E488F@Rva000E488F@@QAE_NPAX@Z,,0x000E488F,45,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,matched,array-all predicate via slot 0x204 callers 0xE4998 0xE76DB 0xEB247 0xEE17A
 ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z,,0x000E48BC,252,Code/GameEngine/Source/Common/Rva000E48BC.cpp,matched,transform plus container check via slot 0x204 caller 0xE5819
-?clear@Rva00053D89@@QAEXXZ,,0x00053D89,26,Code/GameEngine/Source/Common/Rva00053D89Clear.cpp,matched,same shape as clear 0x000A8879 plus dtor pin 0x000A897D
+?clear@Rva00053D89@@QAEXXZ,,0x00053D89,26,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,same shape as clear 0x000A8879 plus dtor pin 0x000A897D
 ?rva0008EEF0@W3DDisplay@@QAEXMMMMMH@Z,,0x0008EEF0,79,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,matched,W3DDisplay wrapper pre D4 post 100 middle E0 via TheDisplay
 ?drawLine@W3DDisplay@@QAEXMMMMMHH@Z,,0x0008EE9E,82,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageMode.cpp,matched,W3DDisplay wrapper pre D4 post 100 middle D8 via TheDisplay
 ?draw@FullFadeTransition@@UAEXXZ,,0x0035F369,197,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,FullFadeTransition draw via fillRect openRect TheDisplay

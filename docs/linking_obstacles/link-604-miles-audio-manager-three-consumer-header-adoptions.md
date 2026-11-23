@@ -41,3 +41,17 @@ retains its provenance, the census retains its snapshot, and the row and name
 provenance moved to the destination. The path audit found no active include,
 build or tooling consumer. The merge link guard used an older index. A fresh
 whole-image link and runtime measurement are pending.
+
+2026-11-23 (device cleanup move)
+The TU tool moved the 26-byte device cleanup at 0x00053D89 into
+MilesAudioManager.cpp after matching the receiver declaration to the donor.
+The merged body keeps the destructor call at +13 (0x000A897D) and operator
+delete at +19 (0x0002FD60). The scoped build verified all 502 function rows
+across MilesAudioManager.cpp and OwnedPointerResets.cpp, one data row, and
+80 EXACT EH records.
+
+The compatibility audit covers the declaration and move after 24f26796c32.
+OwnedPointerResets now refers to the cleanup by RVA. The source marker and
+link census retain the retired path for provenance. The fresh in-memory TU
+plan supplied the move approval, and the committed map was only repointed.
+The merge link guard used the older census index.

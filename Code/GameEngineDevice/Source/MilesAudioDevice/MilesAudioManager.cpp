@@ -5806,6 +5806,8 @@ namespace _STL { template <> void __destroy<OpaqueRefDequeIter, OpaqueRefElement
 
 // ---- from Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
 
+// ---- from Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+
 // WorldBuilder names both overloads requestFile (MilesAudioCache.cpp); the
 // by-name one (0x000A7EFA) clamps its priority argument to 0..2.
 
@@ -7546,6 +7548,14 @@ bool MilesAudioManager::rva000619D1(bool enabled)
     return false;
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00056DEB.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// The element is OpaqueRefElement4 (W5, tools/retail_identity.py OPAQUE_REF_DEQUE_DTOR): retail's _Destroy calls the
+// rowed __destroy 0x00055880 of deque<OpaqueRefElement4>'s iterator.
+
+template void _STL::_Destroy<OpaqueRefDequeIter>(OpaqueRefDequeIter, OpaqueRefDequeIter);
+
 // tu-skeleton: 0x000511C3 92B ?rva000511C3@MilesAudioManager@@UAEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp (not merged yet)
 
 // tu-skeleton: 0x0005121F 157B ?rva0005121F@MilesAudioManager@@UAEMXZ -- matched in Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp (not merged yet)
@@ -7730,7 +7740,26 @@ bool MilesAudioManager::rva000619D1(bool enabled)
 
 // tu-skeleton: 0x00053D4F 23B ?pop_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x00053D89 26B ?clear@Rva00053D89@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00053D89Clear.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00053D89Clear.cpp
+
+// ?clear@Rva00053D89@@QAEXXZ, retail 0x00053D89, 26 bytes.
+// Same shape as ?clear@Rva000A8879@@QAEXXZ at 0x000A8879. Holder at +0xB90 of
+// MilesAudioManager (owned device, see MilesAudioManagerOpenDevice) whose
+// assign pin at 0x00053D66 uses the same dtor; clears single Rva00A897D
+// pointer at +0 via qualified virtual dtor plus rowed operator delete
+// 0x0002FD60. Callers at 0x00060491 0x000611A8. Honest Rva class and clear
+// name; no donor.
+
+void Rva00053D89::clear()
+{
+	Rva00A897D *p = m_ptr;
+	m_ptr = 0;
+	if (p)
+	{
+		p->Rva00A897D::~Rva00A897D();
+		::operator delete(p);
+	}
+}
 
 // tu-skeleton: 0x00053DA3 34B ?_M_create_node@?$list@VRva0036CA00Str@@V?$allocator@VRva0036CA00Str@@@_STL@@@_STL@@IAEPAU?$_List_node@VRva0036CA00Str@@@2@ABVRva0036CA00Str@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
 
@@ -7871,14 +7900,6 @@ bool MilesAudioManager::rva000619D1(bool enabled)
 // tu-skeleton: 0x00056D2D 117B ?clear@?$deque@UOpaqueRefElement4@@V?$allocator@UOpaqueRefElement4@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp (not merged yet)
 
 // tu-skeleton: 0x00056DA2 73B ?rva00056DA2@Rva00056DA2@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00056DEB.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// The element is OpaqueRefElement4 (W5, tools/retail_identity.py OPAQUE_REF_DEQUE_DTOR): retail's _Destroy calls the
-// rowed __destroy 0x00055880 of deque<OpaqueRefElement4>'s iterator.
-
-template void _STL::_Destroy<OpaqueRefDequeIter>(OpaqueRefDequeIter, OpaqueRefDequeIter);
 
 // tu-skeleton: 0x00056E14 63B ??$uninitialized_copy@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp (not merged yet)
 
