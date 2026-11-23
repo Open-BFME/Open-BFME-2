@@ -8568,7 +8568,20 @@ void MilesAudioManager::rva0005E168(const AsciiString &name, int index)
     reinterpret_cast<Rva0005CE32 *>(&m_volumeData[index])->rva0005CE32(name);
 }
 
-// tu-skeleton: 0x0005E322 85B ?rva0005E322@MilesAudioManager@@UAEXPBVAsciiString@@H@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva0005E322GuardedErase.cpp (not merged yet)
+typedef _STL::pair<const Rva0005B5EAElement, int> Rva0005E322TreeEntry;
+typedef _STL::_Rb_tree<Rva0005B5EAElement, Rva0005E322TreeEntry,
+    _STL::_Select1st<Rva0005E322TreeEntry>, _STL::less<Rva0005B5EAElement>,
+    _STL::allocator<Rva0005E322TreeEntry> > Rva0005E322TreeView;
+
+void MilesAudioManager::rva0005E322(const AsciiString *key, int index)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    // Use the retail erase instantiation for the per-view sets at +0xA14.
+    Rva0005E322TreeView *names = reinterpret_cast<Rva0005E322TreeView *>(
+        reinterpret_cast<char *>(this) +
+        (index + 0xA14 / sizeof(Rva0005E322TreeView)) * sizeof(Rva0005E322TreeView));
+    names->erase(*reinterpret_cast<const Rva0005B5EAElement *>(key));
+}
 
 // tu-skeleton: 0x0005E959 53B ?createAudioManager@Win32GameEngine@@UAEPAXXZ -- matched in Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp (not merged yet)
 
