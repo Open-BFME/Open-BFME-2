@@ -39,18 +39,7 @@ public:
 struct IDirect3DDevice8;
 class W3DVolumetricShadowManagerV2;
 
-// Zero Hour vertmaterial.h's RefCountClass-derived material: Delete_This in
-// vtable slot 0, the reference count at +4.
-class VertexMaterialClass
-{
-public:
-	enum PresetType { PRELIT_NODIFFUSE = 0 };
-	static VertexMaterialClass *__cdecl Get_Preset(PresetType type);
-	virtual void Delete_This();
-	__forceinline void Add_Ref() { NumRefs++; }
-	__forceinline void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-	int NumRefs;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
@@ -180,7 +169,7 @@ bool Rva001076EE::rva001076EE()
 // and TheW3DShadowManager's +8 mask. Original method name unknown.
 void W3DVolumetricShadowManagerV2::rva001076F6()
 {
-	VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_NODIFFUSE);
+	VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 	DX8Wrapper::Set_Material(vmat);
 	if (vmat) vmat->Release_Ref();
 	DX8Wrapper::Set_Shader(BfmeShadowVolumeStatsShader);
