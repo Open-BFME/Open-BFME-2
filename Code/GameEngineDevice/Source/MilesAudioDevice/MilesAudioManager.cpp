@@ -94,15 +94,8 @@ enum INILoadType
     INI_LOAD_CREATE_OVERRIDES,
     INI_LOAD_MULTIFILE
 };
-class Rva00601BBCHelper
-{
-public:
-    Rva00601BBCHelper();
-    virtual ~Rva00601BBCHelper();
-
-private:
-    char m_body[0x30];
-};
+#include "../../../GameEngine/Include/GameClient/Rva005248D0.h"
+#include "../../../GameEngine/Include/Common/Rva00601BBCHelper.h"
 // INI object view copied from INI_ctor.cpp so this local has the measured
 // 0x888-byte extent. Offset +8 is kept address-derived: 0x54120 reads it and
 // passes it as the load type, but its semantic field name is not settled here.
