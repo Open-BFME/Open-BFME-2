@@ -1119,6 +1119,7 @@ public:
     public:
         static void setGlobalSystemVolume(int volumeType, float volume);
         void setVolumes(float volume, unsigned char flags);
+        void rva000522DF(float volume);
         void reset(void);
         void rva00052048(int index);
         void rva00052098(int channel);
@@ -5232,7 +5233,11 @@ struct Rva00062690GlobalDataView
 {
     char at000[0x99C];
     bool m_audioOn;                      // +0x99C
+    char at99D[0x9C5 - 0x99D];
+    unsigned char field09C5;
 };
+void rva000524D6(void);
+void rva000524E2(void);
 #include "../../../GameEngine/Include/Common/GameEngine.h"
 extern GameEngine *TheGameEngine;
 // The ambient-stream pass state built on the stack (rowed ctor 0x00052B3D).
@@ -8477,17 +8482,45 @@ void Rva0005C892::rva0005C892(void)
     reinterpret_cast<MilesAudioManager *>(this)->processPlayingList(&streams);
 }
 
-// tu-skeleton: 0x0005C8BB 118B ?rva0005C8BB@MilesAudioManager@@UAEXMH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp (not merged yet)
+void MilesAudioManager::rva0005C8BB(float volume, int flags)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    Rva006ABC60 *record = m_volumeData;
+    for (int index = 0; index < 3; ++index, ++record) {
+        if (flags & (1 << index))
+            reinterpret_cast<GlobalVolumeData *>(record)->rva000522DF(volume);
+    }
+    reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
+}
 
 // tu-skeleton: 0x0005CA03 114B ?rva0005CA03@MilesAudioManager@@UAEXPAXMH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp (not merged yet)
 
 // tu-skeleton: 0x0005CA75 109B ?rva0005CA75@MilesAudioManager@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp (not merged yet)
 
-// tu-skeleton: 0x0005CAE2 87B ?rva0005CAE2@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp (not merged yet)
+void MilesAudioManager::rva0005CAE2(void)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    if (reinterpret_cast<Rva00062690GlobalDataView *>(TheWritableGlobalData)->field09C5) {
+        rva000524D6();
+        reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
+    }
+}
 
-// tu-skeleton: 0x0005CB39 87B ?rva0005CB39@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp (not merged yet)
+void MilesAudioManager::rva0005CB39(void)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    if (reinterpret_cast<Rva00062690GlobalDataView *>(TheWritableGlobalData)->field09C5) {
+        rva000524E2();
+        reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
+    }
+}
 
-// tu-skeleton: 0x0005CB90 87B ?rva0005CB90@MilesAudioManager@@UAEXHM@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp (not merged yet)
+void MilesAudioManager::rva0005CB90(int volumeType, float volume)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    GlobalVolumeData::setGlobalSystemVolume(volumeType, volume);
+    reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
+}
 
 // tu-skeleton: 0x0005CBE7 55B ?push_back@?$vector@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAEXABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_push_back.cpp (not merged yet)
 
