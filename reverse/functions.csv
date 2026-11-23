@@ -25064,7 +25064,7 @@ _piRemoveXpingRva00862EF0,,0x006A3DE0,17,Code/GameEngine/Source/GameNetwork/Game
 ?ChangeTaintLevel@TaintManagerImpl@@QAEXHHHH_NH@Z,,0x006C1580,86,Code/GameEngine/Source/Common/TaintManagerImpl.cpp,matched,BFME1 taintmanager_impl donor plus BFME2 mode word
 ?rva0042C1F9@Rva0042C1F9@@QAEPAV1@UHolder0042C1F9@@@Z,,0x0042C1F9,65,Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp,matched,setter holder virt0 delete via rowed delete caller 0x42C342
 ?assign@Rva0042C936@@QAEPAV1@UHolder0042C936@@@Z,,0x0042C936,65,Code/GameEngine/Source/Common/Rva0042C936.cpp,matched,chain setter holder virt0 delete via rowed delete caller 0x42CA4B
-?rva00053CE1@MilesAudioManager@@UAEXMHH@Z,,0x00053CE1,69,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00053CE1.cpp,matched,chain from 0x000523A0 guard over 0x9D4 array 0x12C stride 0x1C4
+?rva00053CE1@MilesAudioManager@@UAEXMHH@Z,,0x00053CE1,69,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,chain from 0x000523A0 guard over 0x9D4 array 0x12C stride 0x1C4
 ?Rva0037E0ECEqual@@YA_NPBX0@Z,,0x0037E0EC,114,Code/GameEngine/Source/Common/Rva0037E0ECEqual.cpp,matched,chain of 0x0037E09A plus float string helper compares
 ?rva0002BB1C@SaveDate@@QAEXXZ,,0x0002BB1C,85,Code/GameEngine/Source/Common/System/SaveGame/SaveDateRva0002BB1C.cpp,matched,refresh SaveDate from GetLocalTime swapping day and dayOfWeek
 ?Rva0002BBC9Update@@YAXXZ,,0x0002BBC9,21,Code/GameEngine/Source/Common/INI/INI.cpp,matched,refresh global SaveDate and copy tick globals

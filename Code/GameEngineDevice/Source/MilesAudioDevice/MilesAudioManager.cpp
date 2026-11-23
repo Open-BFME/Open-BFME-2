@@ -1115,6 +1115,7 @@ public:
     class GlobalVolumeData {
     public:
         static void setGlobalSystemVolume(int volumeType, float volume);
+        void setVolumes(float volume, unsigned char flags);
         void reset(void);
         void rva00052048(int index);
         void rva00052098(int channel);
@@ -7888,7 +7889,20 @@ void MilesAudioManager::createListener()
 	m_at6AB = true;
 }
 
-// tu-skeleton: 0x00053CE1 69B ?rva00053CE1@MilesAudioManager@@UAEXMHH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00053CE1.cpp (not merged yet)
+void MilesAudioManager::rva00053CE1(float volume, int flags, int idx)
+{
+    // The original calls the guard destructor only on normal return.
+    union
+    {
+        char bytes[sizeof(MilesMutexGuard)];
+        void *alignment;
+    } storage;
+    MilesMutexGuard *guard = reinterpret_cast<MilesMutexGuard *>(storage.bytes);
+    guard->MilesMutexGuard::MilesMutexGuard(&m_mutex, 0);
+    reinterpret_cast<GlobalVolumeData *>(&m_volumeData[idx])->setVolumes(
+        volume, static_cast<unsigned char>(flags));
+    guard->~MilesMutexGuard();
+}
 
 // tu-skeleton: 0x00053D4F 23B ?pop_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
