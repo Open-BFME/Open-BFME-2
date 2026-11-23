@@ -8024,7 +8024,19 @@ void MilesAudioManager::rva00053CE1(float volume, int flags, int idx)
 
 // tu-skeleton: 0x00055426 61B ?rva00055426@MilesAudioManager@@QAE_NH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp (not merged yet)
 
-// tu-skeleton: 0x00055463 5B ?rva00055463@Rva00055463@@QAEIABQAURva00051107AudioRequest@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportHashSetHolderErase.cpp (not merged yet)
+class Rva00055463
+{
+public:
+    unsigned int rva00055463(Rva00051107AudioRequest *const &key);
+
+private:
+    MilesAudioRequestTable m_00;
+};
+
+unsigned int Rva00055463::rva00055463(Rva00051107AudioRequest *const &key)
+{
+    return m_00.erase(key);
+}
 
 // tu-skeleton: 0x00055468 13B ?erase@?$hash_set@PAURva00051B89Keyed@@URva00051B89Hash@@U?$equal_to@PAURva00051B89Keyed@@@_STL@@V?$allocator@PAURva00051B89Keyed@@@4@@_STL@@QAEXU?$_Ht_iterator@PAURva00051B89Keyed@@U?$_Const_traits@PAURva00051B89Keyed@@@_STL@@PAU1@URva00051B89Hash@@U?$_Identity@PAURva00051B89Keyed@@@3@U?$equal_to@PAURva00051B89Keyed@@@3@V?$allocator@PAURva00051B89Keyed@@@3@@2@@Z -- matched in Code/GameEngine/Source/Common/Rva00055468HashSetErase.cpp (not merged yet)
 
