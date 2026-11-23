@@ -4989,7 +4989,7 @@ bool MilesAudioManager::rva000613A9(unsigned int handle)
 // handle-to-kill getter (0x002A79A1), the stream holder's assignment
 // (0x000A8CAE) and its forwarder 0x000A8AA6.
 class Rva002A79A1DwordField { public: int get(void) const; };
-class Rva000A8CAE { public: Rva000A8CAE &operator=(const Rva000A8CAE &other); };
+#include "../../../GameEngine/Include/Common/Rva000A8CAE.h"
 class Rva000A8AA6 { public: void rva000A8AA6(int arg); };
 // Local stream holder (PlayingAudio +0x0C shape): zeroing constructor
 // 0x0007E81F (pinned PlayingAudioUnknown0C) and the counted release at
