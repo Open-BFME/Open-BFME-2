@@ -515,12 +515,8 @@ namespace _STL { template <> void MilesAudioRequestTable::resize(unsigned int); 
 // File handle AudioFileCache::requestFile returns (WorldBuilder name and
 // MilesAudioCache.cpp asserts). The ledger rows its destructor (0x000A8A37)
 // and assignment (0x000A8A43) under two BFME 1 donor class names.
-class Rva00691040Handle {
-public:
-    Rva00691040Handle &operator=(const Rva00691040Handle &other);
-private:
-    void *m_target;
-};
+class Gen0002857E;
+#include "../../../GameEngine/Include/Common/Rva00691040Handle.h"
 // A ready file the handle hands out (WorldBuilder: AudioFileContainer, its
 // ctor asserting assertFileIsReady at 0x0077B650). It has its own ctor/dtor
 // pair in WorldBuilder (0x008E4730/0x008E47B0); retail folds the destructor
