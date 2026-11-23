@@ -7,17 +7,11 @@
 // Function purpose/type of the enable flag remain descriptive/inferred;
 // original method name is unknown. Shader snapshot StringClass is real.
 // cl: /O1 /G7 /MD /EHsc
-class StringClass {public:
- StringClass(int,bool);__forceinline ~StringClass(){Free_String();
-}char*p;private:void Free_String();
-};
-class VertexMaterialClass {public:
- virtual void Delete_This();int refs;enum PresetType{PRELIT_DIFFUSE=1};static VertexMaterialClass*Get_Preset(PresetType);__forceinline void Release_Ref(){if(!--refs)Delete_This();
-}};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 class IndexBufferClass;class VertexBufferClass;
 class DX8Wrapper {public:
- static void Set_Index_Buffer(const IndexBufferClass*,unsigned short);static void Set_Vertex_Buffer(const VertexBufferClass*,unsigned);static void Draw_Triangles(unsigned,unsigned,unsigned,unsigned);static __forceinline void BindAuxiliaryMaterial(VertexMaterialClass*m){if(m)++m->refs;
+ static void Set_Index_Buffer(const IndexBufferClass*,unsigned short);static void Set_Vertex_Buffer(const VertexBufferClass*,unsigned);static void Draw_Triangles(unsigned,unsigned,unsigned,unsigned);static __forceinline void BindAuxiliaryMaterial(VertexMaterialClass*m){if(m)m->Add_Ref();
  if(render_state.material)render_state.material->Release_Ref();render_state.material=m;render_state_changed|=0x4000;
 }
 static __forceinline void BindAuxiliaryShader(const ShaderClass&s){if(!ShaderClass::ShaderDirty&&s.ShaderBits==render_state.shader.ShaderBits)return;render_state.shader=s;render_state_changed|=0x8000;StringClass str(0,false);
@@ -156,7 +150,7 @@ void Rva00069DB1::draw(){
  if(!TheWritableGlobalData->m_useShadowDecals||!ready||!vertices||!indices||IsHidden())return;
  ShaderClass shader=ShaderClass::_PresetMultiplicativeShader;
  if(DX8Wrapper::FogEnable)shader.Enable_Fog("HardwareFog");
- VertexMaterialClass*material=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+ VertexMaterialClass*material=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_NODIFFUSE);
  DX8Wrapper::BindAuxiliaryMaterial(material);
  DX8Wrapper::BindAuxiliaryShader(shader);
  DX8Wrapper::Set_Index_Buffer(ib,0);
