@@ -4639,6 +4639,8 @@ public:
 extern "C" __declspec(dllimport) void __stdcall AIL_get_DirectSound_info(void *,MilesProviderDirectSound **,void *);
 extern "C" __declspec(dllimport) int __stdcall AIL_open_3D_provider(void *);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_rolloff_factor(void *,float);
+extern "C" __declspec(dllimport) void __stdcall AIL_close_3D_listener(void *listener);
+extern "C" __declspec(dllimport) void __stdcall AIL_close_3D_provider(unsigned int provider);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_speaker_type(void *,int);
 class VideoPlayerInterface {
 public:
@@ -7791,7 +7793,24 @@ void MilesAudioManager::rva000530DF()
 
 // tu-skeleton: 0x0005333F 19B ??1Rva0005333FHolder@@QAE@XZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva000532B7EventXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00053352 121B ?unselectProvider@MilesAudioManager@@AAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerUnselectProvider.cpp (not merged yet)
+void MilesAudioManager::unselectProvider(void)
+{
+	if (m_selectedProvider >= m_providerCount)
+		return;
+
+	VideoPlayerInterface *player = TheVideoPlayer;
+	if (player)
+		player->notifyVideoPlayerOfNewProvider(false);
+
+	if (m_forceHeadphones)
+		AIL_set_3D_speaker_type(m_provider3D[m_selectedProvider].id,
+			m_selectedSpeakerType);
+
+	AIL_close_3D_listener(m_listener);
+	m_listener = 0;
+	AIL_close_3D_provider(reinterpret_cast<unsigned int>(m_provider3D[m_selectedProvider].id));
+	m_selectedProvider = 0xffffffff;
+}
 
 // tu-skeleton: 0x000537F4 96B ?rva000537F4@MilesAudioManager@@UAEXMMMMMH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000537F4.cpp (not merged yet)
 
