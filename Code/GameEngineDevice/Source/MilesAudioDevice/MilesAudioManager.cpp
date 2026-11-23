@@ -1047,6 +1047,7 @@ public:
     virtual void rva000541DB(void);
     bool rva00055FCA(int key, void **result, PlayingAudioRef *playingOut);
     bool rva0005623E(int key, void **result, int flags);
+    bool rva000562FA(int key, BfmeEventPositionView *output);
     void rva000563FE(Xfer *xfer, int handle);
     void rva0005634C(int handle, float volume, int mode);
     bool rva00054899(ObjectID objectID, int otherID);
@@ -7907,7 +7908,17 @@ void MilesAudioManager::rva000530DF()
 
 // tu-skeleton: 0x000559CB 5B ?rva000559CB@Rva000559CB@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/AptScreenClose.cpp (not merged yet)
 
-// tu-skeleton: 0x000562FA 82B ?rva000562FA@MilesAudioManager@@QAE_NHPAUBfmeEventPositionView@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva000562FAPositionQuery.cpp (not merged yet)
+bool MilesAudioManager::rva000562FA(int key, BfmeEventPositionView *output)
+{
+    void *event = 0;
+    if (rva0005623E(key, &event, 0) && event != 0) {
+        bool valid;
+        *output = Rva0005160FGet(static_cast<AudioEventRTS *>(event), valid);
+        if (valid)
+            return true;
+    }
+    return false;
+}
 
 // tu-skeleton: 0x00056670 70B ?rva00056670@MilesAudioManager@@QAE_NW4ObjectID@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00056670.cpp (not merged yet)
 
