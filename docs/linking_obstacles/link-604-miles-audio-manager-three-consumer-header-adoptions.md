@@ -68,3 +68,10 @@ The tool repointed the single Doxygen source entry. The source marker and
 old census record retain the original path. No live include, build or tooling
 consumer references the retired file. The link guard used the older census
 index.
+
+2026-11-23 (compiler-owned reset guard)
+The reset's exact EH graph places its compiler-emitted rollback at
+`0x0075E42F`. The obsolete standalone spelling and duplicate external guard
+are retired. The update rollback at `0x0075E4D4` has equivalent placement
+evidence and retains its matched data row while the data verifier refuses its
+compiler-local symbol. [Guard ownership and verifier evidence](../../reverse/attempt_support/miles-static-guard-ownership-20261123.md)
