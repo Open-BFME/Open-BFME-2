@@ -29010,7 +29010,7 @@ _CpuProbe_Sse2Executes,,0x001D5540,126,Code/Libraries/Source/VP6/CpuProbeSse2.cp
 ??$equal@PBW4ScienceType@@PBW41@@_STL@@YA_NPBW4ScienceType@@00@Z,,0x0053EC57,38,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp,matched,strict relocations from its own object
 ??4?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,,0x005BAB0B,115,Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp,matched,strict relocations from its own object
 ?rva002D5711@Rva002D5711@@QAEXABVAsciiString@@@Z,,0x002D5711,137,Code/GameEngine/Source/Common/Rva002D5711.cpp,matched,ResourceBar cache via isEmpty PlusString findImageByName caller 0x002D6A20
-?rva0005E168@MilesAudioManager@@UAEXABVAsciiString@@H@Z,,0x0005E168,87,Code/GameEngine/Source/Common/System/Rva0005E168Method.cpp,matched,chain via 0x0005CE32 row guard over +0x9D4 array +0x12C stride 0x1C4 Rva00059A25 precedent ret 8
+?rva0005E168@MilesAudioManager@@UAEXABVAsciiString@@H@Z,,0x0005E168,87,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp,matched,chain via 0x0005CE32 row guard over +0x9D4 array +0x12C stride 0x1C4 Rva00059A25 precedent ret 8
 ?rva00318B94@Rva00318B94@@QAEEXZ,,0x00318B94,17,Code/GameEngine/Source/Common/Rva00318B94.cpp,matched,leaf thiscall holder+0x88 byte+0x5c honest name
 ??0TerrainTypeCollection@@QAE@XZ,,0x00317BA5,22,Code/GameEngine/Source/Common/TerrainTypes.cpp,matched,ctor baseConstruct zero+0C vtable honest name
 ?rva004F5C44@ResourceGatheringManager@@QAEXPAVObject@@@Z,,0x004F5C44,32,Code/GameEngine/Source/Common/RTS/ResourceGatheringManager.cpp,matched,leaf supply center list at 0x08 via rowed pushback ObjectID at 0x74

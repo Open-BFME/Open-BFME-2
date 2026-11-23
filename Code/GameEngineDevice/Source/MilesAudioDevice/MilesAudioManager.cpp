@@ -8556,7 +8556,17 @@ void MilesAudioManager::rva0005CB90(int volumeType, float volume)
 
 // tu-skeleton: 0x0005DAE6 22B ?resumeAudioEvent@MilesAudioManager@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp (not merged yet)
 
-// tu-skeleton: 0x0005E168 87B ?rva0005E168@MilesAudioManager@@UAEXABVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/System/Rva0005E168Method.cpp (not merged yet)
+class Rva0005CE32
+{
+public:
+    void rva0005CE32(const AsciiString &name);
+};
+
+void MilesAudioManager::rva0005E168(const AsciiString &name, int index)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    reinterpret_cast<Rva0005CE32 *>(&m_volumeData[index])->rva0005CE32(name);
+}
 
 // tu-skeleton: 0x0005E322 85B ?rva0005E322@MilesAudioManager@@UAEXPBVAsciiString@@H@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva0005E322GuardedErase.cpp (not merged yet)
 
