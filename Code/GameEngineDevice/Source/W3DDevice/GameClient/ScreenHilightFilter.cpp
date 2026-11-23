@@ -24,33 +24,7 @@ struct IDirect3DSurface8;
 struct IDirect3DDevice8;
 extern unsigned number_of_DX8_calls;
 extern unsigned g_fvfShader;
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	__forceinline ~StringClass() { Free_String(); }
-private:
-	void Free_String();
-	char *m_Buffer;
-};
-class VertexMaterialClass
-{
-public:
-	enum PresetType
-	{
-		PRELIT_DIFFUSE = 0
-	};
-	virtual void Delete_This();
-	static VertexMaterialClass *Get_Preset(PresetType type);
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref()
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			Delete_This();
-	}
-	int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 class TextureBaseClass

@@ -56,24 +56,8 @@ class LightEnvironmentClass;
 class Rva001688FFElement;
 void Rva001688FFShift(Rva001688FFElement **items, int count);
 void Rva00168952Clear(Rva001688FFElement **items, int count);
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	__forceinline ~StringClass() { Free_String(); }
-private:
-	void Free_String();
-	char *m_Buffer;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This();
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-	int NumRefs;
-};
 class TextureBaseClass
 {
 public:

@@ -319,15 +319,7 @@ public:
 	unsigned m_bits;
 };
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class VertexMaterialClass : public RefCountClass
-{
-public:
-	enum PresetType
-	{
-		PRELIT_DIFFUSE = 0
-	};
-	static VertexMaterialClass *Get_Preset(PresetType preset);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Rva00072B3A;

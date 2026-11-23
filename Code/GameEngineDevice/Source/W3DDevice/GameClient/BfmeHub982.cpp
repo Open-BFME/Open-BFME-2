@@ -26,12 +26,7 @@ void Rva00118C20();
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class VertexMaterialClass : public W3DMPO, public RefCountClass
-{
-public:
-	enum PresetType { PRELIT_DIFFUSE = 0 };
-	static VertexMaterialClass *Get_Preset(PresetType type);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 class BfmeHub982;
 
