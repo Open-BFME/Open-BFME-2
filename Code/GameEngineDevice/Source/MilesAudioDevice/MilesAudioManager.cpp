@@ -3567,16 +3567,9 @@ private:
 // player and its alliance test. The info reference (+0x08) is held counted.
 class BfmeMemberRV;
 #include "../../../GameEngine/Include/GameClient/BfmeThingRV.h"
-class Team;
 enum Relationship { REL_ENEMIES, REL_NEUTRAL, REL_ALLIES };
-class Player
-{
-public:
-    Relationship getRelationship(const Team *that) const;
-    char at000[0x2EC];
-    Team *m_defaultTeam;    // +0x2EC
-};
 #include "../../../GameEngine/Include/Common/PlayerList.h"
+#include "../../../GameEngine/Include/Common/Player.h"
 extern PlayerList *ThePlayerList;
 class Rva002DA414 { public: void *rva002DA414(void); };
 class Rva002D9C7A { public: int rva002D9C7A(void); };
@@ -3609,7 +3602,7 @@ bool MilesAudioManager::shouldPlayLocally(const AudioEventRTS *event)
             return false;
         if (localPlayer == 0)
             return false;
-        const Team *localTeam = localPlayer->m_defaultTeam;
+        const Team *localTeam = localPlayer->getDefaultTeam();
         if (localTeam == 0)
             return false;
         if (owningPlayer == localPlayer)
