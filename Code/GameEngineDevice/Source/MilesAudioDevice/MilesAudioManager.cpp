@@ -636,6 +636,7 @@ template<> void _STL::vector<AudioTriggerAreaSave, _STL::allocator<AudioTriggerA
 struct BfmeEventPositionView : public Coord3D {};
 // Info-reference parameter type of the split-out 0x000581FA.
 struct Rva0005BA08InfoRef;
+struct Holder;
 // AudioSettings view (Zero Hour's MilesAudioManager reads it through
 // m_audioSettings at +0x10): +0x74 is an int distance, +0xB8 a float limit.
 // Per-view microphone record of AudioSettings (WorldBuilder's assert names
@@ -1088,6 +1089,7 @@ public:
         void reset(void);
         void rva00052048(int index);
         void rva00052015(int arg);
+        void volumeAdjustingSoundStarting(Holder *holder, int key);
         unsigned char rva000520F4(const AudioEventInfoRef &, int);
         float rva0005910F(AudioEventRTS *event);
         void refreshAll(void);
@@ -4779,7 +4781,6 @@ protected:
     friend class MilesAudioManager;
 };
 extern ScriptEngine *TheScriptEngine;
-struct Holder;
 class Rva0005516F { public: void rva0005516F(Holder *holder, int viewType) throw(); };
 void MilesAudioManager::releaseMilesHandles(PlayingAudio &playing)
 {
@@ -8008,7 +8009,18 @@ void MilesAudioManager::rva000530DF()
 
 // tu-skeleton: 0x000581F5 5B ?rva000581F5@Rva000581F5@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp (not merged yet)
 
-// tu-skeleton: 0x000581FA 83B ?rva000581FA@MilesAudioManager@@QAEXABURva0005BA08InfoRef@@H@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000581FA.cpp (not merged yet)
+void MilesAudioManager::rva000581FA(const Rva0005BA08InfoRef &info, int type)
+{
+	reinterpret_cast<GlobalVolumeData *>(&m_volumeData[type])->volumeAdjustingSoundStarting((Holder *)&info, type);
+	if (type == 2)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			if (i != 2)
+				reinterpret_cast<GlobalVolumeData *>(&m_volumeData[i])->volumeAdjustingSoundStarting((Holder *)&info, 2);
+		}
+	}
+}
 
 // tu-skeleton: 0x00058314 166B ?rva00058314@MilesAudioManager@@UAEABV?$vector@PBDV?$allocator@PBD@_STL@@@_STL@@XZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerGetEnvironmentName.cpp (not merged yet)
 
