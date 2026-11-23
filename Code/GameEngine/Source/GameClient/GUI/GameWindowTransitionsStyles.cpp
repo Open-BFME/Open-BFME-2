@@ -579,16 +579,7 @@ public:
     int m_48;
     int m_4C;
 };
-class Image
-{
-public:
-	Int getImageWidth(void) const { return m_imageSize.x; }
-	Int getImageHeight(void) const { return m_imageSize.y; }
-
-private:
-	unsigned char m_unreconstructed_00[0x24];
-	ICoord2D m_imageSize; // retail this+0x24
-};
+#include "../../../Include/GameClient/ImageClass.h"
 #include "../../../Include/GameClient/Display.h"
 class ButtonFlashTransition
 {
