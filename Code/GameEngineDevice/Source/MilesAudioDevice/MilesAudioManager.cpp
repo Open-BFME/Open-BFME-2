@@ -58,6 +58,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <string.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../../GameEngine/Include/Common/OptionPreferences.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #define COORD2D_VIEW_DTOR
 #include "../../../Libraries/Include/Lib/Coord2DCtorView.h"
@@ -667,7 +668,13 @@ struct MicrophoneSettings {
 struct AudioSettings {
     char at00[0x30];
     float m_at30[5];                     // +0x30, init()'s per-index 0x524EE volumes
-    char at44[0x64 - 0x44];
+    char at44[0x54 - 0x44];
+    bool m_useDigital;
+    bool m_useMidi;
+    char at56[2];
+    int m_outputRate;
+    int m_outputBits;
+    int m_outputChannels;
     int m_at64;                          // +0x64, with +0x68 init()'s loop-buffer count
     int m_sampleCount3D;                          // +0x68
     char at6C[0x74 - 0x6C];
@@ -694,6 +701,10 @@ extern "C" __declspec(dllimport) void *__stdcall AIL_open_3D_listener(unsigned i
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_room_type(unsigned int provider);
 extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_3D_providers(void **next, void **provider, char **name);
 extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_filters(void **next, void **provider, char **name);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_redist_directory(const char *directory);
+extern "C" __declspec(dllimport) void __stdcall AIL_startup();
+extern "C" __declspec(dllimport) int __stdcall AIL_quick_startup(int digital, int midi, int rate, int bits, int channels);
+extern "C" __declspec(dllimport) int __stdcall AIL_quick_handles(void **digital, void *midi, void *dls);
 extern "C" __declspec(dllimport) int __stdcall AIL_sample_playback_rate(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_processor(void *sample, int effect, void *provider);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_filter_sample_preference(void *sample, const char *name, float *value);
@@ -1234,6 +1245,7 @@ public:
 private:
     // Provider teardown at 0x00053352 and selection at 0x000604A3.
     void buildProviderList(void);
+    void initSamplePools(void);
     void unselectProvider(void);
     void selectProvider(bool accelerated);
 public:
@@ -1301,7 +1313,7 @@ private:
     unsigned int m_providerCount;        // +0x9CC
     unsigned int m_selectedProvider;     // +0x9D0, -1 when none
     Mutex m_mutex;                       // +0x9D4
-    int m_at9DC;
+    void *m_at9DC;
     void *m_listener;                    // +0x9E0 (Zero Hour name), unselectProvider closes it
     int m_at9E4;
     MilesFileTextMap m_fileText;         // +0x9E8
@@ -5351,7 +5363,14 @@ struct BfmePod144 { int a[36]; };
 // then explicit virtual dtor plus global operator delete on old object.
 // Evidence: caller MilesAudioManager::openDevice passes new AudioDevice;
 // pin gives class/method names; callees are pinned dtor and rowed ??3.
-class Rva000A8903AudioDevice;
+class Rva000A8903AudioDevice
+{
+public:
+    Rva000A8903AudioDevice(void *driver);
+
+private:
+    char body[0x5C];
+};
 class Rva00053D66DeviceRef
 {
 public:
@@ -8404,7 +8423,30 @@ void Rva0005F279Host::rva0005F279()
 
 // tu-skeleton: 0x000615DA 166B ?killAudioEventImmediately@MilesAudioManager@@UAE_NI@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp (not merged yet)
 
-// tu-skeleton: 0x00061680 284B ?openDevice@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp (not merged yet)
+void MilesAudioManager::openDevice(void)
+{
+    m_lastDeviceOpenTime = _time64(0);
+    if (!reinterpret_cast<Rva00062690GlobalDataView *>(TheWritableGlobalData)->m_audioOn)
+        return;
+
+    AIL_set_redist_directory("MSS\\");
+    AIL_startup();
+    int started = AIL_quick_startup(m_audioSettings->m_useDigital, m_audioSettings->m_useMidi,
+        m_audioSettings->m_outputRate, m_audioSettings->m_outputBits, m_audioSettings->m_outputChannels);
+    AIL_quick_handles(&m_at9DC, 0, 0);
+    if (started)
+        buildProviderList();
+    else
+        rva0005168C(0, 0x1f);
+
+    OptionPreferences prefs;
+    selectProvider(prefs.getUseEAX3());
+    initSamplePools();
+    rva0005181B();
+    reinterpret_cast<Rva00053D66DeviceRef *>(&m_atB90)->assign(new Rva000A8903AudioDevice(m_at9DC));
+    if (m_selectedProvider < m_providerCount)
+        initDelayFilter();
+}
 
 // tu-skeleton: 0x0006182E 6B (unledgered) -- unmatched, no code, never credited
 
@@ -8591,12 +8633,6 @@ void Rva0005F279Host::rva0005F279()
 // tu-skeleton: 0x0075E020 10B __ehhandler$?rva00051107@MilesAudioManager@@QAEPAURva00051107AudioRequest@@XZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioRequestAllocate.cpp (not merged yet)
 
 // tu-skeleton: 0x0075E1AA 8B uw_0075e1aa -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
-
-// tu-skeleton: 0x0075E3B8 8B Unwind@00b5e3b8 -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp (not merged yet)
-
-// tu-skeleton: 0x0075E3C0 10B uw_0075e3c0 -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp (not merged yet)
-
-// tu-skeleton: 0x0075E3CA 10B __ehhandler$?openDevice@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp (not merged yet)
 
 // tu-skeleton: 0x0075E3E4 8B uw_0075e3e4 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
 
