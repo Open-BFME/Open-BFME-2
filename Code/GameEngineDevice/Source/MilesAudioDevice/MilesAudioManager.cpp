@@ -1091,6 +1091,7 @@ public:
         static void setGlobalSystemVolume(int volumeType, float volume);
         void reset(void);
         void rva00052048(int index);
+        void rva00052098(int channel);
         void rva00052015(int arg);
         void volumeAdjustingSoundStarting(Holder *holder, int key);
         unsigned char rva000520F4(const AudioEventInfoRef &, int);
@@ -8006,7 +8007,47 @@ void MilesAudioManager::rva000530DF()
 
 // tu-skeleton: 0x0005813E 77B ??1Rva005813E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
 
-// tu-skeleton: 0x0005818B 96B ?volumeAdjustingSoundStarting@GlobalVolumeData@MilesAudioManager@@QAEXPAUHolder@@H@Z -- matched in Code/GameEngine/Source/Common/Rva0005818BAdd.cpp (not merged yet)
+struct BfmeE8
+{
+	int a, b;
+};
+
+namespace _STL
+{
+// ?push_back@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXABUBfmeE8@@@Z
+// is owned by its own vector unit: declare the explicit specialization so
+// this TU calls it without emitting a second definition.
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &);
+}
+
+struct VecInner
+{
+	char m_pad[0xb8];
+	_STL::vector<BfmeE8> m_vec;
+};
+
+struct Holder
+{
+	VecInner *m_inner;
+};
+
+void MilesAudioManager::GlobalVolumeData::volumeAdjustingSoundStarting(Holder *holder, int key)
+{
+	_STL::vector<BfmeE8> &outer = holder->m_inner->m_vec;
+	BfmeE8 *p = outer.begin();
+	BfmeE8 *oend = outer.end();
+	for (; p != oend; ++p)
+	{
+		int idx = p->a;
+		if (idx == -1)
+			continue;
+		BfmeE8 entry;
+		*(float *)&entry.a = *(float *)&p->b;
+		entry.b = key;
+		reinterpret_cast<_STL::vector<BfmeE8> *>(&m_requests[idx])->push_back(entry);
+		rva00052098(idx);
+	}
+}
 
 // tu-skeleton: 0x000581F0 5B ??1Rva000581F0@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDequeHolderForwarders.cpp (not merged yet)
 
