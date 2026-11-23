@@ -690,6 +690,9 @@ struct AudioSettings {
     MicrophoneSettings m_microphoneSettings[3]; // +0x12C
 };
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_room_type(unsigned int provider);
+extern "C" __declspec(dllimport) int __stdcall AIL_sample_playback_rate(void *sample);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_processor(void *sample, int effect, void *provider);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_filter_sample_preference(void *sample, const char *name, float *value);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void *sample, float maxDistance, float minDistance);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_position(void *sample, float x, float y, float z);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_orientation(void *obj, float xFace, float yFace, float zFace, float xUp, float yUp, float zUp);
@@ -8096,7 +8099,83 @@ void MilesAudioManager::rva000581FA(const Rva0005BA08InfoRef &info, int type)
 
 // tu-skeleton: 0x0005B708 613B ?rva0005B708@MilesAudioManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp (not merged yet)
 
-// tu-skeleton: 0x0005BA08 330B ?prepSample@MilesAudioManager@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_prepSample.cpp (not merged yet)
+struct Rva0005BA08List
+{
+	void *m_begin;
+	void *m_end;
+	bool empty() const { return m_begin == m_end; }
+};
+
+struct Rva0005BA08AudioInfo
+{
+	char m_pad00[0xa8];
+	float m_reverbWet;
+	float m_reverbDry;
+	char m_padB0[8];
+	Rva0005BA08List m_list;
+};
+
+struct Rva0005BA08InfoRef
+{
+	Rva0005BA08AudioInfo *m_info;
+};
+
+struct Rva0005BA08AudioEvent
+{
+	char m_pad00[8];
+	Rva0005BA08InfoRef m_info;
+	char m_pad0C[0x30 - 0x0c];
+	int m_value30;
+	char m_pad34[0x64 - 0x34];
+	float m_delay;
+};
+
+struct Rva0005BA08PlayingAudio
+{
+	char m_pad00[0x1c];
+	Rva0005BA08AudioEvent *m_event;
+};
+
+void MilesAudioManager::prepSample(void *ref)
+{
+	void *sample = get2DSampleHandleForPlayingAudio(ref);
+	Rva0005BA08AudioEvent *&event = (*(Rva0005BA08PlayingAudio **)ref)->m_event;
+	if (sample == 0)
+		return;
+
+	const Rva0005BA08InfoRef &info = event->m_info;
+	float volume = rva0005A9F8(ref, 1, 1);
+	AIL_set_sample_volume_pan(sample, volume, 0.5f);
+
+	float pitch = ((const Rva002D94DD *)event)->rva002D94DD();
+	if (pitch <= 0.0f)
+	{
+	}
+	else
+		AIL_set_sample_playback_rate(sample, (int)(AIL_sample_playback_rate(sample) * pitch));
+
+	if (event->m_delay > 0.0f)
+	{
+		float value = event->m_delay;
+		AIL_set_sample_processor(sample, 1, reinterpret_cast<void *>(m_at9E4));
+		AIL_set_filter_sample_preference(sample, "Mono Delay Time", &value);
+		value = 0.0f;
+		AIL_set_filter_sample_preference(sample, "Mono Delay", &value);
+		AIL_set_filter_sample_preference(sample, "Mono Delay Mix", &value);
+	}
+
+	if (m_at6A7)
+	{
+		float wet = info.m_info->m_reverbWet;
+		AIL_set_sample_reverb_levels(sample, info.m_info->m_reverbDry,
+			wet * getGlobalReverbMultiplier());
+	}
+	else
+		AIL_set_sample_reverb_levels(sample, 1.0f, 0.0f);
+
+	if (!info.m_info->m_list.empty())
+		rva000581FA(info, event->m_value30);
+}
 
 // tu-skeleton: 0x0005BBE2 318B ?rva0005BBE2@MilesAudioManager@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp (not merged yet)
 
