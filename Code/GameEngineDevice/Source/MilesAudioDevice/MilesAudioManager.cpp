@@ -1076,6 +1076,7 @@ public:
     void rva00057297(Rva00051107AudioRequest &request);
     bool rva000570C8(AudioEventRTS *event);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
+    bool isPlayingLowerPriority(AudioEventRTS *event);
     bool killLowestPrioritySoundImmediately(AudioEventRTS *event);
     // First free 3D and 2D Miles sample (Zero Hour's getFirst3DSample and
     // getFirst2DSample play this role), rowed at 0x00054596 and 0x0005456B.
@@ -8276,7 +8277,28 @@ void MilesAudioManager::prepSample(void *ref)
 
 // tu-skeleton: 0x0005BD28 8B ?rva0005BD28@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x0005BDD2 135B ?isPlayingLowerPriority@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_isPlayingLowerPriority.cpp (not merged yet)
+bool MilesAudioManager::isPlayingLowerPriority(AudioEventRTS *event)
+{
+    Rva000515E4Key key1;
+    key1.a = event->m_info->m_priority;
+    key1.b = rva00059AD0(event, 1);
+    bool positional = event->isPositionalAudio();
+    PlayingAudioList *list = positional ? &m_playing3DSounds : &m_playingSounds;
+    PlayingAudioList::iterator it = list->begin();
+    if (it == list->end())
+        return false;
+    do {
+        PlayingAudioRef *ref = &*it;
+        AudioEventRTS *playingEvent = (*ref)->m_event.get();
+        Rva000515E4Key key2;
+        key2.a = playingEvent->m_info->m_priority;
+        key2.b = rva0005A9F8(ref, 1, 1);
+        if (Rva000515E4Less(&key2, &key1))
+            return true;
+        ++it;
+    } while (it != list->end());
+    return false;
+}
 
 // tu-skeleton: 0x0005C892 41B ?rva0005C892@Rva0005C892@@QAEXXZ -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C892.cpp (not merged yet)
 

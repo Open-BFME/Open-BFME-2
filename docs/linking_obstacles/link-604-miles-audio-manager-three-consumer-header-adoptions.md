@@ -86,3 +86,9 @@ The native build verified 432 functions and one data row. The moved function
 preserved all 84 bytes and all three relocations, including the Miles import
 and both float constants. The path audit found no active source, build, or
 tooling consumer of the retired file.
+
+2026-11-23 (priority comparison move)
+`MilesAudioManager.cpp` now owns `isPlayingLowerPriority` at `0x0005BDD2`.
+The earlier header-adoption entry identifies the retired donor. The
+destination reuses its existing playing-audio list types and preserves all
+135 bytes, including the four call relocations.
