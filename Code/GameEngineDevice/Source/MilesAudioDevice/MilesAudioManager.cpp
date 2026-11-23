@@ -801,20 +801,7 @@ typedef _STL::hash_map<AsciiString, UnicodeString,
 #include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 // TheGameLODManager (0x00DFE144): +0x1770 audio LOD level, per-level
 // 8-byte settings at +0x218 whose first word is the ambient stream cap.
-struct AudioLODSettings {
-    unsigned short m_maxAmbientStreams;
-    char at02[2];
-    unsigned char m_at04;    // +0x04, Dolby provider allowed (0x51525)
-    char at05[3];
-};
-class GameLODManager {
-public:
-    char at0000[0x218];
-    AudioLODSettings m_audioLODSettings[2];  // +0x218
-    char at0228[0x1770 - 0x228];
-    int m_audioLOD;                          // +0x1770
-};
-extern GameLODManager *TheGameLODManager;
+#include "../../../GameEngine/Include/Common/GameLODManager.h"
 // 8-byte vector element whose +4 is compared against the view focus.
 struct BfmePod8 {
     int m_at00;
@@ -2765,11 +2752,11 @@ void MilesAudioManager::setMaxAmbientStreams(void)
         m_maxAmbientStreams = 2;
         return;
     }
-    int audioLOD = TheGameLODManager->m_audioLOD;
+    int audioLOD = TheGameLODManager->m_1770;
     if (audioLOD < 0 || audioLOD >= 2) {
         m_maxAmbientStreams = 2;
     } else {
-        m_maxAmbientStreams = TheGameLODManager->m_audioLODSettings[audioLOD].m_maxAmbientStreams;
+        m_maxAmbientStreams = static_cast<unsigned short>(TheGameLODManager->audioInfo[audioLOD].maximumAmbientStreams);
         if (m_maxAmbientStreams > 2)
             m_maxAmbientStreams = 2;
     }
@@ -3891,10 +3878,11 @@ bool MilesAudioManager::shouldUseDolbyProvider(void)
     if (lod == 0)
         return true;
     else {
-        int level = lod->m_audioLOD;
+        int level = lod->m_1770;
         if (level < 0 || level >= 2)
             return true;
-        return lod->m_audioLODSettings[level].m_at04;
+        // Retail tests the stored Dolby byte for nonzero.
+        return reinterpret_cast<const unsigned char &>(lod->audioInfo[level].allowDolby);
     }
 }
 void MilesAudioManager::onAudioLODChanged(void)
