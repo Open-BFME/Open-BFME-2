@@ -737,36 +737,6 @@ extern "C" __declspec(dllimport) void __stdcall AIL_lock_mutex();
 extern "C" __declspec(dllimport) void __stdcall AIL_unlock_mutex();
 // Miles global-mutex scope; its out-of-line constructor is rowed at
 // 0x00050E52 and the flag-gated unlock at 0x00050E62.
-// The stream map's insert binds the folded helper at 0x004DA240 under the
-// ledger's KeyToBucketMap view (NameKeyGeneratorMapInsert.cpp).
-class NameKeyGenerator
-{
-public:
-    class KeyToBucketMap
-    {
-    public:
-        struct value_type
-        {
-            value_type(unsigned int f, void *s) : first(f), second(s) {}
-            value_type(const unsigned int &a, const unsigned int &b) : first(a), second(reinterpret_cast<void *>(b)) {}
-            unsigned int first;
-            void *second;
-        };
-        struct insert_result
-        {
-            void *first;
-            KeyToBucketMap *second;
-            bool inserted;
-        };
-        struct equal_result
-        {
-            void *node;
-            KeyToBucketMap *table;
-        };
-        insert_result insert(const value_type &value);
-        equal_result rva00057C5C(const value_type &value);
-    };
-};
 // Logical/physical handle alias tables at +0x104/+0x118 (mapLogicalHandleToPhysicalHandle).
 typedef _STL::hash_multimap<unsigned int, int> MilesKeyAliases;
 typedef _STL::hash_map<unsigned int, int> MilesPhysicalHandles;
@@ -947,6 +917,35 @@ typedef bool Bool;
 #define BFME_SUBSYSTEM_SLOTS
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../GameEngine/Include/Common/NameKeyGenerator.h"
+
+// The stream map's insert binds the folded helper at 0x004DA240 under the
+// ledger's KeyToBucketMap view (NameKeyGeneratorMapInsert.cpp).
+class NameKeyGenerator::KeyToBucketMap
+{
+public:
+    struct value_type
+    {
+        value_type(unsigned int f, void *s) : first(f), second(s) {}
+        value_type(const unsigned int &a, const unsigned int &b) : first(a), second(reinterpret_cast<void *>(b)) {}
+        unsigned int first;
+        void *second;
+    };
+    struct insert_result
+    {
+        void *first;
+        KeyToBucketMap *second;
+        bool inserted;
+    };
+    struct equal_result
+    {
+        void *node;
+        KeyToBucketMap *table;
+    };
+    insert_result insert(const value_type &value);
+    equal_result rva00057C5C(const value_type &value);
+};
+
 // Native base constructor 0x0005107D: SubsystemInterface 0x001B4E63, then
 // the Snapshot and the abstract base's own vftables (BC5148/BC5138) -- Zero
 // Hour's AudioManager, which MilesAudioManager derives from.
