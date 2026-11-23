@@ -700,6 +700,8 @@ struct AudioSettings {
 };
 extern "C" __declspec(dllimport) void *__stdcall AIL_open_3D_listener(unsigned int provider);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_room_type(unsigned int provider);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_room_type(int provider, int roomType);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_digital_master_room_type(void *driver, int roomType);
 extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_3D_providers(void **next, void **provider, char **name);
 extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_filters(void **next, void **provider, char **name);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_redist_directory(const char *directory);
@@ -7608,7 +7610,40 @@ void Rva00053D89::clear()
 
 // tu-skeleton: 0x000512BC 8B ?rva000512BC@MilesAudioManager@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x000512C4 143B ?internalSetReverbRoomType@MilesAudioManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/MilesAudioManager_internalSetReverbRoomType.cpp (not merged yet)
+void MilesAudioManager::internalSetReverbRoomType(int roomType)
+{
+    int setting = roomType;
+    if (setting != 0) {
+        if (m_at678 != 0)
+            setting = 0;
+        if (setting != 0) {
+            GameLODManager *lod = TheGameLODManager;
+            if (lod != 0) {
+                int index = lod->m_1770;
+                if (index >= 0 && index <= 2) {
+                    if (lod->audioInfo[index].allowReverb == 0)
+                        setting = 0;
+                }
+            }
+        }
+    }
+
+    int selected = static_cast<int>(m_selectedProvider);
+    if (selected != -1) {
+        AIL_set_3D_room_type(reinterpret_cast<int>(m_provider3D[selected].id), setting);
+        AIL_set_digital_master_room_type(m_at9DC, setting);
+    }
+
+    if (setting == 0) {
+        if (m_at6A7) {
+            m_at6A7 = false;
+            m_at6A8 = true;
+        }
+    } else {
+        m_at6A7 = true;
+        m_at6A8 = true;
+    }
+}
 
 // tu-skeleton: 0x00051353 360B ?rva00051353@MilesAudioManager@@QAEXABVUnicodeString@@@Z -- matched in Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleConsumer.cpp (not merged yet)
 
