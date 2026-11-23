@@ -638,7 +638,6 @@ class Rva0035FF76;
 // (ledger g_flag2) was set, clearing it (vtable 0x00BC4858 slot 5).
 extern Bool g_flag2;
 #include "../../../Include/Common/StateMachine.h"
-#pragma comment(linker, "/alternatename:_vtbl_00C16574=??_7MainMenuMediumScaleUpTransition@@6B@")
 #pragma comment(linker, "/alternatename:_vtbl_00C16530=??_7Rva0035D74A@@6B@")
 
 // ??0MainMenuMediumScaleUpTransition@@QAE@XZ
@@ -649,7 +648,6 @@ extern Bool g_flag2;
 // window +0x10..+0x44 with +0x14 = 3 and +0x28 = -1, vtable 0x00C16574
 // (the rowed destructor 0x0035DCF9 and vslots 0x0035DD08/0x0035DD9C share
 // it), then the base +4 takes +0x14, +0xC clears and +9 is set.
-extern "C" const void *const vtbl_00C16574[];
 
 	// 0x003508C5
 
@@ -765,6 +763,11 @@ public:
     virtual ~MainMenuMediumScaleUpTransition();
     virtual void init(GameWindow *win);
     virtual void update(Int frame);
+    virtual void Rva0035DD9C();
+    virtual void draw();
+    virtual void slot5();
+    virtual void slot6();
+    virtual int slot7();
 
     Int m_startFrame;			// +0x10
     Int m_endFrame;			// +0x14
@@ -2018,7 +2021,7 @@ MainMenuMediumScaleUpTransition::MainMenuMediumScaleUpTransition()
 	int *p14 = &m_endFrame;
 	m_startFrame = 0;
 	m_endFrame = 3;
-	*(unsigned int *)this = ((unsigned int)vtbl_00C16574);
+	*(unsigned int *)this = (unsigned int)&__identifier("??_7MainMenuMediumScaleUpTransition@@6B@");
 	int *p18 = &m_pos.x;
 	*p18 = 0;
 	m_pos.y = 0;
