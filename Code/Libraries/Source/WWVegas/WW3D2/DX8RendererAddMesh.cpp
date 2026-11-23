@@ -113,12 +113,7 @@ public:
  bool operator==(const RefCountPtr &rhs) const {return Referent==rhs.Referent;}
 };
 #include "ShaderClass.h"
-class VertexMaterialClass {
-public:
- char pad[0x64]; mutable unsigned crc; mutable bool dirty;
- unsigned long Get_CRC() const { if(dirty) { crc=Compute_CRC(); dirty=false; } return crc; }
-private: unsigned long Compute_CRC() const;
-};
+#include "VertexMaterialClass.h"
 inline static bool Equal_Material(const VertexMaterialClass *vertexMaterial,const VertexMaterialClass *b) {
  int ca=vertexMaterial?vertexMaterial->Get_CRC():0, cb=b?b->Get_CRC():0;
  return ca==cb;
