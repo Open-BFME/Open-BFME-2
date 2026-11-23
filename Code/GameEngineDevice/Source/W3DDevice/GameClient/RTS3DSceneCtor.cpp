@@ -65,22 +65,13 @@ public:
 	char m_pad08[0x120 - 0x08];
 };
 
-class VertexMaterialClass : public RefCountClass
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
+
+inline void VertexMaterialClass::Set_Lighting(bool lighting)
 {
-public:
-	VertexMaterialClass();
-	void Set_Ambient(float r, float g, float b);
-	void Set_Diffuse(float r, float g, float b);
-	void Set_Emissive(float r, float g, float b);
-	void Set_Lighting(Bool lighting)
-	{
-		m_useLighting = lighting;
-		m_lightingDirty = true;
-	}
-	char m_pad08[0x68 - 0x08];
-	Bool m_useLighting;									// +0x68
-	Bool m_lightingDirty;								// +0x69
-};
+	CRCDirty = true;
+	UseLighting = lighting;
+}
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
