@@ -42,3 +42,19 @@ Needed: a fold route that accepts the real class proven by its rowed slots
 registering the placeholders so `--merge-existing` applies. After the fold,
 add the 5/6/7 inline bodies as done for the three landed tables and drop
 FamilyTailDtors1DBAC3.cpp's remaining Rva0035E00F alternatenames.
+
+## 2026-11-23 follow-up
+
+The published queue at `3ca788d138` still lists `_vtbl_00C16574` even though
+the decorated medium-scale table already has eight correct slots. Referencing
+the compiler's own vtable symbol directly in the 80-byte constructor removes
+the old external reference while retaining the retail store order. The new
+32-byte table matches the existing provider's bytes and eight relocations.
+The next published link can now check retirement of the raw alias.
+
+The same source adopted the shared `Image`, `GameWindow`, and
+`WinInstanceData` declarations. Both queued adoptions passed and retired.
+The draw path retains the retail loads at `WinInstanceData +0x17C` and
+`+0x180`. The combined transition cohort matched all 144 function rows.
+The obstacle record covers the remaining class-fold blockers.
+[Current obstacle and native evidence](../../docs/linking_obstacles/link-698-window-transition-vtable-identity.md)
