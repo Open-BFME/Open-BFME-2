@@ -1,0 +1,9 @@
+# Miles provider-name consolidation and AsciiString destructor
+
+The prepared split of `MilesAudioManagerProviderNames.cpp` into the device unit at `8ac58f86ea5` reproduced all 65 bytes of `0x00054243` and all 70 bytes of `0x000547F3` under the destination flags. The slot 90 accessor retained its room-type import, environment-name call, and string constructor. The nonvirtual accessor retained the slot 56 check, empty-string binding, and string copy constructor. All five raw relocations agree with the donor.
+
+The guard refused the whole donor deletion on the continuing-object check for `??1AsciiString@@QAE@XZ`. The destination uses `BFME_ASCII_DTOR_DECL`. Both approved rows belong in the destination, and the donor has no residual code or data rows. The dry trial left both rows with their existing donor.
+
+The donor and `Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp` emit the same COMDAT ANY definition, digest `d08bf29c9c2b`. Both emit five bytes, `E9 00 00 00 00`, with a REL32 at offset 1 to `?releaseBuffer@?$StringBase@D@@AAEXXZ`. The latter translation unit owns the matched destructor at `0x0048BA39` and received a fresh strict receipt for all 15 rows. The authoritative `dc8fc2341b56` image already selected the same definition from `AudioFileCacheRequestEvent.cpp` at `0x020012EB`, where `E9 F0 96 82 00` jumps to the mapped `releaseBuffer` at `0x0282A9E0`. [Real-link run 45258811231](https://github.com/Open-BFME/Open-BFME-2/actions/runs/45258811231)
+
+The guard compares the donor with the destination that continues it. Its current presence check cannot use the independently owned definition. The only reported refusal was the continuing-object check on index `76a04dbe10`. A guard change needs current winning-definition evidence for both link orders and a regression for the refusal. Re-run the original prepared split and normal gates after that change.
