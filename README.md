@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> **Active BFME 2 development has moved to [Open-BFME/BFME2-Rebuild](https://github.com/Open-BFME/BFME2-Rebuild).**
+>
+> This repository is kept as a reference for its original 100% byte-matching work and research. Please direct all new pull requests, issues, and AI coding agents to **[Open-BFME/BFME2-Rebuild](https://github.com/Open-BFME/BFME2-Rebuild)**.
+
 # BFME 2 Source Code
 
 Goal: Source code that rebuilds BFME 2's engine binary (`game.dat`) byte-for-byte, and game modernization improvements that you've only seen in your dreams.
