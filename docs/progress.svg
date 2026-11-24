@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="550" viewBox="0 0 880 550" role="img" aria-labelledby="title desc">
   <title id="title">BFME 2 · Road to a finished decomp: 100.00% byte match, 99.41% linking (2,088 problems recorded)</title>
-  <desc id="desc">Finished means: the whole game is built from readable source, builds the normal way, and plays. Is the source clean? hand-written code 96.41%, readable names 67.89%, shortcuts removed 51.30%, original file layout 28.26%, shared class definitions 56.79%. Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README.</desc>
+  <desc id="desc">Finished means: the whole game is built from readable source, builds the normal way, and plays. Is the source clean? hand-written code 96.41%, readable names 67.90%, shortcuts removed 51.31%, original file layout 28.41%, shared class definitions 56.87%. Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README.</desc>
   <style>
     .card { fill: #0d1117; stroke: #30363d; } .track { fill: #21262d; } .box { fill: #161b22; stroke: #30363d; }
     .strong { fill: #f0f6fc; } .muted { fill: #8b949e; } .up { fill: #3fb950; } .down { fill: #f85149; }
@@ -33,22 +33,22 @@
     <rect class="track" x="264" y="366" width="504" height="10" rx="5"/>
     <rect x="264" y="366" width="485.91" height="10" rx="5" fill="#58a6ff"/>
     <text x="852" y="376" class="strong" font-size="15" font-weight="700" text-anchor="end">96.41%</text>
-    <text x="28" y="406" class="strong" font-size="14" font-weight="600">Readable names<tspan class="down" dx="10" font-size="12" font-weight="600">▼ 0.01</tspan></text>
+    <text x="28" y="406" class="strong" font-size="14" font-weight="600">Readable names<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.01</tspan></text>
     <rect class="track" x="264" y="396" width="504" height="10" rx="5"/>
-    <rect x="264" y="396" width="342.18" height="10" rx="5" fill="#a371f7"/>
-    <text x="852" y="406" class="strong" font-size="15" font-weight="700" text-anchor="end">67.89%</text>
-    <text x="28" y="436" class="strong" font-size="14" font-weight="600">Shortcuts removed<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.02</tspan></text>
+    <rect x="264" y="396" width="342.20" height="10" rx="5" fill="#a371f7"/>
+    <text x="852" y="406" class="strong" font-size="15" font-weight="700" text-anchor="end">67.90%</text>
+    <text x="28" y="436" class="strong" font-size="14" font-weight="600">Shortcuts removed<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.01</tspan></text>
     <rect class="track" x="264" y="426" width="504" height="10" rx="5"/>
-    <rect x="264" y="426" width="258.55" height="10" rx="5" fill="#e05c7a"/>
-    <text x="852" y="436" class="strong" font-size="15" font-weight="700" text-anchor="end">51.30%</text>
-    <text x="28" y="466" class="strong" font-size="14" font-weight="600">Original file layout<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.01</tspan></text>
+    <rect x="264" y="426" width="258.61" height="10" rx="5" fill="#e05c7a"/>
+    <text x="852" y="436" class="strong" font-size="15" font-weight="700" text-anchor="end">51.31%</text>
+    <text x="28" y="466" class="strong" font-size="14" font-weight="600">Original file layout<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.15</tspan></text>
     <rect class="track" x="264" y="456" width="504" height="10" rx="5"/>
-    <rect x="264" y="456" width="142.45" height="10" rx="5" fill="#f0883e"/>
-    <text x="852" y="466" class="strong" font-size="15" font-weight="700" text-anchor="end">28.26%</text>
-    <text x="28" y="496" class="strong" font-size="14" font-weight="600">Shared class definitions<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.12</tspan></text>
+    <rect x="264" y="456" width="143.16" height="10" rx="5" fill="#f0883e"/>
+    <text x="852" y="466" class="strong" font-size="15" font-weight="700" text-anchor="end">28.41%</text>
+    <text x="28" y="496" class="strong" font-size="14" font-weight="600">Shared class definitions<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.08</tspan></text>
     <rect class="track" x="264" y="486" width="504" height="10" rx="5"/>
-    <rect x="264" y="486" width="286.24" height="10" rx="5" fill="#e05c7a"/>
-    <text x="852" y="496" class="strong" font-size="15" font-weight="700" text-anchor="end">56.79%</text>
+    <rect x="264" y="486" width="286.64" height="10" rx="5" fill="#e05c7a"/>
+    <text x="852" y="496" class="strong" font-size="15" font-weight="700" text-anchor="end">56.87%</text>
     <text x="28" y="530" class="muted" font-size="12">Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README</text>
   </g>
 </svg>
