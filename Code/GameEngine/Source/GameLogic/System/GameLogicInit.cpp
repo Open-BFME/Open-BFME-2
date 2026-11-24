@@ -1,6 +1,6 @@
-#include "../../../Include/Common/Rva0023C641Storage.h"
 // cl: /O1 /G7 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist
 // stlport
+// platformsdk
 //
 // ?init@GameLogic@@UAEXXZ @0x00243EE7 957B (Ghidra FUN_00643ee7, ret at
 // 0x002442A3; next body 0x002442A4).
@@ -20,6 +20,12 @@
 // setup and the ghost manager, an out-of-line player-leave reset
 // (0x0023D17D through TheGameLogic) and moved field offsets. Field names
 // stay offset names: only the donor knows their meaning.
+
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <windows.h>
+
+#include "../../../Include/Common/Rva0023C641Storage.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -2068,9 +2074,6 @@ void GameLogic::rva00246422(bool dontCreate)
 // names are unknown; members keep their addresses.
 extern void *ApplicationHWnd;
 
-extern "C" __declspec(dllimport) void *__stdcall GetSystemMenu(void *wnd, int revert);
-extern "C" __declspec(dllimport) int __stdcall EnableMenuItem(void *menu, unsigned id, unsigned flags);
-
 // Retail calls strrchr through its import slot while this TU's /D_CRTIMP=
 // leaves the header declaration a direct call: a typed view of the slot.
 extern "C" char *(__cdecl * const _imp__strrchr)(const char *text, int ch);
@@ -2080,12 +2083,12 @@ class Rva0023C83B
 public:
 	Rva0023C83B(void)
 	{
-		void *menu = GetSystemMenu(ApplicationHWnd, 0);
+		HMENU menu = GetSystemMenu(static_cast<HWND>(ApplicationHWnd), FALSE);
 		EnableMenuItem(menu, 0xF060, 1);
 	}
 	~Rva0023C83B(void) throw()
 	{
-		void *menu = GetSystemMenu(ApplicationHWnd, 0);
+		HMENU menu = GetSystemMenu(static_cast<HWND>(ApplicationHWnd), FALSE);
 		EnableMenuItem(menu, 0xF060, 0);
 	}
 };
@@ -2264,7 +2267,6 @@ void GameLogic::startNewGame(bool loadingSaveGame)
 // location is copied member by member (retail moves each float through
 // xmm0); a whole-struct copy becomes rep movsd and shifts the register
 // assignment of the whole body.
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 
 class ParticleSystemManager
 {
@@ -3041,8 +3043,6 @@ void GameLogic::rva0023F52C(bool loadingSaveGame)
 // TheTerrainLogic->newMap, the bridge pass and ReplayObserver/observer
 // reveals). Callee and field names stay offset names where only the donor
 // knows them.
-extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(void *module, const char *name);
-
 typedef void (*NewMapProc)(void);
 
 class LuaScriptEngine : public SubsystemInterface
@@ -3203,7 +3203,8 @@ void bfmeStepReceiverRecord(int source);
 void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 {
 	if (TheWritableGlobalData->m_9c1) {
-		NewMapProc proc = (NewMapProc)GetProcAddress((void *)st_DebugDLL, "NewMap");
+		NewMapProc proc = reinterpret_cast<NewMapProc>(
+			GetProcAddress(reinterpret_cast<HMODULE>(st_DebugDLL), "NewMap"));
 		if (proc)
 			proc();
 	}
@@ -4251,6 +4252,7 @@ void GameLogic::ProcessCRC(unsigned int crc, int player, unsigned int frame, Gam
 
 // Inside the 0x009FE7A8 data block: the last formatted player template name.
 char g_Va00DFE840[256] = { 0 };
+// The MSVC 7.1 stdio.h declaration changes exception code generation here.
 extern "C" __declspec(dllimport) __declspec(nothrow) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 void GameLogic::rva0023F8DA(void)
@@ -4336,8 +4338,6 @@ extern ScriptActions *TheScriptActions;
 void Rva00437E84(int type, const UnicodeString &title, const UnicodeString &text);
 File *createMemoryReadFile(char *buffer, int size);
 bool Rva0060DFB5(File *input, File *output);
-
-extern "C" __declspec(dllimport) int __stdcall GetComputerNameA(char *buffer, unsigned long *size);
 
 bool g_fakeDesync = false;
 extern bool TheBinaryDeepCRC;
